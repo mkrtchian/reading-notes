@@ -4,7 +4,7 @@
 
 ### 1 - The what and why of continuous discovery
 
-- Les équipes produit font deux activités distinctes : la discovery où il s’agit de décider de ce qui sera fait, et la delivery où il s’agit d’implémenter effectivement ces choses.
+- Les équipes produit font deux activités distinctes : la **discovery** où il s’agit de décider de ce qui sera fait, et la **delivery** où il s’agit d’implémenter effectivement ces choses.
   - La plupart des entreprises investissent lourdement sur la delivery, mais peu sur la discovery pour bien choisir quoi construire.
 - Un peu d’historique :
   - Dans les temps “anciens” la discovery se faisait exclusivement par les business leaders, qui décidaient de budgéter une fois par an. Les projets étaient à la fois hors délai, et servaient mal les besoins des utilisateurs.
@@ -12,59 +12,59 @@
   - Petit à petit, on en est arrivé à l’idée que la discovery doit être de la responsabilité des product managers plutôt que des business leaders, puis enfin de l’équipe produit plutôt que du product manager.
   - On a aussi raccourci le cycle de discovery jusqu’à co-créer la discovery avec le client sur une base continue plutôt que de valider les idées qu’on a au préalable. C’est ça qu’on appelle la continuous discovery.
     - NDLR : on a ici une idée similaire à celle du DDD à propos de la collaboration permanente avec les domain experts, qui apportent leur expertise du domaine pendant que l’équipe produit apporte son expertise technique et d’analyse dans le cadre d’une co-création.
-- Quand on parle de l’équipe produit, on parle ici de tous ceux qui sont en charge de créer le produit : ça inclut les product managers mais aussi les software engineers, les designers et tout autre rôle qui peut être rattaché à la construction de features pour un produit donné (product analyst, user researcher, customer success etc.).
-- Le framework proposé dans ce livre est à destination d’un product trio composé au moins d’un product manager, d’un designer, et d’un software engineer.
-  - Le product trio peut être un quatuor ou même un quintuor pour être plus représentatif, mais il faut noter qu’il y a ici un trade-off : plus il y a de monde et plus on est inclusif sur les sensibilités permettant d’obtenir une discovery fine, mais en même temps plus on a va aussi prendre du temps pour prendre les décisions. 3 semble un nombre raisonnable la plupart du temps.
+- Quand on parle de l’**équipe produit**, on parle ici de tous ceux qui sont en charge de créer le produit : ça inclut les product managers mais aussi les software engineers, les designers et tout autre rôle qui peut être rattaché à la construction de features pour un produit donné (product analyst, user researcher, customer success etc.).
+- Le framework proposé dans ce livre est à destination d’un **product trio** composé au moins d’un product manager, d’un designer, et d’un software engineer.
+  - Le product trio peut être un quatuor ou même un quintuor pour être plus représentatif, mais il faut noter qu’il y a ici un **trade-off** : plus il y a de monde et plus on est inclusif sur les sensibilités permettant d’obtenir une discovery fine, mais en même temps plus on a va aussi prendre du temps pour prendre les décisions. 3 semble un nombre raisonnable la plupart du temps.
 - Il y a 6 mindsets nécessaires pour adopter cette méthode :
-  - 1 - Outcome-oriented : on s’intéresse à l’outcome (impact sur les utilisateurs et le business) plutôt qu’à l’output (nombre de features produites).
-  - 2 - Customer-centric : les besoins de l’utilisateur sont un enjeu central, au même niveau que les enjeux business.
-  - 3 - Collaborative : accepter la nature cross-fonctionnelle des équipes produit. Plutôt que le PM décide, le designer design, et le développeur code, on a chacun qui apporte son expertise au processus de discovery.
-  - 4 - Visual : utiliser des supports visuels pour tirer parti de nos capacités spatiales de raisonnement.
-  - 5 - Experimental : adopter une approche scientifique expérimentale en listant les hypothèses et en récoltant des preuves.
-  - 6 - Continuous : plutôt que de voir la discovery comme quelque chose qu’on fait au début du projet, il faut la voir comme quelque chose qu’on fait tout au long du processus de développement, pour éviter de faire fausse route régulièrement.
+  - **1 - Outcome-oriented** : on s’intéresse à l’outcome (impact sur les utilisateurs et le business) plutôt qu’à l’output (nombre de features produites).
+  - **2 - Customer-centric** : les besoins de l’utilisateur sont un enjeu central, au même niveau que les enjeux business.
+  - **3 - Collaborative** : accepter la nature cross-fonctionnelle des équipes produit. Plutôt que le PM décide, le designer design, et le développeur code, on a chacun qui apporte son expertise au processus de discovery.
+  - **4 - Visual** : utiliser des supports visuels pour tirer parti de nos capacités spatiales de raisonnement.
+  - **5 - Experimental** : adopter une approche scientifique expérimentale en listant les hypothèses et en récoltant des preuves.
+  - **6 - Continuous** : plutôt que de voir la discovery comme quelque chose qu’on fait au début du projet, il faut la voir comme quelque chose qu’on fait tout au long du processus de développement, pour éviter de faire fausse route régulièrement.
 - Les techniques modernes de discovery sont en fait déjà existantes dans de nombreuses entreprises. Ce qui est plus rare c’est l’aspect structuré et continu de ces techniques. Par conséquent la définition de la continuous discovery est la suivante :
-  - At a minimum, weekly touchpoints with customers
-  - By the team building the product
-  - Where they conduct small research activities
-  - In pursuit of a desired outcome
+  - _At a minimum, **weekly touchpoints with customers**_
+  - _By the team building the product_
+  - _Where they conduct small research activities_
+  - _In pursuit of a desired outcome_
 
 ### 2 - A common framework for continuous discovery
 
-- Il y a en général une tension entre l’outcome business et la satisfaction de l’utilisateur, avec un risque de privilégier le 1er au détriment du 2ème, ce qui ne sera pas viable sur le long terme.
+- Il y a en général une **tension entre l’outcome business et la satisfaction de l’utilisateur**, avec un risque de privilégier le 1er au détriment du 2ème, ce qui ne sera pas viable sur le long terme.
   - Exemple : en 2016, la banque Wells Fargo connaît un scandale. Les employés avaient fait accepter des services supplémentaires aux clients de manière frauduleuse à cause des objectifs uniquement business, sans couplage à la satisfaction utilisateur.
     - Plutôt qu’avoir comme objectif d’augmenter à tout prix les revenus, si l’objectif était par exemple d’obtenir des clients qui veulent ouvrir plus de comptes, on aurait pu éviter le problème.
   - Autre exemple : quand on navigue sur un site et qu’on est bombardé de pub désagréable.
-- Souvent, les product trios prennent un outcome business, et commencent directement à générer des idées. Ils sautent l’étape importante du framing de l’opportunity space.
-  - On va appeler dans la suite opportunity space l’ensemble des besoins utilisateur, leurs pain points, et leurs désirs.
+- Souvent, les product trios prennent un outcome business, et commencent directement à générer des idées. Ils sautent l’étape importante du **framing de l’opportunity space**.
+  - On va appeler dans la suite _opportunity space_ l’ensemble des **besoins utilisateur, leurs pain points, et leurs désirs**.
     - Les désirs sont importants aussi, on ne peut pas les réduire aux besoins. Exemple : manger une glace ou aller à Disneyland sont des désirs.
   - Il y a en fait de nombreuses manières d’atteindre notre outcome, et celles-ci dépendent :
     - du framing de notre space opportunity (la manière dont on construit l’espace des problèmes et des désirs).
     - du choix de l’opportunity pour arriver à l’outcome.
-  - Il faut toujours examiner plusieurs opportinuties, et voir les conséquences de chacune avant de choisir.
-- Teresa propose de structurer la discovery au travers d’un Opportunity Solution Tree (OST).
-  - Il s’agit d’une représentation graphique sous forme d’arbre avec l’outcome en haut, les opportunities possibles en dessous, les solutions possibles associées à chaque opportunity, et les assuption tests qui permettent de valider chaque solution.
-    outcome ← opportunity ← solution ← assumption test
-  - Ce modèle permet :
-  - De résoudre la tension entre les besoins du customer et les besoins business.
-  - On choisit l’outcome business et on liste ensuite toutes les opportunities qui permettent d’y parvenir, pour être sûr de satisfaire forcément les deux à la fois.
-  - D’aider à construire une connaissance partagée pour le product trio.
-  - Nous avons tendance en général à sauter sur la première solution qui nous vient en tête, et à la défendre ensuite contre l’avis des autres. Ces crispations finissent dans une situation où PM décide parce qu’il a le dernier mot, au lieu d’une vraie collaboration.
-  - En gardant sous les yeux une représentation graphique de toutes les possibilités, on s’évite d’en considérer une comme étant la “notre” à défendre à tout prix.
-  - D’aider le product trio à adopter un continuous mindset.
-  - Vu qu’on a dans notre OST de plus petites opportunities qui permettent de réaliser une plus grosse opportunity, ça nous permet de délivrer de la vraie valeur à chaque sprint, plutôt qu’un bout de quelque chose de gros qui est censé délivrer de la valeur plus tard => On est vraiment agiles.
-  - De prendre de meilleures décisions.
-  - Vu qu’on a sous les yeux les possibilités, y compris celles qu’on a déjà explorées, on évite de tomber dans des biais qui vont fausser notre décision.
-  - Par exemple : à chaque fois qu’on a une nouvelle demande client, tomber dans le travers de se demander si on arrête tout pour l’implémenter ou non, au lieu de garder la vue d’ensemble.
-  - A ce propos, elle conseille un livre à lire juste après le sien : Decisive de Chip et Dan Heath.
-  - D’obtenir des cycles d’apprentissage rapides.
-  - On dit souvent que les PM doivent définir le problème, et les développeurs apporter la solution. C’est une erreur. Pour être efficace, il faut que les mêmes personnes (product trio) soient en charge des deux.
-  - l’OST permet de visualiser les deux, et à chaque fois qu’une solution est implémentée et ne permet pas de satisfaire l’opportunity, on peut la garder en tête tout en sachant pourquoi ça n’avait pas marché, et pouvoir basculer sur une solution mieux pensée.
-  - De construire une confiance dans le fait de savoir quoi faire ensuite.
-  - On peut facilement se rendre compte qu’on n’a pas assez d’opportunities et faire des interviews client, ou pas assez de solutions et faire des ateliers pour générer des idées.
-  - Les meilleures équipes ne travaillent pas de haut en bas (définir un outcome clair, puis créer l’opportunity space, puis chercher les solutions, et enfin définir des assumption tests), mais sur tout l’arbre à la fois : chaque semaine ils affinent chaque élément de l’arbre, et travaillent sur plusieurs éléments en parallèle pour le faire évoluer.
-  - De permettre un rapport aux stakeholders plus simple.
-  - Même avec de la bonne volonté, la direction a tendance à parfois revenir sur des demandes d’output, surtout en période de stress. Pour éviter ça il faut les garder au jus, avec la bonne quantité d'informations.
-  - Il ne faut ni leur donner trop d’informations, ni leur donner juste les conclusions du product trio. Pour qu’ils se sentent impliqués et puissent donner un feedback, il faut leur donner les principaux éléments qui ont été considérés et choisis ou rejetés. L’OST permet de servir de support visuel pour ça.
+  - Il faut toujours **examiner** **plusieurs opportinuties**, et voir les conséquences de chacune avant de choisir.
+- Teresa propose de structurer la discovery au travers d’un **Opportunity Solution Tree** (OST).
+  _ Il s’agit d’une représentation graphique sous forme d’arbre avec l’outcome en haut, les opportunities possibles en dessous, les solutions possibles associées à chaque opportunity, et les assuption tests qui permettent de valider chaque solution. \
+  `outcome ← opportunity ← solution ← assumption test`
+  _ Ce modèle permet :
+  _ **De résoudre la tension entre les besoins du customer et les besoins business**.
+  _ On choisit l’outcome business et on liste ensuite toutes les opportunities qui permettent d’y parvenir, pour être sûr de satisfaire forcément les deux à la fois.
+  _ **D’aider à construire une connaissance partagée pour le product trio.**
+  _ Nous avons tendance en général à sauter sur la première solution qui nous vient en tête, et à la défendre ensuite contre l’avis des autres. Ces crispations finissent dans une situation où PM décide parce qu’il a le dernier mot, au lieu d’une vraie collaboration.
+  _ En gardant sous les yeux une représentation graphique de toutes les possibilités, on s’évite d’en considérer une comme étant la “notre” à défendre à tout prix.
+  _ **D’aider le product trio à adopter un continuous mindset**.
+  _ Vu qu’on a dans notre OST de plus petites opportunities qui permettent de réaliser une plus grosse opportunity, ça nous permet de délivrer de la vraie valeur à chaque sprint, plutôt qu’un bout de quelque chose de gros qui est censé délivrer de la valeur plus tard => On est vraiment agiles.
+  _ **De prendre de meilleures décisions.**
+  _ Vu qu’on a sous les yeux les possibilités, y compris celles qu’on a déjà explorées, on évite de tomber dans des biais qui vont fausser notre décision.
+  _ Par exemple : à chaque fois qu’on a une nouvelle demande client, tomber dans le travers de se demander si on arrête tout pour l’implémenter ou non, au lieu de garder la vue d’ensemble.
+  _ A ce propos, elle conseille un livre à lire juste après le sien : ***Decisive*** de Chip et Dan Heath.
+  _ **D’obtenir des cycles d’apprentissage rapides.**
+  _ On dit souvent que les PM doivent définir le problème, et les développeurs apporter la solution. C’est une erreur. Pour être efficace, il faut que les mêmes personnes (product trio) soient en charge des deux.
+  _ l’OST permet de visualiser les deux, et à chaque fois qu’une solution est implémentée et ne permet pas de satisfaire l’opportunity, on peut la garder en tête tout en sachant pourquoi ça n’avait pas marché, et pouvoir basculer sur une solution mieux pensée.
+  _ **De construire une confiance dans le fait de savoir quoi faire ensuite.**
+  _ On peut facilement se rendre compte qu’on n’a pas assez d’opportunities et faire des interviews client, ou pas assez de solutions et faire des ateliers pour générer des idées.
+  _ Les meilleures équipes ne travaillent pas de haut en bas (définir un outcome clair, puis créer l’opportunity space, puis chercher les solutions, et enfin définir des assumption tests), mais sur tout l’arbre à la fois : chaque semaine ils affinent chaque élément de l’arbre, et travaillent sur plusieurs éléments en parallèle pour le faire évoluer.
+  _ **De permettre un rapport aux stakeholders plus simple.**
+  _ Même avec de la bonne volonté, la direction a tendance à parfois revenir sur des demandes d’output, surtout en période de stress. Pour éviter ça il faut les garder au jus, avec la bonne quantité d'informations.
+  _ Il ne faut ni leur donner trop d’informations, ni leur donner juste les conclusions du product trio. Pour qu’ils se sentent impliqués et puissent donner un feedback, il faut leur donner les principaux éléments qui ont été considérés et choisis ou rejetés. L’OST permet de servir de support visuel pour ça.
 
 ## Part II - Continuous discovery habits
 
@@ -73,472 +73,472 @@
 - L’idée d’utiliser les outcomes plutôt que les outputs existe depuis des décennies, récemment elle a été repopularisée avec les OKR chez Google.
 - Les outcomes permettent de donner plus d’autonomie à l’équipe produit, en leur laissant trouver la bonne chose à faire pour régler un besoin business ou une problématique utilisateur, plutôt que leur donner une roadmap de features.
 - Il existe 3 types d’outcomes :
-- Les business outcomes mesurent l’avancement du business.
-- Exemple : on a une boutique de vente de nourriture personnalisée pour chien, on veut augmenter la rétention des clients mesurée sur 90 jours.
-- Ça peut être soit des aspects financiers (rentrée d’argent, réduction de coûts), soit des initiatives stratégiques (parts de marché ou augmentation de ventes dans une catégorie spécifique, rétention d’utilisateurs etc.).
-- Ce sont en général des lagging indicators, c’est-à-dire qu’ils vont indiquer le résultat de ce qui s’est déjà produit depuis un moment.
-- Ils vont impliquer en général une coordination entre plusieurs fonctions business (produit, CSM, vente etc.).
-- Les product outcomes mesurent à quel point le produit fait avancer le business.
-- Exemple : augmenter la valeur perçue de la nourriture pour chien, et augmenter le nombre de chiens qui aiment cette nourriture sont deux indicateurs qui permettront d’atteindre une meilleure rétention des clients à 90 jours.
-- Ce sont en général des leading indicators, qu’on peut utiliser pour itérer rapidement en fonction des résultats qu’on obtient semaine après semaine.
-- Ils sont sous la responsabilité de l’équipe produit, et représentent des objectifs sur lesquels l’équipe produit peut agir seule. C’est avec ces outcomes qu’elle avancera le mieux.
-- Les traction metrics mesurent l’utilisation d’une feature particulière.
-- Exemple : augmenter le nombre de propriétaires de chiens qui utilisent la fonctionnalité calendrier.
-- On est bien ici sur de l’outcome, mais qui est limité à un output spécifique. Il y a donc un risque que l’équipe produit soit coincée si l’output choisi dont on mesure l’utilisation n’était pas le bon.
-- En général l’équipe produit avancera mieux avec un product outcome, mais il existe 2 cas où les traction metrics peuvent être utiles :
-- Quand on a un product trio plutôt junior, limiter leur responsabilité en fixant un output particulier à optimiser peut être pertinent.
-- Si on a un produit déjà mature (dont on a déjà fait pas mal de discovery pour défricher), et qu’on est sûr qu’une feature particulière est très utilisée, on peut vouloir l’optimiser et donc faire de la discovery avec une traction metric.
-- Le choix des outcomes de l’équipe produit est le résultat d’une négociation entre le product trio et le product leader.
-- Le product leader (par exemple CPO) amène la connaissance de ce qui est utile à ce moment là pour l’organisation, alors que le product trio amène la connaissance des clients et de la technique.
-- La négociation porte sur des outcomes et pas des outputs ou des solutions, et ne doit pas permettre au product leader de les réduire à des traction metrics. Il peut par contre demander à restreindre le champ, par exemple “augmenter le nombre de chiens qui aiment la nourriture dans telle ou telle région”.
-- Les deux vont convenir d’une métrique à augmenter d’une certaine valeur, et en fonction de celle-ci, éventuellement aussi des ressources (software engineers) pour mener à bien cet outcome.
-- Le fait que la participation des équipes à la définition de leurs outcomes apporte de meilleures performances est appuyé par des études.
-- On peut avoir des performance goals qui sont des objectifs mesurables et challenging (exemple : augmenter l’engagement de 10%), et des learning goals qui sont des objectifs non mesurés (exemple : découvrir les opportunités qui drivent l’engagement).
-- Les études ont montré que les performance goals étaient plus efficaces quand la stratégie était déjà connue et qu’on avait identifié une métrique pertinente grâce à une précédente discovery, mais que les learning goals étaient plus efficaces dans le cas contraire.
+  - Les **business outcomes** mesurent l’avancement du business.
+    - Exemple : on a une boutique de vente de nourriture personnalisée pour chien, on veut augmenter la rétention des clients mesurée sur 90 jours.
+    - Ça peut être soit des aspects financiers (rentrée d’argent, réduction de coûts), soit des initiatives stratégiques (parts de marché ou augmentation de ventes dans une catégorie spécifique, rétention d’utilisateurs etc.).
+    - Ce sont en général des **lagging indicators**, c’est-à-dire qu’ils vont indiquer le résultat de ce qui s’est déjà produit depuis un moment.
+    - Ils vont impliquer en général une coordination entre plusieurs fonctions business (produit, CSM, vente etc.).
+  - Les **product outcomes** mesurent à quel point le produit fait avancer le business.
+    - Exemple : augmenter la valeur perçue de la nourriture pour chien, et augmenter le nombre de chiens qui aiment cette nourriture sont deux indicateurs qui permettront d’atteindre une meilleure rétention des clients à 90 jours.
+    - Ce sont en général des **leading indicators**, qu’on peut utiliser pour itérer rapidement en fonction des résultats qu’on obtient semaine après semaine.
+    - Ils sont sous la responsabilité de l’équipe produit, et représentent des objectifs sur lesquels **l’équipe produit peut agir seule**. C’est avec ces outcomes qu’elle avancera le mieux.
+  - Les **traction metrics** mesurent l’utilisation d’une feature particulière.
+    - Exemple : augmenter le nombre de propriétaires de chiens qui utilisent la fonctionnalité calendrier.
+    - On est bien ici sur de l’outcome, mais qui est limité à un output spécifique. Il y a donc un risque que l’équipe produit soit coincée si l’output choisi dont on mesure l’utilisation n’était pas le bon.
+    - En général l’équipe produit avancera mieux avec un product outcome, mais il existe 2 cas où les traction metrics peuvent être utiles :
+      - Quand on a un **product trio plutôt junior**, limiter leur responsabilité en fixant un output particulier à optimiser peut être pertinent.
+      - Si on a un **produit déjà mature** (dont on a déjà fait pas mal de discovery pour défricher), et qu’on est sûr qu’une feature particulière est très utilisée, on peut vouloir l’optimiser et donc faire de la discovery avec une traction metric.
+- Le choix des outcomes de l’équipe produit est le résultat d’une **négociation entre le product trio et le product leader**.
+  - Le product leader (par exemple CPO) amène la connaissance de ce qui est utile à ce moment là pour l’organisation, alors que le product trio amène la connaissance des clients et de la technique.
+  - La négociation porte sur des outcomes et pas des outputs ou des solutions, et ne doit pas permettre au product leader de les réduire à des traction metrics. Il peut par contre demander à restreindre le champ, par exemple “augmenter le nombre de chiens qui aiment la nourriture dans telle ou telle région”.
+  - Les deux vont convenir d’une métrique à augmenter d’une certaine valeur, et en fonction de celle-ci, éventuellement aussi des ressources (software engineers) pour mener à bien cet outcome.
+  - Le fait que la participation des équipes à la définition de leurs outcomes apporte de meilleures performances est appuyé par des études.
+- On peut avoir des **performance goals** qui sont des objectifs mesurables et challenging (exemple : augmenter l’engagement de 10%), et des **learning goals** qui sont des objectifs non mesurés (exemple : découvrir les opportunités qui drivent l’engagement).
+  - Les études ont montré que les **performance goals étaient plus efficaces quand la stratégie était déjà connue** et qu’on avait identifié une métrique pertinente grâce à une précédente discovery, mais que les **learning goals étaient plus efficaces dans le cas contraire**.
 - Quelques anti-patterns à éviter :
-- Avoir trop d’outcomes en même temps : on s’éparpille en avançant un peu sur chacun des outcomes, mais on n’a pas de gros impact sur l’un d’entre eux. En général, le mieux est de chercher à satisfaire un outcome à la fois.
-- Faire du ping pong entre plusieurs outcomes : on a tendance à basculer d’outcome en outcome à cause d’une culture du firefighting où un besoin client en chasse un autre. Rester sur le même outcome pendant plusieurs trimestres permet de profiter de ce qu’on a appris dans le 1er et d’être vraiment efficace sur les 2ème et 3ème trimestres.
-- Définir des outcomes individuels plutôt que des outcomes pour le product trio : on a parfois des objectifs individuels pour obtenir de la rémunération, portant sur des outcomes business pour le PM, des outcomes UX pour le designer, et des outcomes techniques pour le tech. Ces objectifs empêchent le bon fonctionnement du product trio. Il vaut mieux des outcomes d’équipe.
-- Choisir un output au lieu d’un outcome :
-- Vu qu’on est habitués à utiliser des outputs, on va avoir tendance à revenir à ça. Le bon critère à regarder pour voir si on est plutôt vers l’outcome ou l’output c’est l’impact.
-- Un bon début c’est de s’assurer que notre outcome représente un nombre.
-- Se focus sur un seul outcome au détriment de tous les autres : il faut en choisir un à la fois à faire avancer, mais il ne faut pas oublier de monitorer les autres outcomes pour s’assurer qu’ils ne se dégradent pas.
-- Par exemple l’acquisition de clients, en vérifiant en même temps que leur satisfaction ne baisse pas.
+  - **Avoir trop d’outcomes en même temps** : on s’éparpille en avançant un peu sur chacun des outcomes, mais on n’a pas de gros impact sur l’un d’entre eux. En général, le mieux est de chercher à satisfaire **un outcome à la fois**.
+  - **Faire du ping pong entre plusieurs outcomes** : on a tendance à basculer d’outcome en outcome à cause d’une culture du firefighting où un besoin client en chasse un autre. **Rester sur le même outcome pendant plusieurs trimestres** permet de profiter de ce qu’on a appris dans le 1er et d’être vraiment efficace sur les 2ème et 3ème trimestres.
+  - **Définir des outcomes individuels plutôt que des outcomes pour le product trio** : on a parfois des objectifs individuels pour obtenir de la rémunération, portant sur des outcomes business pour le PM, des outcomes UX pour le designer, et des outcomes techniques pour le tech. Ces objectifs empêchent le bon fonctionnement du product trio. Il vaut mieux des** outcomes d’équipe**.
+  - **Choisir un output au lieu d’un outcome** :
+    - Vu qu’on est habitués à utiliser des outputs, on va avoir tendance à revenir à ça. Le bon critère à regarder pour voir si on est plutôt vers l’outcome ou l’output c’est** l’impact**.
+    - Un bon début c’est de s’assurer que notre outcome représente **un nombre**.
+  - **Se focus sur un seul outcome au détriment de tous les autres** : il faut en choisir un à la fois à faire avancer, mais il ne faut pas oublier de monitorer les autres outcomes pour s’assurer qu’ils **ne se dégradent pas**.
+    - Par exemple l’acquisition de clients, en vérifiant en même temps que leur satisfaction ne baisse pas.
 
 ### 4 - Visualizing what you know
 
-- Quand le product trio commence avec un outcome, il va d’abord créer un experience map pour représenter le workflow lié à cet outcome, et rassembler les connaissances actuelles du trio.
-- Il faut définir le scope plus ou moins large pour notre experience map : un scope très large permettra d’explorer des marchés adjacents, et un scope plus étroit permettra de se cantonner à notre produit. En général on cherche quelque chose d'intermédiaire.
-- Exemple : On a une application de streaming, et notre outcome c’est d’augmenter le nombre de minutes regardées. Un scope large serait “Comment est-ce que les clients se divertissent en général ?”, et un scope étroit serait “Comment est-ce que les clients se divertissent avec notre service ?”. Quelque chose d’intermédiaire peut être “Comment est-ce que les clients se divertissent avec de la vidéo ?”.
-- L’experience map doit représenter les étapes du point de vue du customer.
-- Par exemple, si notre scope c’est “Comment est-ce que les clients se divertissent avec de la vidéo ?”, on peut commencer par imaginer quelqu’un qui nous partage le nom d’un contenu vidéo, puis on fait une action de recherche. On peut éventuellement être face à des problèmes pour trouver le contenu, et ainsi de suite.
-- Il contient uniquement du contenu dessiné. Les mots étant moins précis, moins spécifiques que les images, on va dessiner des boîtes, des flèches, de petits pictogrammes etc. pour constituer nos étapes. Ne pas savoir dessiner n’est pas un problème.
-- Bien que ce soit contre-intuitif, il est plus efficace de construire l’experience map d’abord chacun de son côté pour ensuite mettre en commun. Si on travaille ensemble dès le début, la dynamique de groupe va faire que certains ne vont pas s’exprimer pleinement.
+- Quand le product trio commence avec un outcome, il va d’abord créer un **experience map** pour représenter le workflow lié à cet outcome, et rassembler les connaissances actuelles du trio.
+- Il faut **définir le scope **plus ou moins large pour notre experience map : un scope très large permettra d’explorer des marchés adjacents, et un scope plus étroit permettra de se cantonner à notre produit. En général on cherche quelque chose d'intermédiaire.
+  - Exemple : On a une application de streaming, et notre outcome c’est d’augmenter le nombre de minutes regardées. Un scope large serait “Comment est-ce que les clients se divertissent en général ?”, et un scope étroit serait “Comment est-ce que les clients se divertissent avec notre service ?”. Quelque chose d’intermédiaire peut être “Comment est-ce que les clients se divertissent avec de la vidéo ?”.
+- L’experience map doit représenter les étapes du **point de vue du customer**.
+  - Par exemple, si notre scope c’est “Comment est-ce que les clients se divertissent avec de la vidéo ?”, on peut commencer par imaginer quelqu’un qui nous partage le nom d’un contenu vidéo, puis on fait une action de recherche. On peut éventuellement être face à des problèmes pour trouver le contenu, et ainsi de suite.
+- Il contient **uniquement** **du contenu dessiné**. Les mots étant moins précis, moins spécifiques que les images, on va dessiner des boîtes, des flèches, de petits pictogrammes etc. pour constituer nos étapes. Ne pas savoir dessiner n’est pas un problème.
+- Bien que ce soit contre-intuitif, il est plus efficace de **construire l’experience map d’abord chacun de son côté** pour ensuite mettre en commun. Si on travaille ensemble dès le début, la dynamique de groupe va faire que certains ne vont pas s’exprimer pleinement.
 - Pour la mise en commun :
-- On va d’abord chacun expliquer notre map aux autres. On pose des questions pour clarifier, mais le but n’est pas de “défendre” sa vision.
-- Ensuite on construit un schéma commun qui va être la combinaison des maps initiaux. Il n’est pas question d’en choisir un des trois et d’avancer avec ça.
-- On récupère tous les noeuds de chacun des maps. Ce sont les événements qui représentent des étapes.
-- On crée un nouveau map dans lequel on met tous ces noeuds.
-- On fusionne les noeuds similaires.
-- On relie les noeuds par des flèches. Pas seulement le happy path mais aussi les chemins d’échec, qui vont créer des frustrations chez le client.
-- On ajoute du contexte sur ce que pensent, ressentent les clients, toujours sous forme visuelle.
+  - On va d’abord chacun **expliquer notre map aux autres**. On pose des questions pour clarifier, mais le but n’est pas de “défendre” sa vision.
+  - Ensuite on construit un schéma commun qui va être la **combinaison des maps initiaux**. Il n’est pas question d’en choisir un des trois et d’avancer avec ça.
+    - On récupère tous les noeuds de chacun des maps. Ce sont les événements qui représentent des étapes.
+    - On crée un nouveau map dans lequel on met tous ces noeuds.
+    - On fusionne les noeuds similaires.
+    - On relie les noeuds par des flèches. Pas seulement le happy path mais aussi les chemins d’échec, qui vont créer des frustrations chez le client.
+    - On ajoute du contexte sur ce que pensent, ressentent les clients, toujours sous forme visuelle.
 - Quelques anti-patterns à éviter :
-- S’embourber dans de longs débats sur des détails : quand c’est le cas, il vaut mieux dessiner ce que chacun veut dire pour faire ressortir clairement le désaccord (ou bien souvent l’accord parce qu’on était en quiproquo), et passer à la suite.
-- Utiliser des mots à la place des dessins : les dessins font appel à une autre partie de notre cerveau et sont ici plus efficaces. Avec le temps, on se débrouille pour dessiner de moins en moins mal.
-- Aller à la suite en considérant que notre map représente la vérité : c’est juste un brouillon, on va le retoucher un grand nombre de fois à mesure qu’on parle aux clients.
-- Oublier d’affiner notre map commune à mesure que nos connaissances augmentent : même en assistant aux mêmes réunions avec les clients, si on ne refait pas le point sur la map régulièrement, chaque membre du trio retiendra des choses différentes, et aura en tête une experience map différente.
+  - **S’embourber dans de longs débats sur des détails** : quand c’est le cas, il vaut mieux dessiner ce que chacun veut dire pour faire ressortir clairement le désaccord (ou bien souvent l’accord parce qu’on était en quiproquo), et passer à la suite.
+  - **Utiliser des mots à la place des dessins** : les dessins font appel à une autre partie de notre cerveau et sont ici plus efficaces. Avec le temps, on se débrouille pour dessiner de moins en moins mal.
+  - **Aller à la suite en considérant que notre map représente la vérité** : c’est juste un brouillon, on va le retoucher un grand nombre de fois à mesure qu’on parle aux clients.
+  - **Oublier d’affiner notre map commune à mesure que nos connaissances augmentent** : même en assistant aux mêmes réunions avec les clients, si on ne refait pas le point sur la map régulièrement, chaque membre du trio retiendra des choses différentes, et aura en tête une experience map différente.
 
 ### 5 - Continuous interviewing
 
 - Bien souvent, les clients ne savent pas à l’avance les solutions qu’ils veulent.
-- En parlant aux clients, notre but est d’obtenir une meilleure compréhension de l’opportunity space, pas de leur demander quelle feature ils aimeraient (l’espace des solutions).
-- Il est important que le client nous parle de quelque chose qui l’intéresse. Donc la première chose à obtenir de lui c’est quels sont les besoins, pain points, et désirs qui comptent le plus pour lui. On pourra ensuite choisir des sujets à aborder parmi ceux-là.
-- On est parfois déçu de ne pas pouvoir faire parler le client de ce qu’on veut, ou même parfois d’avoir des clients non coopératifs. Ce n’est pas très grave : on en aura au moins un autre la semaine prochaine.
-- En posant des questions directes aux gens, on peut bien souvent obtenir une réponse fausse, parce que le cerveau a tendance à rationaliser pour reconstruire des informations manquantes, ou transformer les choses pour les mettre en cohérence avec la vision globale de la personne, la perception qu’elle a de son identité etc.
-- Ceci est démontré par des décennies de recherches sur la manière d’interroger les personnes.
-- Exemple : Teresa pose à une personne la question de savoir quel critère elle utilise pour s’acheter des jeans. Elle répond “le fit” comme critère numéro 1. Puis Teresa lui demande de lui raconter la dernière fois qu’elle a acheté un jean : c’était sur Amazon. Donc les vrai critères c’est le prix, la marque, la disponibilité rapide. Le fit n’était pas le critère numéro 1 pour l’achat.
-- En fait il va falloir distinguer les research questions qui sont les questions directes qu’on poserait pour obtenir des informations sur l’opportunity space, et les interview questions qui sont celles qu’on va réellement poser.
-- Les interview questions vont consister à demander au client de nous raconter des cas concrets de choses qu’il a pu faire sur le sujet qui nous intéresse.
-- Exemple : Au lieu de demander “Quel critère utilise-tu pour acheter des jeans”, on demande “Raconte-moi la dernière fois que tu as acheté des jeans”.
-- On peut aussi faire varier le scope en fonction de ce qu’on recherche, de la même manière qu’avec l’experience map.
-- Exemple : pour le service de streaming.
-- Racontez-moi la dernière fois que vous avez utilisé notre service de streaming. => en apprendre plus sur notre produit pour l’améliorer.
-- Racontez-moi la dernière fois que vous vous êtes diverti en regardant du streaming. => comprendre comment on se place par rapport aux concurrents.
-- Racontez-moi la dernière fois que vous-vous êtes diverti. => découvrir avec quoi la catégorie de notre produit est en compétition (exemple théâtre etc.).
+  - En parlant aux clients, notre but est d’obtenir une **meilleure compréhension de l’opportunity space**, pas de leur demander quelle feature ils aimeraient (l’espace des solutions).
+- Il est important que le client nous parle de quelque chose qui l’intéresse. Donc la première chose à obtenir de lui c’est **quels sont les besoins, pain points, et désirs qui comptent le plus pour lui**. On pourra ensuite choisir des sujets à aborder parmi ceux-là.
+  - On est parfois déçu de ne pas pouvoir faire parler le client de ce qu’on veut, ou même parfois d’avoir des clients non coopératifs. Ce n’est pas très grave : on en aura au moins un autre la semaine prochaine.
+- En posant des **questions directes aux gens**, on peut bien souvent obtenir une **réponse fausse**, parce que le cerveau a tendance à **rationaliser** pour reconstruire des informations manquantes, ou transformer les choses pour les mettre en cohérence avec la vision globale de la personne, la perception qu’elle a de son identité etc.
+  - Ceci est démontré par des décennies de recherches sur la manière d’interroger les personnes.
+  - Exemple : Teresa pose à une personne la question de savoir quel critère elle utilise pour s’acheter des jeans. Elle répond “le fit” comme critère numéro 1. Puis Teresa lui demande de lui raconter la dernière fois qu’elle a acheté un jean : c’était sur Amazon. Donc les vrai critères c’est le prix, la marque, la disponibilité rapide. Le fit n’était pas le critère numéro 1 pour l’achat.
+- En fait il va falloir distinguer les **research questions** qui sont les questions directes qu’on poserait pour obtenir des informations sur l’opportunity space, et les **interview questions** qui sont celles qu’on va réellement poser.
+  - Les interview questions vont consister à demander au client de nous **raconter des cas concrets** de choses qu’il a pu faire sur le sujet qui nous intéresse.
+    - Exemple : Au lieu de demander “Quel critère utilise-tu pour acheter des jeans”, on demande “Raconte-moi la dernière fois que tu as acheté des jeans”.
+  - On peut aussi faire varier le **scope** en fonction de ce qu’on recherche, de la même manière qu’avec l’experience map.
+    - Exemple : pour le service de streaming.
+      - Racontez-moi la dernière fois que vous avez utilisé notre service de streaming. => en apprendre plus sur notre produit pour l’améliorer.
+      - Racontez-moi la dernière fois que vous vous êtes diverti en regardant du streaming. => comprendre comment on se place par rapport aux concurrents.
+      - Racontez-moi la dernière fois que vous-vous êtes diverti. => découvrir avec quoi la catégorie de notre produit est en compétition (exemple théâtre etc.).
 - Il faut aider le client à raconter son histoire :
-- Les gens sont habitués à parler autant que leur interlocuteur, si on veut les faire parler plus que nous, il faut leur dire dès le début qu’on veut qu’ils racontent leur histoire avec le plus de détail possible.
-- Il faut l’aider à avancer dans les étapes :
-- Noter les personnages clé, les challenges rencontrés etc. pour pouvoir le relancer.
-- Utiliser notre experience map pour suivre son histoire à travers nos propres nœuds, et éventuellement le relancer sur des étapes dont il n’aurait pas parlé.
-- Si le client généralise une réponse (“Quel challenge avez-vous eu ?” “En général les challenges sont…”) alors il faut lui demander de revenir à l’exemple concret. On a vu que la généralisation menait à une vision faussée de la réalité.
-- Pour pouvoir se rappeler des interviews sur la durée, il faut résumer le résultat de chaque interview dans un interview snapshot, qui est une page résumant l’interview.
-- Si possible il faut y mettre une photo de la personne qu’on a interviewé, ou une image qui va nous faire penser à elle.
-- Il faut aussi y mettre une phrase qui nous a marqué, pour pouvoir nous en rappeler.
-- NDLR : un peu comme le channel #thingsclientssaid.
-- La partie quick facts permet d’indiquer de quel type de client il s’agit, en fonction de la catégorisation qu’on souhaite faire de nos clients. Ca permettra ensuite de comparer ce qui a été remonté avec les clients de la même catégorie.
-- Ensuite on a de la place pour noter les opportunities.
-- Si le client donne des solutions (features) qu’il aimerait, il faut essayer d’en extraire l’opportunity. Par exemple en posant la question : Qu'est-ce que cette feature vous apporterait ?
-- Il faut s’efforcer de formuler l’opportunity avec les mots du client, pour que ça représente son point de vue, et non le point de vue de notre entreprise.
-- On a aussi une place pour noter des insights qui ne sont pas des opportunities (ni des besoins, ni des pain points, ni des désirs).
-- Et enfin on a une place pour dessiner la story racontée par le client, avec des boîtes et des traits, sur le même modèle que notre experience map.
-- Il est très important de faire des interviews de clients chaque semaine. Commencer ou arrêter une habitude est beaucoup plus difficile que d’en maintenir une.
-- Le plus difficile pour ça c’est d’automatiser le process de recrutement des personnes qu’on va interviewer. On a parfois des urgences business, des absents dans l’équipe etc. et dans ces moments on a besoin d’avoir son interview de la semaine déjà bookée sans rien faire.
-- Parmi les manières de recruter :
-- Le plus simple est d’avoir un petit bandeau qui s’affiche dans notre application, et qui dit “Est-ce que vous auriez 20mn à nous accorder pour améliorer notre service, en échange de 20€ ?”.
-- Ça marche bien si on a beaucoup de trafic, dans ce cas on peut demander le numéro de la personne avec un formulaire.
-- Si on a moins de trafic, à la place du numéro on peut proposer un service de scheduling en ligne pour que le client puisse directement réserver un créneau avec nous.
-- Si on n’a pas de trafic du tout, on peut toujours utiliser de la publicité qui redirige vers une landing page, où il y aura le formulaire proposant de nous aider.
-- Une autre solution est de demander aux équipes customer facing (CSM, sales etc.).
-- D’abord on leur demande de rejoindre un de leurs calls 5 mn à la fin, pour prendre une story. Le but est de mettre un pied dans la porte pour qu’ils disent oui facilement.
-- Une fois qu’on est plus à l’aise, on peut demander aux équipes CSM de programmer des interviews pour nous. On leur donne des “triggers” qu’on met à jour régulièrement.
-- Par exemple : si un client pose une question sur la feature X, programme lui un interview avec nous.
-- Enfin, si on a une audience trop petite ou trop difficile à aller chercher, on peut aussi constituer un customer advisory board, c’est-à-dire convaincre un groupe de clients de participer à des meetings réguliers avec nous.
-- L’avantage c’est que ça permet de suivre l’évolution de leurs problématiques dans le temps. Le désavantage potentiel c’est qu’on risque d’avoir un échantillon pas forcément représentatif.
-- Il faut que les interviews soient faites par l’ensemble du product trio.
-- Si l’un des membres se retrouve à être “la voix du customer”, il acquerra trop de pouvoir dans le groupe, et déséquilibrera le processus de décision dans la discovery, avec un “Oui mais c’est ça que le client veut”.
-- Le product trio est composé de personnes diverses justement pour prendre les meilleures décisions possibles, chacun amenant sa sensibilité.
+  - Les gens sont habitués à parler autant que leur interlocuteur, si on veut les faire parler plus que nous, il faut leur dire dès le début qu’on veut qu’ils racontent leur histoire **avec le plus de détail possible**.
+  - Il faut l’aider à avancer dans les étapes :
+    - Noter les personnages clé, les challenges rencontrés etc. pour pouvoir le relancer.
+    - Utiliser notre experience map pour suivre son histoire à travers nos propres nœuds, et éventuellement le relancer sur des étapes dont il n’aurait pas parlé.
+  - Si le client généralise une réponse (“Quel challenge avez-vous eu ?” “En général les challenges sont…”) alors il faut lui demander de **revenir à l’exemple concret.** On a vu que la généralisation menait à une vision faussée de la réalité.
+- Pour pouvoir se rappeler des interviews sur la durée, il faut résumer le résultat de chaque interview dans un **interview snapshot**, qui est une page résumant l’interview.
+  - Si possible il faut y mettre **une photo** de la personne qu’on a interviewé, ou une image qui va nous faire penser à elle.
+  - Il faut aussi y mettre **une phrase qui nous a marqué**, pour pouvoir nous en rappeler.
+    - NDLR : un peu comme le channel **#thingsclientssaid**.
+  - La partie **quick facts** permet d’indiquer de quel type de client il s’agit, en fonction de la catégorisation qu’on souhaite faire de nos clients. Ca permettra ensuite de comparer ce qui a été remonté avec les clients de la même catégorie.
+  - Ensuite on a de la place pour noter les **opportunities**.
+    - Si le client donne des solutions (features) qu’il aimerait, il faut essayer d’en extraire l’opportunity. Par exemple en posant la question : Qu'est-ce que cette feature vous apporterait ?
+    - Il faut s’efforcer de formuler l’opportunity avec **les mots du client**, pour que ça représente son point de vue, et non le point de vue de notre entreprise.
+  - On a aussi une place pour noter des **insights** qui ne sont pas des opportunities (ni des besoins, ni des pain points, ni des désirs).
+  - Et enfin on a une place pour **dessiner la story** racontée par le client, avec des boîtes et des traits, sur le même modèle que notre experience map.
+- Il est très important de** faire des interviews de clients chaque semaine**. Commencer ou arrêter une habitude est beaucoup plus difficile que d’en maintenir une.
+  - Le plus difficile pour ça c’est d’**automatiser le process de recrutement** des personnes qu’on va interviewer. On a parfois des urgences business, des absents dans l’équipe etc. et dans ces moments on a besoin d’avoir son interview de la semaine déjà bookée sans rien faire.
+  - Parmi les manières de recruter :
+    - Le plus simple est d’avoir un **petit bandeau** qui s’affiche dans notre application, et qui dit “Est-ce que vous auriez 20mn à nous accorder pour améliorer notre service, en échange de 20€ ?”.
+      - Ça marche bien si on a beaucoup de trafic, dans ce cas on peut demander le numéro de la personne avec un formulaire.
+      - Si on a moins de trafic, à la place du numéro on peut proposer un service de scheduling en ligne pour que le client puisse directement réserver un créneau avec nous.
+      - Si on n’a pas de trafic du tout, on peut toujours utiliser de la publicité qui redirige vers une landing page, où il y aura le formulaire proposant de nous aider.
+    - Une autre solution est de demander aux** équipes customer facing** (CSM, sales etc.).
+      - D’abord on leur demande de rejoindre un de leurs calls 5 mn à la fin, pour prendre une story. Le but est de mettre un pied dans la porte pour qu’ils disent oui facilement.
+      - Une fois qu’on est plus à l’aise, on peut demander aux équipes CSM de programmer des interviews pour nous. On leur donne des “triggers” qu’on met à jour régulièrement.
+        - Par exemple : si un client pose une question sur la feature X, programme lui un interview avec nous.
+    - Enfin, si on a une audience trop petite ou trop difficile à aller chercher, on peut aussi constituer un **customer advisory board**, c’est-à-dire convaincre un groupe de clients de participer à des meetings réguliers avec nous.
+      - L’avantage c’est que ça permet de suivre l’évolution de leurs problématiques dans le temps. Le désavantage potentiel c’est qu’on risque d’avoir un échantillon pas forcément représentatif.
+- Il faut que les interviews soient faites par **l’ensemble du product trio**.
+  - Si l’un des membres se retrouve à être “la voix du customer”, il acquerra trop de pouvoir dans le groupe, et déséquilibrera le processus de décision dans la discovery, avec un “Oui mais c’est ça que le client veut”.
+  - Le product trio est composé de personnes diverses justement pour prendre les meilleures décisions possibles, chacun amenant sa sensibilité.
 - Quelques anti-patterns à éviter :
-- Compter sur une seule personne pour le recrutement ou le fait de faire les interviews : si elle n’est pas là, l’habitude d’interviewer s’arrête. Il faut plutôt que chaque membre du trio sache recruter et interviewer.
-- Poser des questions “Who, What, Why, How, When” : ça fait de longues interviews et donne des données non fiables. Il faut plutôt préparer des research questions, et des interviews questions correspondantes qu’il faudra poser.
-- Faire des interviews seulement quand on en a besoin : l’habitude en elle-même a beaucoup de valeur. Et en plus on aura des réponses rapides.
-- Partager ce qu’on apprend avec le reste de l’équipe en envoyant des pages de notes ou des enregistrements des interviews : il vaut mieux utiliser les interview snapshots. On ne peut pas demander au reste de l’équipe de consacrer autant de temps que nous aux interviews.
-- S’arrêter pour synthétiser les 6 à 12 dernières interviews : si on est dans un mode continu, on synthétise aussi en continu avec les interview snapshots, pas par batch.
+  - **Compter sur une seule personne pour le recrutement ou le fait de faire les interviews** : si elle n’est pas là, l’habitude d’interviewer s’arrête. Il faut plutôt que **chaque membre du trio** sache recruter et interviewer.
+  - **Poser des questions “Who, What, Why, How, When”** : ça fait de longues interviews et donne des données non fiables. Il faut plutôt préparer des research questions, et des interviews questions correspondantes qu’il faudra poser.
+  - **Faire des interviews seulement quand on en a besoin** : l’habitude en elle-même a beaucoup de valeur. Et en plus on aura des réponses rapides.
+  - **Partager ce qu’on apprend avec le reste de l’équipe en envoyant des pages de notes ou des enregistrements des interviews** : il vaut mieux utiliser les interview snapshots. On ne peut pas demander au reste de l’équipe de consacrer autant de temps que nous aux interviews.
+  - **S’arrêter pour synthétiser les 6 à 12 dernières interviews** : si on est dans un mode continu, on synthétise aussi en continu avec les interview snapshots, pas par batch.
 
 ### 6 - Mapping the opportunity space
 
 - Avoir un backlog d’opportunities est un bon début, mais la priorisation est compliquée parce que le sizing de chaque opportunity est différent, et qu’elles s’overlap parfois. => L’OST répond à ces problématiques.
-- Il faut essayer de trouver plus de sub-opportunities à mesure qu’on fait des interviews, pour deux raisons :
-- Ça permet de répondre à des opportunities qui paraissent trop grosses.
-- Ça permet de délivrer de la valeur en continu, en suivant la philosophie agile.
+- Il faut essayer de **trouver plus de sub-opportunities** à mesure qu’on fait des interviews, pour deux raisons :
+  - Ça permet de répondre à des opportunities qui paraissent trop grosses.
+  - Ça permet de délivrer de la valeur en continu, en suivant la philosophie agile.
 - Dans l’OST, à propos de la relation entre les noeuds parents / enfants :
-- Le noeud enfant permet d’avancer sur la problématique du parent.
-- Deux nœuds enfants du même niveau doivent pouvoir être résolus chacun de leur côté sans impacter l’autre.
-- Exemple : Dans le cadre du streaming, “Je ne sais pas comment chercher un show particulier” permet de faire avancer la problématique parente “Je ne trouve rien à regarder”, sans faire avancer l’autre enfant du même niveau “J’ai terminé les épisodes de mon show favori”.
-- Il y a deux techniques pour que les opportunities du même niveau soient indépendants, à chaque fois il faut les associer avec des moments distincts dans le temps :
-- On peut reprendre notre experience map, et associer chaque nœud à un nœud d’opportunity top level dans l’OST.
-- Si notre experience map n’est pas encore bien formée, on peut parcourir nos interview snapshots, et essayer de trouver des nœuds qui reviennent dans le dessin de la story. Une fois qu’on a ces nœuds on peut les associer avec les noeuds top level de notre OST.
-- Une fois qu’on a nos nœuds top level de l’OST, on peut y ajouter nos opportunities à partir de nos interview snapshots.
-- Avant d’ajouter chaque opportunity, on revérifie bien qu’elle permet d’avancer sur notre outcome, et que c’est vraiment une opportunity.
-- On les place d’abord simplement en dessous de l’opportunity top level correspondante.
-- On va ensuite, branche top level par branche top level, ajouter de la structure à notre OST :
-- On va trouver des opportunities qui se ressemblent, et on va leur chercher une opportunity parente.
-- Si l’opportunity parente n’existe pas, c’est OK de la créer, vu que les enfants eux sont bien issus de vrais interviews.
-- Si deux opportunities sont vraiment les mêmes formulées différemment, on peut les regrouper en une.
-- On va ensuite chercher à regrouper nos mini-arbres ensemble avec des parents communs, jusqu’à arriver à l’opportunity top level.
+  - Le noeud enfant permet d’avancer sur la problématique du parent.
+  - Deux nœuds enfants du même niveau doivent pouvoir être **résolus chacun de leur côté** sans impacter l’autre.
+  - Exemple : Dans le cadre du streaming, “Je ne sais pas comment chercher un show particulier” permet de faire avancer la problématique parente “Je ne trouve rien à regarder”, sans faire avancer l’autre enfant du même niveau “J’ai terminé les épisodes de mon show favori”.
+- Il y a deux techniques pour que les opportunities du même niveau soient indépendants, à chaque fois il faut les associer avec des **moments distincts dans le temps** :
+  - On peut reprendre notre **experience map**, et associer chaque nœud à un nœud d’opportunity top level dans l’OST.
+  - Si notre experience map n’est pas encore bien formée, on peut parcourir nos **interview snapshots**, et essayer de trouver des nœuds qui reviennent dans le dessin de la story. Une fois qu’on a ces nœuds on peut les associer avec les noeuds top level de notre OST.
+- Une fois qu’on a nos nœuds top level de l’OST, on peut y **ajouter nos opportunities** à partir de nos interview snapshots.
+  - Avant d’ajouter chaque opportunity, on revérifie bien qu’elle permet d’avancer sur notre outcome, et que c’est vraiment une opportunity.
+  - On les place d’abord simplement en dessous de l’opportunity top level correspondante.
+- On va ensuite, branche top level par branche top level, **ajouter de la structure** à notre OST :
+  - On va trouver des **opportunities qui se ressemblent**, et on va leur chercher une **opportunity parente**.
+  - Si l’opportunity parente n’existe pas, c’est OK de la créer, vu que les enfants eux sont bien issus de vrais interviews.
+  - Si deux opportunities sont vraiment les mêmes formulées différemment, on peut les regrouper en une.
+  - On va ensuite chercher à **regrouper nos mini-arbres ensemble avec des parents communs**, jusqu’à arriver à l’opportunity top level.
 - Le framing de l’opportunity space est une étape importante.
-- Si la construction de l’OST nous prend 30mn, c’est qu’on l’a fait un peu vite fait. Mais il ne faut pas non plus y passer des heures et des heures.
-- C’est un processus itératif, on va de toute façon remodeler l’OST de nombreuses fois.
+  - Si la construction de l’OST nous prend 30mn, c’est qu’on l’a fait un peu vite fait. Mais il ne faut pas non plus y passer des heures et des heures.
+  - C’est un **processus itératif,** on va de toute façon remodeler l’OST de nombreuses fois.
 - Quelques anti-patterns à éviter :
-- Créer les opportunities depuis la perspective de l’entreprise : on peut se demander à chaque nœud de l’OST : est-ce que j’ai entendu un client dire ça ? Ou si on a dû le créer : est-ce qu'un client dirait ça ?
-- Exemple : un client ne dira jamais “J’aurais bien aimé avoir plus d’abonnements au service de streaming”, mais il pourra dire “J’aurais aimé avoir plus de contenu intéressant”.
-- Avoir des sous-arbres verticaux : si on est dans ce cas, c’est
-- soit qu’on a deux opportunities qui sont en fait à peu près les mêmes, et qu’on peut reformuler en une.
-- soit il nous manque des opportunities de même niveau parce que l’opportunity enfant n’est pas suffisante pour résoudre le parent. Dans ce cas, il faudra trouver d’autres opportunities pour ne pas rester sur un sous-arbre vertical.
-- Des opportunities ont plusieurs parents : si on a bien nos opportunities top level qui sont vraiment des moments différents dans le temps ça ne doit pas arriver. Il est possible que l’opportunity problématique soit formulée de manière trop générale.
-- Des opportunities non spécifiques : des opportunities comme “J’aimerais que ce soit facile à utiliser” ne sont pas assez spécifiques, on peut les rendre plus spécifiques, par exemple “J’aimerais que voir un show soit plus facile”.
-- Des opportunities qui sont des solutions déguisées : Il faut qu’il y ait plusieurs solutions possibles à une opportunity, sinon c’est déjà une solution.
-- Par exemple : “Je veux passer rapidement les pubs” est en fait une solution. L’opportunity pourrait être “Je n’aime pas voir les pubs”, et auquel on pourra répondre par les passer, mais aussi par “Faire des pubs plus attrayantes” ou encore “Avoir un abonnement sans pub”.
-- Capturer des sentiments comme des opportunities : si on a un sentiment qui est donné par le client, c’est qu’il y a une opportunity pas loin. Mais il faut alors chercher la cause de ce sentiment pour avoir l’opportunity.
-- Exemple : “Je me sens frustré” => Pourquoi => “Je déteste retaper mon mot de passe à chaque achat”.
+  - **Créer les opportunities depuis la perspective de l’entreprise** : on peut se demander à chaque nœud de l’OST : est-ce que j’ai entendu un client dire ça ? Ou si on a dû le créer : est-ce qu'un client dirait ça ?
+    - Exemple : un client ne dira jamais “J’aurais bien aimé avoir plus d’abonnements au service de streaming”, mais il pourra dire “J’aurais aimé avoir plus de contenu intéressant”.
+  - **Avoir des sous-arbres verticaux** : si on est dans ce cas, c’est
+    - soit qu’on a deux opportunities qui sont en fait à peu près les mêmes, et qu’on peut reformuler en une.
+    - soit il nous manque des opportunities de même niveau parce que l’opportunity enfant n’est pas suffisante pour résoudre le parent. Dans ce cas, il faudra trouver d’autres opportunities pour ne pas rester sur un sous-arbre vertical.
+  - **Des opportunities ont plusieurs parents** : si on a bien nos opportunities top level qui sont vraiment des moments différents dans le temps ça ne doit pas arriver. Il est possible que l’opportunity problématique soit formulée de manière trop générale.
+  - **Des opportunities non spécifiques **: des opportunities comme “J’aimerais que ce soit facile à utiliser” ne sont pas assez spécifiques, on peut les rendre plus spécifiques, par exemple “J’aimerais que voir un show soit plus facile”.
+  - **Des opportunities qui sont des solutions déguisées** : Il faut qu’il y ait **plusieurs solutions possibles** à une opportunity, sinon c’est déjà une solution.
+    - Par exemple : “Je veux passer rapidement les pubs” est en fait une solution. L’opportunity pourrait être “Je n’aime pas voir les pubs”, et auquel on pourra répondre par les passer, mais aussi par “Faire des pubs plus attrayantes” ou encore “Avoir un abonnement sans pub”.
+  - **Capturer des sentiments comme des opportunities** : si on a un sentiment qui est donné par le client, c’est qu’il y a une opportunity pas loin. Mais il faut alors** chercher la cause** de ce sentiment pour avoir l’opportunity.
+    - Exemple : “Je me sens frustré” => Pourquoi => “Je déteste retaper mon mot de passe à chaque achat”.
 
 ### 7 - Prioritizing opportunities, not solutions
 
-- Il faut chercher à répondre à une seule opportunity à la fois.
-- C’est en cohérence avec la philosophie Kanban qui consiste à limiter le nombre de tâches en cours.
-- Des études ont montré que limiter le nombre de tâches en cours permet d’avoir une meilleure qualité, de délivrer de manière plus consistante, et d’avoir moins de plaintes côté client.
-- Grâce à l’OST on va pouvoir choisir notre prochaine opportunity sans avoir à tout prioriser et re-prioriser.
-- On part du haut, et on compare les opportunities top level, pour en choisir une seule.
-- On descend dans le sous-arbre de celle qu’on a choisi, et on fait pareil : on choisit l’enfant de même niveau le plus prioritaire.
-- On fait ça jusqu’à atteindre le bas de l’arbre : on a alors notre opportunity.
-- Les critères pour prioriser sont :
-- Le sizing de l’opportunity : l’impact que l’opportunity a sur nos clients.
-- Pas besoin que ce soit précis : on a juste besoin de pouvoir comparer les nœuds enfants de même niveau entre eux.
-- On peut utiliser comme données : des analytics, le funnel des sales, les tickets de support, des sondages, nos interview snapshots etc.
-- Il faut aussi distinguer combien de clients sont touchés, et à quelle fréquence ils sont touchés. Parfois c’est peu de clients très touchés, ou beaucoup de clients peu touchés.
-- Les facteurs liés au marché :
-- Il s’agit de maîtriser notre positionnement par rapport aux entreprises concurrentes, et éventuellement des segments de marché extérieurs qui pourraient venir grignoter notre marché actuel (par exemple la vidéo par câble qui grignote notre service de streaming).
-- En fonction de notre positionnement actuel, on pourra prioriser soit des enjeux importants pour les sales, soit des enjeux stratégiques pour nous maintenir sur notre marché et en conquérir d’autres.
-- Les facteurs liés à l’entreprise : On doit prendre en compte la stratégie, la vision et les valeurs de l’entreprise, pour aller dans le même sens.
-- Les facteurs liés au client : Il s’agit de l’impact sur la satisfaction client : on va choisir l’opportunity qui en procurera le plus.
-- Il ne faut pas attribuer de note précise à chaque opportunité et pour chaque critère. Les critères permettent d’avoir un débat au sein du product trio, et le choix doit être grossier et subjectif.
-- Il est important que les décisions de discovery en général soient considérées par le product trio comme potentiellement modifiables au bout de quelques jours (la discovery est continuous).
-- Avec cet état d’esprit on n’a pas besoin de passer trop de temps à choisir l’opportunity. Si elle se révèle mauvaise, on la changera très vite.
+- Il faut chercher à répondre à **une seule opportunity à la fois**.
+  - C’est en cohérence avec la philosophie Kanban qui consiste à limiter le nombre de tâches en cours.
+  - Des études ont montré que limiter le nombre de tâches en cours permet d’avoir une meilleure qualité, de délivrer de manière plus consistante, et d’avoir moins de plaintes côté client.
+- Grâce à l’OST on va pouvoir choisir notre prochaine opportunity **sans avoir à tout prioriser** et re-prioriser.
+  - On part du haut, et on compare les opportunities top level, pour en choisir une seule.
+  - On descend dans le sous-arbre de celle qu’on a choisi, et on fait pareil : on choisit l’enfant de même niveau le plus prioritaire.
+  - On fait ça jusqu’à atteindre le bas de l’arbre : on a alors notre opportunity.
+- Les **critères pour prioriser** sont :
+  - **Le sizing de l’opportunity** : l’impact que l’opportunity a sur nos clients.
+    - Pas besoin que ce soit précis : on a juste besoin de pouvoir comparer les nœuds enfants de même niveau entre eux.
+    - On peut utiliser comme données : des analytics, le funnel des sales, les tickets de support, des sondages, nos interview snapshots etc.
+    - Il faut aussi distinguer combien de clients sont touchés, et à quelle fréquence ils sont touchés. Parfois c’est peu de clients très touchés, ou beaucoup de clients peu touchés.
+  - **Les facteurs liés au marché** :
+    - Il s’agit de maîtriser notre positionnement par rapport aux entreprises **concurrentes**, et éventuellement des **segments de marché extérieurs** qui pourraient venir grignoter notre marché actuel (par exemple la vidéo par câble qui grignote notre service de streaming).
+    - En fonction de notre positionnement actuel, on pourra prioriser soit des enjeux importants pour les sales, soit des enjeux stratégiques pour nous maintenir sur notre marché et en conquérir d’autres.
+  - **Les facteurs liés à l’entreprise** : On doit prendre en compte la stratégie, la vision et les valeurs de l’entreprise, pour aller dans le même sens.
+  - **Les facteurs liés au client** : Il s’agit de l’impact sur la satisfaction client : on va choisir l’opportunity qui en procurera le plus.
+- Il ne faut pas attribuer de note précise à chaque opportunité et pour chaque critère. Les critères permettent d’avoir un débat au sein du product trio, et **le choix doit être grossier et subjectif**.
+- Il est important que les **décisions de discovery** en général soient considérées par le product trio comme potentiellement **modifiables au bout de quelques jours **(la discovery est continuous).
+  - Avec cet état d’esprit on n’a pas besoin de passer trop de temps à choisir l’opportunity. Si elle se révèle mauvaise, on la changera très vite.
 - Quelques anti-patterns à éviter :
-- Remettre la décision à plus tard, quand il y aura plus de données : on en apprendra plus en examinant les conséquences d’une opportunity qu’on choisit maintenant, qu’en attendant d’avoir plus de données pour un meilleur choix.
-- Le mieux est de limiter le temps de décision : on se donne une heure ou deux (ou au pire un jour ou deux) et à la fin du délai on décide de l’opportunity.
-- Utiliser principalement un des 4 critères pour le choix de l’opportunity : les 4 critères permettent d’avoir un point de vue différent sur l’importance de chaque opportunity. Il faut les utiliser tous.
-- Avoir une conclusion pré-établie, et tenter de la justifier : faire ça est une perte de temps. Il faut faire l’exercice avec une ouverture d’esprit pour s’ouvrir à d’autres perspectives.
+  - **Remettre la décision à plus tard, quand il y aura plus de données** : on en apprendra plus en examinant les conséquences d’une opportunity qu’on choisit maintenant, qu’en attendant d’avoir plus de données pour un meilleur choix.
+    - Le mieux est de limiter le temps de décision : on se donne une heure ou deux (ou au pire un jour ou deux) et à la fin du délai on décide de l’opportunity.
+  - **Utiliser principalement un des 4 critères pour le choix de l’opportunity** : les 4 critères permettent d’avoir un point de vue différent sur l’importance de chaque opportunity. Il faut les utiliser tous.
+  - **Avoir une conclusion pré-établie, et tenter de la justifier** : faire ça est une perte de temps. Il faut faire l’exercice avec une ouverture d’esprit pour s’ouvrir à d’autres perspectives.
 
 ### 8 - Supercharged ideation
 
-- Les études montrent que quand on recherche la créativité, les meilleures idées sont parmi les dernières qu’on trouve. Plus on en cherche, et plus on tombe sur des choses originales et pertinentes.
-- Il faut donc résister à notre propension à choisir la première idée ou solution qui nous passe par la tête.
+- Les études montrent que quand on recherche la créativité, **les meilleures idées sont parmi les dernières qu’on trouve. **Plus on en cherche, et plus on tombe sur des choses originales et pertinentes.
+  - Il faut donc résister à notre propension à choisir la première idée ou solution qui nous passe par la tête.
 - Toutes les opportunities ne nécessitent pas d’y passer du temps pour trouver des solutions originales. On en a besoin surtout pour celles qui sont stratégiques, où on veut se distinguer de la concurrence.
-- Les études montrent que faire un brainstorming est moins efficace que de chercher des idées chacun de son côté : on trouve plus d’idées différentes, des idées plus originales et plus variées.
-- Les raisons sont entre autres le fait d’être poussé à plus chercher quand on est seul, alors qu’on peut se reposer sur les autres quand on est en groupe. Il y a aussi le fait que les premières idées du groupe formatent les suivantes, avec une gêne à proposer des idées à priori pas assez bonnes.
-- Ceci dit on est moins souvent coincés en groupe, donc on a l’impression d’être plus performants.
-- Une solution encore plus efficace est d’alterner les sessions seul et en groupe : on trouve efficacement des idées chacun de son côté, puis on est débloqués grâce à l’apport du résultat des autres, et on peut à nouveau avancer chacun de son côté à partir de là.
-- On est tous performants pour générer des idées. Ça peut prendre un peu de temps au début si on est rouillé mais ça revient toujours.
-- Plutôt que de prendre une grosse heure pour trouver des idées, il vaut mieux répartir ça dans la journée et dans différents endroits (entre deux meetings, en marchant après manger etc.).
-- On peut aussi profiter du fait que notre cerveau travaille alors qu’on arrête d’y penser, et le lendemain on tombe sur une bonne idée qui était en gestation.
-- On peut s’inspirer de la concurrence, et aussi d’entreprises dans des domaines qui n’ont rien à voir (bien des problématiques sont communes à différents domaines).
-- On peut aussi considérer le point de vue d‘utilisateurs particuliers : les utilisateurs qui arrivent pour la première fois, les utilisateurs handicapés, jeunes, vieux, vivant loin etc.
+- Les études montrent que **faire un brainstorming est moins efficace que de chercher des idées chacun de son côté** : on trouve plus d’idées différentes, des idées plus originales et plus variées.
+  - Les raisons sont entre autres le fait d’être poussé à plus chercher quand on est seul, alors qu’on peut se reposer sur les autres quand on est en groupe. Il y a aussi le fait que les premières idées du groupe formatent les suivantes, avec une gêne à proposer des idées à priori pas assez bonnes.
+  - Ceci dit on est moins souvent coincés en groupe, donc on a l’impression d’être plus performants.
+  - Une solution encore plus efficace est d’**alterner les sessions seul et en groupe** : on trouve efficacement des idées chacun de son côté, puis on est débloqués grâce à l’apport du résultat des autres, et on peut à nouveau avancer chacun de son côté à partir de là.
+- **On est tous performants pour générer des idées**. Ça peut prendre un peu de temps au début si on est rouillé mais ça revient toujours.
+  - Plutôt que de prendre une grosse heure pour trouver des idées, il vaut mieux **répartir ça dans la journée** et dans différents endroits (entre deux meetings, en marchant après manger etc.).
+  - On peut aussi profiter du fait que notre cerveau travaille alors qu’on arrête d’y penser, et le lendemain on tombe sur une bonne idée qui était en gestation.
+  - On peut s’inspirer de la concurrence, et aussi d’entreprises dans des domaines qui n’ont rien à voir (bien des problématiques sont communes à différents domaines).
+  - On peut aussi considérer le point de vue d‘utilisateurs particuliers : les utilisateurs qui arrivent pour la première fois, les utilisateurs handicapés, jeunes, vieux, vivant loin etc.
 - Concrètement pour générer des solutions à nos opportunities :
-- 1 - On revoit notre opportunity cible et son contexte, on vérifie qu’elle est bien sizée etc.
-- 2 - On génère des idées seul, avec les techniques ci-dessus.
-- 3 - On partage nos idées avec l’équipe. Ça peut être en live ou en asynchrone (slack ou autre).
-- 4 - On répète les étapes 2 et 3, jusqu’à obtenir 15 à 20 idées.
-- 5 - On élimine les idées qui ne répondent pas à l’opportunity qu’on vise.
-- 6 - On va dot-voter avec l’équipe : chacun a 3 points à mettre sur les idées de son choix (avec possibilité de mettre sur les mêmes), et on élimine celles qui en ont le moins, jusqu’à arriver à seulement 3 idées.
-- Les études montrent que pour ce qui est du choix des idées, on est plus efficaces en groupe.
-- On peut être amenés à faire plusieurs tours de dot-vote pour éliminer les idées.
-- Pas besoin de consensus sur chaque idée, par contre il faut que chacune des idées choisies aient au moins une personne qui soit enthousiasmée par celle-ci. Si ce n’est pas le cas, il faut revoter.
+  - **1 - On revoit notre opportunity** cible et son contexte, on vérifie qu’elle est bien sizée etc.
+  - **2 - On génère des idées seul**, avec les techniques ci-dessus.
+  - **3 - On partage nos idées avec l’équipe**. Ça peut être en live ou en asynchrone (slack ou autre).
+  - **4 - On répète les étapes 2 et 3**, jusqu’à obtenir 15 à 20 idées.
+  - **5 - On élimine les idées qui ne répondent pas à l’opportunity qu’on vise**.
+  - **6 - On va dot-voter avec l’équipe** : chacun a 3 points à mettre sur les idées de son choix (avec possibilité de mettre sur les mêmes), et on élimine celles qui en ont le moins, **jusqu’à arriver à seulement 3 idées**.
+    - Les études montrent que pour ce qui est du choix des idées, on est plus efficaces en groupe.
+    - On peut être amenés à faire plusieurs tours de dot-vote pour éliminer les idées.
+    - Pas besoin de consensus sur chaque idée, par contre il faut que **chacune des idées choisies aient au moins une personne qui soit enthousiasmée par celle-ci**. Si ce n’est pas le cas, il faut revoter.
 - Quelques anti-patterns à éviter :
-- Ne pas inclure une diversité de perspectives : si la plupart des exercices du livre sont faits pour le product trio, il est préférable de faire la génération d’idées avec l’équipe produit entière. On peut même inviter d'autres stakeholders importants. Plus on aura du monde, plus on aura des idées diverses.
-- Générer trop de variations de la même idée : quand on est bloqués, on a tendance à reprendre les mêmes idées un peu différentes pour avoir l’impression d’en avoir plein. Il faut se forcer à en trouver d’autres, y compris en allant chercher ce que font d’autres produits.
-- Limiter la recherche d’idées à une seule session : les études montrent que le fait sur un temps plus long, par petites sessions, est plus efficace.
-- Choisir des idées qui ne permettent pas de répondre à l’opportunity choisie : avant de dot-voter, il faut bien éliminer les idées sans rapport, même si elles ont l’air intéressantes en elles-mêmes. Sinon on se disperse.
+  - **Ne pas inclure une diversité de perspectives** : si la plupart des exercices du livre sont faits pour le product trio, il est préférable de **faire la génération d’idées avec l’équipe produit entière**. On peut même inviter d'autres stakeholders importants. Plus on aura du monde, plus on aura des idées diverses.
+  - **Générer trop de variations de la même idée** : quand on est bloqués, on a tendance à reprendre les mêmes idées un peu différentes pour avoir l’impression d’en avoir plein. Il faut se forcer à en trouver d’autres, y compris en allant chercher ce que font d’autres produits.
+  - **Limiter la recherche d’idées à une seule session** : les études montrent que le fait sur un temps plus long, par petites sessions, est plus efficace.
+  - **Choisir des idées qui ne permettent pas de répondre à l’opportunity choisie** : avant de dot-voter, il faut bien éliminer les idées sans rapport, même si elles ont l’air intéressantes en elles-mêmes. Sinon on se disperse.
 
 ### 9 - Identifying hidden assumptions
 
-- On a en général tendance à s’accrocher à nos idées.
-- Parmi les biais ici il y a notamment :
-- Le biais de confirmation qui fait qu’on va accorder de l’importance à ce qui confirme notre idée, et peu d’importance à ce qui la réfute.
-- Le biais des coûts irrécupérables qui fait que plus on investit dans une idée, plus on pense devoir continuer.
-- Pour éviter ce phénomène, on a choisi de traiter 3 idées en même temps, et on va itérer rapidement pour en traiter le maximum sans rester longuement sur une idée particulière.
-- Pour pouvoir tester 3 idées en même temps, on ne peut pas les implémenter à chaque fois toutes. Il faut à la place tester les assumptions sous-jacentes.
-- La plus grande difficulté c’est de trouver ces assumptions.
+- On a en général** tendance à s’accrocher à nos idées**.
+  - Parmi les biais ici il y a notamment :
+    - Le biais de confirmation qui fait qu’on va accorder de l’importance à ce qui confirme notre idée, et peu d’importance à ce qui la réfute.
+    - Le biais des coûts irrécupérables qui fait que plus on investit dans une idée, plus on pense devoir continuer.
+  - Pour éviter ce phénomène, on a choisi de traiter 3 idées en même temps, et on va itérer rapidement pour en traiter le maximum sans rester longuement sur une idée particulière.
+- Pour pouvoir tester 3 idées en même temps, on ne peut pas les implémenter à chaque fois toutes. Il faut à la place tester les **assumptions** sous-jacentes.
+  - La plus grande difficulté c’est de trouver ces assumptions.
 - Il y a 5 types d’assumptions qui nous intéressent :
-- Desirability assumptions : le fait de savoir si nos utilisateurs ont envie de faire ce qu’on imagine qu’ils ont envie de faire à travers notre idée.
-- Viability assumptions : le fait de savoir si l’idée va vraiment apporter au business suffisamment de valeur (et pas seulement aux clients).
-- Feasibility assumptions : le fait de savoir si c’est faisable d’un point de vue technique, mais aussi de potentiels problèmes légaux, culturels etc.
-- Usability assumptions : le fait de savoir si les clients vont pouvoir l’utiliser, le comprendre etc.
-- Ethical assumptions : le fait de savoir si on pourrait causer des problèmes éthiques ou dangereux.
-- Ca concerne ce qu’on va faire des données qu’on collecte :
-- Est-ce qu’on va partager ces données avec des tiers ?
-- Est-ce que nos clients comprennent ce qu’on fait de leurs données.
-- S’ils le comprenaient est-ce qu’ils seraient d’accord ?
-- Ça peut aussi être d’autres types de problèmes :
-- Est-ce que notre produit peut devenir addictif et nuire à l’utilisateur ?
-- Est-ce que certains utilisateurs seront exclus de notre feature ?
-- Est-ce qu’on contribue aux inégalités sociales ?
-- Est-ce qu’on expose l’identité de personnes à qui ça pourrait causer du tort ?
-- Comment les trolls d’internet pourraient-ils détourner ça ?
-- Ca pourrait aussi être des dommages pour notre business :
-- Est-ce que la solution va aider ou nuire à notre marque ?
-- Est-ce qu’on comblera les attentes des clients ou est-ce qu’on les laissera déçus ?
-- Une question qui marche bien pour trouver les problèmes : “Si le New York Times (ou un autre grand média) publiait un article en première page, détaillant notre solution, l’ensemble de nos échanges internes, les conséquences sur l’écosystème etc. Est-ce que ce serait une bonne chose ou non ?”
-- Chaque membre du trio peut mettre des assumptions différentes derrière une idée. Pour s’aligner sur les assumptions, on va utiliser le story mapping : cartographier les étapes faites par l’utilisateur pour obtenir de la valeur de notre produit.
-- 1 - On va partir du principe que la solution existe déjà, et voir l’apport de valeur sur l’utilisateur. Il ne s’agit pas de mesurer la difficulté d’implémentation.
-- 2 - On va ensuite identifier les acteurs clés : ça peut être plusieurs users dans un réseau social, des acheteurs/vendeurs, un user et un chatbot etc.
-- 3 - On liste les étapes nécessaires pour chaque acteur, pour que la fonctionnalité qui nous intéresse apporte de la valeur.
-- 4 - On dispose les étapes en séquence horizontale sur un graphique.
-- Il faut respecter l’ordre causal des étapes entre acteurs.
-- Si on a des étapes optionnelles on les représente aussi.
-- On représente les successful paths, et s’il y en a plusieurs, on les représente tous.
-- 5 - On explicite les suppositions résultant de nos étapes. On va passer sur chacune des étapes et se poser la question de chaque type d’assumption (desirability, feasibility etc.). On va en avoir facilement des dizaines.
-- Exemple : nous explorons 3 solutions pour notre service de streaming. Parmi elles, on commence par “Intégrer des chaînes locales dans notre service (ABC, NBC etc.)”.
-- On part du principe que le service existe déjà, et on liste les acteurs : le client, la plateforme et la chaîne locale partenaire.
-- On liste les étapes :
-- Le client arrive pour regarder du sport en direct.
-- Notre plateforme montre les choix de contenu possible.
-- Le client choisit.
-- La chaîne locale envoie le contenu.
-- Le client le regarde.
-- On va ensuite expliciter les assumptions qui en résultent.
-- Par exemple pour l’étape 1 “Le client arrive pour regarder du sport en direct”, on a les assumptions suivantes :
-- Desirability : notre client veut regarder du sport.
-- Desirability : Notre client veut regarder du sport sur notre plateforme.
-- Usability : Notre client sait qu’il peut regarder du sport sur notre plateforme.
-- Usability : Notre client pense à notre plateforme quand il est temps de regarder du sport.
-- Feasibility : Notre plateforme est disponible quand le client veut regarder du sport.
-- On peut aussi tirer des assumptions de viability ou ethical à partir de la story map. Par exemple :
-- Viability : Intégrer un flux de chaîne partenaire locale ne coûtera pas trop cher.
-- Ethical : Les clients seront d’accord pour que nous partagions les données de vues avec les chaînes locales.
+  - **Desirability assumptions** : le fait de savoir si nos utilisateurs ont envie de faire ce qu’on imagine qu’ils ont envie de faire à travers notre idée.
+  - **Viability assumptions** : le fait de savoir si l’idée va vraiment apporter au business suffisamment de valeur (et pas seulement aux clients).
+  - **Feasibility assumptions** : le fait de savoir si c’est faisable d’un point de vue technique, mais aussi de potentiels problèmes légaux, culturels etc.
+  - **Usability assumptions** : le fait de savoir si les clients vont pouvoir l’utiliser, le comprendre etc.
+  - **Ethical assumptions** : le fait de savoir si on pourrait causer des problèmes éthiques ou dangereux.
+    - Ca concerne ce qu’on va faire des données qu’on collecte :
+      - Est-ce qu’on va partager ces données avec des tiers ?
+      - Est-ce que nos clients comprennent ce qu’on fait de leurs données.
+      - S’ils le comprenaient est-ce qu’ils seraient d’accord ?
+    - Ça peut aussi être d’autres types de problèmes :
+      - Est-ce que notre produit peut devenir addictif et nuire à l’utilisateur ?
+      - Est-ce que certains utilisateurs seront exclus de notre feature ?
+      - Est-ce qu’on contribue aux inégalités sociales ?
+      - Est-ce qu’on expose l’identité de personnes à qui ça pourrait causer du tort ?
+      - Comment les trolls d’internet pourraient-ils détourner ça ?
+    - Ca pourrait aussi être des dommages pour notre business :
+      - Est-ce que la solution va aider ou nuire à notre marque ?
+      - Est-ce qu’on comblera les attentes des clients ou est-ce qu’on les laissera déçus ?
+    - Une question qui marche bien pour trouver les problèmes : “Si le New York Times (ou un autre grand média) publiait un article en première page, détaillant notre solution, l’ensemble de nos échanges internes, les conséquences sur l’écosystème etc. Est-ce que ce serait une bonne chose ou non ?”
+- Chaque membre du trio peut mettre des assumptions différentes derrière une idée. Pour s’aligner sur les assumptions, on va utiliser le **story mapping** : cartographier les étapes faites par l’utilisateur pour obtenir de la valeur de notre produit.
+  - 1 - On va **partir du principe que la solution existe déjà**, et voir l’apport de valeur sur l’utilisateur. Il ne s’agit pas de mesurer la difficulté d’implémentation.
+  - 2 - On va ensuite **identifier les acteurs clés** : ça peut être plusieurs users dans un réseau social, des acheteurs/vendeurs, un user et un chatbot etc.
+  - 3 - On **liste les étapes** nécessaires pour chaque acteur, pour que la fonctionnalité qui nous intéresse apporte de la valeur.
+  - 4 - On dispose les étapes en** séquence horizontale **sur un graphique.
+    - Il faut respecter l’ordre causal des étapes entre acteurs.
+    - Si on a des étapes optionnelles on les représente aussi.
+    - On représente les successful paths, et s’il y en a plusieurs, on les représente tous.
+  - 5 - On **explicite les suppositions résultant de nos étapes**. On va passer sur chacune des étapes et se poser la question de chaque type d’assumption (desirability, feasibility etc.). On va en avoir **facilement des dizaines**.
+  - Exemple : nous explorons 3 solutions pour notre service de streaming. Parmi elles, on commence par “Intégrer des chaînes locales dans notre service (ABC, NBC etc.)”.
+    - On part du principe que le service existe déjà, et on liste les acteurs : le client, la plateforme et la chaîne locale partenaire.
+    - On liste les étapes :
+      - Le client arrive pour regarder du sport en direct.
+      - Notre plateforme montre les choix de contenu possible.
+      - Le client choisit.
+      - La chaîne locale envoie le contenu.
+      - Le client le regarde.
+    - On va ensuite expliciter les assumptions qui en résultent.
+      - Par exemple pour l’étape 1 “Le client arrive pour regarder du sport en direct”, on a les assumptions suivantes :
+        - Desirability : notre client veut regarder du sport.
+        - Desirability : Notre client veut regarder du sport sur notre plateforme.
+        - Usability : Notre client sait qu’il peut regarder du sport sur notre plateforme.
+        - Usability : Notre client pense à notre plateforme quand il est temps de regarder du sport.
+        - Feasibility : Notre plateforme est disponible quand le client veut regarder du sport.
+      - On peut aussi tirer des assumptions de _viability_ ou _ethical_ à partir de la story map. Par exemple :
+        - Viability : Intégrer un flux de chaîne partenaire locale ne coûtera pas trop cher.
+        - Ethical : Les clients seront d’accord pour que nous partagions les données de vues avec les chaînes locales.
 - Il ne faut pas trop s’inquiéter d’avoir des dizaines d’assumptions. Si on a bien fait notre travail, la plupart seront justes, et l’important c’est surtout de trouver celles qui sont risquées.
-- Une autre technique pour identifier les assumptions risqués c’est de faire une session pre-mortem.
-- Il s’agit de se placer dans quelques mois, d’imaginer que le produit a été un échec cuisant, et se demander pourquoi.
-- Pour que ça marche il est important d’imaginer que le produit a été un échec, pas qu’il pourrait l’être.
-- Une autre manière de les trouver encore c’est d’utiliser l’opportunity solution tree, en remontant depuis les solutions vers les opportunities, puis vers l’outcome.
-- Il s’agit d’utiliser une phrase du genre “La solution permet d’adresser l’opportunity parce que…”, ou “L’opportunity permet de driver l’outcome parce que…”.
-- Par exemple :
-- Ajouter des chaînes locales permettra à nos clients de regarder du sport en direct parce que…
-- Les sports que nos clients veulent sont sur les chaînes locales.
-- La plupart des sports populaires sont sur les chaînes locales.
-- Nos clients ont des chances de vouloir regarder des sports populaires.
-- Adresser l’opportunity “Regarder des sports en direct” permettra de faire avancer l’outcome produit “Augmenter les minutes regardées par semaine” parce que…
-- Les gens regarderont des sports en plus de ce qu’ils regardent déjà.
-- Même s’ils regardent moins les autres choses, les show sportifs sont plus longs et le temps augmentera.
-- Si chaque session de visionnage est plus longue, le temps global regardé sera plus long.
-- Adresser l’outcome produit “Augmenter les minutes regardées par semaine” permet d’adresser l’outcome business “Augmenter le nombre de renouvellement d’abonnement” parce que…
-- Les gens qui regardent longtemps sont plus enclins à renouveler leur abonnement.
+- Une autre technique pour identifier les assumptions risqués c’est de faire une session** pre-mortem**.
+  - Il s’agit de se placer dans quelques mois, d’imaginer que le produit a été un échec cuisant, et se demander pourquoi.
+  - Pour que ça marche il est important d’imaginer que le produit **a été** un échec, pas qu’il pourrait l’être.
+- Une autre manière de les trouver encore c’est d’**utiliser l’opportunity solution tree, en remontant depuis les solutions vers les opportunities, puis vers l’outcome**.
+  - Il s’agit d’utiliser une phrase du genre “La solution permet d’adresser l’opportunity parce que…”, ou “L’opportunity permet de driver l’outcome parce que…”.
+  - Par exemple :
+    - Ajouter des chaînes locales permettra à nos clients de regarder du sport en direct parce que…
+      - Les sports que nos clients veulent sont sur les chaînes locales.
+      - La plupart des sports populaires sont sur les chaînes locales.
+      - Nos clients ont des chances de vouloir regarder des sports populaires.
+    - Adresser l’opportunity “Regarder des sports en direct” permettra de faire avancer l’outcome produit “Augmenter les minutes regardées par semaine” parce que…
+      - Les gens regarderont des sports en plus de ce qu’ils regardent déjà.
+      - Même s’ils regardent moins les autres choses, les show sportifs sont plus longs et le temps augmentera.
+      - Si chaque session de visionnage est plus longue, le temps global regardé sera plus long.
+    - Adresser l’outcome produit “Augmenter les minutes regardées par semaine” permet d’adresser l’outcome business “Augmenter le nombre de renouvellement d’abonnement” parce que…
+      - Les gens qui regardent longtemps sont plus enclins à renouveler leur abonnement.
 - La combinaison de ces méthodes permet de trouver les assumptions de chaque catégorie. Mais à force, si on devient suffisamment fort, on ne sera plus obligé de les utiliser toutes.
-- Souvent, les équipes ont des points faibles, qu’ils peuvent combler par une ou deux techniques. Par exemple remonter l’OST pour les viability assumptions, utiliser les questions à se poser pour les ethical assumptions etc.
-- Pour prioriser nos assumptions à tester, on va utiliser l’assumption mapping.
-- Il s’agit de trouver les assumptions les plus risquées, celles qui impliquent un “acte de foi” (leap of faith).
-- On va placer les assumptions sur un graphique avec en abscisse le niveau de preuves qu’on a sur le fait que notre assumption est vraie, et en ordonnée l’importance de l’assumption pour la réussite de notre solution.
-- Toutes les assumptions sont certes importantes, mais certaines sont plus problématiques à contourner si jamais elles se révèlent fausses.
-- Il n’y a pas besoin d’être précis, tout ce qui compte c’est de placer les assumptions dans le graphique relativement aux autres assumptions.
-- Il s’agira ensuite de récolter les assumptions “leap of faith” en haut à droite de notre graphique, de le faire pour les 3 idées et de tester chacune de celles-ci.
+  - Souvent, les équipes ont des points faibles, qu’ils peuvent combler par une ou deux techniques. Par exemple remonter l’OST pour les viability assumptions, utiliser les questions à se poser pour les ethical assumptions etc.
+- Pour prioriser nos assumptions à tester, on va utiliser l’**assumption mapping**.
+  - Il s’agit de trouver les assumptions les plus risquées, celles qui impliquent un “acte de foi” (leap of faith).
+  - On va placer les assumptions sur un graphique avec en abscisse le niveau de preuves qu’on a sur le fait que notre assumption est vraie, et en ordonnée l’importance de l’assumption pour la réussite de notre solution.
+    - Toutes les assumptions sont certes importantes, mais certaines sont plus problématiques à contourner si jamais elles se révèlent fausses.
+    - Il n’y a pas besoin d’être précis, tout ce qui compte c’est de **placer les assumptions dans le graphique relativement aux autres assumptions.**
+  - Il s’agira ensuite de récolter les assumptions “leap of faith” en haut à droite de notre graphique, de le faire pour les 3 idées et de tester chacune de celles-ci.
 - Quelques anti-patterns à éviter :
-- Ne pas générer assez d’assumptions : Teresa en génère en général 20/30 par idée. On n’aura pas à toutes les tester, mais si n’en génère pas beaucoup on ne trouvera pas non plus les plus risquées.
-- Formuler les assumptions de manière négative : on est parfois tenté de formuler une assumption comme “Les clients ne retiendront pas leur mot de passe”, mais cette formulation rendra le test plus difficile. Il vaut mieux formuler ce qui est nécessaire pour que la solution fonctionne (que les clients retiennent leur mot de passe par exemple).
-- Ne pas être assez spécifique : une assumption comme “Les clients auront le temps” n’est pas assez précise, il vaut mieux quelque chose comme “Les clients prendront le temps de parcourir toutes les options de la page de démarrage”.
-- Favoriser certaines catégories au détriment d’autres : si on a par exemple des difficultés de faisabilité, on aura tendance à oublier de tester que la solution est au moins désirable. On oublie aussi souvent les problématiques éthiques etc. Il faut utiliser les catégories pour trouver les angles morts.
+  - **Ne pas générer assez d’assumptions** : Teresa en génère en général 20/30 par idée. On n’aura pas à toutes les tester, mais si n’en génère pas beaucoup on ne trouvera pas non plus les plus risquées.
+  - **Formuler les assumptions de manière négative** : on est parfois tenté de formuler une assumption comme “Les clients ne retiendront pas leur mot de passe”, mais cette formulation rendra le test plus difficile. Il vaut mieux formuler ce qui est nécessaire pour que la solution fonctionne (que les clients retiennent leur mot de passe par exemple).
+  - **Ne pas être assez spécifique **: une assumption comme “Les clients auront le temps” n’est pas assez précise, il vaut mieux quelque chose comme “Les clients prendront le temps de parcourir toutes les options de la page de démarrage”.
+  - **Favoriser certaines catégories au détriment d’autres** : si on a par exemple des difficultés de faisabilité, on aura tendance à oublier de tester que la solution est au moins désirable. On oublie aussi souvent les problématiques éthiques etc. Il faut utiliser les catégories pour trouver les angles morts.
 
 ### 10 - Testing assumptions, not ideas
 
-- Une fois qu’on a notre “leap of faith” d’assumptions pour les 3 idées, il vaut mieux éviter de se précipiter pour les tester.
-- Parfois les tests ne sont pas pensés pour les assumptions visées, mais pour tester l’idée en entier.
-- Parfois on teste sur la mauvaise audience, ou on s’éparpille vers des données intéressantes mais sans rapport avec le problème.
-- Il faut tester les trois idées en même temps. Si on les traite une par une, on risque de céder à nos biais (confirmation et coûts irrécupérables).
-- Pour rendre nos assumptions les plus risqués moins risqués, on va collecter des données sur ce que les clients font vraiment dans un cas spécifique, pas sur ce qu’ils disent qu’ils feraient en général.
-- Il va s’agir de simuler une mise en situation, et de comparer le comportement de l’utilisateur avec celui que notre assumption aurait sous-tendu.
-- Exemple : si on reprend notre exemple de plateforme de streaming, et qu’on veut tester l’assumption “Nos clients veulent regarder du sport”. On va pouvoir simuler la situation en présentant un mockup de la page d’accueil de notre plateforme, et leur demander : “Qu’est-ce que vous aimeriez regarder maintenant ?” en leur proposant plusieurs options.
+- Une fois qu’on a notre “leap of faith” d’assumptions pour les 3 idées, **il vaut mieux éviter de se précipiter pour les tester**.
+  - Parfois les tests ne sont pas pensés pour les assumptions visées, mais pour tester l’idée en entier.
+  - Parfois on teste sur la mauvaise audience, ou on s’éparpille vers des données intéressantes mais sans rapport avec le problème.
+- Il faut **tester les trois idées en même temps**. Si on les traite une par une, on risque de céder à nos biais (confirmation et coûts irrécupérables).
+- Pour rendre nos assumptions les plus risqués moins risqués, on va** collecter des données sur ce que les clients font vraiment dans un cas spécifique**, pas sur ce qu’ils disent qu’ils feraient en général.
+  - Il va s’agir de simuler une mise en situation, et de comparer le comportement de l’utilisateur avec celui que notre assumption aurait sous-tendu.
+  - Exemple : si on reprend notre exemple de plateforme de streaming, et qu’on veut tester l’assumption “Nos clients veulent regarder du sport”. On va pouvoir simuler la situation en présentant un mockup de la page d’accueil de notre plateforme, et leur demander : “Qu’est-ce que vous aimeriez regarder maintenant ?” en leur proposant plusieurs options.
 - On se retrouve souvent avec plusieurs idées qui partagent la même assumption : du coup la traiter permet de traiter plusieurs idées.
-- Il est important de définir à l’avance la condition de succès. Si on ne la définit pas à l’avance, on n’aura pas de résultat actionable, et surtout on va céder à nos biais.
-- Exemple : Pour le test de notre assumption sur les utilisateurs qui veulent regarder du sport, on décide à l’avance que le succès serait d’avoir 4 utilisateurs sur 10 qui choisissent de regarder du sport.
-- Pour ce qui est du chiffre en question,on va le négocier au sein du product trio. A noter qu’il ne s’agit pas de prouver la chose, mais juste de réduire le risque.
-- Il est préférable de commencer par de petits tests pas chers pour avoir un potentiel signal d’échec rapide, plutôt qu’investir beaucoup sur un gros test sans avoir déjà eu un retour.
-- 1 - On choisit l’assumption la plus risquée pour faire un test et la rendre moins risquée ou l’éliminer.
-- 2 - On choisit à nouveau l’assumption la plus risquée. Si la précédente est toujours la plus risquée, alors on fait un test plus important sur elle, sinon on prend une autre plus risquée avec un petit test.
-- 3 - On fait des tests de plus en plus gros sur nos assumptions risquées qui ont survécu jusqu’à ce qu’implémenter l’idée dans notre application soit moins cher que le test.
-- Avec de petits échantillons on risque d’avoir des faux positifs ou des faux négatifs, mais ce n’est pas très grave.
-- Pour alléger ce risque, on peut tenter de diversifier les personnes interviewées, en particulier sur des critères en rapport avec l’assumption testée.
-- Si on tombe sur un faux négatif (l’assumption est invalidée alors qu’elle était bonne), on pourra toujours se rattraper sur l’assumption suivante. Au pire on se retrouvera avec un petit redesign ou une idée abandonnée. Mais des idées il y en a des milliers.
-- C’est pareil en cas de faux positif (l’assumption est validée alors qu’elle était fausse), on s’en rendra compte au test de assumption suivante, ou au test plus important de cette même assumption qui sera probablement en contradiction avec notre faux positif.
-- Comparé à ce que fait la science : on utilise ici une méthode proche de la méthode scientifique, mais notre but est d’aller bien plus vite. On réduit simplement le risque plutôt que de rechercher la Vérité.
+- Il est important de **définir à l’avance la condition de succès**. Si on ne la définit pas à l’avance, on n’aura pas de résultat actionable, et surtout on va céder à nos biais.
+  - Exemple : Pour le test de notre assumption sur les utilisateurs qui veulent regarder du sport, on décide à l’avance que le succès serait d’avoir 4 utilisateurs sur 10 qui choisissent de regarder du sport.
+  - Pour ce qui est du chiffre en question,on va le négocier au sein du product trio. A noter qu’il ne s’agit pas de prouver la chose, mais juste de réduire le risque.
+- Il est préférable de commencer par de **petits tests pas chers** pour avoir un potentiel signal d’échec rapide, plutôt qu’investir beaucoup sur un gros test sans avoir déjà eu un retour.
+  - 1 - On choisit l’assumption la plus risquée pour faire un test et la rendre moins risquée ou l’éliminer.
+  - 2 - On choisit à nouveau l’assumption la plus risquée. Si la précédente est toujours la plus risquée, alors on fait un test plus important sur elle, sinon on prend une autre plus risquée avec un petit test.
+  - 3 - On fait des tests de plus en plus gros sur nos assumptions risquées qui ont survécu jusqu’à ce qu’implémenter l’idée dans notre application soit moins cher que le test.
+  - Avec de petits échantillons on risque d’avoir des faux positifs ou des faux négatifs, mais **ce n’est pas très grave**.
+    - Pour alléger ce risque, on peut tenter de **diversifier les personnes interviewées**, en particulier sur des critères en rapport avec l’assumption testée.
+    - Si on tombe sur un faux négatif (l’assumption est invalidée alors qu’elle était bonne), on pourra toujours se rattraper sur l’assumption suivante. Au pire on se retrouvera avec un petit redesign ou une idée abandonnée. Mais des idées il y en a des milliers.
+    - C’est pareil en cas de faux positif (l’assumption est validée alors qu’elle était fausse), on s’en rendra compte au test de assumption suivante, ou au test plus important de cette même assumption qui sera probablement en contradiction avec notre faux positif.
+  - Comparé à ce que fait la science : on utilise ici une méthode proche de la méthode scientifique, mais notre but est d’aller bien plus vite. On réduit simplement le risque plutôt que de rechercher la Vérité.
 - Selon Marty Cagan, les meilleures équipes font 15 à 20 itérations de discovery par semaine (qu'est-ce qu’elle veut dire par “itération de discovery” ?).
 - Pour être efficaces il y a deux outils pour tester rapidement les assumptions :
-- 1 - Le user-testing non modéré (unmoderated user-testing) : on a un outil qui nous permet de créer un prototype, et d’ajouter des tâches à faire ou des questions. On envoie ça à des utilisateurs qui pourront le remplir quand ils auront le temps. Et on n’aura plus qu’à visionner les vidéos de ce qu’ils ont fait.
-- Ces outils (elle ne donne pas d’exemples) sont des game-changers : ils permettent de faire en un jour ou deux ce qu’on mettait plusieurs semaines à faire en terme de test d’assumptions.
-- 2 - Le sondage à question unique (one question survey) : on crée un formulaire avec une seule question, et on l’envoie à nos clients.
-- Ça peut être utile par exemple pour trianguler un test d’assumption qu’on aurait déjà fait avec le user-testing non modéré, en posant la question d’une autre manière.
-- Ça peut être pour tester les préférences des utilisateurs : “Veuillez sélectionner vos sports préférés parmi la liste”.
-- Les mêmes règles d’assumption testing s’appliquent à ces outils : on simule des instances spécifiques pour mettre la personne en situation ou aller chercher un comportement passé précis. Et on ne demande pas ce qu’elle fait en général ou ce qu’elle fera dans le futur.
-- On a aussi parfois les données qu’on cherche déjà dans nos bases de données.
-- Par exemple : le nombre de fois où les sports ont été recherchés par les utilisateurs.
-- Attention là aussi à définir à l’avance le nombre qui constituerait un critère de succès du test.
+  - 1 - Le **user-testing non modéré** (unmoderated user-testing) : on a un outil qui nous permet de créer un prototype, et d’ajouter des tâches à faire ou des questions. On envoie ça à des utilisateurs qui pourront le remplir quand ils auront le temps. Et on n’aura plus qu’à visionner les vidéos de ce qu’ils ont fait.
+    - Ces outils (elle ne donne pas d’exemples) sont des game-changers : ils permettent de faire en un jour ou deux ce qu’on mettait plusieurs semaines à faire en terme de test d’assumptions.
+  - 2 - Le **sondage à question unique** (one question survey) : on crée un formulaire avec une seule question, et on l’envoie à nos clients.
+    - Ça peut être utile par exemple pour trianguler un test d’assumption qu’on aurait déjà fait avec le user-testing non modéré, en posant la question d’une autre manière.
+    - Ça peut être pour tester les préférences des utilisateurs : “Veuillez sélectionner vos sports préférés parmi la liste”.
+  - Les mêmes règles d’assumption testing s’appliquent à ces outils : on simule des instances spécifiques pour mettre la personne en situation ou aller chercher un comportement passé précis. Et on ne demande pas ce qu’elle fait en général ou ce qu’elle fera dans le futur.
+- On a aussi parfois les données qu’on cherche déjà **dans nos bases de données**.
+  - Par exemple : le nombre de fois où les sports ont été recherchés par les utilisateurs.
+  - Attention là aussi à définir à l’avance le nombre qui constituerait un critère de succès du test.
 - Pour aller plus loin sur les types de tests à mettre en place elle conseille deux livres :
-- UX for Lean Startups de Laura Klein.
-- Testing business ideas de David Bland.
+  - **_UX for Lean Startups_** de Laura Klein.
+  - **_Testing business ideas_** de David Bland.
 - Quelques anti-patterns à éviter :
-- Des simulations trop complexes : le but est d’aller vite pour pouvoir itérer dans la bonne direction. Nos tests devraient être complétés en un jour ou deux, ou une semaine max.
-- Utiliser des pourcentages au lieu des nombres bruts pour les critères de succès : définir les nombres (total et de succès) permet de garder en tête la fiabilité au cours des différents tests plus ou moins importants.
-- Ne pas définir suffisamment de critères d’évaluation : il faut au moins le nombre total de personnes à interroger, et le nombre total de succès. Mais parfois si notre test est plus complexe, il peut y avoir plusieurs valeurs à mesurer au total et de succès.
-- Par exemple, si on envoie des emails, on peut mesurer ceux qui ouvrent, ceux qui cliquent sur notre lien etc.
-- Tester avec les mauvais utilisateurs : bien s’assurer que les personnes interviewées ont bien les besoins, pain points ou désirs de l’opportunity visée.
-- Concevoir les tests avec un scénario plus difficile que le plus basique : il faut que notre scénario soit celui qui a le plus de chances de marcher, et on le challengera par la suite avec plus de monde et des cas plus complexes.Ca permet d’accorder une vraie valeur à un cas d’échec, plutôt que de se dire que ça aurait pu marcher avec d’autres personnes ou fait autrement.
+  - **Des simulations trop complexes** : le but est d’aller vite pour pouvoir itérer dans la bonne direction. Nos tests devraient être complétés en un jour ou deux, ou une semaine max.
+  - **Utiliser des pourcentages au lieu des nombres bruts pour les critères de succès** : définir les nombres (total et de succès) permet de garder en tête la fiabilité au cours des différents tests plus ou moins importants.
+  - **Ne pas définir suffisamment de critères d’évaluation** : il faut au moins le nombre total de personnes à interroger, et le nombre total de succès. Mais parfois si notre test est plus complexe, il peut y avoir plusieurs valeurs à mesurer au total et de succès.
+    - Par exemple, si on envoie des emails, on peut mesurer ceux qui ouvrent, ceux qui cliquent sur notre lien etc.
+  - **Tester avec les mauvais utilisateurs** : bien s’assurer que les personnes interviewées ont bien les besoins, pain points ou désirs de l’opportunity visée.
+  - **Concevoir les tests avec un scénario plus difficile que le plus basique** : il faut que notre scénario soit celui qui a le plus de chances de marcher, et on le challengera par la suite avec plus de monde et des cas plus complexes.Ca permet d’accorder une vraie valeur à un cas d’échec, plutôt que de se dire que ça aurait pu marcher avec d’autres personnes ou fait autrement.
 
 ### 11 - Measuring impact
 
-- Il ne faut pas essayer de tout mesurer dès le début.
-- On peut passer des semaines à perdre du temps à essayer de tout planifier, choisir le nom des events qu’on track etc. pour se rendre compte que ce n’était pas ce qu’on croyait.
-- Il faut commencer par mesurer ce dont on a besoin pour valider nos assumption tests, et pas au-delà.
-- Exemple : Teresa était dans une université, sur un système permettant d’aider les étudiants à trouver un job.
-- Son équipe avait remarqué qu’on posait les mauvaises questions aux étudiants sur l’application, et qu’à cause de ça ils ne s’engageaient pas sur la plateforme.
-- Ils ont créé un prototype d’une version alternative, et l’ont utilisé pour tester des assumptions :
-- Les étudiants feront plus de recherches si on leur pose des questions plus simples.
-- Les étudiants verront plus de jobs recommandés.
-- Les étudiants postuleront à plus de jobs recommandés.
-- Pour tester ces assumptions, les critères d’évaluation étaient :
-- 250 visiteurs sur 500 utiliseront l’interface.
-- 63 étudiants sur 500 verront un job recommandé.
-- 7 étudiants sur 500 postuleront à un job recommandé.
-- Et pour mesurer ça, ils ont collecté :
-- \# de personnes qui ont visité la page de recherche
-- \# de personnes qui ont fait une recherche
-- \# de personnes qui ont vu au moins un job
-- \# de personnes qui ont postulé à au moins un job
-- Ils n’ont pas commencé par mesurer tous les clics mais bien seulement les actions pour valider leurs tests.
-- On peut mesurer le nombre total d’actions, ou le nombre de personnes faisant l’action au moins une fois.
-- Pour choisir l’un ou l’autre, on peut se demander si une même personne effectue l’action plusieurs fois, est-ce que ça apporte plus de valeur vis-à-vis de ce qu’on recherche.
-- Il faut aussi mesurer l’impact sur l’outcome, même si c’est difficile, et ne pas se contenter de leading indicators.
-- Si on reprend l’exemple de l’université, les mesures faites représentaient des leading indicators de l’outcome (nombre d’étudiants postulant à un job via la plateforme), mais ne mesuraient pas l’outcome qui était : “Les étudiants trouvent un job via la plateforme”.
-- L’outcome lui-même était hors de leur contrôle du fait que l’obtention du job se passait hors de la plateforme.
-- Ils l’ont mesuré quand même au travers d’un questionnaire envoyé aux étudiants quelques temps après leur process. Ils ont itéré dessus pour augmenter le nombre de réponses.
+- **Il ne faut pas essayer de tout mesurer dès le début**.
+  - On peut passer des semaines à perdre du temps à essayer de tout planifier, choisir le nom des events qu’on track etc. pour se rendre compte que ce n’était pas ce qu’on croyait.
+- Il faut commencer par **mesurer ce dont on a besoin pour valider nos assumption tests**, et pas au-delà.
+  - Exemple : Teresa était dans une université, sur un système permettant d’aider les étudiants à trouver un job.
+    - Son équipe avait remarqué qu’on posait les mauvaises questions aux étudiants sur l’application, et qu’à cause de ça ils ne s’engageaient pas sur la plateforme.
+    - Ils ont créé un prototype d’une version alternative, et l’ont utilisé pour tester des assumptions :
+      - Les étudiants feront plus de recherches si on leur pose des questions plus simples.
+      - Les étudiants verront plus de jobs recommandés.
+      - Les étudiants postuleront à plus de jobs recommandés.
+    - Pour tester ces assumptions, les critères d’évaluation étaient :
+      - 250 visiteurs sur 500 utiliseront l’interface.
+      - 63 étudiants sur 500 verront un job recommandé.
+      - 7 étudiants sur 500 postuleront à un job recommandé.
+    - Et pour mesurer ça, ils ont collecté :
+      - \# de personnes qui ont visité la page de recherche
+      - \# de personnes qui ont fait une recherche
+      - \# de personnes qui ont vu au moins un job
+      - \# de personnes qui ont postulé à au moins un job
+    - Ils n’ont pas commencé par mesurer tous les clics mais bien seulement les actions pour valider leurs tests.
+- On peut mesurer **le nombre total d’actions, ou le nombre de personnes faisant l’action au moins une fois**.
+  - Pour choisir l’un ou l’autre, on peut se demander si une même personne effectue l’action plusieurs fois, est-ce que ça apporte plus de valeur vis-à-vis de ce qu’on recherche.
+- Il faut aussi **mesurer l’impact sur l’outcome, même si c’est difficile**, et ne pas se contenter de leading indicators.
+  - Si on reprend l’exemple de l’université, les mesures faites représentaient des leading indicators de l’outcome (nombre d’étudiants postulant à un job via la plateforme), mais ne mesuraient pas l’outcome qui était : “Les étudiants trouvent un job via la plateforme”.
+    - L’outcome lui-même était hors de leur contrôle du fait que l’obtention du job se passait hors de la plateforme.
+    - Ils l’ont mesuré quand même au travers d’un questionnaire envoyé aux étudiants quelques temps après leur process. Ils ont itéré dessus pour augmenter le nombre de réponses.
 - Quelques anti-patterns à éviter :
-- Rester coincé en essayant de tout mesurer : le problème le plus fréquent est de penser qu’on peut connaître à l’avance ses besoins produit à mesurer.
-- Il vaut mieux mesurer seulement les assumption tests du moment, puis leur lien avec le product outcome, et avec le temps le lien avec le business outcome.
-- Se concentrer à fond sur les assumption tests et en oublier de remonter dans l’OST : il ne faut pas oublier de remonter vers l’outcome produit, puis business pour bien vérifier qu’on apporte de la valeur d’une manière qui sera durable.
+  - **Rester coincé en essayant de tout mesurer** : le problème le plus fréquent est de penser qu’on peut connaître à l’avance ses besoins produit à mesurer.
+    - Il vaut mieux mesurer seulement les assumption tests du moment, puis leur lien avec le product outcome, et avec le temps le lien avec le business outcome.
+  - **Se concentrer à fond sur les assumption tests et en oublier de remonter dans l’OST** : il ne faut pas oublier de remonter vers l’outcome produit, puis business pour bien vérifier qu’on apporte de la valeur d’une manière qui sera durable.
 
 ### 12 - Managing the cycles
 
-- Ce chapitre présente de vrais exemples pour illustrer le fait que le processus de discovery n’est pas linéaire. Il faut prendre en compte les résultats pour soit continuer, soit revenir à une autre étape pour changer quelque chose.
+- Ce chapitre présente de vrais exemples pour illustrer le fait que **le processus de discovery n’est pas linéaire**. Il faut prendre en compte les résultats pour soit continuer, soit revenir à une autre étape pour changer quelque chose.
 - 1 - Simply Business est une compagnie d'assurance.
-- L’équipe produit reçoit régulièrement un pain point de la part de leurs clients : les retards de paiements. Elle confirme aussi ça avec une étude de marché.
-- Elle imagine 3 solutions pour aider les clients : des articles pour conseiller les petites entreprises, des rabais pour les payeurs rapides de leurs clients, et une solution technique de collection des paiements.
-- En une semaine ils ont fait 3 assumption tests pour chaque solution, et les ont proposé sous forme d’unmoderated tests. Les premiers tests cherchaient à savoir si les utilisateurs avaient bien compris les différentes offres.
-- Les résultats tombent très vite : les utilisateurs n’étaient en fait pas intéressés, parce qu’ils pensaient qu’être sortis de la boucle serait dommageable pour leur business. Ils ont le problème, mais ne veulent pas de l’aide de Simply Business sur ça.
-- L’équipe produit a donc choisi de déprioriser cette opportunity, et d’en choisir une autre dans leur OST, puis d’utiliser leurs interviews suivantes pour rebondir rapidement sur une autre sujet.
-- Conclusion : ils ont gagné du temps en évitant de créer une feature sur un mauvais sujet.
+  - L’équipe produit reçoit régulièrement un pain point de la part de leurs clients : les retards de paiements. Elle confirme aussi ça avec une étude de marché.
+  - Elle imagine 3 solutions pour aider les clients : des articles pour conseiller les petites entreprises, des rabais pour les payeurs rapides de leurs clients, et une solution technique de collection des paiements.
+  - En une semaine ils ont fait 3 assumption tests pour chaque solution, et les ont proposé sous forme d’unmoderated tests. Les premiers tests cherchaient à savoir si les utilisateurs avaient bien compris les différentes offres.
+  - Les résultats tombent très vite : les utilisateurs n’étaient en fait pas intéressés, parce qu’ils pensaient qu’être sortis de la boucle serait dommageable pour leur business. Ils ont le problème, mais ne veulent pas de l’aide de Simply Business sur ça.
+  - L’équipe produit a donc choisi de déprioriser cette opportunity, et d’en choisir une autre dans leur OST, puis d’utiliser leurs interviews suivantes pour rebondir rapidement sur une autre sujet.
+  - **Conclusion : ils ont gagné du temps en évitant de créer une feature sur un mauvais sujet.**
 - 2 - CarMax reconditionne et revend des voitures.
-- L’équipe produit repère une opportunity : “Je veux être confiant sur l’état de la voiture”.
-- Elle teste d’abord que des réparations cosmétiques sont vraiment importantes pour le client avec un assumption test présentant une voiture avec un défaut cosmétique moins cher, et une voiture sans le défaut mais plus chère. Le test est concluant.
-- Il y a 2 types de solutions possibles :
-- Celles qui vont être spécifiques à chaque voiture, où il faudra indiquer ce qui a été réparé par CarMax. Celles-ci sont difficiles à mettre en œuvre et impliqueront plusieurs équipes.
-- Et puis il y a la solution de type “quick win” où il s’agira de communiquer sur la qualité générale de l’entreprise, et son attention portée au détail.
-- Ils ont décidé de tenter la solution quick win, et ont mené des assumption tests avec des communications sur certaines photos bien placées.
-- Malheureusement leurs seuils n’ont pas été atteints, parce que les clients voulaient absolument des éléments spécifiques à la voiture qui les intéresse.
-- Ils ont donc choisi de remettre l’opportunity à plus tard parce qu’elle prendrait du temps. En attendant, ils ont lancé l’idée auprès des autres équipes, et sont repartis sur autre chose.
-- Et justement ils ont fini par la mettre en place plus tard.
-- Conclusion : il faut parfois explorer des solutions, et les repousser à plus tard où elles seront plus pertinentes.
+  - L’équipe produit repère une opportunity : “Je veux être confiant sur l’état de la voiture”.
+  - Elle teste d’abord que des réparations cosmétiques sont vraiment importantes pour le client avec un assumption test présentant une voiture avec un défaut cosmétique moins cher, et une voiture sans le défaut mais plus chère. Le test est concluant.
+  - Il y a 2 types de solutions possibles :
+    - Celles qui vont être spécifiques à chaque voiture, où il faudra indiquer ce qui a été réparé par CarMax. Celles-ci sont difficiles à mettre en œuvre et impliqueront plusieurs équipes.
+    - Et puis il y a la solution de type “quick win” où il s’agira de communiquer sur la qualité générale de l’entreprise, et son attention portée au détail.
+  - Ils ont décidé de tenter la solution quick win, et ont mené des assumption tests avec des communications sur certaines photos bien placées.
+  - Malheureusement leurs seuils n’ont pas été atteints, parce que les clients voulaient absolument des éléments spécifiques à la voiture qui les intéresse.
+  - Ils ont donc choisi de remettre l’opportunity à plus tard parce qu’elle prendrait du temps. En attendant, ils ont lancé l’idée auprès des autres équipes, et sont repartis sur autre chose.
+  - Et justement ils ont fini par la mettre en place plus tard.
+  - **Conclusion : il faut parfois explorer des solutions, et les repousser à plus tard où elles seront plus pertinentes.**
 - 3 - FCSAmerica prête de l’argent à des agriculteurs.
-- L’équipe produit s’est intéressée à la possibilité de digitaliser certaines actions, mais ils avait aussi noté que les clients aimaient la relation de confiance avec de vraies personnes de l’entreprise.
-- Ils ont investigué et on trouvé que les clients cherchaient déjà en ligne pour savoir combien ils pouvaient emprunter.
-- Ils ont donc choisi de digitaliser ce service. Et pour ajouter la touche humaine, ils y ont ajouté un chat interactif.
-- Malgré toutes les tentatives pour le rendre attractif, les clients fermaient systématiquement le chat. La conclusion a été que les clients ne voulaient pas de contact humain à ce moment-là, mais seulement plus tard.
-- Conclusion : on peut parfois se baser sur ce que les clients font déjà, pour les pousser plus loin et les faire aller dans une direction qui sert les besoins business.
+  - L’équipe produit s’est intéressée à la possibilité de digitaliser certaines actions, mais ils avait aussi noté que les clients aimaient la relation de confiance avec de vraies personnes de l’entreprise.
+  - Ils ont investigué et on trouvé que les clients cherchaient déjà en ligne pour savoir combien ils pouvaient emprunter.
+  - Ils ont donc choisi de digitaliser ce service. Et pour ajouter la touche humaine, ils y ont ajouté un chat interactif.
+  - Malgré toutes les tentatives pour le rendre attractif, les clients fermaient systématiquement le chat. La conclusion a été que les clients ne voulaient pas de contact humain à ce moment-là, mais seulement plus tard.
+  - **Conclusion : on peut parfois se baser sur ce que les clients font déjà, pour les pousser plus loin et les faire aller dans une direction qui sert les besoins business.**
 - 4 - Snagajob permet aux chômeurs de trouver un emploi.
-- Pour améliorer la satisfaction des clients, l’équipe produit s’est attaquée à un pain point côté employeurs : “Les candidats ne répondent pas aux appels”.
-- Ils ont commencé par aller les voir, et les conseiller gratuitement pour suivre ce qu’ils faisaient pendant un mois.
-- Le premier problème constaté était que les candidats avaient changé, et utilisaient beaucoup le mobile avec les textos, et très peu les appels vocaux.
-- La solution ne pouvant pas être d’utiliser des textos côté employeurs parce qu’ils ne voulaient pas, ils ont créé un service accessible via mobile pour les candidats.
-- Puis ils ont découvert un problème de lenteur pour réserver un rendez-vous avec beaucoup de va-et-vient. Ils ont alors développé une solution pour améliorer ça.
-- Ils ont alors découvert que les candidats ne se présentaient parfois pas etc. A chaque fois ils ont amélioré la solution en allant d’opportunity en opportunity.
-- Conclusion : adresser des opportunities et sub-opportunities permet de petit à petit résoudre un outcome.
+  - Pour améliorer la satisfaction des clients, l’équipe produit s’est attaquée à un pain point côté employeurs : “Les candidats ne répondent pas aux appels”.
+  - Ils ont commencé par aller les voir, et les conseiller gratuitement pour suivre ce qu’ils faisaient pendant un mois.
+  - Le premier problème constaté était que les candidats avaient changé, et utilisaient beaucoup le mobile avec les textos, et très peu les appels vocaux.
+  - La solution ne pouvant pas être d’utiliser des textos côté employeurs parce qu’ils ne voulaient pas, ils ont créé un service accessible via mobile pour les candidats.
+  - Puis ils ont découvert un problème de lenteur pour réserver un rendez-vous avec beaucoup de va-et-vient. Ils ont alors développé une solution pour améliorer ça.
+  - Ils ont alors découvert que les candidats ne se présentaient parfois pas etc. A chaque fois ils ont amélioré la solution en allant d’opportunity en opportunity.
+  - **Conclusion : adresser des opportunities et sub-opportunities permet de petit à petit résoudre un outcome.**
 - Quelques anti-patterns à éviter :
-- Trop s’engager sur une opportunity : les histoires de Simply Business et CarMax montrent qu’il faut savoir accepter qu’une opportunity peut être intéressante mais pas pour notre contexte, ou pas pour tout de suite.
-- Éviter les opportunities difficiles : les quick wins sont bien sûr intéressants, mais une fois qu’on les a réalisés il ne faut pas rejeter les opportunities difficiles à traiter qui peuvent apporter beaucoup. Dans l’histoire de CarMax, ils ont certes laissé l’opportunity pour plus tard, mais ils ont quand même lancé l’idée pour qu’elle fasse son chemin, et ont fini par la traiter.
-- Tirer des conclusions à partir d’éléments superficiels : dans le cas de FCSAmerica ils auraient pu abandonner l’opportunity de digitalisation de par l’information que les gens préféraient le contact humain pour la confiance. Mais ils ont trouvé un moyen de concilier le besoin business avec les besoins des clients en cherchant un peu.
-- Abandonner avant que les petits changements aient pu porter leurs fruits : dans l’histoire de Snagajob ils ont dû régler plusieurs petites opportunities avant d’entrevoir l’amélioration itérativement.
+  - **Trop s’engager sur une opportunity** : les histoires de Simply Business et CarMax montrent qu’il faut savoir accepter qu’une opportunity peut être intéressante mais pas pour notre contexte, ou pas pour tout de suite.
+  - **Éviter les opportunities difficiles** : les quick wins sont bien sûr intéressants, mais une fois qu’on les a réalisés il ne faut pas rejeter les opportunities difficiles à traiter qui peuvent apporter beaucoup. Dans l’histoire de CarMax, ils ont certes laissé l’opportunity pour plus tard, mais ils ont quand même lancé l’idée pour qu’elle fasse son chemin, et ont fini par la traiter.
+  - **Tirer des conclusions à partir d’éléments superficiels** : dans le cas de FCSAmerica ils auraient pu abandonner l’opportunity de digitalisation de par l’information que les gens préféraient le contact humain pour la confiance. Mais ils ont trouvé un moyen de concilier le besoin business avec les besoins des clients en cherchant un peu.
+  - **Abandonner avant que les petits changements aient pu porter leurs fruits** : dans l’histoire de Snagajob ils ont dû régler plusieurs petites opportunities avant d’entrevoir l’amélioration itérativement.
 
 ### 13 - Show your work
 
-- Même en faisant une excellente discovery, si on n’a pas le reste de l’entreprise et en en particulier les décideurs avec soi, nos idées ne seront pas mises en place. Il faut donc les convaincre.
-- Quand on présente notre travail, il ne faut pas aller directement à la conclusion et donc aux solutions, mais plutôt insister sur les opportunities.
-- Tout le monde a des solutions pré-établies en tête, et les leaders aussi. Si on amène la discussion sur le terrain des solutions, on va entrer en confrontation avec celles du leader. Or c’est lui qui a le pouvoir et qui aura donc le dernier mot, même s’il n’a pas fait le travail de discovery.
-- Il y a même un dicton chez les PM : “The HiPPO always wins” (HiPPO = Highest Paid Person’s Opinions).
-- Il faut présenter le cheminement qu’on a suivi en s’appuyant sur l’OST, et en prenant le temps de le faire.
-- L’intérêt de faire ça c’est qu’on va rendre les personnes comme actrices du processus de discovery, et donc plus enclines à accepter les choix qui en découlent.
-- D’abord présenter l’outcome, puis donner des éléments de contexte au travers des opportunities.
-- Il faut bien mentionner les choix importants qu’on a pu faire au cours de la discovery et pourquoi. On peut leur présenter certains interview snapshots pour appuyer ce qu'on dit.
-- Il ne faut pas oublier de prendre des feedbacks de la part de nos interlocuteurs à chaque étape, pour les intégrer à notre travail.
-- Une fois le contexte posé on peut présenter les solutions et les assumption tests, en prenant toujours les feedbacks.
+- Même en faisant une excellente discovery, si on n’a pas le reste de l’entreprise et en en particulier les décideurs avec soi, nos idées ne seront pas mises en place. **Il faut donc les convaincre**.
+- Quand on présente notre travail, **il ne faut pas aller directement à la conclusion et donc aux solutions**, mais plutôt insister sur les opportunities.
+  - Tout le monde a des solutions pré-établies en tête, et les leaders aussi. Si on amène la discussion sur le terrain des solutions, on va entrer en confrontation avec celles du leader. Or c’est lui qui a le pouvoir et qui aura donc le dernier mot, même s’il n’a pas fait le travail de discovery.
+  - Il y a même un dicton chez les PM : “The HiPPO always wins” (HiPPO = Highest Paid Person’s Opinions).
+- Il faut **présenter le cheminement qu’on a suivi** en s’appuyant sur l’OST, et en prenant le temps de le faire.
+  - L’intérêt de faire ça c’est qu’on va rendre les personnes comme actrices du processus de discovery, et donc plus enclines à accepter les choix qui en découlent.
+  - D’abord présenter l’outcome, puis donner des éléments de contexte au travers des opportunities.
+  - Il faut bien mentionner les choix importants qu’on a pu faire au cours de la discovery et pourquoi. On peut leur présenter certains interview snapshots pour appuyer ce qu'on dit.
+  - Il ne faut pas oublier de prendre des feedbacks de la part de nos interlocuteurs à chaque étape, pour les intégrer à notre travail.
+  - Une fois le contexte posé on peut présenter les solutions et les assumption tests, en prenant toujours les feedbacks.
 - Quelques anti-patterns à éviter :
-- Dire les conclusions au lieu de montrer le cheminement.
-- Surcharger les stakeholders avec trop de détails : ne pas aller directement aux conclusions ne veut pas dire détailler l’analyse de chaque interview snapshot et le résultat de chaque discussion en interne.
-- En fonction de qui il s’agit, la personne peut vouloir plus ou moins de détails : notre manager voudra sans doute des détails chaque semaine, alors que le CEO voudra quelque chose de très concis
-- Attention cependant : concis ne veut pas dire parler des conclusions plutôt que des opportunities. On peut être concis en mentionnant le cheminement de la discovery avec seulement les éléments les plus déterminants qui nous ont mené à nos conclusions.
-- Argumenter avec les stakeholders sur pourquoi leurs idées ne peuvent pas fonctionner : même si l’idée est mauvaise au regard des éléments de discovery, il faut donner des éléments au stakeholder pour qu’il parvienne à cette conclusion par lui-même, plutôt que lui dire et risquer de le braquer.
-- Si son idée est bonne mais ne fit pas avec l’outcome, il faut le guider dans l’OST et lui dire qu’on peut la considérer, mais plutôt pour un autre outcome.
-- Essayer de gagner le “combat idéologique” au lieu de nous concentrer sur les décisions qui dépendent de nous : quelle que soit la qualité de notre discovery, si une personne plus haut placée que nous veut prendre une décision qui va contre nos conclusions, nous ne pourrons pas gagner contre elle.
-- Si on se retrouve à dire “C’est la manière dont c’est censé être fait”, alors il faut prendre une inspiration et aller faire un tour.
-- La seule chose qu’on puisse faire c’est donner les clés de compréhension pour que la personne arrive à nos conclusions par elle-même. Si elle a des conclusions différentes malgré tout, on ne gagnera de toute façon pas contre elle. Teresa conseille de choisir ses combats, et de choisir plutôt ceux qu’on peut faire avancer.
+  - **Dire les conclusions au lieu de montrer** **le cheminement**.
+  - **Surcharger les stakeholders avec trop de détails** : ne pas aller directement aux conclusions ne veut pas dire détailler l’analyse de chaque interview snapshot et le résultat de chaque discussion en interne.
+    - En fonction de qui il s’agit, la personne peut vouloir plus ou moins de détails : notre manager voudra sans doute des détails chaque semaine, alors que le CEO voudra quelque chose de très concis
+    - Attention cependant : concis ne veut pas dire parler des conclusions plutôt que des opportunities. On peut être concis en mentionnant le cheminement de la discovery avec seulement **les éléments les plus déterminants qui nous ont mené à nos conclusions**.
+  - **Argumenter avec les stakeholders sur pourquoi leurs idées ne peuvent pas fonctionner** : même si l’idée est mauvaise au regard des éléments de discovery, il faut donner des éléments au stakeholder pour qu’il parvienne à cette conclusion **par lui-même**, plutôt que lui dire et risquer de le braquer.
+    - Si son idée est bonne mais ne fit pas avec l’outcome, il faut le guider dans l’OST et lui dire qu’on peut la considérer, mais plutôt pour un autre outcome.
+  - **Essayer de gagner le “combat idéologique” au lieu de nous concentrer sur les décisions qui dépendent de nous** : quelle que soit la qualité de notre discovery, si une personne plus haut placée que nous veut prendre une décision qui va contre nos conclusions, nous ne pourrons pas gagner contre elle.
+    - Si on se retrouve à dire “C’est la manière dont c’est censé être fait”, alors il faut prendre une inspiration et aller faire un tour.
+    - La seule chose qu’on puisse faire c’est donner les clés de compréhension pour que la personne arrive à nos conclusions par elle-même. Si elle a des conclusions différentes malgré tout, on ne gagnera de toute façon pas contre elle. Teresa conseille de choisir ses combats, et de choisir plutôt ceux qu’on peut faire avancer.
 
 ## Part III - Developing your continuous discovery habits
 
 ### 14 - Start small, and iterate
 
 - Durant toute sa carrière, Teresa a pu être confrontée à des environnements qui ne pratiquaient pas la discovery moderne, où il s’agissait de créer des produits puis de les présenter aux clients.
-- Sa méthode qui a toujours marché a été de faire les choses bien de son côté, sans se préoccuper du fonctionnement global de l’entreprise qui ne dépendait pas d’elle.
-- La chose la plus importante qu’elle a cherché à faire à chaque fois c’est chercher un contact avec les clients, et le garder tout au long de l’évolution du produit.
+  - Sa méthode qui a toujours marché a été de **faire les choses bien de son côté**, sans se préoccuper du fonctionnement global de l’entreprise qui ne dépendait pas d’elle.
+  - La chose la plus importante qu’elle a cherché à faire à chaque fois c’est **chercher un contact avec les clients, et le garder tout au long de l’évolution du produit**.
 - Pour mettre en place la méthode de ce livre dans notre entreprise, elle conseille de :
-- 1 - Se constituer un product trio.
-- Les activités décrites dans ce livre sont destinées à être faites en groupe. Si on est PM, il faut trouver un software engineer et un designer qui acceptent de participer aux activités de discovery. Si pas de designer dans l’entreprise, on peut prendre une personne qui a une sensibilité sur le sujet.
-- On peut commencer petit en les incluant dans certaines activités et décisions, et itérer en allant de plus en plus loin.
-- 2 - Commencer à parler aux clients.
-- Une fois qu’on a notre trio, on est prêt pour établir notre keystone habit : le contact hebdomadaire avec les clients. Cette habitude sera la pierre angulaire des autres habitudes de la continuous discovery.
-- Il est souvent difficile d’établir ce contact avec les clients. Soit parce que les sales ou autres veulent en garder l’exclusivité, soit parce que les clients sont difficilement joignables etc. Mais il y a toujours des moyens d’y arriver.
-- 3 - Travailler à l’envers.
-- Dans le cas où on se trouve dans une entreprise orientée delivery uniquement, et où les features à faire sont élaborées par la direction sans discovery, on peut partir des features qu’on nous donne et remonter la chaîne : vers l’opportunity, puis vers l’outcome produit et l’outcome business.
-- Si on parle régulièrement avec les clients, on pourra confirmer les opportunities sous-jacentes, et trouver des assumption tests pour les features. On pourra alors identifier les tests qui peuvent être problématiques.
-- On peut demander aux stakeholders ce qu’ils espèrent comme impact de la feature, et mesurer ça. Si l’impact n’est pas atteint (ce qui, sans discovery, va forcément arriver), on peut revenir vers eux et leur dire qu’on peut faire mieux, en leur proposant de générer des idées avec nous à partir de notre OST.
-- Attention par contre à ne pas jouer les je-sais-tout ou, je-vous-l’avais-dit. Il faut qu’ils se sentent acteurs de cette nouvelle manière de faire, et pas en position défensive.
-- 4 - Utiliser les rétrospectives pour s’améliorer.
-- On peut par exemple utiliser les rétrospectives de Scrum si on applique cette méthode pour y ajouter une partie sur la discovery.
-- On peut se poser la question “Qu’est-ce qu’on a appris qui nous a surpris dans ce sprint ?”, suivi de “Qu’est-ce qu’on aurait pu faire pour le savoir plus tôt ?”.
-- Si on n’a pas eu l’impact espéré, est-ce qu’on a négligé de tester une assumption ? Est-ce qu’on l’avait mal catalogué hors de notre leap of faith ? Est-ce qu’on a eu des problèmes sur la faisabilité et pourquoi ?
+  - **1 - Se constituer un product trio**.
+    - Les activités décrites dans ce livre sont destinées à être faites en groupe. Si on est PM, il faut trouver un software engineer et un designer qui acceptent de participer aux activités de discovery. Si pas de designer dans l’entreprise, on peut prendre une personne qui a une sensibilité sur le sujet.
+    - On peut commencer petit en les incluant dans certaines activités et décisions, et itérer en allant de plus en plus loin.
+  - **2 - Commencer à parler aux clients.**
+    - Une fois qu’on a notre trio, on est prêt pour établir notre _keystone habit_ : le contact hebdomadaire avec les clients. Cette habitude sera la pierre angulaire des autres habitudes de la continuous discovery.
+    - Il est souvent difficile d’établir ce contact avec les clients. Soit parce que les sales ou autres veulent en garder l’exclusivité, soit parce que les clients sont difficilement joignables etc. Mais il y a toujours des moyens d’y arriver.
+  - **3 - Travailler à l’envers.**
+    - Dans le cas où on se trouve dans une entreprise orientée delivery uniquement, et où les features à faire sont élaborées par la direction sans discovery, on peut partir des features qu’on nous donne et remonter la chaîne : vers l’opportunity, puis vers l’outcome produit et l’outcome business.
+    - Si on parle régulièrement avec les clients, on pourra confirmer les opportunities sous-jacentes, et trouver des assumption tests pour les features. On pourra alors identifier les tests qui peuvent être problématiques.
+    - On peut demander aux stakeholders ce qu’ils espèrent comme impact de la feature, et mesurer ça. Si l’impact n’est pas atteint (ce qui, sans discovery, va forcément arriver), on peut revenir vers eux et leur dire qu’on peut faire mieux, en leur proposant de générer des idées avec nous à partir de notre OST.
+    - Attention par contre à ne pas jouer les je-sais-tout ou, je-vous-l’avais-dit. Il faut qu’ils se sentent acteurs de cette nouvelle manière de faire, et pas en position défensive.
+  - **4 - Utiliser les rétrospectives pour s’améliorer.**
+    - On peut par exemple utiliser les rétrospectives de Scrum si on applique cette méthode pour y ajouter une partie sur la discovery.
+    - On peut se poser la question “Qu’est-ce qu’on a appris qui nous a surpris dans ce sprint ?”, suivi de “Qu’est-ce qu’on aurait pu faire pour le savoir plus tôt ?”.
+    - Si on n’a pas eu l’impact espéré, est-ce qu’on a négligé de tester une assumption ? Est-ce qu’on l’avait mal catalogué hors de notre leap of faith ? Est-ce qu’on a eu des problèmes sur la faisabilité et pourquoi ?
 - Quelques anti-patterns à éviter :
-- Se dire que ça ne fonctionnera jamais chez nous : Teresa a vu cette méthode implémentée dans toutes sortes d’entreprises, petites comme grandes. Il vaut mieux se concentrer sur ce qui est en notre pouvoir pour faire marcher la discovery.
-- Être le champion de “la bonne manière” de faire : vouloir appliquer la méthode strictement et d’un coup peut aussi être dommageable. Il faut y aller itérativement et l’adapter à son contexte.
-- Attendre d’avoir la permission au lieu de commencer à faire ce qui est dans nos possibilités : il ne faut pas hésiter à parler aux clients si on en a la possibilité. Ne pas hésiter aussi à parler à des personnes similaires à nos clients dans notre entourage. Tout est bon à prendre pour commencer.
+  - **Se dire que ça ne fonctionnera jamais chez nous** : Teresa a vu cette méthode implémentée dans toutes sortes d’entreprises, petites comme grandes. Il vaut mieux se concentrer sur ce qui est en notre pouvoir pour faire marcher la discovery.
+  - **Être le champion de “la bonne manière” de faire** : vouloir appliquer la méthode strictement et d’un coup peut aussi être dommageable. Il faut y aller itérativement et l’adapter à son contexte.
+  - **Attendre d’avoir la permission au lieu de commencer à faire ce qui est dans nos possibilités** : il ne faut pas hésiter à parler aux clients si on en a la possibilité. Ne pas hésiter aussi à parler à des personnes similaires à nos clients dans notre entourage. Tout est bon à prendre pour commencer.
 
 ### 15 - What’s next
 
 - Teresa propose plusieurs ressources pour aller plus loin :
-- Souscrire à la newsletter mensuelle “Product Talk” : chaque mois il y a un article, soit sur une team qui marche bien, soit sur un sujet particulier de discovery.
-- Rejoindre la communauté “Continuous Discovery Habits” pour interagir avec d’autres personnes intéressées par le sujet.
-- S’inscrire à une Master Class en petit groupe avec Teresa.
-- S’inscrire à un cours d’approfondissement.
-- Embaucher un coach de chez Product Talk (teresa@producttalk.org).
+  - Souscrire à la newsletter mensuelle “Product Talk” : chaque mois il y a un article, soit sur une team qui marche bien, soit sur un sujet particulier de discovery.
+  - Rejoindre la communauté “[Continuous Discovery Habits](http://members.producttalk.org)” pour interagir avec d’autres personnes intéressées par le sujet.
+  - S’inscrire à une Master Class en petit groupe avec Teresa.
+  - S’inscrire à un [cours d’approfondissement](http://learn.producttalk.org).
+  - Embaucher un coach de chez Product Talk ([teresa@producttalk.org](mailto:teresa@producttalk.org)).
