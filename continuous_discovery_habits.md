@@ -42,29 +42,28 @@
     - du choix de l’opportunity pour arriver à l’outcome.
   - Il faut toujours **examiner** **plusieurs opportinuties**, et voir les conséquences de chacune avant de choisir.
 - Teresa propose de structurer la discovery au travers d’un **Opportunity Solution Tree** (OST).
-  _ Il s’agit d’une représentation graphique sous forme d’arbre avec l’outcome en haut, les opportunities possibles en dessous, les solutions possibles associées à chaque opportunity, et les assuption tests qui permettent de valider chaque solution. \
-  `outcome ← opportunity ← solution ← assumption test`
-  _ Ce modèle permet :
-  _ **De résoudre la tension entre les besoins du customer et les besoins business**.
-  _ On choisit l’outcome business et on liste ensuite toutes les opportunities qui permettent d’y parvenir, pour être sûr de satisfaire forcément les deux à la fois.
-  _ **D’aider à construire une connaissance partagée pour le product trio.**
-  _ Nous avons tendance en général à sauter sur la première solution qui nous vient en tête, et à la défendre ensuite contre l’avis des autres. Ces crispations finissent dans une situation où PM décide parce qu’il a le dernier mot, au lieu d’une vraie collaboration.
-  _ En gardant sous les yeux une représentation graphique de toutes les possibilités, on s’évite d’en considérer une comme étant la “notre” à défendre à tout prix.
-  _ **D’aider le product trio à adopter un continuous mindset**.
-  _ Vu qu’on a dans notre OST de plus petites opportunities qui permettent de réaliser une plus grosse opportunity, ça nous permet de délivrer de la vraie valeur à chaque sprint, plutôt qu’un bout de quelque chose de gros qui est censé délivrer de la valeur plus tard => On est vraiment agiles.
-  _ **De prendre de meilleures décisions.**
-  _ Vu qu’on a sous les yeux les possibilités, y compris celles qu’on a déjà explorées, on évite de tomber dans des biais qui vont fausser notre décision.
-  _ Par exemple : à chaque fois qu’on a une nouvelle demande client, tomber dans le travers de se demander si on arrête tout pour l’implémenter ou non, au lieu de garder la vue d’ensemble.
-  _ A ce propos, elle conseille un livre à lire juste après le sien : ***Decisive*** de Chip et Dan Heath.
-  _ **D’obtenir des cycles d’apprentissage rapides.**
-  _ On dit souvent que les PM doivent définir le problème, et les développeurs apporter la solution. C’est une erreur. Pour être efficace, il faut que les mêmes personnes (product trio) soient en charge des deux.
-  _ l’OST permet de visualiser les deux, et à chaque fois qu’une solution est implémentée et ne permet pas de satisfaire l’opportunity, on peut la garder en tête tout en sachant pourquoi ça n’avait pas marché, et pouvoir basculer sur une solution mieux pensée.
-  _ **De construire une confiance dans le fait de savoir quoi faire ensuite.**
-  _ On peut facilement se rendre compte qu’on n’a pas assez d’opportunities et faire des interviews client, ou pas assez de solutions et faire des ateliers pour générer des idées.
-  _ Les meilleures équipes ne travaillent pas de haut en bas (définir un outcome clair, puis créer l’opportunity space, puis chercher les solutions, et enfin définir des assumption tests), mais sur tout l’arbre à la fois : chaque semaine ils affinent chaque élément de l’arbre, et travaillent sur plusieurs éléments en parallèle pour le faire évoluer.
-  _ **De permettre un rapport aux stakeholders plus simple.**
-  _ Même avec de la bonne volonté, la direction a tendance à parfois revenir sur des demandes d’output, surtout en période de stress. Pour éviter ça il faut les garder au jus, avec la bonne quantité d'informations.
-  _ Il ne faut ni leur donner trop d’informations, ni leur donner juste les conclusions du product trio. Pour qu’ils se sentent impliqués et puissent donner un feedback, il faut leur donner les principaux éléments qui ont été considérés et choisis ou rejetés. L’OST permet de servir de support visuel pour ça.
+  - Il s’agit d’une représentation graphique sous forme d’arbre avec l’outcome en haut, les opportunities possibles en dessous, les solutions possibles associées à chaque opportunity, et les assuption tests qui permettent de valider chaque solution. `outcome ← opportunity ← solution ← assumption test`
+  - Ce modèle permet :
+    - **De résoudre la tension entre les besoins du customer et les besoins business**.
+      - On choisit l’outcome business et on liste ensuite toutes les opportunities qui permettent d’y parvenir, pour être sûr de satisfaire forcément les deux à la fois.
+    - **D’aider à construire une connaissance partagée pour le product trio.**
+      - Nous avons tendance en général à sauter sur la première solution qui nous vient en tête, et à la défendre ensuite contre l’avis des autres. Ces crispations finissent dans une situation où PM décide parce qu’il a le dernier mot, au lieu d’une vraie collaboration.
+      - En gardant sous les yeux une représentation graphique de toutes les possibilités, on s’évite d’en considérer une comme étant la “notre” à défendre à tout prix.
+    - **D’aider le product trio à adopter un continuous mindset**.
+      - Vu qu’on a dans notre OST de plus petites opportunities qui permettent de réaliser une plus grosse opportunity, ça nous permet de délivrer de la vraie valeur à chaque sprint, plutôt qu’un bout de quelque chose de gros qui est censé délivrer de la valeur plus tard => On est vraiment agiles.
+    - **De prendre de meilleures décisions.**
+      - Vu qu’on a sous les yeux les possibilités, y compris celles qu’on a déjà explorées, on évite de tomber dans des biais qui vont fausser notre décision.
+        - Par exemple : à chaque fois qu’on a une nouvelle demande client, tomber dans le travers de se demander si on arrête tout pour l’implémenter ou non, au lieu de garder la vue d’ensemble.
+      - A ce propos, elle conseille un livre à lire juste après le sien : **_Decisive_** de Chip et Dan Heath.
+    - **D’obtenir des cycles d’apprentissage rapides.**
+      - On dit souvent que les PM doivent définir le problème, et les développeurs apporter la solution. C’est une erreur. Pour être efficace, il faut que les mêmes personnes (product trio) soient en charge des deux.
+      - l’OST permet de visualiser les deux, et à chaque fois qu’une solution est implémentée et ne permet pas de satisfaire l’opportunity, on peut la garder en tête tout en sachant pourquoi ça n’avait pas marché, et pouvoir basculer sur une solution mieux pensée.
+    - **De construire une confiance dans le fait de savoir quoi faire ensuite.**
+      - On peut facilement se rendre compte qu’on n’a pas assez d’opportunities et faire des interviews client, ou pas assez de solutions et faire des ateliers pour générer des idées.
+      - Les meilleures équipes ne travaillent pas de haut en bas (définir un outcome clair, puis créer l’opportunity space, puis chercher les solutions, et enfin définir des assumption tests), mais sur tout l’arbre à la fois : chaque semaine ils affinent chaque élément de l’arbre, et travaillent sur plusieurs éléments en parallèle pour le faire évoluer.
+    - **De permettre un rapport aux stakeholders plus simple.**
+      - Même avec de la bonne volonté, la direction a tendance à parfois revenir sur des demandes d’output, surtout en période de stress. Pour éviter ça il faut les garder au jus, avec la bonne quantité d'informations.
+      - Il ne faut ni leur donner trop d’informations, ni leur donner juste les conclusions du product trio. Pour qu’ils se sentent impliqués et puissent donner un feedback, il faut leur donner les principaux éléments qui ont été considérés et choisis ou rejetés. L’OST permet de servir de support visuel pour ça.
 
 ## Part II - Continuous discovery habits
 
