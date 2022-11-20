@@ -426,10 +426,10 @@
 - 63 étudiants sur 500 verront un job recommandé.
 - 7 étudiants sur 500 postuleront à un job recommandé.
 - Et pour mesurer ça, ils ont collecté :
-- # de personnes qui ont visité la page de recherche
-- # de personnes qui ont fait une recherche
-- # de personnes qui ont vu au moins un job
-- # de personnes qui ont postulé à au moins un job
+- \# de personnes qui ont visité la page de recherche
+- \# de personnes qui ont fait une recherche
+- \# de personnes qui ont vu au moins un job
+- \# de personnes qui ont postulé à au moins un job
 - Ils n’ont pas commencé par mesurer tous les clics mais bien seulement les actions pour valider leurs tests.
 - On peut mesurer le nombre total d’actions, ou le nombre de personnes faisant l’action au moins une fois.
 - Pour choisir l’un ou l’autre, on peut se demander si une même personne effectue l’action plusieurs fois, est-ce que ça apporte plus de valeur vis-à-vis de ce qu’on recherche.
