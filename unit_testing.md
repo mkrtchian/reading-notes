@@ -57,7 +57,7 @@
         - Mais si on rejoue tous les tests à chaque changement de code, on peut savoir que c’est lui qui vient de faire passer les tests au rouge.
         - Et en plus si un changement casse beaucoup de tests, ça permet de savoir que cette partie du code est très importante.
 - Les deux écoles ont aussi une différence dans leur rapport au TDD :
-  - La London school va avoir tendance à faire du** outside-in TDD**, en construisant d’abord les classes de plus haut niveau utilisant des collaborators sous forme de test doubles. Puis les implémenter petit à petit en allant vers le détail.
+  - La London school va avoir tendance à faire du **outside-in TDD**, en construisant d’abord les classes de plus haut niveau utilisant des collaborators sous forme de test doubles. Puis les implémenter petit à petit en allant vers le détail.
   - La classical school va plutôt mener à du **inside-out TDD**, en partant des classes les plus bas niveau dans le modèle, pour construire par-dessus jusqu’aux couches supérieures.
 - Un **test d’intégration** est un test qui ne répond pas à une des 3 caractéristiques du test unitaire (tester une unité, de manière rapide et isolée).
   - Pour la London school, les caractéristiques sont :
@@ -144,7 +144,7 @@
   - La protection contre les régressions dépend de la capacité à ne pas avoir de faux négatifs (bugs présents mais ratés par les tests). C’est le fait d’avoir le bon signal.
   - La résistance aux refactorings dépend de la capacité à ne pas avoir de faux positifs (fausses alarmes). C’est l’absence de bruit.
   - Au début du projet, les faux positifs (les bugs pas couverts) ont la plus grande importance. Mais à mesure que le projet avance, les faux négatifs deviennent de plus en plus gênants et empêchent de garder le code sain en le refactorant.
-    - Donc si on est sur un projet moyen ou gros, il faut** porter une attention égale aux faux positifs et aux faux négatifs**.
+    - Donc si on est sur un projet moyen ou gros, il faut **porter une attention égale aux faux positifs et aux faux négatifs**.
 - On peut noter un test sur chacun des 4 critères, et lui **donner une note** finale qui nous aidera à **décider si on le garde ou non** (pour rappel : garder un test n’est pas gratuit, ça implique de la maintenance).
   - On peut évaluer (subjectivement) la valeur du test à chacun des 4 critères, entre 0 et 1, puis multiplier ces quatre valeurs pour avoir le résultat final.
     - Ca implique donc qu’un test qui vaut zéro à l’un des critères aura une valeur finale de zéro. On ne peut pas négliger un des critères.
@@ -292,15 +292,15 @@
       constructor(
           public maxEntriesPerFile: number,
           public directoryName: string,
-          **public fileSystem: IFileSystem,**
+          public fileSystem: IFileSystem,
           ) {}
 
       addRecord(visitorName: string, timeOfVisit: Date) {
-          const files = **fileSystem**.readdirSync(directoryName);
+          const files = fileSystem.readdirSync(directoryName);
           // Build the record content
 
           // If no file, create one with our record
-          **fileSystem**.writeFile(...
+          fileSystem.writeFile(...
 
           // Sort by file name to get the last one
           // If file's lines do no exceed max, write inside
@@ -335,24 +335,24 @@
     - `AuditManager` ne connaît plus du tout l'existence du filesystem : il reçoit des valeurs en entrée (une liste de `FileContent` à partir duquel il lira le contenu des fichiers), et renvoie des valeurs en sortie : une liste de `FileUpdate` qui contiendront les contenus à changer).
 
       ```typescript
-      public class AuditManager {
-      constructor(public maxEntriesPerFile: number) {}
+      class AuditManager {
+        constructor(public maxEntriesPerFile: number) {}
 
-      addRecord(
-          **files: FileContent[],**
+        addRecord(
+          files: FileContent[],
           visitorName: string,
           timeOfVisit: Date
-      ) {
+        ) {
           // Build the record content
           // If no file, create one with our record
-          if(files.length === 0) {
-          return new **FileUpdate**('audit_1.txt', newRecord)
+          if (files.length === 0) {
+            return new FileUpdate("audit_1.txt", newRecord);
           }
 
           // Sort by file name to get the last one
           // If file's lines do no exceed max, write inside
           // Otherwise create a new file and write inside
-      }
+        }
       }
       ```
 
@@ -433,7 +433,7 @@
 
 - **La functional architecture n’est pas toujours applicable**.
   - Elle permet d’avoir des avantages en termes de maintenabilité du code et des tests, mais elle a des désavantages :
-    - Le code pourra** être un peu plus gros** pour permettre la séparation entre logique et side effects.
+    - Le code pourra **être un peu plus gros** pour permettre la séparation entre logique et side effects.
     - Le code pourra **souffrir de problèmes de performance**.
       - Dans notre cas, ça a marché parce qu’on lisait tous les fichiers avant d’appeler la logique en donnant tous ces contenus et la laissant décider. Si on avait voulu n’en lire que certains en fonction de paramètres décidés par la logique, on n’aurait pas pu la garder comme fonction pure.
       - Une autre solution aurait pu être de concéder un peu de centralisation de la logique dans le core en faveur de la performance, en laissant la décision de charger les données ou non à l’application service.
@@ -813,9 +813,9 @@
       - La raison est que ça compromet la résistance aux refactorings en traitant une dépendance privée comme publique, et ça n’ajoute que très peu de protection contre des régressions en plus des unit tests. Le rapport coût/bénéfice n’est pas suffisant.
 - Si on reprend l’exemple du CRM, pour écrire des tests d’intégration pour le `UserController` :
 
-  - On va d’abord écrire un test pour couvrir le** happy path le plus long**. Ici ce serait le cas où on change l’email d’un user, qui passe de non corporate à corporate. On va mettre à jour en DB le user, les infos de company, et aussi envoyer le message dans le message bus pour l’email.
+  - On va d’abord écrire un test pour couvrir le **happy path le plus long**. Ici ce serait le cas où on change l’email d’un user, qui passe de non corporate à corporate. On va mettre à jour en DB le user, les infos de company, et aussi envoyer le message dans le message bus pour l’email.
   - Il n’y a qu’un edge case non couvert par des unit tests : le cas où l’email ne peut pas être changé. Mais dans ce cas on est sur du fail fast : une exception sera lancée et le programme s’arrêtera. Donc pas besoin de test d’intégration pour ça.
-  - A propos des **tests end to end**, on peut en faire** quelques-uns pour notre projet**, et leur faire traverser les scénarios les plus longs pour s’assurer que tout est bien branché. On vérifiera le résultat pour le client final au lieu de regarder dans la DB, et on vérifiera le message envoyé dans le message bus pour la dépendance externe à laquelle on n’a pas accès. Ici pour cette feature on choisit de ne pas en faire.
+  - A propos des **tests end to end**, on peut en faire **quelques-uns pour notre projet**, et leur faire traverser les scénarios les plus longs pour s’assurer que tout est bien branché. On vérifiera le résultat pour le client final au lieu de regarder dans la DB, et on vérifiera le message envoyé dans le message bus pour la dépendance externe à laquelle on n’a pas accès. Ici pour cette feature on choisit de ne pas en faire.
   - Concernant notre test d’intégration de happy path donc, il faut d’abord décider de la manière dont on traite nos dépendances out-of-process : la DB est managed donc doit être testée au niveau de son état pour le `user` et la `company`, alors que le message bus est unmanaged donc doit être mocké pour tester les interactions avec lui.
 
     - Notre test va contenir **3 sections** :
@@ -869,7 +869,7 @@
   - **Ne pas mettre plusieurs Act dans le même test** : parfois on est tenté de mettre en place plusieurs Arrange/Act/Assert à la suite dans le même test. C’est une mauvaise idée parce que le test devient difficile à lire et à modifier, et a tendance à grossir encore.
 - A propos de la question des **logs** :
 
-  - Selon l’auteur,** les logs doivent être testé** uniquement s’ils sont destinés à être **observés par des personnes autres que les développeurs** eux-mêmes.
+  - Selon l’auteur, **les logs doivent être testé** uniquement s’ils sont destinés à être **observés par des personnes autres que les développeurs** eux-mêmes.
     - Par exemple des personnes du business qui en ont besoin pour des insights.
     - Steve Freeman et Nat Pryce distinguent deux types de logs dans **Growing Object-Oriented Software, Guided by Tests** : le **support logging** qui est destiné au personnel de support et sysadmins, et le **diagnostic logging** qui est destiné aux développeurs eux-mêmes pour du débug.
   - Il faut bien distinguer le diagnostic logging et le support logging, en n’y appliquant pas la même technique de code.
@@ -963,7 +963,7 @@
   - Vu que les mocks doivent êtres réservés aux dépendances out-of-process unmanaged, ils doivent être **seulement dans les tests d’intégration**.
   - On peut utiliser autant de mocks que nécessaire pour gérer toutes les dépendances out-of-process unmanaged qui sont utilisées dans notre controller.
   - Pour bien s’assurer de la stabilité de l’utilisation de l’API publique constituée par notre dépendance unmanaged, il faut **aussi vérifier le nombre d’appels** vers la dépendance.
-  - Il ne faut** mocker que les classes qu’on possède**. Ca veut dire qu’il faut wrapper toute dépendance unmanaged out-of-process par un adapter qui représente notre utilisation de cette dépendance. C’est ce wrapper qu’on va mocker.
+  - Il ne faut **mocker que les classes qu’on possède**. Ca veut dire qu’il faut wrapper toute dépendance unmanaged out-of-process par un adapter qui représente notre utilisation de cette dépendance. C’est ce wrapper qu’on va mocker.
     - Un des avantages c’est que si la dépendance change de manière importante dans son interface, elle ne pourra pas impacter le reste de notre code sans qu’on change notre wrapper. Il s‘agit d’une protection.
     - A l’inverse, selon l’auteur, **créer des wrappers autour de dépendances qui ne sont pas unmanaged ne vaut pas le coup** en terme de maintenance. Un exemple en est l’ORM.
 
@@ -1025,7 +1025,7 @@
 - Selon l’auteur, la **parallélisation des tests d’intégration n’en vaut pas le coup**, parce que ça nécessite trop d’efforts. Il vaut mieux les jouer séquentiellement, et cleaner les données entre les tests.
   - Il suggère de **cleaner au début de chaque test**. Le faire à la fin peut poser problème à cause de potentiel crash avant la fin.
   - Concernant la manière d’effacer les données, il suggère une simple commande SQL de type `DELETE FROM dbo.User;`
-- Il vaut mieux **éviter d’utiliser une DB “in memory” **à la place de la vraie DB dans les tests d’intégration. Ça permet de transformer les tests d’intégration en unit tests, mais ça leur enlève aussi de la fiabilité vis-à-vis de l’intégration à cause des différences entre les deux bases de données.
+- Il vaut mieux **éviter d’utiliser une DB “in memory”** à la place de la vraie DB dans les tests d’intégration. Ça permet de transformer les tests d’intégration en unit tests, mais ça leur enlève aussi de la fiabilité vis-à-vis de l’intégration à cause des différences entre les deux bases de données.
   - Selon l’auteur on va finir de toute façon par faire des tests d’intégration à la main si on va sur une BD différente.
 - On peut utiliser certaines **techniques de refactoring** pour rendre le code des tests d’intégration plus lisible :
 
@@ -1133,6 +1133,6 @@
     - L’interface est une petite pollution aussi, mais elle crée beaucoup moins de danger que des bouts de code dans des `if`.
 - On est parfois tenté de vouloir **stubber/mocker une seule méthode d’une classe** qui fait quelque chose de complexe, pour tester ce qui est complexe et éviter qu’elle ne communique avec une dépendance out-of-process. Ceci est un antipattern.
   - La bonne façon de faire est de séparer la logique complexe de la partie qui communique la chose à la dépendance out-of-process (typiquement avec un humble object pattern qui fait le lien entre les deux), et unit tester la logique.
-- Concernant la** notion de temps** utilisée dans le code (`new Date()`), l’introduire en tant qu’élément statique est, comme dans le cas du logger, un antipattern qui introduit une dépendance partagée dans les tests, et pollue le code.
+- Concernant la **notion de temps** utilisée dans le code (`new Date()`), l’introduire en tant qu’élément statique est, comme dans le cas du logger, un antipattern qui introduit une dépendance partagée dans les tests, et pollue le code.
   - La bonne manière est d’**introduire la dépendance temporelle explicitement** dans le constructeur ou la méthode appelée.
   - On peut le faire soit sous forme de service appelable pour obtenir la date, soit en passant la valeur pré-générée. Passer la valeur directement est ce qui présente le moins d’inconvénients, à la fois pour la clarté du code, et pour la testabilité.
