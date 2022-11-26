@@ -272,7 +272,7 @@
     - A chaque requête, le serveur qui a les ressources va valider auprès du serveur d'authentification que le token est valide et possède les bons scopes d’autorisation.
     - Le serveur de ressources a connaissance du user ID et du scope d'autorisation attaché au token, et donc va pouvoir éventuellement **filtrer le contenu** avant de le renvoyer ce que spécifie l’API.
 - L’ID de l’utilisateur et les scopes attachés à son compte ne sont en général pas dans le body de la requête ou les paramètres d’URL, mais sont pourtant là de par l’authentification initiale. Il est donc intéressant de remarquer qu’un même API endpoint peut **renvoyer différentes données en fonction de l’utilisateur qui y fait appel**.
-- Selon l’organisation internationale OWASP, il faut** réduire la surface d’attaque** pour réduire le risque. Et donc il faut éviter de donner la possibilité de faire certaines actions à des utilisateurs qui n’en ont pas besoin.
+- Selon l’organisation internationale OWASP, il faut **réduire la surface d’attaque** pour réduire le risque. Et donc il faut éviter de donner la possibilité de faire certaines actions à des utilisateurs qui n’en ont pas besoin.
 - Comment bien définir les **scopes d’autorisation** ?
   - Il faut choisir la bonne **granularité** : un scope par endpoint et méthode c’est très flexible mais très complexe à configurer pour les utilisateurs, et si on a trop peu de scopes on risque d’être obligé de donner trop de pouvoir à certains utilisateurs.
   - On peut par exemple partir de l’API goals canvas qui nous a permis de construire notre API en fonction des besoins de l’utilisateur qu’on a définis, et regrouper sous un même scope les actions qui concernent un même flow.
@@ -372,13 +372,13 @@
 
 ## 10 - Designing a network-efficient API
 
-- Le “design idéal” d’API est contrebalancé par des facteurs supplémentaires à prendre en compte. L’un d’entre eux est la performance réseau. Il faut trouver un **compromis **entre les deux.
+- Le “design idéal” d’API est contrebalancé par des facteurs supplémentaires à prendre en compte. L’un d’entre eux est la performance réseau. Il faut trouver un **compromis** entre les deux.
 - Les problèmes de performance réseau dépendent :
   - de la vitesse du réseau
   - du volume de données échangée
   - du nombre d’appels API
 - Il y a d’abord des **optimisations au niveau du protocole** :
-  - La **compression** et les **connexions persistantes **sont disponibles par défaut dans HTTP, et peuvent être activées dès le début.
+  - La **compression** et les **connexions persistantes** sont disponibles par défaut dans HTTP, et peuvent être activées dès le début.
     - La compression permet de **réduire les données échangées**
     - Les connexions persistantes permettent de réutiliser les mêmes connexions pour plusieurs requêtes, pour **gagner de la latence**.
   - Chaque endpoint/méthode peut renvoyer des métadonnées indiquant combien de temps la réponse doit être **mise en cache** (donc conservée sans refaire d’appel API) par le client.
@@ -491,7 +491,7 @@
 
 - A partir du moment où plusieurs personnes travaillent sur l’API, ou qu’il y a plusieurs APIs dans l’organisation, il y a de fortes chances pour que de l’incohérence s’installe entre APIs et au sein d’une API. Il faut pour ça rédiger des **API guidelines** à destination des designers d’API.
   - Il y a 3 parties :
-    - Il y a d’abord les** reference guidelines **qui sont le minimum : le document décrit quelles méthodes, codes de statut, headers sont utilisés couramment dans l’API, le format des ressources (la structure de leur path), la structure habituelle des données, la manière dont la pagination est gérée etc.
+    - Il y a d’abord les **reference guidelines** qui sont le minimum : le document décrit quelles méthodes, codes de statut, headers sont utilisés couramment dans l’API, le format des ressources (la structure de leur path), la structure habituelle des données, la manière dont la pagination est gérée etc.
       - On y définit aussi les termes utilisés dans l’API (ressource, version etc.) à l’image du langage ubiquitaire du DDD.
     - Ensuite il faut les **use case guidelines** qui sont une version plus digeste et prête à l’emploi pour étendre l’API. Par exemple comment créer un nouvel élément dans l’API, et on montre pas à pas, comme un tuto.
       - On fait bien attention à utiliser le même vocabulaire partagé que celui défini dans les reference guidelines.
