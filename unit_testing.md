@@ -36,22 +36,22 @@
     - Les objectifs du client final sont transcrits en objectifs secondaires dans la couche du dessous, et donc on a une relation fractale qui permet à **tous les tests d’avoir toujours un rapport avec un requirement business** (Les objectifs de l’application service layer sont des sous-objectifs du client final).
       - NDLR : un peu comme les OKR.
   - Exemple :
-  ```typescript
-  // domain layer
-  class User {
-    setName(newName: string) {
-      // On normalise et on set la valeur.
+    ```typescript
+    // domain layer
+    class User {
+      setName(newName: string) {
+        // On normalise et on set la valeur.
+      }
     }
-  }
-  // application service layer
-  class UserController {
-    renameUser(userId: number, newName: string) {
-      const user: User = getUserFromDatabase(userId);
-      user.setName(newName);
-      saveUserToDatabase(user);
+    // application service layer
+    class UserController {
+      renameUser(userId: number, newName: string) {
+        const user: User = getUserFromDatabase(userId);
+        user.setName(newName);
+        saveUserToDatabase(user);
+      }
     }
-  }
-  ```
+    ```
   - Pour savoir <strong>quand utiliser les mocks</strong> sans abimer la résistance au refactoring, il faut se demander si l’interaction sortante qu’on veut vérifier est interne à notre application (notre hexagone par exemple), ou porte vers des systèmes externes.
     - Si l’interaction est <strong>interne</strong>, alors il ne faut pas mocker, même s'il s’agit d’une dépendance out-of-process comme une base de données. Tant qu’elle n’est visible que depuis notre application, elle est un détail d’implémentation pour nos clients.
     - Si l’interaction est <strong>externe</strong>, et donc visible par nos clients externes, alors il faut vérifier qu’elle se fait correctement par un mock. Par exemple, l'envoi d’un email répond à un besoin client, donc il faut vérifier que l’appel vers le système externe se fait correctement.
