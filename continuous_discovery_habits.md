@@ -377,7 +377,7 @@
 - On se retrouve souvent avec plusieurs idées qui partagent la même assumption : du coup la traiter permet de traiter plusieurs idées.
 - Il est important de **définir à l’avance la condition de succès**. Si on ne la définit pas à l’avance, on n’aura pas de résultat actionable, et surtout on va céder à nos biais.
   - Exemple : Pour le test de notre assumption sur les utilisateurs qui veulent regarder du sport, on décide à l’avance que le succès serait d’avoir 4 utilisateurs sur 10 qui choisissent de regarder du sport.
-  - Pour ce qui est du chiffre en question,on va le négocier au sein du product trio. A noter qu’il ne s’agit pas de prouver la chose, mais juste de réduire le risque.
+  - Pour ce qui est du chiffre en question, on va le négocier au sein du product trio. A noter qu’il ne s’agit pas de prouver la chose, mais juste de réduire le risque.
 - Il est préférable de commencer par de **petits tests pas chers** pour avoir un potentiel signal d’échec rapide, plutôt qu’investir beaucoup sur un gros test sans avoir déjà eu un retour.
   - 1 - On choisit l’assumption la plus risquée pour faire un test et la rendre moins risquée ou l’éliminer.
   - 2 - On choisit à nouveau l’assumption la plus risquée. Si la précédente est toujours la plus risquée, alors on fait un test plus important sur elle, sinon on prend une autre plus risquée avec un petit test.
