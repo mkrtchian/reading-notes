@@ -1,4 +1,4 @@
-# Continuous Discovery Habits
+# Continuous Discovery Habits: Discover Products that Create Customer Value and Business Value
 
 ## Part I - What is continuous discovery
 
