@@ -51,8 +51,9 @@
 ### 2 - Discovering Domain Knowledge
 
 - Généralement, les gens du business (les domain experts) communiquent les besoins à des intermédiaires (system/business analysts, product owners, project managers), qui vont ensuite communiquer ça aux ingénieurs logiciel qui créent le logiciel.
-  `domain experts -> gens au milieu -> software engineers` \* On assiste aussi à une ou plusieurs transformations :
-  `domain knowledge -> analysis model -> software design model`
+  `domain experts -> gens au milieu -> software engineers`
+  - On assiste aussi à une ou plusieurs transformations :
+    `domain knowledge -> analysis model -> software design model`
 - Le DDD propose d’arrêter les transformations, et que tous les acteurs utilisent le même langage pour se parler : l’**Ubiquitous Language**.
   - Il doit pouvoir être compris par les domain experts, donc il va se baser sur les termes qu’ils utilisent déjà.
   - Chaque terme doit être **précis** et sans ambiguïté, et il ne doit **pas y avoir de synonymes**.
@@ -110,7 +111,7 @@
     - **Partnership** : aucune équipe ne dicte sa loi à l’autre. Elles collaborent pour faire des changements dès qu’il y en a besoin d’un côté ou de l’autre.
       - Il faut une intégration continue pour que les problèmes soient vite résolus.
       - Il faut une communication vraiment au top entre équipes, et pas d'histoires de rivalités.
-    - **Shared Kernel **: il s’agit d’un cas à part où les boundaries des bounded contexts sont violés : deux bounded contexts partagent une partie de leur modèle.
+    - **Shared Kernel** : il s’agit d’un cas à part où les boundaries des bounded contexts sont violés : deux bounded contexts partagent une partie de leur modèle.
       - Par exemple, ça peut être la partie d’authentification maison qu’ils auront en commun.
       - La partie partagée peut être changée par chaque bounded context, et affectera l’autre immédiatement. Il faut donc que des tests d’intégration soient déclenchés à chaque changement.
       - Bien réfléchir avant de l’utiliser : on l’utilise quand le coût pour appliquer les changements du modèle sous forme d’implémentation dépasse le coût de coordination entre équipes. C’est donc pertinent pour des modèles qui changent beaucoup.
@@ -280,13 +281,13 @@
       public email: Email;
       public version: number;
 
-      function **apply**(event: PersonCreated) {
+      function apply(event: PersonCreated) {
           this.id = event.id;
           this.name = event.name;
           this.email = event.email;
           this.version = 0;
       }
-      function **apply**(event: EmailUpdated) {
+      function apply(event: EmailUpdated) {
           this.email = event.email;
           this.version += 1;
       }
@@ -324,7 +325,7 @@
     - Attention cependant, avant d’utiliser une technique avancée comme celle du snapshot il faut :
       - S’assurer qu’on a un vrai problème de performance (+ de 10 000 events par aggregate).
       - Vérifier les limites de notre aggregate et voir si il n’est pas trop gros et qu’on ne pourrait pas plutôt le scinder.
-  - L’event sourcing **scale très bien **: vu qu’on a une séparation claire des données d’event par aggregate, on peut très bien sharder par identifiant d’aggregate.
+  - L’event sourcing **scale très bien** : vu qu’on a une séparation claire des données d’event par aggregate, on peut très bien sharder par identifiant d’aggregate.
   - Le CQRS (décrit au chapitre suivant) peut répondre à la problématique de performance de par sa nature.
 - Comment **supprimer des données** de l’event store (par ex pour des considérations légales) ?
   - L’idée de l’event sourcing c’est qu’on ne supprime pas les données d’event, c’est la condition pour toujours pouvoir rejouer, mais aussi la condition pour qu’elles ne soient jamais corrompues.
@@ -347,7 +348,7 @@
       - On l’appelle parfois aussi la _user interface layer_.
     - 2- la **couche business** : c’est là où on a les patterns décrits avant : active record, domain model pattern etc.
       - On l’appelle parfois aussi le _domain layer_ ou le _model layer_.
-    - 3- la **couche data access **où on stocke et manipule des données dans des bases de données, dans du cloud etc.
+    - 3- la **couche data access** où on stocke et manipule des données dans des bases de données, dans du cloud etc.
       - On l 'appelle parfois aussi l’_infrastructure layer_.
     - Côté dépendance, la couche de présentation n’a accès qu’à la couche business, et la couche business qu’à la couche data access : `presentation -> business -> data access`
     - Ce pattern est souvent étendu avec une **couche additionnelle appelée service** : elle va venir se placer entre la présentation et le business. `presentation -> service -> business -> data access`
@@ -361,9 +362,9 @@
     - Etant donné la dépendance entre couche business et couche de data access, **la layered architecture est mal adaptée à du code business sous forme de domain model pattern**. Elle est par contre adaptée pour du transaction script ou de l’active record.
   - **Ports and adapters**
 
-    - Elle est bien plus **adaptée au domain model pattern **parce que le code business va être découplé du reste.
+    - Elle est bien plus **adaptée au domain model pattern** parce que le code business va être découplé du reste.
     - On va mettre le business layer d’abord, sans qu’il ne dépende de rien, et ensuite on va regrouper tout ce qui est communication avec la BDD, frameworks, providers externes etc. dans une couche qu’on appellera infrastructure. Et enfin on ajoute une couche application layer (c’est plus parlant que service layer) au milieu.
-      - `Business layer &lt;- Application layer &lt;- infrastructure layer`
+      - `Business layer <- Application layer <- infrastructure layer`
     - Grâce au **Dependency Inversion Principle**, on va à chaque fois injecter les dépendances des couches supérieures dans les couches du dessous : la couche business ne connaît pas la nature concrète de la couche application, et la couche application ne connaît pas la nature concrète de la couche infrastructure.
 
       - C’est ici que la notion de “ports and adapters” prend son sens : On a des **ports** qui sont des interfaces mises en place par les couches du dessus, et des **adapters** qui sont des implémentations concrètes faites par les couches du dessous, et passés en paramètre des fonctions des couches du dessus.
@@ -389,7 +390,7 @@
       - Dans ces variantes, l’application est parfois appelée _service layer_ ou encore _use case layer_.
       - Et le business layer est parfois appelé _domain layer_, ou encore _core layer_.
 
-  - **CQRS **(Command-Query Responsibility Segregation)
+  - **CQRS** (Command-Query Responsibility Segregation)
     - Cette architecture est similaire au ports & adapters pour ce qui est de la place centrale du code business indépendant du reste. La différence se trouve dans la manière de gérer les données : on va vouloir adopter un “polyglot modeling”, c’est-à-dire plusieurs formes dénormalisées de la donnée pour la lecture.
     - A l’origine le CQRS a été pensé pour répondre au problème de l’event sourcing, en fournissant la possibilité de lire le state actuel des données directement, au lieu d’avoir à repartir de la forme primaire (qui est la liste d’événements) et de rejouer tous les events pour obtenir le state actuel.
       - Mais il est utile aussi sans event sourcing, c’est-à-dire dans le cas classique où la BDD “source de vérité” est par exemple relationnelle.
@@ -456,7 +457,7 @@
   - La logique de la saga peut aussi nécessiter de garder en mémoire son état, par exemple pour gérer correctement les actions de compensation. Dans ce cas les events de la saga peuvent être mis en BDD, et la saga peut être implémentée elle-même comme un event-sourced aggregate.
     - Dans ce cas il faut séparer la logique d’exécution des commandes de la mise à jour du state de la saga, et utiliser le même principe que pour l’outbox pattern. On aura un message relay qui garantira l’exécution de la commande même si on échoue à quelque étape que ce soit.
   - Attention tout de même à ne pas utiliser les saga pour compenser des limites d’aggregates mal pensées. L’action du saga étant asynchrone, les données seront eventually consistent entre-elles. **Les seules données fortement consistantes sont celles qui sont dans un même aggregate**.
-- Le **Process Manager **se base sur le même principe que la saga, mais là où la saga associe juste un event à une commande, le process manager va implémenter une logique plus complexe liée à plusieurs events pour choisir les commandes à déclencher.
+- Le **Process Manager** se base sur le même principe que la saga, mais là où la saga associe juste un event à une commande, le process manager va implémenter une logique plus complexe liée à plusieurs events pour choisir les commandes à déclencher.
   - Il est implémenté sous forme de state-based ou event-sourced aggregate avec une persistance de son état en BDD.
   - Là où la saga est déclenchée implicitement quand un événement qu’elle doit écouter se produit, le process manager est instancié par l’application et s’occupe de mener à bien un flow en plusieurs étapes.
   - Exemple : la réservation d’un voyage business commence par la sélection du trajet le plus optimal, puis la validation par l’employé. Dans le cas où l’employé préfère un autre trajet, le manager doit valider. Puis l’hôtel pré-approuvé doit être réservé. Et en cas d’absence d’hôtels disponibles, l’ensemble de la réservation est annulée.
@@ -487,7 +488,7 @@
   - Le transaction script peut être implémenté avec une simple **layered architecture à 3 couches**.
   - Enfin, même dans le cas où on n’a pas choisi l’event sourcing pour notre logique business, on peut quand même adopter le CQRS dans le cas où on aurait besoin d’avoir la donnée sous plusieurs formes différentes.
 - **Testing strategy**
-  - La **testing pyramid **(beaucoup de unit tests, moins de tests d’intégration, et peu de tests end to end) est bien adaptée aux **domain model** patterns (event sourced ou classique). Les value objects et les aggregates font de parfaits units autonomes.
+  - La **testing pyramid** (beaucoup de unit tests, moins de tests d’intégration, et peu de tests end to end) est bien adaptée aux **domain model** patterns (event sourced ou classique). Les value objects et les aggregates font de parfaits units autonomes.
   - Le **testing diamond** (peu de test unitaires, beaucoup de tests d’intégration, et peu de tests end to end) est bien adapté à l’**active record** pattern. La logique business étant éparpillée à travers le layer service et business, il est pertinent de les tester ensemble. (avec la BDD du coup ?)
   - La **reversed testing pyramid** (peu de unit tests, plus de tests d’intégration, et beaucoup de tests end to end) est bien adaptée au **transaction script**. La logique business étant simple, et le nombre de couches faible, on peut directement tester de bout en bout.
 - L’auteur a déjà rencontré des équipes qui utilisaient par exemple l’event sourced domain model pattern partout. Pour autant il ne le conseille pas, et a rencontré beaucoup plus d’équipes qui s’en sortaient bien avec ces règles d’heuristiques.
@@ -547,7 +548,7 @@
 
 - L’event storming est un atelier qui permet de **modéliser ensemble un process business particulier.**
   - Il s’agit de construire la story du business process concerné, à travers une timeline d’events qu’on fait apparaître sur un tableau au cours de l’atelier.
-- Les membres participant à l’atelier doivent être** le plus divers possible** (devs, domain experts, product owners, UI/UX, CSM etc.). Mais il vaut mieux ne pas dépasser 10 personnes.
+- Les membres participant à l’atelier doivent être **le plus divers possible** (devs, domain experts, product owners, UI/UX, CSM etc.). Mais il vaut mieux ne pas dépasser 10 personnes.
 - Côté matériel :
   - Ça se passe sur un mur, avec un gros rouleau de papier sur lequel on va pouvoir coller des post-its.
   - Il faut des post-its de couleur, chaque couleur représentant un concept particulier. Et des marqueurs pour écrire dessus.
@@ -611,9 +612,9 @@
 - Les techniques du domain driven design **apporteront le plus de bénéfices aux brownfield projects** : les projets ayant déjà un business et s’étant éventuellement embourbés sous forme de big ball of mud.
 - Pas besoin que tous les devs soient des ceintures noires du DDD, ni d’appliquer toutes les techniques que le DDD propose.
   - Par exemple, si on préfère d’autres patterns tactiques que ceux du DDD, c’est tout à fait OK.
-- Il faut d’abord **commencer par l’analyse stratégique **:
+- Il faut d’abord **commencer par l’analyse stratégique** :
   - D’abord comprendre le domaine avec une vue haut niveau (qui sont les clients, que fait l’entreprise, qui sont les compétiteurs etc.).
-  - Puis** identifier les subdomains**. Pour ça on peut partir de l’organigramme de l’entreprise.
+  - Puis **identifier les subdomains**. Pour ça on peut partir de l’organigramme de l’entreprise.
     - Pour les core subdomains, on peut se demander ce qui différencie l’entreprise de ses compétiteurs :
       - Peut-être un algorithme maison que les autres n’ont pas ?
       - Peut être un avantage non-technique comme la capacité à embaucher du personnel top niveau, ou de produire un design artistique unique ?
@@ -653,7 +654,7 @@
       - Écouter les domain experts parler, leur demander des clarifications, repérer les doublons et demander à ce qu’on n'utilise qu’un des termes.
       - Parler avec les domain experts plus souvent, pas forcément au cours de meetings formels. En général ils sont ravis de parler aux devs qui sont sincèrement intéressés par comprendre le domaine.
       - Utiliser la terminologie qu’on a constitué dans le code, et dans tous les autres supports ou échanges.
-    - Pour les **bounded contexts**, l’important est de** comprendre les principes sous-jacents** pour pouvoir les utiliser :
+    - Pour les **bounded contexts**, l’important est de **comprendre les principes sous-jacents** pour pouvoir les utiliser :
       - Pourquoi créer plusieurs modèles utiles à chaque problème ? Parce qu’utiliser un très gros modèle est rarement efficace.
       - Pourquoi un bounded context ne doit pas avoir des modèles en conflit en son sein : à cause de la complexité que ça engendre.
       - Pourquoi plusieurs équipes ne devraient pas travailler sur un même bounded context ? A cause de la friction et de la mauvaise collaboration que ça engendre.
@@ -661,10 +662,10 @@
       - Pourquoi faire des limites transactionnelles explicites ? Pour protéger la consistance de la donnée.
       - Pourquoi une transaction DB ne peut pas modifier plus d’une instance d’un aggregate à la fois ? Pour être sûr que les limites de consistance sont correctes.
       - Pourquoi l’état d’un aggregate ne peut pas être modifié directement par un autre composant ? Pour s’assurer que toute la logique business est située au même endroit et pas dupliquée.
-      - Pourquoi ne pourrait-on pas déplacer une partie de la logique d’un aggregate dans une* stored procedure* ? Pour être sûr de ne pas dupliquer la logique, parce que la logique dupliquée dans un autre composant a tendance à se désynchroniser et mener à de la corruption de données.
+      - Pourquoi ne pourrait-on pas déplacer une partie de la logique d’un aggregate dans une _stored procedure_ ? Pour être sûr de ne pas dupliquer la logique, parce que la logique dupliquée dans un autre composant a tendance à se désynchroniser et mener à de la corruption de données.
       - Pourquoi essayer d’avoir des limites d’aggregates petites ? Parce que des limites transactionnelles larges augmentent la complexité de l’aggregate et impactent négativement la performance.
       - Pourquoi, à la place de l’event sourcing, ne pourrait-on pas écrire la donnée dans un fichier de log ? Parce qu’on n’aura pas de garantie de consistance de longue durée pour la donnée.
-    - A propos de l’**event sourcing **en particulier, **expliquer le principe aux domain experts**, et en particulier le niveau d’insight qu’on acquiert sur la donnée, va en général les convaincre que c’est une bonne idée.
+    - A propos de l’**event sourcing** en particulier, **expliquer le principe aux domain experts**, et en particulier le niveau d’insight qu’on acquiert sur la donnée, va en général les convaincre que c’est une bonne idée.
 
 ## Part IV : Relationships to Other Methodologies and Patterns
 
@@ -680,7 +681,7 @@
 - Quand on se pose la question d’à quel point notre service devrait avoir une petite interface, il faut prendre en compte la **complexité locale** (la complexité interne de chaque microservice) et la **complexité globale**. (la complexité de l’ensemble résultant de l’interaction entre microservices).
   - Pour réduire au maximum la complexité globale, il suffit d’implémenter l’ensemble sous forme d’un unique service monolithique. La complexité locale est alors maximale, et le risque est de finir avec un **big ball of mud**.
   - Pour réduire au maximum la complexité locale, on pourrait mettre chaque fonction dans un microservice, avec sa base de données. La complexité globale est alors maximale, et on risque alors de se retrouver avec un **distributed big ball of mud**.
-  - Il s’agit donc de trouver un** juste milieu entre complexité locale et globale**.
+  - Il s’agit donc de trouver un **juste milieu entre complexité locale et globale**.
   - L’auteur évoque le concept de _depth_ proposé par John Ousterhout dans son livre _The philosophy of Software Design_ : un deep module a une petite interface mais une plus grande implémentation, alors qu’un shallow module a une grande interface comparé à son implémentation (donc beaucoup de choses sont exposées).
     - C'est la même chose pour les microservices, il faut les concevoir avec l’interface la plus petite possible, tout en ayant une implémentation importante en comparaison. **Il faut que le microservice en tant qu’entité d’encapsulation encapsule des choses**, sinon il ne fera qu’ajouter de la complexité accidentelle.
 - Les microservices sont souvent confondus avec les **bounded contexts**.
@@ -713,7 +714,7 @@
   - L’**event** décrit quelque chose qui s’est déjà passé et ne peut pas être annulé ou refusé.
   - La **commande** décrit quelque chose qui doit être fait, et qui pourrait être refusé, auquel cas on peut déclencher des commandes de compensation.
 - On peut classer les events en 3 catégories :
-  - 1- L’**event notification** est un event qui sert à notifier un composant de quelque chose, pour le** pousser à faire une query** dès qu’il est disponible.
+  - 1- L’**event notification** est un event qui sert à notifier un composant de quelque chose, pour le **pousser à faire une query** dès qu’il est disponible.
     - On ne va pas mettre toute l’info dans l’event, étant donné qu’on s’attend à ce que le composant refasse une query quand il est prêt.
     - Avantages d’obliger à faire une query :
       - Ca peut être bien niveau sécurité : notifier avec des infos non sensibles dans l’event, et vérifier avec une autorisation plus forte quand la query explicite est faite.
@@ -730,7 +731,7 @@
         }
       }
       ```
-  - 2- L’**event-carried state transfer** (ECST) est un event qui va donner l’information complète permettant à un composant externe de** maintenir un cache de l’état interne de nos objets**.
+  - 2- L’**event-carried state transfer** (ECST) est un event qui va donner l’information complète permettant à un composant externe de **maintenir un cache de l’état interne de nos objets**.
     - On peut soit envoyer à chaque fois un snapshot complet de l’état d’un objet, ou alors ne renvoyer que les modifications de cet état et le receveur se débrouille pour maintenir la cohérence de l’état au fur et à mesure.
     - Avantages de maintenir un cache à distance :
       - On est plus tolérant aux fautes : le composant qui nous consomme peut continuer à fonctionner même si on est down.
@@ -769,7 +770,7 @@
     - Le BC AdsOptimization fait quelque chose de similaire à Marketing pour d’autres besoins.
     - Le BC Reporting les consomme, puis attend 5 mn avant de faire une query vers AdsOptimization, pour espérer qu’AdsOptimization aura déjà traité les données liées à cet event.
   - On se retrouve avec 3 problèmes :
-    - Un **couplage temporel **: Reporting attend 5 mn avant de faire sa requête, mais rien de garantit que ce sera suffisant. Si AdsOptimization est surchargé, qu’on a des problèmes réseau ou autres, Reporting risque de faire sa requête avant qu’AdsOptimization n’ait fini de processer les données liées à cet event.
+    - Un **couplage temporel** : Reporting attend 5 mn avant de faire sa requête, mais rien de garantit que ce sera suffisant. Si AdsOptimization est surchargé, qu’on a des problèmes réseau ou autres, Reporting risque de faire sa requête avant qu’AdsOptimization n’ait fini de processer les données liées à cet event.
       - Solution : plutôt que de faire consommer les events de CRM à Reporting, on peut faire en sorte que ce soit AdsOptimization qui envoie un **notification event** à Reporting quand il a processé quelque chose de nouveau, pour que Reporting fasse sa requête.
     - Un **couplage fonctionnel** : Marketing et AdsOptimization consomment tous deux les mêmes events, qu’ils transforment tous deux en objets avec état exactement de la même manière. Ça crée une duplication de logique dans ces deux bounded contexts.
       - Solution : CRM peut implémenter l’**open-host service** pour y implémenter la logique qui était dupliquée dans Marketing et AdsOptimization. Comme ça les consommateurs ne s'encombrent pas d’implémenter ça.
@@ -782,7 +783,7 @@
       - Utiliser l’**outbox pattern** pour publier les messages.
       - S’assurer que les messages pourront être **dédupliqués** ou **réordonnés** grâce à leur numéro s' ils arrivent dans le mauvais ordre.
       - Utiliser les patterns **saga** et **process manager** pour orchestrer des process cross-bounded contexts qui nécessitent des actions de compensation.
-  - Il faut bien** distinguer les events publics des privés** : ne pas tout exposer tel quel mais traiter les events qu’on expose comme une interface publique classique.
+  - Il faut bien **distinguer les events publics des privés** : ne pas tout exposer tel quel mais traiter les events qu’on expose comme une interface publique classique.
     - Ne jamais exposer l’ensemble des domain events d’un event sourced bounded context.
     - Quand on implémente un open-host service, bien s’assurer que le modèle qu’on veut exposer est bien différent du modèle interne à notre bounded context, ce qui peut impliquer de transformer certains events, et pas seulement les filtrer.
     - Exposer plutôt des ECST et des notification events, et des domain events avec parcimonie, en distinguant bien ceux qu’on expose.
@@ -839,7 +840,7 @@
       - La data étant un produit plutôt qu’un élément de seconde classe, chaque équipe gérant le bounded context a la **responsabilité d’assurer la qualité et l’intégrité de la data exposée**. Mais aussi servir la donnée sous les formats qui pourront intéresser les consommateurs (SQL, fichier etc.).
         - L’idée c’est que les data analysts/BI puissent aller chercher facilement des données de plusieurs bounded context, appliquer éventuellement des transformations en local, et faire leur analyse.
     - **Enable autonomy** :
-      - Créer une infrastructure pour gérer la data étant difficile, il faut une **équipe centrale **dédiée à l'infrastructure de la plateforme data.
+      - Créer une infrastructure pour gérer la data étant difficile, il faut une **équipe centrale** dédiée à l'infrastructure de la plateforme data.
       - Elle sera en charge de maintenir la plateforme qui permet aux feature teams de créer facilement leur produit data sous les différents formats possibles.
       - Par contre elle reste la plus agnostique possible par rapport au modèle de données, qui est de la responsabilité des équipes qui produisent la donnée.
     - **Build ecosystem** :
