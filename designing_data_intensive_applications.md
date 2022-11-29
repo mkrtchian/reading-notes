@@ -5,37 +5,37 @@
 - Data-intensive désigne le fait que les données soient le bottleneck, par opposition à compute-intensive qui fait référence au CPU.
 - Les frontières entre les différentes catégories (base de données, cache, système de queuing etc.) deviennent parfois floues. Par ex : **Redis** est un cache utilisé comme système de queuing, ou encore **Kafka** qui est un système de queuing avec une garantie de persistance comme une BDD.
 - Il y a 3 enjeux principaux auxquels on répond quand on conçoit un système de données :
-  _ La **fiabilité** (**reliability**) consiste à fonctionner correctement malgré les fautes matérielles, logicielles, ou humaines.
-  _ Les disques durs sont connus pour faire des fautes tous les 10 à 50 ans, ce qui veut dire que sur un parc de 10 000 disques, il y en a un qui saute tous les jours. On peut prévenir ce genre de problème par de la redondance (RAID par ex).
-  _ Les fautes logicielles sont beaucoup plus insidieuses, et peuvent causer des dégâts en chaîne. Pour les prévenir on peut mettre en place du monitoring, prévoir des restarts de processus en cas de crash etc. Mais ça reste bien maigre en soi.
-  _ Les fautes humaines sont inévitables, il faut concevoir les systèmes de manière à décourager les actions problématiques, faire beaucoup de tests automatisés, rendre facile le fallback etc.
-  _ La **scalabilité **consiste à accompagner le système dans sa montée en charge en termes de données, de trafic ou de complexité.
-  _ Parler de scalabilité tout court n’a pas vraiment de sens, il faut préciser sur quel aspect on scale.
-  _ Il faut d’abord **décrire le load** sur lequel on veut scaler. \
-  Par ex (page 11) : pour **twitter** le load clé c’est le nombre de followers par personne :
-  _ la 1ère solution consiste à recréer la timeline de tweets de chaque utilisateur depuis la base de données
-  _ la 2ème à constituer des timelines à jour dans un cache, et de mettre à jour les timelines des followers à chaque tweet. Du coup avec la solution 2 tout dépend du nombre de followers.
-  _ Twitter a fini par adopter une solution hybride : la 2ème solution par défaut, et la 1ère pour les comptes avec énormément de followers. Par défaut la timeline est dans le cache, mais si une célébrité est suivie, une requête sera faite pour récupérer les tweets.
-  _ Ensuite il faut **décrire la métrique de performance**. Il s’agit d’augmenter le load qu’on a décrit pour voir jusqu’où on tient.
-  _ Si notre métrique concerne un service en ligne, on va en général prendre le temps de réponse.
-  _ (Le **temps de réponse** et la **latence** sont différents : la latence concerne le temps pendant lequel la requête est latente, c'est-à-dire qu’elle attend d’être traitée. Le temps de réponse est plus long que ça.)
-  _ Il faut reproduire la requête un grand nombre de fois, et prendre la **médiane** pour avoir une idée du temps que ça prend. Dans la même idée on peut prendre les **percentiles **pour voir par ex. si on arrive à rester sous un certain seuil pour 99.9% de nos requêtes (appelé p999).
-  _ Pour répondre aux problématiques de scalabilité :
-  _ Une réponse à un certain load ne marchera pas pour un load beaucoup plus important : il faut repenser régulièrement son architecture si on scale vraiment.
-  _ Il y a le **scale vertical** (machine plus puissante) et le **scale horizontal** (plus de machines, qu’on appelle aussi **shared-nothing architecture**).
-  _ En réalité, on utilise souvent un mix des deux : des machines puissantes pour certaines tâches, et du scaling horizontal pour d’autres.
-  _ La création de machines supplémentaires peut être manuelle ou “élastique”. La version élastique permet d’adapter aux grandes variations mais est plus complexe aussi.
-  _ Habituellement, avoir une application stateful qui est sur plusieurs machines est difficile à gérer, donc on essaye de garder la BDD sur une seule machine jusqu’à ce que ce ne soit plus possible. Avec l’évolution des outils, ceci sera sans doute amené à changer.
-  _ Il n’y a pas de *magic scaling sauce* : chaque application de grande échelle a ses propres contraintes, ses propres bottlenecks, et donc sa propre architecture.
-  _ Quand on crée un produit, il vaut au début passer surtout du temps à développer les fonctionnalités qu’à penser son hypothétique scaling.
-  _ La **maintenabilité** consiste à pouvoir à la fois perpétuer le système et le faire évoluer en un temps de travail raisonnable.
-  _ Pour qu’un système soit maintenable dans le temps, il faut travailler sur ces aspects :
-  _ **operability** : la facilité pour les ops de faire tourner le système.
-  _ Il faut faciliter la vie au maximum pour les ops. Ex : fournir un bon monitoring, permettre d’éteindre une machine individuellement sans affecter le reste, avoir de bonnes valeurs par défaut et un comportement auto-réparateur, tout en permettant aux ops de prendre la main.
-  _ **simplicity** : que le système soit le moins complexe possible pour le comprendre rapidement et pouvoir travailler dessus.
-  _ On peut par exemple réduire la **complexité accidentelle**, c’est-à-dire la complexité non nécessaire liée seulement à l’implémentation mauvaise.
-  _ Sinon globalement une bonne chose à faire c’est d’introduire des **abstractions** pour appréhender le système plus facilement. Par ex. les langages haut niveau sont des abstractions de ce qui se passe dans la machine.
-  _ **evolvability** : la facilité à changer ou ajouter des fonctionnalités au système. \* Il s’agit ici de l’agilité mais appliquée à tout un système, et pas à de petites fonctionnalités.
+  - La **fiabilité** (**reliability**) consiste à fonctionner correctement malgré les fautes matérielles, logicielles, ou humaines.
+    - Les disques durs sont connus pour faire des fautes tous les 10 à 50 ans, ce qui veut dire que sur un parc de 10 000 disques, il y en a un qui saute tous les jours. On peut prévenir ce genre de problème par de la redondance (RAID par ex).
+    - Les fautes logicielles sont beaucoup plus insidieuses, et peuvent causer des dégâts en chaîne. Pour les prévenir on peut mettre en place du monitoring, prévoir des restarts de processus en cas de crash etc. Mais ça reste bien maigre en soi.
+    - Les fautes humaines sont inévitables, il faut concevoir les systèmes de manière à décourager les actions problématiques, faire beaucoup de tests automatisés, rendre facile le fallback etc.
+  - La **scalabilité **consiste à accompagner le système dans sa montée en charge en termes de données, de trafic ou de complexité.
+    - Parler de scalabilité tout court n’a pas vraiment de sens, il faut préciser sur quel aspect on scale.
+      - Il faut d’abord **décrire le load** sur lequel on veut scaler. Par ex (page 11) : pour **twitter** le load clé c’est le nombre de followers par personne :
+        - la 1ère solution consiste à recréer la timeline de tweets de chaque utilisateur depuis la base de données
+        - la 2ème à constituer des timelines à jour dans un cache, et de mettre à jour les timelines des followers à chaque tweet. Du coup avec la solution 2 tout dépend du nombre de followers.
+        - Twitter a fini par adopter une solution hybride : la 2ème solution par défaut, et la 1ère pour les comptes avec énormément de followers. Par défaut la timeline est dans le cache, mais si une célébrité est suivie, une requête sera faite pour récupérer les tweets.
+      - Ensuite il faut **décrire la métrique de performance**. Il s’agit d’augmenter le load qu’on a décrit pour voir jusqu’où on tient.
+        - Si notre métrique concerne un service en ligne, on va en général prendre le temps de réponse.
+          - (Le **temps de réponse** et la **latence** sont différents : la latence concerne le temps pendant lequel la requête est latente, c'est-à-dire qu’elle attend d’être traitée. Le temps de réponse est plus long que ça.)
+          - Il faut reproduire la requête un grand nombre de fois, et prendre la **médiane** pour avoir une idée du temps que ça prend. Dans la même idée on peut prendre les **percentiles **pour voir par ex. si on arrive à rester sous un certain seuil pour 99.9% de nos requêtes (appelé p999).
+      - Pour répondre aux problématiques de scalabilité :
+        - Une réponse à un certain load ne marchera pas pour un load beaucoup plus important : il faut repenser régulièrement son architecture si on scale vraiment.
+        - Il y a le **scale vertical** (machine plus puissante) et le **scale horizontal** (plus de machines, qu’on appelle aussi **shared-nothing architecture**).
+          - En réalité, on utilise souvent un mix des deux : des machines puissantes pour certaines tâches, et du scaling horizontal pour d’autres.
+        - La création de machines supplémentaires peut être manuelle ou “élastique”. La version élastique permet d’adapter aux grandes variations mais est plus complexe aussi.
+        - Habituellement, avoir une application stateful qui est sur plusieurs machines est difficile à gérer, donc on essaye de garder la BDD sur une seule machine jusqu’à ce que ce ne soit plus possible. Avec l’évolution des outils, ceci sera sans doute amené à changer.
+        - Il n’y a pas de _magic scaling sauce_ : chaque application de grande échelle a ses propres contraintes, ses propres bottlenecks, et donc sa propre architecture.
+        - Quand on crée un produit, il vaut au début passer surtout du temps à développer les fonctionnalités qu’à penser son hypothétique scaling.
+  - La **maintenabilité** consiste à pouvoir à la fois perpétuer le système et le faire évoluer en un temps de travail raisonnable.
+    - Pour qu’un système soit maintenable dans le temps, il faut travailler sur ces aspects :
+      - **operability** : la facilité pour les ops de faire tourner le système.
+        - Il faut faciliter la vie au maximum pour les ops. Ex : fournir un bon monitoring, permettre d’éteindre une machine individuellement sans affecter le reste, avoir de bonnes valeurs par défaut et un comportement auto-réparateur, tout en permettant aux ops de prendre la main.
+      - **simplicity** : que le système soit le moins complexe possible pour le comprendre rapidement et pouvoir travailler dessus.
+        - On peut par exemple réduire la **complexité accidentelle**, c’est-à-dire la complexité non nécessaire liée seulement à l’implémentation mauvaise.
+        - Sinon globalement une bonne chose à faire c’est d’introduire des **abstractions** pour appréhender le système plus facilement. Par ex. les langages haut niveau sont des abstractions de ce qui se passe dans la machine.
+      - **evolvability** : la facilité à changer ou ajouter des fonctionnalités au système.
+        - Il s’agit ici de l’agilité mais appliquée à tout un système, et pas à de petites fonctionnalités.
 
 ## 2 - Data Models and Query Languages
 
