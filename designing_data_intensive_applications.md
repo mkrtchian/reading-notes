@@ -9,7 +9,7 @@
     - Les disques durs sont connus pour faire des fautes tous les 10 à 50 ans, ce qui veut dire que sur un parc de 10 000 disques, il y en a un qui saute tous les jours. On peut prévenir ce genre de problème par de la redondance (RAID par ex).
     - Les fautes logicielles sont beaucoup plus insidieuses, et peuvent causer des dégâts en chaîne. Pour les prévenir on peut mettre en place du monitoring, prévoir des restarts de processus en cas de crash etc. Mais ça reste bien maigre en soi.
     - Les fautes humaines sont inévitables, il faut concevoir les systèmes de manière à décourager les actions problématiques, faire beaucoup de tests automatisés, rendre facile le fallback etc.
-  - La **scalabilité **consiste à accompagner le système dans sa montée en charge en termes de données, de trafic ou de complexité.
+  - La **scalabilité** consiste à accompagner le système dans sa montée en charge en termes de données, de trafic ou de complexité.
     - Parler de scalabilité tout court n’a pas vraiment de sens, il faut préciser sur quel aspect on scale.
       - Il faut d’abord **décrire le load** sur lequel on veut scaler. Par ex (page 11) : pour **twitter** le load clé c’est le nombre de followers par personne :
         - la 1ère solution consiste à recréer la timeline de tweets de chaque utilisateur depuis la base de données
@@ -18,7 +18,7 @@
       - Ensuite il faut **décrire la métrique de performance**. Il s’agit d’augmenter le load qu’on a décrit pour voir jusqu’où on tient.
         - Si notre métrique concerne un service en ligne, on va en général prendre le temps de réponse.
           - (Le **temps de réponse** et la **latence** sont différents : la latence concerne le temps pendant lequel la requête est latente, c'est-à-dire qu’elle attend d’être traitée. Le temps de réponse est plus long que ça.)
-          - Il faut reproduire la requête un grand nombre de fois, et prendre la **médiane** pour avoir une idée du temps que ça prend. Dans la même idée on peut prendre les **percentiles **pour voir par ex. si on arrive à rester sous un certain seuil pour 99.9% de nos requêtes (appelé p999).
+          - Il faut reproduire la requête un grand nombre de fois, et prendre la **médiane** pour avoir une idée du temps que ça prend. Dans la même idée on peut prendre les **percentiles** pour voir par ex. si on arrive à rester sous un certain seuil pour 99.9% de nos requêtes (appelé p999).
       - Pour répondre aux problématiques de scalabilité :
         - Une réponse à un certain load ne marchera pas pour un load beaucoup plus important : il faut repenser régulièrement son architecture si on scale vraiment.
         - Il y a le **scale vertical** (machine plus puissante) et le **scale horizontal** (plus de machines, qu’on appelle aussi **shared-nothing architecture**).
@@ -59,7 +59,7 @@
     - Le modèle de document est vraiment meilleur quand les données sont de type hétérogène, ou encore si elles sont déterminées par un système extérieur sur lequel la BDD n’a pas le contrôle.
   - Localité des données :
     - Vu que dans le modèle de document les données sont copiées dans chaque entrée, elles sont locales à celles-ci. On peut donc les avoir avec juste une requête, et on utilise moins le disque dur qu’avec le modèle relationnel. En revanche on va chercher le document entier, donc si on a souvent besoin d’un tout petit morceau ça n’en vaut peut être pas le coup.
-    - Certaines BDD relationnelles permettent aussi de localiser des tables vis-à-vis d’autres (ex : **Spanner database** de **Google**, **Oracle**, ou encore **Bigtable data model **(utilisé dans **Cassandra** et **Hbase**).
+    - Certaines BDD relationnelles permettent aussi de localiser des tables vis-à-vis d’autres (ex : **Spanner database** de **Google**, **Oracle**, ou encore **Bigtable data model** (utilisé dans **Cassandra** et **Hbase**).
 - Les différentes implémentations de BDD ont tendance à converger : la plupart des BDD relationnelles supportent les opérations dans du contenu XML ou JSON, et **RethinkDB** et **MongoDB** permettent de faire une forme de jointure automatique, même si moins efficace.
 - Le modèle relationnel offre un langage **déclaratif**, alors que le modèle hiérarchique n’offre qu’un langage **impératif**. L’avantage du déclaratif c’est que ça abstrait des détails qui peuvent être laissés à la discrétion de l’outil de BDD qu’on utilise pour faire des optimisations.
   - **MapReduce**, qui est un modèle popularisé par Google et disponible dans **MongoDB**, **CouchDB** et **Hadoop** est entre le déclaratif et l’impératif. Il abstrait certaines opérations mais permet aussi d’ajouter du code en plein milieu d’une requête qui aurait été atomique en SQL.
@@ -126,7 +126,7 @@
   - SQL permet d’être performant sur l’OLTP comme sur l’OLAP, globalement c’est ça qu’on va utiliser sur les data warehouses. Par contre les BDD sont structurées bien différemment pour optimiser l’analyse.
     - Un certain nombre d’acteurs proposent des data warehouses avec des licences commerciales onéreuses : **Teradata**, **Vertica**, **SAP HANA**, **ParAccel** (ainsi que **Amazon RedShift** qui est une version hostée de ParAccel)
     - D’autres acteurs open source de type SQL-on-Hadoop concurrencent les premiers : **Apache Hive**, **Spark SQL**, **Cloudera Impala**, **Facebook Presto**, **Apache Tajo**, **Apache Drill**.
-  - De nombreux data warehouses sont organisés selon un** star schema**. On a la **fact table** au centre avec en général des dizaines voir centaines de champs, et représentant les événements étudiés. Et autour on a les **dimension tables**, répondant aux questions _who, what, where, when, how, why_ et liées à la fact table par des foreign keys, ils représentent en quelques sortes les metadata.
+  - De nombreux data warehouses sont organisés selon un **star schema**. On a la **fact table** au centre avec en général des dizaines voir centaines de champs, et représentant les événements étudiés. Et autour on a les **dimension tables**, répondant aux questions _who, what, where, when, how, why_ et liées à la fact table par des foreign keys, ils représentent en quelques sortes les metadata.
     - Une variation du star model s’appelle **snowflakes**, il s’agit d’une version plus normalisée, où on va davantage découper les dimention tables en sous-tables.
   - La plupart du temps, les data warehouses utilisent un **column-oriented storage** plutôt qu’un row-oriented. Il s’agit de stocker les données des colonnes physiquement côte à côte, parce que les requêtes vont avoir besoin de lire en général quelques colonnes entières.
     - La plupart du temps les bases en colonne sont relationnelles, mais il y a par ex **Parquet**, basé sur **Google Dremel**, qui est orienté colonne mais non-relationnel.
@@ -141,7 +141,7 @@
 
 ## 4 - Encoding and evolution
 
-- Quand on change les fonctionnalités, y compris la BDD, il est utile de pouvoir faire une** rolling upgrade** (ou staged rollout). Il s’agit de déployer le code sur certains nœuds, s’assurer que tout va bien, puis déployer progressivement sur les autres.
+- Quand on change les fonctionnalités, y compris la BDD, il est utile de pouvoir faire une **rolling upgrade** (ou staged rollout). Il s’agit de déployer le code sur certains nœuds, s’assurer que tout va bien, puis déployer progressivement sur les autres.
   - Cela implique que le code et la BDD doivent être backward-compatibles (supporter les fonctionnalités du code précédent) mais aussi forward-compatibles (que le code précédent ignore les nouvelles fonctionnalités).
 - Les données ont besoin d’au moins 2 représentations : une en mémoire avec des pointeurs vers des zones mémoire, et une quand on veut transmettre la donnée sur disque ou à travers le réseau. Il faut alors que tout soit contenu dans le bloc de données. La conversion de la mémoire vers la version transportable s’appelle **encoding** (ou **serialization** ou marshalling).
   - Il existe des formats liés à des langages, comme _pickle_ pour python, mais ces formats ne sont ni performants, ni ne gèrent bien la rétro (et forward) compatibility. Et le format de données est trop centré sur un langage particulier.
@@ -155,7 +155,7 @@
       - A propos des formats :
         - Concernant Thrift : Il a deux formats différents :
           - **BinaryProtocol** qui remplace le nom des champs par des chiffres faisant référence aux champs du schéma.
-          - **CompactProtocol **qui possède des optimisations supplémentaires pour gagner de la place en encodant le numéro du champ et le type de champ sur un seul byte, et en utilisant par ex des entiers de longueur variable.
+          - **CompactProtocol** qui possède des optimisations supplémentaires pour gagner de la place en encodant le numéro du champ et le type de champ sur un seul byte, et en utilisant par ex des entiers de longueur variable.
         - Concernant Protobuf : il est globalement assez similaire au CompactProtocol de Thrift, avec des petites différences dans la manière d’encoder les bytes.
       - A propos de l’évolution des schémas (Protobuf et Thrift) :
         - Ajout de champ : comme les champs sont représentés par un numéro reporté dans le schéma, on peut facilement ajouter un champ. Ce sera backward-compatible puisque le nouveau code pourra toujours lire les données qui n’ont pas les nouveaux champs, et ce sera forward-compatible parce que l’ancien code pourra juste ignorer les champs ayant un numéro qu’il ne connaît pas.
@@ -195,7 +195,7 @@
           - Ceci est à tempérer un peu avec les implémentations récentes de RPC qui sont plus explicites sur la nature différente en fournissant par exemple des promesses pour encapsuler les appels asynchrones.
         - Bien que les protocoles RPC avec un encodage binaire permettent une plus grande performance que du JSON par dessus REST, REST bénéficie d’un débuggage plus facile avec la possibilité de tester à travers les navigateurs, il est supporté partout, et il est compatible avec un large panel d’outils construits autour (serveurs, caches, proxies etc.). Pour toutes ces raisons, le RPC est utilisé seulement au sein d’une même organisation, typiquement dans un même datacenter.
   - 3- Message-passing dataflow
-    - Il existe une manière de transmettre des données entre 2 processus qui se situe entre les appels RPC et les messages passés par une base de données : il s’agit de la **transmission de messages asynchrone**. On ne passe pas par le réseau mais par un **message broker **(ou **message queue**).
+    - Il existe une manière de transmettre des données entre 2 processus qui se situe entre les appels RPC et les messages passés par une base de données : il s’agit de la **transmission de messages asynchrone**. On ne passe pas par le réseau mais par un **message broker** (ou **message queue**).
       - Les avantages de cette approche comparé à RPC sont :
         - Le broker peut faire buffer le temps que le(s) consommateur soit disponible.
         - Le message peut être redélivré en cas d’échec ou de crash.
@@ -258,7 +258,7 @@
       - Ce mécanisme arrive avec son lot de bugs, et est moins performant. Mais il offre de la flexibilité.
   - Dans le cas où on choisit la leader-based replication avec des followers asynchrones parce qu’on cherche à scaler en lecture en ayant plein de followers, les followers vont se retrouver régulièrement en retard. En général c’est une fraction de seconde, mais dans la montée en charge ou avec des problèmes de réseau ça peut devenir des minutes. Ce retard s’appelle le **replication lag**. Et on parle d’**eventual consistency** pour désigner ce problème de consistance momentané des données.
   - Parmi les problèmes survenant il y a :
-    - **read-after-write consistency : **le fait, pour un utilisateur, de pouvoir lire ses propres writes juste après : s’il écrit un message et recharge la page, et qu’il ne voit pas son message, il pourrait se mettre à paniquer.
+    - **read-after-write consistency :** le fait, pour un utilisateur, de pouvoir lire ses propres writes juste après : s’il écrit un message et recharge la page, et qu’il ne voit pas son message, il pourrait se mettre à paniquer.
       - On peut lire toute donnée qui a potentiellement été modifiée par l'utilisateur depuis le leader, et les autres depuis les suiveurs. Par exemple, le profil d’un utilisateur ne peut être modifié que par lui, donc on le lit depuis le leader.
       - Dans le cas où la plupart des données sont potentiellement modifiables par l’utilisateur, on perdrait l’intérêt du scaling à tout lire depuis le leader. On peut alors par exemple ne lire depuis le leader que les données qui ont été modifiées dans les dernières minutes, ou encore monitorer le replication lag pour ne pas lire depuis les suiveurs qui sont trop en retard.
       - Le client peut retenir le timestamp (temps ou donnée d’ordre logique) de la dernière écriture, et l’envoyer avec la requête. Le serveur peut alors n’utiliser que les suiveurs qui sont à jour jusqu'à ce timestamp, ou attendre qu’ils le soient avant de répondre.
@@ -415,7 +415,7 @@
       - **Espresso de Linkedin** utilise **Helix**, qui lui-même utilise ZooKeeper.
       - **HBase**, **SolrCloud** et **Kafka** utilisent aussi ZooKeeper.
       - **MongoDB** utilise son outil maison et **mongos daemons** comme routing tier.
-      - **Cassandra** et **Riak** utilisent un **gossip protocol **pour que les nodes s’échangent leurs changements de topologie. La requête peut alors arriver sur n’importe quel nœud qui la redirigera correctement vers le bon. Ça met plus de complexité sur les nœuds, mais ça évite la dépendance à un outil externe comme ZooKeeper.
+      - **Cassandra** et **Riak** utilisent un **gossip protocol** pour que les nodes s’échangent leurs changements de topologie. La requête peut alors arriver sur n’importe quel nœud qui la redirigera correctement vers le bon. Ça met plus de complexité sur les nœuds, mais ça évite la dépendance à un outil externe comme ZooKeeper.
       - **Couchbase** ne fait pas de rebalancing automatique. Et il est couplé en général avec **moxi**, qui est un routing tier écoutant les changements venant des nœuds.
   - Enfin concernant l’accès au routing tier par le client, son adresse ip en changeant que rarement, une configuration de nom via DNS est suffisante pour y accéder.
 
@@ -456,7 +456,7 @@
     - Problèmes :
       - On peut par exemple lire une donnée, puis le temps qu’on lise la suivante celle-ci a été modifiée, et la combinaison des deux lectures donne quelque chose d’incohérent. En général il suffit de refaire la 1ère lecture et on a quelque chose de cohérent à nouveau.
       - Plus grave : une copie de BDD peut prendre plusieurs heures, et le temps de la copie des changements peuvent être faits, de manière à ce qu’au final on ait copié au fur et à mesure quelque chose d’incohérent. Même chose avec une requête d’analyse énorme qui met beaucoup de temps à lire un grand nombre de données : si elles sont modifiées en cours de route.
-    - La snapshot isolation est supportée par **PostgreSQL**, **MySQL** avec **InnoDB**, **Oracle**,** SQL Server** et d’autres.
+    - La snapshot isolation est supportée par **PostgreSQL**, **MySQL** avec **InnoDB**, **Oracle**, **SQL Server** et d’autres.
     - Côté implémentation :
       - En général pour les writes on a un write lock qui bloque les autres writes sur un même objet.
       - En revanche les reads n’utilisent pas de locks, et le principe c’est que les writes ne bloquent pas les reads et les reads ne bloquent pas les writes.
@@ -474,12 +474,12 @@
         - **MongoDB** fournit aussi la possibilité de faire des modifications locales à un document JSON de manière atomique.
         - **Redis** permet de modifier par exemple des priority queues de manière atomique.
         - En général les BDD le font en donnant un lock sur l’objet concerné par l’écriture.
-      - **Explicit locking **: on peut, en pleine requête SQL, indiquer qu’on prend un lock manuellement sur le résultat d’une partie de la requête, pour le réutiliser dans une écriture juste après.
+      - **Explicit locking** : on peut, en pleine requête SQL, indiquer qu’on prend un lock manuellement sur le résultat d’une partie de la requête, pour le réutiliser dans une écriture juste après.
         - On peut facilement oublier de le faire ou mal prendre en compte la logique applicative.
       - **Automatically detect lost updates** : de nombreuses BDD permettent de vérifier la présence de lost updates, et en cas de détection d’annuler la requête et de la retenter juste après.
-        - L’avantage aussi c’est qu’on peut le faire avec la même fonctionnalité que le snapshot isolation. **PostgreSQL**, **Oracle** et **SQL Server **le font de cette manière. **MySQL / InnoDB** en revanche ne supportent pas cette fonctionnalité.
+        - L’avantage aussi c’est qu’on peut le faire avec la même fonctionnalité que le snapshot isolation. **PostgreSQL**, **Oracle** et **SQL Server** le font de cette manière. **MySQL / InnoDB** en revanche ne supportent pas cette fonctionnalité.
       - **Compare-and-set** : certaines bases de données qui ne fournissent pas de transactions permettent des opérations compare-and-set qui consistent à exécuter un changement seulement si la donnée n’a pas été modifiée depuis la dernière fois qu’on l’a lue, ce qui permet normalement d’éviter les lost updates.
-      - **Dans le cas des BDD avec réplication **: quand on a de la réplication les locks ne servent à rien, et le compare-and-set non plus. La meilleure solution est d’exécuter les deux requêtes et de garder une copie des deux résultats, puis de faire appel à du code applicatif ou d’utiliser des structures spéciales de fusion pour résoudre le conflit.
+      - **Dans le cas des BDD avec réplication** : quand on a de la réplication les locks ne servent à rien, et le compare-and-set non plus. La meilleure solution est d’exécuter les deux requêtes et de garder une copie des deux résultats, puis de faire appel à du code applicatif ou d’utiliser des structures spéciales de fusion pour résoudre le conflit.
         - **Riak** 2.0 fournit des structures qui permettent d’éviter les lost updates à travers les réplicas.
         - Malheureusement la plupart des BDD ont par défaut une stratégie last write wins (LWW) qui est provoque des lost updates.
   - **Write skews and phantoms** : on généralise ici le cas des dirty writes et des lost updates dans la mesure où on va écrire sur des objets différents. Chaque requête concurrente lit les données, puis écrit dans un objet différent, mais comme ils le font indépendamment, le code applicatif ne se rend pas compte qu’ils cassent une contrainte applicative qui devait être garantie par le code applicatif. On appelle ça des **write skew**.
@@ -596,7 +596,7 @@
     - Concernant les considérations liées au temps, on en a 3 :
       - **Synchronous model** : on part du principe que les erreurs réseau, de clock ou les pauses de processus sont limités à certaines valeurs définies; En pratique la réalité ne colle pas à de modèle.
       - **Partially synchronous model** : on part du principe que le système se comporte de manière synchrone la plupart du temps, sauf parfois où il déborde. Ce modèle correspond beaucoup mieux à nos systèmes web distribués.
-      - **Asynchronous model **: on est beaucoup plus restrictif puisqu’on considère qu’aucune notion de temps ne peut être fiable. Et donc on ne peut pas utiliser de timeouts non plus.
+      - **Asynchronous model** : on est beaucoup plus restrictif puisqu’on considère qu’aucune notion de temps ne peut être fiable. Et donc on ne peut pas utiliser de timeouts non plus.
     - Concernant les considérations liées aux échecs de noeuds, il y en a aussi 3 :
       - **Crash-stop faults** : on considère que si un nœud fait une faute, on l’arrête et c’en est fini de lui.
       - **Crash-recovery faults** : les nœuds peuvent être en faute, puis revenir en état correct un peu plus tard. C’est ce modèle qui nous est en général le plus utile pour nos systèmes web.
@@ -652,7 +652,7 @@
       - Cette technique permet de respecter la causalité, mais aussi un total ordering.
       - Malheureusement ça ne règle pas tous nos problèmes : même avec un total order, on ne peut pas savoir sur le moment si un nom d’utilisateur unique est en passe d’être pris par un autre nœud ou non pour savoir sur le moment s’il faut l’autoriser soi-même ou non. Avec le temps et les opérations, on finira par avoir un ordonnancement total, mais pour le moment non.
         - C’est l’objet du total order broadcast.
-  - Le** total order broadcast **nécessite qu’aucun message ne soit perdu, et que tous les messages soient délivrés à tous les nœuds dans le même ordre.
+  - Le **total order broadcast** nécessite qu’aucun message ne soit perdu, et que tous les messages soient délivrés à tous les nœuds dans le même ordre.
     - La connexion peut être interrompue, mais les algorithmes de total order broadcast doivent réessayer et rétablir l’ordre des messages dans tous les nœuds quand le réseau est rétabli.
     - **ZooKeeper** et **etcd** implémentent le total order broadcast.
     - A noter aussi que le total order broadcast maintient l’ordre tel qu’il est au moment de l’émission des messages, donc c’est plus fort que le timestamp ordering.
@@ -721,7 +721,7 @@
     - Ce sont en gros des stores de clé-valeur qui tiennent en RAM.
     - ZooKeeper a notamment ces caractéristiques :
       - **Linearizable atomic operations** : à l’aide d’un lock, une seule opération parmi les opérations concurrentes peut réussir.
-      - **Total ordering of operations **: les fencing tokens permettent de préserver l’ordre des transactions.
+      - **Total ordering of operations** : les fencing tokens permettent de préserver l’ordre des transactions.
       - **Failure detection** : les nœuds ZooKeeper et les autres nœuds s’envoient des messages régulièrement, et en cas de timeout déclarent le nœud échoué.
       - **Change notifications** : les clients (les autres nœuds) peuvent s’abonner à des changements spécifiques des autres nœuds à travers ZooKeeper, ce qui évite de faire des requêtes pour voir où ça en est.
     - **ZooKeeper** est pratique pour des informations qui changent toutes les minutes ou heures comme l’association d’une adresse ip à un leader.
@@ -729,8 +729,8 @@
     - **ZooKeeper** fait partie des membership services, issu d’une longue recherche depuis les années 80. En couplant le consensus avec la détection de fautes, ils permettent d’arriver à une certaine connaissance de qui composent les membres du réseau.
 - Intégrer des systèmes disparates ensemble est l’une des choses les plus importantes à faire dans une application non triviale.
 - Les données sont souvent classées en 2 catégories qu’il est de bon ton d'expliciter :
-  - Les **systems of record **qui sont les données de référence.
-  - Les **derived data systems **qui sont en général des données dénormalisées, par exemple stockées dans un cache.
+  - Les **systems of record** qui sont les données de référence.
+  - Les **derived data systems** qui sont en général des données dénormalisées, par exemple stockées dans un cache.
 
 ## 10 - Batch Processing
 
@@ -786,7 +786,7 @@
         - **Pig** fait d’abord une opération pour déterminer les hot keys, et ensuite fait le traitement de la manière décrite.
         - **Crunch** a besoin qu’on lui dise explicitement les hot keys.
         - **Hive** a aussi besoin que les hot keys soient spécifiés explicitement dans une table de metadata séparée.
-  - A propos des **map-side joins **:
+  - A propos des **map-side joins** :
     - Les reduce-side joins sont pratiques parce que les mappers lisent les données quelles qu’elles soient, préparent et trient et donnent ça au réducers. Mais tout ceci coûte en terme de copies au niveau du DD.
       - Si nous avons des informations sur la structure des données, nous pouvons faire des map-side joins, où il s’agit simplement de tout faire dans les mappers et se débarrasser des reducers.
     - Un cas où c’est utile est quand on doit faire une jointure entre un grand dataset et un petit dataset, suffisamment petit pour que ça puisse être chargé dans la RAM de chaque mapper. Chaque mapper aura alors à disposition l’ensemble du petit dataset pour chercher les entrées qui l’intéressent.
@@ -812,7 +812,7 @@
   - Comparaison entre Hadoop et les BDD distribuées :
     - Les BDD distribuées implémentant le _massively parallel processing (MPP)_ avaient déjà la capacité de faire des jointures distribuées en parallèle depuis 10 ans quand MapReduce est sorti. La différence c’est qu’elles obligent les données à respecter un schéma prédéfini.
     - Par contraste, le modèle MapReduce a permis de collecter n’importe quelles données, y compris du texte, des images etc. et de les mettre tels quels, transférant alors le problème de l’interprétation de ces données au consommateur.
-      - Ça s'appelle le* sushi principle* : raw data is better. Et ça permet par exemple de consommer la même donnée différemment selon les contextes.
+      - Ça s'appelle le _sushi principle_ : raw data is better. Et ça permet par exemple de consommer la même donnée différemment selon les contextes.
       - On peut par exemple collecter les données, et dans une étape séparée utiliser un MapReduce pour réorganiser ces données de manière à les transformer en data warehouse.
     - Les BDD MPP sont efficaces pour le cas d’utilisation qu’elles prévoient : la manipulation des données via des requêtes SQL. En outre, ça fournit un bon niveau d’abstraction pour ne pas avoir à écrire de code.
       - D’un autre côté, tout ne peut pas être traité avec des requêtes SQL. Si on a des utilisations particulières comme du machine learning, des systèmes de recommandation, de recherche dans du texte etc. alors on a probablement besoin d’exécuter du code custom sur ces données. C’est ce que permet MapReduce.
@@ -926,7 +926,7 @@
     - Une solution est d’utiliser les batches. Mais c’est lent, et on n’aura pas de données à jour rapidement.
     - Une autre solution serait d’écrire en même temps dans la BDD principale et dans ces autres copies. Mais dans des systèmes distribués il peut survenir des inconsistances entre ces copies.
       - Pour régler ce problème, on pourrait transformer les copies en suiveuses de la BDD principales comme avec le modèle leader / follower.
-      - Malheureusement pendant longtemps les logs des messages allant dans la BDD ont été considérés comme des API privées. Récemment on a un intérêt vers le fait de les exploiter comme des streams qu’on appelle** change data capture (CDC)**.
+      - Malheureusement pendant longtemps les logs des messages allant dans la BDD ont été considérés comme des API privées. Récemment on a un intérêt vers le fait de les exploiter comme des streams qu’on appelle **change data capture (CDC)**.
       - La solution est d’utiliser un log-based broker pour transporter les events d’écriture de la BDD (leader) vers les datasets qui sont des followers (search index, data warehouse etc.).
         - C’est utilisé par **Databus** de LinkedIn, **Wormhole** de Facebook et **Sherpa** de Yahoo.
         - **Bottled Water** le fait pour **PostgreSQL** en lisant son write-ahead log.
@@ -976,7 +976,7 @@
     - Les stream analytics qui ressemblent aux CEP mais sont plus orientés vers le fait de trouver des résultats agrégés à partir des données streamées. Par exemple calculer une moyenne, une statistique.
       - On utilise souvent des fenêtres de données pour faire les calculs dessus.
       - On utilise parfois des algorithmes probabilistes comme les Bloom Filters pour savoir si un élément est dans un set et d’autres. Ces algorithmes produisent des résultats approximatifs mais utilisent moins de mémoire.
-      - Parmi les outils on a **Apache Storm**,** Spark Streaming**,** Flink**,** Concord**,** Samza **et** Kafka Streams**. Et parmi les outils hostés on a **Google Cloud Dataflow** et **Azure Stream Analytics**.
+      - Parmi les outils on a **Apache Storm**, **Spark Streaming**, **Flink**, **Concord**, **Samza** et **Kafka Streams**. Et parmi les outils hostés on a **Google Cloud Dataflow** et **Azure Stream Analytics**.
     - Les dataset dérivées des logs comme dans l’event sourcing peuvent être vus comme des materialized views, dans ce cas il faut prendre en compte l’ensemble des logs et pas juste une fenêtre.
       - **Samza** et **Kafka Streams** font ça.
     - On peut faire aussi un peu pareil que les CEP mais en recherchant un seul event qui match un critère de recherche. Alors que d’habitude on doit indexer avant de faire une recherche, là il s’agit de rechercher en plein streaming.
