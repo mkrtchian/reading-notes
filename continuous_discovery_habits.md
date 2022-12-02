@@ -402,7 +402,7 @@
   - **_UX for Lean Startups_** de Laura Klein.
   - **_Testing business ideas_** de David Bland.
 - Quelques anti-patterns à éviter :
-  - **Des simulations trop complexes** : le but est d’aller vite pour pouvoir itérer dans la bonne direction. Nos tests devraient être complétés en un jour ou deux, ou une semaine max.
+  - **Des simulations trop longues** : le but est d’aller vite pour pouvoir itérer dans la bonne direction. Nos tests devraient être complétés en un jour ou deux, ou une semaine max.
   - **Utiliser des pourcentages au lieu des nombres bruts pour les critères de succès** : définir les nombres (total et de succès) permet de garder en tête la fiabilité au cours des différents tests plus ou moins importants.
   - **Ne pas définir suffisamment de critères d’évaluation** : il faut au moins le nombre total de personnes à interroger, et le nombre total de succès. Mais parfois si notre test est plus complexe, il peut y avoir plusieurs valeurs à mesurer au total et de succès.
     - Par exemple, si on envoie des emails, on peut mesurer ceux qui ouvrent, ceux qui cliquent sur notre lien etc.
