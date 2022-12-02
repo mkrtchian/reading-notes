@@ -407,7 +407,7 @@
   - **Ne pas définir suffisamment de critères d’évaluation** : il faut au moins le nombre total de personnes à interroger, et le nombre total de succès. Mais parfois si notre test est plus complexe, il peut y avoir plusieurs valeurs à mesurer au total et de succès.
     - Par exemple, si on envoie des emails, on peut mesurer ceux qui ouvrent, ceux qui cliquent sur notre lien etc.
   - **Tester avec les mauvais utilisateurs** : bien s’assurer que les personnes interviewées ont bien les besoins, pain points ou désirs de l’opportunity visée.
-  - **Concevoir les tests avec un scénario plus difficile que le plus basique** : il faut que notre scénario soit celui qui a le plus de chances de marcher, et on le challengera par la suite avec plus de monde et des cas plus complexes.Ca permet d’accorder une vraie valeur à un cas d’échec, plutôt que de se dire que ça aurait pu marcher avec d’autres personnes ou fait autrement.
+  - **Concevoir les tests avec un scénario plus difficile que le plus basique** : il faut que notre scénario soit celui qui a le plus de chances de marcher, et on le challengera par la suite avec plus de monde et des cas plus complexes. Ca permet d’accorder une vraie valeur à un cas d’échec, plutôt que de se dire que ça aurait pu marcher avec d’autres personnes ou fait autrement.
 
 ### 11 - Measuring impact
 
