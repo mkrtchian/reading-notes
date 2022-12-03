@@ -433,13 +433,13 @@
 - On peut mesurer **le nombre total d’actions, ou le nombre de personnes faisant l’action au moins une fois**.
   - Pour choisir l’un ou l’autre, on peut se demander si une même personne effectue l’action plusieurs fois, est-ce que ça apporte plus de valeur vis-à-vis de ce qu’on recherche.
 - Il faut aussi **mesurer l’impact sur l’outcome, même si c’est difficile**, et ne pas se contenter de leading indicators.
-  - Si on reprend l’exemple de l’université, les mesures faites représentaient des leading indicators de l’outcome (nombre d’étudiants postulant à un job via la plateforme), mais ne mesuraient pas l’outcome qui était : “Les étudiants trouvent un job via la plateforme”.
-    - L’outcome lui-même était hors de leur contrôle du fait que l’obtention du job se passait hors de la plateforme.
+  - Si on reprend l’exemple de l’université, les mesures faites représentaient des leading indicators (nombre d’étudiants postulant à un job via la plateforme), mais ne mesuraient pas l’outcome business qui était : “Les étudiants trouvent un job via la plateforme”.
+    - L’outcome business lui-même était hors de leur contrôle du fait que l’obtention du job se passait hors de la plateforme.
     - Ils l’ont mesuré quand même au travers d’un questionnaire envoyé aux étudiants quelques temps après leur process. Ils ont itéré dessus pour augmenter le nombre de réponses.
 - Quelques anti-patterns à éviter :
   - **Rester coincé en essayant de tout mesurer** : le problème le plus fréquent est de penser qu’on peut connaître à l’avance ses besoins produit à mesurer.
     - Il vaut mieux mesurer seulement les assumption tests du moment, puis leur lien avec le product outcome, et avec le temps le lien avec le business outcome.
-  - **Se concentrer à fond sur les assumption tests et en oublier de remonter dans l’OST** : il ne faut pas oublier de remonter vers l’outcome produit, puis business pour bien vérifier qu’on apporte de la valeur d’une manière qui sera durable.
+  - **Se concentrer à fond sur les assumption tests et en oublier de remonter dans l’OST** : il ne faut pas oublier de remonter de l’outcome produit vers l’outcome business pour bien vérifier qu’on apporte de la valeur d’une manière qui sera durable.
 
 ### 12 - Managing the cycles
 
