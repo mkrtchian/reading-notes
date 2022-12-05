@@ -75,26 +75,26 @@
   - Une séparation initiale par features majeures.
   - Puis une séparation par couches à l’intérieur de ces features majeures.
   - Et enfin la séparation explicite des ports et adapters, en explicitant leur nature entrante ou sortante.
-  ```yaml
-  - account
-  - adapter
-    - in
-    - web
-    - AccountController
-    - out
-    - persistance
-    - AccountPersistanceAdapter
-  - domain
-    - Account
-  - application
-    - SendMoneyService
-    - port
-    - in
-    - SendMoneyUseCase
-    - out
-    - LoadAccountPort
-    - UpdateAccountStatePort
-  ```
+    ```yaml
+    - account
+    - adapter
+      - in
+      - web
+      - AccountController
+      - out
+      - persistance
+      - AccountPersistanceAdapter
+    - domain
+      - Account
+    - application
+      - SendMoneyService
+      - port
+      - in
+      - SendMoneyUseCase
+      - out
+      - LoadAccountPort
+      - UpdateAccountStatePort
+    ```
   - Le fait que l’architecture soit alignée avec la structure en packages fait que nous avons moins de chances d’en dévier. Elle est incarnée de manière très concrète dans le code.
   - Le domaine étant isolé, on peut très bien en faire ce qu’on veut, y compris y appliquer les patterns tactiques du DDD.
   - Côté visibilité des packages :
