@@ -42,3 +42,68 @@
   - Pour permettre la communication, l’hexagone définit des ports (interfaces), qui doivent être implémentés par les adapters.
     - C’est pour ça qu’on parle de Ports & Adapters.
 - Quel que soit leur nom, tout l’intérêt de ces architectures c’est de permettre d’avoir un **domaine isolé**, dont on pourra gérer la complexité sans qu’il ait d’autres raisons de changer que lui-même.
+
+## 3 - Organizing Code
+
+- On peut organiser le code **par couches** : le classique web, domain et persistance, mais avec une inversion de la persistance vers le domain.
+  ```yaml
+  - web
+  - AccountController
+  - domain
+  - Account
+  - AccountService
+  - AccountRepositoryPort
+  - persistance
+  - AccountRepositoryImpl
+  ```
+  - Mais cette organisation est sous-optimale pour 3 raisons :
+    - Il n’y a pas de séparation sous forme de dossiers ou de packages pour les fonctionnalités. Donc elles vont vite s’entre-mêler au sein de chaque couche.
+    - Comme les services sont gros, on peut difficilement repérer la fonctionnalité exacte qu’on cherche tout de suite.
+    - On ne voit pas au premier coup d'œil quelle partie de la persistance implémente quel port côté domain. L’architecture ne saute pas aux yeux.
+- On peut ensuite organiser le code **par features** : les limites de dossier/package sont définies par les features qui contiennent un fichier par couche.
+  ```yaml
+  - account
+  - Account
+  - AccountController
+  - AccountRepository
+  - AccountRepositoryImpl
+  - SendMoneyService
+  ```
+  - On a nos features visibles immédiatement (`Account -> SendMoneyService`), ce qui fait qu’on est dans le cadre d’une **screaming architecture**.
+  - Par contre, nos couches techniques sont très peu protégées, et le code du domaine n’est plus protégé du reste par des séparations fortes.
+- On peut enfin organiser le code dans une architecture **expressive**, reprenant le meilleur des deux autres :
+  - Une séparation initiale par features majeures.
+  - Puis une séparation par couches à l’intérieur de ces features majeures.
+  - Et enfin la séparation explicite des ports et adapters, en explicitant leur nature entrante ou sortante.
+  ```yaml
+  - account
+  - adapter
+    - in
+    - web
+    - AccountController
+    - out
+    - persistance
+    - AccountPersistanceAdapter
+  - domain
+    - Account
+  - application
+    - SendMoneyService
+    - port
+    - in
+    - SendMoneyUseCase
+    - out
+    - LoadAccountPort
+    - UpdateAccountStatePort
+  ```
+  - Le fait que l’architecture soit alignée avec la structure en packages fait que nous avons moins de chances d’en dévier. Elle est incarnée de manière très concrète dans le code.
+  - Le domaine étant isolé, on peut très bien en faire ce qu’on veut, y compris y appliquer les patterns tactiques du DDD.
+  - Côté visibilité des packages :
+    - Les adapters peuvent rester privés, puisqu’ils ne sont appelés qu’à travers les ports.
+    - Les ports doivent être publics pour être accessibles par les adapters.
+    - Les objets du domaine doivent être publics pour être accessibles depuis les services et les adapters.
+    - Les services peuvent rester privés parce qu’ils sont appelés à travers les ports primaires.
+- Concernant la manière dont fonctionne l’**inversion de dépendance** ici :
+  - Pour les adpaters entrants il n’y a pas besoin d’inversion puisqu’ils sont déjà entrants vers l’hexagone. On peut, au besoin, quand même protéger l’hexagone derrière des ports quand même.
+  - Pour les adapters sortants par contre il faut inverser la dépendance, en les faisant respecter le port de l’hexagone, puis en les instanciant et les donnant à l’hexagone.
+  - Il faut donc un **composant tiers neutre** qui instancie les adapters sortants pour les donner à l’hexagone, et instancie l’hexagone pour le donner aux adapters entrants.
+    - Il s’agit de l’**injection de dépendance**.
