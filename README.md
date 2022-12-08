@@ -2,7 +2,7 @@
 
 These are my detailed notes taken while reading computer science related books. Most of the notes are in french.
 
-## Complete notes:
+## Complete notes
 
 - [fr] [_Designing Data-Intensive Applications_](designing_data_intensive_applications.md) - Martin Kleppmann - 2016
 - [fr] [_The Design of Web APIs_](the_design_of_web_apis.md) - Arnaud Lauret - 2019

@@ -107,3 +107,44 @@
   - Pour les adapters sortants par contre il faut inverser la dépendance, en les faisant respecter le port de l’hexagone, puis en les instanciant et les donnant à l’hexagone.
   - Il faut donc un **composant tiers neutre** qui instancie les adapters sortants pour les donner à l’hexagone, et instancie l’hexagone pour le donner aux adapters entrants.
     - Il s’agit de l’**injection de dépendance**.
+
+## 4 - Implementing a Use Case
+
+- Comme on a une forte séparation hexagone/adapters, on peut implémenter l’hexagone de la manière dont on veut, y compris avec les patterns tactiques du DDD, mais pas forcément.
+- Dans ce chapitre on implémente un use-case dans l’hexagone de l’exemple _buckpal_ qui est une application de gestion de paiement.
+- La **couche domain** se trouve dans `buckpal -> domain`, et contient une entité `Account`, qui a des méthodes pour ajouter et retirer de l’argent.
+  - Chaque ajout ou retrait se fait en empilant des entités `Activity` qui contiennent chaque transaction dans un tableau interne à `Account`.
+  - Le tableau interne ne contient qu’une fenêtre d’`Activity` pour des raisons de performance, et une variable permet de connaître la valeur du compte avant ce nombre restreint d’`Activity`.
+- Les use-cases se trouvent dans la **couche applicative**, dans `buckpal -> application -> service`.
+  - Un use-case va :
+    - Récupérer l’input (qu’il ne valide pas par lui-même pour laisser cette responsabilité à un autre composant).
+    - Valider les règles business, dont la responsabilité est partagée avec la couche domain.
+    - Manipuler l’état du domaine :
+      - Ça se fait en instanciant des entités et appelant des méthodes sur elles.
+      - Et en général en passant les entités à un adapter pour que leur état soit persisté.
+      - Appeler éventuellement d’autres use-cases.
+    - Retourner l’output.
+  - Les use-cases vont être petits pour éviter le problème de gros services où on ne sait pas quelle fonctionnalité va où.
+- La **validation des inputs** se fait dans la couche applicative pour permettre d’appeler l’hexagone depuis plusieurs controllers sans qu’ils aient à valider ces données, et pour garantir l’intégrité des données dans l’hexagone.
+  - On va faire la validation dans une classe de type **command**. Cette classe valide les données dans son constructeur, et refuse d’être instanciée si les données sont invalides.
+    - L’auteur déconseille d’utiliser le pattern builder et conseille d’appeler directement le constructeur.
+    - Exemple de builder :
+      ```typescript
+      new CommandBuilder().setParameterA(value1).setParameterB(value2).build();
+      ```
+  - Cette classe va se trouver dans `buckpal -> application -> port -> in`.
+  - Elle constitue une sorte d’anti-corruption layer protégeant l’hexagone.
+- On pourrait être tenté de **réutiliser des classes de validation d’input** entre plusieurs use-cases ressemblants, par exemple la création d’un compte et la modification d’un compte. L’auteur **le déconseille**.
+  - Si on réutilise, on va se retrouver avec quelques différences (par exemple l’ID du compte) qui vont introduire de potentielles mauvaises données.
+  - On va se retrouver à gérer les différences entre les deux modèles dans les use-cases alors qu’on voulait le faire dans un objet à part.
+  - Globalement, faire des modèles de validation d’input permet, au même titre que le fait de faire des petits use-cases, de garder l’architecture maintenable dans le temps.
+- La **validation des business rules** doit quant à elle être faite dans les use-cases.
+  - La différence avec la validation des inputs c’est que pour les inputs il n’y a pas besoin d’**accéder à l’état du modèle de données**, alors que pour les business rules oui.
+  - Le use-case peut le faire directement en appelant des fonctions, ou alors le déléguer à des entities.
+    - Dans le cas où l'essentiel de la logique est fait dans les entities et où le use-case orchestre juste des appels et passe les données, on parle d’un **rich domain model**. Dans le cas où c’est le use-case qui a l’essentiel de la logique et les entities sont maigres, on parlera d’un **anemic domain model**.
+  - Le use-case lève une exception en cas de non-respect des règles business comme pour les règles d’input. Ce sera à l’adapter entrant de décider de ce qu’il fait de ces exceptions.
+- Concernant **l’output** renvoyé par le use-case, il faut qu’il soit **le plus minimal possible** : n’inclure que ce dont l’appelant a besoin.
+  - Si on retourne beaucoup de choses, on risque de voir des use-cases couplés entre eux via l’output (quand on ajoute un champ à l’objet retourné, on a besoin de changer tous ceux qui le retournent).
+- Les use-cases qui font **uniquement de la lecture** pour renvoyer de la donnée peuvent être distinguées des use-cases qui écrivent.
+  - Pour ça on peut les faire implémenter un autre port entrant que les use-cases d’écriture, par exemple le port `GetAccountBalanceQuery`.
+  - On pourra à partir de là faire du CQS ou du CQRS.
