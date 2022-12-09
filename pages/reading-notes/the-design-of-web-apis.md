@@ -77,7 +77,7 @@
 - Tips YAML :
   - Pour indiquer qu’il n’y a rien, il faut mettre des {}, par exemple quand il n’y a pas encore de paths : `paths: {}`
   - Pour écrire une string multiligne, on met un | d’abord :
-    ```yml
+    ```yaml
     description: |
     blabla
     blabla
@@ -86,7 +86,7 @@
 - Le format OpenAPI :
   - Il ne faut pas hésiter à écrire des descriptions.
   - ex
-    ```yml
+    ```yaml
     paths:
       /objects:
       description: description du path
@@ -102,7 +102,7 @@
             # et on décrit le schéma de la réponse
     ```
   - Dans le cas où une méthode GET prend un paramètre, ça se passe dans parameter :
-    ```yml
+    ```yaml
     get:
     parameters:
         # il s'agit du nom qui va apparaître dans l'URL
@@ -117,7 +117,7 @@
             type: string
     ```
   - Même chose pour les **path parameters** quand un morceau du path est paramétrisé. Dans ce cas il faut l’indiquer entre accolades :
-    ```yml
+    ```yaml
     paths:
     /objects/{objectId}
         delete:
@@ -131,7 +131,7 @@
     ```
   - Pour décrire les formats JSON attendus en entrée, ou en réponse, OpenAPI utilise la **spécification JSON-schema** :
     Exemple pour `{prop1: "", prop2: { prop2-1: ""}}`
-    ```yml
+    ```yaml
     type: object
     description: une description de l'objet JSON
     required:
@@ -152,7 +152,7 @@
   - Pour les méthodes comme POST qui ont besoin de données en entrée, ça se fait dans **requestBody**, à côté de **responses**.
 - On peut **réutiliser des schémas** JSON déjà définis pour éviter de les répéter dans notre fichier OpenAPI :
   - Il faut renseigner le schéma à la racine du document, dans :
-    ```yml
+    ```yaml
     components:
     schemas:
       mon_objet:
@@ -161,7 +161,7 @@
         # [...]
     ```
   - Et ensuite on peut le référencer avec :
-    ```yml
+    ```yaml
     schema:
     $ref: #/components/schemas/mon_objet
     ```
@@ -281,7 +281,7 @@
   - On peut aussi définir plusieurs granularités en même temps : des scopes grossiers mais faciles à configurer, et des scopes plus fins. L’utilisateur pourra alors utiliser un mélange et configurer plus finement les parties qu’il veut.
 - OpenAPI permet de spécifier des scopes pour chaque endpoint/méthode défini :
   - Ca se fait dans components -> securitySchemes
-    ```yml
+    ```yaml
     components:
     securitySchemes:
       BankingAPIScopes:
@@ -294,7 +294,7 @@
           "beneficiary:manage": Create, list beneficiaries
     ```
   - Et ensuite on les indique dans nos paths existants :
-    ```yml
+    ```yaml
     paths:
     /beneficiaries:
         get:
@@ -457,7 +457,7 @@
 - Créer une documentation est une manière de tester le design : si on est incapable de l’expliquer c’est qu’il y a peut être des incohérences.
 - Dans la documentation d’une API, il faut bien évidemment **une référence des endpoints possibles**. Typiquement le genre de documentation qu’on peut générer à partir d’une spécification OpenAPI.
   - Pour fournir plusieurs exemples dans OpenAPI :
-    ```yml
+    ```yaml
     requestBody:
     content:
       "application/json":
