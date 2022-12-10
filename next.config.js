@@ -13,8 +13,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash: true,
-  assetPrefix: isProduction ? "/reading-notes/next" : "",
-  basePath: isProduction ? "/reading-notes/next" : "",
+  assetPrefix: isProduction ? "/reading-notes" : "",
+  basePath: isProduction ? "/reading-notes" : "",
 };
 
 module.exports = {
