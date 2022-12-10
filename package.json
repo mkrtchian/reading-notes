@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export",
-    "lint": "next lint"
+    "export": "next build && next export && touch out/.nojekyll",
+    "lint": "next lint",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "next": "13.0.6",
@@ -22,6 +23,7 @@
     "@types/react-dom": "18.0.9",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "gh-pages": "^4.0.0",
     "typescript": "4.9.4"
   }
 }

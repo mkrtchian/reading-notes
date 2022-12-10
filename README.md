@@ -2,5 +2,4 @@
 
 These are my detailed notes taken while reading computer science related books. Most of the notes are in french.
 
-- [Read the web version]().
-- [Read markdown sources](pages/reading-notes/).
+**[Read the notes](https://mkrtchian.github.io/reading-notes/)**
