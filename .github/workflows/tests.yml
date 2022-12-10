@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint_and_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Run eslint
+        run: yarn lint
+        env:
+          CI: true
+      - name: Run typescript
+        run: yarn type-check
+        env:
+          CI: true
+      - name: Run build
+        run: yarn export
+        env:
+          CI: true
