@@ -6,7 +6,7 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/mkrtchian/reading-notes",
   },
-  docsRepositoryBase: "https://github.com/mkrtchian/reading-notes",
+  docsRepositoryBase: "https://github.com/mkrtchian/reading-notes/blob/main",
   footer: {
     text: "Made by Roman Mkrtchian",
   },
