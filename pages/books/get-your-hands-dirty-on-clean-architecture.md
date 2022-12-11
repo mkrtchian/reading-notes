@@ -148,3 +148,28 @@
 - Les use-cases qui font **uniquement de la lecture** pour renvoyer de la donnée peuvent être distinguées des use-cases qui écrivent.
   - Pour ça on peut les faire implémenter un autre port entrant que les use-cases d’écriture, par exemple le port `GetAccountBalanceQuery`.
   - On pourra à partir de là faire du CQS ou du CQRS.
+
+## 5 - Implementing a Web Adapter
+
+- Tous les appels extérieurs passent par des **adapters entrants**.
+- Comme le flow d’appel est déjà dirigé de l’adapter vers l’hexagone, on pourrait enlever le port, et laisser l’adapter appeler directement les use-cases.
+  - La matérialisation des ports permet d’avoir un endroit où tous **les points d’entrée de l’hexagone sont clairement identifiés** et spécifiés. C’est utile pour la maintenance à long terme.
+  - Enlever ces ports fait partie des raccourcis discutés dans le chapitre 11.
+  - Dans le cas où notre adapter est un WebSocket qui va appeler mais aussi qui sera appelé, alors il faut obligatoirement avoir les ports entrants, et surtout sortants, puisque là on a bien une inversion du sens d’appel.
+- Les adapters web vont :
+  - Créer des objets internes à partir des objets HTTP.
+    - On parle aussi de désérialisation.
+  - Vérifier les autorisations.
+  - Valider l’input, et le faire correspondre à l’input du use-case qui va être appelé.
+    - Vu qu’on valide déjà l’input à l’entrée du use-case, on va ici seulement valider le fait que l’input reçu peut bien être converti dans l’input du use-case.
+  - Appeler le use-case.
+  - Récupérer l’output, et reconstruire un objet HTTP à partir de ça pour le renvoyer.
+    - On parle aussi de sérialisation.
+- L’adapter se trouve dans `buckpal -> adapter -> web`.
+- L’adapter web a la responsabilité de communiquer avec le protocole HTTP. C’est une responsabilité qu’il doit avoir seul, et donc **ne pas faire fuiter des détails du HTTP dans le use-case**.
+- Concernant la taille des controllers, il vaut mieux les avoir **les plus petits et précis possibles**.
+  - Il vaut mieux éviter de créer par exemple une classe `AccountController` qui va avoir plusieurs méthodes associées chacune à un endpoint.
+    - Ce genre de classe peut grossir et devenir difficile à maintenir. De même pour les tests associés.
+    - Le fait d’être dans une classe fait que ces controllers vont partager des fonctions et objets entre eux. Et donc vont être plus facilement couplés.
+  - On peut nommer les classes de web adapter avec des noms plus précis que `UpdateX`, `CreateX` etc. Par exemple `RegisterAccount`.
+  - Les petits controllers permettent aussi de travailler plus facilement sur le code en parallèle.
