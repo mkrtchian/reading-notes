@@ -165,7 +165,7 @@
   - Appeler le use-case.
   - Récupérer l’output, et reconstruire un objet HTTP à partir de ça pour le renvoyer.
     - On parle aussi de sérialisation.
-- L’adapter se trouve dans `buckpal -> adapter -> web`.
+- L’adapter se trouve dans `buckpal -> adapter -> in -> web`.
 - L’adapter web a la responsabilité de communiquer avec le protocole HTTP. C’est une responsabilité qu’il doit avoir seul, et donc **ne pas faire fuiter des détails du HTTP dans le use-case**.
 - Concernant la taille des controllers, il vaut mieux les avoir **les plus petits et précis possibles**.
   - Il vaut mieux éviter de créer par exemple une classe `AccountController` qui va avoir plusieurs méthodes associées chacune à un endpoint.
@@ -173,3 +173,32 @@
     - Le fait d’être dans une classe fait que ces controllers vont partager des fonctions et objets entre eux. Et donc vont être plus facilement couplés.
   - On peut nommer les classes de web adapter avec des noms plus précis que `UpdateX`, `CreateX` etc. Par exemple `RegisterAccount`.
   - Les petits controllers permettent aussi de travailler plus facilement sur le code en parallèle.
+
+## 6 - Implementing a Persistence Adapter
+
+- Avec l’adapter de persistance, on a une vraie inversion des dépendances qui fait que malgré le sens des appels de l’hexagone vers l’adapter, grâce au port c’est l’adapter qui dépend de l’hexagone.
+  - On va donc pouvoir faire des modifications dans l’adapter de persistance sans que ça n’affecte la logique business.
+- Les adapters de persistance vont :
+  - Prendre l’input.
+    - Ca peut être une domain entity ou un objet spécifique pour une opération en base.
+  - Le mapper au format base de données et l’envoyer à DB.
+    - En général on va mapper vers les entities de l’ORM, mais ça peut aussi être vers des requêtes SQL directement.
+  - Récupérer la réponse DB et la mapper au format applicatif.
+    - En général une domain entity.
+  - Renvoyer la valeur à l’application service.
+- L’adapter se trouve dans `buckpal -> adapter -> out -> persistance`.
+- Il faut que **les modèles d’input et d’output vers et depuis le persistance adapter** soient tous deux **dans l’application core** (hexagone).
+- Plutôt qu’avoir un gros port qui permet d’accéder à toutes les méthodes de l’adapter correspondant à une entity, il vaut mieux avoir des ports plus fins.
+  - Une des raisons c’est qu’il est plus difficile de mocker le persistance adapter en entier que de mocker certaines de ses méthodes correspondant aux ports utilisés.
+  - La plupart du temps on va se retrouver avec **une méthode de l’adapter par port**.
+- Pour ce qui est de l’adapter lui-même (celui qu’on accède via les ports), on peut l’avoir gros, mais on peut aussi le découper, par exemple pour avoir un adapter par entity, ou un par aggregate (si on utilise les patterns tactiques du DDD).
+  - On pourrait aussi créer deux adapters pour une même entity : un pour les méthodes utilisant notre ORM, et un autre pour les méthodes utilisant du SQL directement.
+    - Dans l’adapter on pourra donc utiliser les entities de l’ORM, ou alors des **repositories** faites à la main, qui contiendront des méthodes exécutant du SQL.
+  - Séparer les aggregates dans des adapters distincts permet aussi de faciliter l’extraction d’un bounded context par la suite.
+- On va donc avoir une **duplication des domain entities** dans le persistance adapter, en général sous forme d’entities d’ORM.
+  - Utiliser les entities ORM dans le domaine peut être un choix possible pour éviter des mappings (discuté dans le chapitre 8), mais ça a le désavantage de faire fuiter des contraintes spécifiques à la DB vers le domaine.
+- L’adapter en lui-même :
+  - Pour une lecture, il appelle des méthodes sur les entities ORM ou sur les repositories maison, puis il map le résultat à une entity domaine et la renvoie.
+  - Pour une écriture, il récupère l’entity domaine, la map vers l’entity ORM ou vers la méthode de repository maison, et exécute la méthode sur celle-ci.
+- Concernant les **transactions**, elles ne peuvent pas être dans l’adapter de persistance. Elles doivent être dans la fonction qui orchestre les appels à la persistance, c'est-à-dire les use-cases applicatifs.
+  - Si on veut garder nos use-cases purs, on peut recourir à l’**aspect-oriented programming**, par exemple avec AspectJ.
