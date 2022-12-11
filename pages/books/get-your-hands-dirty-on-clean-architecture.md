@@ -202,3 +202,35 @@
   - Pour une écriture, il récupère l’entity domaine, la map vers l’entity ORM ou vers la méthode de repository maison, et exécute la méthode sur celle-ci.
 - Concernant les **transactions**, elles ne peuvent pas être dans l’adapter de persistance. Elles doivent être dans la fonction qui orchestre les appels à la persistance, c'est-à-dire les use-cases applicatifs.
   - Si on veut garder nos use-cases purs, on peut recourir à l’**aspect-oriented programming**, par exemple avec AspectJ.
+
+## 7 - Testing Architecture Elements
+
+- Il y a 3 types de tests dans la pyramide :
+  - Plus on monte dans la pyramide, et plus les tests sont lents et fragiles, donc plus on monte et moins nombreux doivent être les tests.
+    - Les **unit tests** testent en général une seule classe.
+    - Les **integration tests** mettent en jeu le code de plusieurs couches, et vont souvent mocker certaines d’entre-elles.
+    - Les **system tests** testent le tout de bout en bout, sans mocks (autre que les composants qu’on ne peut pas instancier dans notre test).
+      - On pourra parler de end-to-end tests si on teste depuis le frontend et non depuis l’API du backend.
+  - NDLR : l’auteur adopte une vision proche de l’école de Londres, en considérant qu’un test teste une unité de code (et pas une unité de comportement peu importe la quantité de code), et qu’en testant plusieurs bouts de code ensemble il faut mocker les bouts de codes voisins (c’est comme ça qu’on obtient des tests fragiles aux refactorings).
+- Côté implémentation :
+  - Les **domain entities** sont testés avec des unit tests (state-based).
+    - NDLR : Dans l’exemple on teste Account, mais pour autant on ne mock pas Activity, on en construit une vraie instance. Donc sur cet exemple en tout cas, on n’est pas tout à fait dans l’école de Londre non plus.
+  - Les **use-cases** sont testés avec des unit tests (communication based) vérifiant que le use-case appelle la bonne méthode sur le domain entity et sur l’adapter de persistance.
+    - NDLR : Là on est bien dans la London school.
+    - L’auteur fait remarquer que le test utilisant des mocks, il est couplé à la structure du code et pas seulement au comportement. Et donc il conseille de ne pas forcément tout tester, pour éviter que ces tests cassent trop souvent.
+  - Les **web adapters **sont testés avec des tests d’intégration.
+    - On parle ici d’intégration parce qu’on est “intégré” avec autre chose que du code pur, en l’occurrence avec la librairie de communication HTTP.
+    - Il s’agit de tests communication based, envoyant un faux message HTTP sur le bon path, et vérifiant qu’on a fait un appel sur le bon use-case mocké, avec la bonne commande.
+  - Les **persistance adapters** sont testés avec des tests d’intégration.
+    - Ici pas de mocks, on construit des domain entities et on les passe à l’adapter pour qu’il le mette en base, et on vérifie depuis la base avec des méthodes de repository qu’on a écrit la bonne chose.
+    - Si besoin de données préalables, par exemple pour de la lecture, on exécute d’abord du SQL pour mettre la DB dans un état qui permettra cette lecture.
+    - Le fait de ne pas mocker est justifié par le fait qu’on perdrait toute confiance dans nos tests puisque chaque type de DB vient avec ses propres spécificités SQL.
+  - Les **chemins principaux complets** sont testés avec des system tests.
+    - On utilise de vrais messages HTTP, et on ne mock rien dans nos couches.
+- On peut utiliser des fonctions helper pour rendre nos tests plus lisibles en extrayant des bouts de code. Ces fonctions forment un **domain specific language** qu’il est bon de cultiver.
+- Concernant la **quantité de tests** :
+  - L’auteur suggère d’aller vers du 100% de coverage du code important. Garder quand même le 100% permet de lutter contre la théorie des vitres cassées.
+  - Pour mesurer la fiabilité des tests, on peut mesurer **à quel point on est confiant pour mettre en production** notre changement.
+    - Pour être toujours plus confiant, il faut mettre en production souvent.
+    - Pour chaque bug en production, il faut se demander ce qu’on aurait pu faire pour qu’un test trouve le bug, et l’ajouter.
+    - Le fait de documenter les bugs comme ça permet d’avoir une mesure de la fiabilité des tests dans le temps.
