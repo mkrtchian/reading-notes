@@ -21,7 +21,7 @@
 
 ## 2 - Inverting dependencies
 
-- Le **Single Responsibility Principle** (SRP) dit qu’un composant doit avoir une seule** raison de changer**.
+- Le **Single Responsibility Principle** (SRP) dit qu’un composant doit avoir une seule **raison de changer**.
   - Ça veut dire que si on change le logiciel pour n’importe quelle autre raison, il ne devrait pas changer.
   - Quand nos composants dépendent les uns des autres, ça leur donne autant de raisons à chaque fois de changer, si un des composants dont ils dépendent change lui aussi.
 - La layered architecture fait que la couche web et la couche domain ont des raisons de changer liées à la couche de persistance. On n’a pas envie que la couche domain change pour d’autres raisons qu’elle-même, donc on va **inverser les dépendances** qu’elle a.
@@ -218,7 +218,7 @@
   - Les **use-cases** sont testés avec des unit tests (communication based) vérifiant que le use-case appelle la bonne méthode sur le domain entity et sur l’adapter de persistance.
     - NDLR : Là on est bien dans la London school.
     - L’auteur fait remarquer que le test utilisant des mocks, il est couplé à la structure du code et pas seulement au comportement. Et donc il conseille de ne pas forcément tout tester, pour éviter que ces tests cassent trop souvent.
-  - Les **web adapters **sont testés avec des tests d’intégration.
+  - Les **web adapters** sont testés avec des tests d’intégration.
     - On parle ici d’intégration parce qu’on est “intégré” avec autre chose que du code pur, en l’occurrence avec la librairie de communication HTTP.
     - Il s’agit de tests communication based, envoyant un faux message HTTP sur le bon path, et vérifiant qu’on a fait un appel sur le bon use-case mocké, avec la bonne commande.
   - Les **persistance adapters** sont testés avec des tests d’intégration.
@@ -237,8 +237,8 @@
 
 ## 8. Mapping Between Boundaries
 
-- Les 3 composants principaux (driving adapter, hexagone et driven adapter) doivent avoir un modèle qui leur permet d'appréhender le système et ses entités. On peut choisir différentes **stratégies de mapping **entre ces modèles en fonction de leur unicité ou de leur différence.
-- **1- La no-mapping strategy **consiste à avoir le même modèle dans l’adapter web, l’hexagone, et l’adapter de persistance.
+- Les 3 composants principaux (driving adapter, hexagone et driven adapter) doivent avoir un modèle qui leur permet d'appréhender le système et ses entités. On peut choisir différentes **stratégies de mapping** entre ces modèles en fonction de leur unicité ou de leur différence.
+- **1- La no-mapping strategy** consiste à avoir le même modèle dans l’adapter web, l’hexagone, et l’adapter de persistance.
   - On n’implémente la représentation des entities qu’une fois pour la réutiliser partout.
   - Chaque couche va avoir besoin de champs ou d’éléments techniques qui lui sont spécifiques, par exemple des annotations liées à HTTP pour l’adapter web, des annotations d’ORM pour l’adapter de persistance. Nos entities auront donc **plusieurs raisons de changer**.
   - Tant que toutes les couches ont besoin des informations formatées de la même manière, cette stratégie marche. C’est le cas pour les **applications CRUD**.
