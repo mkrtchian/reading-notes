@@ -234,3 +234,37 @@
     - Pour être toujours plus confiant, il faut mettre en production souvent.
     - Pour chaque bug en production, il faut se demander ce qu’on aurait pu faire pour qu’un test trouve le bug, et l’ajouter.
     - Le fait de documenter les bugs comme ça permet d’avoir une mesure de la fiabilité des tests dans le temps.
+
+## 8. Mapping Between Boundaries
+
+- Les 3 composants principaux (driving adapter, hexagone et driven adapter) doivent avoir un modèle qui leur permet d'appréhender le système et ses entités. On peut choisir différentes **stratégies de mapping **entre ces modèles en fonction de leur unicité ou de leur différence.
+- **1- La no-mapping strategy **consiste à avoir le même modèle dans l’adapter web, l’hexagone, et l’adapter de persistance.
+  - On n’implémente la représentation des entities qu’une fois pour la réutiliser partout.
+  - Chaque couche va avoir besoin de champs ou d’éléments techniques qui lui sont spécifiques, par exemple des annotations liées à HTTP pour l’adapter web, des annotations d’ORM pour l’adapter de persistance. Nos entities auront donc **plusieurs raisons de changer**.
+  - Tant que toutes les couches ont besoin des informations formatées de la même manière, cette stratégie marche. C’est le cas pour les **applications CRUD**.
+  - A partir du moment où on commence à **gérer des problèmes spécifiques au web ou à la persistance dans l’hexagone**, alors il faut passer à une autre stratégie.
+- **2- La two-way mapping strategy** consiste à avoir un modèle spécifique pour chacun des composants principaux (adapter web, hexagone et adapter de persistance), et de faire un mapping quand la donnée rentre, et un autre quand elle sort.
+  - L’avantage c’est que cette séparation des modèles permet d’adapter leur structure pour les besoins de chaque couche : besoins web (ex: sérialisation JSON), besoins du modèle, besoins de la persistance (ex: ORM).
+  - Le désavantage principal c’est le boilerplate conséquent.
+    - Et même avec l’utilisation de librairies de mapping, les bugs sont compliqués à trouver parce que le mapping est caché.
+  - Un autre désavantage c’est que malgré la séparation, les objets du modèle de l’hexagone sont quand même utilisés par les autres couches externes, ce qui fait qu’ils pourraient avoir besoin de changer pour des nécessités de ces couches.
+- **3- La full mapping strategy** consiste à utiliser un mapping entre les 3 composants principaux comme pour la two-way mapping strategy, mais cette fois on va établir des **modèles d’input et d’output fins spécifiques à chaque use-case**.
+  - On a encore plus de mapping que si on mappait juste les modèles des 3 composants, mais ce mapping va aussi être plus maintenable parce qu’il sera à chaque fois **spécifique au use-case** sans avoir besoin d’être adapté pour correspondre à de nouveaux besoins.
+  - L’auteur conseille ce pattern plutôt entre l’adapter web et l’hexagone qu’entre l’hexagone et l’adapter de persistance (parce qu’il y aurait vraiment trop de mappings).
+  - On pourra aussi faire des variantes, par exemple utiliser cette stratégie pour le modèle d’entrée dans l’hexagone depuis l’adapter web, mais renvoyer les objets du modèle de l’hexagone en sortie vers l’adapter web.
+- **4 - La one-way mapping strategy** consiste à avoir une interface commune aux trois modèles de chacun des trois composants.
+  - De cette manière les objets peuvent être passés sans devoir obligatoirement les mapper. Si le mapping est nécessaire, il suffira à la couche qui en a besoin de le faire.
+  - Quand l’objet est passé de l’hexagone vers l’extérieur ils peuvent l’utiliser tel quel sans risquer de le modifier parce que les setters ne sont pas exposés.
+  - Quand l’objet passe vers l’hexagone, il devra en général être mappé pour reconstruire le comportement riche du domaine.
+    - On peut le faire avec le pattern Factory du DDD.
+  - Cette stratégie a de l’intérêt quand les modèles sont proches.
+    - Le modèle web peut facilement ne pas avoir besoin de mapper l’output venant de l’hexagone.
+  - Le désavantage c’est que cette stratégie est plus difficile à appréhender étant donné son caractère non systématique.
+- Il faut **adapter la stratégie** en fonction des cas d’usage et de leur nature, et pas adopter une seule stratégie pour toute la codebase.
+  - On peut avoir des différences de stratégie en fonction :
+    - Des lectures et écritures.
+    - De la communication entre adapter web et hexagone, et hexagone et adapter de persistance.
+- Il ne faut pas avoir peur de **changer de stratégie en cours de route**.
+  - La plupart des applications commencent en étant CRUD, puis soit le restent, soit se complexifient suffisamment pour mériter un changement de stratégie de mapping.
+  - L’équipe doit se mettre d’accord sur des stratégies à choisir pour chaque partie de la codebase, et surtout **noter pourquoi elle fait ce choix** pour pouvoir réévaluer plus tard si le choix doit être modifié ou non.
+    - Il peut être intéressant aussi de noter dans quel cas elle prévoit de changer de stratégie.
