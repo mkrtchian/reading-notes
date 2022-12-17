@@ -268,3 +268,42 @@
   - La plupart des applications commencent en étant CRUD, puis soit le restent, soit se complexifient suffisamment pour mériter un changement de stratégie de mapping.
   - L’équipe doit se mettre d’accord sur des stratégies à choisir pour chaque partie de la codebase, et surtout **noter pourquoi elle fait ce choix** pour pouvoir réévaluer plus tard si le choix doit être modifié ou non.
     - Il peut être intéressant aussi de noter dans quel cas elle prévoit de changer de stratégie.
+
+## 9 - Assembling the Application
+
+- Nous voulons garder l’inversion de dépendance entre les composants externes et l’hexagone.
+  - Donc nous devons instancier les adapters pour les donner au constructeur des objets de l’hexagone par le mécanisme qui s’appelle l**’injection de dépendance**.
+- Nous devons avoir un **composant de configuration** qui soit neutre du point de vue notre architecture, et qui ait **accès à tous les composants** pour les instancier.
+  - Il va :
+    - Créer les adapters web et s’assurer que les requêtes HTTP sont câblées aux bons adapters.
+    - Créer les adapters de persistance et s’assurer qu’elles aient accès à la base de données.
+    - Créer les use cases, et au moment de leur création, leur donner les adapters web et les adapters de persistance dans leur constructeur, pour qu’elles y aient accès (injection de dépendance).
+  - Il va aussi passer certaines valeurs de configuration aux autres composants (serveur de base de données, serveur SMTP etc).
+  - Il aura toutes les raisons de changer
+- Côté implémentation :
+  - On peut créer le composant avec du **code sans librairie** :
+
+    ```typescript
+    function main() {
+      const accountRepository = new AccountRepository();
+      const activityRepository = new ActivityRepository();
+      const accountPersistanceAdapter = new AccountPersistanceAdapter(
+        acountRepository,
+        activityRepository
+      );
+
+      const sendMoneyUseCase = new SendMoneyService(accountPersistanceAdapter);
+
+      const sendMoneyController = new SendMoneyController(sendMoneyUseCase);
+
+      startProcessingWebRequests(sendMoneyController);
+    }
+    ```
+
+    - Cette méthode a le désavantage d’amener à écrire beaucoup de code, et d’obliger à ce que les classes de chaque composant soient accessibles publiquement.
+
+  - Parmi les techniques impliquant une librairie, en Java on a
+    - Le classpath scanning où il s’agit d’annoter les classes de chaque composant et demander à Spring de scanner les classes pour trouver celles qu’il faut instancier et injecter.
+      - Elle est plus rapide mais peut mener à des bugs difficiles à trouver parce que le système de scanning est obscur.
+    - L’autre méthode c’est d’écrire des classes de configuration qui vont indiquer quelles classes doivent être instanciées et injectées.
+      - On va écrire plus de code pour obtenir plus de découplage et de transparence sur ce qui est fait.
