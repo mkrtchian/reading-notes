@@ -272,7 +272,7 @@
 ## 9 - Assembling the Application
 
 - Nous voulons garder l’inversion de dépendance entre les composants externes et l’hexagone.
-  - Donc nous devons instancier les adapters pour les donner au constructeur des objets de l’hexagone par le mécanisme qui s’appelle l**’injection de dépendance**.
+  - Donc nous devons instancier les adapters pour les donner au constructeur des objets de l’hexagone par le mécanisme qui s’appelle l'**injection de dépendance**.
 - Nous devons avoir un **composant de configuration** qui soit neutre du point de vue notre architecture, et qui ait **accès à tous les composants** pour les instancier.
   - Il va :
     - Créer les adapters web et s’assurer que les requêtes HTTP sont câblées aux bons adapters.
@@ -281,6 +281,7 @@
   - Il va aussi passer certaines valeurs de configuration aux autres composants (serveur de base de données, serveur SMTP etc).
   - Il aura toutes les raisons de changer
 - Côté implémentation :
+
   - On peut créer le composant avec du **code sans librairie** :
 
     ```typescript
@@ -307,3 +308,43 @@
       - Elle est plus rapide mais peut mener à des bugs difficiles à trouver parce que le système de scanning est obscur.
     - L’autre méthode c’est d’écrire des classes de configuration qui vont indiquer quelles classes doivent être instanciées et injectées.
       - On va écrire plus de code pour obtenir plus de découplage et de transparence sur ce qui est fait.
+
+## 10 - Enforcing Architecture Boundaries
+
+- Ce chapitre traite de la manière d’éviter que l’architecture choisie s’érode au fil du temps, causant un manque de clarté et une lenteur à faire des changements.
+- La principale chose à faire respecter est le **sens des dépendances** parmi les couches (`domaine -> application -> adapters -> configuration`).
+- On peut utiliser la **visibilité de package,** si le langage le permet (_package-private modifier_ en Java), pour rendre le contenu des couches plus cohésives.
+  - Si on part du principe que notre composant de configuration est une librairie qui passe outre la visibilité de package et qu’elle peut instancier même les classes privées à leur package, alors on n’a que les relations entre couches à se préoccuper :
+    - Les **adapters et les use cases peuvent être privés** au package de leur couche.
+    - Les **entities du domaine doivent être publiques** pour être accédées par les couches du dessus, **de même que les ports** qui doivent être accédés par les adapters qui les implémentent.
+- On peut aussi utiliser des **moyens au runtime** pour empêcher que le sens des dépendances s’inverse, par exemple **au moment des tests**.
+  - En Java il y a la librairie ArchUnit qui permet de faire des tests d’architecture, y compris des tests sur le sens des dépendances, en vérifiant qu’un package ne dépend pas d’un autre package (importe rien qui vienne de lui).
+  - On peut construire par dessus ce genre de librairie pour obtenir un DSL (Domain Specific Language) dans nos tests, qui vérifie les dépendances pour un bounded context donné :
+    ```java
+    HexagonalArchitecture.boundedContext("account")
+      .withDomainLayer("domain")
+      .withAdaptersLayer("adapter")
+        .incoming("web")
+        .outgoing("persistence")
+        .and()
+      .withApplicationLayer("application")
+        .services("service")
+        .incomingPorts("port.in")
+        .outgoingPorts("port.out")
+        .and()
+      .withConfiguration("configuration")
+      .check(new ClassFileImporter().importPackages("buckpal"));
+    }
+    ```
+  - Attention par contre : ce genre de test est vulnérable aux refactorings. Il suffit que le nom des packages change et aucun problème ne sera trouvé sur des packages qui n’existent pas.
+- On peut enfin profiter de la **phase de build** de notre application pour créer autant d’artefacts de build que nécessaire, et profiter de l’outil de build pour garantir les limites des composants de notre architecture.
+  - On peut découper avec diverses granularités :
+    - Une première solution c’est de faire 3 groupes de build : la configuration, les adapters, et l’application (hexagone).
+    - On peut décider de séparer les types d’adapter pour qu’ils restent autonomes.
+    - Un cran plus loin encore, on peut isoler les ports dans une unité à part. De cette manière on empêche la no mapping strategy.
+    - On peut enfin aussi séparer les types entrants et sortants des ports pour plus de clarté, et séparer le domaine et l’application service dans deux unités pour empêcher le domaine d’accéder aux use cases.
+  - Un des avantages c’est que l’outil de build nous empêchera d’avoir des dépendances circulaires entre nos unités de build, améliorant l’aspect single responsibility de nos modules.
+  - Être obligé de maintenir un script de build permet aussi de faire des choix en conscience pour ce qui est du placement des diverses classes.
+  - D’un autre côté c’est un certain travail de maintenance quand même, donc il vaut mieux que l’**architecture soit un minimum stable d’abord**.
+- L’idée c’est de combiner les trois méthodes pour avoir une architecture solide dans le temps.
+- A noter que plus on découpe finement, plus on devra faire de mappings.
