@@ -348,3 +348,35 @@
   - D’un autre côté c’est un certain travail de maintenance quand même, donc il vaut mieux que l’**architecture soit un minimum stable d’abord**.
 - L’idée c’est de combiner les trois méthodes pour avoir une architecture solide dans le temps.
 - A noter que plus on découpe finement, plus on devra faire de mappings.
+
+## 11 - Taking Shortcuts Consciously
+
+- Les raccourcis doivent être connus et compris pour être évités dans le but de garantir l'intégrité de l’architecture, et dans certains cas acceptés en toute conscience.
+- La **théorie des vitres cassées** vient d’un psychologue (Philip Zimbardo) qui a conduit une expérience en laissant une voiture dans un quartier chaud, et une autre dans un quartier chic.
+  - La première a été désossée rapidement puis les passants ont commencé à la dégrader.
+  - La 2ème a été laissée intacte pendant une semaine. Puis le psychologue a cassé une de ses vitres, et à partir de là elle a été dégradée aussi vite que la première, par des gens de tout type.
+  - L’idée est de dire que nous avons une tendance naturelle à en rajouter quand les choses sont déjà en mauvais état ou mal rangées. La même chose s’applique au code et à son architecture.
+- Il est de la responsabilité des développeurs de garder **l’architecture la plus clean possible dès le début**.
+  - On peut cependant prendre des **raccourcis choisis en conscience**, faire des compromis qu’on assume.
+  - Pour que l’effet des vitres cassées soit limité, il faut **documenter les raccourcis choisis** par l’équipe dans des ADR (architecture Decision Record).
+- Parmi les raccourcis possible dans l’architecture hexagonale on a :
+  - Utiliser le **même modèle pour les inputs (ou les outputs) de deux use cases**.
+    - La question à se poser est : est-ce que ces deux use cases sont voués à **évoluer ensemble** ou non ?
+    - Si oui alors il faut que leurs inputs et leurs outputs aient des modèles séparés. Si non alors on peut (et on doit) les coupler au niveau de leurs inputs et outputs.
+    - Il ne faut donc pas oublier de régulièrement reconsidérer si deux use cases imaginés comme voués à évoluer ensemble, ne doivent pas être désormais considérés de manière séparée.
+  - Utiliser des **entities du domaine comme modèles d’entrée ou de sortie de la couche applicative**.
+    - Il s’agit d’avoir les ports gauches (l’entrée et la sortie depuis l’adapter web vers l’hexagone) basés sur des domain entities.
+    - En faisant ça on va être tenté d’ajouter des champs à l’entity du domaine à chaque fois qu’on en aura besoin dans notre input ou output de la couche applicative. Donc le domaine va dans une certaine mesure dépendre de l’application..
+    - C’est **OK de le faire si on est sur des use cases simple type create/update** parce que dans ce cas c’est bien le contenu exact des domain entities qu’on veut.
+    - Il ne faut pas oublier de reconsidérer régulièrement les use cases où on l’a fait et qui se sont complexifiés.
+  - **Ne pas utiliser de ports entrants pour l’adapter web**.
+    - Le sens du flow étant le même que le sens des appels pour l’adapter web, on peut très bien lui permettre d’appeler directement les use cases, sans passer par une interface.
+    - On perd alors la clarté des points d’entrée qui ne sautent plus aux yeux aussi bien qu’avec des ports explicites.
+    - On ne peut plus non plus utiliser des moyens pour forcer l’hexagone à ne pas dépendre de l’adapter web.
+    - Cette technique est donc à réserver aux **petites applications, ou celles qui n’ont qu’un adapter web**.
+  - **Ne pas créer d’application service**.
+    - Parfois l'application service ne fait rien à part appeler une méthode dans l’adapter de persistance et retourner son résultat à l’adapter web. Dans ce cas, on peut laisser l’adapter web appeler directement l’adapter de persistance.
+    - C’est le cas quand on a des **use cases CRUD**.
+    - On a alors nos domain entities qui sont passés entre adapters gauches et droits.
+    - Le **danger c’est que si la fonctionnalité se complexifie**, la logique métier sera ajoutée dans l’adapter de persistance. Il faut dans ce cas absolument créer un application service.
+- La plupart des raccourcis sont adaptés aux fonctionnalités simples de type CRUD. On commence en général comme ça, et on réévalue les raccourcis si l’application se complexifie. Si elle reste simple on pourra garder les raccourcis.
