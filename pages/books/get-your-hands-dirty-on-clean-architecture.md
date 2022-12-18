@@ -380,3 +380,19 @@
     - On a alors nos domain entities qui sont passés entre adapters gauches et droits.
     - Le **danger c’est que si la fonctionnalité se complexifie**, la logique métier sera ajoutée dans l’adapter de persistance. Il faut dans ce cas absolument créer un application service.
 - La plupart des raccourcis sont adaptés aux fonctionnalités simples de type CRUD. On commence en général comme ça, et on réévalue les raccourcis si l’application se complexifie. Si elle reste simple on pourra garder les raccourcis.
+
+## 12 - Deciding on an Architecture Style
+
+- La question dans ce chapitre est : quand est-ce qu’il faut utiliser l’architecture hexagonale ?
+  - La première chose c’est que **cette architecture met le domaine au centre** et l’isole du reste, pour pouvoir travailler dessus.
+    - Si on n’a pas besoin de ça, on n’a sans doute pas besoin d’architecture hexagonale.
+    - Ça va bien avec le DDD.
+  - La deuxième chose c’est qu’il faut **expérimenter** cette architecture au moins sur un module de notre application, pour voir ce qu’elle apporte et voir où est-ce qu’on peut l’utiliser.
+  - Et enfin la 3ème chose c’est que le choix de l’architecture **dépend de nombreux critères** :
+    - Le type du logiciel.
+    - Le rôle du domaine dans le code.
+    - L’expérience de l’équipe.
+    - etc.
+    - NDLR : l’auteur ne se mouille pas beaucoup.
+      - Pour info Vlad Khononov conseille dans Learning Domain Driven Design l’heuristique d’adopter l’architecture hexagonale dans le cas où on a un code subdomain et qu’on choisit les patterns tactiques du DDD, et d’adopter une architecture en couches sinon.
+      - On peut imaginer qu’étant donné que l’auteur donne des raccourcis pour les use cases CRUD, y compris ceux qui resteront CRUD, il serait pour privilégier l’usage de l’architecture hexagonale la plupart du temps, en modulant avec ces raccourcis.
