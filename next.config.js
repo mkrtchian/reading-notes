@@ -5,6 +5,7 @@ const withNextra = require("nextra")({
 });
 
 const isProduction = process.env.NODE_ENV === "production";
+const assetPrefix = isProduction ? "/reading-notes" : "";
 
 const nextConfig = {
   images: {
@@ -13,8 +14,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash: true,
-  assetPrefix: isProduction ? "/reading-notes" : "",
-  basePath: isProduction ? "/reading-notes" : "",
+  assetPrefix,
+  basePath: assetPrefix,
 };
 
 module.exports = {

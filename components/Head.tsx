@@ -1,4 +1,4 @@
-import { description } from "../config/constants";
+import { assetPrefix, description } from "../config/constants";
 
 export function Head() {
   const title = "Reading notes";
@@ -10,7 +10,11 @@ export function Head() {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta name="apple-mobile-web-app-title" content={title} />
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link
+        rel="icon"
+        type="image/x-icon"
+        href={`${assetPrefix}/favicon.ico`}
+      />
     </>
   );
 }
