@@ -1,8 +1,11 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
+import { Head } from "./components/Head";
+import { useNextSeoProps } from "./config/useNextSeoProps";
+import { Logo } from "./components/Logo";
 
 const config: DocsThemeConfig = {
-  logo: <span>Reading notes</span>,
+  logo: <Logo />,
   project: {
     link: "https://github.com/mkrtchian/reading-notes",
   },
@@ -10,6 +13,12 @@ const config: DocsThemeConfig = {
   footer: {
     text: "Made by Roman Mkrtchian",
   },
+  head: Head,
+  feedback: {
+    content: () => <>Question? Give me feedback →</>,
+    labels: "feedback",
+  },
+  useNextSeoProps,
 };
 
 export default config;
