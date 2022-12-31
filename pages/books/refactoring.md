@@ -477,3 +477,80 @@
 
 - Comme souvent, **les premières phases** du refactoring permettent de **comprendre** ce que fait le code en le clarifiant. On peut ensuite réinjecter cette compréhension dans la suite des refactorings pour le faire aller dans le sens qu’on veut.
 - Les **petites étapes** sont étonnantes au premier abord, mais cette méthode est vraiment efficace, et permet d’avancer sereinement et rapidement pour faire au final des refactorings importants.
+
+## 2 - Principes du refactoring
+
+- L’auteur propose une définition plus restreinte du refactoring que ce qu’on entend habituellement : il s’agit pour lui d’une **succession de petits changements qui permettent de rendre le code plus facile à comprendre et à changer, sans changer son comportement**.
+  - Comme ce sont de petits changements indépendants, on peut arrêter à tout moment en gardant le code fonctionnel.
+  - Il propose _restructuration_ (restructuring) comme mot plus général pour désigner le fait de réorganiser le code, le refactoring étant une forme particulière de restructuration.
+- Les développeurs ont **deux casquettes** distinctes qu’ils peuvent porter, une à la fois : celle d’**ajout de changements, et celle de refactoring**.
+  - Il est important d’essayer de garder ces deux casquettes distinctes pour être efficace dans ce qu’on fait et avancer sereinement.
+  - La casquette de changement mène normalement à l’ajout ou à la modification de tests, alors que la casquette de refactoring ne devrait pas mener à toucher aux tests.
+  - NDLR : à petite échelle il s’agit aussi des casquettes qu’on adopte en TDD : red-green avec celle du changement, et refactor avec celle du refactoring.
+- Pourquoi faire du refactoring ?
+  - Pour conserver et améliorer l’architecture du logiciel qui se délite peu à peu.
+  - Pour rendre le code plus lisible et compréhensible.
+    - On met la connaissance qu’on a au moment où on a passé du temps sur le code dans le code lui-même, comme ça on peut nous-mêmes l’oublier sans souci.
+  - Pour révéler les bugs qui se cachaient dans du code fouilli.
+  - Pour programmer **plus rapidement**.
+    - Si on met en place du code bien structuré et compréhensible, on pourra s’appuyer sur le code existant pour coder plus vite de nouvelles features.
+    - Cette hypothèse est basée sur l’expérience de Fowler et celle de centaines de programmeurs qu’il connaît.
+- Quand faire du refactoring ?
+  - La **règle de trois** : on fait quelque chose une fois, la 2ème fois qu’on le fait on laisse passer, la troisième fois on fait un refactoring.
+  - Le meilleur moment est le **refactoring préparatoire** : juste avant de faire une modification, on remanie le code pour rendre cette modification plus facile.
+    - Ça peut être un refactoring de compréhension, ou un refactoring de ramassage d’ordures quand on se rend compte que le code est mal structuré pour ce qu’on veut en faire.
+  - La plupart des refactorings doivent être **opportunistes**, c’est-à-dire s’intégrer au flux habituel d’ajout de fonctionnalités ou de correction de bugs.
+    - On peut parfois aussi faire des refactorings **planifiés** si on a vraiment négligé le code ou qu’on tombe sur quelque chose de spécifique qui le nécessite.
+  - Le refactoring est aussi **nécessaire pour le code qui est déjà de bonne qualité**, parce qu’il ne s’agit d’adapter en permanence le code à notre compréhension actuelle du système, et celle-ci varie tout le temps.
+  - L’idée de séparer les features et les refactorings dans des features séparées n’a pas que des avantages, Fowler est plutôt réticent..
+    - Elle permet de faire des reviews plus ciblées, mais d’un autre côté le refactoring est souvent lié au contexte du changement qu’il accompagne, et on risque d’avoir plus de mal à le comprendre et à le justifier isolément.
+    - NDLR : [Kent Beck a récemment](https://www.youtube.com/watch?v=BFFY9Zor6zw) conseillé de faire des PRs séparées avec de petites granularités pour pouvoir choisir le moment où on fait des refactorings et fournir des fonctionnalités régulières aux personnes qui attendent.
+  - On a parfois besoin de **gros refactorings**, par exemple pour remplacer une librairie. Dans ce cas, l'auteur conseille de **procéder petit à petit** quand même.
+    - Pour la librairie, on peut mettre en place une abstraction devant la librairie actuelle, et remplacer les fonctionnalités derrière l’abstraction petit à petit. On appelle ça _Branch By Abstraction_.
+  - Le refactoring est aussi utile pendant les **code reviews** : on retravaille le code pour comprendre plus en profondeur ce que la personne a fait, et pour avoir des idées d’amélioration qu’on pourra mettre en place immédiatement.
+    - Ca implique de faire la code review **en présence de la personne qui a fait la PR**. Faire des Code reviews sans la personne ne fonctionne de toute façon pas très bien selon Fowler.
+    - La conclusion logique de la pratique est le pair programming.
+  - Quand ne pas faire de refactoring :
+    - Quand on tombe sur du code qui part dans tous les sens mais qu’on n’a pas besoin de le modifier.
+    - Quand il est préférable de réécrire le code plutôt que de le remanier. Ce genre de décision se fait avec l’expérience.
+- Que dire aux managers pour le refactoring ?
+  - Les managers qui ont une bonne compréhension de la technique vont de toute façon encourager le refactoring parce qu’ils sauront que ça permet de rester productif.
+  - Pour ceux qui n’ont pas de bonne compétences techniques, le conseil controversé de Fowler est de **ne pas leur dire qu’on en fait**.
+    - Nous sommes les professionnels du développement, nous sommes payés pour notre expertise à coder vite, et le refactoring nous permet justement de coder vite.
+- De manière générale, et y compris auprès des développeurs, il ne faut pas justifier le refactoring par “la beauté du code” ou “les bonnes pratiques”, mais par le critère économique qui met tout le monde d’accord : **ça permet d’aller plus vite**.
+- Il vaut mieux éviter des granularités trop fines pour ce qui est de la propriété du code, notamment au sein d’une équipe : chaque membre de l’équipe devrait pouvoir modifier toute la codebase pour pouvoir faire des refactorings qui toucheraient éventuellement jusque ces endroits-là.
+  - On peut étendre ça entre les équipes où n’importe qui de l’entreprise pourrait faire un PR chez la codebase d’une autre équipe.
+- L’utilisation de _feature branches_ est problématique par rapport aux conflits de mege, et en particulier par rapport aux refactorings qui vont provoquer beaucoup de conflits.
+  - La pratique du refactoring va de pair avec la Continuous Integration (CI), aussi appelée trunk-based development, qui consiste à **intégrer au moins une fois par** jour son travail sur le branche principale.
+    - Les deux pratiques font partie de l’_Extreme Programming_.
+    - A noter que la CI est prouvée comme plus efficace que les autres pratiques d’intégration (cf. le livre **_Accelerate_**).
+- Pour faire des refactorings, il faut soit des **tests** qui assurent que le comportement n’est pas changé, soit utiliser des outils qui font des **refactorings automatiquement** (par exemple renommer une variable ou extraire une fonction).
+  - Dans **_Working Effectively with Legacy Code_**, Michael Feathers décrit comment ajouter des tests à du code legacy : il faut trouver des points d’entrée où insérer des tests, et pour ça il faut prendre des risques en faisant du refactoring.
+- Pour ce qui est du **refactoring de bases de données**, il faut aussi y aller par petits pas, en créant de petites migrations successives.
+  - Il y a un livre à ce sujet : **_Refactoring Databases_**.
+  - Une bonne pratique est le **changement parallèle** (aussi appelé expand-contract) où on va d’abord créer la nouvelle structure, puis l’alimenter avec l’ancienne, puis migrer tout petit à petit pour utiliser la nouvelle. Et finalement supprimer l’ancienne.
+- Le refactoring implique d’adopter une **approche incrémentale de l’architecture**.
+  - On appelle ça aussi **YAGNI** (you aren’t going to need it) : il s’agit de ne pas rendre le code inutilement flexible pour plus tard “au cas où”.
+    - Par exemple, ne pas ajouter des paramètres non utilisés à une fonction, au cas où on en aurait besoin plus tard. On les ajoutera avec du refactoring quand on en aura effectivement besoin.
+    - Souvent le besoin imaginé ne se réalise pas, ou pas comme on l’avait imaginé.
+    - Ça a bien sûr des limites : parfois un refactoring sera beaucoup plus coûteux plus tard. Dans ce cas, on peut l’envisager tout de suite. Mais ce n'est pas si courant.
+  - Cette approche de l’architecture est aussi étudiée sous le nom d’**evolutionary architecture**.
+- Le refactoring fait partie d’un ensemble de techniques interdépendantes et cohérentes qui permet l’agilité. Elles sont regroupées au sein de l’**Extreme Programming**.
+  - Parmi ces techniques il y a notamment : le refactoring, l’intégration continue (CI), la livraison continue (CD), YAGNI, et les tests automatisés.
+- Il y a 3 manières d’aborder la question de la **performance** :
+  - La 1ère est la **budgétisation du temps** : au moment de la conception on attribue un budget temps qui ne doit pas être dépassé à chaque composant.
+    - C’est utile pour les **systèmes temps réel** comme les simulateurs cardiaques, mais inadapté à des systèmes web classiques.
+  - La 2ème est l’**attention constante** : on essaye de faire attention à la performance sur tout le code qu’on écrit.
+    - Le problème c’est qu’en général l’essentiel du temps d’exécution des programmes se concentre sur très peu de code. Et on passe 90% du temps à optimiser des choses qui n’ont aucun impact.
+    - Un autre problème c’est qu’on a en général une mauvaise idée de la manière dont se comporte le compilateur, le runtime, le matériel etc. et on optimise des choses à tort.
+    - Cette solution mène à perdre beaucoup de temps à faire des **optimisations inutiles**, et à obtenir du **code peu maintenable**.
+  - La 3ème méthode consiste à **séparer l’optimisation de performance dans une phase à part** : on code sans prendre en compte la performance, puis on passe du temps dédié à l’améliorer.
+    - On utilise un profiler pour repérer les endroits du code qui consomment le plus (de temps, de mémoire etc.), et on se concentre sur ça seulement.
+    - On procède là aussi itérativement par petites touches, en annulant ce qu’on a fait si ça n’améliore pas.
+    - Le fait d’avoir du code bien refactoré permet de plus facilement comprendre ce qui se passe, et aide donc à optimiser.
+    - Cette approche est **la plus efficace**.
+- Quelques livres intéressants sur le refactoring :
+  - **_Refactoring Workbook_** de Bill Wake : un livre avec des exercices pour mettre en application le refactoring.
+  - **_Refactoring to Patterns_** de Josh Kerievsky : comment appliquer le refactoring en utilisant les design patterns du gang of four.
+  - **_Refactoring Databases_** de Scott Ambler et Pramod Sadalage et **_Refactoring HTML_** de Elliotte Rusty : des livres appliquant le refactoring à des domaines spécifiques.
+  - **_Working Effectively with Legacy Code_** de Michael Feathers : comment faire du refactoring sur du code avec peu ou pas de tests.
