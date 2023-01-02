@@ -654,3 +654,44 @@
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
   - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **Extract Function** et **Change Function Declaration**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
+
+## 4 - Création de tests
+
+- Les tests sont utiles pour le refactoring, mais aussi plus généralement ils permettent d’économiser un **temps conséquent à débugger**.
+- Ecrire le **test avant le code** permet :
+  - De mieux se concentrer sur le fonctionnalité qu’on veut faire, en s’intéressant d’abord à l’interface plutôt qu’à l’implémentation.
+  - De savoir quand la fonctionnalité est terminée : quand le test passe.
+- Exemple de programme à tester :
+  - On a un plan de production qui doit montrer la production des producteurs classés par province.
+  - Le code est organisé avec deux classes : Producer qui contient les données du producteur, et Province qui prend des données JSON, et calcule les éléments liés à la production.
+  - Exemple de test pour le déficit de production :
+    ```typescript
+    describe("province", () => {
+      it("shortfall", () => {
+        const asia = new Province(sampleProvinceData());
+        expect(asia.shortfall).toBe(5);
+      });
+    });
+    ```
+- Concernant la manière de **nommer les tests**, Fowler ne prend pas position mais se contente de dire que certains développeurs préfèrent faire des phrases, et d’autres écrire peu de mots, et que lui écrit suffisamment de mots pour reconnaître les tests quand ils sont en erreur.
+- Quand on ajoute des tests à du code non testé pour le refactorer, on ne peut pas faire la séquence “red” puis “green”. On peut donc à la place jouer le test qui marche, puis introduire une erreur dans le code et vérifier que le test échoue bien comme on l’aurait pensé.
+- L’auteur conseille d'**exécuter les tests souvent** : si on ne fait pas de TDD, les tests du module sur lequel on travaille au moins toutes les 10 minutes, et l’ensemble des tests au moins une fois par jour.
+- Il ne faut tester que le code qui en vaut la peine. Typiquement, les getters/setters n’ont pas à être testés parce que le risque d’erreur est faible.
+- Il faut **factoriser les répétitions** dans les tests comme on le fait pour le code de prod.
+- Comme pour le code de prod, il faut à tout prix **éviter les variables globales** (et y compris si elles sont assignées dans un `beforeAll`), et utiliser soit des variables locales aux tests, soit des `beforeEach`.
+- Fowler aime bien avoir un **dispositif de test standard** pour chaque groupe de tests, avec lequel il faut se familiariser avant de les regarder.
+  - `beforeEach` peut être une convention pour ce dispositif.
+  - Le `describe` permet de créer des groupes de tests où il y aura un `beforeEach`. Si notre test ne rentre pas dans le contexte du dispositif, on pourra créer un autre bloc avec éventuellement un autre dispositif.
+- Il conseille d’essayer de se **limiter à une assertion par test**, sauf si les éléments testés sont étroitement liés.
+  - L’argument est que si le test échoue pour un des premiers asserts, on ne saura pas si les autres échouaient ou non.
+  - NDLR : C’est en contradiction avec le conseil de Vladimir Khorikov sur le fait qu’il faille un seul “act”, et qu'au niveau du “assert” on teste toujours toutes les conséquences.
+- Il faut aussi **tester les cas aux limites** :
+  - Si on a une collection, on peut voir ce qui se passe si elle est vide.
+  - Si on a un nombre, on peut voir ce qui se passe avec 0 ou un nombre négatif.
+  - Si on a une chaîne, on peut voir ce qui se passe avec la chaîne vide.
+  - Ça nous oblige à chaque fois à nous poser la question de savoir si ça a un sens. Par exemple, si le nombre négatif n’aurait pas de sens, on peut s’attendre à une erreur.
+  - Il est possible que l’entrée vienne d’un module déjà testé, dans ce cas il n’est pas nécessaire de tester notre module avec des cas qui ne devraient pas se produire.
+  - Si un cas d’erreur conduit à une potentielle corruption de données, on peut utiliser **Introduce Assertion** pour éviter que ça arrive. Il n’y a pas besoin de tester ce genre de cas.
+    - NDLR : on est sur du _fail fast_.
+- Quand on a un bug, l’auteur conseille d’abord d’écrire un test qui reproduit le bug, et ensuite de le faire passer au vert.
+- La bonne quantité de tests c’est quand on est **suffisamment confiant pour faire du refactoring** et savoir que si on introduit un bug, il sera révélé par les tests.
