@@ -696,7 +696,7 @@
 - Quand on a un bug, l’auteur conseille d’abord d’écrire un test qui reproduit le bug, et ensuite de le faire passer au vert.
 - La bonne quantité de tests c’est quand on est **suffisamment confiant pour faire du refactoring** et savoir que si on introduit un bug, il sera révélé par les tests.
 
-## 5 - Présentation du catalogue
+## 5 - Présentation du catalogue
 
 - Les chapitres suivants présentent un catalogue de techniques de refactoring suffisamment importants pour être nommés et décrits.
 - Martin Fowler utilise lui-même le catalogue pour se refamiliariser avec des techniques de refactorings qu’il n’a pas faites depuis longtemps.
