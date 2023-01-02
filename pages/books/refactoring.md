@@ -554,3 +554,103 @@
   - **_Refactoring to Patterns_** de Josh Kerievsky : comment appliquer le refactoring en utilisant les design patterns du gang of four.
   - **_Refactoring Databases_** de Scott Ambler et Pramod Sadalage et **_Refactoring HTML_** de Elliotte Rusty : des livres appliquant le refactoring à des domaines spécifiques.
   - **_Working Effectively with Legacy Code_** de Michael Feathers : comment faire du refactoring sur du code avec peu ou pas de tests.
+
+## 3 - Quand le code sent mauvais
+
+- On ne peut pas savoir quand un refactoring est nécessaire mieux que l’intuition d’un programmeur expérimenté, mais ce chapitre contient une liste de 24 **code smells** qui devraient au moins nous alerter quand on les croise.
+- **1 - Mysterious Name** : quand on ne comprend pas un nom de variable ou fonction au premier coup d'œil, il faut la renommer.
+  - Si on n’arrive pas à trouver un bon nom, c’est sans doute qu’on a d’autres problèmes plus profonds avec le code qu’on essaye de nommer.
+  - Parmi les techniques, il y a **Change Function Declaration**, **Rename Function** et **Rename Field**.
+- **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
+  - En général on va utiliser **Extract Function**.
+  - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **Slide Statements** pour obtenir un morceau de code identique à factoriser.
+  - Si le code dupliqué se trouve dans des classes filles d’une même hiérarchie, on peut la remonter dans la mère avec **Pull Up Method**.
+- **3 - Long Function** : les fonctions courtes sont plus efficaces pour la compréhension du code.
+  - L’idée c’est de nommer les fonctions avec **l’intention de leur code** plutôt que par ce qu’il fait. A chaque fois qu’on veut commenter, on peut remplacer ça par une fonction qui encapsule le bout de code.
+  - C’est tout à fait OK de faire des fonctions qui ne contiennent **qu’une ligne**, pour peu que le nommage apporte une meilleure information sur l’intention.
+  - En général, on va utiliser **Extract Function**.
+  - Les **conditions** peuvent être divisées avec **Decompose Conditional**.
+    - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **Extract Function**.
+    - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **Replace Conditional with Polymorphism**.
+  - Les **boucles** peuvent être extraites dans leur propre fonction.
+    - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **Split Loop**.
+- **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
+  - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **Replace Temp with Query** pour l’éliminer.
+  - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **Introduce Parameter Object**.
+  - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **Remove Flag Argument**.
+  - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
+- **5 - Global Data** : le problème des données globales c’est qu’on peut les modifier de n’importe où, et donc c’est très difficile de suivre ce qui se passe.
+  - Pour traiter le problème, il faut les encapsuler avec **Encapsulate Variable**.
+- **6 - Mutable Data** : le fait que les structures soient mutables fait qu’on peut changer une structure quelque part, et provoquer un bug ailleurs sans s’en rendre compte.
+  - La recherche de l'immutabilité vient de la programmation fonctionnelle.
+  - On peut utiliser **Encapsulate Variable** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
+  - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **Split Variable** pour rendre ces updates moins risquées.
+  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **Extract Function**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
+  - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
+  - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
+  - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **Combine Functions into Class**, ou **Combine Functions into Transform**.
+  - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
+- **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
+  - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
+  - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **Split Phase** pour séparer les deux avec une structure de données.
+  - Sinon on peut utiliser **Extract Function** pour les séparer dans plusieurs fonctions.
+  - Et si c’est des classes : **Extract Class**.
+- **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
+  - On peut utiliser **Move Function** et **Move Field** pour replacer le code au même endroit.
+  - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
+  - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **Inline Function** et **Inline Class**) avant de séparer ça en plus petites fonctions.
+- **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
+  - En général on va utiliser **Move Function**, parfois précédé d’**Extract Function** si seule une partie de la fonction a besoin de changer d’endroit.
+- **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
+  - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **Extract Class**.
+    - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
+  - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **Introduce Parameter Object** et **Preserve Whole Object**.
+- **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
+  - Exemple : un numéro de téléphone doit être validé, et correctement affiché.
+  - La règle typique c’est **Replace Primitive with Object**.
+  - Si le type primitif est impliqué dans une structure conditionnelle, on peut encapsuler les conditions dans une hiérarchie de classes avec **Replace Type Code with Subclasses** puis **Replace Conditionals with Polymorphism**.
+- **12 - Repeated Switches** : on repère les switchs portant sur la même condition, et on les remplace par des classes.
+  - Il s’agit d’utiliser **Replace Conditional with Polymorphism**.
+- **13 - Loops** : les fonctions issues de la programmation fonctionnelle (map, filter, reduce) permettent de voir plus rapidement les éléments qui sont inclus et ce qui est fait avec eux, par rapport à des boucles.
+  - On peut remplacer les boucles par des pipelines avec **Replace Loop with Pipeline**.
+- **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
+  - Par exemple une fonction dont le corps se lit de la même manière que son nom, ou une classe qui n’a qu’une méthode et qui pourrait être une fonction.
+  - On peut les éliminer avec **Inline Function** ou **Inline Class**.
+  - Dans le cas où on veut réduire une hiérarchie de classe, on peut utiliser **Collapse Hierarchy**.
+- **15 - Speculative Generality** : quand on ajoute des mécanismes de flexibilité pour plus tard, au cas où il y en aurait besoin. Il faut s’en débarrasser parce que YAGNI.
+  - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
+  - Les délégations inutiles peuvent être éliminées avec **Inline Function** et **Inline Class**.
+  - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **Change Function Declaration**.
+  - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
+- **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
+  - On peut utiliser **Extract Class** puis **Move Function** pour déplacer le code qui utilise le champ qui est à part.
+  - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
+- **17 - Message Chains** : il s’agit de longues chaînes d’appels d’objet en objet pour obtenir quelque chose au bout du compte. Si une des méthodes d’un des objets de la chaîne change, notre appelant doit changer aussi.
+  - On peut utiliser **Hide Delegate** sur les objets intermédiaires.
+  - Une autre solution est de voir si on peut utiliser **Extract Function** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
+- **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
+  - La technique à utiliser est **Remove Middle Man**.
+  - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
+- **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
+  - On peut utiliser **Move Function** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
+  - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **Hide Delegate** pour utiliser un module comme intermédiaire.
+- **20 - Large Class** : une classe avec trop de champs doit être divisée en plusieurs classes.
+  - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **Extract Class**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
+  - Si la classe a trop de code, on va probablement avoir des duplications. Le mieux est alors de la refactorer en petites fonctions.
+    - Par exemple pour une classe de 500 lignes, on peut refactorer en méthodes de 5 à 10 lignes, avec une dizaine de méthodes de 2 lignes extraites dans une classe à part.
+  - Un bon indicateur pour découper une classe c’est en regardant le code qui l’utilise, souvent on peut repérer des parties dans la classe.
+- **21 - Alternative Classes with Different Interfaces** : ça peut être intéressant de pouvoir substituer une classe par une autre. Pour ça il faut faire correspondre leur prototype en les faisant adhérer à une même interface.
+  - Pour faire correspondre les deux classes, on peut utiliser **Change Function Declaration** et **Move Function**.
+- **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
+  - Leurs champs publics doivent être encapsulés avec **Encapsulate Record**.
+  - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
+  - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **Extract Function**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
+  - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
+    - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **Split Phase**.
+- **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
+  - Il ne s’agit pas d’une forte odeur, donc on peut parfois le tolérer.
+  - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
+  - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
+- **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
+  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **Extract Function** et **Change Function Declaration**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
+  - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
