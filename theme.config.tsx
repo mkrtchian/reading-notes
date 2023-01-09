@@ -19,6 +19,7 @@ const config: DocsThemeConfig = {
     labels: "feedback",
   },
   useNextSeoProps,
+  i18n: [],
 };
 
 export default config;
