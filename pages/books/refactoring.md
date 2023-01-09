@@ -700,3 +700,53 @@
 
 - Les chapitres suivants présentent un catalogue de techniques de refactoring suffisamment importants pour être nommés et décrits.
 - Martin Fowler utilise lui-même le catalogue pour se refamiliariser avec des techniques de refactorings qu’il n’a pas faites depuis longtemps.
+
+## 6 - Premier ensemble de refactorings
+
+### Extract Function
+
+- **Exemple :**
+
+  - Avant :
+    ```javascript
+    function printOwig(invoices) {
+      printBanner();
+      let outstanding = calculateOutstanding();
+      <em>// display details</em>;
+      console.log(`name: ${invoice.customer}`);
+      console.log(`amount: ${outstanding}`);
+    }
+    ```
+  - Après :
+
+    ```javascript
+    function printOwing(invoice) {
+      printBanner();
+      let outstanding = calculateOutstanding();
+      printDetails(outstanding);
+
+      function printDetails(outstanding) {
+        console.log(`name: ${invoice.customer}`);
+        console.log(`amount: ${outstanding}`);
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée une nouvelle fonction pour accueillir le code à extraire, on la nomme correctement, et on **copie** le code à extraire dedans.
+    - Si le langage le supporte (comme JavaScript), on peut extraire la fonction **dans la portée de la première fonction**, ne serait-ce que pour visualiser si l’extraction a du sens sans que ce soit coûteux. On pourra la déplacer éventuellement plus tard.
+  - 2. Dans le cas où la fonction est exportée hors de la portée de la fonction source, on lui passe toutes les variables dont elle a besoin en paramètre.
+    - Si une variable n’est utilisée que dans le code extrait, on la déplace dedans.
+    - Si une variable utilisée en dehors est assignée à l’intérieur du code extrait, alors il faut faire en sorte que la fonction extraite la retourne.
+    - Si on a trop de variables assignées dans le code extrait, on abandonne l’extraction au profit d’abord de **Split Variable** ou de **Replace Temp with Query**.
+  - 3. On Compile.
+  - 4. On remplace le code initialement extrait par un appel à la nouvelle fonction.
+  - 5. On teste.
+  - 6. On recherche d’autres bouts de code similaires au code extrait pour les remplacer par un appel à la nouvelle fonction avec **Replace Inline Code with Function Call**.
+- **Théorie :**
+  - Le bon argument sur pourquoi extraire une fonction est de **séparer l’intention de l’implémentation**, pour que l’intention saute aux yeux à la première lecture.
+  - L’auteur a tendance à écrire des **fonctions courtes**, une fonction dépassant une demi-douzaine de lignes commence à sentir mauvais, et les fonctions d’une ligne ne sont pas rares pour peu qu’elles expriment mieux l’intention.
+  - La qualité du **nommage** est fondamentale avec les petites fonctions.
+    - Si on n’arrive pas à trouver un nom pour la fonction extraite, c’est peut être un signe que l’extraction est inutile.
+    - Il est normal d’extraire, de manipuler le code, puis de se rendre compte que l’extraction était inutile. Tant qu’on a appris quelque chose, on n’a pas perdu son temps.
+  - Typiquement si on a un commentaire qui marque la séparation d’un bloc de code, c’est une bonne heuristique pour extraire.
