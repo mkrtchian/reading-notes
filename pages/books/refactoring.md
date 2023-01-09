@@ -97,7 +97,7 @@
   - **2 - On décompose la fonction en sortant le switch**
     - On identifie d’abord à l'œil les **parties qui vont ensemble**.
     - Ici c’est d’abord le switch qu’on choisit de traiter comme un bloc.
-    - On va utiliser la technique **Extract Function** pour sortir le bloc dans une autre fonction (qui se trouvera dans la portée de _statement_).
+    - On va utiliser la technique **[Extract Function](#extract-function)** pour sortir le bloc dans une autre fonction (qui se trouvera dans la portée de _statement_).
     - On regarde d’abord les **variables qui sont utilisées** par la nouvelle fonction extraite :
       - Deux variables ne sont que lues (_invoices_ et _plays_), on va pouvoir les passer en paramètre.
       - Une autre variable est assignée (_thisAmount_), on va pouvoir retourner la valeur pour l’assigner par retour de fonction.
@@ -202,7 +202,7 @@
       - On compile, teste, commit.
     - On peut alors utiliser **Slide Statements** pour déplacer la déclaration de la variable _volumeCredits_ juste au-dessus de la 2ème boucle.
       - On compile, teste, commit.
-    - On va pouvoir utiliser **Replace Temp with Query**, la première étape pour pouvoir le faire c’est d’utiliser **Extract Function** :
+    - On va pouvoir utiliser **Replace Temp with Query**, la première étape pour pouvoir le faire c’est d’utiliser **[Extract Function](#extract-function)** :
       ```typescript
       function totalVolumeCredits() {
         let volumeCredits = 0;
@@ -228,7 +228,7 @@
     - On va répéter la même séquence pour extraire complètement _totalAmount_ :
       - **Split Loop** pour extraire l’instruction qui nous intéresse dans une boucle à part.
       - **Slide Statements** pour déplacer la variable locale près de la nouvelle boucle.
-      - **Extract Function** pour extraire la boucle dans une nouvelle fonction.
+      - **[Extract Function](#extract-function)** pour extraire la boucle dans une nouvelle fonction.
         - Le meilleur nom pour cette fonction est déjà pris par la variable _totalAmount_, donc on lui met un nom au hasard pour garder un code qui marche et commiter.
       - **Inline Variable** nous permet d’éliminer la variable locale, et de renommer la nouvelle fonction _totalAmount_.
       - On en profite aussi pour renommer la variable locale dans la nouvelle fonction en _result_ pour respecter notre convention de nommage.
@@ -246,7 +246,7 @@
 
     - Jusqu’ici on avait refactoré pour rendre le code plus clair et mieux le comprendre. On va maintenant le mener vers l’objectif qui est de pouvoir créer des factures HTML en plus des factures texte.
     - On va mettre en œuvre **Split Phase** pour faire la division logique / formatage.
-    - Pour ça on commence par appliquer **Extract Function** au code qui constituera la 2ème phase : on va déplacer l’ensemble du code de _statement_ et les fonctions imbriquées dans une fonction _renderPlainText_.
+    - Pour ça on commence par appliquer **[Extract Function](#extract-function)** au code qui constituera la 2ème phase : on va déplacer l’ensemble du code de _statement_ et les fonctions imbriquées dans une fonction _renderPlainText_.
 
       ```typescript
       function statement(invoice, plays) {
@@ -562,15 +562,15 @@
   - Si on n’arrive pas à trouver un bon nom, c’est sans doute qu’on a d’autres problèmes plus profonds avec le code qu’on essaye de nommer.
   - Parmi les techniques, il y a **Change Function Declaration**, **Rename Function** et **Rename Field**.
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
-  - En général on va utiliser **Extract Function**.
+  - En général on va utiliser **[Extract Function](#extract-function)**.
   - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **Slide Statements** pour obtenir un morceau de code identique à factoriser.
   - Si le code dupliqué se trouve dans des classes filles d’une même hiérarchie, on peut la remonter dans la mère avec **Pull Up Method**.
 - **3 - Long Function** : les fonctions courtes sont plus efficaces pour la compréhension du code.
   - L’idée c’est de nommer les fonctions avec **l’intention de leur code** plutôt que par ce qu’il fait. A chaque fois qu’on veut commenter, on peut remplacer ça par une fonction qui encapsule le bout de code.
   - C’est tout à fait OK de faire des fonctions qui ne contiennent **qu’une ligne**, pour peu que le nommage apporte une meilleure information sur l’intention.
-  - En général, on va utiliser **Extract Function**.
+  - En général, on va utiliser **[Extract Function](#extract-function)**.
   - Les **conditions** peuvent être divisées avec **Decompose Conditional**.
-    - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **Extract Function**.
+    - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **[Extract Function](#extract-function)**.
     - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **Replace Conditional with Polymorphism**.
   - Les **boucles** peuvent être extraites dans leur propre fonction.
     - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **Split Loop**.
@@ -585,7 +585,7 @@
   - La recherche de l'immutabilité vient de la programmation fonctionnelle.
   - On peut utiliser **Encapsulate Variable** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **Split Variable** pour rendre ces updates moins risquées.
-  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **Extract Function**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
+  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **Combine Functions into Class**, ou **Combine Functions into Transform**.
@@ -593,14 +593,14 @@
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
   - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **Split Phase** pour séparer les deux avec une structure de données.
-  - Sinon on peut utiliser **Extract Function** pour les séparer dans plusieurs fonctions.
+  - Sinon on peut utiliser **[Extract Function](#extract-function)** pour les séparer dans plusieurs fonctions.
   - Et si c’est des classes : **Extract Class**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
   - On peut utiliser **Move Function** et **Move Field** pour replacer le code au même endroit.
   - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
   - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **Inline Function** et **Inline Class**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
-  - En général on va utiliser **Move Function**, parfois précédé d’**Extract Function** si seule une partie de la fonction a besoin de changer d’endroit.
+  - En général on va utiliser **Move Function**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
   - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **Extract Class**.
     - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
@@ -627,7 +627,7 @@
   - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
 - **17 - Message Chains** : il s’agit de longues chaînes d’appels d’objet en objet pour obtenir quelque chose au bout du compte. Si une des méthodes d’un des objets de la chaîne change, notre appelant doit changer aussi.
   - On peut utiliser **Hide Delegate** sur les objets intermédiaires.
-  - Une autre solution est de voir si on peut utiliser **Extract Function** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
+  - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
   - La technique à utiliser est **Remove Middle Man**.
   - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
@@ -644,7 +644,7 @@
 - **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
   - Leurs champs publics doivent être encapsulés avec **Encapsulate Record**.
   - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
-  - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **Extract Function**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
+  - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
   - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
     - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **Split Phase**.
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
@@ -652,7 +652,7 @@
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
   - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
-  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **Extract Function** et **Change Function Declaration**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
+  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **Change Function Declaration**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
 
 ## 4 - Création de tests
