@@ -712,7 +712,7 @@
     function printOwig(invoices) {
       printBanner();
       let outstanding = calculateOutstanding();
-      <em>// display details</em>;
+      // display details;
       console.log(`name: ${invoice.customer}`);
       console.log(`amount: ${outstanding}`);
     }
