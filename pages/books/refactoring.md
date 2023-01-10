@@ -436,7 +436,7 @@
             .amount;
         }
         ```
-      - Enfin on va utiliser **Inline Function** pour éliminer _amountFor_ et utiliser `calculator.amount` à la place.
+      - Enfin on va utiliser **[Inline Function](#inline-function)** pour éliminer _amountFor_ et utiliser `calculator.amount` à la place.
     - On fait la même chose pour _volumeCreditsFor_, pour se retrouver à utiliser `calculator.volumeCredits`.
   - **10 - On va rendre le calculateur polymorphe**
 
@@ -598,7 +598,7 @@
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
   - On peut utiliser **Move Function** et **Move Field** pour replacer le code au même endroit.
   - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
-  - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **Inline Function** et **Inline Class**) avant de séparer ça en plus petites fonctions.
+  - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **Inline Class**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
   - En général on va utiliser **Move Function**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
@@ -615,11 +615,11 @@
   - On peut remplacer les boucles par des pipelines avec **Replace Loop with Pipeline**.
 - **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
   - Par exemple une fonction dont le corps se lit de la même manière que son nom, ou une classe qui n’a qu’une méthode et qui pourrait être une fonction.
-  - On peut les éliminer avec **Inline Function** ou **Inline Class**.
+  - On peut les éliminer avec **[Inline Function](#inline-function)** ou **Inline Class**.
   - Dans le cas où on veut réduire une hiérarchie de classe, on peut utiliser **Collapse Hierarchy**.
 - **15 - Speculative Generality** : quand on ajoute des mécanismes de flexibilité pour plus tard, au cas où il y en aurait besoin. Il faut s’en débarrasser parce que YAGNI.
   - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
-  - Les délégations inutiles peuvent être éliminées avec **Inline Function** et **Inline Class**.
+  - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **Inline Class**.
   - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **Change Function Declaration**.
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
