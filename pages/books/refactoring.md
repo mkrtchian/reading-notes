@@ -750,3 +750,36 @@
     - Si on n’arrive pas à trouver un nom pour la fonction extraite, c’est peut être un signe que l’extraction est inutile.
     - Il est normal d’extraire, de manipuler le code, puis de se rendre compte que l’extraction était inutile. Tant qu’on a appris quelque chose, on n’a pas perdu son temps.
   - Typiquement si on a un commentaire qui marque la séparation d’un bloc de code, c’est une bonne heuristique pour extraire.
+
+### Inline Function
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```typescript
+    function getRating(driver) {
+      return moreThanFiveLateDeliveries(driver) ? 2 : 1;
+    }
+
+    function moreThanFiveLateDeliveries(driver) {
+      return driver.numberOfLateDeliveries > 5;
+    }
+    ```
+
+  - **Après :**
+    ```typescript
+    function getRating(driver) {
+      return driver.numberOfLateDeliveries > 5 ? 2 : 1;
+    }
+    ```
+
+- **Étapes :**
+  - 1. On vérifie que la fonction n’est pas une méthode polymorphe.
+  - 2. On trouve les endroits où la fonction est appelée et on remplace par le corps de la fonction.
+  - 3. On teste après chaque remplacement.
+  - 4. On peut supprimer la fonction qui n’est plus appelée.
+- **Théorie :**
+  - Les fonctions courtes sont plus lisibles, mais parfois on peut avoir des fonctions qui n’apportent rien, parce que leur contenu est déjà clair. Dans ce cas on les enlève.
+  - Une autre raison d’enlever les fonctions c’est pour d’abord **regrouper le code dans un grand bloc avant de mieux le découper**.
+  - Dans le cas où on rencontre des difficultés importantes pour faire l’incorporation, l’auteur conseille de ne pas faire ce refactoring.
