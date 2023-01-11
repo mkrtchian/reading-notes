@@ -783,3 +783,34 @@
   - Les fonctions courtes sont plus lisibles, mais parfois on peut avoir des fonctions qui n’apportent rien, parce que leur contenu est déjà clair. Dans ce cas on les enlève.
   - Une autre raison d’enlever les fonctions c’est pour d’abord **regrouper le code dans un grand bloc avant de mieux le découper**.
   - Dans le cas où on rencontre des difficultés importantes pour faire l’incorporation, l’auteur conseille de ne pas faire ce refactoring.
+
+### Extract Variable
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    return (
+      order.quantity * order.itemPrice -
+      Math.max(0, order.quantity * 500) * order.itemPrice -
+      0.05 +
+      Math.min(order.quantity * order.itemPrice * 0.1, 100)
+    );
+    ```
+  - **Après :**
+    ````javascript
+    const basePrice = order.quantity * order.itemPrice;
+    const quantityDiscount = Math.max(0, order.quantity - 500) *
+      order.itemPrice * 0.05;
+    const shipping = Math.min(basePrice * 0.1, 100);
+    return basePrice - quantityDiscount + shipping;
+    ```
+    ````
+- **Étapes :**
+  - 1. On vérifie que l’expression qu’on veut extraire n’a pas de side effects.
+  - 2. On crée une nouvelle variable immutable avec la valeur de l’expression.
+  - 3. On remplace l’expression d’origine par la nouvelle variable.
+  - 4. On teste.
+- **Théorie :**
+  - Ces variables permettent de décomposer le code pour le rendre plus lisible.
+  - Une fois qu’on a choisi le nom, on réfléchit au contexte : si c’est un contexte local une variable est très bien, si c’est plus global il vaut mieux une fonction qu’on réutilisera dans plusieurs endroits avec le même nom.
+    - Typiquement si on est dans une classe, il y a des chances pour que le concept qu’on extrait puisse devenir un membre de la classe (par exemple avec `get monConcept()`).
