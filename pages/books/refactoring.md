@@ -130,7 +130,7 @@
         let thisAmount = amountFor(perf, palyFor(perf));
         ```
       - Et on fait le remplacement par l’appel partout où _play_ était utilisé.
-    - On compile, teste, commit, puis on peut utiliser **Change Function Declaration** pour éliminer le paramètre _play_ dans _amountFor_ :
+    - On compile, teste, commit, puis on peut utiliser **[Change Function Declaration](#change-function-declaration)** pour éliminer le paramètre _play_ dans _amountFor_ :
       - On utilise la nouvelle fonction _playFor_ à l’intérieur d’_amountFor_, en remplacement du paramètre _play_.
       - On compile, teste, commit.
       - On supprime le paramètre _play_ qui n’était plus utilisé.
@@ -183,7 +183,7 @@
       }
       ```
     - Cette technique de transformer une fonction dans une variable en fonction déclarée n’est pas assez importante pour figurer dans les techniques du livre.
-    - On va ensuite utiliser **Change Function Declaration** pour renommer la fonction en quelque chose qui indique mieux ce qu’elle fait.
+    - On va ensuite utiliser **[Change Function Declaration](#change-function-declaration)** pour renommer la fonction en quelque chose qui indique mieux ce qu’elle fait.
       - Vu qu’elle est utilisée dans une petite portée et est peu importante, Fowler privilégie un nom plus court que _formatAsUSD_. Il choisit juste _usd_ pour mettre en avant l’aspect monétaire.
   - **6 - On va déplacer le calcul du volume de crédits**
     - On avait précédemment extrait le calcul du volume de crédits pour une pièce. On va maintenant extraire le calcul du volume de crédits pour l’ensemble des pièces hors de _statement_.
@@ -560,7 +560,7 @@
 - On ne peut pas savoir quand un refactoring est nécessaire mieux que l’intuition d’un programmeur expérimenté, mais ce chapitre contient une liste de 24 **code smells** qui devraient au moins nous alerter quand on les croise.
 - **1 - Mysterious Name** : quand on ne comprend pas un nom de variable ou fonction au premier coup d'œil, il faut la renommer.
   - Si on n’arrive pas à trouver un bon nom, c’est sans doute qu’on a d’autres problèmes plus profonds avec le code qu’on essaye de nommer.
-  - Parmi les techniques, il y a **Change Function Declaration**, **Rename Function** et **Rename Field**.
+  - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **Rename Function** et **Rename Field**.
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
   - En général on va utiliser **[Extract Function](#extract-function)**.
   - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **Slide Statements** pour obtenir un morceau de code identique à factoriser.
@@ -620,7 +620,7 @@
 - **15 - Speculative Generality** : quand on ajoute des mécanismes de flexibilité pour plus tard, au cas où il y en aurait besoin. Il faut s’en débarrasser parce que YAGNI.
   - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
   - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **Inline Class**.
-  - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **Change Function Declaration**.
+  - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **[Change Function Declaration](#change-function-declaration)**.
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
   - On peut utiliser **Extract Class** puis **Move Function** pour déplacer le code qui utilise le champ qui est à part.
@@ -640,7 +640,7 @@
     - Par exemple pour une classe de 500 lignes, on peut refactorer en méthodes de 5 à 10 lignes, avec une dizaine de méthodes de 2 lignes extraites dans une classe à part.
   - Un bon indicateur pour découper une classe c’est en regardant le code qui l’utilise, souvent on peut repérer des parties dans la classe.
 - **21 - Alternative Classes with Different Interfaces** : ça peut être intéressant de pouvoir substituer une classe par une autre. Pour ça il faut faire correspondre leur prototype en les faisant adhérer à une même interface.
-  - Pour faire correspondre les deux classes, on peut utiliser **Change Function Declaration** et **Move Function**.
+  - Pour faire correspondre les deux classes, on peut utiliser **[Change Function Declaration](#change-function-declaration)** et **Move Function**.
 - **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
   - Leurs champs publics doivent être encapsulés avec **Encapsulate Record**.
   - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
@@ -652,7 +652,7 @@
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
   - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
-  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **Change Function Declaration**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
+  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
 
 ## 4 - Création de tests
@@ -853,12 +853,12 @@
   - 4. On teste.
 - **Étapes (version progressive) :**
   - 1. Si besoin, on refactore le corps de la fonction pour faciliter l’extraction.
-  - 2. On extrait l’ensemble du corps de la fonction dans une nouvelle fonction avec **Extract Function**.
+  - 2. On extrait l’ensemble du corps de la fonction dans une nouvelle fonction avec **[Extract Function](#extract-function)**.
     - Si elle va avoir le même nom que l’ancienne, on la nomme avec un nom temporaire.
   - 3. Si on a des changements de paramètres, on peut utiliser la version simple pour les changer sur la nouvelle fonction.
     - L’ancienne fonction devra donner des valeurs par défaut pour les nouveaux paramètres pour continuer à marcher.
   - 4. On teste.
-  - 5. On applique **Inline Function** à l’ancienne fonction pour la faire disparaître.
+  - 5. On applique **[Inline Function](#inline-function)** à l’ancienne fonction pour la faire disparaître.
   - 6. Si besoin de modifier le nom parce qu’on avait un nom temporaire, on le fait.
   - 7. On teste.
 - **Théorie :**
@@ -886,14 +886,14 @@
 
   - On va utiliser la version progressive :
 
-    - D’abord on utilise **Extract Variable** pour faciliter l’extraction de fonction.
+    - D’abord on utilise **[Extract Variable](#extract-variable)** pour faciliter l’extraction de fonction.
       ```javascript
       function inNewEngland(aCustomer) {
         const stateCode = aCustomer.address.state;
         return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
       }
       ```
-    - Ensuite on applique **Extract Function**.
+    - Ensuite on applique **[Extract Function](#extract-function)**.
 
       ```javascript
       function inNewEngland(aCustomer) {
@@ -906,19 +906,19 @@
       }
       ```
 
-    - Puis on applique **Inline Variable** à la fonction initiale.
+    - Puis on applique **[Inline Variable](#inline-variable)** à la fonction initiale.
       ```javascript
       function inNewEngland(aCustomer) {
         return xxNEWinNewEngland(aCustomer.address.state);
       }
       ```
-    - Puis on utilise **Inline Function** pour remplacer les appels à l’ancienne fonction par des appels à la nouvelle fonction, petit à petit. A la fin on supprime l’ancienne fonction.
+    - Puis on utilise **[Inline Function](#inline-function)** pour remplacer les appels à l’ancienne fonction par des appels à la nouvelle fonction, petit à petit. A la fin on supprime l’ancienne fonction.
       ```javascript
       const newEnglanders = someCustomers.filter((c) =>
         xxNEWinNewEngland(c.address.state)
       );
       ```
-    - On réutilise **Change Function Declaration**, cette fois avec la version simple, pour changer le nom de la nouvelle fonction. On obtient alors la version finale.
+    - On réutilise **[Change Function Declaration](#change-function-declaration)**, cette fois avec la version simple, pour changer le nom de la nouvelle fonction. On obtient alors la version finale.
 
       ```javascript
       function inNewEngland(stateCode) {
