@@ -834,3 +834,98 @@
   - 4. On supprime la variable et on teste.
 - **Théorie :**
   - Quand un nom de variable devient inutile, on peut la supprimer.
+
+### Change Function Declaration
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function circum(radius) {...}
+    ```
+  - **Après :**
+    ```javascript
+    function circumference(radius) {...}
+    ```
+- **Étapes (version simple) :**
+  - 1. Si on supprime des paramètres, on s’assure qu’ils ne sont plus référencés.
+  - 2. On remplace la déclaration de la fonction par la nouvelle déclaration.
+  - 3. On trouve tous les endroits où l’ancienne déclaration était appelée, et on les met à jour.
+  - 4. On teste.
+- **Étapes (version progressive) :**
+  - 1. Si besoin, on refactore le corps de la fonction pour faciliter l’extraction.
+  - 2. On extrait l’ensemble du corps de la fonction dans une nouvelle fonction avec **Extract Function**.
+    - Si elle va avoir le même nom que l’ancienne, on la nomme avec un nom temporaire.
+  - 3. Si on a des changements de paramètres, on peut utiliser la version simple pour les changer sur la nouvelle fonction.
+    - L’ancienne fonction devra donner des valeurs par défaut pour les nouveaux paramètres pour continuer à marcher.
+  - 4. On teste.
+  - 5. On applique **Inline Function** à l’ancienne fonction pour la faire disparaître.
+  - 6. Si besoin de modifier le nom parce qu’on avait un nom temporaire, on le fait.
+  - 7. On teste.
+- **Théorie :**
+  - Les noms des fonctions sont difficiles à choisir, et on doit souvent s’y prendre à plusieurs fois. Dès qu’on a un nom meilleur pour une fonction, il faut l’utiliser.
+  - Une bonne manière de trouver un bon nom est d’écrire en commentaire ce que fait la fonction, puis de transformer ça en nom.
+  - La même difficulté se retrouve avec les paramètres, on doit donc régulièrement refactorer pour améliorer petit à petit..
+    - Par exemple, il n'y a pas de bonne réponse au fait de savoir s’il faut passer un objet entier à une fonction ou seulement l’une de ses propriétés qui est actuellement utilisée.
+  - La version simple sert pour les cas simples, alors que la version progressive est à utiliser dans le cas où on a de nombreuses occurrences à remplacer, ou d’autres difficultés comme une méthode polymorphe.
+    - Il est préférable de faire la modification de nom et de paramètres en deux étapes pour la version simple.
+    - De manière générale, si la méthode simple ne marche pas du premier coup, il faut annuler les changements et recommencer avec la méthode progressive.
+    - Si on refactore une API, il faut appliquer la méthode progressive et faire une pause dès qu’on a la nouvelle fonction, sans supprimer l’ancienne. On la supprimera quand on sera sûr que les clients ont migré.
+- **Exemple détaillé :**
+
+  - On a une fonction qui détermine si un client est basé en Nouvelle-Angleterre ou pas. On veut qu’elle prenne plutôt la valeur indiquant le lieu et non plus l’objet client entier.
+
+    ```javascript
+    function inNewEngland(aCustomer) {
+      return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(
+        aCustomer.address.state
+      );
+    }
+
+    const newEnglanders = someCustomers.filter((c) => inNewEngland(c));
+    ```
+
+  - On va utiliser la version progressive :
+
+    - D’abord on utilise **Extract Variable** pour faciliter l’extraction de fonction.
+      ```javascript
+      function inNewEngland(aCustomer) {
+        const stateCode = aCustomer.address.state;
+        return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
+      }
+      ```
+    - Ensuite on applique **Extract Function**.
+
+      ```javascript
+      function inNewEngland(aCustomer) {
+        const stateCode = aCustomer.address.state;
+        return xxNEWinNewEngland(stateCode);
+      }
+
+      function xxNEWinNewEngland(stateCode) {
+        return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
+      }
+      ```
+
+    - Puis on applique **Inline Variable** à la fonction initiale.
+      ```javascript
+      function inNewEngland(aCustomer) {
+        return xxNEWinNewEngland(aCustomer.address.state);
+      }
+      ```
+    - Puis on utilise **Inline Function** pour remplacer les appels à l’ancienne fonction par des appels à la nouvelle fonction, petit à petit. A la fin on supprime l’ancienne fonction.
+      ```javascript
+      const newEnglanders = someCustomers.filter((c) =>
+        xxNEWinNewEngland(c.address.state)
+      );
+      ```
+    - On réutilise **Change Function Declaration**, cette fois avec la version simple, pour changer le nom de la nouvelle fonction. On obtient alors la version finale.
+
+      ```javascript
+      function inNewEngland(stateCode) {
+        return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
+      }
+
+      const newEnglanders = someCustomers.filter((c) =>
+        inNewEngland(c.address.state)
+      );
+      ```
