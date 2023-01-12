@@ -814,3 +814,23 @@
   - Ces variables permettent de décomposer le code pour le rendre plus lisible.
   - Une fois qu’on a choisi le nom, on réfléchit au contexte : si c’est un contexte local une variable est très bien, si c’est plus global il vaut mieux une fonction qu’on réutilisera dans plusieurs endroits avec le même nom.
     - Typiquement si on est dans une classe, il y a des chances pour que le concept qu’on extrait puisse devenir un membre de la classe (par exemple avec `get monConcept()`).
+
+### Inline Variable
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let basePrice = anOrder.basePrice;
+    return basePrice > 1000;
+    ```
+  - **Après :**
+    ```javascript
+    return anOrder.basePrice > 1000;
+    ```
+- **Étapes :**
+  - 1. On vérifie que l’expression qu’on veut réintégrer n’a pas de side effects.
+  - 2. Si elle ne l’est pas, on rend la variable immutable pour éviter qu’elle ne soit réassignée plus bas.
+  - 3. On remplace l’utilisation de la variable par son expression, occurrence par occurrence, en testant à chaque fois.
+  - 4. On supprime la variable et on teste.
+- **Théorie :**
+  - Quand un nom de variable devient inutile, on peut la supprimer.
