@@ -123,7 +123,7 @@
           return plays[aPerformance.playID];
         }
         ```
-    - On compile, teste, commit, puis on utilise **Inline Variable** :
+    - On compile, teste, commit, puis on utilise **[Inline Variable](#inline-variable)** :
       - On supprime la variable `const play = playFor(perf);`
       - Et on appelle la fonction au moment d’appeler _amountFor_ :
         ```typescript
@@ -139,7 +139,7 @@
         - Mais **cette différence est négligeable**.
         - Et **même si elle était significative**, rendre le code plus clair permettra de mieux l’optimiser ensuite.
       - **Supprimer les variables locales** permet en général de faciliter les extractions, c’est pour ça qu’on le fait.
-    - On utilise encore **Inline Variable** pour appeler plusieurs fois _amountFor_ dans _statement_, comme ça on supprime cette variable locale aussi.
+    - On utilise encore **[Inline Variable](#inline-variable)** pour appeler plusieurs fois _amountFor_ dans _statement_, comme ça on supprime cette variable locale aussi.
   - **4 - on extrait les crédits de volume**
     - On va extraire le bloc de calcul de crédits de volume. Pour ça on vérifie les variables qui devront être passées :
       - _perf_ doit être passé.
@@ -217,7 +217,7 @@
       volumeCredits = totalVolumeCredits();
       ```
       - On compile, teste, commit.
-    - On peut alors utiliser **Inline Variable** pour supprimer la variable locale _volumeCredits_, et appeler _totalVolumeCredits_ là où elle était utilisée.
+    - On peut alors utiliser **[Inline Variable](#inline-variable)** pour supprimer la variable locale _volumeCredits_, et appeler _totalVolumeCredits_ là où elle était utilisée.
       - On compile, teste, commit.
     - Remarques :
       - Pour le côté **performance**, la plupart du temps créer des boucles supplémentaires ne créera pas de ralentissement significatif.
@@ -230,7 +230,7 @@
       - **Slide Statements** pour déplacer la variable locale près de la nouvelle boucle.
       - **[Extract Function](#extract-function)** pour extraire la boucle dans une nouvelle fonction.
         - Le meilleur nom pour cette fonction est déjà pris par la variable _totalAmount_, donc on lui met un nom au hasard pour garder un code qui marche et commiter.
-      - **Inline Variable** nous permet d’éliminer la variable locale, et de renommer la nouvelle fonction _totalAmount_.
+      - **[Inline Variable](#inline-variable)** nous permet d’éliminer la variable locale, et de renommer la nouvelle fonction _totalAmount_.
       - On en profite aussi pour renommer la variable locale dans la nouvelle fonction en _result_ pour respecter notre convention de nommage.
     - Ca donne :
       ```typescript
