@@ -580,10 +580,10 @@
   - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **Remove Flag Argument**.
   - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
 - **5 - Global Data** : le problème des données globales c’est qu’on peut les modifier de n’importe où, et donc c’est très difficile de suivre ce qui se passe.
-  - Pour traiter le problème, il faut les encapsuler avec **Encapsulate Variable**.
+  - Pour traiter le problème, il faut les encapsuler avec **[Encapsulate Variable](#encapsulate-variable)**.
 - **6 - Mutable Data** : le fait que les structures soient mutables fait qu’on peut changer une structure quelque part, et provoquer un bug ailleurs sans s’en rendre compte.
   - La recherche de l'immutabilité vient de la programmation fonctionnelle.
-  - On peut utiliser **Encapsulate Variable** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
+  - On peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **Split Variable** pour rendre ces updates moins risquées.
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
@@ -928,4 +928,71 @@
       const newEnglanders = someCustomers.filter((c) =>
         inNewEngland(c.address.state)
       );
+      ```
+
+### Encapsulate Variable
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    let defaultOwner = { firstName: "Martin", lastName: "Fowler" };
+    ```
+  - **Après :**
+
+    ```javascript
+    let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
+
+    export function defaultOwner() {
+      return defaultOwnerData;
+    }
+    export function setDefaultOwner(arg) {
+      defaultOwnerData = arg;
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée des fonctions pour lire et écrire dans la variable qu’on veut encapsuler.
+  - 2. On remplace chaque référence à la variable par un appel à ces fonctions, en testant à chaque fois.
+  - 3. On limite la visibilité de la variable.
+    - Si le langage ne le permet pas, on la renomme pour voir si ça casse quelque chose.
+  - 4. On teste.
+
+5. Si la variable est un record, on peut envisager **Encapsulate Record**.
+
+- **Théorie :**
+
+  - Alors qu’il est facile de déplacer une fonction, ça l’est beaucoup moins pour des données, par exemple des variables globales. L’encapsulation peut donc être une première étape pour ce déplacement.
+  - L’autre avantage c’est de pouvoir ajouter un traitement systématique à chaque lecture ou écriture de la donnée.
+  - Dans le cas où la donnée est immutable, ces problèmes se posent moins : on peut les copier facilement au lieu de les déplacer, et on n’a pas besoin d’ajouter un traitement à la lecture ou à l’écriture.
+  - L’auteur **encapsule toutes les données mutables qui dépassent la portée d’une seule fonction**.
+    - Pour y arriver, il saisit chaque occasion d’accéder à nouveau à une donnée mutable qui est hors de la fonction pour l’encapsuler.
+  - En JavaScript on peut implémenter cette technique avec l’utilisation de ES modules : on exporte la fonction getter et setter mais pas la variable.
+  - Pour ce qui est de la convention de nommage, l’auteur déconseille le préfixe _get_, mais préfère laisser le préfixe _set_ parce qu’il n’aime pas la pratique de l’_overloaded getter setter_ qui consiste à leur donner le même nom.
+  - Dans le cas où on veut contrôler ce qui arrive au contenu de notre variable (si elle est une référence) :
+
+    - On peut renvoyer une copie au moment de la lecture.
+    - Ou on peut utiliser **Encapsulate Record** :
+
+      ```javascript
+      let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
+      export function defaultOwner() {
+        return new Person(defaultOwnerData);
+      }
+      export function setDefaultOwner(arg) {
+        defaultOwnerData = arg;
+      }
+
+      class Person {
+        constructor(data) {
+          this._lastName = data.lastName;
+          this._firstName = data.firstName;
+        }
+        get lastName() {
+          return this._lastName;
+        }
+        get firstName() {
+          return this._firstName;
+        }
+      }
       ```
