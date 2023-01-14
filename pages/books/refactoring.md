@@ -1017,3 +1017,112 @@
   - Un nom peut évoluer pour diverses raisons, parmi lesquelles une meilleure compréhension du problème, ou l’évolution de la solution.
   - Dans le cas où le changement de nom est difficile, il vaut mieux passer par encapsuler la variable, et en général on va vouloir garder cette encapsulation.
   - Si la variable est immutable, on peut passer par des remplacements progressifs en testant au fur et à mesure, sans avoir besoin d’encapsuler.
+
+### Introduce Parameter Object
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function amountInvoiced(startDate, endDate) {...}
+    function amountReceived(startDate, endDate) {...}
+    function amountOverdue(startDate, endDate) {...}
+    ```
+  - **Après :**
+    ```javascript
+    function amountInvoiced(aDateRange) {...}
+    function amountReceived(aDateRange) {...}
+    function amountOverdue(aDateRange) {...}
+    ```
+- **Étapes :**
+  - 1. Si on n’a pas encore de structure pour regrouper les paramètres visés, on la crée.
+    - L’auteur préfère créer une **classe** pour y mettre de la logique, dans l’idée d’avoir un **Value Object**.
+  - 2. On teste.
+  - 3. On utilise **Change Function Declaration** pour ajouter une instance de notre nouvelle structure en paramètre aux fonctions qui prennent les paramètres qu’on veut grouper.
+  - 4. On teste.
+  - 5. On modifie chaque appelant pour qu’il ajoute l’instance de la nouvelle structure, et on teste à chaque fois.
+  - 6. On remplace l’utilisation de chacun des anciens paramètres par les éléments de la nouvelle structure déjà passée en paramètre. Et on supprime à chaque fois l’ancien paramètre concerné.
+  - 7. On teste.
+- **Théorie :**
+  - Grouper les paramètres qui voyagent souvent ensemble dans le même objet permet :
+    - d’avoir **moins de paramètres** à passer aux fonctions.
+    - de créer des groupements cohérents, permettant de **mieux comprendre le domaine**.
+    - de **rapatrier de la logique** spécifique à l’objet en question dans une classe qu’on crée pour contenir les paramètres qui vont ensemble.
+- **Exemple détaillé :**
+
+  - On a plusieurs fonctions qui prennent des paramètres _min_ et _max_.
+
+    ```javascript
+    function readingsOutsideRange(station, min, max) {
+      return station.readings
+        .filter(r => r.temp &lt; min || r.temp > max);
+    }
+
+    alerts = readingsOutsideRange(
+      station,
+      operatingPlan.temperatureFloor,
+      operatingPlan.temperatureCeiling
+    );
+    ```
+
+  - On va créer une classe pour contenir _min_ et _max_, et ajouter un paramètre supplémentaire à notre fonction.
+
+    ```javascript
+    class NumberRange {
+      constructor(min, max) {
+        this._data = {min: min, max: max};
+      }
+      get min() {
+        return this._data.min;
+      }
+      get max() {
+        return this._data.max;
+      }
+    }
+
+    function readingsOutsideRange(station, min, max, range) {
+      // ...
+    ```
+
+  - On modifie les appelants pour qu’ils fournissent le nouveau paramètre _range_.
+    ```javascript
+    const range = new NumberRange(
+      operatingPlan.temperatureFloor,
+      operatingPlan.temperatureCeiling
+    );
+    alerts = readingsOutsideRange(
+      station,
+      operatingPlan.temperatureFloor,
+      operatingPlan.temperatureCeiling,
+      range
+    );
+    ```
+  - On supprime les anciens paramètres un par un, _min_ puis _max_.
+
+    ```javascript
+    function readingsOutsideRange(station, range) {
+      return station.readings
+        .filter(r => r.temp &lt; range.min || r.temp > range.max);
+    }
+
+    alerts = readingsOutsideRange(
+      station,
+      range
+    );
+    ```
+
+  - Et enfin pour aller un peu plus loin que ce refactoring, on va tirer parti du fait qu’on a un Value Object pour y placer de la logique.
+
+    ```javascript
+    class NumberRange {
+      // ...
+      contains(arg) {
+        return (arg >= this.min && arg &lt;= this.max);
+      }
+      // ...
+    }
+
+    function readingsOutsideRange(station, range) {
+      return station.readings
+        .filter(r => !range.contains(r.temp));
+    }
+    ```
