@@ -576,7 +576,7 @@
     - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **Split Loop**.
 - **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
   - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **Replace Temp with Query** pour l’éliminer.
-  - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **Introduce Parameter Object**.
+  - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **[Introduce Parameter Object](#introduce-parameter-object)**.
   - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **Remove Flag Argument**.
   - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
 - **5 - Global Data** : le problème des données globales c’est qu’on peut les modifier de n’importe où, et donc c’est très difficile de suivre ce qui se passe.
@@ -604,7 +604,7 @@
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
   - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **Extract Class**.
     - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
-  - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **Introduce Parameter Object** et **Preserve Whole Object**.
+  - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **[Introduce Parameter Object](#introduce-parameter-object)** et **Preserve Whole Object**.
 - **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
   - Exemple : un numéro de téléphone doit être validé, et correctement affiché.
   - La règle typique c’est **Replace Primitive with Object**.
@@ -1037,7 +1037,7 @@
   - 1. Si on n’a pas encore de structure pour regrouper les paramètres visés, on la crée.
     - L’auteur préfère créer une **classe** pour y mettre de la logique, dans l’idée d’avoir un **Value Object**.
   - 2. On teste.
-  - 3. On utilise **Change Function Declaration** pour ajouter une instance de notre nouvelle structure en paramètre aux fonctions qui prennent les paramètres qu’on veut grouper.
+  - 3. On utilise **[Change Function Declaration](#change-function-declaration)** pour ajouter une instance de notre nouvelle structure en paramètre aux fonctions qui prennent les paramètres qu’on veut grouper.
   - 4. On teste.
   - 5. On modifie chaque appelant pour qu’il ajoute l’instance de la nouvelle structure, et on teste à chaque fois.
   - 6. On remplace l’utilisation de chacun des anciens paramètres par les éléments de la nouvelle structure déjà passée en paramètre. Et on supprime à chaque fois l’ancien paramètre concerné.
