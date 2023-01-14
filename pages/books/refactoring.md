@@ -996,3 +996,24 @@
         }
       }
       ```
+
+### Rename Variable
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let a = height * width;
+    ```
+  - **Après :**
+    ```javascript
+    let area = height * width;
+    ```
+- **Étapes :**
+  - 1. Dans le cas où la variable est utilisée au-delà de la fonction, on peut envisager **[Encapsulate Variable](#encapsulate-variable)**.
+  - 2. On recherche toutes les références à la variable, et on les modifie.
+  - 3. On teste.
+- **Théorie :**
+  - Les noms de variable sont moins importants quand leur portée est petite, et requièrent une plus grande attention quand elle est plus grande.
+  - Un nom peut évoluer pour diverses raisons, parmi lesquelles une meilleure compréhension du problème, ou l’évolution de la solution.
+  - Dans le cas où le changement de nom est difficile, il vaut mieux passer par encapsuler la variable, et en général on va vouloir garder cette encapsulation.
+  - Si la variable est immutable, on peut passer par des remplacements progressifs en testant au fur et à mesure, sans avoir besoin d’encapsuler.
