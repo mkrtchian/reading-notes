@@ -1126,3 +1126,47 @@
         .filter(r => !range.contains(r.temp));
     }
     ```
+
+### Combine Functions into Class
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function base(aReading) {...}
+    function taxableCharge(aReading) {...}
+    function calculateBaseCharge(aReading) {...}
+    ```
+  - **Après :**
+    ```javascript
+    class Reading {
+      base() {...}
+      taxableCharge() {...}
+      calculateBaseCharge() {...}
+    }
+    ```
+- **Étapes :**
+  - 1. On applique **Encapsulate Record** aux paramètres communs entre les fonctions.
+    - Si ces paramètres ne sont pas déjà au sein d'une même structure, on applique d’abord **Introduce Parameter Object** pour les regrouper.
+  - 2. On utiliser **Move Function** pour déplacer chaque fonction visée dans la nouvelle classe qu’on vient de créer.
+    - On peut supprimer les arguments de ces fonctions qui sont déjà membres de la classe.
+  - 3. On va ensuite à la recherche de la logique restante qui manipule la donnée qu’on a encapsulée, pour l’extraire sous forme de fonctions avec **Extract Function** et la rapatrier dans la nouvelle classe.
+- **Théorie :**
+
+  - Un des usages des classes c’est de grouper des fonctions qui prennent des paramètres communs, pour donner ces paramètres au constructeur et éviter d’avoir à les donner à chaque appel de fonction.
+  - En fonction du contexte, si on n’a pas besoin de modifier les instances indépendamment mais plutôt grouper deux fonctions à appeler ensemble, on voudra peut-être plutôt utiliser **Combine Function into Transform**.
+  - On peut aussi utiliser les fonctions imbriquées à la place des classes pour mutualiser les paramètres, mais dans ce cas on ne pourra accéder qu’à la fonction de plus haut niveau. La classe est plus flexible.
+  - Il ne faut pas hésiter à créer des méthodes sous forme de getter pour aller dans le sens du **Uniform Access Principle**.
+
+    - Exemple : l’appelant accède à _baseCharge_ comme si c’était une valeur, et ne sait pas si on a une fonction qui est appelée derrière ou pas.
+
+      ```javascript
+      class Reading {
+        // ...
+        get baseCharge() {
+          return this.baseRate(this.month, this.year) * this.quantity;
+        }
+      }
+
+      const aReading = new Reading(rawReading);
+      const basicChargeAmount = aReading.baseCharge;
+      ```
