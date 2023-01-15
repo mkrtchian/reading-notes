@@ -588,7 +588,7 @@
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
-  - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **Combine Functions into Transform**.
+  - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
   - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
@@ -1170,3 +1170,31 @@
       const aReading = new Reading(rawReading);
       const basicChargeAmount = aReading.baseCharge;
       ```
+
+### Combine Functions into Transform
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function base(aReading) {...}
+    function taxableCharge(aReading) {...}
+    ```
+  - **Après :**
+    ```javascript
+    function enrichReading(argReading) {
+      const aReading = _.cloneDeep(argReading);
+      aReading.baseCharge = base(aReading);
+      aReading.taxableCharge = taxableCharge(aReading);
+      return aReading;
+    }
+    ```
+- **Étapes :**
+  - 1. On crée une fonction qui prend le record à transformer et en retourne une deep copy.
+    - On aura sans doute besoin d’un test pour vérifier la nature de la copie.
+  - 2. On prend une partie de la logique qu’on veut utiliser pour la transformation et on la déplace dans la fonction de transformation.
+  - 3. On teste.
+  - 4. On déplace les autres parties de logique, et on teste à chaque fois.
+- **Théorie :**
+  - On aurait pu simplement utiliser Extract Function pour extraire la logique commune, mais l’intérêt de combiner des fonctions avec les données sur lesquelles elles opèrent (avec **[Combine Functions into Class](#combine-functions-into-class)** et **[Combine Functions into Transform](#combine-functions-into-transform)**) c’est qu’on les retrouve plus facilement qu’une fonction qui se balade.
+  - D’un point de vue convention de nommage, l’auteur aime bien le préfixe _enrich_ quand la fonction renvoie la même donnée modifiée, et _transform_ quand c’est une donnée qu’il estime être autre chose.
+  - Pour la deep copy, on peut utiliser lodash.
