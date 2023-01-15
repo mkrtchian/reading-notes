@@ -588,7 +588,7 @@
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
-  - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **Combine Functions into Class**, ou **Combine Functions into Transform**.
+  - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **Combine Functions into Transform**.
   - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
@@ -1146,10 +1146,10 @@
     ```
 - **Étapes :**
   - 1. On applique **Encapsulate Record** aux paramètres communs entre les fonctions.
-    - Si ces paramètres ne sont pas déjà au sein d'une même structure, on applique d’abord **Introduce Parameter Object** pour les regrouper.
+    - Si ces paramètres ne sont pas déjà au sein d'une même structure, on applique d’abord **[Introduce Parameter Object](#introduce-parameter-object)** pour les regrouper.
   - 2. On utiliser **Move Function** pour déplacer chaque fonction visée dans la nouvelle classe qu’on vient de créer.
     - On peut supprimer les arguments de ces fonctions qui sont déjà membres de la classe.
-  - 3. On va ensuite à la recherche de la logique restante qui manipule la donnée qu’on a encapsulée, pour l’extraire sous forme de fonctions avec **Extract Function** et la rapatrier dans la nouvelle classe.
+  - 3. On va ensuite à la recherche de la logique restante qui manipule la donnée qu’on a encapsulée, pour l’extraire sous forme de fonctions avec **[Extract Function](#extract-function)** et la rapatrier dans la nouvelle classe.
 - **Théorie :**
 
   - Un des usages des classes c’est de grouper des fonctions qui prennent des paramètres communs, pour donner ces paramètres au constructeur et éviter d’avoir à les donner à chaque appel de fonction.
