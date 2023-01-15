@@ -245,7 +245,7 @@
   - **7 - On va fractionner les phases de calcul et de formatage**
 
     - Jusqu’ici on avait refactoré pour rendre le code plus clair et mieux le comprendre. On va maintenant le mener vers l’objectif qui est de pouvoir créer des factures HTML en plus des factures texte.
-    - On va mettre en œuvre **Split Phase** pour faire la division logique / formatage.
+    - On va mettre en œuvre **[Split Phase](#split-phase)** pour faire la division logique / formatage.
     - Pour ça on commence par appliquer **[Extract Function](#extract-function)** au code qui constituera la 2ème phase : on va déplacer l’ensemble du code de _statement_ et les fonctions imbriquées dans une fonction _renderPlainText_.
 
       ```typescript
@@ -592,7 +592,7 @@
   - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
-  - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **Split Phase** pour séparer les deux avec une structure de données.
+  - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **[Split Phase](#split-phase)** pour séparer les deux avec une structure de données.
   - Sinon on peut utiliser **[Extract Function](#extract-function)** pour les séparer dans plusieurs fonctions.
   - Et si c’est des classes : **Extract Class**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
@@ -646,7 +646,7 @@
   - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
   - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
   - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
-    - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **Split Phase**.
+    - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **[Split Phase](#split-phase)**.
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
   - Il ne s’agit pas d’une forte odeur, donc on peut parfois le tolérer.
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
@@ -1198,3 +1198,46 @@
   - On aurait pu simplement utiliser Extract Function pour extraire la logique commune, mais l’intérêt de combiner des fonctions avec les données sur lesquelles elles opèrent (avec **[Combine Functions into Class](#combine-functions-into-class)** et **[Combine Functions into Transform](#combine-functions-into-transform)**) c’est qu’on les retrouve plus facilement qu’une fonction qui se balade.
   - D’un point de vue convention de nommage, l’auteur aime bien le préfixe _enrich_ quand la fonction renvoie la même donnée modifiée, et _transform_ quand c’est une donnée qu’il estime être autre chose.
   - Pour la deep copy, on peut utiliser lodash.
+
+### Split Phase
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    const orderData = orderString.split(/\s+/);
+    const productPrice = priceList[orderData[0].split("-")[1]];
+    const orderPrice = parseInt(orderData[1]) * productPrice;
+    ```
+  - **Après :**
+
+    ```javascript
+    const orderRecord = parseOrder(order);
+    const orderPrice = price(orderRecord, priceList);
+
+    function parseOrder(aString) {
+      const values = aString.split(/\s+/);
+      return {
+        productID: values[0].split("-")[1],
+        quantity: parseInt(values[1]),
+      };
+    }
+
+    function price(order, priceList) {
+      return order.quantity * priceList[order.productID];
+    }
+    ```
+
+- **Étapes :**
+  - 1. On extrait le code de la 2ème phase dans sa fonction avec **[Extract Function](#extract-function)**.
+  - 2. On teste.
+  - 3. On introduit une structure de données en paramètre de la nouvelle fonction.
+  - 4. On teste.
+  - 5. On examine chaque paramètre pris par la fonction de la 2ème phase :
+    - Si elle est aussi utilisée dans la 1ère phase, on la déplace dans la structure de données.
+    - Si elle n’est pas utilisée par la 1ère phase (la fonction principale prend le paramètre et le transfert à la fonction de la 2ème phase), on la laisse en paramètre.
+    - On teste après chaque déplacement.
+  - 6. On extrait le code de la 1ère phase dans une fonction à part retournant la structure de données avec **[Extract Function](#extract-function)**.
+- **Théorie :**
+  - Quand on a un code qui fait deux choses différentes, on peut le séparer en deux phases distinctes, pour que la prochaine fois qu’on le modifie, on puisse éventuellement intervenir sur une seule des deux phases indépendamment de l’autre.
+  - Souvent on va séparer une phase de mise en forme d’une phase de calcul, mais ça peut aussi être par exemple deux phases de calcul indépendantes.
