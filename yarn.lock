@@ -81,14 +81,6 @@
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
-"@mdx-js/react@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-2.1.5.tgz#8225a867dae6f845ae5b0ec15bb454c23be3f576"
-  integrity sha512-3Az1I6SAWA9R38rYjz5rXBrGKeZhq96CSSyQtqY+maPj8stBsoUH5pNcmIixuGkufYsh8F5+ka2CVPo2fycWZw==
-  dependencies:
-    "@types/mdx" "^2.0.0"
-    "@types/react" ">=16"
-
 "@napi-rs/simple-git-android-arm-eabi@0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@napi-rs/simple-git-android-arm-eabi/-/simple-git-android-arm-eabi-0.1.8.tgz#303bea1ec00db24466e3b3ba13de337d87c5371b"
@@ -375,7 +367,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.0.26", "@types/react@>=16":
+"@types/react@*", "@types/react@18.0.26":
   version "18.0.26"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.26.tgz#8ad59fc01fef8eaf5c74f4ea392621749f0b7917"
   integrity sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug==
@@ -3023,13 +3015,12 @@ next@13.1.1:
     "@next/swc-win32-ia32-msvc" "13.1.1"
     "@next/swc-win32-x64-msvc" "13.1.1"
 
-nextra-theme-docs@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.1.0.tgz#0d4a7b1cd4e08ad5152c4cf682a57c6352db9415"
-  integrity sha512-0Fn0EsGaKa9We2+CkN9LPtT6F21w4wbihuv0/Vg2YowpAdu5nslsDIhtg66CRET5U5007xE5GG8NLwWaCHQhhg==
+nextra-theme-docs@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.2.3.tgz#b1991fae47d3d040ffbe8024b41d9280f4ba187c"
+  integrity sha512-KQEhUW89kUVnMMnLubBQKMlnw30gM8e9fVBzyfQ7aTO445EGjQWbm4UF/J7VBBlcPsAP+SiYXUzbQDpQy0jLng==
   dependencies:
     "@headlessui/react" "^1.7.7"
-    "@mdx-js/react" "^2.1.5"
     "@popperjs/core" "^2.11.6"
     clsx "^1.2.1"
     flexsearch "^0.7.21"
