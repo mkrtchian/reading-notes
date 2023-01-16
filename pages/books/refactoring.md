@@ -642,7 +642,7 @@
 - **21 - Alternative Classes with Different Interfaces** : ça peut être intéressant de pouvoir substituer une classe par une autre. Pour ça il faut faire correspondre leur prototype en les faisant adhérer à une même interface.
   - Pour faire correspondre les deux classes, on peut utiliser **[Change Function Declaration](#change-function-declaration)** et **Move Function**.
 - **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
-  - Leurs champs publics doivent être encapsulés avec **Encapsulate Record**.
+  - Leurs champs publics doivent être encapsulés avec **[Encapsulate Record](#encapsulate-record)**.
   - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
   - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
   - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
@@ -958,7 +958,7 @@
     - Si le langage ne le permet pas, on la renomme pour voir si ça casse quelque chose.
   - 4. On teste.
 
-5. Si la variable est un record, on peut envisager **Encapsulate Record**.
+5. Si la variable est un record, on peut envisager **[Encapsulate Record](#encapsulate-record)**.
 
 - **Théorie :**
 
@@ -972,7 +972,7 @@
   - Dans le cas où on veut contrôler ce qui arrive au contenu de notre variable (si elle est une référence) :
 
     - On peut renvoyer une copie au moment de la lecture.
-    - Ou on peut utiliser **Encapsulate Record** :
+    - Ou on peut utiliser **[Encapsulate Record](#encapsulate-record)** :
 
       ```javascript
       let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
@@ -1145,7 +1145,7 @@
     }
     ```
 - **Étapes :**
-  - 1. On applique **Encapsulate Record** aux paramètres communs entre les fonctions.
+  - 1. On applique **[Encapsulate Record](#encapsulate-record)** aux paramètres communs entre les fonctions.
     - Si ces paramètres ne sont pas déjà au sein d'une même structure, on applique d’abord **[Introduce Parameter Object](#introduce-parameter-object)** pour les regrouper.
   - 2. On utiliser **Move Function** pour déplacer chaque fonction visée dans la nouvelle classe qu’on vient de créer.
     - On peut supprimer les arguments de ces fonctions qui sont déjà membres de la classe.
@@ -1241,3 +1241,128 @@
 - **Théorie :**
   - Quand on a un code qui fait deux choses différentes, on peut le séparer en deux phases distinctes, pour que la prochaine fois qu’on le modifie, on puisse éventuellement intervenir sur une seule des deux phases indépendamment de l’autre.
   - Souvent on va séparer une phase de mise en forme d’une phase de calcul, mais ça peut aussi être par exemple deux phases de calcul indépendantes.
+
+## 7 - Encapsulation
+
+### Encapsulate Record
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    organization = { name: "Acme Gooseberries", country: "GB" };
+    ```
+  - **Après :**
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._name = data.name;
+        this._country = data.country;
+      }
+      get name() {
+        return this._name;
+      }
+      set name(arg) {
+        this._name = arg;
+      }
+      get country() {
+        return this._country;
+      }
+      set country(arg) {
+        this._country = arg;
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On utilise **[Encapsulate Variable](#encapsulate-variable)** sur la variable qui a la valeur du record.
+  - 2. On wrap la variable par une classe qui permet d’y accéder avec un accesseur, et on fait en sorte que les fonctions d’accès/modification qu’on vient de créer à l’étape 1 utilisent cet accesseur.
+  - 3. On teste.
+  - 4. On crée des fonctions d’accès/modification qui renvoie l’objet wrappant le record.
+  - 5. Pour chaque utilisation extérieure du record, on va utiliser les nouvelles fonctions qui renvoient l’objet wrapper.
+    - Si le record est complexe, on va s’intéresser d’abord aux occurrences qui le modifient.
+    - On peut envisager de retourner une copie ou une version read-only pour les occurrences qui ne font que de la lecture.
+  - 6. On supprime les fonctions qui permettent d’accéder au record non wrappé sur l’objet, et en dehors.
+  - 7. On teste.
+  - 8. Si le record a des champs qui sont eux-mêmes des records, on peut envisager d’utiliser **[Encapsulate Record](#encapsulate-record)** et **Encapsulate Collection** de manière récursive sur ces champs aussi.
+- **Théorie :**
+  - Les _records_ sont des structures permettant de regrouper des données, souvent sous forme de HashMaps, en javascript des objets `{}`.
+  - Quand ces structures sont utilisées dans de nombreux endroits, on peut avoir du mal à trouver comment les utiliser. C’est pour cela qu'il est pratique d’y ajouter de la logique en les transformant en classe.
+  - Il peut y avoir un trade off entre encapsuler tous les champs (en particulier pour les structures imbriquées) dans la classe qui les englobe, et retourner la structure pour que le client puisse l’explorer en mode read-only ou en donnant une copie.
+    - Wrapper tous les champs permet d’avoir plus de flexibilité mais demande plus de travail et n’en vaut pas toujours la peine.
+    - Comme on ne veut pas casser l’encapsulation dans le cas des modifications, on peut soit créer une copie (mais ça peut poser des problèmes de performance), soit renvoyer un objet read-only (mais c’est difficile à faire en JavaScript.
+      - NDLR : Immer permet par exemple de retourner l’équivalent d’une valeur read-only. Typescript permet aussi de le faire à la compilation.
+- **Exemple détaillé :**
+
+  - On a un record :
+    ```javascript
+    const organization = { name: "Acme Gooseberries", country: "GB" };
+    ```
+  - On va encapsuler la variable en la déplaçant dans un module, et en ajoutant un accesseur avec un nom moche qui sera bientôt supprimé.
+    ```javascript
+    function getRawDataOfOrganization() {
+      return organization;
+    }
+    ```
+  - On encapsulate la variable dans une classe pour pouvoir ensuite la protéger plus finement, et on ajoute un accesseur pour l’instance de cette classe.
+
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._data = data;
+      }
+    }
+
+    const organization = new Organization({
+      name: "Acme Gooseberries",
+      country: "GB",
+    });
+
+    function getRawDataOfOrganization() {
+      return organization._data;
+    }
+
+    function getOrganization() {
+      return organization;
+    }
+    ```
+
+  - On va maintenant chercher tous les endroits où on lit ou écrit dans notre record, et ajouter des getters ou setters dans notre classe.
+
+    ```javascript
+    class Organization {
+      // ...
+      set name(aString) {
+        this._data.name = aString;
+      }
+      get name() {
+        return this._data.name;
+      }
+    }
+
+    // là où on met à jour le record
+    getOrganization().name = newName;
+    // là où on lit le record
+    result += `&lt;h1>${getOrganization().name}&lt;/h1>`;
+    ```
+
+  - On peut maintenant supprimer l’accesseur du record brut qui avait un nom bâclé (`getRawDataOfOrganization()`).
+  - Et enfin on peut déplacer les champs du record dans la classe, et créer des getters/setters pour ces champs.
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._name = data.name;
+        this._country = data.country;
+      }
+      get name() {
+        return this._name;
+      }
+      set name(aString) {
+        this._name = aString;
+      }
+      get country() {
+        return this._country;
+      }
+      set country(aCountryCode) {
+        this._country = aCountryCode;
+      }
+    }
+    ```
