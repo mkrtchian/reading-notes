@@ -1366,3 +1366,47 @@
       }
     }
     ```
+
+### Encapsulate Collection
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class Person {
+      // ...
+      get courses() {
+        return this._courses;
+      }
+      set courses(aList) {
+        this._courses = aList;
+      }
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Person {
+      // ...
+      get courses() {
+        return this._courses.slice();
+      }
+      addCourse(aCourse) {
+        // ...
+      }
+      removeCourse(aCourse) {
+        // ...
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On applique **[Encapsulate Variable](#encapsulate-variable)** sur la collection si elle n’est pas déjà encapsulée avec la valeur originale privée, et l’accès par getter et setter.
+  - 2. On ajoute des méthodes pour ajouter et supprimer un objet de la collection.
+  - 3. Si il existe un setter pour la collection, on le supprime avec **Remove Setting Method**.
+  - 4. On lance la vérification statique du code.
+  - 5. On remplace toutes les modifications de la collection par des appels aux nouvelles méthodes d’ajout et de suppression. On teste à chaque fois.
+  - 6. On modifie le getter pour renvoyer une copie ou un objet en lecture seule.
+  - 7. On teste.
+- **Théorie :**
+  - L’encapsulation est utile pour les données mutables, pour pouvoir contrôler leur modification, mais si on donne une référence à une collection, on ne contrôle plus la manière dont elle sera modifiée.
+  - L’auteur trouve dommage cependant d’empêcher entièrement l’accès à la collection, étant donné que le langage offre de nombreuses options pour la parcourir et la manipuler, options qu’on aurait du mal à recoder dans notre classe.
+    - Ce qu’on peut faire c’est en fournir une copie, et utiliser les méthodes _add_ et _remove_ de la classe quand on veut vraiment la modifier.
+    - On peut aussi, à la place de la copie, fournir la collection en lecture seule. Mais il faut choisir l’une des deux comme convention pour la codebase et s’y tenir.
