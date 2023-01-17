@@ -607,7 +607,7 @@
   - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **[Introduce Parameter Object](#introduce-parameter-object)** et **Preserve Whole Object**.
 - **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
   - Exemple : un numéro de téléphone doit être validé, et correctement affiché.
-  - La règle typique c’est **Replace Primitive with Object**.
+  - La règle typique c’est **[Replace Primitive with Object](#replace-primitive-with-object)**.
   - Si le type primitif est impliqué dans une structure conditionnelle, on peut encapsuler les conditions dans une hiérarchie de classes avec **Replace Type Code with Subclasses** puis **Replace Conditionals with Polymorphism**.
 - **12 - Repeated Switches** : on repère les switchs portant sur la même condition, et on les remplace par des classes.
   - Il s’agit d’utiliser **Replace Conditional with Polymorphism**.
@@ -1410,3 +1410,99 @@
   - L’auteur trouve dommage cependant d’empêcher entièrement l’accès à la collection, étant donné que le langage offre de nombreuses options pour la parcourir et la manipuler, options qu’on aurait du mal à recoder dans notre classe.
     - Ce qu’on peut faire c’est en fournir une copie, et utiliser les méthodes _add_ et _remove_ de la classe quand on veut vraiment la modifier.
     - On peut aussi, à la place de la copie, fournir la collection en lecture seule. Mais il faut choisir l’une des deux comme convention pour la codebase et s’y tenir.
+
+### Replace Primitive with Object
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    orders.filter((o) => "high" === o.priority || "rush" === o.priority);
+    ```
+  - **Après :**
+    ```javascript
+    orders.filter((o) => o.priority.higherThan(new Priority("normal")));
+    ```
+- **Étapes :**
+  - 1. On applique **[Encapsulate Variable](#encapsulate-variable)** si la valeur n’est pas déjà encapsulée, en créant un getter et un setter.
+  - 2. On crée une classe qui prend la valeur dans son constructeur, et fournit un getter pour cette donnée qu’elle contient.
+  - 3. On lance la vérification statique du code.
+  - 4. On modifie le setter de la variable encapsulée pour qu’il crée une instance de la classe qu’on a créée et qu’il la stocke.
+  - 5. On modifie le getter de la variable encapsulée pour qu’il renvoie le résultat du getter de l’instance de la classe qu’on a créée.
+  - 6. On teste.
+  - 7. On utilise éventuellement **[Rename Function](#change-function-declaration)** sur le getter et le setter pour leur donner un meilleur nom (étant donné qu’on manipule maintenant une classe qui contient la valeur et non pas la valeur elle-même).
+  - 8. On peut clarifier le rôle de notre nouvel objet en tant que Value Object ou Reference Object, en appliquant **Change Reference to Value** ou **Change Value to Reference**.
+- **Théorie :**
+  - De nombreux programmeurs expérimentés considèrent que c’est un des refactorings les plus précieux.
+  - A chaque fois qu’une valeur sert à autre chose qu’à un simple affichage, l’auteur crée une classe pour contenir la valeur et de la logique liée à la valeur.
+- **Exemple détaillé :**
+
+  - On a une classe _Order_ avec un champ _priority_.
+
+    ```javascript
+    class Order {
+      constructor(public priority) {}
+    }
+
+    const highPriorityCount = orders.filter(
+      o => "high" === o.priority || "rush" === o.priority
+    ).length;
+    ```
+
+  - On encapsule la variable avec un getter et un setter.
+    ```javascript
+    class Order {
+      constructor(private _priority) {}
+      get priority() {
+        return this._priority;
+      }
+      set priority(aString) {
+        this._priority = aString;
+      }
+    }
+    ```
+  - On crée une classe pour encapsuler la valeur.
+    ```javascript
+    class Priority {
+      constructor(value) {
+        this._value = value;
+      }
+      toString() {
+        return this._value;
+      }
+    }
+    ```
+  - On modifie les getter/setter d’_Order_ pour manipuler une instance de la nouvelle classe _Priority_.
+    ```javascript
+    class Order {
+      constructor(private _priority) {}
+      get priority() {
+        return this._priority.toString();
+      }
+      set priority(aString) {
+        this._priority = new Priority(aString);
+      }
+    }
+    ```
+  - On renomme le getter en _priorityString_ pour mieux refléter ce qu’il fait.
+  - On décide que Priority va devenir un Value Object, pour qu’il puisse être utile aussi en dehors d’_Order_.
+    ```javascript
+    class Priority {
+      constructor(value) {
+        if (value instanceof Priority) return value;
+        if (Priority.legalValues().includes(value)) this._value = value;
+        else throw new Error(`&lt;${value}> is invalid for Priority`);
+      }
+      toString() {
+        return this._value;
+      }
+      get _index() {
+        return Priority.legalValues().findIndex((s) => s === this._value);
+      }
+      static legalValues() {
+        return ["low", "normal", "high", "rush"];
+      }
+      higherThan(other) {
+        return this._index > other._index;
+      }
+    }
+    ```
