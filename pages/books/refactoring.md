@@ -1282,7 +1282,7 @@
     - On peut envisager de retourner une copie ou une version read-only pour les occurrences qui ne font que de la lecture.
   - 6. On supprime les fonctions qui permettent d’accéder au record non wrappé sur l’objet, et en dehors.
   - 7. On teste.
-  - 8. Si le record a des champs qui sont eux-mêmes des records, on peut envisager d’utiliser **[Encapsulate Record](#encapsulate-record)** et **Encapsulate Collection** de manière récursive sur ces champs aussi.
+  - 8. Si le record a des champs qui sont eux-mêmes des records, on peut envisager d’utiliser **[Encapsulate Record](#encapsulate-record)** et **[Encapsulate Collection](#encapsulate-collection)** de manière récursive sur ces champs aussi.
 - **Théorie :**
   - Les _records_ sont des structures permettant de regrouper des données, souvent sous forme de HashMaps, en javascript des objets `{}`.
   - Quand ces structures sont utilisées dans de nombreux endroits, on peut avoir du mal à trouver comment les utiliser. C’est pour cela qu'il est pratique d’y ajouter de la logique en les transformant en classe.
