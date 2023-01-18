@@ -113,7 +113,7 @@
     - Pour chaque variable prise en paramètre de notre nouvelle fonction _amountFor_, on vérifie sa provenance pour voir si on ne peut pas s’en débarrasser :
       - _aPerformance_ est différente à chaque tour de boucle, on doit la garder.
       - _play_ est par contre toujours le même : on pourrait le supprimer comme paramètre, et recalculer sa valeur dans notre nouvelle fonction.
-    - On va utiliser la technique **Replace Temp with Query** pour remplacer dans la boucle :
+    - On va utiliser la technique **[Replace Temp with Query](#replace-temp-with-query)** pour remplacer dans la boucle :
       - `const play = plays[perf.playID];`
       - par
       - `const play = playFor(perf);`
@@ -202,7 +202,7 @@
       - On compile, teste, commit.
     - On peut alors utiliser **Slide Statements** pour déplacer la déclaration de la variable _volumeCredits_ juste au-dessus de la 2ème boucle.
       - On compile, teste, commit.
-    - On va pouvoir utiliser **Replace Temp with Query**, la première étape pour pouvoir le faire c’est d’utiliser **[Extract Function](#extract-function)** :
+    - On va pouvoir utiliser **[Replace Temp with Query](#replace-temp-with-query)**, la première étape pour pouvoir le faire c’est d’utiliser **[Extract Function](#extract-function)** :
       ```typescript
       function totalVolumeCredits() {
         let volumeCredits = 0;
@@ -575,7 +575,7 @@
   - Les **boucles** peuvent être extraites dans leur propre fonction.
     - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **Split Loop**.
 - **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
-  - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **Replace Temp with Query** pour l’éliminer.
+  - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **[Replace Temp with Query](#replace-temp-with-query)** pour l’éliminer.
   - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **[Introduce Parameter Object](#introduce-parameter-object)**.
   - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **Remove Flag Argument**.
   - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
@@ -738,7 +738,7 @@
   - 2. Dans le cas où la fonction est exportée hors de la portée de la fonction source, on lui passe toutes les variables dont elle a besoin en paramètre.
     - Si une variable n’est utilisée que dans le code extrait, on la déplace dedans.
     - Si une variable utilisée en dehors est assignée à l’intérieur du code extrait, alors il faut faire en sorte que la fonction extraite la retourne.
-    - Si on a trop de variables assignées dans le code extrait, on abandonne l’extraction au profit d’abord de **Split Variable** ou de **Replace Temp with Query**.
+    - Si on a trop de variables assignées dans le code extrait, on abandonne l’extraction au profit d’abord de **Split Variable** ou de **[Replace Temp with Query](#replace-temp-with-query)**.
   - 3. On Compile.
   - 4. On remplace le code initialement extrait par un appel à la nouvelle fonction.
   - 5. On teste.
@@ -1506,3 +1506,43 @@
       }
     }
     ```
+
+### Replace Temp with Query
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    const basePrice = this._quantity * this._itemPrice;
+    if (basePrice > 1000) return basePrice * 0.95;
+    else return basePrice * 0.98;
+    ```
+  - **Après :**
+
+    ```javascript
+    get basePrice() {
+      this._quantity * this._itemPrice;
+    }
+
+    //...
+    if (this.basePrice > 1000)
+      return this.basePrice * 0.95;
+    else
+      return this.basePrice * 0.98;
+    ```
+
+- **Étapes :**
+  - 1. On s’assure que la valeur de la variable est calculée avant son utilisation, et que le code qui la calcule ne renvoie pas des valeurs différentes à chaque appel.
+  - 2. On transforme si possible la variable en lecture seule (const).
+  - 3. On teste.
+  - 4. On extrait le calcul de la variable dans une fonction.
+    - Si la variable et la fonction doivent avoir le même nom, on choisit un nom temporaire pour la fonction.
+    - Si la fonction extraite a des effets secondaires, on va les séparer en utilisant **Separate Query from Modifier**.
+  - 5. On teste.
+  - 6. On utilise **[Inline Variable](#inline-variable)** pour enlever la variable temporaire initiale.
+- **Théorie :**
+  - Utiliser des appels de fonction au lieu de variables temporaires permet de :
+    - faciliter le refactoring parce qu’on a moins de paramètres à passer aux fonctions qu’on extrait.
+    - éviter la duplication de logique en appelant la même fonction à chaque fois qu’on croise cette logique-là.
+  - Les classes sont particulièrement propices à l’utilisation de ce genre de fonctions.
+  - Ce refactoring ne marche qu’avec les variables qui sont calculées une fois puis lues mais pas assignées à nouveau. Il faut aussi que leur calcul soit déterministe.
