@@ -594,15 +594,15 @@
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
   - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **[Split Phase](#split-phase)** pour séparer les deux avec une structure de données.
   - Sinon on peut utiliser **[Extract Function](#extract-function)** pour les séparer dans plusieurs fonctions.
-  - Et si c’est des classes : **Extract Class**.
+  - Et si c’est des classes : **[Extract Class](#extract-class)**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
   - On peut utiliser **Move Function** et **Move Field** pour replacer le code au même endroit.
   - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
-  - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **Inline Class**) avant de séparer ça en plus petites fonctions.
+  - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
   - En général on va utiliser **Move Function**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
-  - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **Extract Class**.
+  - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **[Extract Class](#extract-class)**.
     - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
   - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **[Introduce Parameter Object](#introduce-parameter-object)** et **Preserve Whole Object**.
 - **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
@@ -615,27 +615,27 @@
   - On peut remplacer les boucles par des pipelines avec **Replace Loop with Pipeline**.
 - **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
   - Par exemple une fonction dont le corps se lit de la même manière que son nom, ou une classe qui n’a qu’une méthode et qui pourrait être une fonction.
-  - On peut les éliminer avec **[Inline Function](#inline-function)** ou **Inline Class**.
+  - On peut les éliminer avec **[Inline Function](#inline-function)** ou **[Inline Class](#inline-class)**.
   - Dans le cas où on veut réduire une hiérarchie de classe, on peut utiliser **Collapse Hierarchy**.
 - **15 - Speculative Generality** : quand on ajoute des mécanismes de flexibilité pour plus tard, au cas où il y en aurait besoin. Il faut s’en débarrasser parce que YAGNI.
   - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
-  - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **Inline Class**.
+  - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**.
   - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **[Change Function Declaration](#change-function-declaration)**.
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
-  - On peut utiliser **Extract Class** puis **Move Function** pour déplacer le code qui utilise le champ qui est à part.
+  - On peut utiliser **[Extract Class](#extract-class)** puis **Move Function** pour déplacer le code qui utilise le champ qui est à part.
   - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
 - **17 - Message Chains** : il s’agit de longues chaînes d’appels d’objet en objet pour obtenir quelque chose au bout du compte. Si une des méthodes d’un des objets de la chaîne change, notre appelant doit changer aussi.
-  - On peut utiliser **Hide Delegate** sur les objets intermédiaires.
+  - On peut utiliser **[Hide Delegate](#hide-delegate)** sur les objets intermédiaires.
   - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
   - La technique à utiliser est **Remove Middle Man**.
   - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
   - On peut utiliser **Move Function** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
-  - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **Hide Delegate** pour utiliser un module comme intermédiaire.
+  - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
 - **20 - Large Class** : une classe avec trop de champs doit être divisée en plusieurs classes.
-  - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **Extract Class**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
+  - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **[Extract Class](#extract-class)**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
   - Si la classe a trop de code, on va probablement avoir des duplications. Le mieux est alors de la refactorer en petites fonctions.
     - Par exemple pour une classe de 500 lignes, on peut refactorer en méthodes de 5 à 10 lignes, avec une dizaine de méthodes de 2 lignes extraites dans une classe à part.
   - Un bon indicateur pour découper une classe c’est en regardant le code qui l’utilise, souvent on peut repérer des parties dans la classe.
@@ -1546,3 +1546,142 @@
     - éviter la duplication de logique en appelant la même fonction à chaque fois qu’on croise cette logique-là.
   - Les classes sont particulièrement propices à l’utilisation de ce genre de fonctions.
   - Ce refactoring ne marche qu’avec les variables qui sont calculées une fois puis lues mais pas assignées à nouveau. Il faut aussi que leur calcul soit déterministe.
+
+### Extract Class
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    class Person {
+      get officeAreaCode() {
+        return this._officeAreaCode;
+      }
+      get officeNumber() {
+        return this._officeNumber;
+      }
+    }
+    ```
+  - **Après :**
+
+    ```javascript
+    class Person {
+      get officeAreaCode() {
+        return this._telephoneNumber.areaCode;
+      }
+      get officeNumber() {
+        return this._telephoneNumber.number;
+      }
+    }
+
+    class TelephoneNumber {
+      get areaCode() {
+        return this._areaCode;
+      }
+      get number() {
+        return this._number;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On réfléchit d’abord aux responsabilités à séparer dans une nouvelle classe.
+  - 2. On crée une nouvelle classe pour accueillir ces responsabilités.
+    - Au besoin, on renomme la classe initiale pour mieux refléter ce qu’elle fera après le refactoring.
+  - 3. On crée une instance de la classe enfant dans le constructeur de la classe parente.
+  - 4. On utilise **Move Field** sur chaque champ à déplacer, en testant à chaque fois.
+  - 5. On utilise **Move Function** sur chaque méthode à déplacer, en testant à chaque fois.
+  - 6. On revoit l’interface de chaque classe, en changeant le nom des méthodes si besoin.
+  - 7. On décide si on veut exposer l’instance de la nouvelle classe ou pas.
+    - Si oui, on peut envisager d’utiliser **Change Reference to Value** sur la nouvelle classe pour la transformer en value object.
+- **Théorie :**
+  - Les classes ont tendance à grossir au cours du temps. Cette technique permet d’extraire une partie de la logique dans une classe distincte.
+  - On se rend compte qu’il y a une classe à extraire quand on a des méthodes et des champs qui sont souvent modifiés et utilisés ensemble.
+
+### Inline Class
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Person {
+      get officeAreaCode() {
+        return this._telephoneNumber.areaCode;
+      }
+      get officeNumber() {
+        return this._telephoneNumber.number;
+      }
+    }
+
+    class TelephoneNumber {
+      get areaCode() {
+        return this._areaCode;
+      }
+      get number() {
+        return this._number;
+      }
+    }
+    ```
+
+  - **Après :**
+    ```javascript
+    class Person {
+      get officeAreaCode() {
+        return this._officeAreaCode;
+      }
+      get officeNumber() {
+        return this._officeNumber;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée les fonctions de la classe à faire disparaître dans la classe qui accueille. Ces fonctions doivent déléguer à celles de la classe qui va disparaître.
+  - 2. On change toutes les occurrences qui utilisent la classe qui va disparaître pour qu’elles utilisent la classe qui accueille, avec les fonctions qui délèguent.
+    - On teste après chaque changement.
+  - 3. On déplace un par un le contenu des fonctions de la classe qui va disparaître vers les fonctions qui délèguent.
+    - On teste à chaque fois.
+  - 4. On supprime la classe.
+- **Théorie :**
+  - On utilise en général cette technique pour réorganiser une classe : on la vide de ses responsabilités en extrayant des classes, puis on réintègre intelligemment dans de nouvelles classes.
+  - Une autre approche peut être de fusionner une classe dans une autre, et réextraire mieux ensuite.
+
+### Hide Delegate
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    manager = aPerson.department.manager;
+
+    class Person {
+      // …
+      get department() {
+        return this._department;
+      }
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    manager = aPerson.manager;
+
+    class Person {
+      // …
+      get manager() {
+        return this._department.manager;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. Pour chaque méthode à laquelle on accède sur le délégué, on crée une méthode de délégation sur notre classe initiale.
+  - 2. On ajuste les occurrences de code qui utilisaient le délégué à partir de notre classe pour qu’elles appellent les nouvelles méthodes de délégation.
+    - On teste à chaque fois.
+  - 3. Si possible, on supprime le getter qui renvoyait le délégué directement.
+  - 4. On teste.
+- **Théorie :**
+  - L’idée de cette technique est d’encapsuler les objets (les délégués) qui sont accessibles à partir des champs d’une classe, comme ça quand leur interface change, seule la classe qui les expose sera impactée et pas les appelants.
