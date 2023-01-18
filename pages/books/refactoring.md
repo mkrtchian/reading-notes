@@ -629,7 +629,7 @@
   - On peut utiliser **[Hide Delegate](#hide-delegate)** sur les objets intermédiaires.
   - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
-  - La technique à utiliser est **Remove Middle Man**.
+  - La technique à utiliser est **[Remove Middle Man](#remove-middle-man)**.
   - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
   - On peut utiliser **Move Function** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
@@ -1685,3 +1685,77 @@
   - 4. On teste.
 - **Théorie :**
   - L’idée de cette technique est d’encapsuler les objets (les délégués) qui sont accessibles à partir des champs d’une classe, comme ça quand leur interface change, seule la classe qui les expose sera impactée et pas les appelants.
+
+### Remove Middle Man
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    manager = aPerson.manager;
+
+    class Person {
+      // …
+      get manager() {
+        return this._department.manager;
+      }
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    manager = aPerson.department.manager;
+
+    class Person {
+      // …
+      get department() {
+        return this._department;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée un getter pour renvoyer le délégué.
+  - 2. On ajuste les occurrences de code qui utilisaient les méthodes de délégation pour qu’elles utilisent le délégué par chaînage.
+    - On teste à chaque fois.
+    - On supprime les méthodes de délégation une par une quand elles ne sont plus utilisées.
+- **Théorie :**
+  - L’ajout de délégation va dans le sens de la _Loi de Demeter_, mais Fowler aimerait qu’on l’appelle plutôt la _Suggestion Utile de Demeter_, dans la mesure où elle n’est pas à suivre à la lettre, et les délégations peuvent parfois devenir trop coûteuses.
+
+### Substitute Algorithm
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function foundPerson(people) {
+      for(let i = 0; i &lt; people.length; i++) {
+        if (people[i] === "Don") {
+          return "Don";
+        }
+        if (people[i] === "John") {
+          return "John";
+        }
+        if (people[i] === "Kent") {
+          return "Kent";
+        }
+      }
+      return "";
+    }
+    ```
+  - **Après :**
+    ```javascript
+    function foundPerson(people) {
+      const candidates = ["Don", "John", "Kent"];
+      return people.find((p) => candidates.includes(p)) || "";
+    }
+    ```
+- **Étapes :**
+  - 1. On organise le code pour avoir l’algorithme dans une même fonction.
+  - 2. On crée des tests pour cette fonction, pour vérifier qu’elle ne change pas de comportement.
+  - 3. On code notre algorithme alternatif.
+  - 4. On joue nos vérifications statiques et on teste.
+    - Si les testent ne passent pas, on débogue.
+- **Théorie :**
+  - Parfois il est plus simple de réécrire complètement un algorithme plutôt que de le faire par petites étapes. Cette technique dit comment le faire.
