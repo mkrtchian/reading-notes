@@ -309,7 +309,7 @@
             return result;
           }
           ```
-        - Ensuite on utilise **Move Function** pour déplacer _playFor_ en dessous d’_enrichPerformance_.
+        - Ensuite on utilise **[Move Function](#move-function)** pour déplacer _playFor_ en dessous d’_enrichPerformance_.
         - Et enfin on remplace toutes les utilisations de _playFor_ dans les fonctions de _renderPlainText_ par les valeurs précalculées issues de _data_. On va y accéder typiquement par `perf.play`.
       - On va ensuite appliquer la même chose que pour _playFor_, mais cette fois pour _amountFor_ dont on élimine les appels de _renderPlainText_.
       - Puis on fait la même chose pour _volumeCreditsFor_.
@@ -419,7 +419,7 @@
 
   - **9 - On va déplacer les fonctions de calcul dans le calculateur**
     - On va d’abord déplacer _amountFor_ dans le calculateur.
-      - Pour ça on commence par utiliser **Move Function** et copier le code dans un getter, et utiliser les variables d’instance `this.play` et `this.performance` :
+      - Pour ça on commence par utiliser **[Move Function](#move-function)** et copier le code dans un getter, et utiliser les variables d’instance `this.play` et `this.performance` :
         ```typescript
         get amount() {
           switch (this.play.type) {
@@ -596,11 +596,11 @@
   - Sinon on peut utiliser **[Extract Function](#extract-function)** pour les séparer dans plusieurs fonctions.
   - Et si c’est des classes : **[Extract Class](#extract-class)**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
-  - On peut utiliser **Move Function** et **Move Field** pour replacer le code au même endroit.
+  - On peut utiliser **[Move Function](#move-function)** et **Move Field** pour replacer le code au même endroit.
   - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
   - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
-  - En général on va utiliser **Move Function**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
+  - En général on va utiliser **[Move Function](#move-function)**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
   - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **[Extract Class](#extract-class)**.
     - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
@@ -623,16 +623,16 @@
   - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **[Change Function Declaration](#change-function-declaration)**.
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
-  - On peut utiliser **[Extract Class](#extract-class)** puis **Move Function** pour déplacer le code qui utilise le champ qui est à part.
+  - On peut utiliser **[Extract Class](#extract-class)** puis **[Move Function](#move-function)** pour déplacer le code qui utilise le champ qui est à part.
   - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
 - **17 - Message Chains** : il s’agit de longues chaînes d’appels d’objet en objet pour obtenir quelque chose au bout du compte. Si une des méthodes d’un des objets de la chaîne change, notre appelant doit changer aussi.
   - On peut utiliser **[Hide Delegate](#hide-delegate)** sur les objets intermédiaires.
-  - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **Move Function** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
+  - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **[Move Function](#move-function)** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
   - La technique à utiliser est **[Remove Middle Man](#remove-middle-man)**.
   - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
-  - On peut utiliser **Move Function** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
+  - On peut utiliser **[Move Function](#move-function)** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
   - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
 - **20 - Large Class** : une classe avec trop de champs doit être divisée en plusieurs classes.
   - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **[Extract Class](#extract-class)**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
@@ -640,11 +640,11 @@
     - Par exemple pour une classe de 500 lignes, on peut refactorer en méthodes de 5 à 10 lignes, avec une dizaine de méthodes de 2 lignes extraites dans une classe à part.
   - Un bon indicateur pour découper une classe c’est en regardant le code qui l’utilise, souvent on peut repérer des parties dans la classe.
 - **21 - Alternative Classes with Different Interfaces** : ça peut être intéressant de pouvoir substituer une classe par une autre. Pour ça il faut faire correspondre leur prototype en les faisant adhérer à une même interface.
-  - Pour faire correspondre les deux classes, on peut utiliser **[Change Function Declaration](#change-function-declaration)** et **Move Function**.
+  - Pour faire correspondre les deux classes, on peut utiliser **[Change Function Declaration](#change-function-declaration)** et **[Move Function](#move-function)**.
 - **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
   - Leurs champs publics doivent être encapsulés avec **[Encapsulate Record](#encapsulate-record)**.
   - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
-  - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **Move Function** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
+  - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **[Move Function](#move-function)** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
   - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
     - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **[Split Phase](#split-phase)**.
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
@@ -1147,7 +1147,7 @@
 - **Étapes :**
   - 1. On applique **[Encapsulate Record](#encapsulate-record)** aux paramètres communs entre les fonctions.
     - Si ces paramètres ne sont pas déjà au sein d'une même structure, on applique d’abord **[Introduce Parameter Object](#introduce-parameter-object)** pour les regrouper.
-  - 2. On utiliser **Move Function** pour déplacer chaque fonction visée dans la nouvelle classe qu’on vient de créer.
+  - 2. On utiliser **[Move Function](#move-function)** pour déplacer chaque fonction visée dans la nouvelle classe qu’on vient de créer.
     - On peut supprimer les arguments de ces fonctions qui sont déjà membres de la classe.
   - 3. On va ensuite à la recherche de la logique restante qui manipule la donnée qu’on a encapsulée, pour l’extraire sous forme de fonctions avec **[Extract Function](#extract-function)** et la rapatrier dans la nouvelle classe.
 - **Théorie :**
@@ -1590,7 +1590,7 @@
     - Au besoin, on renomme la classe initiale pour mieux refléter ce qu’elle fera après le refactoring.
   - 3. On crée une instance de la classe enfant dans le constructeur de la classe parente.
   - 4. On utilise **Move Field** sur chaque champ à déplacer, en testant à chaque fois.
-  - 5. On utilise **Move Function** sur chaque méthode à déplacer, en testant à chaque fois.
+  - 5. On utilise **[Move Function](#move-function)** sur chaque méthode à déplacer, en testant à chaque fois.
   - 6. On revoit l’interface de chaque classe, en changeant le nom des méthodes si besoin.
   - 7. On décide si on veut exposer l’instance de la nouvelle classe ou pas.
     - Si oui, on peut envisager d’utiliser **Change Reference to Value** sur la nouvelle classe pour la transformer en value object.
@@ -1759,3 +1759,49 @@
     - Si les testent ne passent pas, on débogue.
 - **Théorie :**
   - Parfois il est plus simple de réécrire complètement un algorithme plutôt que de le faire par petites étapes. Cette technique dit comment le faire.
+
+### Move Function
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Account {
+      // ...
+      get overdraftCharge() {...}
+    }
+
+    class AccountType {
+      // ...
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Account {
+      // ...
+    }
+
+    class AccountType {
+      // ...
+      get overdraftCharge() {...}
+    }
+    ```
+
+- **Étapes :**
+  - 1. On examine le contexte de notre fonction : est-ce qu’on veut aussi déplacer d’autres fonctions que notre fonction appelle ?
+    - Si oui, l’auteur conseille de déplacer ces fonctions en premier parce qu’elles ont moins de dépendances.
+    - Si la sous-fonction est appelée par une seule fonction, on peut l’imbriquer, les bouger ensemble, puis la ressortir.
+  - 2. On vérifie si la fonction est une méthode polymorphe, auquel cas il faudra aussi déplacer les fonctions des parents.
+  - 3. On copie la fonction dans son nouveau contexte, en ajustant son nom si besoin.
+  - 4. On lance l’analyse statique.
+  - 5. On change la fonction initiale en une fonction de délégation, pour qu’elle ne fasse qu’appeler la nouvelle fonction.
+  - 6. On teste.
+  - 7. On envisage de supprimer l’ancienne fonction devenue fonction de délégation, en utilisant **[Inline Function](#inline-function)**.
+- **Théorie :**
+  - Les fonctions sont en général dans un contexte d’encapsulation (module, classe etc.). A mesure qu’on gagne en connaissance, on réorganise les fonctions.
+  - Les critères pour placer la fonction peuvent être par exemple de la mettre proche des fonctions qu’elle appelle, ou des fonctions qui l’appellent.
+  - Dans le cadre d’un refactoring, on peut souvent travailler avec les fonctions dans un même contexte, et les regrouper dans d’autres contextes ensuite.
+  - L’auteur est plutôt méfiant à l’égard des fonctions imbriquées parce qu’elles gardent des relations de données cachées. Il préfère les modules ES6 pour encapsuler les fonctions (l’imbrication est souvent utilisée comme étape intermédiaire dans un refactoring).
