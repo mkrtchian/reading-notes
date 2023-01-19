@@ -596,7 +596,7 @@
   - Sinon on peut utiliser **[Extract Function](#extract-function)** pour les séparer dans plusieurs fonctions.
   - Et si c’est des classes : **[Extract Class](#extract-class)**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
-  - On peut utiliser **[Move Function](#move-function)** et **Move Field** pour replacer le code au même endroit.
+  - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour replacer le code au même endroit.
   - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
   - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
@@ -632,7 +632,7 @@
   - La technique à utiliser est **[Remove Middle Man](#remove-middle-man)**.
   - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
-  - On peut utiliser **[Move Function](#move-function)** et **Move Field** pour séparer le code qui ne devrait pas être trop couplé.
+  - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour séparer le code qui ne devrait pas être trop couplé.
   - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
 - **20 - Large Class** : une classe avec trop de champs doit être divisée en plusieurs classes.
   - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **[Extract Class](#extract-class)**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
@@ -1589,7 +1589,7 @@
   - 2. On crée une nouvelle classe pour accueillir ces responsabilités.
     - Au besoin, on renomme la classe initiale pour mieux refléter ce qu’elle fera après le refactoring.
   - 3. On crée une instance de la classe enfant dans le constructeur de la classe parente.
-  - 4. On utilise **Move Field** sur chaque champ à déplacer, en testant à chaque fois.
+  - 4. On utilise **[Move Field](#move-field)** sur chaque champ à déplacer, en testant à chaque fois.
   - 5. On utilise **[Move Function](#move-function)** sur chaque méthode à déplacer, en testant à chaque fois.
   - 6. On revoit l’interface de chaque classe, en changeant le nom des méthodes si besoin.
   - 7. On décide si on veut exposer l’instance de la nouvelle classe ou pas.
@@ -1805,3 +1805,48 @@
   - Les critères pour placer la fonction peuvent être par exemple de la mettre proche des fonctions qu’elle appelle, ou des fonctions qui l’appellent.
   - Dans le cadre d’un refactoring, on peut souvent travailler avec les fonctions dans un même contexte, et les regrouper dans d’autres contextes ensuite.
   - L’auteur est plutôt méfiant à l’égard des fonctions imbriquées parce qu’elles gardent des relations de données cachées. Il préfère les modules ES6 pour encapsuler les fonctions (l’imbrication est souvent utilisée comme étape intermédiaire dans un refactoring).
+
+### Move Field
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class Customer {
+      get plan() {
+        return this._plan;
+      }
+      get discountRate() {
+        return this._discountRate;
+      }
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Customer {
+      get plan() {
+        return this._plan;
+      }
+      get discountRate() {
+        return this.plan.discountRate;
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On s’assure que notre champ initial est encapsulé, sinon on fait.
+    - Par exemple, on auto-encapsule le champ dans sa propre classe en y accédant à travers un getter et setter privés.
+  - 2. On teste.
+  - 3. On crée le champ et des getter/setter dans la classe que le champ veut rejoindre.
+  - 4. On lance les vérifications statiques.
+  - 5. On s’assure qu’il y a une référence de la classe initiale à la classe qui accueille le nouveau champ, pour pouvoir le manipuler depuis l’ancienne classe.
+    - Ça peut être la nouvelle classe dont l’instance fait partie d’un champ de l’ancienne, ou une fonction dans l’ancienne permet d’y accéder. Au pire il faudra créer un champ dans l’ancienne classe, pour y mettre une instance de la nouvelle.
+  - 6. On ajuste les getter/setter de la classe initiale pour qu’ils lisent et écrivent dans le champ de la nouvelle classe.
+    - Si on est dans une situation complexe où le nouveau champ va être mis à jour par plusieurs classes, on peut choisir de mettre à jour l’ancien champ et le nouveau champ en vérifiant la cohérence des deux valeurs avec **Introduce Assertion**, puis en arrêtant d’écrire dans l’ancien champ quand on pense que c’est bon.
+  - 7. On teste.
+  - 8. On supprime le champ initial.
+  - 9. On teste.
+- **Théorie :**
+  - Le design des structures de données est très important pour avoir un code clair.
+  - Plus notre connaissance du domaine est importante, mieux on va les concevoir. Donc on va être amenés à les modifier au fur et à mesure.
+  - Deux champs dans deux structures qui sont toujours lues ensemble, ou mises à jour ensemble, doivent rejoindre la même structure.
+  - Ce refactoring est plus facile à faire si notre structure est en fait une classe, avec ses champs encapsulés, et qu’on peut donc ajouter de la logique aux getters/setters.
+    - Si la structure n’est pas une classe, l’auteur conseille de la transformer en une classe avec Encapsulate Record avant de faire le refactoring.
