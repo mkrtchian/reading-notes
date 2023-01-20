@@ -200,7 +200,7 @@
       }
       ```
       - On compile, teste, commit.
-    - On peut alors utiliser **Slide Statements** pour déplacer la déclaration de la variable _volumeCredits_ juste au-dessus de la 2ème boucle.
+    - On peut alors utiliser **[Slide Statements](#slide-statements)** pour déplacer la déclaration de la variable _volumeCredits_ juste au-dessus de la 2ème boucle.
       - On compile, teste, commit.
     - On va pouvoir utiliser **[Replace Temp with Query](#replace-temp-with-query)**, la première étape pour pouvoir le faire c’est d’utiliser **[Extract Function](#extract-function)** :
       ```typescript
@@ -227,7 +227,7 @@
         - Le but c’est de ne pas **perdre de temps à débugger** pendant un refactoring.
     - On va répéter la même séquence pour extraire complètement _totalAmount_ :
       - **Split Loop** pour extraire l’instruction qui nous intéresse dans une boucle à part.
-      - **Slide Statements** pour déplacer la variable locale près de la nouvelle boucle.
+      - **[Slide Statements](#slide-statements)** pour déplacer la variable locale près de la nouvelle boucle.
       - **[Extract Function](#extract-function)** pour extraire la boucle dans une nouvelle fonction.
         - Le meilleur nom pour cette fonction est déjà pris par la variable _totalAmount_, donc on lui met un nom au hasard pour garder un code qui marche et commiter.
       - **[Inline Variable](#inline-variable)** nous permet d’éliminer la variable locale, et de renommer la nouvelle fonction _totalAmount_.
@@ -563,7 +563,7 @@
   - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **Rename Function** et **Rename Field**.
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
   - En général on va utiliser **[Extract Function](#extract-function)**.
-  - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **Slide Statements** pour obtenir un morceau de code identique à factoriser.
+  - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **[Slide Statements](#slide-statements)** pour obtenir un morceau de code identique à factoriser.
   - Si le code dupliqué se trouve dans des classes filles d’une même hiérarchie, on peut la remonter dans la mère avec **Pull Up Method**.
 - **3 - Long Function** : les fonctions courtes sont plus efficaces pour la compréhension du code.
   - L’idée c’est de nommer les fonctions avec **l’intention de leur code** plutôt que par ce qu’il fait. A chaque fois qu’on veut commenter, on peut remplacer ça par une fonction qui encapsule le bout de code.
@@ -585,7 +585,7 @@
   - La recherche de l'immutabilité vient de la programmation fonctionnelle.
   - On peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **Split Variable** pour rendre ces updates moins risquées.
-  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **Slide Statements** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
+  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
@@ -1756,6 +1756,8 @@
 - **Théorie :**
   - Parfois il est plus simple de réécrire complètement un algorithme plutôt que de le faire par petites étapes. Cette technique dit comment le faire.
 
+## Déplacement des fonctionnalités
+
 ### Move Function
 
 - **Exemple :**
@@ -1880,7 +1882,7 @@
     ```
 
 - **Étapes :**
-  - 1. Si l’instruction exécutée en même temps que la fonction n’est pas à côté d’elle, on déplace l’instruction à côté avec **Slide Statements**.
+  - 1. Si l’instruction exécutée en même temps que la fonction n’est pas à côté d’elle, on déplace l’instruction à côté avec **[Slide Statements](#slide-statements)**.
   - 2. Si on n’avait en fait qu’une seule occurrence des instructions utilisées avec l’appel à la fonction, alors on peut simplement couper l’instruction et la coller dans la fonction, en ignorant le reste des étapes.
   - 3. Si on a plusieurs occurrences, on utilise **[Extract Function](#extract-function)** sur une des occurrences, pour extraire les instructions et l’appel à la fonction.
     - On nomme la nouvelle fonction avec un nom temporaire facile à rechercher.
@@ -1949,3 +1951,37 @@
   - Ce refactoring consiste tout simplement à voir si on n’a pas déjà une fonction (maison ou dans la bibliothèque) qui fait déjà ce que fait un bout de code qu’on a, et si oui à l’appeler.
   - Dans le cas où le code est similaire au code d’une fonction, mais que cette similitude est une coïncidence, il ne faut pas faire le remplacement puisque ces deux codes ne doivent alors pas évoluer ensemble.
     - Le nom de la fonction peut nous permettre de comprendre ce qu’elle est censée faire, pour savoir si c’est bien la même chose qu’on veut faire avec notre code.
+
+### Slide Statements
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    const pricingPlan = retrievePricingPlan();
+    const order = retreiveOrder();
+    let charge;
+    const chargePerUnit = pricingPlan.unit;
+    ```
+  - **Après :**
+    ```javascript
+    const pricingPlan = retrievePricingPlan();
+    const chargePerUnit = pricingPlan.unit;
+    const order = retreiveOrder();
+    let charge;
+    ```
+- **Étapes :**
+  - 1. On examine le code pour voir si les instructions qu’on veut déplacer vont créer des interférences avec du code avant ou après. S’il y a des interférences on abandonne le refactoring.
+    - On ne peut pas déplacer une variable avant un élément qu’elle référence.
+    - On ne peut pas déplacer une variable après un élément qui la référence.
+    - Une variable ne peut pas aller après une instruction qui modifie un élément qu’elle référence.
+    - Une variable qui modifie un élément ne peut pas aller après une instruction qui référence l'élément modifié.
+  - 2. On coupe les instructions et on les colle là où on veut qu’elles soient.
+  - 3. On teste.
+- **Théorie :**
+  - On va souvent vouloir regrouper les instructions qui agissent sur la même structure.
+    - L’auteur déclare en général les variables juste au-dessus de leur première utilisation (et non pas en haut de la fonction).
+  - En général on regroupe les instructions ensemble pour ensuite faire un autre refactoring, par exemple **[Extract Function](#extract-function)**.
+  - Si après le refactoring nos tests ne passent plus, on peut recommencer avec moins d’instructions déplacées. On peut aussi laisser de côté pour le moment pour faire d’abord d’autres refactorings.
+  - Le fait qu’une valeur soit modifiée par l’instruction qu’on déplace et lue par l’instruction par dessus laquelle on déplace (ou l'inverse) n’est en fait pas forcément éliminatoire.
+    - Il peut y avoir des cas où les modifications sont interchangeables, mais il faut être très prudent. Appliquer **Split Variable** peut parfois clarifier la situation.
+  - L’auteur adhère au principe de **séparation de commandes et queries**, et donc ses fonctions vont soit retourner une valeur, soit avoir un side effect, mais pas les deux.
