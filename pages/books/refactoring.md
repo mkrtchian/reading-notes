@@ -187,7 +187,7 @@
       - Vu qu’elle est utilisée dans une petite portée et est peu importante, Fowler privilégie un nom plus court que _formatAsUSD_. Il choisit juste _usd_ pour mettre en avant l’aspect monétaire.
   - **6 - On va déplacer le calcul du volume de crédits**
     - On avait précédemment extrait le calcul du volume de crédits pour une pièce. On va maintenant extraire le calcul du volume de crédits pour l’ensemble des pièces hors de _statement_.
-    - On va utiliser **Split Loop** pour couper la boucle en deux, et avoir le calcul du volume de crédits dans une boucle à part.
+    - On va utiliser **[Split Loop](#split-loop)** pour couper la boucle en deux, et avoir le calcul du volume de crédits dans une boucle à part.
       ```typescript
       for (let perf of invoice.performances) {
         // print line for this order
@@ -226,7 +226,7 @@
         - Et surtout, dès que les tests échouent, il **annule ce qu’il a fait depuis le dernier commit** et reprend avec des étapes plus courtes (comme celles-là).
         - Le but c’est de ne pas **perdre de temps à débugger** pendant un refactoring.
     - On va répéter la même séquence pour extraire complètement _totalAmount_ :
-      - **Split Loop** pour extraire l’instruction qui nous intéresse dans une boucle à part.
+      - **[Split Loop](#split-loop)** pour extraire l’instruction qui nous intéresse dans une boucle à part.
       - **[Slide Statements](#slide-statements)** pour déplacer la variable locale près de la nouvelle boucle.
       - **[Extract Function](#extract-function)** pour extraire la boucle dans une nouvelle fonction.
         - Le meilleur nom pour cette fonction est déjà pris par la variable _totalAmount_, donc on lui met un nom au hasard pour garder un code qui marche et commiter.
@@ -315,7 +315,7 @@
       - Puis on fait la même chose pour _volumeCreditsFor_.
       - Et encore la même chose pour _totalAmount_, et _totalVolumeCredits_.
 
-    - On en profite pour utiliser **Replace Loop with Pipeline** sur les boucles de _totalAmount_ et _totalVolumeCredits_.
+    - On en profite pour utiliser **[Replace Loop with Pipeline](#replace-loop-with-pipeline)** sur les boucles de _totalAmount_ et _totalVolumeCredits_.
       ```typescript
       function totalAmount(data) {
         return data.performances.reduce((total, p) => total + p.amount, 0);
@@ -573,7 +573,7 @@
     - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **[Extract Function](#extract-function)**.
     - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **Replace Conditional with Polymorphism**.
   - Les **boucles** peuvent être extraites dans leur propre fonction.
-    - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **Split Loop**.
+    - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **[Split Loop](#split-loop)**.
 - **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
   - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **[Replace Temp with Query](#replace-temp-with-query)** pour l’éliminer.
   - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **[Introduce Parameter Object](#introduce-parameter-object)**.
@@ -584,7 +584,7 @@
 - **6 - Mutable Data** : le fait que les structures soient mutables fait qu’on peut changer une structure quelque part, et provoquer un bug ailleurs sans s’en rendre compte.
   - La recherche de l'immutabilité vient de la programmation fonctionnelle.
   - On peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
-  - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **Split Variable** pour rendre ces updates moins risquées.
+  - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **[Split Variable](#split-variable)** pour rendre ces updates moins risquées.
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
@@ -612,7 +612,7 @@
 - **12 - Repeated Switches** : on repère les switchs portant sur la même condition, et on les remplace par des classes.
   - Il s’agit d’utiliser **Replace Conditional with Polymorphism**.
 - **13 - Loops** : les fonctions issues de la programmation fonctionnelle (map, filter, reduce) permettent de voir plus rapidement les éléments qui sont inclus et ce qui est fait avec eux, par rapport à des boucles.
-  - On peut remplacer les boucles par des pipelines avec **Replace Loop with Pipeline**.
+  - On peut remplacer les boucles par des pipelines avec **[Replace Loop with Pipeline](#replace-loop-with-pipeline)**.
 - **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
   - Par exemple une fonction dont le corps se lit de la même manière que son nom, ou une classe qui n’a qu’une méthode et qui pourrait être une fonction.
   - On peut les éliminer avec **[Inline Function](#inline-function)** ou **[Inline Class](#inline-class)**.
@@ -621,7 +621,7 @@
   - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
   - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**.
   - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **[Change Function Declaration](#change-function-declaration)**.
-  - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **Remove Dead Code**.
+  - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **[Remove Dead Code](#remove-dead-code)**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
   - On peut utiliser **[Extract Class](#extract-class)** puis **[Move Function](#move-function)** pour déplacer le code qui utilise le champ qui est à part.
   - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
@@ -738,7 +738,7 @@
   - 2. Dans le cas où la fonction est exportée hors de la portée de la fonction source, on lui passe toutes les variables dont elle a besoin en paramètre.
     - Si une variable n’est utilisée que dans le code extrait, on la déplace dedans.
     - Si une variable utilisée en dehors est assignée à l’intérieur du code extrait, alors il faut faire en sorte que la fonction extraite la retourne.
-    - Si on a trop de variables assignées dans le code extrait, on abandonne l’extraction au profit d’abord de **Split Variable** ou de **[Replace Temp with Query](#replace-temp-with-query)**.
+    - Si on a trop de variables assignées dans le code extrait, on abandonne l’extraction au profit d’abord de **[Split Variable](#split-variable)** ou de **[Replace Temp with Query](#replace-temp-with-query)**.
   - 3. On Compile.
   - 4. On remplace le code initialement extrait par un appel à la nouvelle fonction.
   - 5. On teste.
@@ -1756,7 +1756,7 @@
 - **Théorie :**
   - Parfois il est plus simple de réécrire complètement un algorithme plutôt que de le faire par petites étapes. Cette technique dit comment le faire.
 
-## Déplacement des fonctionnalités
+## 8 - Déplacement des fonctionnalités
 
 ### Move Function
 
@@ -1983,5 +1983,122 @@
   - En général on regroupe les instructions ensemble pour ensuite faire un autre refactoring, par exemple **[Extract Function](#extract-function)**.
   - Si après le refactoring nos tests ne passent plus, on peut recommencer avec moins d’instructions déplacées. On peut aussi laisser de côté pour le moment pour faire d’abord d’autres refactorings.
   - Le fait qu’une valeur soit modifiée par l’instruction qu’on déplace et lue par l’instruction par dessus laquelle on déplace (ou l'inverse) n’est en fait pas forcément éliminatoire.
-    - Il peut y avoir des cas où les modifications sont interchangeables, mais il faut être très prudent. Appliquer **Split Variable** peut parfois clarifier la situation.
+    - Il peut y avoir des cas où les modifications sont interchangeables, mais il faut être très prudent. Appliquer **[Split Variable](#split-variable)** peut parfois clarifier la situation.
   - L’auteur adhère au principe de **séparation de commandes et queries**, et donc ses fonctions vont soit retourner une valeur, soit avoir un side effect, mais pas les deux.
+
+### Split Loop
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let averageAge = 0;
+    let totalSalary = 0;
+    for (const p of people) {
+      averageAge += p.age;
+      totalSalary += p.salary;
+    }
+    averageAge = averageAge / people.length;
+    ```
+  - **Après :**
+    ```javascript
+    let totalSalary = 0;
+    for (const p of people) {
+      totalSalary += p.salary;
+    }
+    let averageAge = 0;
+    for (const p of people) {
+      averageAge += p.age;
+    }
+    averageAge = averageAge / people.length;
+    ```
+- **Étapes :**
+  - 1. On copie la boucle en dessous de l’autre.
+  - 2. On supprime ce qu’il faut dans chacune deux boucles, et notamment les side-effects dupliqués auxquels il faut faire attention.
+  - 3. On teste.
+  - 4. On envisage **[Extract Function](#extract-function)** pour mettre la nouvelle boucle dans une fonction.
+- **Théorie :**
+  - On utilise souvent une seule boucle pour faire plusieurs choses parce qu’on a peur des performances.
+    - Pourtant séparer la boucle en plusieurs boucles permet d’avoir du code plus compréhensible, et c’est avec du code compréhensible qu’on pourra au mieux optimiser si vraiment on a besoin.
+  - En ayant des boucles qui font une seule chose, on arrive aussi à obtenir des fonctions qui exécutent la boucle et renvoient une seule valeur.
+    - En général l’auteur fractionne une boucle avant d’extraire la fraction en boucle.
+
+### Replace Loop with Pipeline
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    const names = [];
+    for (const i of input) {
+      if (i.job === "programmer") names.push(i.name);
+    }
+    ```
+  - **Après :**
+    ```javascript
+    const names = input
+      .filter((i) => i.job === "programmer")
+      .map((i) => i.name);
+    ```
+- **Étapes :**
+  - 1. On crée une nouvelle variable à laquelle on assigne la collection sur laquelle on boucle.
+  - 2. On prend chaque groupe d’instructions cohérentes de la boucle en commençant par le début, et on en crée une opération de pipeline.
+    - On teste à chaque fois.
+  - 3. Une fois que toutes les instructions de la boucle sont supprimées, on supprime la boucle.
+- **Théorie :**
+  - Les pipelines permettent de suivre les opérations de manière linéaire, avec les entrées et sorties claires. L’auteur les trouve plus claires que les boucles.
+  - Parmi les opérations de pipeline on a par exemple les classiques _map_, _filter_, _reduce_.
+  - Pour plus d’exemples, Fowler propose son essai **_Refactoring with Loops and Collection Pipelines_**.
+
+### Remove Dead Code
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    if (false) {
+      doSomethingThatUsedToMatter();
+    }
+    ```
+  - **Après :**
+
+    ```javascript
+
+    ```
+
+- **Étapes :**
+  - 1. Si c’est du code appelable, on recherche les références pour bien s’assurer que le code est mort.
+  - 2. On supprime le code.
+  - 3. On teste.
+- **Théorie :**
+  - Le code mort alourdit le code pour rien. Il faut le supprimer pour des raisons de maintenabilité.
+  - Le gestionnaire de version retient le code de toute façon. Et au pire, si on veut _vraiment_ garder une trace visible, on peut mettre une trace sous forme de commentaire disant dans quel commit se trouve le bout de code qu’on a supprimé.
+
+## 9 - Organisation des données
+
+### Split Variable
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let temp = 2 * (height + width);
+    console.log(temp);
+    temp = height * width;
+    console.log(temp);
+    ```
+  - **Après :**
+    ```javascript
+    const perimeter = 2 * (height + width);
+    console.log(perimeter);
+    const area = height * width;
+    console.log(area);
+    ```
+- **Étapes :**
+  - 1. On renomme la variable par ce qui exprime le mieux sa première affectation.
+    - Si les affectations suivantes sont sous la forme `variable += variable + valeur`, on est sans doute face à une variable de collecte, il faut donc abandonner le refactoring.
+  - 3. Si possible on déclare la variable comme immutable (const).
+  - 4. On change toutes les références à la variable jusqu'à sa prochaine affectation.
+  - 5. On teste.
+  - 6. On répète l’ensemble des étapes à chaque affectation, jusqu’à la dernière, en testant à chaque fois.
+    - A la fin on a bien des variables différentes pour chaque affectation.
+- **Théorie :**
+  - Ce refactoring permet d’éliminer les **variables qui sont assignées plusieurs fois** et qui ont **plusieurs responsabilités**, pour en faire une variable par responsabilité.
+    - Les variables qui comptant les tours de boucle, font des sommes ou des concaténations de chaîne sont réassignées de nombreuses fois, mais elles ont bien une seule responsabilité. Ce sont des **variables de collecte**.
