@@ -742,7 +742,7 @@
   - 3. On Compile.
   - 4. On remplace le code initialement extrait par un appel à la nouvelle fonction.
   - 5. On teste.
-  - 6. On recherche d’autres bouts de code similaires au code extrait pour les remplacer par un appel à la nouvelle fonction avec **Replace Inline Code with Function Call**.
+  - 6. On recherche d’autres bouts de code similaires au code extrait pour les remplacer par un appel à la nouvelle fonction avec **[Replace Inline Code with Function Call](#replace-inline-code-with-function-call)**.
 - **Théorie :**
   - Le bon argument sur pourquoi extraire une fonction est de **séparer l’intention de l’implémentation**, pour que l’intention saute aux yeux à la première lecture.
   - L’auteur a tendance à écrire des **fonctions courtes**, une fonction dépassant une demi-douzaine de lignes commence à sentir mauvais, et les fonctions d’une ligne ne sont pas rares pour peu qu’elles expriment mieux l’intention.
@@ -1053,8 +1053,7 @@
 
     ```javascript
     function readingsOutsideRange(station, min, max) {
-      return station.readings
-        .filter(r => r.temp &lt; min || r.temp > max);
+      return station.readings.filter((r) => r.temp < min || r.temp > max);
     }
 
     alerts = readingsOutsideRange(
@@ -1100,14 +1099,12 @@
 
     ```javascript
     function readingsOutsideRange(station, range) {
-      return station.readings
-        .filter(r => r.temp &lt; range.min || r.temp > range.max);
+      return station.readings.filter(
+        (r) => r.temp < range.min || r.temp > range.max
+      );
     }
 
-    alerts = readingsOutsideRange(
-      station,
-      range
-    );
+    alerts = readingsOutsideRange(station, range);
     ```
 
   - Et enfin pour aller un peu plus loin que ce refactoring, on va tirer parti du fait qu’on a un Value Object pour y placer de la logique.
@@ -1116,14 +1113,13 @@
     class NumberRange {
       // ...
       contains(arg) {
-        return (arg >= this.min && arg &lt;= this.max);
+        return arg >= this.min && arg <= this.max;
       }
       // ...
     }
 
     function readingsOutsideRange(station, range) {
-      return station.readings
-        .filter(r => !range.contains(r.temp));
+      return station.readings.filter((r) => !range.contains(r.temp));
     }
     ```
 
@@ -1341,7 +1337,7 @@
     // là où on met à jour le record
     getOrganization().name = newName;
     // là où on lit le record
-    result += `&lt;h1>${getOrganization().name}&lt;/h1>`;
+    result += `<h1>${getOrganization().name}</h1>`;
     ```
 
   - On peut maintenant supprimer l’accesseur du record brut qui avait un nom bâclé (`getRawDataOfOrganization()`).
@@ -1490,7 +1486,7 @@
       constructor(value) {
         if (value instanceof Priority) return value;
         if (Priority.legalValues().includes(value)) this._value = value;
-        else throw new Error(`&lt;${value}> is invalid for Priority`);
+        else throw new Error(`<${value}> is invalid for Priority`);
       }
       toString() {
         return this._value;
@@ -1730,7 +1726,7 @@
   - **Avant :**
     ```javascript
     function foundPerson(people) {
-      for(let i = 0; i &lt; people.length; i++) {
+      for (let i = 0; i < people.length; i++) {
         if (people[i] === "Don") {
           return "Don";
         }
@@ -1850,3 +1846,106 @@
   - Deux champs dans deux structures qui sont toujours lues ensemble, ou mises à jour ensemble, doivent rejoindre la même structure.
   - Ce refactoring est plus facile à faire si notre structure est en fait une classe, avec ses champs encapsulés, et qu’on peut donc ajouter de la logique aux getters/setters.
     - Si la structure n’est pas une classe, l’auteur conseille de la transformer en une classe avec Encapsulate Record avant de faire le refactoring.
+
+### Move Statement into Function
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    result.push(`<p>title: ${person.photo.title}</p>`);
+    result.concat(photoData(person.photo));
+
+    function photoData(aPhoto) {
+      return [
+        `<p>location: ${aPhoto.location}</p>`,
+        `<p>date: ${aPhoto.date.toDateString()}</p>`,
+      ];
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    result.concat(photoData(person.photo));
+
+    function photoData(aPhoto) {
+      return [
+        `<p>title: ${aPhoto.title}</p>`,
+        `<p>location: ${aPhoto.location}</p>`,
+        `<p>date: ${aPhoto.date.toDateString()}</p>`,
+      ];
+    }
+    ```
+
+- **Étapes :**
+  - 1. Si l’instruction exécutée en même temps que la fonction n’est pas à côté d’elle, on déplace l’instruction à côté avec **Slide Statements**.
+  - 2. Si on n’avait en fait qu’une seule occurrence des instructions utilisées avec l’appel à la fonction, alors on peut simplement couper l’instruction et la coller dans la fonction, en ignorant le reste des étapes.
+  - 3. Si on a plusieurs occurrences, on utilise **[Extract Function](#extract-function)** sur une des occurrences, pour extraire les instructions et l’appel à la fonction.
+    - On nomme la nouvelle fonction avec un nom temporaire facile à rechercher.
+  - 4. On utilise la nouvelle fonction dans toutes les occurrences où on peut, en testant à chaque fois.
+  - 5. On utilise **[Inline Function](#inline-function)** pour mettre le contenu de la fonction initiale dans la nouvelle fonction.
+  - 6. On utilise **[Rename Function](#change-function-declaration)** pour trouver un meilleur nom à la nouvelle fonction.
+- **Théorie :**
+  - Quand on remarque que des instructions sont tout le temps exécutées en même temps que l’appel à une fonction, il faut se demander si elles poursuivent le même but que la fonction :
+    - Si oui il faut les déplacer dans la fonction avec cette technique.
+    - Si non il faut extraire les instructions et la fonction dans une nouvelle fonction qui fera quelque chose de spécifique et d’utile puisque souvent utilisée.
+  - Vu les étapes, on peut parfois extraire les instructions et la fonction dans une nouvelle fonction, puis se dire qu’on veut aller plus loin et intégrer les instructions dans la fonction.
+
+### Move Statement to Callers
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    emitPhotoData(outStream, person.photo);
+
+    function emitPhotoData(outStream, photo) {
+      outStream.write(`<p>title: ${photo.title}</p>\n`);
+      outStream.write(`<p>location: ${photo.location}</p>\n`);
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    emitPhotoData(outStream, person.photo);
+    outStream.write(`<p>location: ${person.photo.location}</p>\n`);
+
+    function emitPhotoData(outStream, photo) {
+      outStream.write(`<p>title: ${photo.title}</p>\n`);
+    }
+    ```
+
+- **Étapes :**
+  - 1. Si on est dans un cas simple avec un ou deux endroits où notre fonction est appelée, on peut simplement couper le code à sortir de la fonction, et le coller là où on l’appelle.
+  - 2. Si on est dans un cas plus complexe, on va d’abord utiliser **[Extract Function](#extract-function)** pour toutes les instructions qu’on ne va pas déplacer de notre fonction, pour les mettre dans une fonction temporaire.
+  - 3. On applique ensuite **[Inline Function](#inline-function)** sur la fonction initiale pour la faire disparaître.
+  - 4. On utilise enfin **[Change Function Declaration](#change-function-declaration)** pour renommer la fonction qu’on avait extraite avec le nom de la fonction qui vient de disparaître (ou un meilleur nom).
+- **Théorie :**
+  - On peut utiliser ce refactoring quand une fonction fait trop de choses, notamment quand on commence à vouloir la personnaliser pour répondre à des besoins particuliers où il faut éviter d’exécuter une partie de la fonction.
+  - Ce refactoring marche bien si on a peu de changements à déplacer, sinon il faut d’abord tout remettre à plat avec **[Inline Function](#inline-function)**, et extraire de meilleures fonctions à partir de là.
+
+### Replace Inline Code with Function Call
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let appliesToMass = false;
+    for (const s of states) {
+      if (s === "MA") appliesToMass = true;
+    }
+    ```
+  - **Après :**
+    ```javascript
+    appliesToMass = states.includes("MA");
+    ```
+- **Étapes :**
+  - 1. On remplace du code existant par un appel à une fonction qui fait déjà la même chose.
+  - 2. On teste.
+- **Théorie :**
+  - Ce refactoring consiste tout simplement à voir si on n’a pas déjà une fonction (maison ou dans la bibliothèque) qui fait déjà ce que fait un bout de code qu’on a, et si oui à l’appeler.
+  - Dans le cas où le code est similaire au code d’une fonction, mais que cette similitude est une coïncidence, il ne faut pas faire le remplacement puisque ces deux codes ne doivent alors pas évoluer ensemble.
+    - Le nom de la fonction peut nous permettre de comprendre ce qu’elle est censée faire, pour savoir si c’est bien la même chose qu’on veut faire avec notre code.
