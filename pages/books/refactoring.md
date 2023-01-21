@@ -560,7 +560,7 @@
 - On ne peut pas savoir quand un refactoring est nécessaire mieux que l’intuition d’un programmeur expérimenté, mais ce chapitre contient une liste de 24 **code smells** qui devraient au moins nous alerter quand on les croise.
 - **1 - Mysterious Name** : quand on ne comprend pas un nom de variable ou fonction au premier coup d'œil, il faut la renommer.
   - Si on n’arrive pas à trouver un bon nom, c’est sans doute qu’on a d’autres problèmes plus profonds avec le code qu’on essaye de nommer.
-  - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **Rename Function** et **Rename Field**.
+  - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **Rename Function** et **[Rename Field](#rename-field)**.
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
   - En général on va utiliser **[Extract Function](#extract-function)**.
   - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **[Slide Statements](#slide-statements)** pour obtenir un morceau de code identique à factoriser.
@@ -587,7 +587,7 @@
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **[Split Variable](#split-variable)** pour rendre ces updates moins risquées.
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
-  - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **Replace Derived Variable with Query**.
+  - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **[Replace Derived Variable with Query](#replace-derived-variable-with-query)**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
   - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
@@ -2102,3 +2102,148 @@
 - **Théorie :**
   - Ce refactoring permet d’éliminer les **variables qui sont assignées plusieurs fois** et qui ont **plusieurs responsabilités**, pour en faire une variable par responsabilité.
     - Les variables qui comptant les tours de boucle, font des sommes ou des concaténations de chaîne sont réassignées de nombreuses fois, mais elles ont bien une seule responsabilité. Ce sont des **variables de collecte**.
+
+### Rename Field
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class Organization {
+      get name() {...}
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Organization {
+      get title() {...}
+    }
+    ```
+- **Étapes :**
+  - 1. Dans le cas où la structure a une petite portée, il suffit de renommer les références au champ qu’on renomme directement. Pas besoin d’aller plus loin dans les étapes.
+  - 2. Dans le cas contraire, si on est face à une structure non encapsulée dans une classe, on appliqué **[Encapsulate Record](#encapsulate-record)** pour l’encapsuler.
+  - 3. On renomme le champ privé dans la classe, et on met à jour le getter et le setter pour que ça fonctionne.
+  - 4. On teste.
+  - 5. On applique **[Change Function Declaration](#change-function-declaration)** pour modifier le nom du getter et du setter.
+- **Théorie :**
+  - L’intérêt de ce refactoring est de faire en sorte que les structures de données restent en cohérence avec la connaissance nouvelle qu’on gagne à mesure qu’on travaille sur le projet.
+  - On parle ici des structures de données simples mais aussi des classes.
+  - Quand on encapsule une structure de données dans une classe d’abord, on doit ensuite renommer le getter, le setter, le constructeur et la variable privée. Mais on se facilite en fait la vie parce qu’on traite chaque aspect indépendamment au lieu de tout faire d’un coup.
+- **Exemple détaillé :**
+  - On a initialement une structure. On veut renommer _name_ en _title_.
+    ```javascript
+    const organization = {
+      name: "Acme Gooseberries",
+    };
+    ```
+  - On va l’encapsuler dans une classe.
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._title = data.name;
+      }
+      get name() {
+        return this._title;
+      }
+      set name(aString) {
+        this._title = aString;
+      }
+    }
+    ```
+  - On permet ensuite au constructeur d’accepter le nouveau nom du paramètre, pour pouvoir changer les références une par une en testant.
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._title = data.title !== undefined ? data.title : data.name;
+      }
+      // ...
+    }
+    ```
+  - Une fois qu’on a changé toutes les références, on peut définitivement renommer name en title.
+    ```javascript
+    class Organization {
+      constructor(data) {
+        this._title = data.title;
+      }
+      get title() {
+        return this._title;
+      }
+      set title(aString) {
+        this._title = aString;
+      }
+    }
+    ```
+
+### Replace Derived Variable with Query
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    get discountedTotal() {
+      return this._discountedTotal;
+    }
+    set discount(aNumber) {
+      const old = this._discount;
+      this._discount = aNumber;
+      this._discountedTotal += old - aNumber;
+    }
+    ```
+  - **Après :**
+    ```javascript
+    get discountedTotal() {
+      return this._baseTotal - this._discount;
+    }
+    set discount(aNumber) {
+      this._discount = aNumber;
+    }
+    ```
+- **Étapes :**
+  - 1. On identifie la variable qu’on veut remplacer par un calcul, et on liste les endroits où elle est mise à jour.
+    - SI besoin on peut utiliser **[Split Variable](#split-variable)** pour la séparer en plusieurs variables avec une responsabilité chacune.
+  - 2. On crée une fonction qui calcule la valeur de la variable.
+  - 3. On utilise **Introduce Assertion** pour vérifier que la variable et la fonction fournissent la même valeur.
+    - Si besoin, on peut utiliser **Encapsulate Variable** pour avoir un endroit où mettre l’assertion.
+  - 4. On teste.
+  - 5. On remplace les accès à la variable par un appel à la fonction.
+  - 6. On teste.
+  - 7. On utilise **[Remove Dead Code](#remove-dead-code)** pour éliminer la variable et le code qui la met à jour.
+- **Théorie :**
+  - Les variables mutables sont une source de problèmes. Ce refactoring permet de les limiter, en remplaçant certaines variables par des calculs qui permettent de les réobtenir.
+  - Dans le cas où les données à partir desquels la variable est calculée sont immutables, c’est OK de la laisser et de la rendre immutable aussi.
+    - Et si la donnée dérivée est temporaire, ça peut être OK aussi de la laisser dans une variable.
+- **Exemple détaillé :**
+  - On a une classe avec une duplication de structure de données : _production_ est calculable depuis _adjustment_, mais on stocke les deux valeurs en tant que variable membre.
+    ```javascript
+    class ProductionPlan {
+      // ...
+      get production() {
+        return this._production;
+      }
+      applyAdjustment(anAdjustment) {
+        this._adjustments.push(anAdjustment);
+        this._production += anAdjustment.amount;
+      }
+    }
+    ```
+  - On crée une fonction qui calcule la valeur de production, et on vérifie avec un assert qu’elle renvoie la même valeur que production.
+    ```javascript
+    class ProductionPlan {
+      // ...
+      get production() {
+        assert(this._production === this.calculatedProduction);
+        return this._production;
+      }
+      get calculatedProduction() {
+        return this._adjustments.reduce((sum, a) => sum + a.amount, 0);
+      }
+    }
+    ```
+  - Si ça marche bien, on peut enlever l’assert, puis placer le contenu de la fonction calculatedProduction dans le getter de production.
+    ```javascript
+    class ProductionPlan {
+      // ...
+      get production() {
+        return this._adjustments.reduce((sum, a) => sum + a.amount, 0);
+      }
+    }
+    ```
+  - Et enfin on peut éliminer le code mort représenté par la variable privée `this._production`.
