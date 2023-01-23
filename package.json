@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "next": "13.1.2",
+    "next": "13.1.4",
     "nextra": "^2.2.12",
     "nextra-theme-docs": "^2.2.12",
     "react": "18.2.0",
