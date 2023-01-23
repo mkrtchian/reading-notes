@@ -3031,10 +3031,10 @@ next@13.1.2:
     "@next/swc-win32-ia32-msvc" "13.1.2"
     "@next/swc-win32-x64-msvc" "13.1.2"
 
-nextra-theme-docs@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.2.3.tgz#b1991fae47d3d040ffbe8024b41d9280f4ba187c"
-  integrity sha512-KQEhUW89kUVnMMnLubBQKMlnw30gM8e9fVBzyfQ7aTO445EGjQWbm4UF/J7VBBlcPsAP+SiYXUzbQDpQy0jLng==
+nextra-theme-docs@^2.2.10:
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.2.10.tgz#99f5749efe26aba35e30da8e5467cca2f26bcbad"
+  integrity sha512-ciTZlERSXsNLgirfhAfK6vs1URWAb9bD0ai1ckfxNn+gDDNoHvV/RtCMco49+comhbCN24ZSP0lyIzb5ErKngw==
   dependencies:
     "@headlessui/react" "^1.7.7"
     "@popperjs/core" "^2.11.6"
@@ -3042,7 +3042,6 @@ nextra-theme-docs@^2.2.3:
     flexsearch "^0.7.21"
     focus-visible "^5.2.0"
     git-url-parse "^13.1.0"
-    github-slugger "^2.0.0"
     intersection-observer "^0.12.2"
     match-sorter "^6.3.1"
     next-seo "^5.5.0"
