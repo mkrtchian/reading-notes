@@ -589,7 +589,7 @@
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **[Replace Derived Variable with Query](#replace-derived-variable-with-query)**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
-  - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **Change Reference to Value**.
+  - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **[Change Reference to Value](#change-reference-to-value)**.
 - **7 - Divergent Change** : quand on a un module qui doit être modifié pour plusieurs raisons, on est face à des changements divergents.
   - Par exemple si on se dit “Je devrai modifier ces trois fonctions si j’ajoute une nouvelle base de données, et ces quatre fonctions si j’ajoute un nouvel instrument financier” : les bases de données et les instruments financiers sont deux contextes différents qu’il vaut mieux traiter séparément.
   - Si les deux contextes forment deux phases (par exemple il faut obtenir les infos de la base de données, puis appliquer un instrument financier), alors on peut utiliser **[Split Phase](#split-phase)** pour séparer les deux avec une structure de données.
@@ -1426,7 +1426,7 @@
   - 5. On modifie le getter de la variable encapsulée pour qu’il renvoie le résultat du getter de l’instance de la classe qu’on a créée.
   - 6. On teste.
   - 7. On utilise éventuellement **[Rename Function](#change-function-declaration)** sur le getter et le setter pour leur donner un meilleur nom (étant donné qu’on manipule maintenant une classe qui contient la valeur et non pas la valeur elle-même).
-  - 8. On peut clarifier le rôle de notre nouvel objet en tant que Value Object ou Reference Object, en appliquant **Change Reference to Value** ou **Change Value to Reference**.
+  - 8. On peut clarifier le rôle de notre nouvel objet en tant que Value Object ou Reference Object, en appliquant **[Change Reference to Value](#change-reference-to-value)** ou **[Change Value to Reference](#change-value-to-reference)**.
 - **Théorie :**
   - De nombreux programmeurs expérimentés considèrent que c’est un des refactorings les plus précieux.
   - A chaque fois qu’une valeur sert à autre chose qu’à un simple affichage, l’auteur crée une classe pour contenir la valeur et de la logique liée à la valeur.
@@ -1589,7 +1589,7 @@
   - 5. On utilise **[Move Function](#move-function)** sur chaque méthode à déplacer, en testant à chaque fois.
   - 6. On revoit l’interface de chaque classe, en changeant le nom des méthodes si besoin.
   - 7. On décide si on veut exposer l’instance de la nouvelle classe ou pas.
-    - Si oui, on peut envisager d’utiliser **Change Reference to Value** sur la nouvelle classe pour la transformer en value object.
+    - Si oui, on peut envisager d’utiliser **[Change Reference to Value](#change-reference-to-value)** sur la nouvelle classe pour la transformer en value object.
 - **Théorie :**
   - Les classes ont tendance à grossir au cours du temps. Cette technique permet d’extraire une partie de la logique dans une classe distincte.
   - On se rend compte qu’il y a une classe à extraire quand on a des méthodes et des champs qui sont souvent modifiés et utilisés ensemble.
@@ -2247,3 +2247,102 @@
     }
     ```
   - Et enfin on peut éliminer le code mort représenté par la variable privée `this._production`.
+
+### Change Reference to Value
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class Product {
+      applyDiscount(arg) {
+        this._price.amount -= arg;
+      }
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Product {
+      applyDiscount(arg) {
+        this._price = new Money(this._price.amount - arg, this._price.currency);
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On vérifie que l’objet qu’on veut transformer en valeur est déjà, ou peut devenir immutable.
+  - 2. On va effectivement le rendre immutable : pour chaque setter qu’on appelle pour modifier l’objet, on applique **Remove Setting Method**. De cette manière l’objet ne pourra plus être changé autrement qu’à sa construction.
+  - 3. On lui ajoute une méthode de comparaison d’égalité, basée sur la valeur des propriétés de notre objet.
+- **Théorie :**
+  - Une instance d'objet qui est une propriété d'un autre objet peut être traitée soit comme une référence, soit comme une valeur.
+    - Si elle est une référence, on garde la même et on modifie des choses dessus si besoin.
+    - Si elle est une valeur, on la recrée avec les bonnes propriétés à chaque fois qu'elle est modifiée. Elle est alors un **value object**.
+  - L'avantage à manipuler des value objects est que ce sont des valeurs immutables, et donc on n'a pas à s'inquiéter qu'elles soient modifiées sans qu'on le sache (sans passer par notre setter).
+    - Les value objects sont particulièrement utiles pour les systèmes distribués et concurrents.
+  - La plupart des langages permettent de surcharger l’opérateur `==`, et en général on doit aussi surcharger l’opérateur de hachage pour que la valeur puisse servir de clé dans une hashmap.
+    - Dans le cas où on ne peut pas surcharger l'opérateur d’égalité, on peut toujours créer une méthode `equals()`.
+
+### Change Value to Reference
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    let customer = new Customer(customerData);
+    ```
+  - **Après :**
+    ```javascript
+    let customer = customerRepository.get(customerData.id);
+    ```
+- **Étapes :**
+  - 1. On crée un repository pour les instances de l’objet concerné (si ça n’existe pas déjà).
+  - 2. On s’assure que le constructeur des objets qui instancient notre objet concerné a la possibilité de rechercher les bonnes instances de l’objet concerné.
+  - 3. On change le constructeur des objets qui instancient notre objet concerné, pour qu’ils utilisent le repository pour obtenir la bonne instance au lieu de construire l’objet directement.
+- **Théorie :**
+  - Quand il faut mettre à jour des données partagées, si elles sont immutables, il faut toutes les trouver et les changer. Alors que quand on a une référence, on peut la changer une fois pour la voir changée partout.
+- **Exemple détaillé :**
+
+  - On a une classe _Order_ qui a une instance d’un objet _Customer_ qu’on veut transformer en référence pour que les customers qui ont le même ID soient partagés :
+
+    ```javascript
+    class Order {
+      constructor(data) {
+        this._number = data.number;
+        this._customer = new Customer(data.customer);
+      }
+    }
+
+    class Customer {
+      constructor(id) {
+        this._id = id;
+      }
+    }
+    ```
+
+  - On va créer un repository qui nous permet de créer un customer d’il n’existe pas déjà, ou d’obtenir le customer existant qui a le même ID.
+
+    ```javascript
+    let _repositoryData;
+
+    export function initialize() {
+      _repositoryData = {};
+      _repositoryData.customers = new Map();
+    }
+
+    export function registerCustomer(id) {
+      if (!_repositoryData.customers.has(id))
+        _repositoryData.customers.set(id, new Customer(id));
+      return findCustomer(id);
+    }
+
+    export function findCustomer(id) {
+      return _repositoryData.customers.get(id);
+    }
+    ```
+
+  - On peut maintenant utiliser le repository dans _Order_ pour obtenir la bonne instance de _Customer_.
+    ```javascript
+    class Order {
+      constructor(data) {
+        this._number = data.number;
+        this._customer = registerCustomer(data.customer);
+      }
+    }
+    ```
