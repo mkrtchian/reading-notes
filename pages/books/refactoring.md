@@ -569,7 +569,7 @@
   - L’idée c’est de nommer les fonctions avec **l’intention de leur code** plutôt que par ce qu’il fait. A chaque fois qu’on veut commenter, on peut remplacer ça par une fonction qui encapsule le bout de code.
   - C’est tout à fait OK de faire des fonctions qui ne contiennent **qu’une ligne**, pour peu que le nommage apporte une meilleure information sur l’intention.
   - En général, on va utiliser **[Extract Function](#extract-function)**.
-  - Les **conditions** peuvent être divisées avec **Decompose Conditional**.
+  - Les **conditions** peuvent être divisées avec **[Decompose Conditional](#decompose-conditional)**.
     - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **[Extract Function](#extract-function)**.
     - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **Replace Conditional with Polymorphism**.
   - Les **boucles** peuvent être extraites dans leur propre fonction.
@@ -2344,5 +2344,121 @@
         this._number = data.number;
         this._customer = registerCustomer(data.customer);
       }
+    }
+    ```
+
+## 10 - Simplification de la logique conditionnelle
+
+### Decompose Conditional
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    if (!aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd))
+      charge = quantity * plan.summerRate;
+    else charge = quantity * plan.regularRate + plan.regularServiceCharge;
+    ```
+  - **Après :**
+    ```javascript
+    if (summer()) charge = summerCharge();
+    else charge = regularCharge();
+    ```
+- **Étapes :**
+  - 1. On applique **[Extract Function](#extract-function)** sur la condition, et on l’applique sur le contenu de chaque branche de manière à obtenir un code tout petit.
+- **Théorie :**
+  - Le but est de rendre lisible les conditions.
+
+### Consolidate Conditional Expression
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    if (anEmployee.seniority &lt; 2) return 0;
+    if (anEmployee.monthsDisabled > 12) return 0;
+    if (anEmployee.isPartTime) return 0;
+    ```
+  - **Après :**
+
+    ```javascript
+    if (isNotEligableForDisability()) return 0;
+
+    function isNotEligableForDisability() {
+      return ((anEmployee.seniority &lt; 2)
+        || (anEmployee.monthsDisabled > 12)
+        || (anEmployee.isPartTime));
+    }
+    ```
+
+- **Étapes :**
+  - 1. On s’assure qu’aucune des conditions (contenu des parenthèses du if) n’a de side effects.
+    - Si il y en a, on les sépare avec **Separate Query From Modifier**.
+  - 2. On prend deux conditions et on les combine dans une nouvelle condition avec des opérateurs logiques.
+    - Des suites de conditions se combinent avec un OR, des conditions imbriquées se combinent avec un AND.
+  - 3. On répète jusqu’à ce qu’il ne reste qu’une condition, en testant à chaque fois.
+  - 4. On envisage **[Extract Function](#extract-function)** sur la condition résultante.
+- **Théorie :**
+  - Il s’agit ici du cas où les **conditions sont différentes mais le contenu des branches est le même**.
+  - Regrouper les conditions permet d’indiquer l’intention : le fait que ces conditions permettent en fait de protéger la même branche de code.
+    - Si le contenu des branches est le même par hasard, alors on ne fait pas ce refactoring parce qu’on pourrait induire en erreur en indiquant une mauvaise intention.
+
+### Replace Nested Conditional with Guard Clauses
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function getPayAmount() {
+      let result;
+      if (isDead) result = deadAmount();
+      else {
+        if (isSeparated) result = separatedAmount();
+        else {
+          if (isRetired) result = retiredAmount();
+          else result = normalPayAmount();
+        }
+      }
+      return result;
+    }
+    ```
+  - **Après :**
+    ```javascript
+    function getPayAmount() {
+      if (isDead) return deadAmount();
+      if (isSeparated) return separatedAmount();
+      if (isRetired) return retiredAmount();
+      return normalPayAmount();
+    }
+    ```
+- **Étapes :**
+  - 1. On prend la branche la plus externe de la condition et on la transforme en clause de garde.
+  - 2. On teste.
+  - 3. On répète si nécessaire.
+- **Théorie :**
+  - L’idée est de laisser le if/else dans le cas où **les deux conditions font partie du flow normal de la fonction**, et de mettre la branche if comme clause de garde si **le else serait tout le reste de la fonction**.
+    - Le but principal est de mettre en avant la nature de la condition.
+  - Ce refactoring est souvent utilisé avec une inversion de la condition :
+    ```javascript
+    function adjustedCapital(anInstrument) {
+      let result = 0;
+      if (anInstrument.capital > 0) {
+        if (anInstrument.interestRate > 0 && anInstrument.duration > 0) {
+          result =
+            (anInstrument.income / anInstrument.duration) *
+            anInstrument.adjustmentFactor;
+        }
+      }
+      return result;
+    }
+    ```
+  - Donne :
+    ```javascript
+    function adjustedCapital(anInstrument) {
+      if (
+        anInstrument.capital &lt;= 0
+        || anInstrument.interestRate &lt;= 0
+        || anInstrument.duration &lt;= 0
+      )
+          return 0;
+      return (anInstrument.income / anInstrument.duration) * anInstrument.adjustmentFactor;
     }
     ```
