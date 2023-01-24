@@ -2374,7 +2374,7 @@
 
   - **Avant :**
     ```javascript
-    if (anEmployee.seniority &lt; 2) return 0;
+    if (anEmployee.seniority < 2) return 0;
     if (anEmployee.monthsDisabled > 12) return 0;
     if (anEmployee.isPartTime) return 0;
     ```
@@ -2384,9 +2384,11 @@
     if (isNotEligableForDisability()) return 0;
 
     function isNotEligableForDisability() {
-      return ((anEmployee.seniority &lt; 2)
-        || (anEmployee.monthsDisabled > 12)
-        || (anEmployee.isPartTime));
+      return (
+        anEmployee.seniority < 2 ||
+        anEmployee.monthsDisabled > 12 ||
+        anEmployee.isPartTime
+      );
     }
     ```
 
@@ -2454,11 +2456,14 @@
     ```javascript
     function adjustedCapital(anInstrument) {
       if (
-        anInstrument.capital &lt;= 0
-        || anInstrument.interestRate &lt;= 0
-        || anInstrument.duration &lt;= 0
+        anInstrument.capital <= 0 ||
+        anInstrument.interestRate <= 0 ||
+        anInstrument.duration <= 0
       )
-          return 0;
-      return (anInstrument.income / anInstrument.duration) * anInstrument.adjustmentFactor;
+        return 0;
+      return (
+        (anInstrument.income / anInstrument.duration) *
+        anInstrument.adjustmentFactor
+      );
     }
     ```
