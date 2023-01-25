@@ -380,7 +380,7 @@
   - **8 - On va créer un calculateur pour types de performances**
 
     - On s’intéresse ici au fait de faciliter l’ajout de nouveaux types de pièces de théâtre, avec chacun ses conditions et valeurs de calcul pour la facturation et les crédits de volume.
-    - La solution qu’on retient c’est de créer un calculateur sous forme de classes, avec des classes filles pour contenir la logique de chaque type de pièce. On va donc mettre en œuvre la technique **Replace Conditional with Polymorphism**.
+    - La solution qu’on retient c’est de créer un calculateur sous forme de classes, avec des classes filles pour contenir la logique de chaque type de pièce. On va donc mettre en œuvre la technique **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)**.
       - NDLR : dans Clean Code, Uncle Bob disait qu’un code procédural (qui utilise les structures de données pour représenter les objets) est adapté pour ajouter des fonctionnalités supplémentaires (par exemple dans notre cas une fonctionnalité en plus du calcul de facturation et du calcul de volume de crédits). Un code orienté objet par contre est plutôt adapté pour l’ajout de nouveaux types d’objets sans ajout de nouvelles fonctionnalités (par exemple dans notre cas ajouter un nouveau type de pièce de théâtre avec ses propres règles de facturation et volume de crédits).
         - L’idée est de minimiser le nombre d’éléments qui seront changés quand on fera notre changement.
     - On commence par créer le calculateur sans qu’il ne fasse rien :
@@ -469,7 +469,7 @@
         class ComedyCalculator extends PerformanceCalculator {}
         ```
 
-      - On peut maintenant utiliser **Replace Conditional with Polymorphism** pour déplacer les fonctions de calcul dans les classes filles.
+      - On peut maintenant utiliser **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)** pour déplacer les fonctions de calcul dans les classes filles.
         - On peut créer un getter du même nom (_amount_) dans _TragedyCalculator_ par exemple, pour y déplacer le code lié à la facturation des tragédies.
         - Puis on le fait pour la facturation des comédies.
         - On peut alors supprimer `get amount()` de _PerformanceCalculator_. Ou alors le laisser et y throw une erreur indiquant que la fonctionnalité est déléguée aux classes filles.
@@ -571,7 +571,7 @@
   - En général, on va utiliser **[Extract Function](#extract-function)**.
   - Les **conditions** peuvent être divisées avec **[Decompose Conditional](#decompose-conditional)**.
     - Un grand switch devrait avoir ses clauses transformées en un seul appel de fonction avec **[Extract Function](#extract-function)**.
-    - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **Replace Conditional with Polymorphism**.
+    - S’il y a plus d’un switch sur la même condition, alors il faut appliquer **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)**.
   - Les **boucles** peuvent être extraites dans leur propre fonction.
     - Si on a du mal à nommer la fonction, alors on peut appliquer d’abord **[Split Loop](#split-loop)**.
 - **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
@@ -610,7 +610,7 @@
   - La règle typique c’est **[Replace Primitive with Object](#replace-primitive-with-object)**.
   - Si le type primitif est impliqué dans une structure conditionnelle, on peut encapsuler les conditions dans une hiérarchie de classes avec **Replace Type Code with Subclasses** puis **Replace Conditionals with Polymorphism**.
 - **12 - Repeated Switches** : on repère les switchs portant sur la même condition, et on les remplace par des classes.
-  - Il s’agit d’utiliser **Replace Conditional with Polymorphism**.
+  - Il s’agit d’utiliser **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)**.
 - **13 - Loops** : les fonctions issues de la programmation fonctionnelle (map, filter, reduce) permettent de voir plus rapidement les éléments qui sont inclus et ce qui est fait avec eux, par rapport à des boucles.
   - On peut remplacer les boucles par des pipelines avec **[Replace Loop with Pipeline](#replace-loop-with-pipeline)**.
 - **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
@@ -624,7 +624,7 @@
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **[Remove Dead Code](#remove-dead-code)**.
 - **16 - Temporary Field** : quand une classe contient un champ utilisé seulement dans certains cas, ça rend le code plus difficile à comprendre.
   - On peut utiliser **[Extract Class](#extract-class)** puis **[Move Function](#move-function)** pour déplacer le code qui utilise le champ qui est à part.
-  - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **Introduce Special Case**.
+  - Il se peut aussi qu’on puisse réduire le problème au fait de traiter le cas où les variables ne sont pas valides en utilisant **[Introduce Special Case](#introduce-special-case)**.
 - **17 - Message Chains** : il s’agit de longues chaînes d’appels d’objet en objet pour obtenir quelque chose au bout du compte. Si une des méthodes d’un des objets de la chaîne change, notre appelant doit changer aussi.
   - On peut utiliser **[Hide Delegate](#hide-delegate)** sur les objets intermédiaires.
   - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **[Move Function](#move-function)** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
@@ -2467,3 +2467,190 @@
       );
     }
     ```
+
+### Replace Conditional with Polymorphism
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    switch (bird.type) {
+      case 'EuropeanSwallow':
+        return "average";
+      case 'AfricanSwallow':
+        return (bird.numberOfCoconuts > 2) ? "tired" : "average";
+      case 'NorwegianBlueParrot':
+        return (bird.voltage > 100) ? "scorched" : "beautiful";
+      default:
+        return "unknown";
+    ```
+  - **Après :**
+
+    ```javascript
+    class EuropeanSwallow {
+      get plumage() {
+        return "average";
+      }
+    }
+
+    class AfricanSwallow {
+      get plumage() {
+        return this.numberOfCoconuts > 2 ? "tired" : "average";
+      }
+    }
+
+    class NorwegianBlueParrot {
+      get plumage() {
+        return this.voltage > 100 ? "scorched" : "beautiful";
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée des classes pour le comportement conditionnel, et on crée une fonction _factory_ qui permet de renvoyer une instance de la bonne classe.
+  - 2. Si la logique conditionnelle n’est pas déjà dans une fonction, on utilise **[Extract Function](#extract-function)** pour qu’elle le soit.
+  - 3. On déplace la fonction avec la logique conditionnelle dans la classe mère de la hiérarchie de classes qu’on a créée à l’étape 1.
+    - Ca peut être plusieurs fonctions, si on a plusieurs logiques conditionnelles similaires (comme par exemple plusieurs switchs similaires).
+  - 4. On crée une méthode qui surcharge la méthode avec la logique conditionnelle dans une des classes filles, et on y déplace le corps de la bonne branche de l’instruction conditionnelle.
+  - 5. On répète pour chaque branche conditionnelle et classe fille.
+  - 6. On laisse un cas par défaut dans la classe mère, ou alors si elle est abstraite on rend la méthode abstraite (ou on fait en sorte qu’elle lève une erreur).
+- **Théorie :**
+  - A partir du moment où on a **plusieurs fois le même switch** pour faire des choses, ça devient plus avantageux d’utiliser une hiérarchie de classes pour remplacer ces switch.
+  - Une situation aussi où il est pertinent d’utiliser le polymorphisme c’est quand on a **un cas de base, et des variantes secondaires** qui vont venir apporter des changements au cas de base.
+    - La classe mère pourra avoir une grande partie de la logique non redéfinie dans les classes filles, et seules certaines méthodes surchargées vont venir apporter des changements secondaires dans les classes filles.
+
+### Introduce Special Case
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    if (aCustomer === "unknown") {
+      customerName = "occupant";
+    }
+    ```
+  - **Après :**
+
+    ```javascript
+    customerName = aCustomer.name;
+
+    class UnknownCustomer {
+      get name() {
+        return "occupant";
+      }
+    }
+    ```
+
+- **Étapes :**
+  - **Cette description est cryptique sans regarder l’exemple détaillé plus bas**.
+  - On démarre avec un conteneur (classe ou structure) qui a une propriété (qu’on va appeler _sujet_) que le code appelant compare avec une valeur, et dont on aimerait que la valeur soit dans une classe special case.
+  - 1. On ajoute une propriété vérifiant le fait d’être le spatial case ou pas (et retournant _false_) au _sujet_.
+  - 2. On crée la classe special case avec la même propriété vérifiant le fait d’être spatial case ou pas, mais celle-là retourne _true_.
+  - 3. On applique **[Extract Function](#extract-function)** pour extraire la condition (contenu des parenthèses du _if_) des occurrences de code appelant, dans une fonction qui vérifiera si notre objet est un special cas ou non.
+  - 4. On introduit les instances de special case depuis le conteneur initial, quand le sujet est un special case.
+  - 5. On met à jour la fonction qui vérifie si l’objet est special case ou pas, pour qu’elle prenne enfin en compte la classe special case qu’on a créée.
+  - 6. On teste.
+  - 7. On utilise **[Combine Function into Class](#combine-functions-into-class)** ou **[Combien Function into Transform](#combine-functions-into-transform)** pour déplacer toutes les valeurs et comportements liés aux conditions de special case dans l’objet special case.
+  - 8. On utilise **[Inline Function](#inline-function)** sur la fonction qui vérifie si l’objet est special case, pour les occurrences de code appelant où on en a besoin parce qu’on ne peut pas simplement utiliser l’objet special case (parce qu’on est sur du cas particulier de cas particulier).
+    - S’il n’y a pas de tels endroits, on peut supprimer la fonction qui vérifie si l’objet est special case.
+- **Théorie :**
+  - Quand on a des conditions dupliquées qui donnent lieu aux mêmes instructions, ça peut être utile de créer un objet special case pour les regrouper au même endroit.
+  - L’objet special case peut retourner des valeurs spécifiques, ou contenir des méthodes avec de la logique à mettre en commun entre les conditions où il est utilisé.
+  - `null` est un exemple d’objet de special case.
+  - L’objet de special case est un value object.
+- **Exemple détaillé :**
+
+  - On a un _Site_ avec un une propriété _Customer_.
+
+    ```javascript
+    class Site {
+      get customer() {
+        return this._customer;
+      }
+    }
+
+    class Customer {
+      get name() {
+        // ...
+      }
+    }
+    ```
+
+  - La plupart du temps un _Site_ a un _Customer_, mais parfois il n’en a pas, et dans ce cas la propriété customer vaut _“unknown”_.
+    ```javascript
+    // exemple code appelant
+    const aCustomer = site.customer;
+    let customerName;
+    if (aCustomer === "unknown") {
+      customerName = "occupant";
+    }
+    ```
+  - Vu qu’on a de nombreux cas de code appelant qui traite le cas particulier de customer non existant, et que la plupart du temps le nom du customer va être _“occupant”_, on va mettre ça dans un objet special case.
+  - On commence par ajouter une méthode à _Customer_ pour indiquer qu’il n’est pas _unknown_.
+    ```javascript
+    class Customer {
+      get isUnknown() {
+        return false;
+      }
+    }
+    ```
+  - Puis on crée notre objet special case qui lui va indiquer avec la même méthode qu’il est _unknown_.
+    ```javascript
+    class UnknownCustomer {
+      get isUnknown() {
+        return true;
+      }
+    }
+    ```
+  - Vu qu’on a beaucoup d’occurrences de code appelant qui traite le cas _unknown_, on a envie de pouvoir les changer petit à petit en obtenant à chaque fois un code qui marche et fait passer les tests. Donc on ajoute une fonction isUnknown qui sera utilisée par le code appelant.
+
+    ```javascript
+    function isUnknown(arg) {
+      if (!(arg instanceof Customer || arg === "unknown")) {
+        throw new Error(`Investigate bad value &lt;${arg}>`);
+      }
+      return arg === "unknown";
+    }
+
+    // exemple code appelant
+    const aCustomer = site.customer;
+    let customerName;
+    if (isUnknown(aCustomer)) {
+      customerName = "occupant";
+    }
+    ```
+
+  - Une fois qu’on a utilisé _isUnknown_ dans tout le code appelant, on peut modifier _Site_ pour renvoyer l’objet special case au lieu de la chaîne _unknown_ dans le getter de _customer_.
+    ```javascript
+    class Site {
+      get customer() {
+        return this._customer === "unknown"
+          ? new UnknownCustomer()
+          : this._customer;
+      }
+    }
+    ```
+  - On change aussi isUnknown pour prendre ça en compte et on teste.
+    ```javascript
+    function isUnknown(arg) {
+      if (!(arg instanceof Customer || arg instanceof UnknownCustomer)) {
+        throw new Error(`Investigate bad value &lt;${arg}>`);
+      }
+      return arg === "unknown";
+    }
+    ```
+  - On ajoute une méthode au special case pour pouvoir éliminer la condition du code appelant.
+
+    ```javascript
+    class UnknownCustomer {
+      get name() {
+        return "occupant";
+      }
+    }
+
+    // exemple code appelant
+    const aCustomer = site.customer;
+    const customerName = aCustomer.name;
+    ```
+
+  - Finalement, une fois qu’on a remplacé partout, on supprime _isUnknown_ que plus personne n’utilise. Elle nous a servi seulement pour le refactoring.
