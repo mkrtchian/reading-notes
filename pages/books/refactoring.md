@@ -652,7 +652,7 @@
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
   - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
-  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **Introduce Assertion**.
+  - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **[Introduce Assertion](#introduce-assertion)**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
 
 ## 4 - Création de tests
@@ -691,7 +691,7 @@
   - Si on a une chaîne, on peut voir ce qui se passe avec la chaîne vide.
   - Ça nous oblige à chaque fois à nous poser la question de savoir si ça a un sens. Par exemple, si le nombre négatif n’aurait pas de sens, on peut s’attendre à une erreur.
   - Il est possible que l’entrée vienne d’un module déjà testé, dans ce cas il n’est pas nécessaire de tester notre module avec des cas qui ne devraient pas se produire.
-  - Si un cas d’erreur conduit à une potentielle corruption de données, on peut utiliser **Introduce Assertion** pour éviter que ça arrive. Il n’y a pas besoin de tester ce genre de cas.
+  - Si un cas d’erreur conduit à une potentielle corruption de données, on peut utiliser **[Introduce Assertion](#introduce-assertion)** pour éviter que ça arrive. Il n’y a pas besoin de tester ce genre de cas.
     - NDLR : on est sur du _fail fast_.
 - Quand on a un bug, l’auteur conseille d’abord d’écrire un test qui reproduit le bug, et ensuite de le faire passer au vert.
 - La bonne quantité de tests c’est quand on est **suffisamment confiant pour faire du refactoring** et savoir que si on introduit un bug, il sera révélé par les tests.
@@ -1838,7 +1838,7 @@
   - 5. On s’assure qu’il y a une référence de la classe initiale à la classe qui accueille le nouveau champ, pour pouvoir le manipuler depuis l’ancienne classe.
     - Ça peut être la nouvelle classe dont l’instance fait partie d’un champ de l’ancienne, ou une fonction dans l’ancienne permet d’y accéder. Au pire il faudra créer un champ dans l’ancienne classe, pour y mettre une instance de la nouvelle.
   - 6. On ajuste les getter/setter de la classe initiale pour qu’ils lisent et écrivent dans le champ de la nouvelle classe.
-    - Si on est dans une situation complexe où le nouveau champ va être mis à jour par plusieurs classes, on peut choisir de mettre à jour l’ancien champ et le nouveau champ en vérifiant la cohérence des deux valeurs avec **Introduce Assertion**, puis en arrêtant d’écrire dans l’ancien champ quand on pense que c’est bon.
+    - Si on est dans une situation complexe où le nouveau champ va être mis à jour par plusieurs classes, on peut choisir de mettre à jour l’ancien champ et le nouveau champ en vérifiant la cohérence des deux valeurs avec **[Introduce Assertion](#introduce-assertion)**, puis en arrêtant d’écrire dans l’ancien champ quand on pense que c’est bon.
   - 7. On teste.
   - 8. On supprime le champ initial.
   - 9. On teste.
@@ -2200,7 +2200,7 @@
   - 1. On identifie la variable qu’on veut remplacer par un calcul, et on liste les endroits où elle est mise à jour.
     - SI besoin on peut utiliser **[Split Variable](#split-variable)** pour la séparer en plusieurs variables avec une responsabilité chacune.
   - 2. On crée une fonction qui calcule la valeur de la variable.
-  - 3. On utilise **Introduce Assertion** pour vérifier que la variable et la fonction fournissent la même valeur.
+  - 3. On utilise **[Introduce Assertion](#introduce-assertion)** pour vérifier que la variable et la fonction fournissent la même valeur.
     - Si besoin, on peut utiliser **Encapsulate Variable** pour avoir un endroit où mettre l’assertion.
   - 4. On teste.
   - 5. On remplace les accès à la variable par un appel à la fonction.
@@ -2654,3 +2654,26 @@
     ```
 
   - Finalement, une fois qu’on a remplacé partout, on supprime _isUnknown_ que plus personne n’utilise. Elle nous a servi seulement pour le refactoring.
+
+### Introduce Assertion
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    if (this.discountRate) base = base - this.discountRate * base;
+    ```
+  - **Après :**
+    ```javascript
+    assert(this.discountRate >= 0);
+    if (this.discountRate) base = base - this.discountRate * base;
+    ```
+- **Étapes :**
+  - 1. Quand on voit dans le code qu’une condition doit toujours être vraie, on ajoute une assertion pour l’indiquer.
+    - Les assertions ne doivent pas modifier le comportement du système, elles l'arrêtent juste dans des cas qui ne doivent de toute façon pas se produire.
+- **Théorie :**
+  - Quand on a des conditions qui ne sont jamais censées se produire, on peut placer une assertion qui arrête le programme au cas où elle n’est pas vérifiée.
+  - C’est utile pour trouver des bugs, mais aussi pour communiquer l’information sur l’état que le code n’est pas censé avoir au lecteur du code.
+  - Attention à ne pas en abuser, il faut vérifier ce qui doit être vrai, pas tout ce qu’on pense être vrai.
+    - Par exemple, si on lit des données externes qu’on doit parser, il ne faut pas utiliser des assertions sur elles parce qu’il y a des chances pour qu’elles ne soient pas dans le bon format sans que ce soit une erreur dans notre programme.
+
+## 11 - Refactoring des APIs
