@@ -577,7 +577,7 @@
 - **4 - Long Parameter List** : trop de paramètres porte à confusion, il faut essayer de les éliminer.
   - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **[Replace Temp with Query](#replace-temp-with-query)** pour l’éliminer.
   - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **[Introduce Parameter Object](#introduce-parameter-object)**.
-  - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **Remove Flag Argument**.
+  - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **[Remove Flag Argument](#remove-flag-argument)**.
   - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
 - **5 - Global Data** : le problème des données globales c’est qu’on peut les modifier de n’importe où, et donc c’est très difficile de suivre ce qui se passe.
   - Pour traiter le problème, il faut les encapsuler avec **[Encapsulate Variable](#encapsulate-variable)**.
@@ -585,7 +585,7 @@
   - La recherche de l'immutabilité vient de la programmation fonctionnelle.
   - On peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **[Split Variable](#split-variable)** pour rendre ces updates moins risquées.
-  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **Separate Query from Modifier** pour que l’appelant fasse des queries sans danger.
+  - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **[Separate Query from Modifier](#separate-query-from-modifier)** pour que l’appelant fasse des queries sans danger.
   - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **[Replace Derived Variable with Query](#replace-derived-variable-with-query)**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
@@ -604,7 +604,7 @@
 - **10 - Data Clumps** : quand on a un groupe de données qui se retrouvent toujours ensemble, c’est qu’elles doivent peut-être rejoindre une même structure.
   - On va d’abord chercher où ces données apparaissent sous forme de champs pour les extraire dans une nouvelle classe avec **[Extract Class](#extract-class)**.
     - On parle bien d’extraire dans une classe et pas dans une simple structure, parce que ça va permettre ensuite d’y ajouter du comportement propre à ces données, typiquement quand on a des Feature Envies.
-  - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **[Introduce Parameter Object](#introduce-parameter-object)** et **Preserve Whole Object**.
+  - Au niveau des paramètres des fonctions on va alors pouvoir utiliser **[Introduce Parameter Object](#introduce-parameter-object)** et **[Preserve Whole Object](#preserve-whole-object)**.
 - **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
   - Exemple : un numéro de téléphone doit être validé, et correctement affiché.
   - La règle typique c’est **[Replace Primitive with Object](#replace-primitive-with-object)**.
@@ -1533,7 +1533,7 @@
   - 3. On teste.
   - 4. On extrait le calcul de la variable dans une fonction.
     - Si la variable et la fonction doivent avoir le même nom, on choisit un nom temporaire pour la fonction.
-    - Si la fonction extraite a des effets secondaires, on va les séparer en utilisant **Separate Query from Modifier**.
+    - Si la fonction extraite a des effets secondaires, on va les séparer en utilisant **[Separate Query from Modifier](#separate-query-from-modifier)**.
   - 5. On teste.
   - 6. On utilise **[Inline Variable](#inline-variable)** pour enlever la variable temporaire initiale.
 - **Théorie :**
@@ -2394,7 +2394,7 @@
 
 - **Étapes :**
   - 1. On s’assure qu’aucune des conditions (contenu des parenthèses du if) n’a de side effects.
-    - Si il y en a, on les sépare avec **Separate Query From Modifier**.
+    - Si il y en a, on les sépare avec **[Separate Query from Modifier](#separate-query-from-modifier)**.
   - 2. On prend deux conditions et on les combine dans une nouvelle condition avec des opérateurs logiques.
     - Des suites de conditions se combinent avec un OR, des conditions imbriquées se combinent avec un AND.
   - 3. On répète jusqu’à ce qu’il ne reste qu’une condition, en testant à chaque fois.
@@ -2677,3 +2677,182 @@
     - Par exemple, si on lit des données externes qu’on doit parser, il ne faut pas utiliser des assertions sur elles parce qu’il y a des chances pour qu’elles ne soient pas dans le bon format sans que ce soit une erreur dans notre programme.
 
 ## 11 - Refactoring des APIs
+
+### Separate Query from Modifier
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    function getTotalOutstandingAndSendBill() {
+      const result = customer.invoices.reduce(
+        (total, each) => each.amount + total,
+        0
+      );
+      sendBill();
+      return result;
+    }
+    ```
+  - **Après :**
+
+    ```javascript
+    function totalOutstanding() {
+      return customer.invoices.reduce((total, each) => each.amount + total, 0);
+    }
+
+    function sendBill() {
+      emailGateway.send(formatBill(customer));
+    }
+    ```
+
+- **Étapes :**
+  - 1. On copie la fonction et on la renomme en tant que query.
+    - Pour le choix du nom, on peut voir où la fonction est utilisée, et ce qui est fait de sa valeur de retour (par exemple le nom de la variable dans laquelle on la met).
+  - 2. On supprime les side effects de la nouvelle fonction.
+  - 3. On lance la vérification statique du code.
+  - 4. Pour chaque appel à la fonction initiale, si l’appel utilise la valeur de retour, on le remplace par un appel à la nouvelle fonction.
+    - On teste à chaque fois.
+  - 5. On supprime la valeur de retour de la fonction initiale.
+  - 6. On teste.
+- **Théorie :**
+  - Fowler essaye de séparer les fonctions qui ont des side effects mais ne renvoient pas de résultat (modifier) des fonctions qui n’en ont pas et qui renvoient un résultat (query).
+    - C’est pas une règle absolue, mais ça permet d’être plus serein sur le code des queries.
+  - S’il y a beaucoup de duplication entre la fonction query et la fonction modifier, on peut voir s’il y a moyen d’utiliser **[Substitute Algorithm](#substitute-algorithm)** pour utiliser la fonction query dans la fonction modifier, et la raccourcir.
+
+### Parameterize Function
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    function tenPercentRaise(aPerson) {
+      aPerson.salary = aPerson.salary.multiply(1.1);
+    }
+
+    function fivePercentRaise(aPerson) {
+      aPerson.salary = aPerson.salary.multiply(1.05);
+    }
+    ```
+
+  - **Après :**
+    ```javascript
+    function raise(aPerson, factor) {
+      aPerson.salary = aPerson.salary.multiply(1 + factor);
+    }
+    ```
+
+- **Étapes :**
+  - 1. On choisit une des fonctions qui doit être paramétrisée.
+  - 2. On utilise **[Change Function Declaration](#change-function-declaration)** pour ajouter des paramètres pour les valeurs en dur à paramétriser.
+  - 3. On ajoute les nouveaux paramètres pour chaque code qui appelle la fonction qu’on vient de modifier.
+  - 4. On teste.
+  - 5. On change le corps de la fonction pour utiliser les nouveaux paramètres.
+    - On teste à chaque changement dans la fonction.
+  - 6. On remplace les fonctions similaires avec la nouvelle fonction, en ajustant si besoin.
+    - On teste à chaque fois.
+- **Théorie :**
+  - Il s’agit de regrouper plusieurs fonctions qui font presque la même chose avec une différence de valeur en dur, dans une fonction similaire avec la valeur donnée en paramètre.
+
+### Remove Flag Argument
+
+- **Exemple :**
+
+  - **Avant :**
+    ```javascript
+    function setDimension(name, value) {
+      if (name === "height") {
+        this._height = value;
+        return;
+      }
+      if (name === "width") {
+        this._width = value;
+        return;
+      }
+    }
+    ```
+  - **Après :**
+
+    ```javascript
+    function setHeight(value) {
+      this._height = value;
+    }
+
+    function setWidth(value) {
+      this._width = value;
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée une fonction explicite pour chaque valeur possible du flag argument.
+    - On peut utiliser **[Decompose Conditional](#decompose-conditional)** pour faciliter la séparation de la logique conditionnelle.
+  - 2. On remplace chaque fonction qui utilisait l’ancienne fonction avec un flag argument par un appel à une des nouvelles fonctions.
+- **Théorie :**
+  - On a un flag argument dans une fonction quand un des paramètres permet de choisir la logique qu’on déclenche dans la fonction, par exemple avec un booléen, ou avec une enum.
+  - L’auteur n’aime pas les flag arguments (et encore plus les booléens) parce qu’ils rendent moins clair ce que font les fonctions.
+  - Les flag arguments peuvent être acceptables s’il y en a plusieurs dans la fonction, et que créer des fonctions avec chaque combinaison en ferait trop.
+    - Mais dans ce cas, il faut essayer d’appliquer un autre refactoring parce que notre fonction est probablement trop complexe.
+
+### Preserve Whole Object
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    const low = aRoom.daysTempRange.low;
+    const high = aRoom.daysTempRange.high;
+    if (aPlan.withinRange(low, high))
+    ```
+  - **Après :**
+    ```javascript
+    if (aPlan.withinRange(aRoom.daysTempRange))
+    ```
+- **Étapes :**
+  - 1. On crée une fonction avec un nom bidon, et qui prend les paramètres tels qu’on les veut, avec l’objet au lieu de ses valeurs.
+  - 2. On remplit le corps de la nouvelle fonction avec un appel à l’ancienne, en faisant un mapping des paramètres.
+  - 3. On lance les vérifications statiques.
+  - 4. On change le code appelant un par un pour qu’il utilise la nouvelle fonction au lieu de l’ancienne.
+    - On peut au passage utiliser **[Remove Dead Code](#remove-dead-code)** pour supprimer le code en trop qui devrait apparaître pendant le remplacement.
+    - On teste à chaque fois.
+  - 5. Quand tous les remplacements sont faits, on utilise **[Inline Function](#inline-function)** sur la fonction initiale pour que son contenu se retrouve dans la nouvelle et qu’elle disparaisse.
+  - 6. On change le nom de la nouvelle fonction.
+- **Théorie :**
+  - Quand on a plusieurs valeurs issues d’un même objet ou structure, qui sont données en argument à une fonction, il faut penser à donner plutôt l’objet entier.
+  - Si on doit extraire des valeurs d’un objet pour en faire quelque chose, on peut aussi être face à un cas de feature envy où il vaut mieux utiliser **[Extract Class](#extract-class)** pour extraire les valeurs qui veulent sortir de la classe avec la logique associée utilisée à chaque fois dans la fonction qui prend ces valeurs.
+  - Si une classe passe plusieurs de ses variables membre à une autre classe ou fonction, on peut passer _this_ à la place.
+  - Quand la fonction et l’objet se trouvent dans deux modules différents par contre, et qu’on veut garder de l’encapsulation entre ceux-ci, on peut ne pas vouloir appliquer ce refactoring.
+
+### Replace Parameter with Query
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    availableVacation(anEmployee, anEmployee.grade);
+
+    function availableVacation(anEmployee, grade) {
+      // ...
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    availableVacation(anEmployee);
+
+    function availableVacation(anEmployee) {
+      const grade = anEmployee.grade;
+      // ...
+    }
+    ```
+
+- **Étapes :**
+  - 1. Si besoin, on utilise **[Extract Function](#extract-function)** pour extraire la logique qui permet de calculer la valeur passée en paramètre qu’on veut enlever.
+  - 2. On remplace l’utilisation de chaque paramètre à enlever de la fonction par un appel qui permet d’obtenir la même valeur depuis le corps de la fonction.
+    - On teste à chaque fois.
+  - 3. On utilise **[Change Function Declaration](#change-function-declaration)** pour supprimer le paramètre qui n’est plus utilisé.
+- **Théorie :**
+  - La liste des paramètres d’une fonction devrait montrer les diverses manières dont on peut la faire varier.
+    - Il vaut mieux éviter les duplications dans les paramètres, et un paramètre que la fonction peut **facilement obtenir dans son corps** est une forme de duplication.
+    - Dans le cas où elle ne peut pas facilement l’obtenir, il vaut peut être mieux ne pas faire le refactoring. Par exemple, s' il vaut mieux qu’elle ne sache pas la manière dont on l’obtient pour des raisons d'encapsulation.
+  - Typiquement, si on peut **obtenir un paramètre à partir d’un autre**, on est quasi sûr qu’il vaut mieux n’en passer qu’un des deux.
