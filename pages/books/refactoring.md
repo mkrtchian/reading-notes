@@ -586,7 +586,7 @@
   - On peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour s’assurer qu’on modifie la structure à partir de petites fonctions.
   - Si une variable est mise à jour pour stocker plusieurs choses, on peut utiliser **[Split Variable](#split-variable)** pour rendre ces updates moins risquées.
   - Il faut essayer de garder la logique qui n’a pas de side effects et le code qui modifie la structure séparés, avec **[Slide Statements](#slide-statements)** et **[Extract Function](#extract-function)**. Et dans les APIs, on peut utiliser **[Separate Query from Modifier](#separate-query-from-modifier)** pour que l’appelant fasse des queries sans danger.
-  - Dès que c’est possible, il faut utiliser **Remove Setting Method** pour enlever les setters.
+  - Dès que c’est possible, il faut utiliser **[Remove Setting Method](#remove-setting-method)** pour enlever les setters.
   - Les données mutables qui sont calculées ailleurs sont sources de bugs, il faut les remplacer par **[Replace Derived Variable with Query](#replace-derived-variable-with-query)**.
   - Il faut essayer de limiter le scope du code qui a accès aux variables mutables. Par exemple avec **[Combine Functions into Class](#combine-functions-into-class)**, ou **[Combine Functions into Transform](#combine-functions-into-transform)**.
   - Si une variable contient déjà une structure avec d’autres données, il vaut mieux remplacer la structure entière d’un coup, plutôt que de modifier la variable, avec **[Change Reference to Value](#change-reference-to-value)**.
@@ -643,7 +643,7 @@
   - Pour faire correspondre les deux classes, on peut utiliser **[Change Function Declaration](#change-function-declaration)** et **[Move Function](#move-function)**.
 - **22 - Data Class** : les classes qui ont des getters/setters mais peu ou pas de logique sont un signe que la logique n’est pas au bon endroit.
   - Leurs champs publics doivent être encapsulés avec **[Encapsulate Record](#encapsulate-record)**.
-  - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **Remove Setting Method**.
+  - Les setters pour les méthodes qui ne doivent pas être changés doivent être enlevés avec **[Remove Setting Method](#remove-setting-method)**.
   - Ensuite on peut chercher où ces getters et setters sont utilisés, et appliquer **[Move Function](#move-function)** (et au besoin **[Extract Function](#extract-function)**) pour déplacer la logique dans la classe qu’on cherche à enrichir.
   - Il y a des exceptions : certaines classes peuvent être légitimes en tant que structure de données, et dans ce cas il n’y a pas besoin de getters et setters. Leurs champs seront immutables et donc n’auront pas besoin d’être encapsulés.
     - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **[Split Phase](#split-phase)**.
@@ -1396,7 +1396,7 @@
 - **Étapes :**
   - 1. On applique **[Encapsulate Variable](#encapsulate-variable)** sur la collection si elle n’est pas déjà encapsulée avec la valeur originale privée, et l’accès par getter et setter.
   - 2. On ajoute des méthodes pour ajouter et supprimer un objet de la collection.
-  - 3. Si il existe un setter pour la collection, on le supprime avec **Remove Setting Method**.
+  - 3. Si il existe un setter pour la collection, on le supprime avec **[Remove Setting Method](#remove-setting-method)**.
   - 4. On lance la vérification statique du code.
   - 5. On remplace toutes les modifications de la collection par des appels aux nouvelles méthodes d’ajout et de suppression. On teste à chaque fois.
   - 6. On modifie le getter pour renvoyer une copie ou un objet en lecture seule.
@@ -2269,7 +2269,7 @@
     ```
 - **Étapes :**
   - 1. On vérifie que l’objet qu’on veut transformer en valeur est déjà, ou peut devenir immutable.
-  - 2. On va effectivement le rendre immutable : pour chaque setter qu’on appelle pour modifier l’objet, on applique **Remove Setting Method**. De cette manière l’objet ne pourra plus être changé autrement qu’à sa construction.
+  - 2. On va effectivement le rendre immutable : pour chaque setter qu’on appelle pour modifier l’objet, on applique **[Remove Setting Method](#remove-setting-method)**. De cette manière l’objet ne pourra plus être changé autrement qu’à sa construction.
   - 3. On lui ajoute une méthode de comparaison d’égalité, basée sur la valeur des propriétés de notre objet.
 - **Théorie :**
   - Une instance d'objet qui est une propriété d'un autre objet peut être traitée soit comme une référence, soit comme une valeur.
@@ -2856,3 +2856,66 @@
     - Il vaut mieux éviter les duplications dans les paramètres, et un paramètre que la fonction peut **facilement obtenir dans son corps** est une forme de duplication.
     - Dans le cas où elle ne peut pas facilement l’obtenir, il vaut peut être mieux ne pas faire le refactoring. Par exemple, s' il vaut mieux qu’elle ne sache pas la manière dont on l’obtient pour des raisons d'encapsulation.
   - Typiquement, si on peut **obtenir un paramètre à partir d’un autre**, on est quasi sûr qu’il vaut mieux n’en passer qu’un des deux.
+
+### Replace Query with Parameter
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    targetTemperature(aPlan);
+
+    function targetTemperature(aPlan) {
+      currentTemperature = thermostat.currentTemperature;
+      // ...
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    targetTemperature(aPlan, thermostat.currentTemperature);
+
+    function targetTemperature(aPlan, currentTemperature) {
+      // ...
+    }
+    ```
+
+- **Étapes :**
+  - 1. On utilise **[Extract Variable](#extract-variable)** sur le code qui fait l’appel à la référence extérieure, de manière à ce que cet appel soit isolé du reste du corps de la fonction.
+  - 2. On applique **[Extract Function](#extract-function)** avec une fonction ayant un nom temporaire, pour extraire la partie du corps de notre fonction qui _ne fait pas_ l’appel à la référence extérieure.
+  - 3. On utilise **[Inline Variable](#inline-variable)** pour se débarrasser de la variable qu’on avait créée à l’étape 1.
+  - 4. On utilise **[Inline Function](#inline-function)** pour fondre la fonction initiale dans la nouvelle fonction extraite à l’étape 2.
+  - 5. On change le nom de la fonction qu’on a créée à l’étape 2 pour lui donner le nom de la fonction initiale qui vient de disparaître à l’étape 4.
+- **Théorie :**
+  - On a en fait une opposition entre interface de fonction simple (avec peu de paramètres), et faible couplage entre le corps de la fonction et d’autres fonctions.
+    - **La décision d’avoir une query ou un parameter n’est parfois pas évidente**, et il faut tester pour voir ce que ça donne.
+  - On pourra appliquer ce refactoring par exemple pour éviter la dépendance à une variable globale, ou un élément qu’on veut déplacer.
+  - Une autre possibilité c’est dans le cas où la fonction n’a pas de _referential transparency_, c’est à dire qu’elle ne donne pas le même résultat à chaque appel : on pourra vouloir créer des fonctions pures d’un côté, et des fonctions avec side effect passant des paramètres de l’autre.
+
+### Remove Setting Method
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class Person {
+      get name() {...}
+      set name(aString) {...}
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Person {
+      get name() {...}
+    }
+    ```
+- **Étapes :**
+  - 1. Si la valeur qu’on set n’est pas donnée au constructeur, on l’ajoute au constructeur avec **[Change Function Declaration](#change-function-declaration)**, et on appelle le setter depuis le constructeur avec la valeur qu’on reçoit.
+  - 2. On remplace l’utilisation extérieure du setter par le passage de la valeur au constructeur un par un.
+    - On teste à chaque fois.
+  - 3. On utilise **[Inline Function](#inline-function)** sur le setter pour le faire disparaître complètement.
+    - Si possible on rend la valeur membre immutable.
+  - 4. On teste.
+- **Théorie :**
+  - On veut supprimer un setter à chaque fois qu’on veut que le champ soit immutable de l’extérieur.
