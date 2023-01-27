@@ -442,7 +442,7 @@
 
     - On va commencer par utiliser **Replace Type Code with Subclasses** pour ça.
 
-      - Pour obtenir la bonne classe, on va utiliser **Replace Constructor with Factory Function** :
+      - Pour obtenir la bonne classe, on va utiliser **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)** :
 
         ```typescript
         function enrichPerformance(aPerformance) {
@@ -2919,3 +2919,94 @@
   - 4. On teste.
 - **Théorie :**
   - On veut supprimer un setter à chaque fois qu’on veut que le champ soit immutable de l’extérieur.
+
+### Replace Constructor with Factory Function
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    leadEngineer = new Employee(document.leadEngineer, "E");
+    ```
+  - **Après :**
+    ```javascript
+    leadEngineer = createEngineer(document.leadEngineer);
+    ```
+- **Étapes :**
+  - 1. On crée une fonction _factory_, avec un appel au constructeur dans son corps.
+  - 2. On remplace chaque appel au constructeur par un appel à la fonction _factory_.
+    - On teste à chaque fois.
+  - 3. Si possible, on limite la visibilité du constructeur.
+- **Théorie :**
+  - Le but de ce refactoring est de répondre au cas où on n’a pas envie d’utiliser la fonction de constructeur directement :
+    - parce qu’il peut avoir des limitations comme renvoyer une instance spécifique.
+    - parce qu’on ne peut en général pas personnaliser son nom.
+    - parce qu’on ne peut pas le passer comme une simple fonction.
+
+### Replace Function with Command
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function score(candidate, medicalExam, scoringGuide) {
+      let result = 0;
+      let healthLevel = 0;
+      // long body code
+    }
+    ```
+  - **Après :**
+    ```javascript
+    class Scorer {
+      constructor(candidate, medicalExam, scoringGuide) {
+        this._candidate = candidate;
+        this._medicalExam = medicalExam;
+        this._scoringGuide = scoringGuide;
+      }
+      execute() {
+        this._result = 0;
+        this._healthLevel = 0;
+        // long body code
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On crée une classe vide avec un nom basé sur celui de la fonction.
+  - 2. On utilise Move Function pour déplacer la fonction dans la classe.
+    - On peut appeler la fonction _execute_ ou _call_ par exemple.
+  - 3. On envisage de créer un champ pour chaque argument de la fonction, en déplaçant ces arguments sur le constructeur.
+- **Théorie :**
+  - Il s’agit d’encapsuler une fonction dans une classe, pour lui donner la possibilité d’avoir des méthodes associées, potentiellement de l’héritage etc.
+  - 95 fois sur 100 l’auteur utilise une fonction normale non encapsulée.
+  - Une des raisons pour utiliser le refactoring est aussi de diviser une fonction complexe en plus petits morceaux : on peut notamment transformer ses variables locales en variables membres qui seraient utilisées dans toutes les fonctions de la classe.
+
+### Replace Command with Function
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    class ChargeCalculator {
+      constructor(customer, usage) {
+        this._customer = customer;
+        this._usage = usage;
+      }
+      execute() {
+        return this._customer.rate * this._usage;
+      }
+    }
+    ```
+  - **Après :**
+    ```javascript
+    function charge(customer, usage) {
+      return customer.rate * usage;
+    }
+    ```
+- **Étapes :**
+  - 1. On utilise **[Extract Function](#extract-function)** pour extraire la création de l’instance de commande et de l’appel à la fonction.
+  - 2. Pour chaque méthode appelée par la méthode principale, on utilise **[Inline Function](#inline-function)** pour l’éliminer.
+  - 3. On utilise **[Change Function Declaration](#change-function-declaration)** pour ajouter les paramètres du constructeur à la méthode principale.
+  - 4. Pour chaque champ de l’objet, on remplace son utilisation par l’utilisation des paramètres dans la méthode.
+    - On teste à chaque fois.
+  - 5. On inline la construction de l’objet et l’appel à la méthode dans le code appelant.
+  - 6. On teste.
+  - 7. On utilise **[Remove Dead Code](#remove-dead-code)** pour éliminer la classe de commande.
+- **Théorie :**
+  - L’objet de commande est puissant, mais il arrive aussi avec une certaine complexité : si la fonction est simple en général on n’en a pas besoin.
