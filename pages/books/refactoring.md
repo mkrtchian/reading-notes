@@ -564,7 +564,7 @@
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
   - En général on va utiliser **[Extract Function](#extract-function)**.
   - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **[Slide Statements](#slide-statements)** pour obtenir un morceau de code identique à factoriser.
-  - Si le code dupliqué se trouve dans des classes filles d’une même hiérarchie, on peut la remonter dans la mère avec **Pull Up Method**.
+  - Si le code dupliqué se trouve dans des classes filles d’une même hiérarchie, on peut la remonter dans la mère avec **[Pull Up Method](#pull-up-method)**.
 - **3 - Long Function** : les fonctions courtes sont plus efficaces pour la compréhension du code.
   - L’idée c’est de nommer les fonctions avec **l’intention de leur code** plutôt que par ce qu’il fait. A chaque fois qu’on veut commenter, on peut remplacer ça par une fonction qui encapsule le bout de code.
   - C’est tout à fait OK de faire des fonctions qui ne contiennent **qu’une ligne**, pour peu que le nommage apporte une meilleure information sur l’intention.
@@ -649,7 +649,7 @@
     - Exemple : la structure de données qui permet de communiquer entre les deux phases quand on utilise **[Split Phase](#split-phase)**.
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
   - Il ne s’agit pas d’une forte odeur, donc on peut parfois le tolérer.
-  - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **Push Down Method** et **Push Down Field**.
+  - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **[Push Down Method](#push-down-method)** et **[Push Down Field](#push-down-field)**.
   - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
   - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **[Introduce Assertion](#introduce-assertion)**.
@@ -3010,3 +3010,210 @@
   - 7. On utilise **[Remove Dead Code](#remove-dead-code)** pour éliminer la classe de commande.
 - **Théorie :**
   - L’objet de commande est puissant, mais il arrive aussi avec une certaine complexité : si la fonction est simple en général on n’en a pas besoin.
+
+## 12 - Gestion de l’héritage
+
+### Pull Up Method
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Employee {...}
+
+    class Salesman extends Employee {
+      get name() {...}
+    }
+
+    class Engineer extends Employee {
+      get name() {...}
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Employee {
+      get name() {...}
+    }
+
+    class Salesman extends Employee {...}
+
+    class Engineer extends Employee {...}
+    ```
+
+- **Étapes :**
+  - 1. On examine les méthodes des classes filles à remonter pour s’assurer qu’elles sont **identiques**.
+    - Si c’est pas le cas, on refactore jusqu’à obtenir une méthode identique à remonter dans chaque classe.
+  - 2. On s’assure que tous les appels de méthode ou de champ seront accessibles depuis la classe mère.
+  - 3. SI la signature des méthodes est différente, on les change avec **[Change Function Declaration](#change-function-declaration)** pour qu’elles soient similaires.
+  - 4. On crée une méthode dans la classe mère, et on copie le code d’une des méthodes à remonter dedans.
+  - 5. On lance les vérifications statiques.
+  - 6. On supprime une à une les méthodes des classes filles, en testant à chaque fois.
+- **Théorie :**
+  - Le but de ce refactoring est d’éviter la duplication de code dans les classes filles, en le remontant dans la classe mère.
+  - On l’utilise souvent après avoir généralisé une méthode avec **[Parameterize Function](#parameterize-function)** pour faire en sorte que les deux classes filles aient la même méthode, qu’on peut alors remonter.
+  - Si la méthode à remonter fait référence à des champs dans les classes filles, on peut utiliser **[Pull Up Field](#pull-up-field)** pour les remonter d’abord.
+
+### Pull Up Field
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ````javascript
+    class Employee {...}
+
+    class Salesman extends Employee {
+      private name: string;
+    }
+
+    class Engineer extends Employee {
+      private name: string;
+    }```
+    ````
+
+  - **Après :**
+
+    ```typescript
+    class Employee {
+      protected name: string;
+    }
+
+    class Salesman extends Employee {...}
+
+    class Engineer extends Employee {...}
+    ```
+
+- **Étapes :**
+  - 1. On inspecte bien l’utilisation du champ pour vérifier qu’il s’agit vraiment de la même chose.
+  - 2. Si les deux champs ont des noms différents, on utilise Rename Field pour leur redonner le même nom.
+  - 3. On crée un champ dans la classe mère, avec une protection suffisamment lâche pour que les classes filles y aient accès (_protected_).
+  - 4. On supprime les champs des classes filles.
+  - On teste.
+- **Théorie :**
+  - On se retrouve parfois avec le même champ présent dans deux classes filles, **pas forcément sous le même nom**.
+    - Pour savoir si c’est le même champ, il faut voir comment il est utilisé dans la classe.
+  - On va souvent vouloir déplacer le champ et ensuite déplacer les méthodes qui manipulent ce champ.
+
+### Pull Up Constructor Body
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Party {...}
+
+    class Employee extends Party {
+      constructor(name, id, monthlyCost) {
+        super();
+        this._id = id;
+        this._name = name;
+        this._monthlyCost = monthlyCost;
+      }
+    }
+    ```
+
+  - **Après :**
+
+    ````javascript
+    class Party {
+      constructor(name){
+        this._name = name;
+      }
+    }
+
+    class Employee extends Party {
+      constructor(name, id, monthlyCost) {
+        super(name);
+        this._id = id;
+        this._monthlyCost = monthlyCost;
+      }
+    }```
+    ````
+
+- **Étapes :**
+  - 1. On définit un constructeur dans la classe mère (s’il n'existe pas déjà), et on l’appelle dans les constructeurs des classes filles.
+  - 2. On utilise **[Slide Statements](#slide-statements)** pour déplacer les instructions communes du constructeur juste après l’appel à `super()`.
+  - 3. On déplace le code commun dans le constructeur parent, en donnant tous les paramètres nécessaires dans l’appel à `super()`.
+  - 4. On teste.
+  - 5. Si on ne peut pas déplacer une partie du code vers le haut du constructeur juste après `super()`, on peut utiliser **[Extract Function](#extract-function)** pour l’extraire, puis **[Pull Up Method](#pull-up-method)** pour le remonter dans le parent et l’utiliser dans le constructeur parent.
+- **Théorie :**
+  - Ce refactoring fait la même chose que **[Pull Up Method](#pull-up-method)**, mais en répondant aux règles spécifiques des constructeurs.
+  - Si on a du mal à appliquer ce refactoring, on peut utiliser **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)** à la place.
+
+### Push Down Method
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Employee {
+      get quota {...}
+    }
+
+    class Engineer extends Employee {...}
+
+    class Salesman extends Employee {...}
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Employee {...}
+
+    class Engineer extends Employee {...}
+
+    class Salesman extends Employee {
+      get quota {...}
+    }
+    ```
+
+- **Étapes :**
+  - 1. On copie la méthode dans les classes filles qui en ont besoin.
+  - 2. On supprime la méthode depuis la classe mère.
+  - 3. On teste.
+  - 4. On supprime la méthode dans chaque classe fille qui n’en a pas besoin.
+  - 5. On teste.
+- **Théorie :**
+  - Si une méthode n’est utilisée que par une classe fille (ou un petit nombre de classes filles par rapport au total) et qu’elle se trouve dans la mère, on peut la descendre pour rendre plus clair que les autres filles n’en ont pas l’usage.
+
+### Push Down Field
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```typescript
+    class Employee {
+      private quota: string;
+    }
+
+    class Engineer extends Employee {...}
+
+    class Salesman extends Employee {...}
+    ```
+
+  - **Après :**
+
+    ```typescript
+    class Employee {...}
+
+    class Engineer extends Employee {...}
+
+    class Salesman extends Employee {
+      protected quota: string;
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée le champ dans les classes filles qui en ont besoin.
+  - 2. On supprime le champ de la classe mère.
+  - 3. On teste.
+  - 4. On supprime le champ des classes filles qui n’en ont pas besoin.
+  - 5. On teste.
+- **Théorie :**
+  - Si un champ n’est utilisé que par une classe fille (ou un petit nombre de classes filles par rapport au total), on le descend dans les classes qui en ont l’usage.
