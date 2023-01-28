@@ -440,7 +440,7 @@
     - On fait la même chose pour _volumeCreditsFor_, pour se retrouver à utiliser `calculator.volumeCredits`.
   - **10 - On va rendre le calculateur polymorphe**
 
-    - On va commencer par utiliser **Replace Type Code with Subclasses** pour ça.
+    - On va commencer par utiliser **[Replace Type Code with Subclasses](#replace-type-code-with-subclasses)** pour ça.
 
       - Pour obtenir la bonne classe, on va utiliser **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)** :
 
@@ -560,7 +560,7 @@
 - On ne peut pas savoir quand un refactoring est nécessaire mieux que l’intuition d’un programmeur expérimenté, mais ce chapitre contient une liste de 24 **code smells** qui devraient au moins nous alerter quand on les croise.
 - **1 - Mysterious Name** : quand on ne comprend pas un nom de variable ou fonction au premier coup d'œil, il faut la renommer.
   - Si on n’arrive pas à trouver un bon nom, c’est sans doute qu’on a d’autres problèmes plus profonds avec le code qu’on essaye de nommer.
-  - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **Rename Function** et **[Rename Field](#rename-field)**.
+  - Parmi les techniques, il y a **[Change Function Declaration](#change-function-declaration)**, **[Rename Function](#change-function-declaration)** et **[Rename Field](#rename-field)**.
 - **2 - Duplicated Code** : quand on a du code dupliqué, il faut essayer de le factoriser pour avoir moins d’endroits à maintenir à jour à chaque modification.
   - En général on va utiliser **[Extract Function](#extract-function)**.
   - Si le code dupliqué n’est pas tout à fait identique, on peut d’abord utiliser **[Slide Statements](#slide-statements)** pour obtenir un morceau de code identique à factoriser.
@@ -597,7 +597,7 @@
   - Et si c’est des classes : **[Extract Class](#extract-class)**.
 - **8 - Shotgun Surgery** : c’est l’inverse du Divergent Change, on a une fonctionnalité qui est dispersée à plusieurs endroits qu’il faut à chaque fois aller modifier.
   - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour replacer le code au même endroit.
-  - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **Combien Functions into Class**.
+  - Si on a des fonctions qui opèrent sur les mêmes données, on peut les associer avec **[Combine Functions into Class](#combine-functions-into-class)**.
   - On peut aussi combiner le code éparpillé dans une grande fonction ou classe (avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**) avant de séparer ça en plus petites fonctions.
 - **9 - Feature Envy** : on essaye en général d’avoir des modules à l’intérieur desquels il y a beaucoup de communication, et entre lesquels il y en a peu. On parle de feature envy quand un module communique plus avec du code ‘un module voisin qu’avec le module où il est.
   - En général on va utiliser **[Move Function](#move-function)**, parfois précédé d’**[Extract Function](#extract-function)** si seule une partie de la fonction a besoin de changer d’endroit.
@@ -608,7 +608,7 @@
 - **11 - Primitive Obsession** : il s’agit d’utiliser des Value Objects à la place des types primitifs comme number ou string.
   - Exemple : un numéro de téléphone doit être validé, et correctement affiché.
   - La règle typique c’est **[Replace Primitive with Object](#replace-primitive-with-object)**.
-  - Si le type primitif est impliqué dans une structure conditionnelle, on peut encapsuler les conditions dans une hiérarchie de classes avec **Replace Type Code with Subclasses** puis **Replace Conditionals with Polymorphism**.
+  - Si le type primitif est impliqué dans une structure conditionnelle, on peut encapsuler les conditions dans une hiérarchie de classes avec **[Replace Type Code with Subclasses](#replace-type-code-with-subclasses)** puis **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)**.
 - **12 - Repeated Switches** : on repère les switchs portant sur la même condition, et on les remplace par des classes.
   - Il s’agit d’utiliser **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)**.
 - **13 - Loops** : les fonctions issues de la programmation fonctionnelle (map, filter, reduce) permettent de voir plus rapidement les éléments qui sont inclus et ce qui est fait avec eux, par rapport à des boucles.
@@ -616,9 +616,9 @@
 - **14 - Lazy Element** : parfois certaines classes ou fonctions sont inutiles.
   - Par exemple une fonction dont le corps se lit de la même manière que son nom, ou une classe qui n’a qu’une méthode et qui pourrait être une fonction.
   - On peut les éliminer avec **[Inline Function](#inline-function)** ou **[Inline Class](#inline-class)**.
-  - Dans le cas où on veut réduire une hiérarchie de classe, on peut utiliser **Collapse Hierarchy**.
+  - Dans le cas où on veut réduire une hiérarchie de classe, on peut utiliser **[Collapse Hierarchy](#collapse-hierarchy)**.
 - **15 - Speculative Generality** : quand on ajoute des mécanismes de flexibilité pour plus tard, au cas où il y en aurait besoin. Il faut s’en débarrasser parce que YAGNI.
-  - On peut se débarrasser de classes qui ne font pas grand chose avec **Collapse Hierarchy**.
+  - On peut se débarrasser de classes qui ne font pas grand chose avec **[Collapse Hierarchy](#collapse-hierarchy)**.
   - Les délégations inutiles peuvent être éliminées avec **[Inline Function](#inline-function)** et **[Inline Class](#inline-class)**.
   - Les paramètres inutilisés par les fonctions peuvent être enlevés avec **[Change Function Declaration](#change-function-declaration)**.
   - Si les seuls utilisateurs d’une fonction sont des tests, il faut les supprimer, puis appliquer **[Remove Dead Code](#remove-dead-code)**.
@@ -635,7 +635,7 @@
   - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour séparer le code qui ne devrait pas être trop couplé.
   - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
 - **20 - Large Class** : une classe avec trop de champs doit être divisée en plusieurs classes.
-  - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **[Extract Class](#extract-class)**, ou encore **Extract Superclass** ou **Replace Type Code with Subclasses**.
+  - On peut typiquement repérer les noms de variable qui partagent un préfixe ou suffixe commun, et utiliser **[Extract Class](#extract-class)**, ou encore **[Extract Superclass](#extract-superclass)** ou **[Replace Type Code with Subclasses](#replace-type-code-with-subclasses)**.
   - Si la classe a trop de code, on va probablement avoir des duplications. Le mieux est alors de la refactorer en petites fonctions.
     - Par exemple pour une classe de 500 lignes, on peut refactorer en méthodes de 5 à 10 lignes, avec une dizaine de méthodes de 2 lignes extraites dans une classe à part.
   - Un bon indicateur pour découper une classe c’est en regardant le code qui l’utilise, souvent on peut repérer des parties dans la classe.
@@ -3217,3 +3217,171 @@
   - 5. On teste.
 - **Théorie :**
   - Si un champ n’est utilisé que par une classe fille (ou un petit nombre de classes filles par rapport au total), on le descend dans les classes qui en ont l’usage.
+
+### Replace Type Code with Subclasses
+
+- **Exemple :**
+  - **Avant :**
+    ```javascript
+    function createEmployee(name, type) {
+      return new Employee(name, type);
+    }
+    ```
+  - **Après :**
+    ```javascript
+    function createEmployee(name, type) {
+      switch (type) {
+        case "engineer":
+          return new Engineer(name);
+        case "salesman":
+          return new Salesman(name);
+        case "manager":
+          return new Manager(name);
+      }
+    }
+    ```
+- **Étapes :**
+  - 1. On va auto-encapsuler le champ qui contient la valeur de type (on crée des getter/setter et on les utilise en interne dans la classe, pour ne plus accéder au champ directement autrement que par ces getter/setter).
+  - 2. On choisit une valeur de type, et on crée une classe fille pour cette valeur. En fonction de la méthode directe ou indirecte, on aura la classe mère à créer ou alors ce sera notre classe initiale.
+  - 3. On surcharge le getter du champ de type de cette nouvelle classe pour qu’il renvoie la valeur de type littérale (celle qu’on avait initialement).
+  - 4. On ajoute de la logique pour utiliser le getter issu de la nouvelle classe.
+    - Avec la méthode directe, il faudra qu’on instancie la bonne classe dès le début, donc on peut utiliser **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)**.
+    - Avec la méthode indirecte, on peut instancier la bonne classe de type dans le constructeur de la classe initiale.
+  - 5. On teste.
+  - 6. On répète la création de classe fille pour chaque valeur de type.
+    - On teste à chaque fois.
+  - 7. On supprime le champ de type initial.
+  - 8. On teste.
+  - 9. On utilise **[Push Down Method](#push-down-method)** et **[Replace Conditional with Polymorphism](#replace-conditional-with-polymorphism)** sur les méthodes qui utilisent les getter/setter créés à l’étape 1.
+  - 10. On peut supprimer les getter/setter pour la valeur de type (plus besoin d’auto-encapsulation du type).
+- **Théorie :**
+  - Quand on veut faire des choses différentes en fonction du type de chose, par exemple des employés différenciés par leur fonction, on peut se contenter d’une variable qui nous indique cette information. Mais on peut parfois vouloir une hiérarchie de classes.
+  - La hiérarchie de classe est utile quand :
+    - On veut transformer des conditions similaires en polymorphisme comme avec Replace Conditional with Polymorphism.
+    - On a des fonctionnalités qui ne concernent que certains types, qu’on peut du coup mettre dans une méthode de la classe fille concernée.
+  - Il y a deux manières de le faire :
+    - 1- Directement : transformer la classe qui prend le type en classe mère, et créer des classes filles pour chaque type.
+      - Il faut bien réfléchir au critère sur lequel on crée notre hiérarchie : si on le fait pour ce type, on ne pourra pas en même temps le faire pour un autre critère.
+      - Si le type est mutable, il vaut mieux partir sur la 2ème méthode.
+    - 2- Indirectement : créer une hiérarchie de classes juste pour le type, et y placer la logique liée au type. On utiliserait ici la composition en gardant une instance de ce type dans la classe qui prend le type.
+
+### Remove Subclass
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Person {
+      get genderCode() {
+        return "X";
+      }
+    }
+
+    class Male extends Person {
+      get genderCode() {
+        return "M";
+      }
+    }
+
+    class Female extends Person {
+      get genderCode() {
+        return "F";
+      }
+    }
+    ```
+
+  - **Après :**
+    ```javascript
+    class Person {
+      get genderCode() {
+        return this._genderCode;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. On utilise **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)** pour que la classe fille qu’on veut supprimer soit construite depuis une fonction.
+  - 2. Si on a du code qui applique une condition sur le type de classe fille, on extrait ce code avec **[Extract Function](#extract-function)**, et on le remonte vers la classe mère avec **[Move Function](#move-function)**.
+  - 3. On crée un champ pour représenter le type de sous-classes dans la classe mère.
+  - 4. On modifie les méthodes qui utilisent la classe fille pour qu’elles fassent référence au champ de type.
+  - 5. On supprime la classe fille.
+  - 6. On teste.
+- **Théorie :**
+  - Quand on a une hiérarchie de classes, on peut en profiter pour mettre des comportements dans chaque classe fille et obtenir quelque chose de flexible.
+    - Mais parfois ces comportements ne sont pas (ou plus) suffisants pour justifier la complexité induite par la hiérarchie. Dans ce cas, il faut supprimer les classes filles.
+
+### Extract Superclass
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Department {
+      get totalAnnualCost() {...}
+      get name() {...}
+      get headCount() {...}
+    }
+
+    class Employee {
+      get annualCost() {...}
+      get name() {...}
+      get id() {...}
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Party {
+      get name() {...}
+      get annualCost() {...}
+    }
+
+    class Department extends Party {
+      get annualCost() {...}
+      get headCount() {...}
+    }
+
+    class Employee extends Party {
+      get annualCost() {...}
+      get id() {...}
+    }
+    ```
+
+- **Étapes :**
+  - 1. On crée une classe vide, et on fait hériter nos classes avec du code dupliqué de cette classe.
+  - 2. On teste.
+  - 3. Pour chaque classe fille, on utilise **[Pull Up Constructor Body](#pull-up-constructor-body)**, **[Pull Up Field](#pull-up-field)** et **[Pull Up Method](#pull-up-method)** pour déplacer le code commun aux classes filles dans la nouvelle classe mère.
+  - 4. On refait une passe sur les classes filles, et si on constate encore du code commun mais pas dans des méthodes isolées, on utilise **[Extract Function](#extract-function)** pour l’isoler, puis **[Pull Up Method](#pull-up-method)** pour le remonter.
+  - 5. On vérifie le code appelant, pour voir s' il ne faudrait pas utiliser l’interface de la classe mère quelque part.
+- **Théorie :**
+  - Le but de ce refactoring est de rassembler une logique dupliquée dans plusieurs classes vers une classe mère commune.
+  - L’auteur conseille par défaut d’utiliser ce refactoring à la place de **[Extract Class](#extract-class)**, quitte à le transformer en délégation ensuite avec **Replace Superclass with Delegate**.
+
+### Collapse Hierarchy
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Employee {...}
+
+    class Salesman extends Employee {...}
+    ```
+
+  - **Après :**
+    ```javascript
+    class Employee {...}
+    ```
+
+- **Étapes :**
+  - 1. On choisit la classe qu’on veut supprimer (mère ou fille).
+  - 2. On utilise **[Pull Up Field](#pull-up-field)**, **[Pull Up Method](#pull-up-method)**, **[Push Down Field](#push-down-field)** et **[Push Down Method](#push-down-method)** pour déplacer tous les éléments de la classe à supprimer vers l’autre qui reste.
+  - 3. On ajuste les références des méthodes déplacées dans la classe qui reste pour qu’elles s'intègrent avec le reste du code de la classe.
+  - 4. On supprime la classe vide.
+  - 5. On teste.
+- **Théorie :**
+  - Quand le fait d’avoir une hiérarchie de classes n’apporte plus suffisamment de choses pour contrebalancer la complexité induite par la hiérarchie elle-même, on supprime un les classes d’un des niveaux pour éliminer la hiérarchie.
