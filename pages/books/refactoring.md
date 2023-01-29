@@ -630,7 +630,7 @@
   - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **[Move Function](#move-function)** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
   - La technique à utiliser est **[Remove Middle Man](#remove-middle-man)**.
-  - On peut aussi utiliser **Replace Superclass with Delegate** ou **Replace Subclass with Delegate** pour fondre le middle man dans la classe cible.
+  - On peut aussi utiliser **Replace Superclass with Delegate** ou **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
   - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour séparer le code qui ne devrait pas être trop couplé.
   - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
@@ -650,7 +650,7 @@
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
   - Il ne s’agit pas d’une forte odeur, donc on peut parfois le tolérer.
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **[Push Down Method](#push-down-method)** et **[Push Down Field](#push-down-field)**.
-  - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **Replace Subclass with Delegate** ou **Replace Superclass with Delegate**.
+  - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** ou **Replace Superclass with Delegate**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
   - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **[Introduce Assertion](#introduce-assertion)**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
@@ -3385,3 +3385,69 @@
   - 5. On teste.
 - **Théorie :**
   - Quand le fait d’avoir une hiérarchie de classes n’apporte plus suffisamment de choses pour contrebalancer la complexité induite par la hiérarchie elle-même, on supprime un les classes d’un des niveaux pour éliminer la hiérarchie.
+
+### Replace Subclass with Delegate
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class Order {
+      get daysToShip() {
+        return this._warehouse.daysToShip;
+      }
+    }
+
+    class PriorityOrder extends Order {
+      get daysToShip() {
+        return this._priorityPlan.daysToShip;
+      }
+    }
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Order {
+      get daysToShip() {
+        return this._priorityDelegate
+          ? this._priorityDelegate.daysToShip
+          : this._warehouse.daysToShip;
+      }
+    }
+
+    class PriorityOrderDelegate {
+      get daysToShip() {
+        return this._priorityPlan.daysToShip;
+      }
+    }
+    ```
+
+- **Étapes :**
+  - 1. S’il y a de nombreux endroits où le constructeur de la classe fille qu’on va supprimer est utilisé, on va d’abord encapsuler la création des objets avec **[Replace Constructor with Factory Function](#replace-constructor-with-factory-function)**.
+  - 2. On crée une classe vide pour le délégué. On lui fait prendre au constructeur tous les paramètres spécifiques à la classe fille à supprimer.
+  - 3. On ajoute un champ à la classe mère pour stocker l'instance du délégué.
+  - 4. On modifie le code de création de la classe fille à supprimer, pour qu’il crée l’instance du délégué et le place sur la classe mère : soit dans le constructeur de la classe fille, soit dans la factory function (si on l’a créée à l’étape 1).
+  - 5. On choisit une méthode de la classe fille à déplacer dans le délégué.
+  - 6. On utilise **[Move Function](#move-function)** pour la déplacer dans le délégué.
+    - On ne fait pas la dernière étape de supprimer la fonction de délégation restée dans la classe fille.
+    - Si la méthode a besoin d’autres champs ou méthodes pour fonctionner, on les déplace aussi.
+    - Si elle a besoin de méthodes ou de champs qui doivent rester sur la classe mère, on passe une référence vers la classe mère au délégué.
+  - 7. Si la méthode dans la classe fille qu’on est en train de traiter est appelée depuis l’extérieur de sa hiérarchie de classe, on déplace la méthode (qui est maintenant une méthode de délégation vers l’objet délégué) vers la classe mère. On y fait une vérification de l'existence du délégué avant l’appel.
+    - Si il n’y avait pas d’appelants externes, on applique simplement **[Remove Dead Code](#remove-dead-code)** sur la méthode dans la classe fille.
+  - 8. On teste.
+  - 9. On répète les étapes 7 et 8 jusqu’à ce que toutes les méthodes de la classe fille soient transférées vers le délégué.
+  - 10. On trouve toutes les occurrences de construction d’objet de la classe fille, et on le modifie pour construire la classe mère à la place.
+  - 11. On teste.
+  - 12. On applique **[Remove Dead Code](#remove-dead-code)** sur la classe fille vide.
+- **Théorie :**
+  - L’héritage permet de représenter naturellement la catégorisation des objets.
+  - Elle a par contre deux problèmes :
+    - On ne peut utiliser l’héritage pour classer que selon **un seul axe** de catégorie. Et donc la thématique qui n’est pas choisie pour l’axe utilisé pour l’héritage doit bien être traitée autrement.
+    - Elle induit un grand couplage entre classe mère et fille, avec les changements dans la mère qui impactent toutes les filles.
+  - La délégation (ou composition) règle ces deux problèmes.
+    - L’auteur a connaissance du principe populaire “_Favor object composition over class inheritance_”, mais l’aurait bien remplacé par “_Favor a judicious mixture of composition and inheritance over either alone_”.
+    - Pour autant, il préfère utiliser par défaut l’héritage qui a ses propres avantages, quitte à utiliser ce refactoring pour passer sur de la délégation quand il sent qu’il y a des frictions dans la hiérarchie.
+    - Cette question de choix entre héritage et délégation est aussi discutée dans le livre de GoF.
+  - Une des possibilités peut aussi être d’avoir une délégation qui elle-même a une hiérarchie pour laisser l’héritage de la classe principale à un autre axe, et profiter quand même de la puissance de l’héritage pour l’axe sur lequel on délègue.
