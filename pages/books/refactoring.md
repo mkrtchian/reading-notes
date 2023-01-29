@@ -630,7 +630,7 @@
   - Une autre solution est de voir si on peut utiliser **[Extract Function](#extract-function)** suivi de **[Move Function](#move-function)** pour déplacer l’utilisation de la chaîne d’appels plus bas dans la chaîne.
 - **18 - Middle Man** : il est normal d’encapsuler et de déléguer des choses, mais si une classe délègue la moitié de ses méthodes à une autre classe, c’est qu’il est peut être temps de s’interfacer directement avec la classe qui sait ce qui se passe.
   - La technique à utiliser est **[Remove Middle Man](#remove-middle-man)**.
-  - On peut aussi utiliser **Replace Superclass with Delegate** ou **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** pour fondre le middle man dans la classe cible.
+  - On peut aussi utiliser **[Replace Superclass with Delegate](#replace-superclass-with-delegate)** ou **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** pour fondre le middle man dans la classe cible.
 - **19 - Insider Trading** : il s’agit de code de modules différents qui communique trop entre eux, et donc un couplage trop important entre modules.
   - On peut utiliser **[Move Function](#move-function)** et **[Move Field](#move-field)** pour séparer le code qui ne devrait pas être trop couplé.
   - Dans le cas où les modules ont des choses en commun, on peut aussi en extraire une classe commune, ou utiliser **[Hide Delegate](#hide-delegate)** pour utiliser un module comme intermédiaire.
@@ -650,7 +650,7 @@
 - **23 - Refused Bequest** : parfois certaines classes filles refusent certaines implémentations venant du parent.
   - Il ne s’agit pas d’une forte odeur, donc on peut parfois le tolérer.
   - Si on veut régler le problème, on peut utiliser une classe soeur et pousser le code qui ne devrait pas être partagé vers elle avec **[Push Down Method](#push-down-method)** et **[Push Down Field](#push-down-field)**.
-  - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** ou **Replace Superclass with Delegate**.
+  - Parfois, ce n'est pas l’implémentation d’une méthode, mais l’interface que la classe fille ne veut pas. Dans ce cas l’odeur est beaucoup plus forte et il faut éliminer l’héritage pour le remplacer par de la délégation avec **[Replace Subclass with Delegate](#replace-subclass-with-delegate)** ou **[Replace Superclass with Delegate](#replace-superclass-with-delegate)**.
 - **24 - Comments** : la plupart des commentaires cachent des code smells, et sont inutiles si on les refactore.
   - Quand on en rencontre, il faut essayer de voir si on ne peut mieux expliquer ce que fait un bloc de code avec **[Extract Function](#extract-function)** et **[Change Function Declaration](#change-function-declaration)**. Ou encore déclarer des règles sur l’état du système avec **[Introduce Assertion](#introduce-assertion)**.
   - Si malgré ça on a toujours besoin du commentaire, alors c’est qu’il est légitime. Il peut servir à décrire ce qui se passe, indiquer les endroits où on n’est pas sûr, ou encore expliquer pourquoi on a fait quelque chose.
@@ -3358,7 +3358,7 @@
   - 5. On vérifie le code appelant, pour voir s' il ne faudrait pas utiliser l’interface de la classe mère quelque part.
 - **Théorie :**
   - Le but de ce refactoring est de rassembler une logique dupliquée dans plusieurs classes vers une classe mère commune.
-  - L’auteur conseille par défaut d’utiliser ce refactoring à la place de **[Extract Class](#extract-class)**, quitte à le transformer en délégation ensuite avec **Replace Superclass with Delegate**.
+  - L’auteur conseille par défaut d’utiliser ce refactoring à la place de **[Extract Class](#extract-class)**, quitte à le transformer en délégation ensuite avec **[Replace Superclass with Delegate](#replace-superclass-with-delegate)**.
 
 ### Collapse Hierarchy
 
@@ -3451,3 +3451,42 @@
     - Pour autant, il préfère utiliser par défaut l’héritage qui a ses propres avantages, quitte à utiliser ce refactoring pour passer sur de la délégation quand il sent qu’il y a des frictions dans la hiérarchie.
     - Cette question de choix entre héritage et délégation est aussi discutée dans le livre de GoF.
   - Une des possibilités peut aussi être d’avoir une délégation qui elle-même a une hiérarchie pour laisser l’héritage de la classe principale à un autre axe, et profiter quand même de la puissance de l’héritage pour l’axe sur lequel on délègue.
+
+### Replace Superclass with Delegate
+
+- **Exemple :**
+
+  - **Avant :**
+
+    ```javascript
+    class List {...}
+
+    class Stack extends List {...}
+    ```
+
+  - **Après :**
+
+    ```javascript
+    class Stack {
+      constructor() {
+        this._storage = new List();
+      }
+    }
+
+    class List {...}
+    ```
+
+- **Étapes :**
+  - 1. On crée un champ dans la classe fille avec le type de la classe mère, et on l’instancie dans le constructeur de la classe fille.
+  - 2. Pour chaque méthode de la classe mère, on crée une forwarding function dans la classe fille, qui appelle simplement la bonne méthode sur le champ créé à l’étape 1.
+    - On teste à chaque fois.
+    - Parfois il faut déplacer plusieurs méthodes interdépendantes, par exemple getter/setter.
+  - 3. Quand on a créé des forwarding functions pour toutes les méthodes, on supprime le lien d’héritage.
+  - 4. On teste.
+- **Théorie :**
+  - Un signe typique qui indique qu’il ne faut pas utiliser l'héritage, c’est quand on a des fonctions de la classe mère qui n’ont pas d’utilité dans les classes filles.
+    - Un exemple connu c’est la liste qu’on prend comme classe mère de la pile : la plupart des opérations de liste ne sont pas utiles pour la pile.
+  - Un autre problème aussi c’est que l’héritage induit d’un point de vue modélisation l’idée que les classes filles sont des instances de la mère, à tout point de vue y compris dans le monde physique, ce qui est assez restrictif pour bien des situations.
+    - La délégation pose une vraie limite entre les deux classes.
+  - Un des inconvénients de la délégation c’est que pour les fonctionnalités similaires entre une classe et son délégué, il faut faire une forwarding function.
+  - L’auteur conseille quand même, comme dans la technique précédente, de partir sur de l’héritage par défaut, et de remplacer si besoin par la délégation avec ce refactoring.
