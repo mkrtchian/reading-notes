@@ -578,7 +578,7 @@
   - Si on peut obtenir un paramètre à partir d’un autre, alors on peut appliquer **[Replace Temp with Query](#replace-temp-with-query)** pour l’éliminer.
   - Si plusieurs paramètres sont toujours ensemble, on peut les combiner avec **[Introduce Parameter Object](#introduce-parameter-object)**.
   - Si un argument est utilisé pour choisir une logique dans la fonction, on peut diviser la logique en plusieurs fonctions avec **[Remove Flag Argument](#remove-flag-argument)**.
-  - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **Combien Functions into Class**, pour remplacer les paramètres par des champs.
+  - On peut aussi regrouper les fonctions qui ont des paramètres communs en classes avec **[Combine Functions into Class](#combine-functions-into-class)**, pour remplacer les paramètres par des champs.
 - **5 - Global Data** : le problème des données globales c’est qu’on peut les modifier de n’importe où, et donc c’est très difficile de suivre ce qui se passe.
   - Pour traiter le problème, il faut les encapsuler avec **[Encapsulate Variable](#encapsulate-variable)**.
 - **6 - Mutable Data** : le fait que les structures soient mutables fait qu’on peut changer une structure quelque part, et provoquer un bug ailleurs sans s’en rendre compte.
@@ -1149,7 +1149,7 @@
 - **Théorie :**
 
   - Un des usages des classes c’est de grouper des fonctions qui prennent des paramètres communs, pour donner ces paramètres au constructeur et éviter d’avoir à les donner à chaque appel de fonction.
-  - En fonction du contexte, si on n’a pas besoin de modifier les instances indépendamment mais plutôt grouper deux fonctions à appeler ensemble, on voudra peut-être plutôt utiliser **Combine Function into Transform**.
+  - En fonction du contexte, si on n’a pas besoin de modifier les instances indépendamment mais plutôt grouper deux fonctions à appeler ensemble, on voudra peut-être plutôt utiliser **[Combine Functions into Transform](#combine-functions-into-transform)**.
   - On peut aussi utiliser les fonctions imbriquées à la place des classes pour mutualiser les paramètres, mais dans ce cas on ne pourra accéder qu’à la fonction de plus haut niveau. La classe est plus flexible.
   - Il ne faut pas hésiter à créer des méthodes sous forme de getter pour aller dans le sens du **Uniform Access Principle**.
 
@@ -2201,7 +2201,7 @@
     - SI besoin on peut utiliser **[Split Variable](#split-variable)** pour la séparer en plusieurs variables avec une responsabilité chacune.
   - 2. On crée une fonction qui calcule la valeur de la variable.
   - 3. On utilise **[Introduce Assertion](#introduce-assertion)** pour vérifier que la variable et la fonction fournissent la même valeur.
-    - Si besoin, on peut utiliser **Encapsulate Variable** pour avoir un endroit où mettre l’assertion.
+    - Si besoin, on peut utiliser **[Encapsulate Variable](#encapsulate-variable)** pour avoir un endroit où mettre l’assertion.
   - 4. On teste.
   - 5. On remplace les accès à la variable par un appel à la fonction.
   - 6. On teste.
