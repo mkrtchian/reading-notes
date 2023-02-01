@@ -81,3 +81,23 @@
     - C’est la next step 🙂
 - Les nouveaux stades apparaissent de plus en plus rapidement au cours de l’histoire, on trouve aujourd’hui de nombreux stades coexistant au sein d’une même ville.
   - Vu l’accélération apparente, l’auteur imaginerait bien une ou deux évolutions majeures supplémentaires de notre vivant (opale et au-delà).
+
+## 1.2 - A propos des stades de développement
+
+- Pour éviter de penser que les formes plus avancées sont supérieures aux formes précédentes, l’auteur propose d’aborder la question par :
+  - La **complexité** : les formes avancées permettent d’aborder le monde avec plus de nuance.
+    - Ex : les points de vues antagonistes du vert vs l’impulsivité du rouge.
+  - Le **contexte** : en situation de guerre civile, la forme rouge sera sans doute plus efficace, par contre en temps de paix et pour gérer un ensemble de process mondialisés hyper complexes, ça le sera beaucoup moins.
+- Et pour éviter de **catégoriser trop facilement les personnes** comme étant à tel ou tel stade, on peut y ajouter que le modèle des stades ne fait que simplifier la réalité :
+  - Chacun peut adopter un fonctionnement d’un stade ou d’un autre en fonction du moment et de son propre entourage.
+  - Il y a différentes dimensions (cognitive, morale, psychologique, sociale, spirituelle etc.) dans lesquelles on peut être plutôt vers un stade ou un autre.
+  - On peut éventuellement parler du stade principal utilisé par une personne.
+- La catégorisation des entreprises en stade les catégorise d’abord en tant que structure et pas en tant que personnes qui seraient à tel ou tel stade.
+  - Et d’ailleurs même à l’intérieur de l’entreprise on peut avoir des différences : par exemple le siège social en orange et l’usine en ambre.
+- Exemple du cas de la rémunération pour chaque stade :
+  - Si le patron décide sur un coup de tête des augmentations, on est dans le rouge.
+  - Si on a des salaires déterminés par les diplômes ou le rôle, on est sur de l’ambre.
+  - Si on a des primes individuelles sur objectif, on est plutôt sur de l’orange.
+  - Si on a des primes d’équipe, on est plutôt sur du vert.
+- Les **dirigeants ont une influence capitale** sur le fonctionnement et donc le stade d’une entreprise : si eux-mêmes utilisent principalement un stade moins avancé, l’entreprise ne pourra pas arriver à un stade plus avancé.
+  - L’inverse par contre est possible : exemple : des cadres initialement habitués à l’ambre très hiérarchique, qui seraient incités par des consignes, des primes etc. à donner de l’autonomie, à faire des évaluations 360° etc. pourraient basculer petit à petit vers le vert.
