@@ -103,3 +103,27 @@
   - L’inverse par contre est possible : exemple : des cadres initialement habitués à l’ambre très hiérarchique, qui seraient incités par des consignes, des primes etc. à donner de l’autonomie, à faire des évaluations 360° etc. pourraient basculer petit à petit vers le vert.
 - Le stade vert étant efficace, ses principes sont copiés : par exemple le fait d’établir des valeurs.
   - Mais les organisations avec fonctionnement principal orange se distinguent par le fait que seul le résultat compte vraiment, et qu’en cas d’arbitrage, les valeurs cèdent immédiatement. La conséquence c’est que ces valeurs ne sont pas vraiment "vécues" (= valeurs bullshit).
+
+## 1.3 - Le stade évolutif opale
+
+- Le prochain stade de l’évolution de l’humanité peut être caractérisé comme “Authentique”, “Intégral”, “Opale” (en anglais “Teal”).
+  - On est au stade que Maslow appelle ‘l’accomplissement de soi’.
+  - On peut considérer qu’il y a une coupure entre les stades précédents et le stade Opale.
+- Le stade Opale est celui où on se **détache de son égo**.
+- Il s’agit de faire confiance à ce qu’on trouve juste, au fond de soi, et d’agir de manière authentique. Laisser **notre nature profonde** nous guider pour qu’elle s’exprime à travers nous.
+  - Si on considère les stades au regard de la décision :
+    - rouge : on décide en fonction de ce qui me permet d’obtenir ce que je veux.
+    - ambre : on décide en fonction de ce qui respecte les normes sociales.
+    - orange : on décide en fonction de ce qui mène à l’efficacité et au succès.
+    - vert : on décide en fonction de l’intégration de tous et de l’harmonie.
+    - opale : on décide en fonction de ce qu’on trouve juste en son for intérieur, y compris si ça implique de prendre des risques.
+  - Comme on est authentique et qu’on ne se cache pas derrière un masque, ça nous permet aussi de voir ce que les autres ont à offrir plutôt que leur manque.
+  - On a une approche stoïcienne de l’adversité : elle est une occasion pour nous faire grandir petit à petit.
+  - On n’est ni sur le pure rationnel de l’orange, ni sur du pur émotionnel / intuitif du vert, mais sur une synthèse prenant en compte les deux, une approche holistique.
+  - Quand on se recentre sur son for intérieur, on se rend compte qu’on est en fait une partie d’un tout, partie intégrante de la vie et de la nature.
+- A propos des organisations :
+  - Le vocabulaire “équilibre vie professionnelle - vie privée” est révélateur du fait qu’on n’est pas intégralement soi-même au travail.
+  - Comme les stades plus avancés permettent d’appréhender plus de complexité, les personnes utilisant principalement le paradigme Opale sont plus **efficaces** que les autres pour résoudre des problèmes.
+    - Il en est de même pour les entreprises dont le paradigme principal est l’Opale.
+  - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
+    - A l’inverse, si on laisse les collaborateurs être authentiques par rapport à ce qu’ils sont au fond d’eux, il n’y a pas besoin d’autant de règles, budgets détaillés, d’objectifs fixés etc.
