@@ -70,8 +70,8 @@
     - Le **consensus** est mis en avant comme processus de décision, et les chefs sont au service du bas plutôt que l’inverse.
     - Les cadres intermédiaires sont choisis et formés pour permettre au bas d’exprimer son plein potentiel et son **autonomie**.
       - Les cadres peuvent même être directement choisis par le bas.
-    - La **culture d’entreprise** est primordiale, devant même la vision stratégique.
-      - Le paradigme vert se différencie de l’orange par le fait que la culture et les valeurs ne sont pas bullshit mais vécues par tous.
+    - La **culture d’entreprise et les valeurs** sont primordiales, devant même la vision stratégique.
+      - Elles doivent être réellement "vécues".
       - Le paradigme vert utilise la métaphore de la famille ou du village.
     - L’intérêt des actionnaires est **mis en balance** avec l’intérêt des autres parties prenantes, et la responsabilité sociétale.
       - Là où dans le paradigme orange, l’intérêt des actionnaires est le principal mis en avant.
@@ -101,3 +101,5 @@
   - Si on a des primes d’équipe, on est plutôt sur du vert.
 - Les **dirigeants ont une influence capitale** sur le fonctionnement et donc le stade d’une entreprise : si eux-mêmes utilisent principalement un stade moins avancé, l’entreprise ne pourra pas arriver à un stade plus avancé.
   - L’inverse par contre est possible : exemple : des cadres initialement habitués à l’ambre très hiérarchique, qui seraient incités par des consignes, des primes etc. à donner de l’autonomie, à faire des évaluations 360° etc. pourraient basculer petit à petit vers le vert.
+- Le stade vert étant efficace, ses principes sont copiés : par exemple le fait d’établir des valeurs.
+  - Mais les organisations avec fonctionnement principal orange se distinguent par le fait que seul le résultat compte vraiment, et qu’en cas d’arbitrage, les valeurs cèdent immédiatement. La conséquence c’est que ces valeurs ne sont pas vraiment "vécues" (= valeurs bullshit).
