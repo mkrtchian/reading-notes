@@ -82,7 +82,7 @@
 - Les nouveaux stades apparaissent de plus en plus rapidement au cours de l’histoire, on trouve aujourd’hui de nombreux stades coexistant au sein d’une même ville.
   - Vu l’accélération apparente, l’auteur imaginerait bien une ou deux évolutions majeures supplémentaires de notre vivant (opale et au-delà).
 
-## 1.2 - A propos des stades de développement
+### 1.2 - A propos des stades de développement
 
 - Pour éviter de penser que les formes plus avancées sont supérieures aux formes précédentes, l’auteur propose d’aborder la question par :
   - La **complexité** : les formes avancées permettent d’aborder le monde avec plus de nuance.
@@ -104,7 +104,7 @@
 - Le stade vert étant efficace, ses principes sont copiés : par exemple le fait d’établir des valeurs.
   - Mais les organisations avec fonctionnement principal orange se distinguent par le fait que seul le résultat compte vraiment, et qu’en cas d’arbitrage, les valeurs cèdent immédiatement. La conséquence c’est que ces valeurs ne sont pas vraiment "vécues" (= valeurs bullshit).
 
-## 1.3 - Le stade évolutif opale
+### 1.3 - Le stade évolutif opale
 
 - Le prochain stade de l’évolution de l’humanité peut être caractérisé comme “Authentique”, “Intégral”, “Opale” (en anglais “Teal”).
   - On est au stade que Maslow appelle ‘l’accomplissement de soi’.
@@ -128,7 +128,7 @@
   - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
     - A l’inverse, si on laisse les collaborateurs être authentiques par rapport à ce qu’ils sont au fond d’eux, il n’y a pas besoin d’autant de règles, budgets détaillés, d’objectifs fixés etc.
 
-## 2.1 - Trois avancées et une métaphore
+### 2.1 - Trois avancées et une métaphore
 
 - Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme vert elle était une famille, dans le paradigme opale elle est un **organisme vivant**.
   - Même bienveillant et au service d’eux, un dirigeant d’entreprise qui se présente comme père de famille par rapport à ses subordonnés n’occupe pas forcément le rôle le plus émancipateur possible.
