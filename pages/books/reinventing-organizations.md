@@ -127,3 +127,28 @@
     - Il en est de même pour les entreprises dont le paradigme principal est l’Opale.
   - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
     - A l’inverse, si on laisse les collaborateurs être authentiques par rapport à ce qu’ils sont au fond d’eux, il n’y a pas besoin d’autant de règles, budgets détaillés, d’objectifs fixés etc.
+
+## 2.1 - Trois avancées et une métaphore
+
+- Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme vert elle était une famille, dans le paradigme opale elle est un **organisme vivant**.
+  - Même bienveillant et au service d’eux, un dirigeant d’entreprise qui se présente comme père de famille par rapport à ses subordonnés n’occupe pas forcément le rôle le plus émancipateur possible.
+- Les entreprises Opale ont trois caractéristiques majeures :
+  - **L’autogouvernance** : il n’y a pas de hiérarchie, on fonctionne d’égal à égal.
+  - **L’affirmation de soi (wholeness)** : il s’agit de venir au travail tel qu’on est dans sa totalité et son authenticité, y compris ses vulnérabilités, ses émotions, etc.
+  - **La raison d’être évolutive** : comme un organisme vivant, les cellules de l’entreprise avancent dans la bonne direction de manière “organique”.
+- Les 12 entreprises étudiées :
+  - **AES** : entreprise d’énergie américaine, 40 000 collaborateurs.
+  - **BSO/origin** : entreprise de conseil en informatique aux Pays Bas, 10 000 collaborateurs.
+  - **Buurtzorg** : entreprise à but non lucratif de soin aux personnes âgées, aux Pays Bas, 7000 collaborateurs.
+  - **ESBZ** : collège et lycée en Allemagne, 1500 personnes (élèves inclus).
+  - **FAVI** : entreprise de métallurgie française, 500 collaborateurs.
+  - **Heiligenfeld** : hôpital psychiatrique en Allemagne, 700 collaborateurs.
+  - **Holacracy** : entreprise de formation américaine.
+  - **Morning Star** : entreprise de transport de tomates américaine, 400 à 2400 collaborateurs.
+  - **Patagonia** : entreprise de fabrication de vêtements américaine, 1350 collaborateurs.
+  - **RHD** : entreprise à but non lucratif pour aider les personnes handicapées et sans abri, aux Etats-Unis, 4000 collaborateurs.
+  - **Sounds True** : entreprise qui diffuse des contenus spirituels aux Etats-Unis, 90 collaborateurs et 20 chiens.
+  - **Sun Hydraulics** : entreprise multinationale américaine qui fabrique des composants hydrauliques, 900 collaborateurs.
+- Certaines de ces entreprises (comme **AES** et **BSO/origin**) étaient Opale et sont revenues à des pratiques plus traditionnelles.
+- La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star **par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
+- L’étude de l’ensemble de ces entreprise permet d’avoir une vue d’ensemble des pratiques qui reviennent.
