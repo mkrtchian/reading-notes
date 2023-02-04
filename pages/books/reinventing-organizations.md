@@ -63,7 +63,7 @@
     - Exemple contemporain :
       - On peut citer les grandes multinationales (Amazon, Nike etc.).
   - **Stade Pluraliste - Paradigme Vert**
-    - La partie de l’universalisme que promet le stade orange sans vraiment le donner, le stade vert propose de le réaliser : castes, classes sociales, patriarcat, religions, il s’agit de s’attaquer à tout ça.
+    - La partie de l’universalisme que promet le stade orange sans vraiment le donner, le stade Vert propose de le réaliser : castes, classes sociales, patriarcat, religions, il s’agit de s’attaquer à tout ça.
     - Avant le 19ème siècle très peu de gens étaient dans ce paradigme (ex : abolition de l’eslcavage, lutte pour le droit des femmes).
       - A partir du 20ème siècle il y en a de plus en plus, en particulier dans le monde universitaire et associatif.
     - Pour autant, même s’il arrive à abattre les anciens paradigmes, il n’arrive pas à proposer une alternative réellement crédible et durable : le pouvoir éliminé finit par revenir par la fenêtre.
@@ -72,7 +72,7 @@
       - Les cadres peuvent même être directement choisis par le bas.
     - La **culture d’entreprise et les valeurs** sont primordiales, devant même la vision stratégique.
       - Elles doivent être réellement "vécues".
-      - Le paradigme vert utilise la métaphore de la famille ou du village.
+      - Le paradigme Vert utilise la métaphore de la famille ou du village.
     - L’intérêt des actionnaires est **mis en balance** avec l’intérêt des autres parties prenantes, et la responsabilité sociétale.
       - Là où dans le paradigme orange, l’intérêt des actionnaires est le principal mis en avant.
     - Exemple contemporain :
@@ -80,31 +80,31 @@
   - **Paradigme Opale**
     - C’est la next step 🙂
 - Les nouveaux stades apparaissent de plus en plus rapidement au cours de l’histoire, on trouve aujourd’hui de nombreux stades coexistant au sein d’une même ville.
-  - Vu l’accélération apparente, l’auteur imaginerait bien une ou deux évolutions majeures supplémentaires de notre vivant (opale et au-delà).
+  - Vu l’accélération apparente, l’auteur imaginerait bien une ou deux évolutions majeures supplémentaires de notre vivant (Opale et au-delà).
 
 ### 1.2 - A propos des stades de développement
 
 - Pour éviter de penser que les formes plus avancées sont supérieures aux formes précédentes, l’auteur propose d’aborder la question par :
   - La **complexité** : les formes avancées permettent d’aborder le monde avec plus de nuance.
-    - Ex : les points de vues antagonistes du vert vs l’impulsivité du rouge.
-  - Le **contexte** : en situation de guerre civile, la forme rouge sera sans doute plus efficace, par contre en temps de paix et pour gérer un ensemble de process mondialisés hyper complexes, ça le sera beaucoup moins.
+    - Ex : les points de vues antagonistes du Vert vs l’impulsivité du Rouge.
+  - Le **contexte** : en situation de guerre civile, la forme Rouge sera sans doute plus efficace, par contre en temps de paix et pour gérer un ensemble de process mondialisés hyper complexes, ça le sera beaucoup moins.
 - Et pour éviter de **catégoriser trop facilement les personnes** comme étant à tel ou tel stade, on peut y ajouter que le modèle des stades ne fait que simplifier la réalité :
   - Chacun peut adopter un fonctionnement d’un stade ou d’un autre en fonction du moment et de son propre entourage.
   - Il y a différentes dimensions (cognitive, morale, psychologique, sociale, spirituelle etc.) dans lesquelles on peut être plutôt vers un stade ou un autre.
   - On peut éventuellement parler du stade principal utilisé par une personne.
 - La catégorisation des entreprises en stade les catégorise d’abord en tant que structure et pas en tant que personnes qui seraient à tel ou tel stade.
-  - Et d’ailleurs même à l’intérieur de l’entreprise on peut avoir des différences : par exemple le siège social en orange et l’usine en ambre.
+  - Et d’ailleurs même à l’intérieur de l’entreprise on peut avoir des différences : par exemple le siège social en orange et l’usine en Ambre.
 - Exemple du cas de la rémunération pour chaque stade :
-  - Si le patron décide sur un coup de tête des augmentations, on est dans le rouge.
-  - Si on a des salaires déterminés par les diplômes ou le rôle, on est sur de l’ambre.
+  - Si le patron décide sur un coup de tête des augmentations, on est dans le Rouge.
+  - Si on a des salaires déterminés par les diplômes ou le rôle, on est sur de l’Ambre.
   - Si on a des primes individuelles sur objectif, on est plutôt sur de l’orange.
-  - Si on a des primes d’équipe, on est plutôt sur du vert.
+  - Si on a des primes d’équipe, on est plutôt sur du Vert.
 - Les **dirigeants ont une influence capitale** sur le fonctionnement et donc le stade d’une entreprise : si eux-mêmes utilisent principalement un stade moins avancé, l’entreprise ne pourra pas arriver à un stade plus avancé.
-  - L’inverse par contre est possible : exemple : des cadres initialement habitués à l’ambre très hiérarchique, qui seraient incités par des consignes, des primes etc. à donner de l’autonomie, à faire des évaluations 360° etc. pourraient basculer petit à petit vers le vert.
-- Le stade vert étant efficace, ses principes sont copiés : par exemple le fait d’établir des valeurs.
+  - L’inverse par contre est possible : exemple : des cadres initialement habitués à l’Ambre très hiérarchique, qui seraient incités par des consignes, des primes etc. à donner de l’autonomie, à faire des évaluations 360° etc. pourraient basculer petit à petit vers le Vert.
+- Le stade Vert étant efficace, ses principes sont copiés : par exemple le fait d’établir des valeurs.
   - Mais les organisations avec fonctionnement principal orange se distinguent par le fait que seul le résultat compte vraiment, et qu’en cas d’arbitrage, les valeurs cèdent immédiatement. La conséquence c’est que ces valeurs ne sont pas vraiment "vécues" (= valeurs bullshit).
 
-### 1.3 - Le stade évolutif opale
+### 1.3 - Le stade évolutif Opale
 
 - Le prochain stade de l’évolution de l’humanité peut être caractérisé comme “Authentique”, “Intégral”, “Opale” (en anglais “Teal”).
   - On est au stade que Maslow appelle ‘l’accomplissement de soi’.
@@ -112,14 +112,14 @@
 - Le stade Opale est celui où on se **détache de son égo**.
 - Il s’agit de faire confiance à ce qu’on trouve juste, au fond de soi, et d’agir de manière authentique. Laisser **notre nature profonde** nous guider pour qu’elle s’exprime à travers nous.
   - Si on considère les stades au regard de la décision :
-    - rouge : on décide en fonction de ce qui me permet d’obtenir ce que je veux.
-    - ambre : on décide en fonction de ce qui respecte les normes sociales.
+    - Rouge : on décide en fonction de ce qui me permet d’obtenir ce que je veux.
+    - Ambre : on décide en fonction de ce qui respecte les normes sociales.
     - orange : on décide en fonction de ce qui mène à l’efficacité et au succès.
-    - vert : on décide en fonction de l’intégration de tous et de l’harmonie.
-    - opale : on décide en fonction de ce qu’on trouve juste en son for intérieur, y compris si ça implique de prendre des risques.
+    - Vert : on décide en fonction de l’intégration de tous et de l’harmonie.
+    - Opale : on décide en fonction de ce qu’on trouve juste en son for intérieur, y compris si ça implique de prendre des risques.
   - Comme on est authentique et qu’on ne se cache pas derrière un masque, ça nous permet aussi de voir ce que les autres ont à offrir plutôt que leur manque.
   - On a une approche stoïcienne de l’adversité : elle est une occasion pour nous faire grandir petit à petit.
-  - On n’est ni sur le pure rationnel de l’orange, ni sur du pur émotionnel / intuitif du vert, mais sur une synthèse prenant en compte les deux, une approche holistique.
+  - On n’est ni sur le pure rationnel de l’orange, ni sur du pur émotionnel / intuitif du Vert, mais sur une synthèse prenant en compte les deux, une approche holistique.
   - Quand on se recentre sur son for intérieur, on se rend compte qu’on est en fait une partie d’un tout, partie intégrante de la vie et de la nature.
 - A propos des organisations :
   - Le vocabulaire “équilibre vie professionnelle - vie privée” est révélateur du fait qu’on n’est pas intégralement soi-même au travail.
@@ -130,7 +130,7 @@
 
 ### 2.1 - Trois avancées et une métaphore
 
-- Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme vert elle était une famille, dans le paradigme opale elle est un **organisme vivant**.
+- Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme Vert elle était une famille, dans le paradigme Opale elle est un **organisme vivant**.
   - Même bienveillant et au service d’eux, un dirigeant d’entreprise qui se présente comme père de famille par rapport à ses subordonnés n’occupe pas forcément le rôle le plus émancipateur possible.
 - Les entreprises Opale ont trois caractéristiques majeures :
   - **L’autogouvernance** : il n’y a pas de hiérarchie, on fonctionne d’égal à égal.
@@ -151,4 +151,107 @@
   - **Sun Hydraulics** : entreprise multinationale américaine qui fabrique des composants hydrauliques, 900 collaborateurs.
 - Certaines de ces entreprises (comme **AES** et **BSO/origin**) étaient Opale et sont revenues à des pratiques plus traditionnelles.
 - La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star **par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
-- L’étude de l’ensemble de ces entreprise permet d’avoir une vue d’ensemble des pratiques qui reviennent.
+- L’étude de l’ensemble de ces entreprises permet d’avoir une vue d’ensemble des pratiques qui reviennent.
+
+## 2.2 - Autogouvernance (structures)
+
+- Dans la plupart des entreprises la concentration du pouvoir fait qu’il y a une grande partie des salariés qui sont démotivés, parce qu'ils n’ont aucune prise sur ce qu’ils font, et n’y trouvent donc pas de sens.
+- La forme Verte donne le pouvoir au bas de l’échelle, mais elle implique qu’il y ait en haut des dirigeants qui œuvrent pour favoriser ce fonctionnement.
+  - La forme Opale va plus loin en impliquant qu’**aucune personne n’ait de pouvoir sur une autre, par construction**.
+- Exemple de **Buurtzorg** qui a fait passer tout un secteur d’Orange à Opale :
+  - Le contexte c’est des infirmières employées par des organisations de plus en plus grosses, avec une division des tâches de plus en plus marquée, et des critères de rentabilité décidés par le haut.
+    - Résultat : des actes chronométrés, des infirmières et des patients de plus en plus déshumanisés.
+  - **Buurtzorg **arrive là dedans avec :
+    - Des équipes **autonomes** : des groupes de 10 à 12 personnes travaillant sur un périmètre restreint, et s'occupant eux-mêmes des décisions d’organisation, planning, partenariats, résolution des problèmes etc.
+    - Résultat :
+      - Les infirmières prennent beaucoup plus le temps de s’occuper de leurs patients.
+      - Elles veillent aussi à autonomiser un maximum leurs patients, pour qu’ils n’aient plus besoin d’elles.
+      - L’entreprise est particulièrement performante, par exemple : les patients guérissent 40% plus vite.
+      - En 2013 **Buurtzorg** employait les 2/3 des infirmières de quartier des Pays Bas.
+    - Les équipes d’infirmières n’ont **pas de chef** : pour que ça marche, chaque recrue est **formée** aux techniques de prise de décision collective.
+      - Typiquement dans une réunion où il faut décider, le groupe choisit un facilitateur qui ne peut pas suggérer ni décider, mais est chargé de demander aux autres ce qu’ils proposent et pourquoi.
+        - Puis on discute et améliore collectivement les propositions.
+        - Et enfin le groupe décide et choisit une solution à laquelle il n’y a pas d’objection de principe.
+      - L’absence de subordination n’enlève pas les rapports de reconnaissance, d’influence et de talent. On remplace la hiérarchie de pouvoir par une “hiérarchie naturelle” où chacun trouve une place particulière en fonction de ce qu’il apporte au groupe.
+    - Il n’y a **pas de middle management** : il n’y a que des coachs régionaux, s’occupant chacune de 50 équipes (un nombre élevé à dessin, pour les empêcher de trop s’y impliquer).
+      - Les coachs n’ont pas de pouvoir ni de responsabilité, elles ne sont là que pour aider dans le cas où les équipes demandent de l’aide.
+    - Quelques règles que les équipes s’engagent à respecter :
+      - Les équipes doivent se scinder au-delà de 12 personnes.
+      - Les équipes doivent faire attention à se partager les responsabilités, pour **éviter qu’une hiérarchie traditionnelle réémerge**.
+      - Les équipes doivent faire certaines réunions de partage de connaissance, s’évaluer chaque année en fonction de critères qu’elles établissent, établir des plans annuels pour mettre en œuvre leurs initiatives.
+      - Elles ont pour objectif de facturer 60 à 65% du temps.
+    - Les **fonctions de support** sont réduites au minimum : en dehors de la dizaine de coachs et du fondateur, le siège compte une trentaine de personnes, pour 600 équipes d’une douzaine d’infirmières (7000 personnes).
+      - Dans les entreprises classiques on a beaucoup de fonctions de support : RH, planning stratégique, juridique, finance, communication, relations internes, contrôle qualité etc.
+        - Les fonctions de support permettent des économies d’échelle grâce à la spécialisation, mais d’un autre côté elles font perdre encore plus sous forme de démotivation des salariés.
+        - L’autre raison c’est l’impression de pouvoir que ça donne aux dirigeants : les fonctions support sont comme des manettes utilisées pour contrôler ce qui se passe en bas.
+      - Chez **Buurtzorg** la quasi-totalité des choses est faite directement par les équipes, y compris par exemple le recrutement qui se fait en général par cooptation.
+        - La spécialisation (sur des questions médicales par exemple) est principalement gérée en encourageant les infirmières qui sont dans les équipes à acquérir une spécialité, et à servir de référente sur cette spécialité pour les autres équipes.
+        - Si besoin, on engage une personne indépendante (sur du juridique par exemple) sans lui confier de pouvoir, plutôt que de l’embaucher au siège.
+- Autre exemple d’entreprise Opale : **FAVI**.
+  - Alors que toutes les entreprises de métallurgie délocalisent en Chine, celle-ci est restée en France.
+    - Elle est passée d’une entreprise traditionnelle de 80 personnes avec une grosse hiérarchie et pas mal de fonctions de support, à 500 personnes avec très peu de hiérarchie suite à un changement de direction.
+    - Ils font une bonne marge et leurs salaires sont au dessus de la moyenne malgré la concurrence chinoise.
+  - Le personnel est divisé en équipes de 15 à 50 personnes, en général centrées autour d’un client (Audi, Volkswagen etc.).
+  - L’encadrement intermédiaire et la plupart des effectifs de fonction de support ont disparu, les équipes décident elles-mêmes.
+  - Les directeurs de clientèle sont au sein des équipes, ils partagent l’information des commandes passées par les clients chaque semaine, et l’équipe décide immédiatement du planning, en cherchant des solutions si besoin.
+    - Les directeurs de clientèle n’ont pas d’objectif de chiffre d'affaires.
+  - Là où avec les entreprises pyramidales les personnes qui sont en haut passent leur temps à se réunir pour coordonner l’ensemble, dans les entreprises horizontales il n’y a quasiment pas de réunions en haut, **on se réunit en bas quand ça apporte de la valeur**.
+    - Pour revenir à **Buurtzorg**, le fondateur et les coachs ne se réunissent que 4 fois par an pour faire le point et voir ce qu’il y a à régler. Ce nombre est très faible à dessein, pour éviter d’interférer avec l’autonomie des équipes.
+  - A propos de la **coordination** chez **FAVI** :
+    - Pour se répartir temporairement entre équipes en fonction de la charge de travail, une personne de chaque équipe se réunit régulièrement pour faire le point, puis chacun retourne dans son équipe demander qui voudrait aller dans telle autre équipe surchargée pendant quelques jours.
+      - C’est basé sur le volontariat.
+    - L’investissement est décidé par les équipes elles-mêmes. Si une équipe décidait de plaquer en or leur machine, les autres s’en apercevraient vite et exerceraient une “pression amicale” pour les en dissuader.
+      - Si le budget d’investissement total est trop élevé, le DG demande aux équipes de revenir vers lui avec un autre plan.
+    - Certaines fonctions support émergent d’elles-mêmes parce qu’il y a un besoin particulier à un moment donné, et doivent disparaître si elles ne suscitent pas ou plus l’intérêt des équipes.
+      - Elles n’ont pas de pouvoir sur les équipes.
+  - Le contrôle laisse la place à la **confiance** :
+    - Les salariés savent mieux que la direction ou que les fonctions support quelle cadence est la plus optimale. Une fois les pointeuses et autres outils de contrôle supprimés, la productivité a augmenté.
+    - L’émulation qui vient avec la responsabilité et la pression des collègues régule bien mieux les comportements que la surveillance.
+    - Les salariés n’ont pas besoin de la direction pour s’organiser exceptionnellement pour répondre à une demande inhabituelle d’un client, et ça se fait plus efficacement parce qu’ils sont fiers de leur exploit.
+- Exemple de **Sun Hydraulics**.
+  - Là aussi il n’y a pas de contrôle qualité, de service achats, ni de pointeuses.
+  - L’entreprise est largement bénéficiaire et en croissance depuis 50 ans.
+  - La **gestion de projet** classique est éliminée :
+    - Il n’y a pas d’échéances et de budgets à fixer, ni d’avancement à suivre, et pas non plus de statistiques à surveiller. Pas non plus de coupable à trouver sur qui rejeter la faute au cas où le plan serait dépassé.
+    - Les salariés doivent **occuper leur temps à ce qu’ils estiment le plus productif**. C’est la règle du “20% de temps” de Google, mais étendue à 100% du temps.
+    - Les projets qui ne trouvent personne ne sont tout simplement pas assez importants.
+- Exemple d’**AES**.
+  - C’est un exemple qui montre que même avec des dizaines de milliers de collaborateurs, il est possible d’avoir des pratiques d’auto-gouvernance.
+    - Il montre aussi qu’on peut dériver vers un mode traditionnel si on ne fait pas attention.
+  - Les effectifs étaient organisés en équipes de 15 à 20 personnes, avec 15 à 20 équipes par site, pour pouvoir mettre un visage sur les collègues.
+    - Seulement 100 personnes au siège pour 40 000 salariés.
+  - Les équipes avaient de **nombreuses responsabilités** :
+    - Budget, planning, charge de travail, horaires de travail.
+    - Recrutement et licenciement.
+    - Formation, évaluation.
+    - Investissement, achat et contrôle qualité, stratégie de long terme.
+  - L’idée est que plus on leur donne de responsabilité, plus ils se sentent investis et trouvent le travail _amusant_.
+  - Vu sa taille impressionnante (et avant de repasser au mode traditionnel), **AES** avait mis en place la règle du 80-20 : chaque salarié devait passer 80% de son temps à son métier de base, et 20% à des **groupes de travail** dans l’entreprise.
+    - Ces groupes de travail remplaçaient les fonctions transverses : définition du budget, réalisation des audits etc.
+    - Ces groupes apportaient un authentique sentiment d’appartenance du fait de la responsabilité confiée.
+- Les responsabilités étant très partagées au sein des entreprises Opale, **il n’y a pas d’organigramme**, les titres étant considérés comme le “sucre de l'égo" (mauvais pour la santé).
+  - Plutôt que de faire rentrer les salariés dans des rôles prédéfinis, on fait émerger les “rôles” naturellement en fonction de l’investissement de chacun.
+    - Et comme elles ne sont pas figées par un titre, ces activités peuvent varier dans le temps.
+  - C’est très marqué chez **Buurtzorg** où les infirmières font tourner le management.
+    - Ca l’est un peu moins chez **FAVI** qui a des “Team leaders” qui ont l’essentiel de ce rôle. La raison est qu’il est plus difficile de le faire tourner chez les ouvriers qui devraient arrêter leur machine, alors que ce genre de problème ne se pose pas chez les infirmières.
+    - Ceci dit les “Team leaders” des équipes de **FAVI** ont un pouvoir limité, et s’ils se comportent de manière autoritaire, les membres des équipes peuvent tout simplement changer d’équipe librement.
+  - On retrouve parfois une liste de certains rôles occupés actuellement, par exemple dans l’intranet de **Buurtzorg**, on peut trouver les collègues qui ont une spécialité particulière pour savoir qui contacter en cas de besoin sur un sujet spécifique.
+- Exemple d’**ESBZ** permet de représenter le paradigme Opale dans le milieu scolaire.
+  - L’école est généralement l’une des organisations les plus éloignées de l’auto-gouvernance, avec les enfants qui doivent se conformer à rester assis toute la journée, et capter le savoir du professeur, sans participer eux-mêmes.
+  - **ESBZ **a adopté une manière de fonctionner très différente : chaque enfant est encouragé à incarner ce qu’il est vraiment, dans sa singularité, et dans le talent qu’il veut développer.
+    - Le résultat c’est que les enfants ne traînent pas des pieds mais sont heureux d’aller étudier, parce qu’ils sont les moteurs de leur propre apprentissage.
+  - Concrètement, la plupart des cours magistraux ont été abandonnés, et remplacés par des fiches qu’on donne aux enfants, en les laissant étudier eux-mêmes à leur propre rythme, seuls et en groupe.
+    - Les professeurs sont disponibles principalement pour **répondre aux sollicitations des élèves** par un accompagnement personnalisé, quand les autres élèves n’ont pas pu aider leur camarade.
+    - Chaque élève peut décider de passer plus ou moins de temps sur chaque matière et thématique, avec beaucoup de modules optionnels.
+    - Les **classes sont composés de différents niveaux**, les plus grands apprennent aux plus jeunes, ce qui leur permet eux-mêmes de mieux assimiler.
+    - Ca permet aussi aux enfants handicapés d’être intégrés aux mêmes classes, et d’avancer eux aussi à leur rythme.
+  - Pour quand même faire en sorte que les enfants aillent dans la bonne direction, ils voient un professeur chaque semaine pour faire le point sur ce qu’ils ont fait et parler aussi de ce qui se passe bien ou moins bien.
+    - Ils se fixent aussi des objectifs deux fois par an.
+    - Les objectifs sont de différents ordres, pas seulement les connaissances, ça peut par exemple aussi être le fait d’être plus à l’aise au niveau de la prise de parole en public.
+  - Une partie du temps est réservé à l’apprentissage chacun à son rythme, et l’autre partie est consacrée au travail sur des projets individuels et collectifs qui ont un impact dans la vraie vie, et qui sont issus de **sujets que les enfants ont identifiés comme comptant pour eux**.
+    - Par exemple : coordonner la rénovation des bâtiments de l’école, tenter d’obtenir des normes environnementales plus élevées de la part du conseil municipal etc.
+    - Ils ont aussi des sessions dédiées à sortir de leur zone de confort, par exemple un bivouac à plusieurs dans les bois, ou méditer en silence dans un monastère pendant plusieurs semaines, ou encore parcourir l’Allemagne en bicyclette, en sollicitant le gîte et le couvert.
+  - Côté professeurs, ils fonctionnent en équipe : deux professeurs par classe, et une “mini-école” autonome toutes les 3 classes, collaborant sur une base régulière et capable de répondre aux problèmes, l’équivalent des équipes de **FAVI**, **Buurtzorg** ou **AES**.
+  - Les parents aussi sont partie prenante : comme l’école ne reçoit pas d’argent en dehors du salaire des professeurs, les parents contribuent en fonction de leurs revenus, mais aussi en donnant 3 heures de leur temps par mois.
+    - Ils sont en auto-gouvernance pour ce temps accordé qui peut servir par exemple à rénover les locaux de l’école.
+  - **ESBZ** fonctionne avec le même nombre de professeurs par élève que les autres écoles, et avec un budget inférieur, même en tenant compte de la contribution des parents. Donc ce qu’elle fait est à la portée des autres écoles.
