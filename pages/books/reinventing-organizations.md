@@ -128,6 +128,8 @@
   - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
     - A l’inverse, si on laisse les collaborateurs être authentiques par rapport à ce qu’ils sont au fond d’eux, il n’y a pas besoin d’autant de règles, budgets détaillés, d’objectifs fixés etc.
 
+## 2 - Structures, modes de fonctionnement et culture des organisations Opale
+
 ### 2.1 - Trois avancées et une métaphore
 
 - Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme Vert elle était une famille, dans le paradigme Opale elle est un **organisme vivant**.
@@ -153,7 +155,7 @@
 - La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star **par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
 - L’étude de l’ensemble de ces entreprises permet d’avoir une vue d’ensemble des pratiques qui reviennent.
 
-## 2.2 - Autogouvernance (structures)
+### 2.2 - Autogouvernance (structures)
 
 - Dans la plupart des entreprises la concentration du pouvoir fait qu’il y a une grande partie des salariés qui sont démotivés, parce qu'ils n’ont aucune prise sur ce qu’ils font, et n’y trouvent donc pas de sens.
 - La forme Verte donne le pouvoir au bas de l’échelle, mais elle implique qu’il y ait en haut des dirigeants qui œuvrent pour favoriser ce fonctionnement.
