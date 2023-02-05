@@ -238,7 +238,7 @@
     - Ca l’est un peu moins chez **FAVI** qui a des “Team leaders” qui ont l’essentiel de ce rôle. La raison est qu’il est plus difficile de le faire tourner chez les ouvriers qui devraient arrêter leur machine, alors que ce genre de problème ne se pose pas chez les infirmières.
     - Ceci dit les “Team leaders” des équipes de **FAVI** ont un pouvoir limité, et s’ils se comportent de manière autoritaire, les membres des équipes peuvent tout simplement changer d’équipe librement.
   - On retrouve parfois une liste de certains rôles occupés actuellement, par exemple dans l’intranet de **Buurtzorg**, on peut trouver les collègues qui ont une spécialité particulière pour savoir qui contacter en cas de besoin sur un sujet spécifique.
-- Exemple d’**ESBZ** permet de représenter le paradigme Opale dans le milieu scolaire.
+- L'exemple d’**ESBZ** permet de représenter le paradigme Opale dans le milieu scolaire.
   - L’école est généralement l’une des organisations les plus éloignées de l’auto-gouvernance, avec les enfants qui doivent se conformer à rester assis toute la journée, et capter le savoir du professeur, sans participer eux-mêmes.
   - **ESBZ **a adopté une manière de fonctionner très différente : chaque enfant est encouragé à incarner ce qu’il est vraiment, dans sa singularité, et dans le talent qu’il veut développer.
     - Le résultat c’est que les enfants ne traînent pas des pieds mais sont heureux d’aller étudier, parce qu’ils sont les moteurs de leur propre apprentissage.
@@ -257,3 +257,128 @@
   - Les parents aussi sont partie prenante : comme l’école ne reçoit pas d’argent en dehors du salaire des professeurs, les parents contribuent en fonction de leurs revenus, mais aussi en donnant 3 heures de leur temps par mois.
     - Ils sont en auto-gouvernance pour ce temps accordé qui peut servir par exemple à rénover les locaux de l’école.
   - **ESBZ** fonctionne avec le même nombre de professeurs par élève que les autres écoles, et avec un budget inférieur, même en tenant compte de la contribution des parents. Donc ce qu’elle fait est à la portée des autres écoles.
+
+### 2.3 - Autogouvernance (processus)
+
+- Le chapitre précédent traitait de la structuration des entreprises auto-gouvernées (absence de hiérarchie et fonction support limitées, équipes de taille limitée et sur-responsabilisées), celui-ci traite des processus : comment sont prises les décisions, qui peut dépenser l’argent de l’entreprise, comment décider des primes et augmentations etc.
+- Les entreprises Opale ne prennent pas la majorité des décisions au consensus, ce serait trop long.
+  - Elles utilisent plutôt une version de la **sollicitation d’avis** (advice process) : toute personne peut prendre une décision, mais pour ce faire elle doit : 1) recueillir l’**avis des concernés**, et 2) recueillir l’**avis des experts du sujet**.
+    - La décision est prise par la personne qui a identifié le problème ou l’opportunité, ou la personne concernée par le sujet.
+    - Plus la décision est importante, plus elle doit ratisser large pour recueillir les avis.
+    - La personne qui prend la décision n’a pas à prendre en compte l’ensemble des avis dans une synthèse consensuelle (comme dans le cas du consensus), elle doit juste les recueillir pour en avoir connaissance au moment de sa prise de décision.
+      - Les avis contraires, même de la part du DG, n’invalident pas la décision.
+      - La prise des avis en soi invite à l’humilité, à l’apprentissage, et à la responsabilisation. La personne qui prend la décision devra en général gérer les conséquences.
+    - Ne pas solliciter l’avis avant de prendre une décision était une des rares causes de licenciement chez **AES** et d’autres.
+    - Un variante a été présentée dans le chapitre 2.2, au moment d’analyser le fonctionnement de **Buurtzorg** : un facilitateur désigné qui aide à recueillir les propositions, un 2ème tour pour les questionner et les améliorer, et un dernier tour pour que le groupe en choisisse un, tant que personne ne présente “d'objection de principe” (non pas juste un désaccord parce qu’il préfèrerait sa solution, mais un désaccord grave qui va à l’encontre de ses valeurs par exemple).
+  - La prise de décision au consensus est typique des entreprises au stade Vert. Elle a plusieurs problèmes :
+    - N’importe qui peut bloquer la décision au moindre désaccord, et donc on se retrouve souvent à ne pas avancer.
+    - Elle dilue la responsabilité : personne en particulier ne se sentant responsable, et donc personne ne s'enthousiasme à tout faire pour que ça marche, et n’assume les conséquences.
+- Pour ce qui est des décisions en **situation de crise** (par exemple si la santé financière de l’entreprise nécessite des licenciements ou ce genre de chose qui peut provoquer le chaos) :
+  - Le DG ne peut pas simplement reprendre le contrôle quand il a envie sans entacher la confiance dans la nature auto-gouvernée de la structure.
+    - Le pire serait de céder à la peur et faire des actions en cachette.
+  - La solution idéale est de **garder la sollicitation d’avis** même en période de crise.
+    - Exemple de **FAVI** : juste après la première guerre du Golf, les commandes avaient significativement baissé, et maintenir les effectifs n'était pas possible. Le DG a demandé à l’ensemble des salariés d’arrêter les machines et de se rassembler pour leur exposer la situation délicate. Un des salariés a proposé de réduire le temps de travail de l’ensemble des salariés de 25% sur les prochains mois. La proposition a été adoptée à l’unanimité.
+  - Si ce n’est vraiment pas possible, le DG peut reprendre le contrôle temporairement pour gérer la crise, mais il faut absolument qu’il donne des gages à ses salariés : indiquer la nature et la temporalité du changement du mode de décision, et nommer pour le faire une personne qui ne pourra pas être soupçonnée de vouloir continuer à exercer le pouvoir ensuite.
+    - Exemple d’**AES** : en 2001, suite à une situation de crise, l’action de l’entreprise avait chuté, et l’accès au marché de capitaux n’était plus possible. Il fallait rapidement décider quelles centrales fermer pour ne pas faire faillite. Le nombre de salariés étant trop grand, et la décision complexe, le DG a indiqué à tout le monde qu’il allait prendre une décision unilatérale sur ce sujet, et a nommé une personne externe pour mener à bien la mission.
+- A propos des **décisions d’achat et d'investissement** pour l’entreprise :
+  - Dans les entreprises Opale, il n’y a pas de seuil à ne pas dépasser ni d’autorisation à demander, ni non plus de service qui fait les commandes à la place des salariés. Ce sont les salariés qui négocient et commandent ce dont ils ont besoin.
+    - La règle reste qu’il faut demander l’avis des personnes concernées et expertes, et plus le montant est élevé, plus il faudra demander d’avis.
+  - Pour ce qui de la question des achats groupés pour des raisons d’économie, ou pour avoir le même fournisseur, ça se règle en faisant confiance et en responsabilisant : une personne finira par s’en rendre compte et fera le tour des équipes pour prendre les quantités et passer la commande.
+    - C’est par exemple ce qui s’est passé chez **Morning Star** où le matériel d’emballage est utilisé en grande quantité dans les équipes.
+    - La **coordination émerge d’elle-même** dès que le besoin s’en fait sentir.
+- A propos de la communication des informations en interne : **tout est transparent**, et surtout les informations les plus sensibles.
+  - Il y a plusieurs raisons à cette transparence :
+    - Sans hiérarchie, les équipes autonomes doivent avoir accès à toute l’information pour prendre leurs décisions.
+    - Toute information qui serait cachée serait source de suspicion : “Pourquoi on prend la peine de nous cacher ces infos ?”.
+    - Des hiérarchies officieuses réapparaîtraient entre ceux qui sont dans la confidence et ceux qui ne le sont pas.
+  - Parmi les informations transparentes, on trouve par exemple les résultats de l’entreprise, mais aussi les salaires de chacun, et les performances de chaque équipe.
+    - Il n’y a pas de culture de la peur, et si certaines équipes traversent une mauvaise passe, elles peuvent entrer en contact avec celles qui réussissent mieux pour s’en inspirer.
+  - Les informations sont en général mises dans l’**intranet** de l’entreprise pour pouvoir être consultables facilement par tous, sans être déformées.
+  - Une autre manière de communiquer les informations importantes c’est en **assemblée générale**. Elles sont imprévisibles et donc risquées, et c’est pour ça qu’elles permettent de réaffirmer et renforcer la relation de confiance entre collaborateurs.
+- A propos de la **résolution de conflits** : vu qu’il n’y a pas de hiérarchie, ils sont traités d’égal à égal, selon une méthode de résolution de conflits à laquelle les nouvelles recrues sont formées.
+  - Exemple de **Morning Star** :
+    - Elle produit 40% de la purée de tomates consommée aux Etats Unis.
+    - Les effectifs varient entre 400 et 2400 en fonction de la saison, et sont divisés en 23 équipes entièrement autonomes comme dans les autres entreprises qu’on a vues plus haut.
+    - Ils ont deux principes fondateurs : “_personne ne devrait jamais employer la force contre qui que ce soit”_, et “_les engagements devraient toujours être tenus”_.
+    - La méthode de résolution de conflits découle de ce principe, elle est utilisée en fait pour tous types de désaccords, qu’ils soient techniques, interpersonnels ou autres :
+      - D’abord les deux personnes en désaccord se **rencontrent et discutent**. Celui qui est à l’initiative de la rencontre doit formuler une requête claire, l’autre répond par oui, non, ou une contre-proposition.
+      - Si ça n’aboutit pas à un accord, ils trouvent une personne qui a leur confiance pour jouer le rôle de **médiateur**. Il les aide à trouver une solution mais ne peut pas l’imposer.
+      - Si ça n’aboutit pas, on réunit un **jury de collègues**, qui vont jouer le même rôle que le médiateur, et n’auront pas non plus de pouvoir d’imposition. Ils servent d’**autorité morale**, et en général ça suffit à trouver une solution.
+      - La dernière carte c’est d’ajouter le DG au jury pour renforcer encore plus l’aspect d’autorité morale et régler la question.
+    - Le conflit doit **rester privé**, y compris après la résolution.
+      - Et les protagonistes sont dissuadés d’aller chercher des alliés pour défendre leur cause, et constituer des factions rivales.
+  - L’auteur a constaté que le fonctionnement de résolution de conflits de **Morning Star** est quasi exactement le même que celui utilisé dans d’autres entreprises étudiées.
+    - Ce mécanisme est plus qu’un mécanisme de résolution des conflits, c’est aussi la manière dont **les collaborateurs se rendent des comptes** dans les entreprises auto-gouvernées.
+      - Par exemple, quand un collègue ne fait pas ce qu’on attend de lui, ou ne tient pas ses engagements, les collègues sont tenus d’aller le confronter directement.
+      - Pour que ça marche, il faut que la culture de l’entreprise encourage à aller demander des comptes à ses collègues.
+- On a vu qu’il n’y avait pas de titres, mais il y a bien des **rôles** occupés par des personnes à un moment donné.
+  - Les rôles se créent en général naturellement et de manière informelle : quand un besoin se fait sentir, une personne se propose et occupe automatiquement le rôle en question. Quand le besoin n’est plus là, elle n’a plus à l’occuper.
+    - C’est le cas par exemple chez **FAVI**, **AES**, **Sun** et **Buurtzorg**.
+  - Parfois il y a un processus plus officiel comme chez **Morning Star**.
+    - Chaque année les collègues discutent entre eux pour formaliser mutuellement un document qui indique quels rôles ils s’engagent à occuper dans le processus de transformation des tomates, avec les indicateurs qui permettront de savoir si le travail est bien fait.
+    - La raison de ce formalisme chez **Morning Star**, et qui n’existe pas dans les autres, c’est que le processus de transformation de la tomate est déjà très codifié, parce qu’il s’agit d’un processus en continu, sur une commodité à faible marge.
+    - Comme le partage des rôles se fait entre collègues, il n’y a plus la possibilité de chercher à bien se faire voir pour avoir une promotion, parce qu’il n’y a pas de supérieur hiérarchique auprès de qui il faudrait jouer un rôle.
+  - Une autre variante de rôle explicite se trouve chez **Holacracy** :
+    - A propos de l’entreprise : initialement il s’agissait d’une entreprise informatique où les fondateurs menaient des expérimentations sur le meilleur fonctionnement possible.
+      - Ils ont fini par fonder une entreprise de conseil en organisation chargée d’aider à appliquer la méthode **Holacracy** qu’ils avaient créée.
+    - Dans leur méthode, les rôles sont créés ou modifiés/supprimés en fonction d’un processus particulier :
+      - Un nouveau rôle peut être proposé pendant une réunion de _gouvernance_ (réunions spécifiquement dédiées aux rôles et au fonctionnement de la collaboration, en général sur une base mensuelle et à la demande).
+      - La réunion de gouvernance se déroule comme suit :
+        - Un facilitateur guide le déroulement et traite chaque question mise à l’ordre du jour par les membres.
+        - 1- La proposition est présentée par l’auteur.
+        - 2- Les autre sposent des questions de clarification pour mieux comprendre, sans réagir à la proposition.
+        - 3- Chaque personne réagit à la proposition, sans qu’il n’y ait de réponse.
+        - 4- L’auteur peut clarifier ou amender sa proposition en fonction de ce qui a été dit.
+        - 5- On fait le tour à nouveau pour récolter les objections sans les discuter. Si il n’y en a pas la proposition sera adoptée.
+        - 6- S’il y a des objections, on les traite une à une, en essayant à chaque fois d’élaborer une proposition qui l’intègre, tout en restant fidèle à l’intention initiale.
+      - Il s’agit d’une variante de la sollicitation d’avis, mais dans ce cas c'est le groupe entier qui sollicite et prend la décision.
+        - Et comme avec la sollicitation d’avis, on ne reste pas bloqué avec de longues discussions.
+  - Malgré les rôles, dans les entreprises auto-gouvernées chaque collaborateur est en situation de **responsabilité totale** et a le devoir d'agir s’il voit un problème, quel que soit le périmètre.
+    - Il est donc inacceptable de dire “On devrait faire quelque chose pour régler ce problème” et de passer à autre chose.
+      - Et à l’inverse personne ne peut dire “Ça ne te regarde pas”.
+    - **Holacracy** propose de régler les “tensions” en réunion de _gouvernance_ ou en réunion _tactique_ (de travail), en fonction du type de tension, avec des processus particuliers pour chacun.
+  - La “**nomination”** aux rôles, y compris pour ceux qui émergent, se fait en général de manière informelle et naturelle : les personnes qui sont volontaires et sont perçues par leurs collègues comme les plus aptes prennent le rôle.
+    - Parfois ça peut être un peu plus explicite, par exemple chez **Sun**, à chaque fois qu’un poste se libère, il y a un processus en interne pour permettre aux candidats de rencontrer les futurs équipiers.
+    - Chez **FAVI**, le DG a aussi mis en place un processus de confirmation pour sa propre place : tous les 5 ans il demande aux salariés de voter pour dire s’il doit rester DG. Ca permet de renforcer encore plus l’idée d’auto-gouvernance.
+- A propos de la gestion de la **performance** :
+  - Les études montrent que quiconque poursuit un objectif qui a du sens, et qui a le pouvoir de décision et les ressources nécessaires, n’a pas besoin qu’on lui prodigue des paroles d’encouragement ni qu’on surdimensionne ses objectifs (on peut trouver un bon état de la recherche dans **_La Vérité sur ce qui nous motive_** de Daniel Pink).
+    - Il n’y a donc pas besoin de pression hiérarchique.
+  - Par contre, on a besoin de mesure, principalement par équipe, pour savoir si on va dans la bonne direction.
+  - Et on a besoin du **regard des autres** pour nous motiver de manière naturelle.
+    - C’est pour ça que les indicateurs par équipe sont transparents.
+    - Chez **Buurtzorg** et **FAVI** les équipes peuvent facilement comparer leurs performances respectives.
+    - Chez **Morning Star**, vu la plus grande diversité des rôles dans la chaîne de traitement de la tomate, les équipes s’auto-évaluent devant des groupes de collègues.
+  - Concernant la **performance individuelle**, elle est secondaire par rapport à l’évaluation par équipe.
+    - Elle peut être évaluée par les collègues avec qui on travaille, de même qu’on les évalue.
+    - Chez **Morning Star**, on reçoit un retour de chacun des collègues avec qui on a travaillé à la fin de l’année.
+    - Chez **AES**, chacun se réunissait une fois par an avec son 1er cercle de collaborateurs au cours d’un dîner, et s’auto-évaluait pendant que les autres commentaient.
+    - Chez **Buurtzorg**, les équipes sont libres de choisir leur mode d’évaluation annuel. Une des équipes a par exemple mis en place un processus où chaque collègue prépare la perception qu’il a de son travail et celui qu’il a des autres, et ensuite ils comparent ce qu’ils ont mis mutuellement.
+- Sur la question des **licenciements** :
+  - Ils sont plutôt rares parce que les rôles ne sont pas fixes, et une personne qui n’est pas bonne dans un rôle peut en trouver d’autres où elle est plus douée.
+  - Pour autant on a quand même des cas où une personne soit n’arrive pas à s’intégrer, ne respecte pas les valeurs, soit n’est pas au niveau attendu par ses collègues.
+    - Le licenciement n’est actionnable que par les collègues.
+    - La plupart du temps, la personne va partir d’elle-même, voyant que ses collègues ne lui font plus confiance.
+    - Chez **Buurtzorg** par exemple, c'est l’équipe qui peut enclencher la procédure dans le cas où un des membres perd la confiance des autres. Ils font appel à un coach régional en tant que facilitateur pour voir si le problème ne peut pas être résolu, et en dernier recours ils demandent au fondateur de licencier la personne.
+- A propos de la **rémunération** :
+  - Le montant du salaire est **fixé par la personne et ses collègues**.
+    - Chez **Holacracy** par exemple, une fois par an chaque personne répond à deux questions sur ses collègues, sur une échelle +3 / -3 :
+      - “Cette personne apporte à l’entreprise une contribution supérieure à la mienne.” et “Cette personne dispose de bons éléments pour m’évaluer.”
+      - Puis en un algorithme s’occupe de ranger les salariés par ordre, ceux du bas ayant un salaire plus faible que ceux du haut.
+    - Chez **AES** la version était plus radicale : chaque personne devait solliciter des avis, puis fixer elle-même son salaire.
+    - Chez **Morning Star** il s’agit d’un processus un peu plus formel : chaque personne écrit une lettre à la commission élue des salaires, et y met l’augmentation qu’elle pense juste pour elle, en l’argumentant avec les commentaires reçus de ses collègues pendant son évaluation.
+  - La plupart des entreprises étudiées ici ont **abandonné les primes**, et n’ont gardé que la participation aux bénéfices.
+  - Enfin, la plupart des entreprises étudiées ici veillent à réduire l’écart entre les salaires les plus hauts et les plus bas.
+    - Mais cet écart reste élevé, et **contraste avec l’absence de hiérarchie dans le travail**.
+    - Selon l’auteur, cette différence n’est pas forcément légitime et pourrait s’amoindrir, voire disparaître à l’avenir.
+- Quelques malentendus à dissiper :
+  - Tout le monde sur un pied d’égalité :
+    - Mettre tout le monde à égalité c’est l’objectif du paradigme Vert. Le paradigme Opale cherche à donner du pouvoir à tous, dans une mesure suffisante pour qu’ils puissent réaliser leur potentiel.
+      - Les hiérarchies naturelles enchevêtrées (compétence, talent, reconnaissance etc.) empêchent de toute façon une égalité de pouvoir. On peut voir ça plutôt comme un système vivant où les relations de pouvoir sont constamment remodelées.
+    - **Aucune des entreprises étudiées ici comme Opale n’est la propriété de ses salariés**. Les coopératives sont là aussi plutôt recherchées par le paradigme Vert.
+      - Tant que le pouvoir est correctement réparti, la propriété ne _semble_ pas importante.
+  - Il s’agit d’autonomisation :
+    - Si on parle de dirigeants qui doivent faire un effort pour autonomiser les salariés, c’est que les salariés sont en position de victime, à se battre constamment pour du pouvoir.
+    - L’entreprise Opale est déjà organisée selon une structuration et un fonctionnement où le dirigeant n’a pas besoin de faire d'efforts pour que le pouvoir revienne aux salariés naturellement.
+  - On en est encore au stade expérimental :
+    - Les exemples étudiés dans ce livre montrent que non, et il y en a plein d’autres.
+    - On peut ajouter à ça que les jeunes qui ont grandi avec internet sont taillés pour vouloir l’auto-gouvernance.
