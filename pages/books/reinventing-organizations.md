@@ -382,3 +382,64 @@
   - On en est encore au stade expérimental :
     - Les exemples étudiés dans ce livre montrent que non, et il y en a plein d’autres.
     - On peut ajouter à ça que les jeunes qui ont grandi avec internet sont taillés pour vouloir l’auto-gouvernance.
+
+### 2.4 - En quête de plénitude (pratiques générales)
+
+- Habituellement on vient au travail en masquant une part de soi. En général, on masque notre vulnérabilité et notre dimension émotionnelle.
+  - Dans l’entreprise Opale on vient sans masque, avec **la totalité de ce qu’on est**.
+  - Le fait de ne pas avoir de promotions à aller chercher aide à être plus authentique.
+- Chez **Sounds True**, la fondatrice venait initialement avec son chien. Les autres salariés ont demandé s’ils pouvaient ramener le leur, et finalement les 20 chiens amenés régulièrement contribuent à une ambiance fraternelle, un surcroît d’humanité.
+- Chez **Patagonia** il y a un centre de développement de l’enfant sur le lieu de travail. Les salariés y amènent leurs enfants en bas âge, et peuvent les voir à la cafétéria ou au déjeuner.
+- Pour que nous puissions exprimer pleinement ce que nous sommes, il faut que nous soyons dans un environnement **protecteur et bienveillant**.
+- La plupart des entreprises ont fini par rédiger des valeurs et des chartes pour instaurer cet environnement protecteur.
+  - Exemple d’**RHD**, association qui aide les personnes handicapées mentales, mais aussi les sans-abris et les alcooliques.
+    - Ils existent depuis 50 ans, ont une croissance de 30% par an, et offrent des services d’une valeur de 200 Millions de dollars à travers le monde.
+    - Ils fonctionnent avec le même modèle que **FAVI** ou **Buurtzorg**, avec des équipes auto-organisées, une hiérarchie existante, et des fonctions support minimales.
+    - Leurs 3 postulats sont :
+      - Que tout le monde est d’égale valeur humaine.
+      - Que, sauf preuve du contraire, tout le monde est fondamentalement bon.
+      - Qu’il n’y a jamais une seule bonne façon de résoudre les problèmes qui se posent dans l’entreprise.
+    - Leur charte détaille 5 façons inacceptables d’exprimer son hostilité :
+      - Les propos et comportements dégradants : le fait de chercher à rabaisser l’autre dans sa dignité, sa valeur en tant que personne.
+      - Les messages négatifs indirects.
+      - La menace d’abandon.
+      - La négation de la réalité de l’autre.
+      - L’intimidation/explosion.
+- Rédiger des documents ne suffit pas, il faut aussi **y consacrer du temps**. Parmi les possibilité il y a :
+  - Faire suivre une **formation** aux nouvelles recrues pour leur présenter les valeurs et les règles de base.
+  - La _Journée des valeurs,_ qui consiste à se poser la question individuellement et collectivement de la manière dont on met en œuvre les valeurs.
+  - La _Réunion des valeurs_, qui consiste à exposer les problèmes qu’on a pu rencontrer sur la mise en œuvre des valeurs, et suggérer d’apporter des modifications à la charte.
+  - L’_Enquête annuelle_, qui consiste à diffuser un jeu de questions au sujet des valeurs, et de l’analyser pour en tirer des conséquences.
+- La plupart des entreprises étudiées ont des pratiques qu’on pourrait appeler “**d’introspection**”, où il s’agit de chercher au fond de soi, individuellement et collectivement.
+  - Le **silence** est une première manière de le faire.
+    - Beaucoup de structures ont des lieux destinés au silence (méditation, yoga, etc.).
+    - Certaines structures ont des temps dédiés à des moments de silence collectifs : dans la journée, la semaine, des jours spécifiques etc.
+  - On a aussi des sessions d’**éducation populaire** (l’auteur ne cite pas ce terme, et appelle ça “introspection de groupe”) où un sujet est introduit, et les salariés se séparent en groupes pour y réfléchir collectivement à partir de leurs propres expériences, pour en tirer des choses et renforcer leurs liens.
+    - C’est le cas de l’hôpital **Heiligenfeld** qui consacre 1h15 chaque semaine à cette pratique pour l’ensemble des salariés disponibles (en général la moitié des effectifs).
+    - Des exemples de sujets traités collectivement peuvent être : la résolution de conflit, la gestion de l’échec, la bureaucratie, la communication interpersonnelle, la gestion du risque etc.
+    - C’est des moments où les salariés peuvent partager leur _humanité profonde, dans la beauté de leur force et de leur vulnérabilité_.
+  - **Heiligenfeld **a mis en place des ateliers pour travailler les questions organisationnelles et interpersonnelles (conflits par exemple) avec des spécialistes, en moyenne plusieurs fois par mois, à la demande des équipes.
+  - Chez **Buurtzorg**, ils ont mis en place des sessions basées sur la technique _Intervisie_, où une des infirmières exprime une problématique qu’elle a avec des clients, et le reste de l’équipe l’écoute et la soutient pour l’aider à trouver une solution qui lui appartiendrait.
+- Pour créer des relations profondes et authentiques avec ses collègues, il faut qu’il y ait de la **narration (storytelling)**, c’est-à-dire raconter des histoires sur nous, et écouter celles des autres.
+  - Par exemple, **Center for Courage & Renewal** mène des ateliers où ils demandent à ceux qui veulent répondre des choses comme “Parlez-nous d’un aîné qui a compté dans votre vie” ou “Parlez-nous du premier dollar que vous avez gagné”.
+  - Chez **ESBZ**, chaque vendredi les élèves et professeurs se retrouvent pendant une heure. Ils commencent par chanter ensemble, puis ceux qui le veulent peuvent aller prendre le micro, et remercier ou congratuler quelqu’un pour quelque chose de spécifique. Il s’agit en fait de petites histoires.
+  - Chez **Ozvision**, petite entreprise japonaise, chaque salarié a chaque année une journée de congé où on lui offre 200$ à dépenser pour faire un cadeau à quelqu’un qu’il connaît, et ensuite de le raconter aux collègues.
+- A propos des **réunions** :
+  - Presque toutes les entreprises étudiées ont mis en place des techniques pour aider à **maîtriser son égo** et interagir avec sincérité.
+    - Par exemple un tour au début et un tour à la fin de chaque réunion pour indiquer comment on se sent sur l’instant.
+    - Ca peut aussi être de commencer ou ponctuer la réunion par des moments de silence pour s’enraciner et prendre du recul.
+    - Ou encore lire un texte, ou féliciter quelqu’un qu’on estime avoir fait quelque chose de remarquable.
+    - On peut aussi inviter un facilitateur à se joindre à la réunion.
+  - Elles ont aussi en général des procédures spécifiques pour empêcher que les réunions soient accaparées par certains.
+- A propos des **conflits** :
+  - 1- Il faut **favoriser l’émergence des tensions** :
+    - Par exemple, chez **ESBZ**, chaque classe se réunit une fois par semaine pour parler des tensions au sein du groupe.
+  - 2- Il faut une **procédure défini de résolution des conflits **(comme expliqué au chapitre précédent), pour que les personnes puissent plus facilement prendre l’initiative de le traiter.
+  - 3- Certaines structures comme **ESBZ** ou **Sounds True** forment leurs salariés à la **communication non-violente**.
+    - Il s’agit d’une méthode où on exprime son ressenti, ses besoins, et on écoute ceux des autres.
+- La gestion des locaux de travail est importante, il faut qu’elle soit accueillante. Par exemple, avoir une cuisinière pour se sentir comme chez soi, pouvoir personnaliser la décoration, pouvoir être proche de la nature quand on est au travail.
+- Les **préoccupations sociales et environnementales** sont fondamentales, elles nous permettent de nous relier au reste du vivant et d’affirmer notre intégrité.
+  - Il s’agit avant tout de se demander ce qu’on trouve **juste**, et de voir seulement ensuite combien ça va coûter.
+  - Les paris qui ont l’air risqués mais qui vont dans le sens de ce qu’on trouve juste se révèlent souvent gagnants.
+  - Les initiatives de ce genre dans les entreprises Opale viennent des salariés eux-mêmes.
+  - Exemple : chez **AES**, une salariée a eu l’initiative de faire planter des arbres pour compenser les émissions carbone de l’entreprise. Et depuis, des millions d’arbres ont été replantés.
