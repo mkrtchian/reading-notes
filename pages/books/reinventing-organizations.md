@@ -443,3 +443,47 @@
   - Les paris qui ont l’air risqués mais qui vont dans le sens de ce qu’on trouve juste se révèlent souvent gagnants.
   - Les initiatives de ce genre dans les entreprises Opale viennent des salariés eux-mêmes.
   - Exemple : chez **AES**, une salariée a eu l’initiative de faire planter des arbres pour compenser les émissions carbone de l’entreprise. Et depuis, des millions d’arbres ont été replantés.
+
+### 2.5 - En quête de plénitude (processus RH)
+
+- **Recrutement** :
+  - En général, les candidats comme les entreprises jouent un rôle pendant les entretiens.
+  - Dans les entreprises Opale, les entretiens sont faits **par les futurs collègues** de la personne qu’on veut embaucher.
+    - De cette manière, ils auront tout intérêt à être honnêtes (puisqu’ils devront en assumer les conséquences au quotidien), ce qui incitera le candidat à être honnête et authentique aussi.
+  - Vu le décalage avec les entreprises habituelles, les entreprises auto-organisées vont consacrer beaucoup d’énergie à expliquer le **fonctionnement et les valeurs de l’entreprise** pour s’assurer que la personne saura s’y intégrer : prendre les responsabilités, faire confiance aux autres, prendre des initiatives, être elle-même etc.
+    - **Zappos.com** offre un chèque de 3000$ aux employés nouvellement embauchés qui font le choix de partir pendant la période d’essai : il vaut mieux qu’ils partent rapidement s’ils n’aiment pas la culture.
+- **Intégration** :
+  - Les entreprises Opale investissent beaucoup dans l’intégration, qui ressemble souvent à une sorte de formation.
+  - On y aborde les 3 piliers :
+    - **L’autonomie** : expliquer ce qu’implique d’avoir d’importantes responsabilités, et de les exercer avec un groupe.
+      - En général, ceux qui ont le plus de mal sont les anciens cadres dirigeants. Selon Paul Green Jr. de Morning Star, 50% d’entre eux partent au bout d’un an parce qu’ils _“ont du mal à s’adapter à un système où ils ne peuvent pas jouer à Dieu”_.
+    - **L’intégrité** : former à des techniques de communication non violente, à la maîtrise de soi, la gestion de l’échec etc. Le but étant de se montrer tel qu’on est.
+    - **La raison d’être évolutive** : examiner la raison d’être de l’entreprise, et voir en quoi elle peut rejoindre notre propre vocation personnelle.
+  - Souvent les nouvelles recrues vont aussi recevoir une formation technique, en étant intégré aux divers rôles de l’entreprise pour nouer des relations.
+    - C’est le cas chez **Sun Hydraulics** où les nouveaux passent plusieurs mois dans d’autres rôles avant de rejoindre l’équipe où ils étaient censés aller initialement.
+- **Formation** :
+  - En général, n'importe quel salarié peut s’inscrire à une formation, en sollicitant des avis d’abord.
+  - Parfois au lieu de la sollicitation d’avis il y a plutôt une limitation du montant.
+    - C’est le cas chez **Buurtzorg**, où toutes les infirmières ont 3% de leur chiffre d'affaires à dépenser en formation.
+  - Les entreprises Opale n’ont pas de formations pour gravir les échelons en s’améliorant en management puisqu’il n’y a pas d’échelons à gravir.
+    - Elles ont des formations pour créer une culture partagée, des formations de développement personnel, et des formations techniques qui sont dispensées par les collègues.
+- **Quantité de travail** :
+  - Dans les entreprises classiques on a les ouvriers bas à qui on demande de respecter des horaires strictes et surveillées, et les cadres en haut à qui on demande de faire passer le travail avant tout et d’être joignables tout le temps.
+  - Les entreprises Opale proposent d’être dans la **transparence**, et de prendre en compte les **besoins** de chacun.
+    - Les obligations du travail sont importantes, mais les obligations personnelles aussi, elles sont à mettre en balance.
+    - On demande régulièrement à chacun combien de temps et d’énergie il souhaite consacrer à son travail dans l’entreprise en ce moment.
+      - C’est le cas par exemple chez **Holacracy** et **Morning Star**.
+    - Ça peut varier, parfois selon la saison, parfois selon la période dans la vie (enfant, personne malade dont il faut s’occuper, maison à retaper etc.).
+  - La procédure ne passe pas par des fonctions support RH, mais se fait de pair à pair entre collègues. Chacun essaye d’arranger l’autre, sachant qu’il sera bien content d’être arrangé quand il en aura besoin.
+- **Performance individuelle** :
+  - La performance individuelle est mesurée par les pairs, mais il faut faire attention à ce qu’elle ne soit pas un moment de jugement et de surveillance.
+  - Pour que ça marche, il faut :
+    - Se mettre en condition pour aborder la question avec bienveillance, sans réponses toutes faites, mais sans avoir peur de s’exprimer non plus.
+    - Ne pas donner l’impression qu’on fait des remarques objectives, mais **s’impliquer** en parlant à la première personne, en montrant que c’est bien nous qui sommes enthousiasmés, touchés, intrigués, blessés, déçus etc. par ce qu’a fait la personne.
+    - Aborder la question de l’évaluation non pas comme un instantané mais comme un déroulement : d’où on vient, ce qu’on a fait, où on veut aller.
+- **Licenciement** :
+  - Pour ce qui est du licenciement individuel :
+    - Il faut prendre la question comme une porte qui se ferme et qui ne correspondait pas à la voie de la personne licenciée, pour d’autres qui s’ouvrent et qui lui permettront de s’épanouir.
+  - Pour ce qui est du licenciement collectif pour problèmes économiques :
+    - Quand le problème est temporaire, en général les entreprises Opale tiennent le coup parce qu’elles sont résilientes.
+    - Quand il s’agit de problèmes permanents (par exemple **AES** qui rachète une centrale en sureffectif), alors il vaut mieux ne pas garder trop de personnes.
