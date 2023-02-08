@@ -152,7 +152,7 @@
   - **Sounds True** : entreprise qui diffuse des contenus spirituels aux Etats-Unis, 90 collaborateurs et 20 chiens.
   - **Sun Hydraulics** : entreprise multinationale américaine qui fabrique des composants hydrauliques, 900 collaborateurs.
 - Certaines de ces entreprises (comme **AES** et **BSO/origin**) étaient Opale et sont revenues à des pratiques plus traditionnelles.
-- La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star **par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
+- La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star** par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
 - L’étude de l’ensemble de ces entreprises permet d’avoir une vue d’ensemble des pratiques qui reviennent.
 
 ### 2.2 - Autogouvernance (structures)
@@ -163,7 +163,7 @@
 - Exemple de **Buurtzorg** qui a fait passer tout un secteur d’Orange à Opale :
   - Le contexte c’est des infirmières employées par des organisations de plus en plus grosses, avec une division des tâches de plus en plus marquée, et des critères de rentabilité décidés par le haut.
     - Résultat : des actes chronométrés, des infirmières et des patients de plus en plus déshumanisés.
-  - **Buurtzorg **arrive là dedans avec :
+  - **Buurtzorg** arrive là dedans avec :
     - Des équipes **autonomes** : des groupes de 10 à 12 personnes travaillant sur un périmètre restreint, et s'occupant eux-mêmes des décisions d’organisation, planning, partenariats, résolution des problèmes etc.
     - Résultat :
       - Les infirmières prennent beaucoup plus le temps de s’occuper de leurs patients.
@@ -240,7 +240,7 @@
   - On retrouve parfois une liste de certains rôles occupés actuellement, par exemple dans l’intranet de **Buurtzorg**, on peut trouver les collègues qui ont une spécialité particulière pour savoir qui contacter en cas de besoin sur un sujet spécifique.
 - L'exemple d’**ESBZ** permet de représenter le paradigme Opale dans le milieu scolaire.
   - L’école est généralement l’une des organisations les plus éloignées de l’auto-gouvernance, avec les enfants qui doivent se conformer à rester assis toute la journée, et capter le savoir du professeur, sans participer eux-mêmes.
-  - **ESBZ **a adopté une manière de fonctionner très différente : chaque enfant est encouragé à incarner ce qu’il est vraiment, dans sa singularité, et dans le talent qu’il veut développer.
+  - **ESBZ** a adopté une manière de fonctionner très différente : chaque enfant est encouragé à incarner ce qu’il est vraiment, dans sa singularité, et dans le talent qu’il veut développer.
     - Le résultat c’est que les enfants ne traînent pas des pieds mais sont heureux d’aller étudier, parce qu’ils sont les moteurs de leur propre apprentissage.
   - Concrètement, la plupart des cours magistraux ont été abandonnés, et remplacés par des fiches qu’on donne aux enfants, en les laissant étudier eux-mêmes à leur propre rythme, seuls et en groupe.
     - Les professeurs sont disponibles principalement pour **répondre aux sollicitations des élèves** par un accompagnement personnalisé, quand les autres élèves n’ont pas pu aider leur camarade.
@@ -418,7 +418,7 @@
     - C’est le cas de l’hôpital **Heiligenfeld** qui consacre 1h15 chaque semaine à cette pratique pour l’ensemble des salariés disponibles (en général la moitié des effectifs).
     - Des exemples de sujets traités collectivement peuvent être : la résolution de conflit, la gestion de l’échec, la bureaucratie, la communication interpersonnelle, la gestion du risque etc.
     - C’est des moments où les salariés peuvent partager leur _humanité profonde, dans la beauté de leur force et de leur vulnérabilité_.
-  - **Heiligenfeld **a mis en place des ateliers pour travailler les questions organisationnelles et interpersonnelles (conflits par exemple) avec des spécialistes, en moyenne plusieurs fois par mois, à la demande des équipes.
+  - **Heiligenfeld** a mis en place des ateliers pour travailler les questions organisationnelles et interpersonnelles (conflits par exemple) avec des spécialistes, en moyenne plusieurs fois par mois, à la demande des équipes.
   - Chez **Buurtzorg**, ils ont mis en place des sessions basées sur la technique _Intervisie_, où une des infirmières exprime une problématique qu’elle a avec des clients, et le reste de l’équipe l’écoute et la soutient pour l’aider à trouver une solution qui lui appartiendrait.
 - Pour créer des relations profondes et authentiques avec ses collègues, il faut qu’il y ait de la **narration (storytelling)**, c’est-à-dire raconter des histoires sur nous, et écouter celles des autres.
   - Par exemple, **Center for Courage & Renewal** mène des ateliers où ils demandent à ceux qui veulent répondre des choses comme “Parlez-nous d’un aîné qui a compté dans votre vie” ou “Parlez-nous du premier dollar que vous avez gagné”.
@@ -434,7 +434,7 @@
 - A propos des **conflits** :
   - 1- Il faut **favoriser l’émergence des tensions** :
     - Par exemple, chez **ESBZ**, chaque classe se réunit une fois par semaine pour parler des tensions au sein du groupe.
-  - 2- Il faut une **procédure défini de résolution des conflits **(comme expliqué au chapitre précédent), pour que les personnes puissent plus facilement prendre l’initiative de le traiter.
+  - 2- Il faut une **procédure défini de résolution des conflits** (comme expliqué au chapitre précédent), pour que les personnes puissent plus facilement prendre l’initiative de le traiter.
   - 3- Certaines structures comme **ESBZ** ou **Sounds True** forment leurs salariés à la **communication non-violente**.
     - Il s’agit d’une méthode où on exprime son ressenti, ses besoins, et on écoute ceux des autres.
 - La gestion des locaux de travail est importante, il faut qu’elle soit accueillante. Par exemple, avoir une cuisinière pour se sentir comme chez soi, pouvoir personnaliser la décoration, pouvoir être proche de la nature quand on est au travail.
@@ -487,3 +487,102 @@
   - Pour ce qui est du licenciement collectif pour problèmes économiques :
     - Quand le problème est temporaire, en général les entreprises Opale tiennent le coup parce qu’elles sont résilientes.
     - Quand il s’agit de problèmes permanents (par exemple **AES** qui rachète une centrale en sureffectif), alors il vaut mieux ne pas garder trop de personnes.
+
+### 2.6 - A l’écoute du projet des entreprises Opale
+
+- Les entreprises classiques fonctionnent sur la **peur** de ne pas réussir à préserver l’entreprise. Les valeurs et la raison d’être de l'entreprise ne sont pas du tout vécues.
+  - Les entreprises Opale consacrent une part très importante à leur mission.
+  - Les entreprises Opale ne se soucient pas de leurs **concurrents**, puisqu’elles travaillent pour leur raison d’être, elles n’ont pas vraiment de concurrents.
+    - Au contraire, elles ont plutôt tendance à aider les entreprises qui font la même chose à fonctionner sur le même principe qu’elles.
+- La **croissance** n’est pas un objectif en soi pour les entreprises Opale.
+  - Par exemple **Buurtzorg** préfère aider les malades à guérir plus vite, quitte à les avoir pour clients pour moins longtemps, parce que c’est dans leur raison d’être.
+  - Pareil pour **Patagonia** qui fabrique des vêtements qui durent plus, et qui sont réparables, quitte à vendre moins sur le coup.
+- Le **profit** est toujours secondaire. Il s’agit de poursuivre sa raison d’être, et créer une activité viable dans ce cadre.
+  - En général, le profit arrive bien plus pour les entreprises qui se lancent sincèrement dans ce qu’elles croient être porteur de sens.
+- Les entreprises étant comme des êtres **vivants**, il s’agit d'écouter où elles veulent aller en tant que structure porteuse de sens.
+  - Chaque membre de l’entreprise participe à cette direction par ses idées, à travers **l’intérêt et l’implication qu’elles génèrent** auprès des autres.
+    - La stratégie est portée par l’ensemble des salariés au quotidien par des initiatives. Elle n’est pas précisée dans un endroit central, mais mise en œuvre par les salariés qui sont comme des cellules.
+  - La raison d’être de **Buurtzorg** est d’aider les gens à retrouver une existence riche, intéressante et autonome.
+  - Mais même en allant du côté des industriels on peut trouver du sens.
+    - Par exemple, **FAVI** a pour raison d’être de donner un travail intéressant aux personnes vivant dans la ville où ils sont, et aimer et se faire aimer de leurs clients. Ils ont décidé de ça tous ensemble.
+  - L’auteur pense que les pratiques transrationnelles (spiritualité, méditation etc.) peuvent aider à trouver et faire évoluer la raison d’être de l’entreprise.
+  - Une des techniques consiste à laisser une chaise vide représentant l’entreprise et sa raison d’être pendant les réunions. Chaque personne peut s'asseoir dessus et se poser la question de savoir si ce qui est fait va dans le sens de cette raison d’être et quelle est sa nature.
+  - Une autre solution est de réunir tous les salariés de l’entreprise, et d’essayer de faire émerger collectivement la direction qu’elle doit prendre.
+    - Les dirigeants doivent accepter que leur voix compte autant que celle des autres salariés, sinon ça ne peut pas marcher dans un mode ascendant.
+- Le **marketing** :
+  - Les entreprises classiques font beaucoup de marketing, d’études de marché, et font appel à des techniques pour créer des besoins, en jouant sur les émotions.
+  - Les entreprises Opale font **peu de marketing**. Elles sont à l’écoute des besoins, mais surtout à l’écoute de leur raison d’être, pour développer un **produit dont ils seront fiers**, et qui répondra à un **besoin authentique**.
+  - Leur stratégie produit est plus guidée par l’intuition que par l’analyse.
+  - Par exemple **Sounds True** vendrait sans doute bien plus de livres s’ils se concentraient sur le marché des livres, mais ils pensent que les autres supports sont une plus grande source de clarté pour leur domaine.
+- **Planning, budgets** :
+  - Les entreprises Opale font très **peu de planification**. Ils n’essayent pas de prévoir et contrôler, mais sont plutôt dans l’intuition, et le fait d’être dans la réponse à ce qui se passe.
+  - L’auteur évoque la distinction système compliqué / système complexe pour dire que les systèmes complexes ne peuvent pas être planifiés.
+  - Ces entreprises **se contentent de solutions réalistes**, et n’attendent pas d’avoir plus de données avant d’agir, en se corrigeant souvent.
+  - Elles utilisent des **itérations rapides** (dans l’idée du lean manufacturing et du manifeste agile).
+  - Pour les **objectifs** :
+    - La notion d’objectif peut poser problème parce qu’elle peut nous pousser dans une direction qui ne sera pas forcément la bonne, et qui peut empêcher de s’adapter au contexte.
+    - Les objectifs peuvent être bénéfiques s’ils sont fixés par les personnes elles-mêmes, ou par les équipes elles-mêmes, si ça les aide à se motiver. Mais ça ne doit pas être une obligation.
+  - Pour les **budgets** :
+    - La plupart des entreprises étudiées ne font **pas de budget** du tout.
+    - Certaines en font, mais seulement quand il faut un certain degré de prévision.
+    - Quand il y en a, on **ne perd pas de temps à savoir pourquoi** on n’était pas dans les clous.
+- Comme l’entreprise est une structure vivante, la question du **changement de process** ne se pose pas. Le changement survient naturellement et constamment en fonction des besoins.
+- **Transparence vis-à-vis de l’extérieur** :
+  - Les entreprises Opale choisissent d’assumer pleinement leur projet et leurs valeurs. Ils vont donc en parler en toute **transparence** avec leurs fournisseurs, et leurs clients.
+  - Ils vont aussi en général être transparents sur les process internes, vis-à-vis des clients et partenaires.
+    - Certaines mettent en ligne des enregistrements de processus clés, des compte-rendus de réunion, des indicateurs.
+- Il est important de se poser la question de son **projet personnel**, sa vocation, et de le mettre en lien avec le projet, la vocation de l’entreprise.
+  - L’entreprise n’est pas là que pour faire que les choses se fassent, mais aussi pour aider les salariés à trouver leur voie. Le salarié n’a pas forcément fait ce travail **d’introspection**.
+  - Quand les deux sont alignés, on obtient une efficacité exceptionnelle.
+  - Pour les entretiens d’embauche, les entreprises Opale insistent beaucoup sur l’adéquation entre la raison d’être de l’entreprise et le projet individuel de la personne.
+    - Exemple de questions à poser : _Comment voyez-vous votre parcours de vie ? Comment le fait de travailler ici s’intègre-t-il à votre perception de ce que vous êtes appelé à être et à faire dans le monde ?_
+  - Chez **Heiligenfeld**, ils posent deux questions aux entretiens annuels : _Est-ce que je mets mon cœur dans mon travail ? Est-ce que j’ai le sentiment d’être à ma place ?_
+- Alors que dans le modèle Vert, les dirigeants se mettaient au service de l’entreprise, et veillaient à ce que tout se passe bien dans ce sens, dans le modèle Opale l’entreprise est comme un être vivant, un champ d’énergie indépendant qui évolue par lui-même. Il n’y a donc **pas besoin de chef pour en assurer la cohérence**.
+  - L’auteur se demande quel sens il y a à “posséder” un champ d’énergie indépendant, et propose d’inventer de nouveaux cadres juridiques pour que les investisseurs aient _la place qui leur revient_, en laissant l’autonomie à l’entreprise.
+
+### 2.7 - Traits culturels communs
+
+- La **culture d'entreprise** est _la façon dont les choses se font spontanément, sans qu’on ait besoin d’y penser._
+  - Elle détermine pour une large part si l’entreprise va échouer ou perdurer.
+  - Les entreprises dans le paradigme Vert vont typiquement considérer que c’est la chose la plus importante, avec la notion de culture familiale.
+- Ken Wilber propose un modèle basé sur des quadrants pour obtenir une _compréhension intégrale_ de la réalité.
+
+  - D’un côté on a le point de vue **intérieur** (pensées, sentiments, sensations) et **extérieur** (tangible, matériel, mesurable).
+  - De l’autre on a le point de vue **individuel** et le point de vue **collectif**.
+  - On obtient le quadrant suivant :
+    | | Intérieur | Extérieur |
+    | ------------- | ------------- | ------------- |
+    | **Individuel** | Opinions et mentalités des personnes | Comportements des personnes |
+    | **Collectif** | Culture de l’entreprise | Systèmes de l’entreprise (structures, processus, et pratiques) |
+  - Ce modèle permet de se rendre compte que tous ces aspects sont interdépendants.
+    - Les entreprises Ambre ou Orange mettent l’accent sur le côté extérieur, et obtiennent des salariés peu motivés.
+    - Les entreprises Vert mettent l’accent sur l’immatériel et sont parfois face à des incohérences, comme par exemple avoir des structures hiérarchiques où on demande aux cadres de donner le maximum d’autonomie à leurs subordonnés : résultat c’est une difficulté permanente.
+    - Les entreprises Opale mettent l’accent sur l’autonomisation et la responsabilisation, et à partir de là **la culture émerge naturellement** sans faire d’efforts particuliers.
+
+- Les entreprises ont chacune leur culture, qui est en partie propre à leur domaine et unique à chacune, et en partie commune avec toutes les autres entreprises du même stade de développement.
+  - Par exemple, les entreprises Ambre partagent le trait commun de l’obéissance aux ordres.
+- Les entreprises Opale ont les **traits culturels communs** suivants :
+  - **Autogouvernance**.
+    - Confiance : jusqu’à preuve du contraire, s’engager avec les collègues sur la base de la confiance.
+    - Accès à toutes les informations de manière transparente.
+    - Prise de décision collective par sollicitation d’avis.
+    - Responsabilité de ce qui se passe dans l’entreprise pour tous les salariés.
+    - Responsabilité de faire en sorte que les collègues respectent leurs engagements.
+  - **Plénitude**.
+    - Tous les salariés ont une valeur égale en tant que personne.
+    - Pour autant chaque salarié a un apport singulier qui doit être reconnu comme tel.
+    - L’environnement permet la sécurité psychologique pour être dans l’authenticité.
+    - La bienveillance, la reconnaissance, la gratitude, la curiosité, l’amusement sont mis en avant.
+    - On réconcilie le rationnel et l’intuitif.
+    - On reconnait être étroitement liés les uns aux autres et à la nature.
+    - Les problèmes et les confrontations respectueuses sont sources d’apprentissage.
+    - On règle les conflits en face à face, sans propager de rumeurs.
+  - **Raison d’être évolutive**.
+    - L’entreprise a un projet, une âme, qu’il s’agit d’écouter.
+    - Le projet individuel doit être questionné pour voir dans quelle mesure il est en résonance avec celui de l’entreprise.
+    - Il n’y a pas besoin de vouloir maîtriser l’avenir, au lieu de ça on se met à l’écoute et on ajuste.
+    - On se concentre sur la mission, le profit viendra de lui-même.
+- Quand on a une culture qui se dessine, on peut aller dans son sens pour la renforcer par 3 manières (même si l’autonomie devrait de toute façon laisser la culture se développer librement) :
+  - Mettre en place des structures, pratiques et processus qui vont dans le sens de cette culture (quadrant inférieur droit).
+  - S’assurer que ceux qui détiennent l’autorité morale sont en phase avec la culture dans leurs actes (quadrant supérieur droit).
+  - Inviter chacun à examiner dans quelle mesure il est en résonance avec cette culture (quadrant supérieur gauche).
