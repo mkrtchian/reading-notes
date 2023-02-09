@@ -651,3 +651,36 @@
     - Le paradigme Opale **ne propose pas de limiter leur pouvoir**, mais propose à la place qu’ils soient convaincus par la raison d’être de l’entreprise, et le fait qu’elle permettra de rapporter plus.
     - Holacracy propose un projet législatif pour faire entrer le fonctionnement Opale dans le type juridique de l’entreprise, et empêcher qu’elle puisse facilement se transformer en entreprise classique.
     - Aux Etats Unis le modèle juridique B-Corporation permet aux entreprises de prendre en compte les problématiques environnementales et sociales, contrairement aux C-Corporations classiques qui ne doivent légalement prendre en compte que l’intérêt financier des actionnaires.
+
+### 3.2 - Créer une entreprise Opale
+
+- Pour créer une entreprise Opale, il faut d’abord se poser la question de la raison d’être qu’aurait cette entreprise, comme si on cherchait à déterminer la volonté d’un être vivant.
+- Pour le choix d’éventuels autres **cofondateurs** :
+  - Il faut qu’ils soient sensibles à la raison d’être de l’entreprise.
+  - Il faut qu’ils soient favorables au paradigme Opale.
+- Il faut réfléchir aux divers aspects assez rapidement, parce qu’à mesure que l’entreprise grandit, elle va se stratifier si on n’y fait pas attention.
+- Il est utile d’**établir des postulats** en équipe, pour pouvoir ensuite s’appuyer dessus.
+  - Par exemple chez **RHD** :
+    - Tout le monde est d’égale valeur ; sauf preuve du contraire.
+    - Tout le monde est fondamentalement bon.
+    - Il n’y a jamais une seule bonne façon de résoudre les problèmes qui se posent dans l’entreprise.
+  - Il peut être utile d’expliciter les postulats des entreprises classiques :
+    - Les ouvriers sont paresseux et ne sont pas dignes de confiance.
+    - Les échelons supérieurs ont la réponse à toutes les questions.
+    - Les salariés ne sont pas capables de supporter les mauvaises nouvelles.
+    - etc.
+- Pour les pratiques liées à l’**auto-gouvernance** :
+  - On peut soit appliquer un cadre existant, et dans ce cas l’auteur conseille de regarder du côté de **l’Holacracy** : il y a de la documentation et des consultants si besoin.
+  - Ou alors on peut personnaliser le fonctionnement, et dans ce cas il faut faire attention à 3 points :
+    - La sollicitation d’avis : personne n’est là pour “approuver” les décisions.
+    - Un mécanisme de résolution des conflits : en face à face et éventuellement avec un médiateur, voire un jury.
+    - Un processus d’évaluation entre pairs : les pairs s’évaluent, y compris au niveau du montant du salaire.
+- Pour les pratiques liées à la **plénitude** :
+  - Il faut s’assurer d’instaurer une sécurité psychologique, en rédigeant une charte de comportements admis ou exclus, toujours en équipe.
+  - Organiser le lieu de travail pour qu’il permette de bien s’y sentir.
+  - Préparer le processus d’intégration : accueil, formation initiale etc.
+  - Établir une méthode de réunion : ça peut être des choses simples comme commencer par une minute de silence pour se reconnecter à son âme, ou quelque chose de plus structuré comme les réunions de **Holacracy** ou **Buurtzorg**.
+- Pour les pratiques liées à la **raison d’être** :
+  - Deux outils pour aider à travailler la raison d’être :
+    - Le recrutement : les candidats peuvent examiner leur vocation personnelle et sa résonance avec la raison d’être de l’entreprise.
+    - Le rituel de la chaise vide : à la fin (ou à tout moment) de chaque réunion, un membre de l’équipe peut occuper la chaise représentant la raison d’être de l’entreprise, et répondre à une question comme “Est-ce que cette réunion a été vraiment utile à l’entreprise ?”.
