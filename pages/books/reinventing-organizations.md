@@ -586,3 +586,68 @@
   - Mettre en place des structures, pratiques et processus qui vont dans le sens de cette culture (quadrant inférieur droit).
   - S’assurer que ceux qui détiennent l’autorité morale sont en phase avec la culture dans leurs actes (quadrant supérieur droit).
   - Inviter chacun à examiner dans quelle mesure il est en résonance avec cette culture (quadrant supérieur gauche).
+
+## 3 - L’émergence des organisations Opale
+
+### 3.1 - Les conditions nécessaires
+
+- Selon l’auteur, il y a deux conditions décisives pour pouvoir créer une organisation Opale :
+  - 1- Le **dirigeant** (fondateur) doit avoir intégré les principes de fonctionnement Opale, et y adhérer personnellement.
+  - 2- Les **propriétaires** (actionnaires) doivent aussi avoir compris le modèle Opale, et y adhérer.
+    - Il est possible qu’ils fassent confiance au un dirigeant même sans comprendre, mais en cas de turbulences ils vont avoir tendance à vouloir reprendre la main.
+- Parmi les paramètres qui n’ont pas l’air d’avoir d’importance :
+  - Le secteur peut aussi bien être lucratif que non lucratif, dans la santé, l’industrie, le commerce, les services etc.
+  - La taille de l’entreprise : ça marche avec les petites comme les grandes.
+  - La géographie et la culture ne comptent pas non plus, cf. l’exemple d’**AES**.
+- L’auteur **déconseille de tenter de transformer une partie de l’entreprise si on n’est pas à sa tête, et si le dirigeant / les propriétaires ne sont pas sur un paradigme Opale**.
+  - L’auteur n’a vu aucun exemple d’une partie de l’entreprise qui devient Opale et le reste alors que les dirigeants ne sont pas sur ce paradigme.
+  - A la limite le paradigme Vert peut être un peu plus tolérant, mais pas l’Orange qui peut laisser faire un temps avant de tout annuler en voyant de quoi il s’agit.
+- Il **déconseille aussi de tenter de convaincre des dirigeants** qui ne sont pas sur ce paradigme.
+  - Gravir les échelons des paradigmes est un processus personnel et complexe, et ne peut pas être imposé de l’extérieur.
+  - Tous les exemples de consultants qui, chiffres et arguments Orange à l’appui, ont essayé de convaincre de l’efficacité des organisations Vert et Opale, ont échoué.
+  - Les dirigeants écoutent avec intérêt jusqu’au moment où ils comprennent quelles fonctions sont en cause et quel pouvoir ils vont devoir abandonner.
+- Ce qui est possible pour un cadre travaillant dans une entreprise Orange c’est de la faire évoluer vers de l’Orange **moins toxique**.
+  - Par exemple, au lieu d’enlever complètement les objectifs (ce qui serait inacceptable), on peut dire aux subalternes qu’ils peuvent fixer leurs objectifs eux-mêmes.
+  - Et pour aller plus loin, le cadre peut ne même pas participer à la réunion de définition des objectifs, en laissant à son équipe le soin de se les définir.
+- **Le dirigeant** :
+  - Il reste l’interlocuteur pour les entreprises extérieures qui demandent à “parler au un chef”.
+  - Il n’a plus les rôles classiques de dirigeant : stratégie, promotions, budgets etc.
+  - Il doit occuper quand même deux rôles :
+    - Créer et garantir l’espace où se déploient les modes opératoires Opale.
+      - Au moindre souci, il va y avoir diverses personnes proposant de revenir à **plus de règles et de surveillance**. Le dirigeant est là pour **empêcher qu’on aille dans cette direction**.
+      - Exemple : Chez **RHD** une employée avait fait un abus de bien social en donnant une des voitures de la société à son fils. Elle a été renvoyée mais certains collègues ont proposé qu’on mette en place des règles et un contrôle pour empêcher que ça se reproduise.
+      - Les cas les plus compliqués sont quand la pression vient de l’extérieur, par exemple apposer un tampon qualité alors qu’on n’a pas de département qualité (fonction support supprimée). Dans ce cas, il faut être créatif…
+    - Être un modèle exemplaire de comportement Opale (en tant qu’autorité morale).
+      - Incarner l’auto-gouvernance : le dirigeant doit accepter que son **pouvoir soit sévèrement limité par la sollicitation d’avis**.
+      - Incarner l’authenticité : en donnant l’exemple, on incite tous les autres à faire de même.
+        - Par exemple **manifester sa vulnérabilité et son humilité** en avouant avoir fait l’erreur de ne pas avoir sollicité d’avis avant de décider, et revenir dessus pour respecter la procédure.
+      - Incarner l’écoute de la raison d’être : typiquement poser des questions du genre “_Quelle décision sera le plus en ligne avec notre raison d’être ?_“, “_Est-ce que la collaboration avec ce client va dans le sens de notre raison d’être ?_”.
+  - Il est un **collègue comme les autres**.
+    - En dehors des deux rôles (garantir l’espace, et être exemplaire), le dirigeant participe aux activités normales comme tous les autres, occupe des rôles où il doit à chaque fois prouver son utilité.
+  - Il va en général être à l’origine de décisions plutôt importantes, et donc la plupart du temps impliquer beaucoup de personnes dont il faut prendre les avis.
+    - Pour les petites entreprises ça peut être faire le tour de l’entreprise, comme chez **FAVI**.
+    - Pour les plus grosses, ça peut être poster la proposition sur un blog interne, et voir les résultats qu’on obtient, comme chez **Buurtzorg**.
+  - L’auteur évoque le modèle proposé par Norman Wolfe dans **_The Living Organization_**, pour caractériser l’énergie mise en œuvre en entreprise.
+    - Elle se divise en 3 catégories :
+      - L’_activité_ : le contenu de ce qui est fait et pourquoi.
+      - Les _relations_ : la manière dont c’est dit pour entrer en relation.
+      - Le _contexte_ : le rapport au sens et à la raison d’être.
+    - Dans les entreprises Orange l’_activité_ prend tout l’espace des décisions venant des dirigeants, les _relations_ sont au minimum, et le _contexte_ inexistant.
+    - Dans les entreprises Opale, les décisions mobilisent en priorité le _contexte_ et les _relations_, et ensuite seulement l’_activité_.
+- Les **propriétaires** (et conseil d’administration) :
+  - Parmi les entreprises étudiées, deux sont revenues à des paradigmes plus classiques suite à un changement de dirigeant par les propriétaires :
+    - **BSO/Origin** :
+      - Initialement l’entreprise a atteint 10 000 personnes, avec des équipes autonomes, peu de fonctions support et quasi personne au siège.
+      - 20 ans après sa création elle avait été associée à une autre entreprise liée à Philips, qui a pris la majorité du capital de **BSO/Origin** en 2 ans.
+      - Les deux mondes sont entrés en conflit, et l’entreprise liée à Philips a assez rapidement réimposé des pratiques managériales classiques.
+    - **AES** :
+      - L’entreprise a atteint 40 000 personnes et est entrée en bourse.
+      - Pendant des années les actionnaires soutenaient le modèle, mais ils le faisaient parce que ça rapportait.
+      - Suite à des problèmes économiques liés à des crises, l’action ayant chuté, ils ont paniqué et petit à petit ont tout fait pour revenir à du management classique, jusqu’à la démission du fondateur.
+  - Ces exemples montrent que pour une entreprise Opale il faut faire très attention aux propriétaires qu’on fait entrer dans le capital :
+    - Soit ne pas faire entrer de personnes extérieures et croître éventuellement moins vite.
+    - Soit ne faire entrer que des personnes convaincues par le paradigme Opale.
+  - Selon le paradigme Vert, le **pouvoir des actionnaires doit être sévèrement limité** au profit des salariés, clients, voisinage, fournisseurs.
+    - Le paradigme Opale **ne propose pas de limiter leur pouvoir**, mais propose à la place qu’ils soient convaincus par la raison d’être de l’entreprise, et le fait qu’elle permettra de rapporter plus.
+    - Holacracy propose un projet législatif pour faire entrer le fonctionnement Opale dans le type juridique de l’entreprise, et empêcher qu’elle puisse facilement se transformer en entreprise classique.
+    - Aux Etats Unis le modèle juridique B-Corporation permet aux entreprises de prendre en compte les problématiques environnementales et sociales, contrairement aux C-Corporations classiques qui ne doivent légalement prendre en compte que l’intérêt financier des actionnaires.
