@@ -3,7 +3,7 @@
 ## Introduction
 
 - Il est possible que nous ne voyions pas certaines choses évidentes par aveuglement idéologique.
-  - Exemple : jusqu’à très récemment (années 90), les scientifiques n’avaient pas “pensé” à vérifier le fait qu’on ait plusieurs cerveaux. On en a en fait 3 : le cerveau dans la tête, un autre dans les intestins (avec autant de neurones que le cerveau d’un chien), et un autre dans le cœur (avec autant de neurones que le cerveau d’une souris).
+  - Exemple : jusqu’à très récemment (années 90), les scientifiques n’avaient pas "pensé" à vérifier le fait qu’on ait plusieurs cerveaux. On en a en fait 3 : le cerveau dans la tête, un autre dans les intestins (avec autant de neurones que le cerveau d’un chien), et un autre dans le cœur (avec autant de neurones que le cerveau d’une souris).
   - L’aveuglement en question vient sans doute du fait qu’on n’ose pas envisager plusieurs sources de décision.
 - Les organisations modernes ont permis depuis 2 siècles un progrès fulgurant au regard de l’histoire.
   - Mais ces derniers temps, on voit bien que quelque chose ne va pas.
@@ -19,7 +19,7 @@
 ### 1.1 D’un paradigme à l’autre : modèles d’organisation d’hier et d’aujourd’hui
 
 - Selon l'auteur, l'évolution de l’humanité a par le passé **avancé par bonds en avant successifs**, et ça dans de nombreux domaines (même si ce livre s’intéresse spécifiquement à l’évolution des organisations).
-- Il désigne chaque stade majeur de l’évolution de l’humanité par une couleur, tiré du code couleur proposé par Ken Wilber dans sa “Théorie intégrale” (dans une version légèrement remaniée).
+- Il désigne chaque stade majeur de l’évolution de l’humanité par une couleur, tiré du code couleur proposé par Ken Wilber dans sa "Théorie intégrale" (dans une version légèrement remaniée).
   - **Stade Réactif - Paradigme Infrarouge**
     - Stade primitif de l’humanité de -100 000 à -50 000 ans avant JC.
     - Petits groupes d’une douzaine de membres.
@@ -106,7 +106,7 @@
 
 ### 1.3 - Le stade évolutif Opale
 
-- Le prochain stade de l’évolution de l’humanité peut être caractérisé comme “Authentique”, “Intégral”, “Opale” (en anglais “Teal”).
+- Le prochain stade de l’évolution de l’humanité peut être caractérisé comme "Authentique", "Intégral", "Opale" (en anglais "Teal").
   - On est au stade que Maslow appelle ‘l’accomplissement de soi’.
   - On peut considérer qu’il y a une coupure entre les stades précédents et le stade Opale.
 - Le stade Opale est celui où on se **détache de son égo**.
@@ -122,7 +122,7 @@
   - On n’est ni sur le pure rationnel de l’orange, ni sur du pur émotionnel / intuitif du Vert, mais sur une synthèse prenant en compte les deux, une approche holistique.
   - Quand on se recentre sur son for intérieur, on se rend compte qu’on est en fait une partie d’un tout, partie intégrante de la vie et de la nature.
 - A propos des organisations :
-  - Le vocabulaire “équilibre vie professionnelle - vie privée” est révélateur du fait qu’on n’est pas intégralement soi-même au travail.
+  - Le vocabulaire "équilibre vie professionnelle - vie privée" est révélateur du fait qu’on n’est pas intégralement soi-même au travail.
   - Comme les stades plus avancés permettent d’appréhender plus de complexité, les personnes utilisant principalement le paradigme Opale sont plus **efficaces** que les autres pour résoudre des problèmes.
     - Il en est de même pour les entreprises dont le paradigme principal est l’Opale.
   - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
@@ -137,7 +137,7 @@
 - Les entreprises Opale ont trois caractéristiques majeures :
   - **L’autogouvernance** : il n’y a pas de hiérarchie, on fonctionne d’égal à égal.
   - **L’affirmation de soi (wholeness)** : il s’agit de venir au travail tel qu’on est dans sa totalité et son authenticité, y compris ses vulnérabilités, ses émotions, etc.
-  - **La raison d’être évolutive** : comme un organisme vivant, les cellules de l’entreprise avancent dans la bonne direction de manière “organique”.
+  - **La raison d’être évolutive** : comme un organisme vivant, les cellules de l’entreprise avancent dans la bonne direction de manière "organique".
 - Les 12 entreprises étudiées :
   - **AES** : entreprise d’énergie américaine, 40 000 collaborateurs.
   - **BSO/origin** : entreprise de conseil en informatique aux Pays Bas, 10 000 collaborateurs.
@@ -174,7 +174,7 @@
       - Typiquement dans une réunion où il faut décider, le groupe choisit un facilitateur qui ne peut pas suggérer ni décider, mais est chargé de demander aux autres ce qu’ils proposent et pourquoi.
         - Puis on discute et améliore collectivement les propositions.
         - Et enfin le groupe décide et choisit une solution à laquelle il n’y a pas d’objection de principe.
-      - L’absence de subordination n’enlève pas les rapports de reconnaissance, d’influence et de talent. On remplace la hiérarchie de pouvoir par une “hiérarchie naturelle” où chacun trouve une place particulière en fonction de ce qu’il apporte au groupe.
+      - L’absence de subordination n’enlève pas les rapports de reconnaissance, d’influence et de talent. On remplace la hiérarchie de pouvoir par une "hiérarchie naturelle" où chacun trouve une place particulière en fonction de ce qu’il apporte au groupe.
     - Il n’y a **pas de middle management** : il n’y a que des coachs régionaux, s’occupant chacune de 50 équipes (un nombre élevé à dessin, pour les empêcher de trop s’y impliquer).
       - Les coachs n’ont pas de pouvoir ni de responsabilité, elles ne sont là que pour aider dans le cas où les équipes demandent de l’aide.
     - Quelques règles que les équipes s’engagent à respecter :
@@ -202,7 +202,7 @@
   - A propos de la **coordination** chez **FAVI** :
     - Pour se répartir temporairement entre équipes en fonction de la charge de travail, une personne de chaque équipe se réunit régulièrement pour faire le point, puis chacun retourne dans son équipe demander qui voudrait aller dans telle autre équipe surchargée pendant quelques jours.
       - C’est basé sur le volontariat.
-    - L’investissement est décidé par les équipes elles-mêmes. Si une équipe décidait de plaquer en or leur machine, les autres s’en apercevraient vite et exerceraient une “pression amicale” pour les en dissuader.
+    - L’investissement est décidé par les équipes elles-mêmes. Si une équipe décidait de plaquer en or leur machine, les autres s’en apercevraient vite et exerceraient une "pression amicale" pour les en dissuader.
       - Si le budget d’investissement total est trop élevé, le DG demande aux équipes de revenir vers lui avec un autre plan.
     - Certaines fonctions support émergent d’elles-mêmes parce qu’il y a un besoin particulier à un moment donné, et doivent disparaître si elles ne suscitent pas ou plus l’intérêt des équipes.
       - Elles n’ont pas de pouvoir sur les équipes.
@@ -215,7 +215,7 @@
   - L’entreprise est largement bénéficiaire et en croissance depuis 50 ans.
   - La **gestion de projet** classique est éliminée :
     - Il n’y a pas d’échéances et de budgets à fixer, ni d’avancement à suivre, et pas non plus de statistiques à surveiller. Pas non plus de coupable à trouver sur qui rejeter la faute au cas où le plan serait dépassé.
-    - Les salariés doivent **occuper leur temps à ce qu’ils estiment le plus productif**. C’est la règle du “20% de temps” de Google, mais étendue à 100% du temps.
+    - Les salariés doivent **occuper leur temps à ce qu’ils estiment le plus productif**. C’est la règle du "20% de temps" de Google, mais étendue à 100% du temps.
     - Les projets qui ne trouvent personne ne sont tout simplement pas assez importants.
 - Exemple d’**AES**.
   - C’est un exemple qui montre que même avec des dizaines de milliers de collaborateurs, il est possible d’avoir des pratiques d’auto-gouvernance.
@@ -231,12 +231,12 @@
   - Vu sa taille impressionnante (et avant de repasser au mode traditionnel), **AES** avait mis en place la règle du 80-20 : chaque salarié devait passer 80% de son temps à son métier de base, et 20% à des **groupes de travail** dans l’entreprise.
     - Ces groupes de travail remplaçaient les fonctions transverses : définition du budget, réalisation des audits etc.
     - Ces groupes apportaient un authentique sentiment d’appartenance du fait de la responsabilité confiée.
-- Les responsabilités étant très partagées au sein des entreprises Opale, **il n’y a pas d’organigramme**, les titres étant considérés comme le “sucre de l'égo" (mauvais pour la santé).
-  - Plutôt que de faire rentrer les salariés dans des rôles prédéfinis, on fait émerger les “rôles” naturellement en fonction de l’investissement de chacun.
+- Les responsabilités étant très partagées au sein des entreprises Opale, **il n’y a pas d’organigramme**, les titres étant considérés comme le "sucre de l'égo" (mauvais pour la santé).
+  - Plutôt que de faire rentrer les salariés dans des rôles prédéfinis, on fait émerger les "rôles" naturellement en fonction de l’investissement de chacun.
     - Et comme elles ne sont pas figées par un titre, ces activités peuvent varier dans le temps.
   - C’est très marqué chez **Buurtzorg** où les infirmières font tourner le management.
-    - Ca l’est un peu moins chez **FAVI** qui a des “Team leaders” qui ont l’essentiel de ce rôle. La raison est qu’il est plus difficile de le faire tourner chez les ouvriers qui devraient arrêter leur machine, alors que ce genre de problème ne se pose pas chez les infirmières.
-    - Ceci dit les “Team leaders” des équipes de **FAVI** ont un pouvoir limité, et s’ils se comportent de manière autoritaire, les membres des équipes peuvent tout simplement changer d’équipe librement.
+    - Ca l’est un peu moins chez **FAVI** qui a des "Team leaders" qui ont l’essentiel de ce rôle. La raison est qu’il est plus difficile de le faire tourner chez les ouvriers qui devraient arrêter leur machine, alors que ce genre de problème ne se pose pas chez les infirmières.
+    - Ceci dit les "Team leaders" des équipes de **FAVI** ont un pouvoir limité, et s’ils se comportent de manière autoritaire, les membres des équipes peuvent tout simplement changer d’équipe librement.
   - On retrouve parfois une liste de certains rôles occupés actuellement, par exemple dans l’intranet de **Buurtzorg**, on peut trouver les collègues qui ont une spécialité particulière pour savoir qui contacter en cas de besoin sur un sujet spécifique.
 - L'exemple d’**ESBZ** permet de représenter le paradigme Opale dans le milieu scolaire.
   - L’école est généralement l’une des organisations les plus éloignées de l’auto-gouvernance, avec les enfants qui doivent se conformer à rester assis toute la journée, et capter le savoir du professeur, sans participer eux-mêmes.
@@ -253,7 +253,7 @@
   - Une partie du temps est réservé à l’apprentissage chacun à son rythme, et l’autre partie est consacrée au travail sur des projets individuels et collectifs qui ont un impact dans la vraie vie, et qui sont issus de **sujets que les enfants ont identifiés comme comptant pour eux**.
     - Par exemple : coordonner la rénovation des bâtiments de l’école, tenter d’obtenir des normes environnementales plus élevées de la part du conseil municipal etc.
     - Ils ont aussi des sessions dédiées à sortir de leur zone de confort, par exemple un bivouac à plusieurs dans les bois, ou méditer en silence dans un monastère pendant plusieurs semaines, ou encore parcourir l’Allemagne en bicyclette, en sollicitant le gîte et le couvert.
-  - Côté professeurs, ils fonctionnent en équipe : deux professeurs par classe, et une “mini-école” autonome toutes les 3 classes, collaborant sur une base régulière et capable de répondre aux problèmes, l’équivalent des équipes de **FAVI**, **Buurtzorg** ou **AES**.
+  - Côté professeurs, ils fonctionnent en équipe : deux professeurs par classe, et une "mini-école" autonome toutes les 3 classes, collaborant sur une base régulière et capable de répondre aux problèmes, l’équivalent des équipes de **FAVI**, **Buurtzorg** ou **AES**.
   - Les parents aussi sont partie prenante : comme l’école ne reçoit pas d’argent en dehors du salaire des professeurs, les parents contribuent en fonction de leurs revenus, mais aussi en donnant 3 heures de leur temps par mois.
     - Ils sont en auto-gouvernance pour ce temps accordé qui peut servir par exemple à rénover les locaux de l’école.
   - **ESBZ** fonctionne avec le même nombre de professeurs par élève que les autres écoles, et avec un budget inférieur, même en tenant compte de la contribution des parents. Donc ce qu’elle fait est à la portée des autres écoles.
@@ -269,7 +269,7 @@
       - Les avis contraires, même de la part du DG, n’invalident pas la décision.
       - La prise des avis en soi invite à l’humilité, à l’apprentissage, et à la responsabilisation. La personne qui prend la décision devra en général gérer les conséquences.
     - Ne pas solliciter l’avis avant de prendre une décision était une des rares causes de licenciement chez **AES** et d’autres.
-    - Un variante a été présentée dans le chapitre 2.2, au moment d’analyser le fonctionnement de **Buurtzorg** : un facilitateur désigné qui aide à recueillir les propositions, un 2ème tour pour les questionner et les améliorer, et un dernier tour pour que le groupe en choisisse un, tant que personne ne présente “d'objection de principe” (non pas juste un désaccord parce qu’il préfèrerait sa solution, mais un désaccord grave qui va à l’encontre de ses valeurs par exemple).
+    - Un variante a été présentée dans le chapitre 2.2, au moment d’analyser le fonctionnement de **Buurtzorg** : un facilitateur désigné qui aide à recueillir les propositions, un 2ème tour pour les questionner et les améliorer, et un dernier tour pour que le groupe en choisisse un, tant que personne ne présente "d'objection de principe" (non pas juste un désaccord parce qu’il préfèrerait sa solution, mais un désaccord grave qui va à l’encontre de ses valeurs par exemple).
   - La prise de décision au consensus est typique des entreprises au stade Vert. Elle a plusieurs problèmes :
     - N’importe qui peut bloquer la décision au moindre désaccord, et donc on se retrouve souvent à ne pas avancer.
     - Elle dilue la responsabilité : personne en particulier ne se sentant responsable, et donc personne ne s'enthousiasme à tout faire pour que ça marche, et n’assume les conséquences.
@@ -289,7 +289,7 @@
 - A propos de la communication des informations en interne : **tout est transparent**, et surtout les informations les plus sensibles.
   - Il y a plusieurs raisons à cette transparence :
     - Sans hiérarchie, les équipes autonomes doivent avoir accès à toute l’information pour prendre leurs décisions.
-    - Toute information qui serait cachée serait source de suspicion : “Pourquoi on prend la peine de nous cacher ces infos ?”.
+    - Toute information qui serait cachée serait source de suspicion : "Pourquoi on prend la peine de nous cacher ces infos ?".
     - Des hiérarchies officieuses réapparaîtraient entre ceux qui sont dans la confidence et ceux qui ne le sont pas.
   - Parmi les informations transparentes, on trouve par exemple les résultats de l’entreprise, mais aussi les salaires de chacun, et les performances de chaque équipe.
     - Il n’y a pas de culture de la peur, et si certaines équipes traversent une mauvaise passe, elles peuvent entrer en contact avec celles qui réussissent mieux pour s’en inspirer.
@@ -299,7 +299,7 @@
   - Exemple de **Morning Star** :
     - Elle produit 40% de la purée de tomates consommée aux Etats Unis.
     - Les effectifs varient entre 400 et 2400 en fonction de la saison, et sont divisés en 23 équipes entièrement autonomes comme dans les autres entreprises qu’on a vues plus haut.
-    - Ils ont deux principes fondateurs : “_personne ne devrait jamais employer la force contre qui que ce soit”_, et “_les engagements devraient toujours être tenus”_.
+    - Ils ont deux principes fondateurs : "_personne ne devrait jamais employer la force contre qui que ce soit"_, et "_les engagements devraient toujours être tenus"_.
     - La méthode de résolution de conflits découle de ce principe, elle est utilisée en fait pour tous types de désaccords, qu’ils soient techniques, interpersonnels ou autres :
       - D’abord les deux personnes en désaccord se **rencontrent et discutent**. Celui qui est à l’initiative de la rencontre doit formuler une requête claire, l’autre répond par oui, non, ou une contre-proposition.
       - Si ça n’aboutit pas à un accord, ils trouvent une personne qui a leur confiance pour jouer le rôle de **médiateur**. Il les aide à trouver une solution mais ne peut pas l’imposer.
@@ -334,10 +334,10 @@
       - Il s’agit d’une variante de la sollicitation d’avis, mais dans ce cas c'est le groupe entier qui sollicite et prend la décision.
         - Et comme avec la sollicitation d’avis, on ne reste pas bloqué avec de longues discussions.
   - Malgré les rôles, dans les entreprises auto-gouvernées chaque collaborateur est en situation de **responsabilité totale** et a le devoir d'agir s’il voit un problème, quel que soit le périmètre.
-    - Il est donc inacceptable de dire “On devrait faire quelque chose pour régler ce problème” et de passer à autre chose.
-      - Et à l’inverse personne ne peut dire “Ça ne te regarde pas”.
-    - **Holacracy** propose de régler les “tensions” en réunion de _gouvernance_ ou en réunion _tactique_ (de travail), en fonction du type de tension, avec des processus particuliers pour chacun.
-  - La “**nomination”** aux rôles, y compris pour ceux qui émergent, se fait en général de manière informelle et naturelle : les personnes qui sont volontaires et sont perçues par leurs collègues comme les plus aptes prennent le rôle.
+    - Il est donc inacceptable de dire "On devrait faire quelque chose pour régler ce problème" et de passer à autre chose.
+      - Et à l’inverse personne ne peut dire "Ça ne te regarde pas".
+    - **Holacracy** propose de régler les "tensions" en réunion de _gouvernance_ ou en réunion _tactique_ (de travail), en fonction du type de tension, avec des processus particuliers pour chacun.
+  - La "**nomination"** aux rôles, y compris pour ceux qui émergent, se fait en général de manière informelle et naturelle : les personnes qui sont volontaires et sont perçues par leurs collègues comme les plus aptes prennent le rôle.
     - Parfois ça peut être un peu plus explicite, par exemple chez **Sun**, à chaque fois qu’un poste se libère, il y a un processus en interne pour permettre aux candidats de rencontrer les futurs équipiers.
     - Chez **FAVI**, le DG a aussi mis en place un processus de confirmation pour sa propre place : tous les 5 ans il demande aux salariés de voter pour dire s’il doit rester DG. Ca permet de renforcer encore plus l’idée d’auto-gouvernance.
 - A propos de la gestion de la **performance** :
@@ -362,7 +362,7 @@
 - A propos de la **rémunération** :
   - Le montant du salaire est **fixé par la personne et ses collègues**.
     - Chez **Holacracy** par exemple, une fois par an chaque personne répond à deux questions sur ses collègues, sur une échelle +3 / -3 :
-      - “Cette personne apporte à l’entreprise une contribution supérieure à la mienne.” et “Cette personne dispose de bons éléments pour m’évaluer.”
+      - "Cette personne apporte à l’entreprise une contribution supérieure à la mienne." et "Cette personne dispose de bons éléments pour m’évaluer."
       - Puis en un algorithme s’occupe de ranger les salariés par ordre, ceux du bas ayant un salaire plus faible que ceux du haut.
     - Chez **AES** la version était plus radicale : chaque personne devait solliciter des avis, puis fixer elle-même son salaire.
     - Chez **Morning Star** il s’agit d’un processus un peu plus formel : chaque personne écrit une lettre à la commission élue des salaires, et y met l’augmentation qu’elle pense juste pour elle, en l’argumentant avec les commentaires reçus de ses collègues pendant son évaluation.
@@ -410,18 +410,18 @@
   - La _Journée des valeurs,_ qui consiste à se poser la question individuellement et collectivement de la manière dont on met en œuvre les valeurs.
   - La _Réunion des valeurs_, qui consiste à exposer les problèmes qu’on a pu rencontrer sur la mise en œuvre des valeurs, et suggérer d’apporter des modifications à la charte.
   - L’_Enquête annuelle_, qui consiste à diffuser un jeu de questions au sujet des valeurs, et de l’analyser pour en tirer des conséquences.
-- La plupart des entreprises étudiées ont des pratiques qu’on pourrait appeler “**d’introspection**”, où il s’agit de chercher au fond de soi, individuellement et collectivement.
+- La plupart des entreprises étudiées ont des pratiques qu’on pourrait appeler "**d’introspection**", où il s’agit de chercher au fond de soi, individuellement et collectivement.
   - Le **silence** est une première manière de le faire.
     - Beaucoup de structures ont des lieux destinés au silence (méditation, yoga, etc.).
     - Certaines structures ont des temps dédiés à des moments de silence collectifs : dans la journée, la semaine, des jours spécifiques etc.
-  - On a aussi des sessions d’**éducation populaire** (l’auteur ne cite pas ce terme, et appelle ça “introspection de groupe”) où un sujet est introduit, et les salariés se séparent en groupes pour y réfléchir collectivement à partir de leurs propres expériences, pour en tirer des choses et renforcer leurs liens.
+  - On a aussi des sessions d’**éducation populaire** (l’auteur ne cite pas ce terme, et appelle ça "introspection de groupe") où un sujet est introduit, et les salariés se séparent en groupes pour y réfléchir collectivement à partir de leurs propres expériences, pour en tirer des choses et renforcer leurs liens.
     - C’est le cas de l’hôpital **Heiligenfeld** qui consacre 1h15 chaque semaine à cette pratique pour l’ensemble des salariés disponibles (en général la moitié des effectifs).
     - Des exemples de sujets traités collectivement peuvent être : la résolution de conflit, la gestion de l’échec, la bureaucratie, la communication interpersonnelle, la gestion du risque etc.
     - C’est des moments où les salariés peuvent partager leur _humanité profonde, dans la beauté de leur force et de leur vulnérabilité_.
   - **Heiligenfeld** a mis en place des ateliers pour travailler les questions organisationnelles et interpersonnelles (conflits par exemple) avec des spécialistes, en moyenne plusieurs fois par mois, à la demande des équipes.
   - Chez **Buurtzorg**, ils ont mis en place des sessions basées sur la technique _Intervisie_, où une des infirmières exprime une problématique qu’elle a avec des clients, et le reste de l’équipe l’écoute et la soutient pour l’aider à trouver une solution qui lui appartiendrait.
 - Pour créer des relations profondes et authentiques avec ses collègues, il faut qu’il y ait de la **narration (storytelling)**, c’est-à-dire raconter des histoires sur nous, et écouter celles des autres.
-  - Par exemple, **Center for Courage & Renewal** mène des ateliers où ils demandent à ceux qui veulent répondre des choses comme “Parlez-nous d’un aîné qui a compté dans votre vie” ou “Parlez-nous du premier dollar que vous avez gagné”.
+  - Par exemple, **Center for Courage & Renewal** mène des ateliers où ils demandent à ceux qui veulent répondre des choses comme "Parlez-nous d’un aîné qui a compté dans votre vie" ou "Parlez-nous du premier dollar que vous avez gagné".
   - Chez **ESBZ**, chaque vendredi les élèves et professeurs se retrouvent pendant une heure. Ils commencent par chanter ensemble, puis ceux qui le veulent peuvent aller prendre le micro, et remercier ou congratuler quelqu’un pour quelque chose de spécifique. Il s’agit en fait de petites histoires.
   - Chez **Ozvision**, petite entreprise japonaise, chaque salarié a chaque année une journée de congé où on lui offre 200$ à dépenser pour faire un cadeau à quelqu’un qu’il connaît, et ensuite de le raconter aux collègues.
 - A propos des **réunions** :
@@ -456,7 +456,7 @@
   - Les entreprises Opale investissent beaucoup dans l’intégration, qui ressemble souvent à une sorte de formation.
   - On y aborde les 3 piliers :
     - **L’autonomie** : expliquer ce qu’implique d’avoir d’importantes responsabilités, et de les exercer avec un groupe.
-      - En général, ceux qui ont le plus de mal sont les anciens cadres dirigeants. Selon Paul Green Jr. de Morning Star, 50% d’entre eux partent au bout d’un an parce qu’ils _“ont du mal à s’adapter à un système où ils ne peuvent pas jouer à Dieu”_.
+      - En général, ceux qui ont le plus de mal sont les anciens cadres dirigeants. Selon Paul Green Jr. de Morning Star, 50% d’entre eux partent au bout d’un an parce qu’ils _"ont du mal à s’adapter à un système où ils ne peuvent pas jouer à Dieu"_.
     - **L’intégrité** : former à des techniques de communication non violente, à la maîtrise de soi, la gestion de l’échec etc. Le but étant de se montrer tel qu’on est.
     - **La raison d’être évolutive** : examiner la raison d’être de l’entreprise, et voir en quoi elle peut rejoindre notre propre vocation personnelle.
   - Souvent les nouvelles recrues vont aussi recevoir une formation technique, en étant intégré aux divers rôles de l’entreprise pour nouer des relations.
@@ -538,7 +538,7 @@
     - Exemple de questions à poser : _Comment voyez-vous votre parcours de vie ? Comment le fait de travailler ici s’intègre-t-il à votre perception de ce que vous êtes appelé à être et à faire dans le monde ?_
   - Chez **Heiligenfeld**, ils posent deux questions aux entretiens annuels : _Est-ce que je mets mon cœur dans mon travail ? Est-ce que j’ai le sentiment d’être à ma place ?_
 - Alors que dans le modèle Vert, les dirigeants se mettaient au service de l’entreprise, et veillaient à ce que tout se passe bien dans ce sens, dans le modèle Opale l’entreprise est comme un être vivant, un champ d’énergie indépendant qui évolue par lui-même. Il n’y a donc **pas besoin de chef pour en assurer la cohérence**.
-  - L’auteur se demande quel sens il y a à “posséder” un champ d’énergie indépendant, et propose d’inventer de nouveaux cadres juridiques pour que les investisseurs aient _la place qui leur revient_, en laissant l’autonomie à l’entreprise.
+  - L’auteur se demande quel sens il y a à "posséder" un champ d’énergie indépendant, et propose d’inventer de nouveaux cadres juridiques pour que les investisseurs aient _la place qui leur revient_, en laissant l’autonomie à l’entreprise.
 
 ### 2.7 - Traits culturels communs
 
@@ -610,7 +610,7 @@
   - Par exemple, au lieu d’enlever complètement les objectifs (ce qui serait inacceptable), on peut dire aux subalternes qu’ils peuvent fixer leurs objectifs eux-mêmes.
   - Et pour aller plus loin, le cadre peut ne même pas participer à la réunion de définition des objectifs, en laissant à son équipe le soin de se les définir.
 - **Le dirigeant** :
-  - Il reste l’interlocuteur pour les entreprises extérieures qui demandent à “parler au un chef”.
+  - Il reste l’interlocuteur pour les entreprises extérieures qui demandent à "parler au un chef".
   - Il n’a plus les rôles classiques de dirigeant : stratégie, promotions, budgets etc.
   - Il doit occuper quand même deux rôles :
     - Créer et garantir l’espace où se déploient les modes opératoires Opale.
@@ -621,7 +621,7 @@
       - Incarner l’auto-gouvernance : le dirigeant doit accepter que son **pouvoir soit sévèrement limité par la sollicitation d’avis**.
       - Incarner l’authenticité : en donnant l’exemple, on incite tous les autres à faire de même.
         - Par exemple **manifester sa vulnérabilité et son humilité** en avouant avoir fait l’erreur de ne pas avoir sollicité d’avis avant de décider, et revenir dessus pour respecter la procédure.
-      - Incarner l’écoute de la raison d’être : typiquement poser des questions du genre “_Quelle décision sera le plus en ligne avec notre raison d’être ?_“, “_Est-ce que la collaboration avec ce client va dans le sens de notre raison d’être ?_”.
+      - Incarner l’écoute de la raison d’être : typiquement poser des questions du genre "_Quelle décision sera le plus en ligne avec notre raison d’être ?_", "_Est-ce que la collaboration avec ce client va dans le sens de notre raison d’être ?_".
   - Il est un **collègue comme les autres**.
     - En dehors des deux rôles (garantir l’espace, et être exemplaire), le dirigeant participe aux activités normales comme tous les autres, occupe des rôles où il doit à chaque fois prouver son utilité.
   - Il va en général être à l’origine de décisions plutôt importantes, et donc la plupart du temps impliquer beaucoup de personnes dont il faut prendre les avis.
@@ -672,7 +672,7 @@
 - Pour les pratiques liées à l’**auto-gouvernance** :
   - On peut soit appliquer un cadre existant, et dans ce cas l’auteur conseille de regarder du côté de **l’Holacracy** : il y a de la documentation et des consultants si besoin.
   - Ou alors on peut personnaliser le fonctionnement, et dans ce cas il faut faire attention à 3 points :
-    - La sollicitation d’avis : personne n’est là pour “approuver” les décisions.
+    - La sollicitation d’avis : personne n’est là pour "approuver" les décisions.
     - Un mécanisme de résolution des conflits : en face à face et éventuellement avec un médiateur, voire un jury.
     - Un processus d’évaluation entre pairs : les pairs s’évaluent, y compris au niveau du montant du salaire.
 - Pour les pratiques liées à la **plénitude** :
@@ -683,4 +683,54 @@
 - Pour les pratiques liées à la **raison d’être** :
   - Deux outils pour aider à travailler la raison d’être :
     - Le recrutement : les candidats peuvent examiner leur vocation personnelle et sa résonance avec la raison d’être de l’entreprise.
-    - Le rituel de la chaise vide : à la fin (ou à tout moment) de chaque réunion, un membre de l’équipe peut occuper la chaise représentant la raison d’être de l’entreprise, et répondre à une question comme “Est-ce que cette réunion a été vraiment utile à l’entreprise ?”.
+    - Le rituel de la chaise vide : à la fin (ou à tout moment) de chaque réunion, un membre de l’équipe peut occuper la chaise représentant la raison d’être de l’entreprise, et répondre à une question comme "Est-ce que cette réunion a été vraiment utile à l’entreprise ?".
+
+## 3.3 - Transformer une entreprise
+
+- 3 des entreprises étudiées sont intéressantes pour ce chapitre :
+  - **FAVI** est passée d’une méthode classique hiérarchique à Opale.
+  - **AES** était Opale au début, mais elle a par la suite racheté une dizaine de centrales existantes, et les a converties à son fonctionnement (c’était des années avant qu’elle-même ne revienne vers un mode classique).
+  - **HolacracyOne** aide justement des entreprises existantes à passer au mode Opale.
+- Pour commencer il faut les **deux conditions indispensables** : un DG à qui le mode Opale tient à cœur, et des propriétaires qui comprennent et soutiennent l’idée.
+- On ne peut pas tout bouleverser d’un coup. Il vaut mieux **commencer par un des 3 piliers** (auto-gouvernance, plénitude, raison d’être évolutive).
+  - Les trois piliers sont de toute façon liés, les uns déclenchant les autres.
+- Etablir l’**auto-gouvernance** :
+  - En général les salariés qui sont **en bas de l’échelle** s’habituent vite à l’autonomie et en sont contents. Seules quelques rares personnes quittent l’entreprise.
+  - Si on a des salariés qui ont intégré le mode de fonctionnement hiérarchique pendant des années, il se peut qu’ils **mettent du temps à acquérir le sens de la responsabilité** qui va avec la liberté donnée par l’autonomie. On peut les y aider.
+    - La raison d’être : elle doit être claire et bien réfléchie pour motiver.
+    - L’émulation : on peut proposer aux salariés de préparer des objectifs, un plan et un budget, avec dans l’idée de faire voter les équipes entre elles pour élire les meilleurs plans. La partie importante ici est le processus de préparation qui va faire entrer les équipes dans un cercle vertueux.
+    - La pression du marché : laisser les équipes au contact des clients (si c’est possible), pour qu’il sachent ce que le client pense de leur travail, s’ils ont un prix compétitif etc.
+  - Les **cadres et les fonctions support** vont être plus problématiques, parce qu’ils vont au mieux perdre du pouvoir, et au pire perdre leur travail.
+    - Il faut leur faire comprendre qu’il n’y aura pas de retour en arrière, et qu’on peut les recaser dans d’autres rôles, au sein des équipes auto-organisées.
+    - Une bonne partie reste, et quelques-uns partent, c’est du moins ce qui s’est passé chez **FAVI** et **AES**.
+  - On peut établir l’auto-organisation de 3 manières :
+    - **Le chaos récréatif** : il s’agit pour le dirigeant de prendre une décision forte de se séparer d’une fonction support (par exemple planning), d’un niveau hiérarchique (par exemple contremaîtres) ou d’un outil stratégique (par exemple pointeuses dans une usine).
+      - Et espérer que le chaos qui en résultera laissera rapidement place à l’auto-organisation des salariés.
+      - Ça marche mieux si les salariés se sont déjà appropriés leur travail et font confiance au dirigeant.
+    - **La redéfinition par la base** : organiser des ateliers avec l’ensemble des salariés, pour définir la nouvelle structure et les nouveaux processus (comme la sollicitation d’avis, la transparence de l’information et l’évaluation par les pairs etc.).
+      - Il faut que les salariés soient suffisamment impliqués et fassent confiance au dirigeant, et que les fonctions support et les cadres n’aillent pas jusqu’à saboter l’initiative.
+      - On peut commencer par faire des présentations du concept d’auto-organisation, acheter ce livre ou d’autres du genre pour l’offrir aux salariés, leur faire visiter des entreprises auto-organisées.
+    - **Le modèle prêt à l'emploi** : utiliser par exemple le modèle de **Holacracy**.
+      - On définit une structure constituée de cercles emboîtés, avec des modes de fonctionnement holacratiques, et on décide d’un jour de bascule où on adoptera la nouvelle organisation.
+      - Le changement peut être progressifet s’adapter petit à petit à la raison d’être de l’entreprise.
+      - On a aussi d’autres sources que Holacracy :
+        - L’institut de l’autogouvernance créé par **Morning Star** donne des formations.
+        - **Buurtzorg** a publié de nombreux documents sur leur fonctionnement.
+- **Créer les conditions de la plénitude** :
+  - Introduire des processus qui permettent à chacun d’être pleinement soi-même est plus facile qu’introduire l’auto-gouvernance.
+    - On n’aura pas les cadres contre soi, et on peut y aller avec un rythme plus tranquille, contrairement à l’auto-gouvernance où il faut mettre en place des pratiques de remplacement rapidement (gestion des conflits, rôles, salaires etc.).
+  - On a deux manière d’introduire les pratiques de la plénitude :
+    - **L’introduction graduelle **:
+      - On doit d’abord être soi-même dans l’authenticité, et ensuite on peut raconter l’importance que ça a pour nous à travers des histoires personnelles.
+      - Une autre possibilité est aussi de réfléchir à la raison d’être de l’entreprise, et de son lien avec le fait que chacun soit lui-même, en général on finit par trouver un lien.
+      - On peut alors introduire les techniques petit à petit, **d’abord en réunion ou à petite échelle**, puis en généralisant si ça prend bien.
+    - **L’introduction globale **:
+      - On va organiser des événements globaux impliquant l’ensemble des salariés par groupes, pour les faire réfléchir à ce que représente le fait d’être soi-même pour eux.
+      - On leur demande de raconter des histoires personnelles de moments où ils étaient eux-mêmes.
+      - Puis on leur demande de trouver des éléments concrets qui pourraient faire qu’ils pourraient être eux-mêmes au travail, et enfin ce qu’ils seraient prêts à mettre en place.
+- **Créer les conditions de la réalisation de la raison d’être évolutive** :
+  - Il ne s’agit pas de trouver une **raison d’être bullshit** du genre _"Nous mettons toute notre énergie à produire les meilleurs bidules du pays, dépassant les attentes de nos clients, offrant des perspectives passionnantes à nos collaborateurs et des dividendes copieux à nos actionnaires"_.
+    - Il faut que la raison d’être soit ce qu’on pense que l’entreprise doit faire d’utile dans le monde de par son existence, c’est pour ça qu’on prend la métaphore de l’être vivant qui a une raison d’être qu’il faut écouter.
+    - Trouver la raison d’être peut prendre du temps. Ça peut passer par des moments de silence, l’utilisation de méthodes particulières comme la théorie U ou la démarche appréciative.
+  - Une fois qu’on a trouvé la raison d’être, il faut s'appuyer dessus pour les décisions importantes, mais aussi pour les décisions ordinaires.
+    - On peut aussi s’appuyer dessus pour entamer d’autres transformations : revoir le processus de recrutement, la stratégie marketing etc.
