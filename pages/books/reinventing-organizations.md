@@ -734,3 +734,33 @@
     - Trouver la raison d’être peut prendre du temps. Ça peut passer par des moments de silence, l’utilisation de méthodes particulières comme la théorie U ou la démarche appréciative.
   - Une fois qu’on a trouvé la raison d’être, il faut s'appuyer dessus pour les décisions importantes, mais aussi pour les décisions ordinaires.
     - On peut aussi s’appuyer dessus pour entamer d’autres transformations : revoir le processus de recrutement, la stratégie marketing etc.
+
+## 3.4 - Les résultats
+
+- De même que ça a été le cas par le passé avec les précédents paradigmes, nous sommes arrivés à un point où nous sommes limités par le paradigme dominant actuel.
+- Les entreprises Opale sont plus efficaces, mais elles ne le sont pas pour les mêmes raisons que les entreprises Orange par exemple. Elles le sont pour poursuivre une raison d’être qui a du sens.
+- L'étude faite dans le cadre de ce livre ne permet pas de valider quoi que ce soit d’un point de vue scientifique pour plusieurs raisons : taille de l’échantillon, difficulté à définir et à chiffrer la performance (dans le cas des entreprises Opale ce serait principalement au regard de leur raison d’être) etc.
+- Par contre ce qu’on peut faire c’est examiner les exemples :
+  - **Buurtzorg** :
+    - Ils sont passés de 10 salariés en 2006 à 7000 en 2013.
+    - En 2012, ils ont dégagé un excédent de 7% de leur chiffre d'affaires.
+    - Au regard de leur raison d’être, qui est la qualité de la prise en charge :
+      - Réduction de 40% du temps pendant lequel les patients ont besoin de soin par rapport aux concurrents.
+      - Demande d’admission aux urgences réduites d’un tiers, et séjour en hôpital plus court.
+    - Ernst & Young estime que les économies pour la sécurité sociale néerlandaise monteraient à 2 milliards d’euros si toutes les entreprises de service à domicile avaient la même performance.
+  - **FAVI** :
+    - Entre les années 1980 où elle est passée au mode Opale et 2015, elle est passée de 80 salariés à 500 (ce qui est d’ailleurs une de leur raison d’être : donner du travail aux personnes de cette région rurale).
+    - Les salariés sont payés l’équivalent de 17 ou 18 mois de salaire par rapport au marché, et l'entreprise réalise quand même 5 à 7% de marge.
+    - Elle a aussi montré une grande résilience en situation de crise en maintenant les effectifs malgré une chute de 30% de son chiffre d’affaires en 2008.
+    - Ils sont connus pour la qualité de leur pièces et leur absence de retard de livraison.
+  - Les autres organisations étudiées ont plus ou moins le même genre de caractéristiques : croissance, réussite financière, salaires plus élevés, résilience aux crises.
+- Pourquoi une telle performance ?
+  - La puissance est démultipliée quand tout le monde a du pouvoir.
+  - Le pouvoir est utilisé à meilleur escient quand chacun est lui-même.
+  - On est plus efficace quand tout le monde s’aligne sur la raison d’être de l’entreprise.
+  - La fluidité des rôles permet d’être plus flexible.
+  - On perd moins de temps à défendre son égo, à jouer des coudes pour une promotion, rejeter la faute sur les autres etc.
+  - On perd moins de temps sur des mécanismes de contrôle.
+  - On perd moins de temps en réunion puisqu’il n’y a pas besoin de faire remonter et descendre l’info dans une hiérarchie qui n’existe pas.
+  - La sollicitation d’avis permet d’intégrer les bonnes personnes au bon niveau de décision.
+  - Les décisions étant décentralisées, plus de décisions peuvent être prises.
