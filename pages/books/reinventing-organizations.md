@@ -720,11 +720,11 @@
   - Introduire des processus qui permettent à chacun d’être pleinement soi-même est plus facile qu’introduire l’auto-gouvernance.
     - On n’aura pas les cadres contre soi, et on peut y aller avec un rythme plus tranquille, contrairement à l’auto-gouvernance où il faut mettre en place des pratiques de remplacement rapidement (gestion des conflits, rôles, salaires etc.).
   - On a deux manière d’introduire les pratiques de la plénitude :
-    - **L’introduction graduelle **:
+    - **L’introduction graduelle** :
       - On doit d’abord être soi-même dans l’authenticité, et ensuite on peut raconter l’importance que ça a pour nous à travers des histoires personnelles.
       - Une autre possibilité est aussi de réfléchir à la raison d’être de l’entreprise, et de son lien avec le fait que chacun soit lui-même, en général on finit par trouver un lien.
       - On peut alors introduire les techniques petit à petit, **d’abord en réunion ou à petite échelle**, puis en généralisant si ça prend bien.
-    - **L’introduction globale **:
+    - **L’introduction globale** :
       - On va organiser des événements globaux impliquant l’ensemble des salariés par groupes, pour les faire réfléchir à ce que représente le fait d’être soi-même pour eux.
       - On leur demande de raconter des histoires personnelles de moments où ils étaient eux-mêmes.
       - Puis on leur demande de trouver des éléments concrets qui pourraient faire qu’ils pourraient être eux-mêmes au travail, et enfin ce qu’ils seraient prêts à mettre en place.
