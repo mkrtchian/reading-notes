@@ -128,13 +128,13 @@
   - De nombreuses pratiques problématiques sont le résultat des peurs de l’égo : processus bureaucratiques, paralysie de l’analyse, culture du secret, silos en lutte, concentration du pouvoir etc.
     - A l’inverse, si on laisse les collaborateurs être authentiques par rapport à ce qu’ils sont au fond d’eux, il n’y a pas besoin d’autant de règles, budgets détaillés, d’objectifs fixés etc.
 
-## 2 - Structures, modes de fonctionnement et culture des organisations Opale
+## 2 - Structures, modes de fonctionnement et culture des organisations Opales
 
 ### 2.1 - Trois avancées et une métaphore
 
 - Là où dans le paradigme orange la métaphore était une mécanique, dans le paradigme Vert elle était une famille, dans le paradigme Opale elle est un **organisme vivant**.
   - Même bienveillant et au service d’eux, un dirigeant d’entreprise qui se présente comme père de famille par rapport à ses subordonnés n’occupe pas forcément le rôle le plus émancipateur possible.
-- Les entreprises Opale ont trois caractéristiques majeures :
+- Les entreprises Opales ont trois caractéristiques majeures :
   - **L’autogouvernance** : il n’y a pas de hiérarchie, on fonctionne d’égal à égal.
   - **L’affirmation de soi (wholeness)** : il s’agit de venir au travail tel qu’on est dans sa totalité et son authenticité, y compris ses vulnérabilités, ses émotions, etc.
   - **La raison d’être évolutive** : comme un organisme vivant, les cellules de l’entreprise avancent dans la bonne direction de manière "organique".
@@ -151,8 +151,8 @@
   - **RHD** : entreprise à but non lucratif pour aider les personnes handicapées et sans abri, aux Etats-Unis, 4000 collaborateurs.
   - **Sounds True** : entreprise qui diffuse des contenus spirituels aux Etats-Unis, 90 collaborateurs et 20 chiens.
   - **Sun Hydraulics** : entreprise multinationale américaine qui fabrique des composants hydrauliques, 900 collaborateurs.
-- Certaines de ces entreprises (comme **AES** et **BSO/origin**) étaient Opale et sont revenues à des pratiques plus traditionnelles.
-- La plupart sont Opale sur certains aspects et pas d’autres, **Morning Star** par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
+- Certaines de ces entreprises (comme **AES** et **BSO/origin**) étaient Opales et sont revenues à des pratiques plus traditionnelles.
+- La plupart sont Opales sur certains aspects et pas d’autres, **Morning Star** par exemple a une autogouvernance très élaborée, mais néglige d’autres aspects.
 - L’étude de l’ensemble de ces entreprises permet d’avoir une vue d’ensemble des pratiques qui reviennent.
 
 ### 2.2 - Autogouvernance (structures)
@@ -231,7 +231,7 @@
   - Vu sa taille impressionnante (et avant de repasser au mode traditionnel), **AES** avait mis en place la règle du 80-20 : chaque salarié devait passer 80% de son temps à son métier de base, et 20% à des **groupes de travail** dans l’entreprise.
     - Ces groupes de travail remplaçaient les fonctions transverses : définition du budget, réalisation des audits etc.
     - Ces groupes apportaient un authentique sentiment d’appartenance du fait de la responsabilité confiée.
-- Les responsabilités étant très partagées au sein des entreprises Opale, **il n’y a pas d’organigramme**, les titres étant considérés comme le "sucre de l'égo" (mauvais pour la santé).
+- Les responsabilités étant très partagées au sein des entreprises Opales, **il n’y a pas d’organigramme**, les titres étant considérés comme le "sucre de l'égo" (mauvais pour la santé).
   - Plutôt que de faire rentrer les salariés dans des rôles prédéfinis, on fait émerger les "rôles" naturellement en fonction de l’investissement de chacun.
     - Et comme elles ne sont pas figées par un titre, ces activités peuvent varier dans le temps.
   - C’est très marqué chez **Buurtzorg** où les infirmières font tourner le management.
@@ -261,7 +261,7 @@
 ### 2.3 - Autogouvernance (processus)
 
 - Le chapitre précédent traitait de la structuration des entreprises auto-gouvernées (absence de hiérarchie et fonction support limitées, équipes de taille limitée et sur-responsabilisées), celui-ci traite des processus : comment sont prises les décisions, qui peut dépenser l’argent de l’entreprise, comment décider des primes et augmentations etc.
-- Les entreprises Opale ne prennent pas la majorité des décisions au consensus, ce serait trop long.
+- Les entreprises Opales ne prennent pas la majorité des décisions au consensus, ce serait trop long.
   - Elles utilisent plutôt une version de la **sollicitation d’avis** (advice process) : toute personne peut prendre une décision, mais pour ce faire elle doit : 1) recueillir l’**avis des concernés**, et 2) recueillir l’**avis des experts du sujet**.
     - La décision est prise par la personne qui a identifié le problème ou l’opportunité, ou la personne concernée par le sujet.
     - Plus la décision est importante, plus elle doit ratisser large pour recueillir les avis.
@@ -281,7 +281,7 @@
   - Si ce n’est vraiment pas possible, le DG peut reprendre le contrôle temporairement pour gérer la crise, mais il faut absolument qu’il donne des gages à ses salariés : indiquer la nature et la temporalité du changement du mode de décision, et nommer pour le faire une personne qui ne pourra pas être soupçonnée de vouloir continuer à exercer le pouvoir ensuite.
     - Exemple d’**AES** : en 2001, suite à une situation de crise, l’action de l’entreprise avait chuté, et l’accès au marché de capitaux n’était plus possible. Il fallait rapidement décider quelles centrales fermer pour ne pas faire faillite. Le nombre de salariés étant trop grand, et la décision complexe, le DG a indiqué à tout le monde qu’il allait prendre une décision unilatérale sur ce sujet, et a nommé une personne externe pour mener à bien la mission.
 - A propos des **décisions d’achat et d'investissement** pour l’entreprise :
-  - Dans les entreprises Opale, il n’y a pas de seuil à ne pas dépasser ni d’autorisation à demander, ni non plus de service qui fait les commandes à la place des salariés. Ce sont les salariés qui négocient et commandent ce dont ils ont besoin.
+  - Dans les entreprises Opales, il n’y a pas de seuil à ne pas dépasser ni d’autorisation à demander, ni non plus de service qui fait les commandes à la place des salariés. Ce sont les salariés qui négocient et commandent ce dont ils ont besoin.
     - La règle reste qu’il faut demander l’avis des personnes concernées et expertes, et plus le montant est élevé, plus il faudra demander d’avis.
   - Pour ce qui de la question des achats groupés pour des raisons d’économie, ou pour avoir le même fournisseur, ça se règle en faisant confiance et en responsabilisant : une personne finira par s’en rendre compte et fera le tour des équipes pour prendre les quantités et passer la commande.
     - C’est par exemple ce qui s’est passé chez **Morning Star** où le matériel d’emballage est utilisé en grande quantité dans les équipes.
@@ -378,7 +378,7 @@
       - Tant que le pouvoir est correctement réparti, la propriété ne _semble_ pas importante.
   - Il s’agit d’autonomisation :
     - Si on parle de dirigeants qui doivent faire un effort pour autonomiser les salariés, c’est que les salariés sont en position de victime, à se battre constamment pour du pouvoir.
-    - L’entreprise Opale est déjà organisée selon une structuration et un fonctionnement où le dirigeant n’a pas besoin de faire d'efforts pour que le pouvoir revienne aux salariés naturellement.
+    - L’entreprise Opales est déjà organisée selon une structuration et un fonctionnement où le dirigeant n’a pas besoin de faire d'efforts pour que le pouvoir revienne aux salariés naturellement.
   - On en est encore au stade expérimental :
     - Les exemples étudiés dans ce livre montrent que non, et il y en a plein d’autres.
     - On peut ajouter à ça que les jeunes qui ont grandi avec internet sont taillés pour vouloir l’auto-gouvernance.
@@ -441,19 +441,19 @@
 - Les **préoccupations sociales et environnementales** sont fondamentales, elles nous permettent de nous relier au reste du vivant et d’affirmer notre intégrité.
   - Il s’agit avant tout de se demander ce qu’on trouve **juste**, et de voir seulement ensuite combien ça va coûter.
   - Les paris qui ont l’air risqués mais qui vont dans le sens de ce qu’on trouve juste se révèlent souvent gagnants.
-  - Les initiatives de ce genre dans les entreprises Opale viennent des salariés eux-mêmes.
+  - Les initiatives de ce genre dans les entreprises Opales viennent des salariés eux-mêmes.
   - Exemple : chez **AES**, une salariée a eu l’initiative de faire planter des arbres pour compenser les émissions carbone de l’entreprise. Et depuis, des millions d’arbres ont été replantés.
 
 ### 2.5 - En quête de plénitude (processus RH)
 
 - **Recrutement** :
   - En général, les candidats comme les entreprises jouent un rôle pendant les entretiens.
-  - Dans les entreprises Opale, les entretiens sont faits **par les futurs collègues** de la personne qu’on veut embaucher.
+  - Dans les entreprises Opales, les entretiens sont faits **par les futurs collègues** de la personne qu’on veut embaucher.
     - De cette manière, ils auront tout intérêt à être honnêtes (puisqu’ils devront en assumer les conséquences au quotidien), ce qui incitera le candidat à être honnête et authentique aussi.
   - Vu le décalage avec les entreprises habituelles, les entreprises auto-organisées vont consacrer beaucoup d’énergie à expliquer le **fonctionnement et les valeurs de l’entreprise** pour s’assurer que la personne saura s’y intégrer : prendre les responsabilités, faire confiance aux autres, prendre des initiatives, être elle-même etc.
     - **Zappos.com** offre un chèque de 3000$ aux employés nouvellement embauchés qui font le choix de partir pendant la période d’essai : il vaut mieux qu’ils partent rapidement s’ils n’aiment pas la culture.
 - **Intégration** :
-  - Les entreprises Opale investissent beaucoup dans l’intégration, qui ressemble souvent à une sorte de formation.
+  - Les entreprises Opales investissent beaucoup dans l’intégration, qui ressemble souvent à une sorte de formation.
   - On y aborde les 3 piliers :
     - **L’autonomie** : expliquer ce qu’implique d’avoir d’importantes responsabilités, et de les exercer avec un groupe.
       - En général, ceux qui ont le plus de mal sont les anciens cadres dirigeants. Selon Paul Green Jr. de Morning Star, 50% d’entre eux partent au bout d’un an parce qu’ils _"ont du mal à s’adapter à un système où ils ne peuvent pas jouer à Dieu"_.
@@ -465,11 +465,11 @@
   - En général, n'importe quel salarié peut s’inscrire à une formation, en sollicitant des avis d’abord.
   - Parfois au lieu de la sollicitation d’avis il y a plutôt une limitation du montant.
     - C’est le cas chez **Buurtzorg**, où toutes les infirmières ont 3% de leur chiffre d'affaires à dépenser en formation.
-  - Les entreprises Opale n’ont pas de formations pour gravir les échelons en s’améliorant en management puisqu’il n’y a pas d’échelons à gravir.
+  - Les entreprises Opales n’ont pas de formations pour gravir les échelons en s’améliorant en management puisqu’il n’y a pas d’échelons à gravir.
     - Elles ont des formations pour créer une culture partagée, des formations de développement personnel, et des formations techniques qui sont dispensées par les collègues.
 - **Quantité de travail** :
   - Dans les entreprises classiques on a les ouvriers bas à qui on demande de respecter des horaires strictes et surveillées, et les cadres en haut à qui on demande de faire passer le travail avant tout et d’être joignables tout le temps.
-  - Les entreprises Opale proposent d’être dans la **transparence**, et de prendre en compte les **besoins** de chacun.
+  - Les entreprises Opales proposent d’être dans la **transparence**, et de prendre en compte les **besoins** de chacun.
     - Les obligations du travail sont importantes, mais les obligations personnelles aussi, elles sont à mettre en balance.
     - On demande régulièrement à chacun combien de temps et d’énergie il souhaite consacrer à son travail dans l’entreprise en ce moment.
       - C’est le cas par exemple chez **Holacracy** et **Morning Star**.
@@ -485,16 +485,16 @@
   - Pour ce qui est du licenciement individuel :
     - Il faut prendre la question comme une porte qui se ferme et qui ne correspondait pas à la voie de la personne licenciée, pour d’autres qui s’ouvrent et qui lui permettront de s’épanouir.
   - Pour ce qui est du licenciement collectif pour problèmes économiques :
-    - Quand le problème est temporaire, en général les entreprises Opale tiennent le coup parce qu’elles sont résilientes.
+    - Quand le problème est temporaire, en général les entreprises Opales tiennent le coup parce qu’elles sont résilientes.
     - Quand il s’agit de problèmes permanents (par exemple **AES** qui rachète une centrale en sureffectif), alors il vaut mieux ne pas garder trop de personnes.
 
-### 2.6 - A l’écoute du projet des entreprises Opale
+### 2.6 - A l’écoute du projet des entreprises Opales
 
 - Les entreprises classiques fonctionnent sur la **peur** de ne pas réussir à préserver l’entreprise. Les valeurs et la raison d’être de l'entreprise ne sont pas du tout vécues.
-  - Les entreprises Opale consacrent une part très importante à leur mission.
-  - Les entreprises Opale ne se soucient pas de leurs **concurrents**, puisqu’elles travaillent pour leur raison d’être, elles n’ont pas vraiment de concurrents.
+  - Les entreprises Opales consacrent une part très importante à leur mission.
+  - Les entreprises Opales ne se soucient pas de leurs **concurrents**, puisqu’elles travaillent pour leur raison d’être, elles n’ont pas vraiment de concurrents.
     - Au contraire, elles ont plutôt tendance à aider les entreprises qui font la même chose à fonctionner sur le même principe qu’elles.
-- La **croissance** n’est pas un objectif en soi pour les entreprises Opale.
+- La **croissance** n’est pas un objectif en soi pour les entreprises Opales.
   - Par exemple **Buurtzorg** préfère aider les malades à guérir plus vite, quitte à les avoir pour clients pour moins longtemps, parce que c’est dans leur raison d’être.
   - Pareil pour **Patagonia** qui fabrique des vêtements qui durent plus, et qui sont réparables, quitte à vendre moins sur le coup.
 - Le **profit** est toujours secondaire. Il s’agit de poursuivre sa raison d’être, et créer une activité viable dans ce cadre.
@@ -511,11 +511,11 @@
     - Les dirigeants doivent accepter que leur voix compte autant que celle des autres salariés, sinon ça ne peut pas marcher dans un mode ascendant.
 - Le **marketing** :
   - Les entreprises classiques font beaucoup de marketing, d’études de marché, et font appel à des techniques pour créer des besoins, en jouant sur les émotions.
-  - Les entreprises Opale font **peu de marketing**. Elles sont à l’écoute des besoins, mais surtout à l’écoute de leur raison d’être, pour développer un **produit dont ils seront fiers**, et qui répondra à un **besoin authentique**.
+  - Les entreprises Opales font **peu de marketing**. Elles sont à l’écoute des besoins, mais surtout à l’écoute de leur raison d’être, pour développer un **produit dont ils seront fiers**, et qui répondra à un **besoin authentique**.
   - Leur stratégie produit est plus guidée par l’intuition que par l’analyse.
   - Par exemple **Sounds True** vendrait sans doute bien plus de livres s’ils se concentraient sur le marché des livres, mais ils pensent que les autres supports sont une plus grande source de clarté pour leur domaine.
 - **Planning, budgets** :
-  - Les entreprises Opale font très **peu de planification**. Ils n’essayent pas de prévoir et contrôler, mais sont plutôt dans l’intuition, et le fait d’être dans la réponse à ce qui se passe.
+  - Les entreprises Opales font très **peu de planification**. Ils n’essayent pas de prévoir et contrôler, mais sont plutôt dans l’intuition, et le fait d’être dans la réponse à ce qui se passe.
   - L’auteur évoque la distinction système compliqué / système complexe pour dire que les systèmes complexes ne peuvent pas être planifiés.
   - Ces entreprises **se contentent de solutions réalistes**, et n’attendent pas d’avoir plus de données avant d’agir, en se corrigeant souvent.
   - Elles utilisent des **itérations rapides** (dans l’idée du lean manufacturing et du manifeste agile).
@@ -528,13 +528,13 @@
     - Quand il y en a, on **ne perd pas de temps à savoir pourquoi** on n’était pas dans les clous.
 - Comme l’entreprise est une structure vivante, la question du **changement de process** ne se pose pas. Le changement survient naturellement et constamment en fonction des besoins.
 - **Transparence vis-à-vis de l’extérieur** :
-  - Les entreprises Opale choisissent d’assumer pleinement leur projet et leurs valeurs. Ils vont donc en parler en toute **transparence** avec leurs fournisseurs, et leurs clients.
+  - Les entreprises Opales choisissent d’assumer pleinement leur projet et leurs valeurs. Ils vont donc en parler en toute **transparence** avec leurs fournisseurs, et leurs clients.
   - Ils vont aussi en général être transparents sur les process internes, vis-à-vis des clients et partenaires.
     - Certaines mettent en ligne des enregistrements de processus clés, des compte-rendus de réunion, des indicateurs.
 - Il est important de se poser la question de son **projet personnel**, sa vocation, et de le mettre en lien avec le projet, la vocation de l’entreprise.
   - L’entreprise n’est pas là que pour faire que les choses se fassent, mais aussi pour aider les salariés à trouver leur voie. Le salarié n’a pas forcément fait ce travail **d’introspection**.
   - Quand les deux sont alignés, on obtient une efficacité exceptionnelle.
-  - Pour les entretiens d’embauche, les entreprises Opale insistent beaucoup sur l’adéquation entre la raison d’être de l’entreprise et le projet individuel de la personne.
+  - Pour les entretiens d’embauche, les entreprises Opales insistent beaucoup sur l’adéquation entre la raison d’être de l’entreprise et le projet individuel de la personne.
     - Exemple de questions à poser : _Comment voyez-vous votre parcours de vie ? Comment le fait de travailler ici s’intègre-t-il à votre perception de ce que vous êtes appelé à être et à faire dans le monde ?_
   - Chez **Heiligenfeld**, ils posent deux questions aux entretiens annuels : _Est-ce que je mets mon cœur dans mon travail ? Est-ce que j’ai le sentiment d’être à ma place ?_
 - Alors que dans le modèle Vert, les dirigeants se mettaient au service de l’entreprise, et veillaient à ce que tout se passe bien dans ce sens, dans le modèle Opale l’entreprise est comme un être vivant, un champ d’énergie indépendant qui évolue par lui-même. Il n’y a donc **pas besoin de chef pour en assurer la cohérence**.
@@ -555,13 +555,13 @@
     | **Individuel** | Opinions et mentalités des personnes | Comportements des personnes |
     | **Collectif** | Culture de l’entreprise | Systèmes de l’entreprise (structures, processus, et pratiques) |
   - Ce modèle permet de se rendre compte que tous ces aspects sont interdépendants.
-    - Les entreprises Ambre ou Orange mettent l’accent sur le côté extérieur, et obtiennent des salariés peu motivés.
-    - Les entreprises Vert mettent l’accent sur l’immatériel et sont parfois face à des incohérences, comme par exemple avoir des structures hiérarchiques où on demande aux cadres de donner le maximum d’autonomie à leurs subordonnés : résultat c’est une difficulté permanente.
-    - Les entreprises Opale mettent l’accent sur l’autonomisation et la responsabilisation, et à partir de là **la culture émerge naturellement** sans faire d’efforts particuliers.
+    - Les entreprises Ambres ou Oranges mettent l’accent sur le côté extérieur, et obtiennent des salariés peu motivés.
+    - Les entreprises Vertes mettent l’accent sur l’immatériel et sont parfois face à des incohérences, comme par exemple avoir des structures hiérarchiques où on demande aux cadres de donner le maximum d’autonomie à leurs subordonnés : résultat c’est une difficulté permanente.
+    - Les entreprises Opales mettent l’accent sur l’autonomisation et la responsabilisation, et à partir de là **la culture émerge naturellement** sans faire d’efforts particuliers.
 
 - Les entreprises ont chacune leur culture, qui est en partie propre à leur domaine et unique à chacune, et en partie commune avec toutes les autres entreprises du même stade de développement.
-  - Par exemple, les entreprises Ambre partagent le trait commun de l’obéissance aux ordres.
-- Les entreprises Opale ont les **traits culturels communs** suivants :
+  - Par exemple, les entreprises Ambres partagent le trait commun de l’obéissance aux ordres.
+- Les entreprises Opales ont les **traits culturels communs** suivants :
   - **Autogouvernance**.
     - Confiance : jusqu’à preuve du contraire, s’engager avec les collègues sur la base de la confiance.
     - Accès à toutes les informations de manière transparente.
@@ -587,7 +587,7 @@
   - S’assurer que ceux qui détiennent l’autorité morale sont en phase avec la culture dans leurs actes (quadrant supérieur droit).
   - Inviter chacun à examiner dans quelle mesure il est en résonance avec cette culture (quadrant supérieur gauche).
 
-## 3 - L’émergence des organisations Opale
+## 3 - L’émergence des organisations Opales
 
 ### 3.1 - Les conditions nécessaires
 
@@ -604,7 +604,7 @@
   - A la limite le paradigme Vert peut être un peu plus tolérant, mais pas l’Orange qui peut laisser faire un temps avant de tout annuler en voyant de quoi il s’agit.
 - Il **déconseille aussi de tenter de convaincre des dirigeants** qui ne sont pas sur ce paradigme.
   - Gravir les échelons des paradigmes est un processus personnel et complexe, et ne peut pas être imposé de l’extérieur.
-  - Tous les exemples de consultants qui, chiffres et arguments Orange à l’appui, ont essayé de convaincre de l’efficacité des organisations Vert et Opale, ont échoué.
+  - Tous les exemples de consultants qui, chiffres et arguments Oranges à l’appui, ont essayé de convaincre de l’efficacité des organisations Vertes et Opales, ont échoué.
   - Les dirigeants écoutent avec intérêt jusqu’au moment où ils comprennent quelles fonctions sont en cause et quel pouvoir ils vont devoir abandonner.
 - Ce qui est possible pour un cadre travaillant dans une entreprise Orange c’est de la faire évoluer vers de l’Orange **moins toxique**.
   - Par exemple, au lieu d’enlever complètement les objectifs (ce qui serait inacceptable), on peut dire aux subalternes qu’ils peuvent fixer leurs objectifs eux-mêmes.
@@ -613,7 +613,7 @@
   - Il reste l’interlocuteur pour les entreprises extérieures qui demandent à "parler au un chef".
   - Il n’a plus les rôles classiques de dirigeant : stratégie, promotions, budgets etc.
   - Il doit occuper quand même deux rôles :
-    - Créer et garantir l’espace où se déploient les modes opératoires Opale.
+    - Créer et garantir l’espace où se déploient les modes opératoires Opales.
       - Au moindre souci, il va y avoir diverses personnes proposant de revenir à **plus de règles et de surveillance**. Le dirigeant est là pour **empêcher qu’on aille dans cette direction**.
       - Exemple : Chez **RHD** une employée avait fait un abus de bien social en donnant une des voitures de la société à son fils. Elle a été renvoyée mais certains collègues ont proposé qu’on mette en place des règles et un contrôle pour empêcher que ça se reproduise.
       - Les cas les plus compliqués sont quand la pression vient de l’extérieur, par exemple apposer un tampon qualité alors qu’on n’a pas de département qualité (fonction support supprimée). Dans ce cas, il faut être créatif…
@@ -632,8 +632,8 @@
       - L’_activité_ : le contenu de ce qui est fait et pourquoi.
       - Les _relations_ : la manière dont c’est dit pour entrer en relation.
       - Le _contexte_ : le rapport au sens et à la raison d’être.
-    - Dans les entreprises Orange l’_activité_ prend tout l’espace des décisions venant des dirigeants, les _relations_ sont au minimum, et le _contexte_ inexistant.
-    - Dans les entreprises Opale, les décisions mobilisent en priorité le _contexte_ et les _relations_, et ensuite seulement l’_activité_.
+    - Dans les entreprises Oranges l’_activité_ prend tout l’espace des décisions venant des dirigeants, les _relations_ sont au minimum, et le _contexte_ inexistant.
+    - Dans les entreprises Opales, les décisions mobilisent en priorité le _contexte_ et les _relations_, et ensuite seulement l’_activité_.
 - Les **propriétaires** (et conseil d’administration) :
   - Parmi les entreprises étudiées, deux sont revenues à des paradigmes plus classiques suite à un changement de dirigeant par les propriétaires :
     - **BSO/Origin** :
@@ -738,8 +738,8 @@
 ### 3.4 - Les résultats
 
 - De même que ça a été le cas par le passé avec les précédents paradigmes, nous sommes arrivés à un point où nous sommes limités par le paradigme dominant actuel.
-- Les entreprises Opale sont plus efficaces, mais elles ne le sont pas pour les mêmes raisons que les entreprises Orange par exemple. Elles le sont pour poursuivre une raison d’être qui a du sens.
-- L'étude faite dans le cadre de ce livre ne permet pas de valider quoi que ce soit d’un point de vue scientifique pour plusieurs raisons : taille de l’échantillon, difficulté à définir et à chiffrer la performance (dans le cas des entreprises Opale ce serait principalement au regard de leur raison d’être) etc.
+- Les entreprises Opales sont plus efficaces, mais elles ne le sont pas pour les mêmes raisons que les entreprises Oranges par exemple. Elles le sont pour poursuivre une raison d’être qui a du sens.
+- L'étude faite dans le cadre de ce livre ne permet pas de valider quoi que ce soit d’un point de vue scientifique pour plusieurs raisons : taille de l’échantillon, difficulté à définir et à chiffrer la performance (dans le cas des entreprises Opales ce serait principalement au regard de leur raison d’être) etc.
 - Par contre ce qu’on peut faire c’est examiner les exemples :
   - **Buurtzorg** :
     - Ils sont passés de 10 salariés en 2006 à 7000 en 2013.
@@ -765,12 +765,12 @@
   - La sollicitation d’avis permet d’intégrer les bonnes personnes au bon niveau de décision.
   - Les décisions étant décentralisées, plus de décisions peuvent être prises.
 
-### 3.5 - Entreprises Opale et sociétés Opale
+### 3.5 - Entreprises Opales et sociétés Opales
 
 - Ce chapitre tente une analyse prospective plus globale de la société en comparant avec l’émergence des paradigmes passés et poussant plus loin les tendances actuelles.
 - Le passage au stade Ambre a fait passer la civilisation au modèle féodal agricole et à la religion organisée, le passage à l’Orange a permis des révolutions scientifiques et industrielles, la république libérale.
   - Il est tout à fait probable selon l’auteur que le paradigme Opale permette des changements tout aussi conséquents.
-- Les entreprises Opale d’aujourd’hui sont des pionnières, les analyser c’est comme analyser l’automobile en 1900 : elles ont fini par se multiplier, et mener à goudronner les routes et allonger les distances.
+- Les entreprises Opales d’aujourd’hui sont des pionnières, les analyser c’est comme analyser l’automobile en 1900 : elles ont fini par se multiplier, et mener à goudronner les routes et allonger les distances.
 - **A quoi pourrait ressembler une société évolutive Opale ?**
   - **Croissance zéro** : étant donné les problèmes environnementaux et le manque de ressources, il s’agira de zéro déchet, zéro toxicité et 100% recyclage.
   - **Croissance dans le domaine relationnel et spirituel** : les services sont amenés à remplacer les objets de consommation. La publicité et les centres commerciaux vont disparaître.
@@ -781,11 +781,11 @@
   - **La fin du travail contraint** : avec la mécanisation et la technologie numérique, la plupart des tâches indispensables seront automatisées, ce qui permettra aux gens de ne plus avoir à travailler au sens courant du mot, mais à “exprimer ce qu’il est de manière créative”.
   - **La démocratie évolutive** : faire participer les citoyens grâce à la technologie, et peut être se mettre collectivement à l’écoute du monde plutôt que projeter sur le monde ce que veulent les citoyens.
   - **Le ré-enchantement spirituel** : plutôt que les anciennes religions (Ambre et avant) ou le matérialisme athée (Orange), le paradigme Opale irait vers une spiritualité non religieuse.
-  - **Effondrement ou transition progressive ?** La transition pourrait passer par une prise de conscience et la multiplication des entreprises Opale, mais nous pourrions aussi être rattrapés par les problématiques écologiques, dont certaines risquent de poser de sérieux problèmes dans quelques décennies.
-- **A quoi ressembleraient les entreprises Opale dans une société Opale ?**
+  - **Effondrement ou transition progressive ?** La transition pourrait passer par une prise de conscience et la multiplication des entreprises Opales, mais nous pourrions aussi être rattrapés par les problématiques écologiques, dont certaines risquent de poser de sérieux problèmes dans quelques décennies.
+- **A quoi ressembleraient les entreprises Opales dans une société Opale ?**
   - Si on part du principe que la propriété d’usage est généralisée, et que la monnaie perd en valeur dans le temps de manière à ne pas pouvoir être mise de côté, alors **investir dans une entreprise pour tirer un revenu plus grand n’a juste plus de sens**.
   - Les notions de lucratif et non lucratif perdent leur spécificité pour ce qui est de caractériser les entreprises : il n’y aurait que des salariés associés contribuant à l’entreprise, et en cas de difficulté de l’un d’entre eux, l’entreprise pourrait l’aider en fonction de ses excédents.
-  - Les entreprises Opale permettent une plus grande flexibilité : on peut imaginer réduire son temps de travail pour faire autre chose ou s’engager en partie ailleurs. Tout est négocié entre collègues.
+  - Les entreprises Opales permettent une plus grande flexibilité : on peut imaginer réduire son temps de travail pour faire autre chose ou s’engager en partie ailleurs. Tout est négocié entre collègues.
   - La raison d’être étant au centre, les entreprises elles-mêmes sont moins importantes, et donc **leurs frontières peuvent devenir poreuses**. Des personnes ou des équipes pourraient contribuer dans une structure pendant un temps, puis (ou même en parallèle) dans une autre au service de la même raison d’être.
   - En fait, le concept même d’entreprise peut perdre en pertinence au profit de la raison d’être évolutive, autour de laquelle graviteraient des personnes et des groupes de personnes.
-- Le modèle des entreprises Opale ne demande qu’à être généralisé et poussé plus loin. C’est à nous de construire le futur.
+- Le modèle des entreprises Opales ne demande qu’à être généralisé et poussé plus loin. C’est à nous de construire le futur.
