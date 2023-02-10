@@ -685,7 +685,7 @@
     - Le recrutement : les candidats peuvent examiner leur vocation personnelle et sa résonance avec la raison d’être de l’entreprise.
     - Le rituel de la chaise vide : à la fin (ou à tout moment) de chaque réunion, un membre de l’équipe peut occuper la chaise représentant la raison d’être de l’entreprise, et répondre à une question comme "Est-ce que cette réunion a été vraiment utile à l’entreprise ?".
 
-## 3.3 - Transformer une entreprise
+### 3.3 - Transformer une entreprise
 
 - 3 des entreprises étudiées sont intéressantes pour ce chapitre :
   - **FAVI** est passée d’une méthode classique hiérarchique à Opale.
@@ -735,7 +735,7 @@
   - Une fois qu’on a trouvé la raison d’être, il faut s'appuyer dessus pour les décisions importantes, mais aussi pour les décisions ordinaires.
     - On peut aussi s’appuyer dessus pour entamer d’autres transformations : revoir le processus de recrutement, la stratégie marketing etc.
 
-## 3.4 - Les résultats
+### 3.4 - Les résultats
 
 - De même que ça a été le cas par le passé avec les précédents paradigmes, nous sommes arrivés à un point où nous sommes limités par le paradigme dominant actuel.
 - Les entreprises Opale sont plus efficaces, mais elles ne le sont pas pour les mêmes raisons que les entreprises Orange par exemple. Elles le sont pour poursuivre une raison d’être qui a du sens.
@@ -764,3 +764,28 @@
   - On perd moins de temps en réunion puisqu’il n’y a pas besoin de faire remonter et descendre l’info dans une hiérarchie qui n’existe pas.
   - La sollicitation d’avis permet d’intégrer les bonnes personnes au bon niveau de décision.
   - Les décisions étant décentralisées, plus de décisions peuvent être prises.
+
+### 3.5 - Entreprises Opale et sociétés Opale
+
+- Ce chapitre tente une analyse prospective plus globale de la société en comparant avec l’émergence des paradigmes passés et poussant plus loin les tendances actuelles.
+- Le passage au stade Ambre a fait passer la civilisation au modèle féodal agricole et à la religion organisée, le passage à l’Orange a permis des révolutions scientifiques et industrielles, la république libérale.
+  - Il est tout à fait probable selon l’auteur que le paradigme Opale permette des changements tout aussi conséquents.
+- Les entreprises Opale d’aujourd’hui sont des pionnières, les analyser c’est comme analyser l’automobile en 1900 : elles ont fini par se multiplier, et mener à goudronner les routes et allonger les distances.
+- **A quoi pourrait ressembler une société évolutive Opale ?**
+  - **Croissance zéro** : étant donné les problèmes environnementaux et le manque de ressources, il s’agira de zéro déchet, zéro toxicité et 100% recyclage.
+  - **Croissance dans le domaine relationnel et spirituel** : les services sont amenés à remplacer les objets de consommation. La publicité et les centres commerciaux vont disparaître.
+  - **Tous les secteurs seront bouleversés** : l’agriculture intensive pour des pratiques biologiques, l’éducation laissant la place à une approche plus holistique, la médecine qui serait plus spirituelle, le milieu judiciaire et carcéral basé sur la réparation plutôt que la punition.
+  - **L’apparition de monnaies alternatives** : typiquement des monnaies fondantes où il ne s’agirait plus d’être en confiance parce qu’on met de côté, mais parce qu’on a un tissu serré de relations au sein de la communauté.
+  - **La propriété d’usage** : la propriété d’usage (que l’auteur appelle “gérance”) pourrait remplacer le modèle de propriété actuel. On aurait le contrôle sur quelque chose qu’on utilise, et on perdrait ce contrôle si on n’en a plus l’usage.
+  - **Communautés globales** : alors que les problèmes énergétiques pourraient nous obliger à relocaliser, les technologies de télécommunications pourraient permettre l’émergence de communautés virtuelles, en poursuivant la tendance actuelle.
+  - **La fin du travail contraint** : avec la mécanisation et la technologie numérique, la plupart des tâches indispensables seront automatisées, ce qui permettra aux gens de ne plus avoir à travailler au sens courant du mot, mais à “exprimer ce qu’il est de manière créative”.
+  - **La démocratie évolutive** : faire participer les citoyens grâce à la technologie, et peut être se mettre collectivement à l’écoute du monde plutôt que projeter sur le monde ce que veulent les citoyens.
+  - **Le ré-enchantement spirituel** : plutôt que les anciennes religions (Ambre et avant) ou le matérialisme athée (Orange), le paradigme Opale irait vers une spiritualité non religieuse.
+  - **Effondrement ou transition progressive ?** La transition pourrait passer par une prise de conscience et la multiplication des entreprises Opale, mais nous pourrions aussi être rattrapés par les problématiques écologiques, dont certaines risquent de poser de sérieux problèmes dans quelques décennies.
+- **A quoi ressembleraient les entreprises Opale dans une société Opale ?**
+  - Si on part du principe que la propriété d’usage est généralisée, et que la monnaie perd en valeur dans le temps de manière à ne pas pouvoir être mise de côté, alors **investir dans une entreprise pour tirer un revenu plus grand n’a juste plus de sens**.
+  - Les notions de lucratif et non lucratif perdent leur spécificité pour ce qui est de caractériser les entreprises : il n’y aurait que des salariés associés contribuant à l’entreprise, et en cas de difficulté de l’un d’entre eux, l’entreprise pourrait l’aider en fonction de ses excédents.
+  - Les entreprises Opale permettent une plus grande flexibilité : on peut imaginer réduire son temps de travail pour faire autre chose ou s’engager en partie ailleurs. Tout est négocié entre collègues.
+  - La raison d’être étant au centre, les entreprises elles-mêmes sont moins importantes, et donc **leurs frontières peuvent devenir poreuses**. Des personnes ou des équipes pourraient contribuer dans une structure pendant un temps, puis (ou même en parallèle) dans une autre au service de la même raison d’être.
+  - En fait, le concept même d’entreprise peut perdre en pertinence au profit de la raison d’être évolutive, autour de laquelle graviteraient des personnes et des groupes de personnes.
+- Le modèle des entreprises Opale ne demande qu’à être généralisé et poussé plus loin. C’est à nous de construire le futur.
