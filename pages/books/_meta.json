@@ -1,11 +1,11 @@
 {
-  "monolith-to-microservices": "Monolith to Microservices",
-  "reinventing-organizations": "Reinventing Organizations",
+  "continuous-discovery-habits": "Continuous Discovery Habits",
   "designing-data-intensive-applications": "Designing Data-Intensive Applications",
   "get-your-hands-dirty-on-clean-architecture": "Get Your Hands Dirty on Clean Architecture",
-  "the-design-of-web-apis": "The Design of Web APIs",
-  "unit-testing": "Unit Testing: Principles, Practices, and Patterns",
   "learning-domain-driven-design": "Learning Domain-Driven Design",
-  "continuous-discovery-habits": "Continuous Discovery Habits",
-  "refactoring": "Refactoring: Improving the Design of Existing Code"
+  "monolith-to-microservices": "Monolith to Microservices",
+  "refactoring": "Refactoring: Improving the Design of Existing Code",
+  "reinventing-organizations": "Reinventing Organizations",
+  "the-design-of-web-apis": "The Design of Web APIs",
+  "unit-testing": "Unit Testing: Principles, Practices, and Patterns"
 }
