@@ -1,1 +1,98 @@
 # Monolith to Microservices: : Evolutionary Patterns to Transform Your Monolith
+
+## 1 - Just Enough Microservices
+
+- Les microservices sont un type particulier de service-oriented architecture (SOA).
+  - Ils exposent une API via le réseau, donc forment une architecture distribuée.
+  - Il sont **déployables indépendamment **:
+    - Il s’agit d’être en mesure de modifier et déployer un seul service sans toucher aux autres.
+    - Le conseil de l’auteur est d’_effectivement_ déployer les services indépendamment, plutôt que le tout ensemble en espérant une indépendance théorique.
+  - Ils sont organisés autour d’un **business domain**.
+    - Le but est de rendre les changements affectant plusieurs microservices le plus rare possible, et favoriser les changement à l’intérieur du microservice.
+  - Ils gardent la **base de données privée**, et ne l'exposent que via une API.
+    - Partager la DB est une des pires choses à faire pour avoir une déployabilité indépendante.
+    - Ne pas la partager telle quelle permet de décider ce qu’on partage et ce qu’on ne partage pas, et aussi de garder une API publique stable tout en étant libre de faire des changements en interne.
+- L’exemple utilisé dans ce livre est une entreprise de vente de CD de musique.
+  - Elle a une application organisée en 3 couches techniques : UI, backend, DB.
+  - Chaque couche est sous la responsabilité d’une équipe : équipe front, équipe back, équipe DB.
+    - Et d’ailleurs cette l’architecture découle probablement de l’organisation des équipes cf. loi de Conway.
+  - On a donc une forte cohésion au niveau technique : s’il faut faire un travail sur un aspect technique (par exemple moderniser la UI), une seule équipe sera impactée.
+    - Mais on a une faible cohésion par domaine business, puisque l’ajout d’une fonctionnalité nécessite l’intervention et la coordination de 3 équipes.
+  - A l’inverse on peut imaginer une architecture organisée autour des domaines, avec un bout de UI, un bout de backend et un bout de DB chacun, et sous la responsabilité d’équipes pluridisciplinaires.
+- Les **microservices** ont de nombreux **avantages**, et il s’agit de comprendre lesquels on cherche à obtenir en priorité pour orienter notre décomposition de monolithe.
+  - La possibilité de scaler différemment des parties du système, et d’obtenir de la robustesse (le système peut continuer à opérer même si une partie est down).
+  - La possibilité d’utiliser différentes stacks technologiques et de les faire communiquer ensemble.
+  - La possibilité pour plusieurs équipes de travailler sur le système sans se marcher dessus.
+- Parmi les **désavantages** :
+  - Les problématiques des systèmes distribués : la communication réseau étant significativement plus lente que la communication in-process, et les paquets pouvant se perdre, on doit faire attention à beaucoup plus de choses.
+    - Les transactions deviennent problématiques.
+  - Les microservices arrivent avec leurs technologies spécifiques à maîtriser, qui peuvent causer bien plus de problèmes que les systèmes classiques si elles sont mal utilisées.
+- La **UI** ne doit pas être mise de côté dans la décomposition : si on veut pouvoir déployer rapidement des features complètes, il faut la décomposer elle-aussi pour qu’elle corresponde avec les services côté backend.
+- L’auteur conseille de ne pas adopter une nouvelle stack technologique pour faire la migration vers les microservices. La migration en elle-même est déjà assez difficile, il vaut mieux garder les outils qu’on connaît dans un premier temps.
+- A propos de la **taille** des microservices :
+  - C’est un des critères les **moins importants**, surtout quand on débute avec.
+  - Il vaut mieux s’intéresser d’abord à la question de savoir combien de microservices on sera capable de gérer dans l’organisation, et comment faire en sorte de ne pas trop les coupler.
+  - Il cite Chris Richardson qui parle d’avoir des microservices avec de petites interfaces.
+    - NDLR : c’est par cette idée que Vlad Khononov caractérise principalement les microservices dans _Learning Domain Driven Design_.
+  - L’idée initiale des microservices était de les avoir si petits qu’on pourrait facilement les recoder pour les remplacer (par exemple dans une techno qui permette plus de performance/scalabilité), mais l’auteur sous-entend que ce n’est plus vraiment un critère essentiel, en tout cas qui fait consensus.
+- Côté ownership, l’architecture en microservices favorise le modèle où les équipes tech/produit sont au contact du client, et sont supportées par d’éventuelles équipes transverses.
+  - Ca s’oppose au modèle plus traditionnel où le “business” gère la relation avec les clients, et où les développeurs sont dans un silo à part, sans ownership réel sur un business domain de bout en bout.
+- Le terme **monolith** désigne ici l’unité de **déploiement**.
+  - Le **single process monolith** : il s’agit d’une app single-process, qu’on peut éventuellement dupliquer pour des raisons d’availability.
+    - En général le monolithe va au moins communiquer avec une DB, formant un système distribué très simple.
+    - Ça représente l’essentiel des projets qui cherchent à migrer vers du microservice, donc l’auteur va se concentrer sur ça.
+    - Il est possible de réaliser un **modular monolith** en gardant le single-process, mais en créant des modules de code bien séparés.
+      - [Shopify](https://www.youtube.com/watch?v=ISYKx8sa53g) est un bon exemple de modular monolith.
+      - On a ceci dit souvent la DB dont le split en modules est négligé.
+  - Le **distributed monolith** : on a plusieurs services communiquant à travers le réseau, mais le système a besoin d’être déployé en un bloc.
+    - C’est un système qui a tous les désavantages : absence de modularisation, et système distribué.
+  - Les **third-party black-box systems** : les services externes SASS qu’on utilise, ou open source qu’on installe.
+- Les **monoliths** ont un certain nombre de **désavantages** :
+  - Les diverses parties du code ont tendance à être plus facilement couplées.
+  - Le travail à plusieurs équipes est plus compliqué en terme de conflit de modification, en terme de confusion d’ownership, et aussi pour savoir quand déployer.
+- Concernant les **avantages** :
+  - On n’a pas tous les problèmes associés aux systèmes distribués.
+  - Le workflow de développement, le monitoring et le débug est plus simple.
+  - On peut réutiliser du code très facilement.
+- A propos du **couplage** et de la **cohésion **:
+  - Le couplage c’est l’idée que changer une chose implique d’en changer aussi une autre. La cohésion c’est le fait de garder ensemble des choses qui ont un rapport entre-elles (et qui d’habitude changent ensemble).
+    - Pour avoir un système facile à transformer, on a envie que le couplage soit faible, et la cohésion élevée.
+    - Par exemple, si la logique d’une fonctionnalité est présente à travers plusieurs modules, on va devoir les changer tous pour la modifier (couplage élevé), et les éléments de cette fonctionnalité ne sont pas rassemblés (cohésion faible).
+  - Dans le cas spécifique des microservices, les modules en question qu’il faut considérer en priorité sont les microservices eux-mêmes, puisque modifier leurs limites coûte très cher.
+    - On veut donc faire en sorte que chaque changement impacte, et donc oblige le redéploiement, du moins possible de microservices.
+    - Si dans les microservices on peut se tromper dans les limites de chaque service, dans le monolithe ces limites n’existent pas naturellement, et donc on a tendance à avoir un couplage généralisé où tout dépend de tout.
+  - Il y a différents types de couplage :
+    - **Implementation coupling** : il s’agit d’un service qui doit changer quand on modifie l’implémentation d’un autre service.
+      - L’exemple typique c’est le couplage à la DB d’un autre service.
+        - La solution c’est soit d’avoir une API pour accéder à la donnée, soit d’avoir une DB publique spécifique pour les consommateurs externes, distincte de la DB interne du microservice.
+      - Avoir une interface publique distincte permet aussi de concevoir cette interface pour répondre aux besoins des consommateurs, en mode** _outside-in_**, plutôt qu’imaginer ce qu’on veut exposer parmi ce qu’on a déjà.
+        - L’auteur conseille de toujours faire ça : **impliquer les consommateurs dans le design de l’API publique**, pour que le service les serve au mieux.
+    - **Temporal coupling** : il s’agit de communication synchrone dépendante d’autres communications.
+      - Par exemple, si un service envoie un message à un autre service, qui doit d’abord interroger un 3ème avant de répondre. Si le 3ème est down le 2ème ne pourra pas répondre.
+        - La solution peut être pour le 2ème service d’avoir les données du 3ème en cache.
+        - Une autre solution pourrait être d'utiliser des communications asynchrones : le 3ème service reçoit le message asynchrone et recontacte le 2ème quand il est dispo.
+      - Pour plus d’infos sur le type de communications, voir le chapitre 4 de **_Building Microservices_**.
+    - **Deployment coupling** : à chaque fois qu’on doit redéployer des services quand on en déploie un.
+      - Idéalement on veut pouvoir déployer le plus petit set de choses pour avoir peu de risques et un feedback rapide (et aller vers une continuous delivery).
+      - Les _release trains_ sont une mauvaise idée.
+    - **Domain coupling** : il s’agit des interactions indispensables liées aux fonctionnalités elles-mêmes.
+      - On ne peut pas les éliminer, mais on peut les agencer de telle sorte qu’elles aient un impact limité en termes de couplage.
+      - Par exemple, dans le cas de l’entreprise de vente de CD, le microservice de la commande doit communiquer au microservice de l'entrepôt quels CD ont été achetés et où ils doivent être acheminés.
+        - On peut réduire au maximum les informations communiquées entre services, par exemple l’entrepôt recevrait seulement les données de packaging et pas l’ensemble des détails de la commande.
+        - On peut faire en sorte que la commande inclut les infos nécessaires sur l’utilisateur (dont elle aura de toute façon besoin pour d’autres raisons) dans le message envoyé à l’entrepôt, plutôt qu’avoir l’entrepôt faisant un autre appel pour obtenir les infos de l’utilisateur.
+        - Une autre possibilité pourrait être que la commande émette un event, et que l'entrepôt le consomme.
+- Le **Domain Driven Design** permet d’organiser les microservices efficacement autour de business domains.
+  - Les **aggregates** :
+    - On peut les voir comme des représentations de choses réelles, avec un cycle de vie qu’on peut traiter avec une machine à état.
+      - Par exemple une commande, une facture, un objet en stock.
+    - Un microservice peut contenir un ou plusieurs aggregates.
+      - Si un autre microservice veut changer le contenu d’un aggregate, il doit soit envoyer un message au microservice qui en a la responsabilité, soit faire en sorte que ce microservice écoute des events que lui émet.
+    - Il y a de nombreux moyens d’organiser le système en aggregates, mais il vaut mieux commencer par celui qui colle le mieux au modèle mental des utilisateurs.
+      - L’event storming est un bon moyen pour ça.
+  - Les **bounded contexts** :
+    - Ils permettent de cacher l’implémentation aux bounded contexts extérieurs.
+    - Ils contiennent un ou plusieurs aggregates, dont certains peuvent être privés pour l’extérieur.
+  - Concernant la relation avec les microservices :
+    - Au début on cherche de gros microservices, donc les bounded contexts sont de bons candidats.
+    - A mesure qu’on avance, on va affiner nos microservices, et opter pour un aggregate par service.
+    - A noter que le groupe de microservices autour d’un bounded context peut cacher qu’il y a en fait plusieurs microservices (ce détail relevant de l’ordre de l’implémentation).
