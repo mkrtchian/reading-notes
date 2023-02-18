@@ -96,3 +96,4 @@
     - Au début on cherche de gros microservices, donc les bounded contexts sont de bons candidats.
     - A mesure qu’on avance, on va affiner nos microservices, et opter pour un aggregate par service.
     - A noter que le groupe de microservices autour d’un bounded context peut cacher qu’il y a en fait plusieurs microservices (ce détail relevant de l’ordre de l’implémentation).
+    - NDLR : selon Vlad Khononov le microservice est de fait un bounded context, et va bien avec la taille d’un subdomain. Il ne peut pas être plus grand que le plus grand bounded context possible, ni plus petit qu’un aggregate. Mais la taille de l’aggregate marche rarement.
