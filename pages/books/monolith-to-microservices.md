@@ -4,7 +4,7 @@
 
 - Les microservices sont un type particulier de service-oriented architecture (SOA).
   - Ils exposent une API via le réseau, donc forment une architecture distribuée.
-  - Il sont **déployables indépendamment **:
+  - Il sont **déployables indépendamment** :
     - Il s’agit d’être en mesure de modifier et déployer un seul service sans toucher aux autres.
     - Le conseil de l’auteur est d’_effectivement_ déployer les services indépendamment, plutôt que le tout ensemble en espérant une indépendance théorique.
   - Ils sont organisés autour d’un **business domain**.
@@ -54,7 +54,7 @@
   - On n’a pas tous les problèmes associés aux systèmes distribués.
   - Le workflow de développement, le monitoring et le débug est plus simple.
   - On peut réutiliser du code très facilement.
-- A propos du **couplage** et de la **cohésion **:
+- A propos du **couplage** et de la **cohésion** :
   - Le couplage c’est l’idée que changer une chose implique d’en changer aussi une autre. La cohésion c’est le fait de garder ensemble des choses qui ont un rapport entre-elles (et qui d’habitude changent ensemble).
     - Pour avoir un système facile à transformer, on a envie que le couplage soit faible, et la cohésion élevée.
     - Par exemple, si la logique d’une fonctionnalité est présente à travers plusieurs modules, on va devoir les changer tous pour la modifier (couplage élevé), et les éléments de cette fonctionnalité ne sont pas rassemblés (cohésion faible).
@@ -65,7 +65,7 @@
     - **Implementation coupling** : il s’agit d’un service qui doit changer quand on modifie l’implémentation d’un autre service.
       - L’exemple typique c’est le couplage à la DB d’un autre service.
         - La solution c’est soit d’avoir une API pour accéder à la donnée, soit d’avoir une DB publique spécifique pour les consommateurs externes, distincte de la DB interne du microservice.
-      - Avoir une interface publique distincte permet aussi de concevoir cette interface pour répondre aux besoins des consommateurs, en mode** _outside-in_**, plutôt qu’imaginer ce qu’on veut exposer parmi ce qu’on a déjà.
+      - Avoir une interface publique distincte permet aussi de concevoir cette interface pour répondre aux besoins des consommateurs, en mode **outside-in**, plutôt qu’imaginer ce qu’on veut exposer parmi ce qu’on a déjà.
         - L’auteur conseille de toujours faire ça : **impliquer les consommateurs dans le design de l’API publique**, pour que le service les serve au mieux.
     - **Temporal coupling** : il s’agit de communication synchrone dépendante d’autres communications.
       - Par exemple, si un service envoie un message à un autre service, qui doit d’abord interroger un 3ème avant de répondre. Si le 3ème est down le 2ème ne pourra pas répondre.
