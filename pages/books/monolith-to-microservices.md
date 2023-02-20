@@ -97,3 +97,60 @@
     - A mesure qu’on avance, on va affiner nos microservices, et opter pour un aggregate par service.
     - A noter que le groupe de microservices autour d’un bounded context peut cacher qu’il y a en fait plusieurs microservices (ce détail relevant de l’ordre de l’implémentation).
     - NDLR : selon Vlad Khononov le microservice est de fait un bounded context, et va bien avec la taille d’un subdomain. Il ne peut pas être plus grand que le plus grand bounded context possible, ni plus petit qu’un aggregate. Mais la taille de l’aggregate marche rarement.
+
+## 2 - Planning a Migration
+
+- On peut vouloir adopter les microservices pour diverses raisons, et ces raisons peuvent fortement influencer ce sur quoi on va concentrer nos efforts.
+- L’auteur pose en général 3 questions pour aider les entreprises à **savoir si elles ont besoin des microservices** :
+  - Qu'est-ce que vous espérez accomplir ?
+    - On devrait pouvoir trouver des choses qui sont alignées avec les besoins business et des utilisateurs finaux.
+  - Est-ce que vous avez considéré des alternatives ?
+  - Comment saurez-vous si la transition fonctionne ?
+- Parmi les **raisons de choisir les microservices** :
+  - **Améliorer l’autonomie des équipes / Scaler le nombre de développeurs**.
+    - Il est notoire que les unités business autonomes sont plus efficaces. Et cette règle s’applique aussi à l’échelle de l’équipe, comme le modèle d’Amazon avec les équipes à deux pizzas.
+    - Avoir le contrôle exclusif sur des microservices permet aux équipes d’acquérir de l’autonomie, et de travailler en parallèle.
+    - Autres moyens d’obtenir ça :
+      - Le **monolith modulaire** peut répondre à ce point, avec une certaine coordination nécessaire quand même pour le déploiement commun.
+      - On peut aussi penser à des approches self-service où on provisionne des machines automatiquement au lieu d’avoir à passer par un ticket manuel auprès d’une autre équipe.
+  - **Réduire le time to market**.
+    - Le fait que les microservices permettent de déployer sans besoin de coordination fait qu’on peut amener des changements en production plus vite.
+    - Autres moyens d’obtenir ça :
+      - L’auteur recommande de faire l’**analyse** concrète du chemin et du **temps réel de chaque étape** entre l’idée obtenue en discovery, et la feature en production.
+      - On trouve souvent des bottlenecks qui permettent de gagner un temps conséquent.
+  - **Scaler efficacement la charge**.
+    - Comme les microservices tournent dans des processus différents, on peut les scaler indépendamment, et donc maîtriser les coûts de notre infrastructure.
+    - Autres moyens d’obtenir ça :
+      - On peut essayer de passer sur une plus grosse machine (scaling vertical).
+      - Faire tourner **plusieurs copies du monolithe**, derrière un load balancer (scaling horizontal). Le bottleneck risque d’être la DB, mais ça ne coûte pas très cher d’essayer.
+  - **Améliorer la robustesse**.
+    - Comme on a plusieurs unités indépendantes et tournant sur des machines séparées, on peut concevoir le système de sorte qu’il continue à fonctionner même si certaines parties sont en échec.
+    - Attention quand même : il y a tout un effort à faire pour obtenir cette robustesse, le fait de distribuer le système ne suffit pas à le rendre robuste.
+    - Autres moyens d’obtenir ça :
+      - Faire tourner **plusieurs copies du monolithe** permet de répondre à cette problématique. Y compris par exemple dans des racks ou datacenters différents.
+  - **Adopter de nouvelles technologies.**
+    - Les microservices étant isolés et communiquant par réseau, on peut très bien tester un nouveau langage, une nouvelle DB ou autre sur un seul microservice.
+    - Autres moyens d’obtenir ça :
+      - On peut parfois switcher de langage, par exemple si on utilise la JVM, on peut basculer entre les langages supportés.
+        - Pour les nouvelles DB c’est plus compliqué.
+      - On peut toujours remplacer le monolithe par un nouveau avec une approche incrémentale type _strangler fig_.
+  - **Réutiliser des composants**.
+    - C’est une **mauvaise raison**.
+    - En général on cherche à optimiser autre chose derrière la réutilisation, il vaut mieux se concentrer sur cette vraie raison.
+      - Par exemple, la réduction du time to market. Or le coût de coordination entre équipes peut impliquer que réécrire le composant serait plus rapide.
+- **Quand ne pas adopter les microservices** :
+  - **Un domaine pas très clair**.
+    - Dans le cas où on a un domaine encore jeune et pas très bien compris, la décomposition en microservices peut impliquer de se tromper de limites, et les changer coûte cher.
+    - Et donc typiquement il faut éviter les microservices dès le début.
+  - **Quand on est une startup**.
+    - Les microservices sont utiles pour les scale-ups ou les entreprises établies qui ont trouvé leur product market fit. Les startups le cherchent et donc seront amenées à beaucoup changer leur produit.
+    - On peut éventuellement séparer ce qui est clairement à part dans un service, et laisser le reste dans le monolithe pour nous donner plus de temps pour le faire maturer.
+    - Il y a aussi la question de la capacité à gérer les microservices avec les effectifs de la boite : si on a du mal à en gérer 2, en gérer 10 va être vraiment difficile.
+  - **Quand le logiciel est déployé chez le client**.
+    - Le déploiement de microservices implique une grande complexité au niveau de l’infrastructure. On ne peut pas attendre des clients qu’ils puissent la gérer.
+  - **Quand on n’a pas de bonne raison**.
+    - Mine de rien c’est un des cas les plus courants où les gens adoptent les microservices alors qu’ils ne devraient pas.
+- On a souvent plusieurs raisons d’adopter les microservices dans notre organisation. Il faut les **prioriser**.
+  - Par exemple, on décide qu’il nous faut des microservices pour gérer une augmentation de trafic. Puis on se dit que ce serait pas mal d’augmenter aussi l’autonomie des équipes, et d’adopter un nouveau langage.
+    - Il faut bien garder en tête que c’était l’augmentation du trafic qui était la plus importante. Et donc si on trouve un autre moyen plus simple de régler le problème, peut-être que les autres raisons devront attendre.
+  - Un bon moyen pour aider aux décisions est de représenter l’ensemble des raisons d’adopter les microservices avec des curseurs de 1 à 5 : si on augmente le curseur pour une raison, on doit le baisser pour une autre.
