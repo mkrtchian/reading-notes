@@ -154,3 +154,55 @@
   - Par exemple, on décide qu’il nous faut des microservices pour gérer une augmentation de trafic. Puis on se dit que ce serait pas mal d’augmenter aussi l’autonomie des équipes, et d’adopter un nouveau langage.
     - Il faut bien garder en tête que c’était l’augmentation du trafic qui était la plus importante. Et donc si on trouve un autre moyen plus simple de régler le problème, peut-être que les autres raisons devront attendre.
   - Un bon moyen pour aider aux décisions est de représenter l’ensemble des raisons d’adopter les microservices avec des curseurs de 1 à 5 : si on augmente le curseur pour une raison, on doit le baisser pour une autre.
+- Pour réussir à créer un **changement organisationnel** (pour mettre en place des microservices ou autre chose), l’auteur propose la méthode en 8 étapes de John Kotter, décrite plus en détail dans son livre **_Leading Change_**.
+  - **Étape 1 : Establishing a sense of urgency**. Le meilleur moment pour initier le changement c’est juste après une crise dont l’idée qu’on veut mettre en place règlerait le problème sous-jacent, avec l’idée “Il faut le mettre en place _maintenant_”.
+  - **Étape 2 : Creating the guiding coalition**. On a besoin de convaincre des personnes autour de nous. En fonction de l’impact de notre idée, il faudra avoir des personnes plus ou moins haut placées, et typiquement des personnes du business dans le cas où on introduit des systèmes distribuées qui vont impacter les utilisateurs.
+  - **Étape 3 : Developing a vision and strategy**. La vision définit le “quoi”, elle doit donner envie mais être réaliste. La stratégie définit le “comment”.
+  - **Étape 4 : Communicating the change vision**. Il vaut mieux privilégier la communication en face à face (plutôt que slack ou ce genre de chose) pour pouvoir ajuster le discours en fonction des réactions.
+  - **Étape 5 : Empowering employees for broad-based action**. Souvent les organisations amènent de nouvelles personnes dans l’équipe pour aider au changement en donnant de la bande passante.
+  - **Étape 6 : Generating short-term wins**. Pour éviter que l’engouement retombe, il faut obtenir des quick wins. Ça peut être par l’extraction de microservices “faciles” (à condition qu’ils aient un intérêt quand même).
+  - **Étape 7 : Consolidating gains and producing more change**. On continue avec des changements plus profonds en fonction des succès ou échecs. Ça peut être la décomposition de la DB qu’on ne peut pas mettre de côté éternellement.
+  - **Étape 8 : Anchoring new approaches in the culture**. A force de pratiquer la nouvelle manière de faire, la question de savoir si c’est la bonne approche ou non disparaît. Elle devient habituelle.
+- La décomposition d’un monolithe étant une chose difficile, il faut qu’elle soit faite de manière **incrémentale**. On sort un service à la fois, et on obtient du feedback pour s’améliorer sur la suite.
+  - Le feedback en question est aussi précieux parce que la plupart des problèmes complexes liés aux microservices sont remarqués une fois que c’est **déployé en production**.
+- Une des raisons de la méthode incrémentale est de **rendre les erreurs réversibles**.
+  - Mais il y a des décisions qui sont plus impactantes que d’autres, et donc il faut **adapter le temps passé à analyser à la facilité à annuler la décision**.
+    - Exemple : changer de fournisseur cloud ou changer l’API qu’on fournit publiquement est très impactant, alors d'expérimenter une librairie open source ou un nouveau langage beaucoup moins.
+  - Certaines décisions liées aux microservices peuvent être difficiles à défaire, par exemple annuler une migration de DB ou défaire la réécriture d’une API utilisée par de nombreux consumers.
+    - Dans ces cas, l’auteur recommande d’utiliser un tableau blanc pour simuler les divers use-cases et leurs conséquences en terme de communication entre services, pour voir s’il y a des problèmes apparents.
+- Pour ce qui est de savoir où on commence, il nous faut une décomposition en composants business. Et pour ça on utilise le **Domain Driven Design**.
+  - La notion de **bounded context** et les relations entre les BCs nous permet de représenter un découpage possible en microservices.
+  - On n’a pas besoin d’un modèle super détaillé des BCs, mais d’avoir **juste assez d’information** pour pouvoir commencer à faire des choix. Et comme on procède de manière incrémentale, une erreur est vite rattrapée.
+  - L’**event storming** est un outil recommandé par l’auteur pour obtenir une connaissance partagée du modèle, et pouvoir faire des choix pertinents à partir de là.
+    - Pour approfondir il y a **_Introducing EventStorming_**, le livre pas encore terminé d’Alberto Brandolini.
+  - Pour prioriser, on peut se servir du **context mapping** (le nom n’est pas mentionné par l’auteur).
+    - Un BC qui a beaucoup de liens avec d’autres BCs ne sera peut être pas le bon premier candidat pour être extrait en microservice parce qu’il impliquera beaucoup de communications réseau.
+    - A noter que le context map qu’on a à ce stade ne représente pas forcément le vrai découpage. Il va falloir regarder dans le code et vérifier ce que le BC fait dans base de données.
+    - Il faudra aussi mettre la facilité d’extraction en balance avec l’utilité d’extraire ce BC là.
+      - Par exemple, si notre objectif c’est d’améliorer le time to market, mais qu’on commence par extraire un BC en microservice alors qu’il n’est presque jamais modifié, on n’aura pas beaucoup d’impact sur ce qu’on voulait faire.
+      - On peut placer les BCs sur un graphique à deux axes : en abscisses l’intérêt de la décomposition, et en ordonnée la facilité de la décomposition.
+        - On va choisir en priorité les BCs qui se retrouvent en haut à droite.
+- A propos de l’**organisation des équipes**.
+  - Historiquement les équipes étaient organisées par compétences techniques : devs Java ensemble, DBA ensemble, testeurs ensemble etc.
+    - Pour intervenir sur une fonctionnalité il fallait passer par plusieurs équipes.
+  - De nos jours, avec des mouvements comme DevOps, les spécialités sont poussées vers les équipes de delivery, qui sont organisées autour de domaines fonctionnels, en _vertical slices_.
+    - Le rôle des équipes centrales qui restent s’est transformé : au lieu de faire eux-mêmes, ils aident les équipes delivery, en y envoyant des spécialistes, organisant des formations, et en créant des **outils self-service**.
+  - Pour aller plus loin, l’auteur recommande **_Team Topologies_** et **_The Devops Handbook_**.
+  - Il faut faire attention à ne pas chercher à copier tel quel les autres organisations, sans prendre en compte le contexte, la culture d’entreprise etc. On peut en revanche s’en inspirer.
+    - Le changement **prend du temps**. Par exemple, on peut intégrer des ops dans des équipes de dev pour former petit à petit chacun aux problématiques de l’autre.
+    - Pour commencer le changement, on peut réunir des personnes de chaque équipe, et faire un mapping des responsabilités liées à la delivery, en fonction de chaque équipe.
+    - Et ensuite on peut planifier un changement de responsabilités liées aux équipes, et de la structure des équipes, sur 6 mois à un an par exemple.
+  - Concernant la montée en compétence nécessaire pour la nouvelle organisation, l’auteur préconise de laisser les développeurs s’auto-évaluer avec une note sur chaque compétence nécessaire, et de les aider ensuite sur celles où ils se sont mis un faible score.
+    - Ces auto-évaluations devraient être privées pour ne pas être faussées.
+- Pour savoir si on va **dans la bonne direction** :
+  - Il faut avoir quelques **métriques** quantitatives et qualitatives liées aux outcomes qu’on recherche avec la transition qu’on a entamé.
+    - Les métriques quantitatives dépendent des objectifs.
+      - Par exemple, si c'est le time to market, on peut mesurer le cycle time, le nombre de déploiements et le failure rate.
+      - Si on cherche la scalabilité, on peut se reporter au dernier test de performance réalisé.
+      - Attention aux métriques : elles peuvent pousser à des comportements non souhaités pour satisfaire la métrique.
+    - Pour ce qui est des métriques qualitatives, il s’agit de vérifier si l’équipe est contente ou pas, s’ils sont débordés etc.
+  - Il faut organiser des **checkpoints réguliers** pour voir où on en est.
+    - On vérifie que les raisons pour lesquelles on a commencé la transition sont toujours là.
+    - On jette un œil aux métriques quantitatives pour voir l’avancée.
+    - On demande du feedback qualitatif.
+    - On décide d’éventuelles actions.
