@@ -228,3 +228,54 @@
 - Dans la suite du chapitre, on voit des patterns de migration, qui permettent d’extraire du code sous forme d’un microservice cohabitant avec le monolithe.
   - Chaque pattern a des avantages et des inconvénients, il faut les comprendre pour pouvoir prendre à chaque fois le plus adapté.
   - **On extrait toujours les microservices un par un**, en apprenant des erreurs pour le prochain.
+
+### Pattern: Strangler Fig Application
+
+- C’est un des patterns les plus utilisés, et ça se base sur l’image d’un figuier qui s’implante sur un arbre existant, plante ses racines, et petit à petit “étrangle” l’arbre qui finira par mourir sans ressources, laissant le figuier à sa place.
+- Cette technique permet d’avoir la nouvelle version en parallèle de l’ancienne. On fait grossir petit à petit les fonctionnalités de la nouvelle, puis on fait le switch quand le microservice est prêt à remplacer la fonctionnalité dans le monolithe.
+  - Il faut faire la différence entre **deployment** et **release** : on intègre et déploie régulièrement ce qu’on fait en production, pour éviter les problèmes de merge et dérisquer le plus possible de choses en production, mais on n’active la fonctionnalité que quand elle est prête.
+  - Concrètement, vu qu’on est en train de sortir un microservice qui va tourner sur un processus à part, le switch se passe **au niveau réseau** : tant que le microservice n’est pas prêt, les requêtes concernant sa fonctionnalité vont vers le monolithe, et quand on veut le release, on les redirige vers lui.
+  - Si attendre que le microservice soit fini n’est pas assez incrémental pour nous, on peut aussi commencer à rediriger une partie des requêtes du monolithe vers le microservice, en fonction de ce qui a déjà été implémenté.
+    - Ça va par contre nous obliger à partager temporairement la même DB entre la fonctionnalité dans le monolithe, et celle dans le microservice.
+- Cette technique a l’avantage de **ne pas avoir à toucher au monolithe** dans le cas où la portion de fonctionnalité qu’on sort est **autonome**.
+  - Pour ça il faut qu'elle n'ait pas besoin de faire d’appel vers le monolithe, et que le monolithe n’ait pas besoin de faire d’appel vers elle non plus.
+  - Dans le cas où la fonctionnalité doit faire des appels vers le monolithe, il faudra que le monolithe expose des endpoints, et donc on devra le modifier.
+  - Si c’est le monolithe qui doit faire des appels vers le microservice, alors on ne peut pas vraiment utiliser cette technique : on ne pourra pas faire le switch de la fonctionnalité au niveau réseau.
+    - On pourra à la place utiliser le pattern _Branch by Abstraction_ par exemple.
+- **Exemple : HTTP Reverse Proxy** : HTTP permet très facilement de faire de la redirection.
+  - Si notre monolithe reçoit des requêtes HTTP, on va pouvoir mettre en place un proxy pour router les requêtes entre le monolithe et le microservice.
+    - Étape 1 : On met en place le proxy, et on le configure pour laisser passer les requêtes comme avant vers le monolithe.
+      - Ça nous permet de nous assurer que la latence additionnelle d’une étape réseau de plus ne pose pas problème.
+      - On peut aussi dès cette étape tester le mécanisme de redirection pour vérifier qu’il n’y aura pas de problème à le faire.
+    - Étape 2 : on implémente progressivement la fonctionnalité dans le microservice, vers lequel il n’y a aucun trafic.
+    - Étape 3 : Quand le microservice est prêt, on redirige le trafic vers lui.
+      - On peut remettre le trafic vers le monolithe s' il y a un problème.
+      - Pour plus de facilité, la redirection peut être activée avec un feature toggle.
+  - Pour ce qui est du proxy lui-même, ça va dépendre du protocole. Si on a du HTTP, on peut partir sur un serveur connu comme NGINX.
+    - Ca peut être par exemple sur le path : rediriger `/invoice/` vers le monolithe, et `/payroll/` vers le microservice.
+    - Si on route sur un contenu se trouvant dans le body d’une requête POST (NDLR : comme GraphQL), ça risque d’être un peu plus compliqué.
+    - En tout cas, l'auteur **déconseille de coder soi-même son proxy** si on a besoin de quelque chose de custom.
+      - Les quelques fois où il a essayé, il a obtenu de très mauvaises performances.
+      - Il conseille de plutôt partir d’un proxy existant comme NGINX, et de le personnaliser avec du code (du lua pour NGINX).
+- Dans le cas où on voudrait que notre microservice supporte un autre protocole que celui du monolithe (par exemple gRPC au lieu de SOAP), on pourrait envisager faire la traduction dans le proxy.
+  - Pour l’auteur c’est une mauvaise idée : si on le fait pour plusieurs microservices, on va finir par complexifier ce proxy partagé, alors qu’on voulait que les microservices soient indépendants.
+  - L’auteur conseille plutôt de faire ce mapping de protocole dans chacun des microservices qui en ont besoin, et éventuellement de faire en sorte qu’ils supportent les deux protocoles.
+  - On peut aussi aller vers le **service mesh** où chaque microservice a son proxy local, qui peut faire les redirections et mapping qu’il veut.
+    - Les outils les plus connus pour ça sont Linkerd et Istio.
+    - Square a mis en place le service mesh et en a fait [un article](https://squ.re/2nts1Gc).
+- **Exemple : FTP**.
+  - L’entreprise suisse Homegate a utilisé le strangler fig pattern pour extraire des microservices, et en profiter pour changer le protocole utilisé pour uploader des fichiers : de FTP vers HTTP.
+  - Mais ils voulaient qu’il n’y ait pas de changement pour les utilisateurs.
+  - Donc ils ont mis en place une interception des appels FTP, et le remapping vers du HTTP pour taper dans le microservice responsable de ça.
+- **Exemple : Message Interception** : dans le cas de messages **asynchrones** à router vers le nouveau microservice.
+  - Une première possibilité est le **content-based routing**, où un router va consommer tous les messages du message broker, et les queuer sur deux autres queues : une pour le monolithe, et une pour le microservice extrait.
+    - Ce pattern vient d’**_Enterprise Integration Patterns_**. Et de manière générale l’auteur recommande ce livre pour des patterns de communication asynchrone.
+    - L’avantage c’est qu’on n’a pas à toucher au monolithe.
+    - L’inconvénient c’est qu’on complexifie là encore le système de communication plutôt que les programmes. Donc l’auteur est plutôt réticent.
+  - L’autre possibilité c’est la **selective consumption**, où le monolithe et le microservice consomment sur la même queue, mais sélectionnent les messages qui leur sont destinés.
+    - L’avantage c’est qu’il n’y a pas de complexité dans le mécanisme de communication.
+    - Parmi les désavantages :
+      - Le message broker pourrait ne pas supporter la consommation sélective.
+      - Il faut déployer les changements dans le monolithe et dans le microservice en même temps pour que la consommation se passe bien.
+- Dedans le cas où on veut **ajouter des fonctionnalités** ou fixer des bugs en même temps qu’on implémente le microservice, il faut bien garder en tête que **le rollback sera alors plus difficile**.
+  - Il n’y a pas de solution facile : soit on accepte que le rollback sera plus compliqué à faire, soit on freeze les features sur la partie extraite en microservice tant que l’extraction est en cours.
