@@ -206,3 +206,25 @@
     - On jette un œil aux métriques quantitatives pour voir l’avancée.
     - On demande du feedback qualitatif.
     - On décide d’éventuelles actions.
+
+## 3 - Splitting the Monolith
+
+- Ce chapitre décrit des patterns pour migrer le code dans des micros de manière incrémentale.
+- Un des critères à prendre en compte pour le choix des patterns c’est le fait qu’on ait ou non **la possibilité de changer le code du monolithe**.
+  - On peut avoir de nombreuses raisons pour ne pas le pouvoir :
+    - Si on n’a plus le code source du monolithe.
+    - Si le monolithe est écrit dans une technologie pour laquelle on n’a pas les compétences.
+    - Si on a peur de trop impacter les autres développeurs du monolithe.
+  - Dans le cas où on peut modifier le code du monolithe, si le code est en trop mauvais état, ça peut aussi parfois être plus rapide de le réécrire dans le microservice plutôt que de l’extraire.
+- Une des grandes difficultés c’est d’**isoler le code qu’on veut extraire dans notre microservice**, c'est-à-dire modulariser le monolithe.
+  - En général le code dans les monolithes est organisé autour de considérations techniques et pas de domaines métier, c’est pourtant ça qu’on veut extraire.
+  - Pour aider à faire ça, l’auteur recommande le concept de _seam_, qu’on trouve dans **_Working Effectively with Legacy Code_** de Michael Feathers.
+    - Un _seam_ est une délimitation autour d’une zone qu’on veut changer. On travaille ensuite à une nouvelle implémentation de la fonctionnalité, et à la fin on remplace l’ancienne par la nouvelle.
+    - Ça peut être plus ou moins grand, ici ce qui nous intéresse c’est un bounded context.
+  - Réorganiser le code pour obtenir un **modular monolith** peut être suffisant pour ce qu’on recherche, en fonction de nos objectifs (cf. chapitre précédent).
+    - Et ça peut aussi être une première étape pour aller vers l’extraction d’éventuels microservices ensuite. C’est en tout cas le conseil de l’auteur.
+    - Pour autant, de nombreuses équipes préfèrent identifier une fonctionnalité, et la recoder dans un microservice sans refactorer le monolithe.
+    - Dans tous les cas, l'auteur recommande une **approche incrémentale** : si la réécriture du service se compte en jours ou semaines ça peut être OK, si ça se compte en mois, il vaut mieux adopter une approche plus incrémentale.
+- Dans la suite du chapitre, on voit des patterns de migration, qui permettent d’extraire du code sous forme d’un microservice cohabitant avec le monolithe.
+  - Chaque pattern a des avantages et des inconvénients, il faut les comprendre pour pouvoir prendre à chaque fois le plus adapté.
+  - **On extrait toujours les microservices un par un**, en apprenant des erreurs pour le prochain.
