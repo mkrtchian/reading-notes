@@ -280,7 +280,7 @@
 - Dedans le cas où on veut **ajouter des fonctionnalités** ou fixer des bugs en même temps qu’on implémente le microservice, il faut bien garder en tête que **le rollback sera alors plus difficile**.
   - Il n’y a pas de solution facile : soit on accepte que le rollback sera plus compliqué à faire, soit on freeze les features sur la partie extraite en microservice tant que l’extraction est en cours.
 
-### Pattern : UI Composition
+### Pattern: UI Composition
 
 - L’interface utilisateur doit aussi être découpée par considérations business, pour obtenir des slices verticaux avec les microservices.
 - **Exemple : Page Composition**.
@@ -296,3 +296,29 @@
   - De nombreuses entreprises (comme Spotify cf. [video](https://www.youtube.com/watch?v=vuCfKjOwZdU)) utilisent des composants affichés qui viennent du backend, pour ne pas avoir à redéployer l’app mobile quand ils y font un changement.
 - **Exemple : Micro Frontends**.
   - Il s’agit de faire des composants indépendants dans un frontend de type SPA, avec des bouts de React, Vue, etc. cohabitant et partageant de l’information, mais sans se gêner.
+
+### Pattern: Branch by Abstraction
+
+- Dans le cas où le Strangler fig pattern n’est pas possible parce que le composant qu’on veut extraire est profondément ancré dans le monolithe (il reçoit des appels des autres composants du monolithe par exemple), on peut utiliser cette technique.
+- On va travailler sur une version alternative du composant **à l’intérieur même du monolithe**, et de l’activer à la fin.
+- Il s’agit du même principe qu’une branche du gestionnaire de versions, à la différence que là on travaille en intégration continue, et déploiement continu (bien qu’on ne _release_ qu’au moment où le microservice est prêt).
+  - L’auteur n’insiste pas trop sur les nombreux problèmes d’une branche de gestionnaire de version qui dure longtemps, mais nous conseille de jeter un œil au _State of DevOps Report_ pour nous en convaincre.
+- Concrètement :
+  - 1 - On crée une abstraction devant la fonctionnalité qu’on va remplacer.
+    - Cette étape peut être plus ou moins complexe, en fonction de la taille de l’API qu’on expose aux autres modules.
+    - Il peut être nécessaire de définir un _seam_ à extraire.
+  - 2 - On fait en sorte que les clients de notre fonctionnalité utilisent cette abstraction pour y accéder.
+    - La migration doit être incrémentale.
+  - 3 - On crée une nouvelle implémentation de la fonctionnalité.
+    - La nouvelle implémentation dans le monolithe va juste faire des appels vers le microservice qu’on développe à l’extérieur du monolithe.
+    - On migre les fonctionnalités de manière incrémentale.
+  - 4 - On pointe l’abstraction sur la nouvelle fonctionnalité développée.
+    - Comme avec le strangler fig pattern, on aimerait bien avoir un feature toggle pour pouvoir activer et désactiver la nouvelle fonctionnalité sans changer le code.
+  - 5 - On enlève l’abstraction et l’ancienne implémentation.
+    - Il se peut que l’abstraction ait un intérêt en elle-même, dans cas on peut éventuellement la laisser.
+    - Il faut bien penser à enlever les éventuels feature toggles.
+- Il existe une variante qui s’appelle **Verify branch by abstraction** : on appelle la nouvelle implémentation d’abord, et si elle échoue, on fallback sur l’ancienne.
+- Quand l’utiliser :
+  - Cette technique est à utiliser **à chaque fois qu’un changement va prendre du temps**, et qu’on veut ne pas empêcher les autres d’avancer sur ce qu’ils font, tout en restant sur de l’intégration continue.
+  - Pour les microservices, l’auteur conseille d’utiliser en priorité le strangler fig pattern, parce qu’il est plus simple.
+  - Si on ne peut pas toucher au code du monolithe, alors il faut choisir une autre technique que celle-là.
