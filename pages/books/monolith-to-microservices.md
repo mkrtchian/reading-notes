@@ -279,3 +279,20 @@
       - Il faut déployer les changements dans le monolithe et dans le microservice en même temps pour que la consommation se passe bien.
 - Dedans le cas où on veut **ajouter des fonctionnalités** ou fixer des bugs en même temps qu’on implémente le microservice, il faut bien garder en tête que **le rollback sera alors plus difficile**.
   - Il n’y a pas de solution facile : soit on accepte que le rollback sera plus compliqué à faire, soit on freeze les features sur la partie extraite en microservice tant que l’extraction est en cours.
+
+### Pattern : UI Composition
+
+- L’interface utilisateur doit aussi être découpée par considérations business, pour obtenir des slices verticaux avec les microservices.
+- **Exemple : Page Composition**.
+  - L’auteur a travaillé chez The Guardian, où la migration a été réalisée à plusieurs reprises page par page.
+    - La 2ème fois en utilisant un CDN pour le routing redirigé progressivement vers les nouvelles pages.
+  - REA Group, une entreprise immobilière australienne, avait plusieurs équipes responsables de parties différentes du site, et donc la séparation par pages avait dans ce cas encore plus de sens.
+- **Exemple : Widget Composition.**
+  - De nombreuses entreprises utilisent la séparation en widgets pour suivre les microservices.
+  - C’est le cas par exemple d’Orbits qui avait une UI décomposée en widgets majeurs sous la responsabilité d’équipes différentes.
+    - Quand ils ont voulu migrer vers des microservices, ils ont pu le faire incrémentalement, en suivant le découpage des widgets côté front.
+  - Un des avantages de cette séparation c’est que même quand un des widgets ne fonctionne pas, le reste peut être affiché.
+- Côté **applications mobiles** (Android / iOS), on est face à des monolithes de fait, puisqu’il faut tout redéployer et faire retélécharger à l’utilisateur à chaque changement.
+  - De nombreuses entreprises (comme Spotify cf. [video](https://www.youtube.com/watch?v=vuCfKjOwZdU)) utilisent des composants affichés qui viennent du backend, pour ne pas avoir à redéployer l’app mobile quand ils y font un changement.
+- **Exemple : Micro Frontends**.
+  - Il s’agit de faire des composants indépendants dans un frontend de type SPA, avec des bouts de React, Vue, etc. cohabitant et partageant de l’information, mais sans se gêner.
