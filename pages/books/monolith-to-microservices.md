@@ -322,3 +322,23 @@
   - Cette technique est à utiliser **à chaque fois qu’un changement va prendre du temps**, et qu’on veut ne pas empêcher les autres d’avancer sur ce qu’ils font, tout en restant sur de l’intégration continue.
   - Pour les microservices, l’auteur conseille d’utiliser en priorité le strangler fig pattern, parce qu’il est plus simple.
   - Si on ne peut pas toucher au code du monolithe, alors il faut choisir une autre technique que celle-là.
+
+### Pattern: Parallel Run
+
+- Quand on a besoin d’un **grand degré de fiabilité**, on peut jouer les deux implémentations en parallèle, pour vérifier que le résultat est bien le même.
+  - Il n’y a qu’une des implémentations qui sera la source de vérité : en général l’ancienne jusqu’à ce qu’on décide que la nouvelle a fait ses preuves et qu’on n’a plus besoin de l’ancienne.
+  - On peut **vérifier le résultat, mais aussi des éléments non-fonctionnels** comme le temps de réponse et le nombre de timeouts.
+- **Exemple : calcul de produits financiers dérivés**.
+  - L’auteur a travaillé sur le système d’une banque, où il s’agissait de refaire le calcul de produits dérivés.
+  - L’enjeu financier étant important, ils ont décidé de jouer les deux systèmes en parallèle, et de recueillir la différence entre les deux par des batchs journaliers.
+  - Ils ont fini par changer la source de vérité vers le nouveau système après un mois, et ont enlevé l’ancien après quelques mois de plus.
+- Pour vérifier des side-effects qu’on n’a envie de faire qu’une fois (comme le fait d’envoyer un email), on peut utiliser des **spies**, comme dans les unit tests mais en production.
+  - Il vaut mieux faire les vérifications à partir du microservice plutôt qu’à partir de la partie de la nouvelle fonctionnalité qui est dans le monolithe, pour tester le plus possible de choses.
+  - Les vérifications peuvent être faites en asynchrone, en enregistrant les appels quelque part, et en vérifiant plus tard qu’on a bien eu la même chose que pour l’autre implémentation.
+- L’auteur conseille [Github Scientist](https://github.com/github/scientist) (existant en plusieurs langages) pour aider à implémenter ce pattern.
+- Le **canary release** consiste à releaser d’abord auprès d’un nombre réduit de clients.
+  - Le **dark launching** consiste à déployer pour tester, mais à ne pas releaser auprès des clients.
+  - Le parallel run est une forme de dark launching.
+  - L’ensemble de ces techniques font partie de la **progressive delivery**.
+- Ce pattern est très utile dans certains cas, mais a un coût de mise en place.
+  - L’auteur ne l’a utilisé qu’une ou deux fois dans sa carrière.
