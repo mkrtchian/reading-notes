@@ -354,3 +354,20 @@
 - Si on n’a pas suffisamment d’infos suite à l’appel intercepté, on **risque d’avoir besoin de refaire un appel au monolithe**.
   - L’auteur conseille d’y réfléchir à deux fois avant d’utiliser ce pattern dans le cas où l’information ne se trouve pas dans l’appel intercepté.
 - Une alternative à ce pattern peut être le pattern **change data capture**.
+
+### Pattern: Change Data Capture
+
+- Cette technique est plus invasive que decorating collaborator : on va **écouter les changements issus de la DB**, et y faire réagir notre microservice.
+- **Exemple : Issuing Loyalty Cards**.
+  - On a un monolithe qui permet de créer des comptes de fidélité, et renvoie simplement que la création a fonctionné. Et on aimerait imprimer des cartes de fidélité à chaque fois.
+  - Si on voulait utiliser le decorating collaborator pattern, il faudrait faire un appel supplémentaire au monolithe pour obtenir les informations manquantes, et que le monolithe expose une API pour ça.
+  - On va donc plutôt écouter ce que dit la DB quand le monolithe insert le compte de fidélité, et alimenter notre microservice d’impression avec ça.
+- Pour ce qui est de la **manière de l’implémenter** :
+  - **Database triggers **: c’est un mécanisme de stored procedures, fournis par la plupart des bases de données.
+    - Attention à ne pas trop en utiliser, leur maintenabilité est difficile.
+  - **Transaction log pollers** : la plupart des DB écrivent leurs données dans un fichier de log qui précède l’écriture dans la base. On peut simplement lire ce fichier.
+    - C’est une des solutions les plus intéressantes selon l’auteur, avec la contrainte qu’on a besoin de s’adapter à la structure spécifique du log de cette DB.
+    - On a de nombreux outils qui lisent les logs, y compris certains qui les mettent dans un message broker.
+  - **Batch delta copier** : il s’agirait d’écrire un programme qui compare régulièrement le contenu de la DB, et qui réagit s’il y a un changement.
+    - Le problème c’est de réussir à savoir s’il y a un changement. Certaines DB le permettent, mais pas forcément au niveau du row, auquel cas il faudrait ajouter nous-mêmes des timestamps pour savoir qu’est-ce qui a changé quand.
+- Ce pattern est utile quand on a besoin de réagir au monolithe, mais quand on ne peut pas vraiment mettre en place le strangler fig ou le decorating collaborator, et qu’on ne peut pas non plus changer le monolithe.
