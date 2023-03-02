@@ -342,3 +342,15 @@
   - L’ensemble de ces techniques font partie de la **progressive delivery**.
 - Ce pattern est très utile dans certains cas, mais a un coût de mise en place.
   - L’auteur ne l’a utilisé qu’une ou deux fois dans sa carrière.
+
+### Pattern: Decorating Collaborator
+
+- Cette technique permet de **ne pas avoir à modifier le monolithe**, tout en permettant de **déclencher quelque chose à partir de ce que fait le monolithe**.
+- On laisse l’appel aller dans le monolithe et en sortir, et on l’intercepte à la sortie, pour éventuellement faire un appel vers notre microservice.
+  - De la logique va donc se retrouver dans le proxy qui décide de faire l’appel au microservice. Attention à ce que cette logique ne devienne pas trop complexe.
+- **Exemple : Loyalty Program**.
+  - On a un monolithe qui traite un ordre d’achat. On veut y ajouter une fonctionnalité de points de fidélité, mais le monolithe est compliqué et on ne veut pas le modifier maintenant.
+  - Le proxy va récupérer la réponse du monolithe avant qu’elle n’aille au client, et faire un appel au microservice qui s’occupe d’allouer les points de fidélité.
+- Si on n’a pas suffisamment d’infos suite à l’appel intercepté, on **risque d’avoir besoin de refaire un appel au monolithe**.
+  - L’auteur conseille d’y réfléchir à deux fois avant d’utiliser ce pattern dans le cas où l’information ne se trouve pas dans l’appel intercepté.
+- Une alternative à ce pattern peut être le pattern **change data capture**.
