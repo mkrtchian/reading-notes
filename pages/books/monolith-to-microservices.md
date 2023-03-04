@@ -371,3 +371,31 @@
   - **Batch delta copier** : il s’agirait d’écrire un programme qui compare régulièrement le contenu de la DB, et qui réagit s’il y a un changement.
     - Le problème c’est de réussir à savoir s’il y a un changement. Certaines DB le permettent, mais pas forcément au niveau du row, auquel cas il faudrait ajouter nous-mêmes des timestamps pour savoir qu’est-ce qui a changé quand.
 - Ce pattern est utile quand on a besoin de réagir au monolithe, mais quand on ne peut pas vraiment mettre en place le strangler fig ou le decorating collaborator, et qu’on ne peut pas non plus changer le monolithe.
+
+## 4 - Decomposing the Database
+
+### Pattern: The Shared Database
+
+- Partager la DB veut dire ne pas avoir la possibilité de **choisir ce qu’on cache**, et même ne pas savoir ce qui est utilisé par d’autres.
+- Dans le cas où plusieurs services peuvent modifier la DB partagée, on ne sait plus qui la contrôle. Et la logique de modification est dupliquée et peut diverger.
+- La DB doit être privée à chaque microservice. Le partage publique d’une DB n’est approprié que dans deux cas :
+  - 1 - Une DB avec des **données de référence** read-only très stables (par exemple la liste des pays existants ou des codes postaux).
+  - 2 - Dans le cas du pattern **Database-as-a-Service Interface**, où on partage une DB read-only, distincte de notre DB interne.
+- Même si la bonne solution dans la plupart des cas c’est de splitter la DB du monolithe dans les nouveaux microservices, on a des techniques qui permettent d’aller dans la bonne direction à peu de frais et d’arrêter l’hémorragie, en ajoutant des abstractions par dessus la DB du monolithe.
+
+### Pattern: Database View
+
+- On crée une view par dessus la DB, et on demande aux clients d’utiliser la view. De cette manière on peut modifier la DB source comme si elle était privée, en adaptant la view pour qu’elle soit stable pour les clients.
+- **Exemple : Database as a public contract**.
+  - L’auteur travaillait dans une banque, et ils ont remarqué qu’un problème de performance majeur pouvait être corrigé en restructurant le schéma de leur DB.
+  - Malheureusement la DB était utilisée par plus de 20 applications (sans même savoir lesquelles) partageant les mêmes credentials.
+    - Pour la question des credentials, l’auteur conseille _HashiCorp Vault_ qui permet de gérer un grand nombre de credentials facilement.
+  - Ils ont mis en place des views comme solution temporaire pour pouvoir restructurer la DB sans impacter les clients.
+- Une view peut aussi simplement cacher des champs ou des tables, et permettre de décider ce qu’on veut montrer ou non publiquement.
+- Les views ont quelques limitations :
+  - Elles peuvent poser des problèmes de performance, et la version materialized de la view est plus efficace, mais contiendra des données anciennes, datant de la dernière fois qu’on a fait un update.
+  - Elles sont **read-only**.
+  - Toutes les DB n’ont pas la fonctionnalité. Les DB relationnelles l’ont, et certaines DB NoSQL aussi (c’est le cas de _Cassandra_ et _Mongo_ par exemple).
+  - Il est probable que le schéma de la view doive se trouver sur la même database engine que le schéma initial.
+- En termes d’ownership, l’auteur conseille de le donner à l'équipe qui a la charge de la DB source.
+- Cette étape va dans la bonne direction, mais l’auteur déconseille de faire ça à la place d’une décomposition de la DB sans avoir de bonnes raisons.
