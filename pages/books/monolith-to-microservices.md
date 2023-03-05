@@ -374,7 +374,7 @@
 
 ## 4 - Decomposing the Database
 
-### Pattern: The Shared Database
+### The Shared Database
 
 - Partager la DB veut dire ne pas avoir la possibilité de **choisir ce qu’on cache**, et même ne pas savoir ce qui est utilisé par d’autres.
 - Dans le cas où plusieurs services peuvent modifier la DB partagée, on ne sait plus qui la contrôle. Et la logique de modification est dupliquée et peut diverger.
@@ -383,7 +383,7 @@
   - 2 - Dans le cas du pattern **Database-as-a-Service Interface**, où on partage une DB read-only, distincte de notre DB interne.
 - Même si la bonne solution dans la plupart des cas c’est de splitter la DB du monolithe dans les nouveaux microservices, on a des techniques qui permettent d’aller dans la bonne direction à peu de frais et d’arrêter l’hémorragie, en ajoutant des abstractions par dessus la DB du monolithe.
 
-### Pattern: Database View
+#### Pattern: Database View
 
 - On crée une view par dessus la DB, et on demande aux clients d’utiliser la view. De cette manière on peut modifier la DB source comme si elle était privée, en adaptant la view pour qu’elle soit stable pour les clients.
 - **Exemple : Database as a public contract**.
@@ -400,7 +400,7 @@
 - En termes d’ownership, l’auteur conseille de le donner à l'équipe qui a la charge de la DB source.
 - Cette étape va dans la bonne direction, mais l’auteur déconseille de faire ça à la place d’une décomposition de la DB sans avoir de bonnes raisons.
 
-### Pattern: Database Wrapping Service
+#### Pattern: Database Wrapping Service
 
 - Une autre manière de cacher la DB pour arrêter l’hémorragie c’est de la mettre derrière un service, et demander aux clients d’y accéder via ce service.
 - Exemple : banque australienne.
@@ -411,7 +411,7 @@
   - Par contre, il faudra que nos clients **utilisent l’API** pour y accéder, et pas du SQL.
 - Comme avec la database view, il s’agit plutôt d’une solution temporaire avant de faire des changements plus profonds pour séparer la DB dans les bons services.
 
-### Pattern: Database-as-a-Service Interface
+#### Pattern: Database-as-a-Service Interface
 
 - Un des cas où on peut exposer une DB de manière publique c’est si les clients ont besoin de jouer des requêtes SQL directement sur les données qu’on propose.
   - Par exemple pour obtenir des insights business avec des outils comme Tableau. Martin Fowler parle du [reporting database pattern](https://martinfowler.com/bliki/ReportingDatabase.html), mais l’auteur préfère généraliser le nom du pattern.
@@ -431,7 +431,7 @@
 
 - Les précédents patterns permettaient juste de mettre en pansement sur une grosse DB, mais il faut que les bonnes données aillent au bon endroit.
 
-### Pattern: Aggregate Exposing Monolith
+#### Pattern: Aggregate Exposing Monolith
 
 - Quand on extrait un microservice, il a parfois besoin d’accéder aux données qui sont encore dans le monolithe, ou de les modifier.
   - S’il est légitime d’un point de vue domaine que ces données soient possédées par le monolithe, alors il peut **exposer des endpoints**.
@@ -439,7 +439,7 @@
 - Le fait pour le monolithe de fournir des endpoints pour travailler avec certaines données, peut être une étape vers l’extraction d’un microservice organisé autour de ces données.
 - **Faire des appels représente plus de travail** que de faire des queries directement en DB, **mais c’est bien mieux sur le long terme**. Il ne faut recourir aux autres techniques (database view pattern etc.) que si on ne peut pas changer le monolithe.
 
-### Pattern: Change Data Ownership
+#### Pattern: Change Data Ownership
 
 - Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c’est le microservice qui devrait la posséder, il faut la **déplacer dans le monolithe**.
   - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
