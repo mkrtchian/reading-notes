@@ -426,3 +426,22 @@
   - Une autre solution serait d’avoir un batch process qui met à jour régulièrement la DB publique.
   - Et une 3ème option peut être d’émettre des **events**, et de reconstruire la DB à l’extérieur à partir de ceux-ci.
 - Cette solution est plus avancée que le database view pattern, et aussi plus difficile à mettre en place d’un point de vue technique.
+
+### Transferring Ownership
+
+- Les précédents patterns permettaient juste de mettre en pansement sur une grosse DB, mais il faut que les bonnes données aillent au bon endroit.
+
+### Pattern: Aggregate Exposing Monolith
+
+- Quand on extrait un microservice, il a parfois besoin d’accéder aux données qui sont encore dans le monolithe, ou de les modifier.
+  - S’il est légitime d’un point de vue domaine que ces données soient possédées par le monolithe, alors il peut **exposer des endpoints**.
+  - Les données sont regroupées en aggregates, et sont associées à des machines à état sous forme de code. Quand le monolithe ou un microservice fournit des endpoints, il donne en fait la possibilité d’accéder à la machine à état pour savoir ce qu’on va pouvoir ou non faire avec les données.
+- Le fait pour le monolithe de fournir des endpoints pour travailler avec certaines données, peut être une étape vers l’extraction d’un microservice organisé autour de ces données.
+- **Faire des appels représente plus de travail** que de faire des queries directement en DB, **mais c’est bien mieux sur le long terme**. Il ne faut recourir aux autres techniques (database view pattern etc.) que si on ne peut pas changer le monolithe.
+
+### Pattern: Change Data Ownership
+
+- Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c’est le microservice qui devrait la posséder, il faut la **déplacer dans le monolithe**.
+  - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
+  - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l’aggragate, contrôle des règles de consistance etc. se trouvent dans le microservice.
+- **Déplacer de la donnée est difficile**. Ça peut impliquer de devoir casser des foreign keys, des transactions etc. ce sujet est traité plus tard dans le chapitre.
