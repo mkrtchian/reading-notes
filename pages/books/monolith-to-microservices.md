@@ -399,3 +399,30 @@
   - Il est probable que le schéma de la view doive se trouver sur la même database engine que le schéma initial.
 - En termes d’ownership, l’auteur conseille de le donner à l'équipe qui a la charge de la DB source.
 - Cette étape va dans la bonne direction, mais l’auteur déconseille de faire ça à la place d’une décomposition de la DB sans avoir de bonnes raisons.
+
+### Pattern: Database Wrapping Service
+
+- Une autre manière de cacher la DB pour arrêter l’hémorragie c’est de la mettre derrière un service, et demander aux clients d’y accéder via ce service.
+- Exemple : banque australienne.
+  - L’auteur a travaillé pour une banque qui avait un problème de scalabilité de sa DB.
+  - Malheureusement les autorisations étaient implémentées sous forme de stored procedures, et les toucher était trop dangereux.
+  - Alors ils ont décidé de créer un service pour cacher la DB, et faire en sorte que la nouvelle logique autour des d’autorisations ne soit plus dans la DB elle-même, mais implémentée chez les clients.
+- L’avantage de ce pattern par rapport à la database view c’est qu’on peut mettre de la **logique dans le service**, et qu’on peut aussi proposer à nos clients d’**écrire**.
+  - Par contre, il faudra que nos clients **utilisent l’API** pour y accéder, et pas du SQL.
+- Comme avec la database view, il s’agit plutôt d’une solution temporaire avant de faire des changements plus profonds pour séparer la DB dans les bons services.
+
+### Pattern: Database-as-a-Service Interface
+
+- Un des cas où on peut exposer une DB de manière publique c’est si les clients ont besoin de jouer des requêtes SQL directement sur les données qu’on propose.
+  - Par exemple pour obtenir des insights business avec des outils comme Tableau. Martin Fowler parle du [reporting database pattern](https://martinfowler.com/bliki/ReportingDatabase.html), mais l’auteur préfère généraliser le nom du pattern.
+  - Par contre, il faut bien qu’on **sépare cette DB publique de notre DB privée**.
+  - La DB exposée ne peut être que **read-only**.
+- Pour implémenter, il propose que la DB publique soit synchronisée avec la DB privée au travers d’un **mapping engine**.
+  - Le mapping engine permet de garantir que les deux DB publique et privée peuvent diverger et fonctionner ensemble quand même.
+  - Les écritures doivent se faire via API.
+  - Il y aura donc une latence entre ce qu’on écrit, et ce qu’on lit de la DB publique qui pourrait être en retard dans la synchronisation.
+- Pour ce qui est de la manière d’implémenter le mapping engine :
+  - Une première solution robuste peut être d’utiliser le **change data capture** de la DB. Pour l’exploiter, il y a des outils comme **_Debezium_**.
+  - Une autre solution serait d’avoir un batch process qui met à jour régulièrement la DB publique.
+  - Et une 3ème option peut être d’émettre des **events**, et de reconstruire la DB à l’extérieur à partir de ceux-ci.
+- Cette solution est plus avancée que le database view pattern, et aussi plus difficile à mettre en place d’un point de vue technique.
