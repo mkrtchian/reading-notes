@@ -374,7 +374,7 @@
 
 ## 4 - Decomposing the Database
 
-### The Shared Database
+#### Pattern: The Shared Database
 
 - Partager la DB veut dire ne pas avoir la possibilité de **choisir ce qu’on cache**, et même ne pas savoir ce qui est utilisé par d’autres.
 - Dans le cas où plusieurs services peuvent modifier la DB partagée, on ne sait plus qui la contrôle. Et la logique de modification est dupliquée et peut diverger.
