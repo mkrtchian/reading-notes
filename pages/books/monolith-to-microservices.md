@@ -445,3 +445,69 @@
   - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
   - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l’aggragate, contrôle des règles de consistance etc. se trouvent dans le microservice.
 - **Déplacer de la donnée est difficile**. Ça peut impliquer de devoir casser des foreign keys, des transactions etc. ce sujet est traité plus tard dans le chapitre.
+
+### Data Synchronization
+
+- On peut avoir besoin de synchronisation entre la DB extraite dans le microservice et celle restée dans le monolithe.
+  - Par exemple, si on utilise le strangler fig pattern et qu’on switch vers le nouveau microservice, puis qu’on veut revenir en arrière, il faut que la DB qui est restée dans le monolithe soit synchronisée avec ce qui a pu être fait par le microservice et sa DB.
+
+#### Pattern: Synchronize Data in Application
+
+- Cette technique a été utilisée par l’auteur pour la migration des données des données médicales danoises, d’une DB MySQL à une DB Riak, pour des raisons de performance.
+  - Le système ne pouvait pas être arrêté pour suffisamment de temps, donc le changement a dû se faire de manière incrémentale.
+- Ca se passe en 3 étapes :
+  - **Étape 1 : Bulk Synchronize Data**.
+    - On migre les données vers la nouvelle DB, par exemple avec un batch job.
+    - Quand le job est terminé, il peut y avoir encore les nouvelles données manquantes : on va tout de suite mettre en place un processus de **change data capture** pour alimenter la nouvelle DB depuis l’ancienne à chaque changement.
+  - **Étape 2 : Synchronize on Write, Read from Old Schema**.
+    - Les fonctionnalités de production ne changent pas et utilisent toujours l’ancienne DB.
+    - La nouvelle DB est mise à jour régulièrement, et on peut faire des vérifications dessus pour s’assurer qu’elle est mise à jour correctement.
+  - **Étape 3 : Synchronize on Write, Read from New Schema**.
+    - On continue d’écrire dans les deux DB, mais on lit depuis la nouvelle pour alimenter la production.
+    - Une fois qu’on a suffisamment confiance dans la nouvelle DB, on peut éliminer l’ancienne.
+- Ce pattern peut être pertinent quand on **migre la DB avant de migrer le code**, pendant une extraction de microservice.
+- Ce pattern nous donne l’avantage de pouvoir facilement pouvoir faire le switch du microservice vers le monolithe, avec une DB déjà séparée.
+- Attention à ne pas utiliser ce pattern si à un moment donné, à la fois le monolithe et le microservice doivent écrire dans leurs DBs.
+  - C’est par exemple une mauvaise idée si on utilise un système de canary release.
+
+#### Pattern: Tracer Write
+
+- Ce pattern consiste à déplacer les données **progressivement** vers le microservice.
+  - Les données sont initialement lues et écrites dans le monolithe.
+  - Dès qu’un bloc de données est déplacé, le microservice devient la source de vérité pour ce bloc, et le monolithe comme les autres microservices devront le lire depuis là.
+  - On continue jusqu’à ce que l’ensemble des données à déplacer soient lues depuis le microservice (tout en restant synchronisées dans le monolithe en cas de besoin de switch).
+- Pour ce qui est de la synchronisation elle-même :
+  - L’auteur conseille d’envoyer les commandes d’écriture à la bonne source vérité, et d’**éviter les mécanisme de synchronisation à deux sens** (écrire dans n’importe quelle source et avoir une synchronisation en arrière-plan), parce que c’est difficile à implémenter.
+  - Il faut s’attendre à avoir une certaine latence entre les deux sources, et donc prévoir une **eventual consistency**, étant donné que pour certaines données la première sera la source de vérité, et pour d’autres données ce sera la 2ème.
+  - Si on a un système event driven, ou un mécanisme de change data capture, on aura des facilités à implémenter le pattern.
+- L’auteur conseille de prévoir un mécanisme de vérification de l’intégrité des données entre les deux sources (par exemple des scripts SQL), pour s’assurer que tout va bien.
+- Ce pattern a notamment été utilisé chez Square, pour extraire de manière incrémentale un microservice pour découpler leur système de commande de nourriture.
+
+### Splitting Apart the Database
+
+- On parle ici de séparation de **schémas logiques**, qui peuvent être sur une même database engine, ou sur différentes database engines.
+- L’auteur conseille d’utiliser un outil pour gérer les migrations sur chaque DB. Il conseille en particulier **FlywayDB**.
+- Pour extraire un microservice, on doit extraire le code, et la donnée qui lui appartient. On peut faire :
+  - **D’abord le split de la DB**.
+    - On se donne alors la possibilité de switcher vers le nouveau microservice ou vers le monolithe sans perte de données.
+    - Le problème c’est qu’on n’aura pas de gain court terme quand on aura extrait la donnée.
+    - **Pattern: Repository per bounded context**.
+      - On a en général une couche de repository qui permet de mapper le code à la DB. Il s’agit ici de **découper ce repository** en suivant les lignes de nos bounded contexts.
+      - Ça va nous aider à y voir plus clair sur quel bounded context utilise quelle donnée extérieure à lui.
+      - On peut ajouter à ça un outil pour visualiser la structure de la DB, comme **SchemaSpy**.
+    - **Pattern: Database per bounded context**.
+      - Avant de séparer le code de chaque bounded context en microservice, on va ici séparer les données.
+      - Chez ThoughtWorks, un mécanisme de calcul a été modularisé, avec chaque module ayant sa DB, ce qui a fait un excellent exemple de modular monolith. L’extraction de microservices n’a jamais été faite.
+      - L’auteur **recommande ce pattern aux startups** qui ne devraient pas encore extraire de microservices, mais qui peuvent comme ça réduire la complexité de leur système.
+  - **D’abord le split du code**.
+    - L’avantage c’est qu’on va avoir des résultats rapides en ayant un code plus modulaire, et un artefact déployable indépendamment.
+    - L’inconvénient c’est que parfois les équipes migrent le code, et ne migrent pas la donnée ensuite, ce qui amène de la douleur à long terme.
+    - **Pattern: Monolith as data access layer**.
+      - Au lieu de laisser notre microservice accéder à de la donnée qui devrait lui appartenir dans la DB du monolithe, on expose une API dans le monolithe, et le microservice l’utilise.
+      - Il faut le faire seulement si du code gérant cette donnée est encore dans le monolithe.
+      - Ça permet de **cacher l’information**, le temps de migrer la donnée et son code vers le microservice (ou dans le cas où on aurait décidé de ne pas déplacer la donnée).
+    - **Pattern: Multischema storage**.
+      - La migration des données prend du temps, mais on peut profiter des nouvelles features pour aller dans le bon sens et placer la donnée dans le microservice.
+      - On se retrouve alors temporairement avec de la donnée dans le microservice, et de la donnée pas encore migrée dans le monolithe.
+  - **Split les deux en même temps**.
+    - L’auteur le déconseille : c’est une trop grosse étape qui ne permet pas d’avoir du feedback suffisamment rapidement sur ce qu’on fait.
