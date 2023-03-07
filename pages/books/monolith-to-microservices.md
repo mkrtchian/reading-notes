@@ -36,7 +36,7 @@
     - NDLR : c’est par cette idée que Vlad Khononov caractérise principalement les microservices dans _Learning Domain Driven Design_.
   - L’idée initiale des microservices était de les avoir si petits qu’on pourrait facilement les recoder pour les remplacer (par exemple dans une techno qui permette plus de performance/scalabilité), mais l’auteur sous-entend que ce n’est plus vraiment un critère essentiel, en tout cas qui fait consensus.
 - Côté ownership, l’architecture en microservices favorise le modèle où les équipes tech/produit sont au contact du client, et sont supportées par d’éventuelles équipes transverses.
-  - Ca s’oppose au modèle plus traditionnel où le “business” gère la relation avec les clients, et où les développeurs sont dans un silo à part, sans ownership réel sur un business domain de bout en bout.
+  - Ca s’oppose au modèle plus traditionnel où le "business" gère la relation avec les clients, et où les développeurs sont dans un silo à part, sans ownership réel sur un business domain de bout en bout.
 - Le terme **monolith** désigne ici l’unité de **déploiement**.
   - Le **single process monolith** : il s’agit d’une app single-process, qu’on peut éventuellement dupliquer pour des raisons d’availability.
     - En général le monolithe va au moins communiquer avec une DB, formant un système distribué très simple.
@@ -155,12 +155,12 @@
     - Il faut bien garder en tête que c’était l’augmentation du trafic qui était la plus importante. Et donc si on trouve un autre moyen plus simple de régler le problème, peut-être que les autres raisons devront attendre.
   - Un bon moyen pour aider aux décisions est de représenter l’ensemble des raisons d’adopter les microservices avec des curseurs de 1 à 5 : si on augmente le curseur pour une raison, on doit le baisser pour une autre.
 - Pour réussir à créer un **changement organisationnel** (pour mettre en place des microservices ou autre chose), l’auteur propose la méthode en 8 étapes de John Kotter, décrite plus en détail dans son livre **_Leading Change_**.
-  - **Étape 1 : Establishing a sense of urgency**. Le meilleur moment pour initier le changement c’est juste après une crise dont l’idée qu’on veut mettre en place règlerait le problème sous-jacent, avec l’idée “Il faut le mettre en place _maintenant_”.
+  - **Étape 1 : Establishing a sense of urgency**. Le meilleur moment pour initier le changement c’est juste après une crise dont l’idée qu’on veut mettre en place règlerait le problème sous-jacent, avec l’idée "Il faut le mettre en place _maintenant_".
   - **Étape 2 : Creating the guiding coalition**. On a besoin de convaincre des personnes autour de nous. En fonction de l’impact de notre idée, il faudra avoir des personnes plus ou moins haut placées, et typiquement des personnes du business dans le cas où on introduit des systèmes distribuées qui vont impacter les utilisateurs.
-  - **Étape 3 : Developing a vision and strategy**. La vision définit le “quoi”, elle doit donner envie mais être réaliste. La stratégie définit le “comment”.
+  - **Étape 3 : Developing a vision and strategy**. La vision définit le "quoi", elle doit donner envie mais être réaliste. La stratégie définit le "comment".
   - **Étape 4 : Communicating the change vision**. Il vaut mieux privilégier la communication en face à face (plutôt que slack ou ce genre de chose) pour pouvoir ajuster le discours en fonction des réactions.
   - **Étape 5 : Empowering employees for broad-based action**. Souvent les organisations amènent de nouvelles personnes dans l’équipe pour aider au changement en donnant de la bande passante.
-  - **Étape 6 : Generating short-term wins**. Pour éviter que l’engouement retombe, il faut obtenir des quick wins. Ça peut être par l’extraction de microservices “faciles” (à condition qu’ils aient un intérêt quand même).
+  - **Étape 6 : Generating short-term wins**. Pour éviter que l’engouement retombe, il faut obtenir des quick wins. Ça peut être par l’extraction de microservices "faciles" (à condition qu’ils aient un intérêt quand même).
   - **Étape 7 : Consolidating gains and producing more change**. On continue avec des changements plus profonds en fonction des succès ou échecs. Ça peut être la décomposition de la DB qu’on ne peut pas mettre de côté éternellement.
   - **Étape 8 : Anchoring new approaches in the culture**. A force de pratiquer la nouvelle manière de faire, la question de savoir si c’est la bonne approche ou non disparaît. Elle devient habituelle.
 - La décomposition d’un monolithe étant une chose difficile, il faut qu’elle soit faite de manière **incrémentale**. On sort un service à la fois, et on obtient du feedback pour s’améliorer sur la suite.
@@ -231,7 +231,7 @@
 
 ### Pattern: Strangler Fig Application
 
-- C’est un des patterns les plus utilisés, et ça se base sur l’image d’un figuier qui s’implante sur un arbre existant, plante ses racines, et petit à petit “étrangle” l’arbre qui finira par mourir sans ressources, laissant le figuier à sa place.
+- C’est un des patterns les plus utilisés, et ça se base sur l’image d’un figuier qui s’implante sur un arbre existant, plante ses racines, et petit à petit "étrangle" l’arbre qui finira par mourir sans ressources, laissant le figuier à sa place.
 - Cette technique permet d’avoir la nouvelle version en parallèle de l’ancienne. On fait grossir petit à petit les fonctionnalités de la nouvelle, puis on fait le switch quand le microservice est prêt à remplacer la fonctionnalité dans le monolithe.
   - Il faut faire la différence entre **deployment** et **release** : on intègre et déploie régulièrement ce qu’on fait en production, pour éviter les problèmes de merge et dérisquer le plus possible de choses en production, mais on n’active la fonctionnalité que quand elle est prête.
   - Concrètement, vu qu’on est en train de sortir un microservice qui va tourner sur un processus à part, le switch se passe **au niveau réseau** : tant que le microservice n’est pas prêt, les requêtes concernant sa fonctionnalité vont vers le monolithe, et quand on veut le release, on les redirige vers lui.
@@ -511,3 +511,57 @@
       - On se retrouve alors temporairement avec de la donnée dans le microservice, et de la donnée pas encore migrée dans le monolithe.
   - **Split les deux en même temps**.
     - L’auteur le déconseille : c’est une trop grosse étape qui ne permet pas d’avoir du feedback suffisamment rapidement sur ce qu’on fait.
+
+### Schema Separation Examples
+
+#### Pattern: Split Table
+
+- On peut avoir des cas où **une table contient des données qui doivent aller dans deux microservices différents**. Dans ce cas, il faut les **séparer dans deux tables** avant de les extraire aux bons endroits.
+  - Un exemple peut être une table qui contient une colonne _item_ et une colonne _stock level_, avec les données de ces colonnes devant respectivement aller vers le service _Catalog_ et _Warehouse_.
+    - On va dans ce cas simplement extraire les deux colonnes dans deux tables différentes.
+  - Un exemple plus complexe peut être d’avoir une colonne _status_, qui est écrite par du code appartenant à deux bounded contexts à extraire : _Customer Management_ le met à jour pour indiquer si l’utilisateur est vérifié ou non, et _Finance_ peut le mettre à jour pour indiquer que l’utilisateur est suspendu parce qu’il n’a pas payé.
+    - Dans ce cas précis, on pourrait décider que cette colonne doit appartenir à _Customer Management \_parce qu’il s’agit de gérer les utilisateurs, auquel cas \_Finance_ devra faire un appel vers _Customer Management_ à chaque fois qu’il faudra suspendre un utilisateur.
+- Il faut bien un seul bounded context qui "possède" chaque donnée.
+
+#### Pattern: Move Foreign-Key Relationship to Code
+
+- On a régulièrement besoin de faire des **foreign keys** d’une table à une autre, à la fois pour que la DB garantisse la consistance des données, et aussi pour des raisons de performance quand on fait des jointures.
+  - Dans le cas où l’association doit être faite vers une table possédée par un autre bounded context, on ne peut pas faire de foreign key DB, puisque **les deux tables sont dans des DB différentes**.
+- La solution est de casser la relation de foreign key dans la DB, et de faire le lien dans le code.
+  - Côté **performance** ce sera beaucoup moins bien. En fonction du besoin, on peut être amené à faire des recherches groupées, ou à créer un cache local de la donnée de l’autre microservice contre laquelle on veut faire une jointure.
+    - Des outils comme **Jaeger** permettent de mesurer la latence, pour voir si même plus lente, elle n’est pas acceptable quand même.
+  - L’autre problème c’est la **consistance** qui n’est plus garantie par la DB : la donnée qui est liée à notre donnée peut être supprimée sans qu’on ne le sache.
+    - On pourrait vérifier qu’aucun microservice n’a de lien vers nos données avant d’en supprimer. Mais il faudrait alors un mécanisme de lock, et il faudrait le faire avec de nombreux services. L’auteur le déconseille fortement.
+    - Une meilleure solution peut être que le service ayant besoin du lien prenne en compte que l’autre peut à tout moment répondre que l’objet n’existe plus.
+    - On pourrait aussi consommer des events de surpression dans les services qui ont besoin du lien, pour pouvoir mettre à jour leur cache local de la DB du service visé par le lien.
+    - Et une dernière solution acceptable peut aussi être de ne pas permettre la suppression de rows qui pourraient être liées dans d’autres microservices.
+      - La solution peut être dans ce cas de faire un soft delete avec un champ.
+- Attention à ne pas casser une relation entre des choses qui devraient faire partie du même aggregate.
+  - Par exemple, si on a une table _Order_, et une table _OrderLines_ qui contient le détail des articles commandés, ils devraient clairement faire partie du même aggregate et rester ensemble. Les séparer mènerait à des problèmes d’intégrité.
+
+#### Exemple : Shared Static Data
+
+- On parle ici de **reference data**, par exemple des codes de pays qu’on finit par mettre en base.
+- **Pattern: duplicate static reference data**.
+  - Chaque microservice va dupliquer la donnée dans sa DB.
+  - En fonction du contexte, une inconsistance de ces données entre microservices peut ou non être un problème important.
+  - Dans le cas où ça l’est, on peut avoir un système de synchronisation qui fonctionne en arrière-plan.
+  - Ce pattern est à utiliser rarement, si on a de grands sets de données, ou si on doit faire des jointures contre ces données.
+- **Pattern: Dedicated reference data schema**.
+  - On met en place une DB publique, partagée entre plusieurs microservies.
+  - Le fait qu’elle soit stable fait que la rendre publique n’est pas très dangereux.
+  - Attention par contre aux potentiels changements de structure qui seraient très difficiles à gérer.
+- **Pattern: Static reference data library**.
+  - Dans le cas où notre jeu de données est petit (comme les codes de pays), on peut les mettre sous forme de code dans une librairie installée par les microservices qui en ont besoin.
+  - Par contre, un point négatif c’est que la librairie peut créer un besoin de déploiement de plusieurs microservices en même temps dans le cas où son contenu change : on crée de la dépendance entre microservices.
+  - Ce pattern est particulièrement utile quand il est acceptable d’avoir plusieurs versions de la donnée dans divers microservices.
+- **Pattern: Static reference data service**.
+  - On peut créer un microservice à consulter pour connaître les reference data.
+  - Si la création et le déploiement d’un microservice simple prend des jours ou plus dans notre organisation, alors ce pattern ne vaut pas le coup, sinon on peut le faire.
+  - Typiquement ce serait un bon candidat pour du _Function-as-a-Service_ dans des plateformes cloud.
+  - Côté performance, ce pattern peut être plus rapide que de mettre les données en base puisque le microservice pourra les avoir sous forme de code.
+- Pour résumer :
+  - Si on n’a pas besoin que les données soient consistantes entre les services, on peut utiliser une librairie partagée.
+    - Si la donnée est plus grosse on peut la mettre en DB, localement dans chaque service.
+  - Si la donnée a besoin d’être consistante, on peut créer un service dédié.
+    - Si la création d’un service coûte trop cher, on peut créer une DB partagée pour ces données.
