@@ -565,3 +565,28 @@
     - Si la donnée est plus grosse on peut la mettre en DB, localement dans chaque service.
   - Si la donnée a besoin d’être consistante, on peut créer un service dédié.
     - Si la création d’un service coûte trop cher, on peut créer une DB partagée pour ces données.
+
+### Transactions
+
+- En général les DB garantissent les transactions ACID :
+  - **Atomicity** : soit l’ensemble de la transaction réussit, soit rien ne réussit.
+  - **Consistency** : l’état de la DB reste consistant avec toutes les contraintes respectées avant et après la transaction.
+  - **Isolation** : plusieurs transactions peuvent avoir lieu en même temps sans se gêner.
+  - **Durability** : une transaction validée reste en base, même en cas de panne.
+- En séparant les données en plusieurs schémas de DB, on perd la possibilité d’utiliser les transactions pour garantir la consistance de nos données entre bounded contexts.
+  - Les transactions sont quand même utilisées pour les données au sein des bounded contexts.
+  - L’atomicity notamment peut poser problème d’un point de vue consistance des données.
+- Pour répondre à ce problème on a plusieurs solutions, parmi elles il y a les **transactions distribuées**.
+  - Le **Two-Phase Commit** (2PC) est la technique la plus connue de transaction distribuée.
+  - La transaction est séparée en deux phases :
+    - 1 - Une phase de **vote** où le coordinateur central contacte toutes les parties prenantes de la transaction, pour leur demander si la transaction est possible pour eux.
+      - Elles mettent un lock sur les données à modifier puis répondent OK.
+      - Si toutes les parties prenantes sont OK, on peut aller à la phase 2, sinon on arrête la transaction.
+      - Si on arrête la transaction, un message d'annulation sera envoyé à ceux qui avaient dit OK pour les débloquer.
+    - 2 - Une phase de **commit** où le coordinateur demande à toutes les parties prenantes (qui ont déjà préparé le changement à faire et ont bloqué les données) d’appliquer les modifications.
+  - Ce système 2PC a des problèmes :
+    - La latence peut conduire à avoir des incohérences temporaires sur les données de chaque système.
+    - On a un gros risque de problèmes type deadlock où un des serveurs ne répond pas alors qu’il était censé avoir bloqué les données etc.
+    - On lock des tables pour des durées potentiellement importantes, qui impactent la capacité à traiter d’autres opérations.
+  - Pour l’auteur, les transactions distribuées ont trop de problèmes pour valloir le coup : il vaut mieux ne pas les utiliser.
+- Une autre alternative simple peut être tout simplement de **laisser les données fortement liées ensemble dans la même DB**, temporairement ou de manière permanente.
