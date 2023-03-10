@@ -590,3 +590,40 @@
     - On lock des tables pour des durées potentiellement importantes, qui impactent la capacité à traiter d’autres opérations.
   - Pour l’auteur, les transactions distribuées ont trop de problèmes pour valloir le coup : il vaut mieux ne pas les utiliser.
 - Une autre alternative simple peut être tout simplement de **laisser les données fortement liées ensemble dans la même DB**, temporairement ou de manière permanente.
+
+#### Sagas
+
+- Une dernière solution pour répondre au problème des transactions distribuées est l’utilisation de **sagas**.
+- Il s’agit de **découper la transaction en plus petites tâches**, réalisables chacune au sein de transactions ACID garanties par des DBs.
+  - L’ensemble n’est pas atomique, et c’est à nous de choisir quelle action de compensation il faut faire dans le cas où la saga échoue à une des étapes de la saga.
+  - Il faut penser à sauvegarder les informations d’une saga qui n’a pas pu aller jusqu’au bout.
+  - Il existe deux manières de gérer l’échec à une des étapes de la sage :
+    - La **backward recovery** consiste à exécuter des actions qui vont annuler ce qui a été fait.
+    - La **forward recovery** consiste à continuer la transaction, en réessayant des étapes par exemple.
+  - Il n’est pas toujours possible de défaire entièrement une saga.
+    - Par exemple, si un email a été envoyé pour confirmer une commande qui a ensuite échoué, l’**action de compensation** qu’on peut faire c’est renvoyer un email pour dire qu’on est désolé et qu’on s’est trompé.
+  - On peut mixer les manières, par exemple en considérant qu’on rollback une commande jusqu’au moment où on arrive à l’étape où il ne reste que l’étape d’envoi, qu’on va plutôt réessayer si elle échoue.
+  - On peut essayer de **placer les étapes **qui nécessiteraient les actions de compensation **les plus coûteuses vers la fin de la saga**, pour faciliter le rollback dans la majorité des cas.
+    - Exemple : mettre l’attribution de points de fidélité après les étapes les plus critiques du processus de validation d’une commande.
+- Côté implémentation, on a deux types de sagas :
+  - Les **orchestrated sagas** : on a un coordinateur (ou orchestrateur) qui va contenir l’ensemble de la logique de la saga, et qui va s’occuper d’appeller les divers services dans l’ordre, à la fois pour faire les actions nécessaires, mais aussi pour faire les actions de compensation.
+    - NDLR : Vlad Khononov appelle ça des _process managers_.
+    - L’avantage d’avoir la logique de la saga dans un même endroit c’est qu’on peut plus facilement comprendre ce qui est fait.
+    - Le désavantage c’est d’avoir une forme de **couplage** entre microservices, et d’avoir une tendance à ce que la logique aille dans l’orchestrateur, rendant les **microservices anémiques**.
+      - Pour mitiger un peu le problème, on peut s’assurer d’avoir des orchestrateurs bien séparés pour chaque saga, aidant à pousser à garder la logique (du coup réutilisée par chaque orchestrateur) dans les microservices.
+    - Il existe des outils appelés BPM (business process modeling), utilisés par les non développeurs pour définir des process business par drag-and-drop.
+      - L’auteur les déconseille parce qu’ils sont en général utilisés par les développeurs, et sont difficiles à versionner ou à tester de manière automatisée.
+      - Il est plus facile de projeter des représentation des process business à partir du code (si c’est ce qu’on veut faire).
+      - Si vraiment on veut explorer des solutions BPM qui essayent d’être developer-friendly, il y a **Camunda** et **Zeebe**.
+  - Les **choreographed sagas** : on a un ensemble de services qui **émettent des events, et réagissent eux-mêmes à des events**, et l’ensemble de ces noeuds forme la saga.
+    - Les services ne savent pas qui écoute leur event, elles émettent simplement le bon event au bon moment, et il peut être géré par qui est intéressé.
+      - Exemple : le service _Warehouse_ réagit à l’event de commande initiée, et émet un event pour dire que son étape est faite, ou alors qu’il n’a pas pu le faire. Et d’autres services gèreront les conséquences en écoutant les bons events.
+    - Comme on n’a pas d’entité centrale qui coordonne les choses, la logique ne peut pas se centraliser non plus, et on obtient naturellement une forme de **découplage** entre microservices.
+    - Le désavantage c’est qu’il est plus difficile d’appréhender le process de la saga dans son ensemble. On a aussi du mal à savoir dans quel état se trouve la saga.
+      - La solution est d’ajouter une **correlation ID** dans l’ensemble des events de la saga, puis de les consommer pour en projeter une vue compréhensible. On peut avoir des services dont c’est justement le rôle.
+  - On utiliser l’un ou l’autre des types de sagas en fonction des cas, mais aussi mixer les types au sein d’une même saga.
+    - Par exemple une choreographed saga plus large, dont une des étapes est gérée sous forme d’orchestrated saga.
+  - Selon l’auteur, même si les choreographed sagas ont la difficulté d’utiliser l’event driven architecture, les avantages en termes de découplage qu’elles apportent valent le coup.
+  - L’autre conseil c’est que **l’orchestrated saga est acceptable si une même équipe est en charge de l’ensemble de la saga**. Si plusieurs équipes sont impliquées, il vaut mieux une version choreographed.
+- L’utilisation des sagas a l’avantage de **modéliser explicitement** les process business importants.
+- Pour aller plus en profondeur sur ce sujet, l’auteur recommande la chapitre 4 de **_Building Microservices_**, et **_Enterprise Integration Patterns_**.
