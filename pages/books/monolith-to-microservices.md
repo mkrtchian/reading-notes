@@ -18,7 +18,7 @@
     - Et d’ailleurs cette l’architecture découle probablement de l’organisation des équipes cf. loi de Conway.
   - On a donc une forte cohésion au niveau technique : s’il faut faire un travail sur un aspect technique (par exemple moderniser la UI), une seule équipe sera impactée.
     - Mais on a une faible cohésion par domaine business, puisque l’ajout d’une fonctionnalité nécessite l’intervention et la coordination de 3 équipes.
-  - A l’inverse on peut imaginer une architecture organisée autour des domaines, avec un bout de UI, un bout de backend et un bout de DB chacun, et sous la responsabilité d’équipes pluridisciplinaires.
+  - A l’inverse on peut imaginer une architecture organisée autour des domaines, avec un bout de UI, un bout de backend et un bout de DB chacun, et sous la responsabilité d’équipes pluridisciplinaires : c’est comme ça qu’on va organiser nos microservices.
 - Les **microservices** ont de nombreux **avantages**, et il s’agit de comprendre lesquels on cherche à obtenir en priorité pour orienter notre décomposition de monolithe.
   - La possibilité de scaler différemment des parties du système, et d’obtenir de la robustesse (le système peut continuer à opérer même si une partie est down).
   - La possibilité d’utiliser différentes stacks technologiques et de les faire communiquer ensemble.
@@ -43,7 +43,7 @@
     - Ça représente l’essentiel des projets qui cherchent à migrer vers du microservice, donc l’auteur va se concentrer sur ça.
     - Il est possible de réaliser un **modular monolith** en gardant le single-process, mais en créant des modules de code bien séparés.
       - [Shopify](https://www.youtube.com/watch?v=ISYKx8sa53g) est un bon exemple de modular monolith.
-      - On a ceci dit souvent la DB dont le split en modules est négligé.
+      - On se retrouve ceci dit souvent dans une configuration où le split de DB est négligé par les équipes.
   - Le **distributed monolith** : on a plusieurs services communiquant à travers le réseau, mais le système a besoin d’être déployé en un bloc.
     - C’est un système qui a tous les désavantages : absence de modularisation, et système distribué.
   - Les **third-party black-box systems** : les services externes SASS qu’on utilise, ou open source qu’on installe.
@@ -112,7 +112,7 @@
     - Avoir le contrôle exclusif sur des microservices permet aux équipes d’acquérir de l’autonomie, et de travailler en parallèle.
     - Autres moyens d’obtenir ça :
       - Le **monolith modulaire** peut répondre à ce point, avec une certaine coordination nécessaire quand même pour le déploiement commun.
-      - On peut aussi penser à des approches self-service où on provisionne des machines automatiquement au lieu d’avoir à passer par un ticket manuel auprès d’une autre équipe.
+      - On peut aussi penser de manière générale à des approches self-service où on provisionne des machines automatiquement au lieu d’avoir à passer par un ticket manuel auprès d’une autre équipe.
   - **Réduire le time to market**.
     - Le fait que les microservices permettent de déployer sans besoin de coordination fait qu’on peut amener des changements en production plus vite.
     - Autres moyens d’obtenir ça :
@@ -209,7 +209,7 @@
 
 ## 3 - Splitting the Monolith
 
-- Ce chapitre décrit des patterns pour migrer le code dans des micros de manière incrémentale.
+- Ce chapitre décrit des patterns pour migrer le code dans des microservices de manière incrémentale.
 - Un des critères à prendre en compte pour le choix des patterns c’est le fait qu’on ait ou non **la possibilité de changer le code du monolithe**.
   - On peut avoir de nombreuses raisons pour ne pas le pouvoir :
     - Si on n’a plus le code source du monolithe.
