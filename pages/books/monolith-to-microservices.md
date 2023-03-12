@@ -627,3 +627,98 @@
   - L’autre conseil c’est que **l’orchestrated saga est acceptable si une même équipe est en charge de l’ensemble de la saga**. Si plusieurs équipes sont impliquées, il vaut mieux une version choreographed.
 - L’utilisation des sagas a l’avantage de **modéliser explicitement** les process business importants.
 - Pour aller plus en profondeur sur ce sujet, l’auteur recommande la chapitre 4 de **_Building Microservices_**, et **_Enterprise Integration Patterns_**.
+
+## Chapter 5 - Growing Pains
+
+- Ce chapitre présente les principaux problèmes qu’on rencontre habituellement avec les microservices, avec le moment (nombre de microservices) où on les rencontre en général.
+- **Ownership at Scale**.
+  - L’auteur reprend le modèle de types d’ownerships de Martin Fowler :
+    - _Strong code ownership_ : chaque service a une équipe owner qui peut y apporter des modifications. Les autres doivent faire des PRs.
+    - _Weak code ownership_ : chaque service a une équipe owner, mais les autres équipes peuvent aussi y faire des changements sans demander.
+    - _Collective code ownership_ : il n’y a pas d’équipes assignées aux services.
+  - On a souvent un collective ownership au début, et jusqu’à environ 20 personnes c’est OK pour l’auteur. Mais avec l’effectif de développeurs qui grandit, si on garde ce type d’ownership on obtiendra un distributed big ball of mud.
+  - La solution c’est d’utiliser le **strong code ownership**, ce qui permettra aussi d’avoir des équipes centrées autour de domaines business.
+- **Breaking changes**.
+  - Les microservices communiquent entre eux, mais doivent être modifiables sans impacter les autres microservices.
+    - Si la donnée qu’ils envoient ou leur comportement change, ils impacteront les autres microservices, cassant des fonctionnalités.
+  - Ce problème survient en général assez tôt, dès que plusieurs équipes gèrent des microservices qui communiquent entre eux.
+    - Un des signes peut être aussi le fait de chercher à déployer plusieurs services en même temps pour plusieurs équipes.
+  - Les solutions sont :
+    - De faire du **contract testing**, ou au moins rendre le schéma de l’API publique du microservice explicite, et difficile à changer.
+      - Des outils comme **protolock** permettent d’empêcher les changements dans les schémas de communication.
+    - D’**éviter de casser les contrats** le plus possible.
+      - Par exemple ajouter une nouvelle fonction exposée en laissant l’ancienne aussi.
+    - De donner le temps aux autres services de migrer si on casse le contrat.
+      - On peut faire tourner deux versions du microservice en même temps, mais il faudra que ça dure peu de temps.
+      - L’autre solution, privilégiée par l’auteur, est d’implémenter les deux versions de l’API dans le même microservice.
+- **Reporting**.
+  - Les cas d’usage de reporting, de type OLAP, deviennent plus difficiles à faire quand la DB est séparée en plusieurs morceaux.
+  - Ce problème survient assez tôt, quand on commence à décomposer le schéma de DB de notre monolithe.
+    - Parfois on oublie les personnes qui font de l’analyse par dessus la DB du monolithe, et on s’en rend compte quand le travail de migration est déjà avancé.
+  - Si on veut garder la possibilité pour les personnes qui font l’analyse de continuer à le faire avec des requêtes SQL dans une DB, on peut **créer une DB publique** juste pour eux.
+    - Cette DB publique serait alors alimentée par les microservices qui sont maintenant les owners des bouts de la DB qui doit être utilisée pour l’analyse.
+  - L’auteur renvoie vers le chapitre 5 de **_Building Microservices_** pour plus de détails sur ce sujet.
+- **Monitoring and Troubleshooting**.
+  - Plus le nombre de microservices augmente, plus on a du mal à savoir si le système va bien ou pas, et quel est l’origine exacte des problèmes.
+  - Parmi les solutions :
+    - Ajouter un **log aggregation system** : collecter les logs de l’ensemble des microservices en un même endroit.
+      - Parmi les outils il y a la **ELT stack** (Elastic search, Logstash/Fluent D, Kibana) et **Humio**.
+      - NDLR : l’auteur ne le mentionne pas, mais il y a aussi Datadog comme log aggregation system en SaaS.
+      - L’auteur conseille de commencer par le mettre en place avant de sortir des microservices : c’est utile dès le début, et en plus si on n’en est pas capable, c’est peut être qu’on n’est pas encore mature pour commencer à sortir des microservices.
+    - Ajouter du **tracing** :
+      - Ajouter un **correlation ID** à nos messages qui vont de microservice en microservice, pour repérer les flows internes liés à une même demande initiale.
+      - Utiliser un outil qui permet de tracer le temps mis pour les appels. Exemple d’outil : **Jaeger**.
+    - Faire des **tests en production** : il s’agit des _synthetic transactions_, où on va faire des tests end to end contre la production, pour se rendre compte des problèmes.
+    - Ajouter de l’**observability** : comme on ne sait pas quels problèmes on aura réellement, il faut collecter beaucoup de données, et utiliser des outils qui nous permettront de faire des requêtes pour investiguer ce qu’on n’avait pas prévu.
+      - L'auteur conseille **_Distributed Systems Observability_** pour creuser la question.
+- **Local Developer Experience**.
+  - Quand les devs ont besoin de faire des tests en local avec une dizaine de microservices ou plus, ils risquent de ne plus pouvoir le faire à cause de la performance de leur machine.
+    - Ce problème arrive surtout dans les organisations où il n’y a pas de strong ownership, et donc où on a besoin de toucher au code de plusieurs microservices.
+  - Parmi les solutions :
+    - Stubber les microservices avec lesquels le microservice modifié interagit.
+    - Avoir un environnement distant auquel le développeur peur se connecter, pour que son microservice local puisse communiquer avec des microservices tournant dans un environnement de développement distant.
+      - Cette solution amène à consommer plus de ressources.
+      - **Telepresence** est un exemple d’outil qui permet de faire un workflow de dev local/remote avec Kubernetes.
+- **Running Too Many Things**.
+  - Plus on a de microservices, et plus on va avoir de process à gérer en production.
+    - Avec des dizaines ou des centaines de microservices, la configuration et le choix du nombre d’instances de chaque microservice vont devenir compliqués.
+    - On va avoir besoin de plus en plus de personnes pour gérer l’aspect infrastructure.
+  - La solution peut être l’utilisation de **Kubernetes** pour gérer les instances de microservice.
+    - Dans le cas où on héberge notre solution dans un cloud public, l’auteur conseille de partir d’abord sur du FaaS (Function as a Service), et de ne partir sur des options plus complexes comme Kubernetes que si les limitations du serverless nous posent problème.
+    - Kubernetes lui-même n’est pas très developer-friendly, on peut opter pour une solution plus abstraite comme **OpenShift** de RedHat.
+    - L’utilisation de Kubernetes n’est pas obligatoire pour faire du microservice. Si on extrait par exemple 5 microservices en tout, et qu’on est OK comme ça, on n’en aura pas besoin.
+- **End-to-End Testing**.
+  - Les tests end to end prennent beaucoup de temps, et sont sujets aux faux positifs. Ils le sont encore plus quand il s’agit de tester des cas d’usage impliquant plusieurs microservices.
+    - Le risque c’est qu’on se mette à passer de plus en plus de temps sur ces tests.
+  - Un chapitre entier de **_Building Microservices_** détaille la manière de tester avec les microservices.
+  - Parmi les solutions :
+    - **Limiter le scope des tests** : les tests peuvent couvrir plusieurs microservices, à condition qu’ils soient gérés par la même équipe.
+    - **Utiliser des consumer-driven contracts** (CDC) : au lieu d’avoir des tests end to end, chaque service consommateur crée des tests pour spécifier ce qu’il attend du microservice qu’il va utiliser.
+      - Vu que c’est le consommateur qui définit le contrat, il y a moins de chances de casser un contrat implicite sans faire exprès.
+      - Parmi les outils pour faire du CDC il y a **Pact**.
+    - Mettre en place une **progressive delivery**, et une **automated release remediation** : on peut faire une canary release auprès de peu de clients, puis avoir un système automatique qui rollback si jamais des mesures clés (par exemple le 95ème percentile de latence et de taux d’erreur) ne sont pas bonnes.
+      - Même sans avoir la partie automatique, une simple canary release manuelle est déjà une avancée.
+    - Garder un œil sur ce qui n’est pas assez testé et où il y a beaucoup de problèmes, et ce qui est éventuellement trop testé pour en enlever.
+- **Global Versus Local Optimization**.
+  - Si on adopte un strong code ownership, avec des équipes autonomes, on risque de se retrouver au bout d’un certain temps à avoir certaines duplications qui d’un point de vue global ne sont pas optimales pour l’entreprise.
+    - Exemple : on a 3 équipes qui utilisent chacune une DB différentes (Oracle, PostgreSQL etc.), toutes pour une bonne raison dans leur contexte. Mais si on regarde les choses d’un point de vue global, il est possible que ça n’en vaille pas le coup.
+    - Autre exemple : avoir des manières différentes de déployer les microservices dans chaque équipe fait qu’à chaque changement d’équipe, les développeurs doivent réapprendre comment faire ça.
+  - L’autonomie des équipes apporte beaucoup d’avantages, notamment le fait d’avancer vite, alors que la centralisation permet d’optimiser au niveau global, au détriment d’une nécessité de consensus avec plus de monde.
+    - Il faut trouver un équilibre, et réajuster régulièrement.
+  - Parmi les solutions :
+    - Faire comprendre aux équipes qu’en fonction du type réversible / irréversible des décisions qu’elles prennent, il faut impliquer plus ou moins de personnes, y compris si nécessaire en dehors de l’équipe.
+    - Avoir une manière de synchroniser les équipes entre-elles, par exemple un membre de l’équipe qui pourrait participer à des groupes cross-team pour traiter de problématiques globales.
+    - Par exemple, chez Monzo, les équipes peuvent soumettre des propositions sur des sujets importants, qui peuvent être ensuite discutés publiquement par les autres équipes jusqu’à arriver à une solution.
+- **Robustness and Resiliency**.
+  - Quand on est dans un système distribué, on a un risque d’instabilité de notre système. Et ce risque augmente en fonction du nombre de services qu’on a et de leur interconnection.
+  - Parmi les solutions :
+    - On peut se demander **à chaque appel** si on a pris en compte le fait qu’il **pouvait échouer**, et toutes les manières dont il pouvait le faire.
+    - Utiliser des techniques pour isoler les services les uns des autres, par exemple par des communications asynchrones.
+    - Utiliser des timeouts raisonnables pour éviter les blocages trop longs.
+    - Lancer plusieurs instances de chaque microservice pour le cas où une instance est en échec.
+    - Plus généralement, il faut avoir un état d’esprit qui permet la résilience, par exemple en documentant les problèmes survenus, et les solutions appliquées. Et en tirer les conséquences sur notre organisation.
+  - L’auteur recommande de lire le chapitre 11 de **_Building Microservices_** ou le livre **_Release It!_** de Michael Nygard pour plus de détails.
+- **Orphaned Services**.
+  - On se retrouve parfois (au bout d’une très longue période d’utilisation de microservices) à avoir des services qui tournent, mais dont personne ne se rappelle ce qu’ils sont censés faire, et qu’on a peur d’éteindre.
+    - Parfois on a perdu le code source.
+  - La solution peut être d’avoir une forme ou une autre de **registry** alimentée par les équipes, ou par un outil automatique qui crawl les repositories.
