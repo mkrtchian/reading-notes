@@ -249,8 +249,8 @@
       - On peut aussi dès cette étape tester le mécanisme de redirection pour vérifier qu’il n’y aura pas de problème à le faire.
     - Étape 2 : on implémente progressivement la fonctionnalité dans le microservice, vers lequel il n’y a aucun trafic.
     - Étape 3 : Quand le microservice est prêt, on redirige le trafic vers lui.
-      - On peut remettre le trafic vers le monolithe s' il y a un problème.
-      - Pour plus de facilité, la redirection peut être activée avec un feature toggle.
+      - On peut remettre le trafic vers le monolithe s'il y a un problème.
+      - Pour plus de facilité, la redirection peut être activée avec un **feature toggle**.
   - Pour ce qui est du proxy lui-même, ça va dépendre du protocole. Si on a du HTTP, on peut partir sur un serveur connu comme NGINX.
     - Ca peut être par exemple sur le path : rediriger `/invoice/` vers le monolithe, et `/payroll/` vers le microservice.
     - Si on route sur un contenu se trouvant dans le body d’une requête POST (NDLR : comme GraphQL), ça risque d’être un peu plus compliqué.
@@ -261,7 +261,7 @@
   - Pour l’auteur c’est une mauvaise idée : si on le fait pour plusieurs microservices, on va finir par complexifier ce proxy partagé, alors qu’on voulait que les microservices soient indépendants.
   - L’auteur conseille plutôt de faire ce mapping de protocole dans chacun des microservices qui en ont besoin, et éventuellement de faire en sorte qu’ils supportent les deux protocoles.
   - On peut aussi aller vers le **service mesh** où chaque microservice a son proxy local, qui peut faire les redirections et mapping qu’il veut.
-    - Les outils les plus connus pour ça sont Linkerd et Istio.
+    - Les outils les plus connus pour ça sont **Linkerd** et **Istio**.
     - Square a mis en place le service mesh et en a fait [un article](https://squ.re/2nts1Gc).
 - **Exemple : FTP**.
   - L’entreprise suisse Homegate a utilisé le strangler fig pattern pour extraire des microservices, et en profiter pour changer le protocole utilisé pour uploader des fichiers : de FTP vers HTTP.
@@ -363,8 +363,8 @@
   - Si on voulait utiliser le decorating collaborator pattern, il faudrait faire un appel supplémentaire au monolithe pour obtenir les informations manquantes, et que le monolithe expose une API pour ça.
   - On va donc plutôt écouter ce que dit la DB quand le monolithe insert le compte de fidélité, et alimenter notre microservice d’impression avec ça.
 - Pour ce qui est de la **manière de l’implémenter** :
-  - **Database triggers **: c’est un mécanisme de stored procedures, fournis par la plupart des bases de données.
-    - Attention à ne pas trop en utiliser, leur maintenabilité est difficile.
+  - **Database triggers** : c’est un mécanisme de stored procedures, fournis par la plupart des bases de données.
+    - Attention à ne pas trop en utiliser, leur maintenance est difficile.
   - **Transaction log pollers** : la plupart des DB écrivent leurs données dans un fichier de log qui précède l’écriture dans la base. On peut simplement lire ce fichier.
     - C’est une des solutions les plus intéressantes selon l’auteur, avec la contrainte qu’on a besoin de s’adapter à la structure spécifique du log de cette DB.
     - On a de nombreux outils qui lisent les logs, y compris certains qui les mettent dans un message broker.
@@ -376,7 +376,7 @@
 
 #### Pattern: The Shared Database
 
-- Partager la DB veut dire ne pas avoir la possibilité de **choisir ce qu’on cache**, et même ne pas savoir ce qui est utilisé par d’autres.
+- Partager la DB veut dire ne pas avoir la possibilité de **choisir ce qu’on cache** et ce qu'on montre, et même ne pas savoir ce qui est utilisé par d’autres.
 - Dans le cas où plusieurs services peuvent modifier la DB partagée, on ne sait plus qui la contrôle. Et la logique de modification est dupliquée et peut diverger.
 - La DB doit être privée à chaque microservice. Le partage publique d’une DB n’est approprié que dans deux cas :
   - 1 - Une DB avec des **données de référence** read-only très stables (par exemple la liste des pays existants ou des codes postaux).
@@ -395,7 +395,7 @@
 - Les views ont quelques limitations :
   - Elles peuvent poser des problèmes de performance, et la version materialized de la view est plus efficace, mais contiendra des données anciennes, datant de la dernière fois qu’on a fait un update.
   - Elles sont **read-only**.
-  - Toutes les DB n’ont pas la fonctionnalité. Les DB relationnelles l’ont, et certaines DB NoSQL aussi (c’est le cas de _Cassandra_ et _Mongo_ par exemple).
+  - Toutes les DB n’ont pas la fonctionnalité. Les DB relationnelles l’ont, et certaines DB NoSQL aussi (c’est le cas de **Cassandra** et **Mongo** par exemple).
   - Il est probable que le schéma de la view doive se trouver sur la même database engine que le schéma initial.
 - En termes d’ownership, l’auteur conseille de le donner à l'équipe qui a la charge de la DB source.
 - Cette étape va dans la bonne direction, mais l’auteur déconseille de faire ça à la place d’une décomposition de la DB sans avoir de bonnes raisons.
@@ -403,7 +403,7 @@
 #### Pattern: Database Wrapping Service
 
 - Une autre manière de cacher la DB pour arrêter l’hémorragie c’est de la mettre derrière un service, et demander aux clients d’y accéder via ce service.
-- Exemple : banque australienne.
+- **Exemple : banque australienne**.
   - L’auteur a travaillé pour une banque qui avait un problème de scalabilité de sa DB.
   - Malheureusement les autorisations étaient implémentées sous forme de stored procedures, et les toucher était trop dangereux.
   - Alors ils ont décidé de créer un service pour cacher la DB, et faire en sorte que la nouvelle logique autour des d’autorisations ne soit plus dans la DB elle-même, mais implémentée chez les clients.
@@ -422,7 +422,7 @@
   - Les écritures doivent se faire via API.
   - Il y aura donc une latence entre ce qu’on écrit, et ce qu’on lit de la DB publique qui pourrait être en retard dans la synchronisation.
 - Pour ce qui est de la manière d’implémenter le mapping engine :
-  - Une première solution robuste peut être d’utiliser le **change data capture** de la DB. Pour l’exploiter, il y a des outils comme **_Debezium_**.
+  - Une première solution robuste peut être d’utiliser le **change data capture** de la DB. Pour l’exploiter, il y a des outils comme **Debezium**.
   - Une autre solution serait d’avoir un batch process qui met à jour régulièrement la DB publique.
   - Et une 3ème option peut être d’émettre des **events**, et de reconstruire la DB à l’extérieur à partir de ceux-ci.
 - Cette solution est plus avancée que le database view pattern, et aussi plus difficile à mettre en place d’un point de vue technique.
@@ -441,7 +441,7 @@
 
 #### Pattern: Change Data Ownership
 
-- Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c’est le microservice qui devrait la posséder, il faut la **déplacer dans le monolithe**.
+- Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c’est le microservice qui devrait la posséder, il faut la **déplacer dans le microservice**.
   - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
   - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l’aggragate, contrôle des règles de consistance etc. se trouvent dans le microservice.
 - **Déplacer de la donnée est difficile**. Ça peut impliquer de devoir casser des foreign keys, des transactions etc. ce sujet est traité plus tard dans le chapitre.
@@ -466,7 +466,7 @@
     - On continue d’écrire dans les deux DB, mais on lit depuis la nouvelle pour alimenter la production.
     - Une fois qu’on a suffisamment confiance dans la nouvelle DB, on peut éliminer l’ancienne.
 - Ce pattern peut être pertinent quand on **migre la DB avant de migrer le code**, pendant une extraction de microservice.
-- Ce pattern nous donne l’avantage de pouvoir facilement pouvoir faire le switch du microservice vers le monolithe, avec une DB déjà séparée.
+- Ce pattern nous donne l’avantage de facilement pouvoir faire le switch du microservice vers le monolithe, avec une DB déjà séparée.
 - Attention à ne pas utiliser ce pattern si à un moment donné, à la fois le monolithe et le microservice doivent écrire dans leurs DBs.
   - C’est par exemple une mauvaise idée si on utilise un système de canary release.
 
@@ -528,7 +528,7 @@
 - On a régulièrement besoin de faire des **foreign keys** d’une table à une autre, à la fois pour que la DB garantisse la consistance des données, et aussi pour des raisons de performance quand on fait des jointures.
   - Dans le cas où l’association doit être faite vers une table possédée par un autre bounded context, on ne peut pas faire de foreign key DB, puisque **les deux tables sont dans des DB différentes**.
 - La solution est de casser la relation de foreign key dans la DB, et de faire le lien dans le code.
-  - Côté **performance** ce sera beaucoup moins bien. En fonction du besoin, on peut être amené à faire des recherches groupées, ou à créer un cache local de la donnée de l’autre microservice contre laquelle on veut faire une jointure.
+  - Côté **performance** ce sera beaucoup moins bien. En fonction du besoin, on peut être amené à faire des recherches groupées, ou à créer un cache local de la donnée de l’autre microservice, contre laquelle on veut faire une jointure.
     - Des outils comme **Jaeger** permettent de mesurer la latence, pour voir si même plus lente, elle n’est pas acceptable quand même.
   - L’autre problème c’est la **consistance** qui n’est plus garantie par la DB : la donnée qui est liée à notre donnée peut être supprimée sans qu’on ne le sache.
     - On pourrait vérifier qu’aucun microservice n’a de lien vers nos données avant d’en supprimer. Mais il faudrait alors un mécanisme de lock, et il faudrait le faire avec de nombreux services. L’auteur le déconseille fortement.
@@ -603,7 +603,7 @@
   - Il n’est pas toujours possible de défaire entièrement une saga.
     - Par exemple, si un email a été envoyé pour confirmer une commande qui a ensuite échoué, l’**action de compensation** qu’on peut faire c’est renvoyer un email pour dire qu’on est désolé et qu’on s’est trompé.
   - On peut mixer les manières, par exemple en considérant qu’on rollback une commande jusqu’au moment où on arrive à l’étape où il ne reste que l’étape d’envoi, qu’on va plutôt réessayer si elle échoue.
-  - On peut essayer de **placer les étapes **qui nécessiteraient les actions de compensation **les plus coûteuses vers la fin de la saga**, pour faciliter le rollback dans la majorité des cas.
+  - On peut essayer de **placer les étapes** qui nécessiteraient les actions de compensation **les plus coûteuses vers la fin de la saga**, pour faciliter le rollback dans la majorité des cas.
     - Exemple : mettre l’attribution de points de fidélité après les étapes les plus critiques du processus de validation d’une commande.
 - Côté implémentation, on a deux types de sagas :
   - Les **orchestrated sagas** : on a un coordinateur (ou orchestrateur) qui va contenir l’ensemble de la logique de la saga, et qui va s’occuper d’appeller les divers services dans l’ordre, à la fois pour faire les actions nécessaires, mais aussi pour faire les actions de compensation.
