@@ -597,7 +597,7 @@
 - Il s’agit de **découper la transaction en plus petites tâches**, réalisables chacune au sein de transactions ACID garanties par des DBs.
   - L’ensemble n’est pas atomique, et c’est à nous de choisir quelle action de compensation il faut faire dans le cas où la saga échoue à une des étapes de la saga.
   - Il faut penser à sauvegarder les informations d’une saga qui n’a pas pu aller jusqu’au bout.
-  - Il existe deux manières de gérer l’échec à une des étapes de la sage :
+  - Il existe deux manières de gérer l’échec à une des étapes de la saga :
     - La **backward recovery** consiste à exécuter des actions qui vont annuler ce qui a été fait.
     - La **forward recovery** consiste à continuer la transaction, en réessayant des étapes par exemple.
   - Il n’est pas toujours possible de défaire entièrement une saga.
@@ -621,7 +621,7 @@
     - Comme on n’a pas d’entité centrale qui coordonne les choses, la logique ne peut pas se centraliser non plus, et on obtient naturellement une forme de **découplage** entre microservices.
     - Le désavantage c’est qu’il est plus difficile d’appréhender le process de la saga dans son ensemble. On a aussi du mal à savoir dans quel état se trouve la saga.
       - La solution est d’ajouter une **correlation ID** dans l’ensemble des events de la saga, puis de les consommer pour en projeter une vue compréhensible. On peut avoir des services dont c’est justement le rôle.
-  - On utiliser l’un ou l’autre des types de sagas en fonction des cas, mais aussi mixer les types au sein d’une même saga.
+  - On peut utiliser l’un ou l’autre des types de sagas en fonction des cas, mais aussi mixer les types au sein d’une même saga.
     - Par exemple une choreographed saga plus large, dont une des étapes est gérée sous forme d’orchestrated saga.
   - Selon l’auteur, même si les choreographed sagas ont la difficulté d’utiliser l’event driven architecture, les avantages en termes de découplage qu’elles apportent valent le coup.
   - L’autre conseil c’est que **l’orchestrated saga est acceptable si une même équipe est en charge de l’ensemble de la saga**. Si plusieurs équipes sont impliquées, il vaut mieux une version choreographed.
@@ -640,7 +640,7 @@
   - La solution c’est d’utiliser le **strong code ownership**, ce qui permettra aussi d’avoir des équipes centrées autour de domaines business.
 - **Breaking changes**.
   - Les microservices communiquent entre eux, mais doivent être modifiables sans impacter les autres microservices.
-    - Si la donnée qu’ils envoient ou leur comportement change, ils impacteront les autres microservices, cassant des fonctionnalités.
+    - Si la donnée qu’ils envoient ou leur comportement changent, ils impacteront les autres microservices, cassant des fonctionnalités.
   - Ce problème survient en général assez tôt, dès que plusieurs équipes gèrent des microservices qui communiquent entre eux.
     - Un des signes peut être aussi le fait de chercher à déployer plusieurs services en même temps pour plusieurs équipes.
   - Les solutions sont :
@@ -676,7 +676,7 @@
     - Ce problème arrive surtout dans les organisations où il n’y a pas de strong ownership, et donc où on a besoin de toucher au code de plusieurs microservices.
   - Parmi les solutions :
     - Stubber les microservices avec lesquels le microservice modifié interagit.
-    - Avoir un environnement distant auquel le développeur peur se connecter, pour que son microservice local puisse communiquer avec des microservices tournant dans un environnement de développement distant.
+    - Avoir un environnement distant auquel le développeur peut se connecter, pour que son microservice local puisse communiquer avec des microservices tournant dans un environnement de développement distant.
       - Cette solution amène à consommer plus de ressources.
       - **Telepresence** est un exemple d’outil qui permet de faire un workflow de dev local/remote avec Kubernetes.
 - **Running Too Many Things**.
