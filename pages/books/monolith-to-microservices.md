@@ -433,7 +433,7 @@
 
 #### Pattern: Aggregate Exposing Monolith
 
-- Quand on extrait un microservice, il a parfois besoin d'accéder aux données qui sont encore dans le monolithe, ou de les modifier.
+- Quand on extrait un microservice, il y a parfois besoin d'accéder aux données qui sont encore dans le monolithe, ou de les modifier.
   - S'il est légitime d'un point de vue domaine que ces données soient possédées par le monolithe, alors il peut **exposer des endpoints**.
   - Les données sont regroupées en aggregates, et sont associées à des machines à état sous forme de code. Quand le monolithe ou un microservice fournit des endpoints, il donne en fait la possibilité d'accéder à la machine à état pour savoir ce qu'on va pouvoir ou non faire avec les données.
 - Le fait pour le monolithe de fournir des endpoints pour travailler avec certaines données, peut être une étape vers l'extraction d'un microservice organisé autour de ces données.
@@ -443,7 +443,7 @@
 
 - Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c'est le microservice qui devrait la posséder, il faut la **déplacer dans le microservice**.
   - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
-  - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l'aggragate, contrôle des règles de consistance etc. se trouvent dans le microservice.
+  - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l’aggragate, contrôle des règles de consistance etc.) se trouve dans le microservice.
 - **Déplacer de la donnée est difficile**. Ça peut impliquer de devoir casser des foreign keys, des transactions etc. ce sujet est traité plus tard dans le chapitre.
 
 ### Data Synchronization
@@ -477,7 +477,7 @@
   - Dès qu'un bloc de données est déplacé, le microservice devient la source de vérité pour ce bloc, et le monolithe comme les autres microservices devront le lire depuis là.
   - On continue jusqu'à ce que l'ensemble des données à déplacer soient lues depuis le microservice (tout en restant synchronisées dans le monolithe en cas de besoin de switch).
 - Pour ce qui est de la synchronisation elle-même :
-  - L'auteur conseille d'envoyer les commandes d'écriture à la bonne source vérité, et d'**éviter les mécanisme de synchronisation à deux sens** (écrire dans n'importe quelle source et avoir une synchronisation en arrière-plan), parce que c'est difficile à implémenter.
+  - L'auteur conseille d'envoyer les commandes d'écriture à la bonne source de vérité, et d'**éviter les mécanisme de synchronisation à deux sens** (écrire dans n'importe quelle source et avoir une synchronisation en arrière-plan), parce que c'est difficile à implémenter.
   - Il faut s'attendre à avoir une certaine latence entre les deux sources, et donc prévoir une **eventual consistency**, étant donné que pour certaines données la première sera la source de vérité, et pour d'autres données ce sera la 2ème.
   - Si on a un système event driven, ou un mécanisme de change data capture, on aura des facilités à implémenter le pattern.
 - L'auteur conseille de prévoir un mécanisme de vérification de l'intégrité des données entre les deux sources (par exemple des scripts SQL), pour s'assurer que tout va bien.
