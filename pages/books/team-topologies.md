@@ -12,8 +12,8 @@
 - Niels Pflaeging, dans **_Organize for Complexity_**, :
   - Identifie 3 structures dans l’organisation :
     - **Formal structure** : l’organigramme.
-    - **Informal structure **: le domaine d’influence entre individus.
-    - **Value creation structure **: la manière concrète dont le travail se fait, basé sur les relations au sein de l’équipe et entre équipes.
+    - **Informal structure** : le domaine d’influence entre individus.
+    - **Value creation structure** : la manière concrète dont le travail se fait, basé sur les relations au sein de l’équipe et entre équipes.
   - Lui et d’autres auteurs comme Frédéric Laloux, ou Brian Robertson (Holacracy), pensent que le point de plus important dans les organisations est le lien entre _informal structure_ et _value creation structure_.
   - Ce livre propose d’aller dans le même sens : **renforcer la cohésion au sein de l’équipe** en la rendant autonome, et **améliorer la confiance inter-équipe** en clarifiant les interactions attendues.
 - Ce livre s’appuie sur la **loi de Conway** :
