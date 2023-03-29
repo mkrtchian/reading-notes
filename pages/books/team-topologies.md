@@ -52,3 +52,84 @@
   - Il faut des outils partagés entre équipes qui collaborent, et des outils séparés entre équipes indépendantes.
 - Certaines entreprises font l’erreur d’avoir de nombreuses équipes chargées de petites parties du système (des complicated subsystem teams). Ça doit rester une exception, et la norme doit être les équipes alignées sur le flow.
 - Les réorganisations régulières pour réduire les effectifs ou pour donner des postes à la hiérarchie de management sont incompatibles avec une organisation basée sur la loi de Conway, la notion de cognitive load etc.
+
+## 3 - Team-First Thinking
+
+- Citation d’Allan Kelly dans **_Project Mytopia_** : _“Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy”_.
+- La recherche montre que, dans les domaines de résolution de problèmes où il y a une grande quantité d’information à traiter, **les équipes cohésives ont une meilleure performance que les individus**.
+  - cf. Driskell and Salas, [Collective Behavior and Team Performance](https://www.researchgate.net/publication/239937465_Collective_Behavior_and_Team_Performance).
+  - Une étude de Google sur ses propres équipes a montré que la dynamique d’équipe compte plus pour la performance que les individus qui la composent.
+- Pour les auteurs, une **équipe** est un groupe de **5 à 9 personnes** qui travaillent avec un but commun.
+  - L’équipe est **la plus petite unité** de l’entreprise. On n’assigne donc pas de tâches aux individus.
+  - Le nombre de personnes est basé sur le nombre de Dunbar (suite aux recherches de l’anthropologue Robin Dunbar)
+    - Dunbar dit qu’une personne peut faire avoir confiance envers 15 personnes, et avoir une confiance profonde envers 5 personnes.
+    - Ca fonctionne par cercles concentriques pour les échelles suivantes : 50, 150 et 500 personnes.
+  - Si on dépasse 9 personnes, la confiance ne tient plus et l’équipe n’est plus cohésive.
+  - Dans certaines entreprises avec une forte culture de la confiance, on peut monter jusqu’à 15 personnes, mais elles sont plutôt l’exception.
+- Les équipes doivent être **stables dans le temps**.
+  - Elles mettent plusieurs semaines à plusieurs mois après la formation pour atteindre leur rythme de croisière.
+    - Avec une phase de “storming” où chacun s’habitue aux comportements des autres cf. modèle de Truckman.
+  - Réorganiser les équipes selon des projets de 6 mois va les mettre en situation de réadaptation permanente.
+  - En fonction de la culture de confiance de l’entreprise, une personne peut changer d’équipe tous les 1 à 2 ans sans impact majeur sur la performance des équipes.
+- **L’équipe doit avoir l’ownership **sur les composants sur lesquels elle travaille.
+  - Si la même équipe intervient sur le même logiciel tout au long, elle peut planifier le court, moyen et long terme.
+    - Elle se sent responsable en cas de raccourcis pris dans le code.
+  - Il ne doit pas y avoir de parties du logiciel sous la responsabilité de plusieurs équipes.
+- Les membres des équipes doivent avoir un **team-first mindset**.
+  - Il s’agit de mettre les besoins de l’équipe au-dessus des leurs :
+    - Aider/débloquer les autres, mentorer les nouveaux.
+    - Se concentrer sur les objectifs d’équipe.
+    - Être ouvert à l’exploration de nouvelles options, plutôt que de chercher à imposer son avis.
+  - Il existe des personnes “team toxic”, qui n’aiment pas le travail en équipe, et n’arrivent pas à s’y adapter. Elles doivent être écartées des équipes avant d’y causer des dommages.
+    - Ce point est largement validé par la recherche.
+- La recherche montre que les équipes diverses ont plus de chances de produire des solutions créatives, rapides et ont plus de facilité à entrer en empathie avec les autres équipes.
+- Il vaut mieux donner des **bonus d’équipe**, plutôt qu’individuels.
+  - On peut faire la même chose pour le budget formation, qu’on confie à l’équipe pour qu’elle le dépense comme bon lui semble.
+- Il faut faire attention à surveiller et **limiter la cognitive load** de l’équipe.
+  - Il s’agit de la quantité d’effort mental qu’on doit utiliser pour notre mémoire de travail.
+    - La notion a été théorisée par le psychologue John Sweller.
+  - Il identifie 3 types de cognitive load :
+    - **Intrinsic cognitive load** : tout ce qui fait partie des fondamentaux à connaître pour résoudre le problème.
+      - Exemple : Fondamentaux de la programmation, spécificités d’un langage en particulier.
+      - Il faut la minimiser par des formations, du pair programming etc.
+    - **Extraneous cognitive load** : ce qui concerne l’utilisation de l’environnement de la tâche.
+      - Exemple : Comment déployer un service (commandes à taper etc.), comment configurer un outil etc.
+      - Il faut l’éliminer par l’automatisation des tâches.
+    - **Germane cognitive load** : la partie complexe propre au problème.
+      - Exemple : La manière dont un service devrait interagir avec cet autre, la logique business d’un service etc.
+      - On doit limiter ou éliminer les autres formes pour se concentrer sur celle-là qui est celle qui apporte de la valeur.
+  - Il faut donc à la fois limiter le scope d'action de l’équipe (germane cognitive load), et les laisser se former et automatiser les tâches (intrinsic et extraneous cognitive load).
+    - Pour diminuer la cognitive load on peut aussi mettre en place un management basé sur les outcomes, diminuer la paperasse et les meetings, et avoir une équipe platform bien découplée.
+  - Pour mesurer la cognitive load d’une équipe, la manière la plus rapide et efficace est de **demander aux membres de l’équipe s’ils se sentent surchargés**.
+    - La mesure par le nombre de lignes de code ou ce genre de choses ne marche pas très bien.
+  - Une fois qu’on a identifié les subdomains, on peut appliquer des **heuristiques** pour l’attribution aux équipes.
+    - On peut les classer par complexité relative :
+      - Simple : on sait comment faire l'essentiel du travail.
+      - Compliqué : il faudra faire de l’analyse et itérer.
+      - Complexe : il faudra faire beaucoup d'expérimentation.
+    - Les heuristiques sont :
+      - 1 - Assigner **chaque subdomain** à une équipe.
+        - Si un subdomain est trop gros, on le découpe d’abord.
+      - 2 - Assigner **2 ou 3 subdomains** simples à une équipe.
+      - 3 - Assigner **un seul subdomain complexe** à une équipe.
+        - Une des raisons c’est qu’elle ne pourra pas avoir tendance à traiter d’abord les tâches simples.
+      - 4 - Ne pas mettre **deux subdomains complexes** dans une même équipe.
+- Il faut que chaque équipe **définisse et documente sa relation aux autres équipes** (sa “Team API”).
+  - Ça inclut le code et la documentation de l’API disponible, et comment éventuellement y contribuer, la manière dont l’équipe travaille, communique, ce sur quoi ils travaillent actuellement etc.
+    - Le but c’est qu’une autre équipe puisse facilement trouver ce qu’il lui faut par elle-même, et trouver comment collaborer avec eux en cas de besoin.
+- Pour permettre une certaine communication entre équipes autonomes sans compromettre l’autonomie, on peut **laisser du temps pour des activités de “guildes”**, où des membres de diverses équipes s’organisent autour de sujets qui les intéressent, pour du partage de connaissances et de l’apprentissage.
+- **L’environnement de travail doit être explicitement pensé**, qu’il soit physique ou virtuel.
+  - Il faut que le lieu de travail permette :
+    - Des moments de travail sans être dérangé.
+    - Une collaboration fréquente entre membres de l’équipe.
+    - Une collaboration occasionnelle avec les membres des autres équipes.
+  - Spotify a organisé, dès 2012, ses équipes en squads ayant un espace commun, et tribes (squads liées entre-elles) situées au même endroit.
+    - CDL (une entreprise d’assurance UK) et la banque ING Netherlands ont fait le même genre de chose.
+  - Chez Auto Trader, ils ont mis ensemble les équipes techniques et non techniques (sales, product, marketing etc.) qui travaillaient pour la même business area et les mêmes clients.
+    - Le but est de favoriser la collaboration et augmenter l’empathie entre membres du même flow stream-aligned.
+    - Ils ont aussi permis aux personnes de facilement déplacer leurs affaires pour s’installer là où c’est le plus utile sur le moment, et ont mis en place des espaces communs à ces équipes.
+  - Dans le cas du **remote first**, il faut aussi organiser l’environnement :
+    - Jason Fried et DHH adressent ce problème dans leur livre **_Remote: Office Not Required_**.
+    - L'environnement comprend les outils (chat, wiki, reporting etc.), mais aussi les règles qu’on se fixe (horaires, temps de réponse, manière de communiquer, conf calls etc.).
+    - Côté outil de chat, n peut utiliser des canaux préfixés : `#team-vesuvius`, `#support-logging`, `#practices-testing`
+- Attention à ne pas oublier les pratiques techniques fondamentales (continuous delivery, TDD etc.), sans elles le team-first n’ira pas bien loin.
