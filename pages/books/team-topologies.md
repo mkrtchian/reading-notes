@@ -133,3 +133,62 @@
     - L'environnement comprend les outils (chat, wiki, reporting etc.), mais aussi les règles qu’on se fixe (horaires, temps de réponse, manière de communiquer, conf calls etc.).
     - Côté outil de chat, n peut utiliser des canaux préfixés : `#team-vesuvius`, `#support-logging`, `#practices-testing`
 - Attention à ne pas oublier les pratiques techniques fondamentales (continuous delivery, TDD etc.), sans elles le team-first n’ira pas bien loin.
+
+## 4 - Static Team Topologies
+
+- Les auteurs ont identifié deux **team anti-patterns** :
+  - 1 - Les **équipes ad hoc** qu’on crée sans trop réfléchir, par exemple :
+    - Des équipes qui avaient trop grandi et qui sont découpées au hasard.
+    - Des équipes qui s’occupent de tout le middleware.
+    - Des équipes DBA créés après un crash de la prod à cause des problèmes de DB.
+  - 2 - Le fait de **remélanger les équipes** régulièrement, au gré des projets qui commencent et se terminent.
+- Le critère que les organisations doivent chercher à optimiser c’est le **flow de changement rapide**.
+  - C’est important pour pouvoir s’adapter rapidement aux clients et au marché.
+  - Spotify, avec [son papier de 2012](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf) (qui a donné lieu au célèbre “Spotify model”) est un exemple connu de tournant vers ce modèle favorisant le flow rapide.
+    - Ils avaient des équipes appelées _squads_, pluridisciplinaires, stables et composées de 5 à 9 personnes.
+    - Les équipes étaient regroupées en _tribes_ contenant plusieurs squads qui collaboraient entre-elles plus qu’avec les autres squads.
+      - Par exemple, les testeurs de chaque squad d'une même tribe formaient un _chapter_, et se rencontraient régulièrement pour se synchroniser.
+    - Un dernier concept utilisé était celui de _guilds_, où il s’agissait de regrouper des communautés de pratique informelles autour de thématiques techniques.
+  - Pour avoir un flow rapide et répondre aux besoins des clients, les équipes qui conçoivent et développent le logiciel doivent avoir un **feedback régulier depuis la production**.
+- Les auteurs de ce livre ont par le passé créé un ensemble de patterns pour structurer les équipes et leurs interactions, appelés **DevOps Topologies**.
+  - Il y a deux idées importantes avec ces patterns :
+    - 1 - Le fait que telle ou telle technique soit ou non appropriée **dépend du contexte de l’organisation** :
+      - Maturité technique et produit.
+        - Les entreprises qui ont une faible maturité (tests automatisés, continuous delivery, discovery) vont mettre du temps à l’acquérir.
+        - Pendant ce temps, c’est OK de garder des équipes spécialisées (développement, opérations, sécurité etc.).
+      - Taille de l’organisation, et taille du logiciel.
+        - Les grandes entreprises ont besoin de plateformes self-service, et éventuellement peuvent adopter le SRE, alors que les plus petites non.
+    - 2 - Il y a une liste de topologies connues comme étant des **anti-patterns** allant à l’encontre de DevOps.
+  - Voici quelques uns de ces patterns :
+    - **Les feature teams ont besoin d’une grande maturité technique**.
+      - Le fait d’avoir une feature team (une équipe pluridisciplinaire qui travaille sur une fonctionnalité de bout en bout) peut être problématique dans certains cas :
+      - Dans le cas d’un shared ownership sur le code, si l’équipe passe de composants en composants pour son développement, mais n’a pas une maturité technique suffisante, elle perdra la **confiance** des autres équipes.
+        - Par exemple si elle ne s’applique pas à faire de tests automatisés et n’applique pas la règle du boy scout.
+    - **Les product teams ont besoin d’un système de support**.
+      - Les product teams (des feature teams qui ont l’ownership sur leur produit) ont besoin que certains aspects techniques (infrastructure, environnement de test, pipelines de CI/CD etc.) soient faits pour eux.
+      - L’important est que ça ne soit **pas bloquant dans leur flow de développement**.
+        - Et pour ça il faut que les services en question soient fournis en **self-service**, sans avoir à aller interagir avec d’autres équipes.
+    - **Les cloud teams ne doivent pas créer l’infrastructure applicative**.
+      - Pour être DevOps, il faut une bonne séparation de responsabilités entre cloud teams et product teams :
+        - Les cloud teams peuvent être responsables de l’infrastructure de la plateforme cloud.
+        - Mais c’est les product teams qui doivent être responsables de provisionner et mettre à jour les ressources dont elles ont besoin.
+    - **Le SRE a du sens à grande échelle**.
+      - Les équipes SRE (Site Reliability Engineering) sont utilisées chez Google **uniquement pour les projets de grande envergure**.
+      - Il s’agit d’une relation dynamique :
+        - 1 - Au départ l'équipe produit gère son infra.
+        - 2 - Si son produit grossit l’équipe SRE vient l’aider pour que ça marche à grande échelle.
+        - 3 - Ensuite s’établit une relation où l’équipe produit établir des SLO (Service Level Objectives), et doit respecter un error budget, en collaboration avec l’équipe SRE.
+          - Si elle dépasse l’error budget, l’équipe SRE peut temporairement refuser l’ajout de nouveaux changements.
+        - 4 - Si l’usage de l’application diminue, l’équipe produit reprend la main sur son infra, seule.
+      - La mise en place d’une équipe SRE est difficile, dans la mesure où elle implique de garder un équilibre instable entre l’implication de l’équipe produit dans les opérations, et le fait pour l’équipe SRE de fournir leur expertise.
+        - En ce sens, l’équipe SRE peut être vue comme une forme particulière d’équipe **stream-aligned**.
+    - **Séparer les responsabilités pour casser les silos**.
+      - Par exemple on peut casser une équipe “database”, et séparer les DBA (database administration) des DB Dev (database development) :
+        - Les DBA vont rejoindre une équipe Platform (ou être remplacés par l’offre Database-as-a-Service d’un cloud provider).
+        - Les DB Dev vont rejoindre une équipe stream-aligned.
+  - Pour bien comprendre la relation entre équipes, il est important de **maintenir une liste des dépendances entre équipes**, qui mènent à des interactions.
+    - On peut les classer en 3 catégories : les dépendances de connaissances, de tâches, et de ressources.
+    - Chez Spotify, les nouvelles dépendances qui sont entre squads de différentes tribes amènent à vérifier qu’il n’y a pas un problème.
+  - Les DevOps Topologies doivent être utilisées en les adaptant régulièrement à l’évolution des équipes.
+    - Par exemple dans le cas d’un silotage Dev et Ops, on peut introduire une équipe DevOps qui sera là pour évangéliser les pratiques, puis petit à petit disparaîtra à mesure que le Dev et l’Ops ne forment qu’un.
+      - Attention à ce que ça ne devienne pas un anti-pattern où l’équipe DevOps s’installe dans la durée, et forme un silo de plus.
