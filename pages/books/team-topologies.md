@@ -192,3 +192,80 @@
   - Les DevOps Topologies doivent être utilisées en les adaptant régulièrement à l’évolution des équipes.
     - Par exemple dans le cas d’un silotage Dev et Ops, on peut introduire une équipe DevOps qui sera là pour évangéliser les pratiques, puis petit à petit disparaîtra à mesure que le Dev et l’Ops ne forment qu’un.
       - Attention à ce que ça ne devienne pas un anti-pattern où l’équipe DevOps s’installe dans la durée, et forme un silo de plus.
+
+## 5 - The four Fundamental Team Topologies
+
+- Il existe 4 types fondamentales d’équipes.
+  - Toutes les équipes d’une entreprise devaient être ramenées à celles-là.
+    - Cela permet d’éviter les anti-patterns, et d’augmenter la clarté autour du rôle de chaque équipe.
+  - Les équipes Ops et Support ne sont pas dans la liste.
+    - Ces équipes doivent être alignées sur le stream, et laisser les équipes avec lesquelles elles s’alignent rester DevOps.
+  - **1 - Stream-Aligned Team**.
+    - Un stream est un **flow continu de travail**, centré autour d’un domaine ou d’une “organizational capability”.
+      - Ça peut être un produit, un service, un parcours utilisateur, un client spécifique etc.
+    - Une équipe stream-aligned délivre de manière continue et **de bout en bout** (sans passage de main à une autre équipe) des incréments autour d’un stream.
+      - Elle est donc **au contact régulier du client** qui utilise le produit sur lequel elle travaille.
+      - Elle a une approche expérimentale et s’ajuste en permanence par le feedback qu’elle reçoit de la production.
+      - L’équipe doit avoir en interne toutes les compétences nécessaires, par exemple des généralistes qui cumulent certains rôles, et des spécialistes sur d’autres.
+    - Un exemple peut être les équipes principales (_service teams_) qu’Amazon utilise depuis presque 20 ans : pluridisciplinaires, autonomes, centrées autour d’un service.
+  - **2 - Enabling Team**.
+    - Elle est composée de personnes spécialistes de leur domaine, et qui **prennent le temps de se tenir à jour** des nouvelles technos et techniques, de tester des choses etc.
+    - Ces personnes vont ensuite agir **comme des consultants**, pour guider les équipes stream-aligned, et leur donner les connaissances nécessaires pour leur contexte.
+    - Leur but est de rendre les équipes stream-aligned autonomes, et de n’avoir à agir sur une équipe que **pendant quelques semaines ou mois**.
+    - Exemple chez BCG Digital Ventures :
+      - Ils ont constitué l’équipe suite à des problèmes d’efficacité (lead time trop long etc.), et de connaissance silotée.
+      - Ils se sont concentrés sur le fait d’apprendre les bonnes pratiques aux autres équipes, à faire des pair, des mobs, y compris en filmant et diffusant les séances.
+      - Leurs métriques portaient sur le nombre de déploiements, le cycle time, le temps pour fixer les incidents de prod.
+        - NDLR : métriques DORA.
+  - **3 - Complicated-Subsystem Team**.
+    - Il s’agit d’une équipe qui travaille sur une partie spécifique d’un système, avec un besoin de **connaissance spécialisée**, au point que la plupart des membres de l’équipe doivent être spécialistes de ce sujet.
+      - La différence avec les _component teams_ (équipes s’occupant de subsystems communs à plusieurs systèmes) qu’on trouve dans les organisations traditionnelles c’est le critère de forte spécialisation.
+      - En quelque sorte, on accepte une équipe chargée d’un composant qui ne porte pas sur un slice vertical entier, en espérant qu’il s’agit d’une exception du fait du critère de la spécialisation.
+    - Elle permet par ailleurs de soulager la cognitive load des équipes stream-aligned.
+    - La relation avec les équipes stream-aligned est collaborative au début, puis plus indépendante quand l’API du subsystem se stabilise.
+    - Un exemple de spécialités d’une telle équipe peut être : les connaissances sur les codecs vidéo, sur les modèles mathématiques, sur des algorithmes de reconnaissance faciale etc.
+  - **4 - Platform Team**.
+    - Elle développe et met à disposition des **outils self-service**, pour soulager les équipes stream-aligned d’une partie de la complexité du système.
+    - Elle traite ses outils comme des **produits à destination des clients** que sont les autres équipes.
+      - Elle doit donc utiliser les techniques de product management habituelles pour un produit, y compris la discovery, en itérant à partir du feedback des équipes consommatrices.
+      - Elle doit porter une grande attention à l’UX (plus spécifiquement DevEx dans ce cas).
+      - Elle doit traiter le produit comme un système en production : définir des horaires de disponibilité des services, une gestion des incidents etc.
+      - _A platform is not just a collection of features that Dev teams happened to ask for at specific points in the past, but a holistic, well-crafted, consistent thing that takes into account the direction of technology change in the industry as a whole and the changing needs of the organization._
+    - Elle peut être composée d’équipes internes à la plateforme, et pouvant être des 4 types d’équipes (on obtient une sorte de topologie fractale).
+    - Des exemples de ce qui peut être dans la plateforme :
+      - Provisionner des serveurs.
+      - Fournir des outils pour la gestion des accès ou la sécurité.
+      - Fournir un outil de logging.
+      - Fournir un service de monitoring.
+      - Fournir des outils de CI/CD.
+    - Les auteurs parlent de **Thinnest Viable Platform** (TVP) pour insister sur le fait que la plateforme ne doit inclure que ce qui est vraiment nécessaire et utile aux autres équipes.
+      - Si les composants sous-traités fonctionnent bien, la plateforme peut se résumer à une page wiki qui les décrit.
+    - La plateforme est construite sur d’autres plateformes par couches successives.
+      - Un cloud provider peut être une couche, on peut aussi avoir la JVM, Kubernetes, et même un OS peut être vu comme l’une des couches de plateforme.
+      - Il peut être utile de faire une représentation graphique des couches de plateforme du système.
+- Le flow de changements doit être fait par une même équipe stream-aligned, **sans passage de relais**.
+  - Pour ça il faut éviter les silos techniques (équipes QA, DBA, UX, architecture, data processing ETL etc.).
+  - Avoir une plateforme n’implique pas de passage de relais.
+    - L’équipe stream-aligned n’a pas besoin de demander une action de la part de l’équipe plateforme pendant les incréments qu’elle fait, puisque les outils sont self-service.
+  - Un des avantages à avoir des équipes pluridisciplinaires c’est que ça pousse à favoriser des solutions simples qui parleront à l’ensemble de l’équipe, plutôt que les solutions qui nécessitent une expertise technique poussée dans un domaine.
+- Comment transformer ses équipes pour adopter le modèle de Team Topologies :
+  - La **plupart des équipes** doivent devenir stream-aligned.
+    - Le ratio entre stream-aligned et les trois autres réunies dans les organisations qui fonctionnent bien est entre 6:1 et 9:1.
+  - Les **infrastructure teams** doivent devenir des plateform teams.
+    - C’est pas forcément évident de demander d’utiliser des techniques de product management à des équipes composées d’admins système.
+  - Les **component teams** doivent être dissoutes pour être intégrées aux stream-aligned teams, ou devenir une des 3 autres catégories de teams.
+    - Par exemple :
+      - Les équipes de DBA peuvent être converties en enabling team pour aider à monter en compétence sur la performance DB.
+      - Les équipes middleware peuvent devenir des platform teams.
+  - Les **tooling teams** doivent devenir des enabling teams (en général temporaires), ou faire partie de la plateforme.
+  - Les **support teams** doivent s’aligner sur le stream de changement.
+    - Traditionnellement les organisations ont une équipe support pour l’ensemble des services.
+    - Le modèle qui marche le mieux est :
+      - 1 - De créer une équipe support pour une équipe ou une famille d’équipes stream-aligned, seulement si le besoin se fait sentir.
+        - Ca permet de garder chaque service ou groupe de services séparés, y compris du point de l’environnement de production (cf. loi de Conway).
+        - Les support teams peuvent plus facilement amener le feedback vers l’équipe de dev.
+      - 2 - D’avoir une procédure cross-équipes pour la résolution d’incidents importants.
+    - L’équipe support peut être renommée “service experience team”, pour marquer le fait qu’elle n’est pas que technique.
+  - Les **architecture teams** doivent :
+    - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions et les guildes informelles permettant de faire le lien entre équipes.
+    - soit rejoindre des enabling teams **à mi-temps** (pour ne pas trop empiéter sur les stream-aligned teams).
