@@ -269,3 +269,55 @@
   - Les **architecture teams** doivent :
     - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions et les guildes informelles permettant de faire le lien entre équipes.
     - soit rejoindre des enabling teams **à mi-temps** (pour ne pas trop empiéter sur les stream-aligned teams).
+
+## 6 - Choose Team-First Boundaries
+
+- Il s’agit dans ce chapitre d’explorer ce que des techniques comme le _Domain Driven Design_ et les _Fracture Planes_ peuvent faire pour aider à avoir un logiciel divisé en composants de la taille des équipes, et dont le développement n’implique pas de passage de relais entre équipes.
+- La nature **monolithique** d’une application et plus généralement d’une organisation, peut parfois être difficile à détecter, et peut être de différentes natures.
+  - **Joined-at-the-Database Monolith** : l’application partage le même schéma de base de données, malgré l’éventuelle présence de plusieurs services tournant dans des process séparés.
+    - L’organisation considère en général la DB comme l’élément central.
+    - On voit des équipes de DBA qui sont chargées de maintenir les schémas de DB à la place des équipes applicatives.
+  - **Monolithic Builds (Rebuild Everything)** : on teste et déploie les services en même temps.
+    - Parfois c’est parce qu’on a une équipe QA qui teste le tout à la fin.
+  - **Monolithic Model (Single View of the World)** : l’organisation essaye de garder un seul modèle (représentation) à travers l’ensemble de ses contextes.
+    - Si c’est une petite organisation ça peut passer, mais dès qu’elle grossit, les équipes croulent sous le poids de la cognitive load.
+  - **Monolithic Thinking (Standardization)** : il s’agit d’une standardisation excessive des approches et technologies entre équipes.
+    - Cette standardisation réduit la capacité des équipes à utiliser les bons outils, expérimenter, et réduit leur motivation de manière générale.
+    - C’est confirmé par la recherche faite par les auteurs d’**_Accelerate_**.
+  - **Monolithic Workspace (Open-Plan Office)** : le fait d’adopter un unique layout de bureau (que ce soit le bureau isolé ou l’open space) est moins efficace que de l’adapter à la nature des équipes, et pour supporter leurs interactions.
+- Une mauvaise séparation de l’application peut mener à des inconsistances de diverses sortes. Pour éviter ça il faut couper le long des **fracture planes**.
+  - Les fracture planes sont des frontières naturelles au travers desquelles il faut découper l’application, si possible en les combinant.
+  - **1 - Bounded Contexts** : L’essentiel des fracture planes devraient correspondre à des bounded contexts, en suivant la méthode du Domain Driven Design.
+    - Les bounded contexts correspondent à des modèles, à la fois au niveau du langage, et au niveau de la manière dont les classes et fonctions sont agencées pour représenter une partie cohérence du domaine.
+    - Les bounded contexts sont difficiles à bien délimiter correctement, mais ça vaut le coup d’essayer.
+    - Le DDD a bien d’autres avantages, notamment le fait d’aligner les experts métier avec les développeurs.
+  - **2 - Regulatory Compliance** : certaines activités impliquent des process lourds pour respecter des normes. Par exemple le PCI DSS pour le stockage de cartes bancaires.
+    - On peut donc séparer les parties qui nécessitent les procédures lourdes, du reste du système, pour éviter que le reste du système en subisse les conséquences.
+  - **3 - Change Cadence** : quand on a certaines parties du système qui nécessitent un rythme de changement plus lent, on peut les séparer pour éviter qu’ils ralentissent aussi l’évolution du reste du système.
+  - **4 - Team Location** : quand les personnes sont en présentiel sur des sites différents, ou même sur différents étages d’un même bâtiment, elles peuvent se parler beaucoup plus difficilement.
+    - Ça vaut la peine d’envisager une séparation d’équipe selon la localité.
+    - Dans le cas de travail en remote, le **fuseau horaire** est un facteur déterminant sur la possibilité de se parler.
+    - Les auteurs conseillent pour une même équipe, de se trouver soit dans une situation de **full présentiel**, soit dans une situation **remote first** (avec tous les outils construits autour de ça).
+  - **5 - Risk** : certaines parties de l’application peuvent être traitées avec plus de prise de risque (passer moins de temps à s’assurer que tout marche comme prévu et risquer des incidents en production).
+    - On peut séparer les produits selon la possibilité de prendre ces risques pour différencier les procédures.
+    - Par exemple :
+      - Les parties qui sont plus orientées marketing pour appâter de nouveaux clients, vs les parties qui servent à satisfaire les clients existants.
+      - Les parties visibles par des millions d’utilisateurs, vs les parties visibles seulement par un nombre réduit d’utilisateurs payants.
+      - Les parties à destination des clients vs les parties à destination des salariés en interne.
+  - **6 - Performance Isolation** : les parties qui nécessitent une performance ou une scalabilité particulière peuvent être isolées du reste pour recevoir un traitement particulier.
+    - Exemple : la partie du système qui assure le paiement des taxes et qui doit tenir la charge pendant le dernier jour où on peut payer.
+  - **7 - Technology** : la séparation par technologie (frontend, backend, data etc.) est plutôt déconseillée parce qu’elle a tendance à créer des équipes qui ne sont pas autonomes.
+    - Pour autant, dans certains cas elle peut être acceptable, par exemple pour de **vieilles technologies** impliquant plus de test manuel, peu de documentation, et un écosystème complètement différent.
+  - **8 - User Personas** : dans certaines situations on se retrouve avec des ensemble de fonctionnalités utilisées par des utilisateurs particuliers. On peut faire une séparation à cet endroit.
+    - Par exemple dans le cas où on a un pricing par tier, ou encore dans certains cas où il y a des utilisateurs admins et non admins.
+  - On peut essayer de trouver d’autres critères qui marcheraient pour notre organisation. L’idée c’est que l’architecture qui en ressort permettent une **plus grande autonomie des équipes**, et une **cognitive load réduite**.
+- Exemple de Poppulo, une entreprise qui aide d'autres entreprises à mesurer leur impact en termes de communication.
+  - La plupart des équipes sont alignées sur les business domains.
+  - Un des domaines est aligné selon les process de normes ISO à respecter.
+  - La partie reporting de l’usage des features est répartie au sein de plusieurs équipes qui collaborent sur le sujet.
+  - Une équipe UX sert d’enabling team sur ce sujet.
+  - Une équipe SRE s’occupe des produits à forte charge.
+- Exemple d’entreprise avec un use case trop complexe pour ne pas faire de séparation par technologie.
+  - L’entreprise produit des objets physiques connectés, contrôlables depuis une application mobile et depuis le cloud. L’ensemble des données est aussi envoyé dans le cloud.
+  - Comme on a des technologies différentes, des rythmes de changement différents, et de manière générale une cognitive load élevée sur l’ensemble de la stack, on peut exceptionnellement opter pour une séparation par technologie.
+  - Les trois gros blocs pourront donc avoir une relation stream-aligned vs platform, où le cloud ou les devices IoT peuvent jouer le rôle de platform.
