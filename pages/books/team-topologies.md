@@ -269,6 +269,7 @@
   - Les **architecture teams** doivent :
     - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions et les guildes informelles permettant de faire le lien entre équipes.
     - soit rejoindre des enabling teams **à mi-temps** (pour ne pas trop empiéter sur les stream-aligned teams).
+      - Il s'agit avant tout de penser la topologie d’équipes (type d’équipes, et leurs interactions) pour influer naturellement sur l’architecture du système.
 
 ## 6 - Choose Team-First Boundaries
 
@@ -321,3 +322,72 @@
   - L’entreprise produit des objets physiques connectés, contrôlables depuis une application mobile et depuis le cloud. L’ensemble des données est aussi envoyé dans le cloud.
   - Comme on a des technologies différentes, des rythmes de changement différents, et de manière générale une cognitive load élevée sur l’ensemble de la stack, on peut exceptionnellement opter pour une séparation par technologie.
   - Les trois gros blocs pourront donc avoir une relation stream-aligned vs platform, où le cloud ou les devices IoT peuvent jouer le rôle de platform.
+
+## 7 - Team Interaction Modes
+
+- La topologie d’équipes, et notamment le type d'interaction, doit **évoluer** en fonction du contexte de l’entreprise.
+- Les interactions entre équipes doivent être claires à chaque instant, et être limitées à ce qui est nécessaire.
+- Il y a 3 modes d’interaction entre équipes :
+  - **Collaboration** : les deux équipes communiquent régulièrement autour d’un sujet particulier sur lequel ils sont en collaboration.
+    - Ce mode est utile quand deux équipes sont sur de la découverte, de l’**exploration de nouvelles techniques ou technologies**.
+    - Il a lieu entre deux équipes avec des compétences complémentaires, nécessaires pour le problème en question.
+      - Par exemple : faire du cloud-based sensor management avec une équipe qui a les connaissances cloud, et l’autre les connaissances sur les sensors.
+    - Il peut y avoir deux manières d’entrer en collaboration :
+      - 1 - Chaque équipe apporte son expertise, et collabore avec l’autre sur un **sujet délimité**.
+      - 2 - Les deux équipes n’en **forment temporairement qu’une**, le temps de résoudre le problème. Elles ne doivent pas dépasser le nombre de Dunbar de 15 personnes au total.
+    - Le mode collaboration entraîne un brouillage des limites de responsabilité. Il faut donc que chaque équipe fasse un effort particulier sur cet aspect, pour que la relation ne parte pas sur de la défiance (accuser l’autre de ce qui ne marche pas etc.).
+    - La collaboration coûte cher, **chaque équipe sera moins efficace que seule**, notamment à cause de la cognitive load plus élevée. Il faut donc que le résultat de l’exploration de la technique ou techno soit tangible.
+    - Le besoin de **collaboration permanent ou trop fréquent** peut indiquer un **mauvais découpage** des domaines, ou un mauvais mix de compétences dans les équipes.
+    - Une même équipe ne peut être en collaboration qu’avec **au plus une seule autre équipe** en même temps.
+    - Usage typique :
+      - _Stream-aligned team_ avec _complicated subsystem team_.
+      - _Stream-aligned team_ avec _platform team_.
+      - _Complicated subsystem team_ avec _platform team_.
+  - **X-as-a-Service** : une équipe consomme des services mis en place par l’autre, sans avoir besoin de communiquer avec elle.
+    - Le service en question peut être par exemple une librairie, un composant, un outil de test, une API ou une plateforme.
+    - Il est utilisé **“as a service”** par l’équipe consommatrice, c’est-à-dire qu’il marche tel quel.
+    - Ce mode est possible quand de l’exploration dans un mode plus innovant a déjà eu lieu, et qu’un service avec un contour clair a pu être défini.
+      - Il implique donc une **faible interaction**.
+      - Il permet de diminuer la cognitive load grâce à un ownership très clair de chaque partie.
+    - Il nécessite une forme de **product management** :
+      - L’équipe qui fournit le service s’intéresse à la manière dont le service est perçu et utilisé côté consommateurs.
+      - Le service doit avoir une bonne developer experience (DevEx).
+      - Toutes les demandes ne sont pas implémentées tel quel, mais sont prises en compte dans la cohérence globale du produit.
+    - Une même équipe peut avoir une interaction X-as-a-service avec **un grand nombre d’équipes** en même temps.
+    - Usage typique :
+      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant la plateforme d’une _platform team_ (platform-as-a-service).
+      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant une librairie ou un composant d’une autre _complicated subsystem team_.
+  - **Facilitating** : une équipe aide l’autre à surmonter des problèmes.
+    - C’est le mode d’interaction principal des enabling teams, mais il peut aussi être utilisé par d’autres types d’équipes.
+    - Il s’agit par exemple d’**aider à être plus efficace** sur des problèmes courants, mieux comprendre une technologie, apprendre plus vite.
+    - Il peut aussi s’agir de faciliter l’interaction entre plusieurs équipes qui ne se comprennent pas :
+      - En aidant par exemple à clarifier des APIs difficiles à utiliser.
+      - En aidant à mieux définir les interactions entre les équipes pour aller vers l’architecture souhaitée, c’est-à-dire réaliser une **reverse Conway maneuver**.
+        - Quand on le fait, les équipes concernées doivent entrer en mode collaboration pour trouver les problèmes de la nouvelle organisation rapidement.
+        - Une ou plusieurs équipes facilitatrices peuvent assister la transition.
+    - Il ne s’agit par contre **pas de construire le logiciel** à la place des équipes qui sont l’objet de l’aide.
+    - Une équipe peut avoir une interaction de facilitation avec **un petit nombre d’autres équipes** en même temps.
+    - Usage typique :
+      - Une _enabling team_ aidant une des 3 autres types de teams.
+      - N’importe quelle équipe aidant une _stream-aligned team_.
+- Le choix clé qu’on aura souvent à faire se trouve notamment entre la collaboration et le x-as-a-service pour deux équipes données.
+- Les interactions principales pour chaque type d’équipe sont :
+  - Stream-aligned team : collaboration ou x-as-a-service
+  - Complicated subsystem team : x-as-a-service
+  - Enabling team : facilitating
+  - Platform team : x-as-a-service
+- Stratégies basées sur les interactions :
+  - On peut utiliser le mode collaboration pour **construire et affiner des interactions x-as-a-service**.
+    - Quand un nouveau service est fourni en x-as-a-service, on passe par une phase de collaboration pour le construire d’une manière adaptée aux besoins des consommateurs.
+    - Il faut prévoir des petites phases de collaboration régulières entre équipes qui fournit et qui consomment, pour affiner le service : élargir, réduire son scope, ou le rendre plus ou moins flexible.
+  - On peut changer l’interaction entre deux équipes de manière **temporaire**, pour **aider une autre équipe, et augmenter l’empathie**.
+    - Deux équipes peuvent par exemple, de manière **délibérée**, entrer en mode collaboration, et échanger des membres pour faire du pair pendant quelques jours ou semaines.
+    - Il faut bien sûr que ces changements soient pleinement consentis par les équipes.
+    - Pour plus de détails sur ce genre de pratique, les auteurs recommandent **_Dynamic Reteaming_** de Heidi Helfand.
+  - On peut utiliser les **écarts entre les interactions prévues et les interactions réelles** pour déceler les mauvaises limites architecturales du système.
+    - Par exemple : imaginons qu’on ait une équipe stream-aligned utilisant “as a service” un composant de calcul fait par une équipe complicated subsystem. Si l’utilisation implique de nombreuses interactions, on peut se poser des questions.
+      - Peut être que la limite du composant a été mal définie.
+      - Peut être que la complicated subsystem team a un manque de compétences UX/DevEx en interne.
+    - Autre exemple : imaginons qu’on ait une platform team s’attendant à une relation de collaboration avec une stream-aligned team, en vue du développement d’un nouveau service. Si la platform team ne reçoit pas beaucoup de retour, on peut se poser des questions.
+      - Peut être que la stream-aligned team n’a pas bien compris l’intérêt d’aider la platform team.
+      - Peut être que la stream-aligned team n’a pas les compétences nécessaires en interne, et qu’une autre team serait plus adaptée.
