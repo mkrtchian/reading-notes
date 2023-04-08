@@ -391,3 +391,72 @@
     - Autre exemple : imaginons qu’on ait une platform team s’attendant à une relation de collaboration avec une stream-aligned team, en vue du développement d’un nouveau service. Si la platform team ne reçoit pas beaucoup de retour, on peut se poser des questions.
       - Peut être que la stream-aligned team n’a pas bien compris l’intérêt d’aider la platform team.
       - Peut être que la stream-aligned team n’a pas les compétences nécessaires en interne, et qu’une autre team serait plus adaptée.
+
+## 8 - Evolve Team Structures with Organizational Sensing
+
+- Vu que nous évoluons dans des contextes changeants, ce qu’il faut avant tout c’est non pas seulement designer la topologie d’équipes, mais surtout **designer les règles selon lesquelles cette topologie va évoluer**.
+- Les types d’intéraction _collaboration_ et _x-as-a-service_ sont en fait adaptés à des situations différentes :
+  - La collaboration permet d’explorer et d’innover rapidement en mettant en commun les compétences des deux équipes, du fait de la communication facilitée. Mais elle implique que la delivery devienne lente pour les deux du fait de la cognitive load plus importante.
+  - Le x-as-a-service permet de délivrer rapidement du fait d’une cognitive load plus faible, et d’une (quasi) absence d'interaction entre les équipes. Mais il ne permet pas d’innover rapidement sur le périmètre des deux équipes, du fait de l’interface pré-définie.
+  - La conséquence c’est que **la collaboration coûte cher, et doit donc être justifiée** par la valeur qu’elle apporte en termes d’exploration ou de construction de quelque chose de commun.
+- Le passage en mode collaboration peut en plus permettre d’apprendre des techniques que l’autre équipe maîtrise.
+  - Exemple : une équipe low level qui fait de l’embarqué, et une équipe qui récupère ces données IoT pour les afficher en utilisant le cloud, entrent en collaboration.
+    - L’équipe embarqué peut apprendre de l’autre comment faire des tests dans des environnements éphémères, alors que l’équipe cloud en apprendra plus sur les problématiques de l’embarqué qui pourraient affecter les données.
+    - Que faire ensuite :
+      - Une fois la collaboration ayant porté ses fruits, on peut toujours la laisser durer pour que les équipes fassent plus d’exploration et d’apprentissage.
+      - En l’état les deux équipes doivent se coordonner pour la production de features. Vu qu’elles travaillent sur des stacks très différentes et ont une cadence de cycle différente, on ne peut pas vraiment faire autrement.
+        - On peut choisir l’une pour servir de platform team vis-à-vis de l’autre. Elle devra appliquer les méthodes de product management vis-à-vis de l’équipe consommatrice.
+        - A terme, si la cadence des cycles s’aligne, ils pourront passer sur deux équipes stream-aligned pairées.
+- Les interactions entre équipes peuvent **changer régulièrement**, à condition que ce soit fait de manière **délibérée**.
+  - Dans une grande entreprise, on s’attend à tout instant à ce qu’il y ait de nombreuses relations de collaboration permettant de construire les APIs “as a service”.
+    - Pour chaque produit “as a service” qui fait l’objet d’une collaboration, on peut avoir une équipe stream-aligned qui collabore, et plusieurs autres qui ne collaborent pas, mais qui bénéficieront aussi du service quand il sera plus stable.
+    - La collaboration coûtant cher, on essaye quand même de la limiter à ce qui est vraiment nécessaire.
+  - Ce changement de topologie régulier et délibéré constitue une forme de design stratégique au sein de l’entreprise.
+  - Côté fréquence, le changement d’interaction peut être pertinent pour chaque équipe dans un ordre de temps qui est de plusieurs mois.
+- Il existe des des **triggers courants** qu’on peut repérer, et qui indiquent qu’il faut probablement **changer la topologie d’équipe** :
+  - **Le logiciel est devenu trop gros pour une équipe**.
+    - Symptômes :
+      - Une startup dépasse 15 personnes.
+      - Des équipes attendent le travail d’autres équipes pour avancer.
+      - Les changements dans un même composant sont systématiquement assignés à la même personne dans l’équipe, y compris quand elle est occupée.
+      - Les membres de l’équipe se plaignent d’un manque de doc.
+    - Contexte :
+      - Les produits ont tendance à grossir, et à force ils dépassent la cognitive load d’une équipe.
+      - Plus les mêmes personnes travaillent sur les mêmes choses au sein de l’équipe, plus on va optimiser en fonction de ce que ceux qui sont disponibles savent, plutôt que ce qui est le plus prioritaire.
+        - Pour creuser ce point, on peut lire **_The Phoenix Project_** ou encore **_The DevOps Handbook_**.
+  - **La cadence de delivery devient de plus en plus lente**.
+    - Symptômes :
+      - On ressent, et éventuellement mesure le ralentissement comme étant une tendance de fond.
+      - Le nombre de choses en cours augmente, avec des choses en attente du travail d'autres équipes.
+    - Contexte :
+      - Une équipe qui fonctionne bien devrait plutôt augmenter petit à petit sa cadence à mesure qu’elle adopte de meilleures techniques et enlève les bottlenecks.
+      - Le ralentissement peut venir d’un problème de type DevOps : l’équipe n’est plus responsable sur l’ensemble du cycle de vie de son produit, mais doit attendre.
+        - Par exemple, une équipe QA a été mise en place et vérifie chaque changement avec qu’il aille en production.
+      - Ou alors il peut aussi venir d’une dette technique qui grandit et devient de plus en plus insoutenable.
+  - **Les services principaux se basent sur une grande quantité de services sous-jacents**.
+    - Symptômes :
+      - Les équipes stream-aligned ont du mal à avoir de la visibilité sur ce qui se passe de bout en bout sur leur produit.
+      - Elles ont du mal à avancer sur leur flow à cause de la complexité d’intégration avec les subsystems.
+    - Context :
+      - Ce problème se produit surtout dans les secteurs très régulés (banque, assurance, gouvernement etc.).
+        - Ca peut être parce qu’une entreprise d’assurance doit s’interfacer avec des machines physiques d’usine pour faire des vérifications, ou une banque qui doit utiliser des mécanismes de vérification d’identité complexes.
+      - Si les stream-aligned teams connaissent les détails de tous les services bas niveau, elles ne s’en sortent plus.
+      - La solution est :
+        - D’avoir une plateforme bas niveau dont l’action est cachée des équipes stream-aligned.
+        - Une plateforme haut niveau qui utilise la première, et qui contient des stream-aligned teams développant chaque aspect utile pour les teams stream-aligned finales.
+          - Ils peuvent notamment fournir des services de tracking de requête avec des correlation IDs, du logging, des dashboards etc. pour que comprendre ce qui se passe dans les services sous-jacents soit simple pour les équipes steam-aligned finales.
+- Si on a des équipes stables dans le temps, et dont la nature et les interactions sont bien définies à chaque instant, on peut développer un outil stratégique au sein de l’entreprise : l’**organizational sensing**.
+  - Les différentes équipes se comportent alors comme les composants d’un **organisme vivant**, et peuvent **repérer des signaux pour s’adapter **en temps réel.
+    - NDLR : même métaphore de l’organisation comme être vivant que dans _Reinventing Organizations_.
+    - Ils font référence au concept d’_environmental scanning_ de Naomi Stanford.
+  - Les équipes pourront se poser des questions comme :
+    - Faut-il changer les modes d’interaction ?
+      - Est-ce que la collaboration entre deux équipes est encore efficace ou est-ce qu’il faut passer en x-as-a-service ?
+    - Faut-il continuer à développer tel composant in house, ou adopter une version du commerce ?
+    - Est-ce que le flow de telle équipe est aussi fluide que possible et qu’est-ce qui la bloque ?
+    - Est-ce que telle plateforme fournit ce dont les équipes consommatrices ont besoin ? Est-ce qu’ils auraient besoin d’une intervention temporaire d’une équipe facilitatrice ?
+  - Un des éléments qui permet l’organizational sensing est le **feedback venant du logiciel en production**, et donc des utilisateurs.
+    - L’idéal est d’avoir les devs et les ops dans la même équipe (DevOps) pour que ce feedback soit le plus immédiat.
+    - Il ne faut **surtout pas avoir “d’équipe maintenance”** (ou équipe business as usual BAU), mais plutôt d’utiliser la mine d’infos que représente un système en production pour alimenter en feedback les systèmes qui sont en développement plus actif.
+      - On pourrait dire que la séparation “nouveau service / ancien service” n’est pas un très bon fracture plane, il vaut mieux les laisser dans la même équipe (ou au moins deux équipes pairées) et trouver autre chose si besoin de scinder l’équipe.
+    - Il faut que les personnes qui s’occupent des opérations soient parmi **les plus expérimentées** (et non pas les débutants comme le font de nombreuses organisations), pour pouvoir **reconnaître et trier les problèmes** et renvoyer un feedback précieux vers le développement.
