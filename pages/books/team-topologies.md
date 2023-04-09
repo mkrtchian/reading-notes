@@ -461,3 +461,46 @@
     - Il ne faut **surtout pas avoir “d’équipe maintenance”** (ou équipe business as usual BAU), mais plutôt d’utiliser la mine d’infos que représente un système en production pour alimenter en feedback les systèmes qui sont en développement plus actif.
       - On pourrait dire que la séparation “nouveau service / ancien service” n’est pas un très bon fracture plane, il vaut mieux les laisser dans la même équipe (ou au moins deux équipes pairées) et trouver autre chose si besoin de scinder l’équipe.
     - Il faut que les personnes qui s’occupent des opérations soient parmi **les plus expérimentées** (et non pas les débutants comme le font de nombreuses organisations), pour pouvoir **reconnaître et trier les problèmes** et renvoyer un feedback précieux vers le développement.
+
+## Conclusion
+
+- La raison pour laquelle de nombreuses organisations ont des équipes démotivées et n’arrivent pas à avancer, c’est qu’elles ont une obsession pour la delivery de features, et ignorent l’**aspect humain** et les dynamiques d’équipe.
+- Implémenter le modèle proposé par Team Topologies n’est **pas suffisant**, il faut aussi d’autres éléments pour avoir une delivery qui marche bien :
+  - Une **culture saine** où chacun peut aborder les problèmes en toute sécurité, et où l’apprentissage continu est mis en avant.
+  - Des **pratiques techniques à la hauteur** :
+    - Test-first.
+    - Continuous delivery.
+    - Pairing et mobbing pour la code review.
+    - Ne pas chercher une seule root cause pour les incidents.
+    - Etc.
+  - Des **pratiques financières saines** :
+    - Ne pas faire de séparation CapEx/OpEx (budget pour les nouvelles features / budget pour la maintenance des features actuelles).
+    - Éviter les project-driven deadlines.
+    - Allouer le budget training aux équipes plutôt qu’aux individus.
+  - Une **vision business claire** avec un horizon raisonnable à 3 / 6 / 12 mois, et un raisonnement clair autour du choix des priorités pour que chacun comprenne le pourquoi de ces choix.
+- Comment mettre en place Team Topologies dans notre organisation :
+  - 1 - On commence par **se demander ce dont chaque équipe aurait besoin** pour :
+    - Être efficace en tant qu’équipe.
+    - Avoir l’ownership d'une partie du logiciel.
+    - Répondre aux besoins utilisateurs.
+    - Réduire la cognitive load non nécessaire.
+  - 2 - On identifie les **streams de changement** pertinents.
+    - Il s’agit des flows de changements principaux que veut faire avancer l’organisation.
+    - Quelques exemples :
+      - Task-oriented streams : les différents services (passport, taxes etc.) disponibles pour les citoyens sur un site gouvernemental.
+      - Role-oriented streams : des produits bancaires comme la gestion de d’argent, l’automatisation des transactions etc.
+      - Activity streams : chercher des tickets, acheter des tickets, gérer les annulations etc. pour un système de gestion de tickets.
+      - Geographical streams : marché européen, marché nord-américain etc.
+      - User-type streams : consommateur, petites et moyennes entreprises, grandes entreprises etc.
+  - 3 - On identifie la **Thinnest Viable Platform** (TVP).
+    - Il s’agit de trouver les services qui sont nécessaires pour que les streams soient rapides et fiables.
+    - Attention à n’y mettre que ce qui est nécessaire : la plateforme peut très bien se résumer à une page wiki qui décrit les outils externes utilisés.
+  - 4 - On identifie les **écarts de compétences** dont on a besoin au sein des équipes.
+    - En plus de l’expertise technique, on a besoin de :
+      - Coaching d’équipe
+      - Mentoring
+      - Service management
+      - Documentation
+    - Pour le détail des transformations d’organisation, les auteurs renvoient au livre **_Fearless Change_** de Mary Lynn Manns et Linda Rising.
+  - 5 - On **explique les principes de la nouvelle manière de travailler** centrée autour des équipes.
+    - On peut présenter la loi de Conway, expliquer la cognitive load, le principe team first basé sur l’humain, le fait de limiter les interactions entre équipes et les différentes interactions possibles, avec les raisons de chacune etc.
