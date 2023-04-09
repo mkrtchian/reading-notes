@@ -221,6 +221,7 @@
     - Il s’agit d’une équipe qui travaille sur une partie spécifique d’un système, avec un besoin de **connaissance spécialisée**, au point que la plupart des membres de l’équipe doivent être spécialistes de ce sujet.
       - La différence avec les _component teams_ (équipes s’occupant de subsystems communs à plusieurs systèmes) qu’on trouve dans les organisations traditionnelles c’est le critère de forte spécialisation.
       - En quelque sorte, on accepte une équipe chargée d’un composant qui ne porte pas sur un slice vertical entier, en espérant qu’il s’agit d’une exception du fait du critère de la spécialisation.
+      - Les complicated subsystem teams sont **optionnels** au sein d‘une organisation.
     - Elle permet par ailleurs de soulager la cognitive load des équipes stream-aligned.
     - La relation avec les équipes stream-aligned est collaborative au début, puis plus indépendante quand l’API du subsystem se stabilise.
     - Un exemple de spécialités d’une telle équipe peut être : les connaissances sur les codecs vidéo, sur les modèles mathématiques, sur des algorithmes de reconnaissance faciale etc.
