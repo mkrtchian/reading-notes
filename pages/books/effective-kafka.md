@@ -62,5 +62,4 @@
     - Il a souvent besoin d’un stockage pour se rappeler les patterns déjà vus et y réagir.
     - Ça peut être par exemple pour le trading algorithmique, l’analyse des menaces de sécurité, l’analyse de fraude en temps réel etc.
   - **Event-sourced CQRS** : Kafka se place entre la DB master et les DBs de projection, en permettant de les alimenter chacune au travers du concept de _consumer groups_.
-    - La différence avec le log shipping c’est que le log shipping opère à l’intérieur d’un subdomain, alors que le CQRS opère à travers les subdomains.
-      - NDLR : Vlad Khononov dans Learning DDD présentait le CQRS comme un pattern interne à un subdomain, et permettant notamment d’y implémenter l’event sourcing.
+    - La différence avec le log shipping c’est que le log shipping opère plutôt à l’intérieur d’un subdomain, alors que le CQRS peut aussi opérer à travers les subdomains.
