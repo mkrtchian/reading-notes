@@ -38,3 +38,29 @@
     - L’event streaming supporte nativement l’immutabilité des events.
     - Il supporte la garantie d’ordre des events.
     - Il supporte le fait d’avoir de multiples consumers.
+
+## 2 - Introducing Apache Kafka
+
+- Kafka est une plateforme d’event streaming, mais elle comprend aussi un écosystème entier qui permet l’implémentation d’EDAs.
+- L’event streaming est récent comparé aux formes traditionnelles de messaging (MQ-style).
+  - Il n’y a pas de standard, mais Kafka est le leader du domaine, et son fonctionnement sert de modèle pour les solutions concurrentes comme **Azure Event Hubs** et **Apache Pulsar**.
+- Historiquement, Kafka a été open-sourcé en 2011 par LinkedIn, et confié à la fondation Apache.
+  - Il avait été conçu notamment pour gérer les events d’activité des utilisateurs.
+  - En 2019, LinkedIn opérait 100 clusters Kafka, pour un total de 100 000 topics et 7 millions de partitions.
+  - Aujourd’hui Kafka est utilisé par des géants de la tech, pour des usages comme le real-time analytics, la data ingestion, le log aggregation et le messaging pour l’EDA.
+    - Uber par exemple l’utilise pour gérer au total plus de 1000 milliards d’events par jour.
+- Parmi les usages qui permettent l’EDA, Kafka supporte :
+  - **Publish-subscribe** : un emitter publie des events, et plusieurs consumers les consomment sans que ces noeuds se connaissent.
+    - C’est notamment utilisé pour des microservices avec un faible couplage.
+  - **Log aggregation** : un ensemble de sources publient des events sous forme de log (soit applicatifs, soit d’infrastructure), qu’on va ensuite agréger au sein du même topic, pour le consommer dans une DB optimisée pour la lecture, comme **Elasticsearch** ou **HBase**.
+  - **Log shipping** : il s’agit de streamer des logs depuis une DB master vers un topic où plusieurs DB followers vont consommer et se mettre à jour.
+    - Ce pattern permet notamment d’implémenter l’event sourcing.
+  - **SEDA pipelines** : le Stage Event-Driven Architecture est l’implémentation d’une pipeline d’events, où on fait une opération à chaque étape, avant d'émettre un event modifié pour l’étape suivante.
+    - C’est typiquement utilisé avec les data warehouses, data lakes, le reporting et autres outils de BI.
+    - On peut voir le log aggregation comme une forme de SEDA.
+  - **CEP** : le Complex Event Processing consiste à un composant qui consomme des events de multiples sources, et en extrait l’information pertinente.
+    - Il a souvent besoin d’un stockage pour se rappeler les patterns déjà vus et y réagir.
+    - Ça peut être par exemple pour le trading algorithmique, l’analyse des menaces de sécurité, l’analyse de fraude en temps réel etc.
+  - **Event-sourced CQRS** : Kafka se place entre la DB master et les DBs de projection, en permettant de les alimenter chacune au travers du concept de _consumer groups_.
+    - La différence avec le log shipping c’est que le log shipping opère à l’intérieur d’un subdomain, alors que le CQRS opère à travers les subdomains.
+      - NDLR : Vlad Khononov dans Learning DDD présentait le CQRS comme un pattern interne à un subdomain, et permettant notamment d’y implémenter l’event sourcing.
