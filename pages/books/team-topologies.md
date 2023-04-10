@@ -9,7 +9,7 @@
   - Le livre **_Improving Performance_** de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
   - Le livre **_Project to Product_** de Mik Kersten va un cran plus loin en mettant l’accent sur le produit, et la centralité des équipes.
   - **_Team Topologies_** se veut être une étape de plus dans cette direction.
-- Niels Pflaeging, dans **_Organize for Complexity_**, :
+- Niels Pflaeging, dans **_Organize for Complexity_** :
   - Identifie 3 structures dans l’organisation :
     - **Formal structure** : l’organigramme.
     - **Informal structure** : le domaine d’influence entre individus.
