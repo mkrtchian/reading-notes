@@ -143,3 +143,17 @@
       - Mais ce cas d’usage est très rare, et difficile à implémenter correctement.
     - Un consumer éphémère qui est là juste pour monitorer ou débugger un topic, sans avoir besoin de persister d’offsets.
       - C’est ce que fait par exemple l’outil Kafkadrop qui permet de visualiser les messages présents dans les partitions via une interface web : à chaque fois il attache un consumer sans groupe.
+
+## 4 - Installation
+
+- Il y a 4 méthodes pour installer Kafka (et Zookeeper) :
+  - En utilisant les images Docker.
+    - Si on choisit une autre méthode que Docker, on aura juste besoin d’avoir d’avoir un JDK d’installé.
+    - La méthode Kafka dans Docker est la plus immédiate pour avoir Kafka qui tourne, mais elle est aussi connue pour être difficile à configurer si on veut personnaliser.
+  - En utilisant un package manager (yum, apt, homebrew etc.)
+  - En clonant le dépôt git et en installant depuis les sources.
+  - En téléchargeant des binaires sur le site de Kafka.
+    - Il suffit de télécharger un tar.gz et de le désarchiver, pour obtenir les exécutables de Kafka qu’on peut lancer avec notre JDK.
+    - Le livre part là-dessus.
+- La configuration de Kafka peut se faire en changeant les fichiers de conf dans le dossier `config/`.
+  - On peut voir les configs prises en compte dans les logs, à chaque fois qu’on démarre Kafka.
