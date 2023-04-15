@@ -103,7 +103,7 @@
   - Les records d’une même partition sont _totally ordered_.
   - Les records publiés dans une partition par un même producer seront donc aussi _causally ordered_ (la précédence respectée).
     - En revanche, si plusieurs producers publient dans la même partition sans eux-mêmes se synchroniser entre eux, les records de chaque producer seront causally ordered pour un même producer, mais ne le seront pas entre les producers (ça dépendra de qui l’a emporté pour publier plus vite).
-    - Publier dans plusieurs partitions de règle pas ce problème : les records de chaque producer ne seront pas causally ordered. Si on veut un tel ordre, il faut un seul producer.
+    - Publier dans plusieurs partitions ne règle pas ce problème : les records de chaque producer ne seront pas causally ordered. Si on veut un tel ordre, il faut un seul producer.
 - Les **topics** sont des unités logiques qui regroupent des partitions.
   - Vu qu’il s’agit d’une union de partitions qui sont chacune _totally ordered_, les topics peuvent être considérés comme _partially ordered_.
     - On peut donc écrire dans les records de plusieurs partitions en parallèle, et n’assurer que l’ordre des records dans chaque partition.
