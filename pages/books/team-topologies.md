@@ -3,7 +3,7 @@
 ## 1 - The Problem with Org Charts
 
 - La plupart des organisations utilisent l’**organigramme** de l’entreprise pour représenter les intéractions et la division du travail.
-  - Mais dans la réalité une telle représentation ne peut pas tenir, et les gens contactent ceux qu’ils ont besoin de contacter pour mener à bien leur tâches.
+  - Mais dans la réalité une telle représentation statique est inefficace, et les gens contactent ceux qu’ils ont besoin de contacter pour mener à bien leur tâches.
   - On pourrait comparer ça à un document d’architecture, qui devient obsolète dès qu’il est écrit.
 - La manière de voir les organisations évolue :
   - Le livre **_Improving Performance_** de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
@@ -14,7 +14,7 @@
     - **Formal structure** : l’organigramme.
     - **Informal structure** : le domaine d’influence entre individus.
     - **Value creation structure** : la manière concrète dont le travail se fait, basé sur les relations au sein de l’équipe et entre équipes.
-  - Lui et d’autres auteurs comme Frédéric Laloux, ou Brian Robertson (Holacracy), pensent que le point de plus important dans les organisations est le lien entre _informal structure_ et _value creation structure_.
+  - Lui et d’autres auteurs comme Frédéric Laloux, ou Brian Robertson (Holacracy), pensent que le point de plus important dans les organisations est le lien entre _informal structure_ et _value creation structure_ (c’est-à-dire l’interaction entre les personnes et les équipes).
   - Ce livre propose d’aller dans le même sens : **renforcer la cohésion au sein de l’équipe** en la rendant autonome, et **améliorer la confiance inter-équipe** en clarifiant les interactions attendues.
 - Ce livre s’appuie sur la **loi de Conway** :
   - Mel Conway avait fait un article de 1968, finissant par dire que le design des systèmes produits par les organisations représentait des **copies de leur structure de communication**.

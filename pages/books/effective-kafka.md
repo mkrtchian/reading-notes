@@ -121,7 +121,7 @@
   - Kafka s’assure qu’il n’y a **qu’un consumer d’un même consumer group** qui peut lire dans une **même partition**.
     - Si un consumer ne lit plus de messages jusqu’à dépasser un timeout, Kafka assignera ses partitions à un autre consumer, considéré comme sain, du même groupe.
 - Pour que Kafka puisse réassigner une partition à un autre consumer en gardant le bon offset, ou redonner le bon offset à un consumer qui se reconnecte après s’être déconnecté, il faut que **les consumers communiquent leurs offsets à Kafka**.
-  - On appelle ça _committing offsets_.
+  - On appelle ce processus _committing offsets_.
   - On peut avoir un contrôle sur le **moment où on va faire ce commit**, et donc agir sur la **garantie de delivery** des messages, c’est-à-dire le fait qu’ils soient intégralement traités.
     - On peut passer d’une stratégie _at-most-once_ à une stratégie _at-least-once_ en faisant le commit après l’exécution de la callback au lieu du moment où le message est pris par le consumer.
     - Par défaut, Kafka va faire un commit toutes les 5 secondes, sauf si un record est toujours en train d‘être exécuté, auquel cas il attendra la prochaine occasion 5 secondes plus tard.
