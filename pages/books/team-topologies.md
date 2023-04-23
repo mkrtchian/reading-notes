@@ -9,7 +9,7 @@
   - Le livre **_Improving Performance_** de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
   - Le livre **_Project to Product_** de Mik Kersten va un cran plus loin en mettant l’accent sur le produit, et la centralité des équipes.
   - **_Team Topologies_** se veut être une étape de plus dans cette direction.
-- Niels Pfaeging, dans **_Organize for Complexity_** :
+- Niels Pflaeging, dans **_Organize for Complexity_** :
   - Identifie 3 structures dans l’organisation :
     - **Formal structure** : l’organigramme.
     - **Informal structure** : le domaine d’influence entre individus.
@@ -18,7 +18,7 @@
   - Ce livre adopte le même point de vue, et oeuvre à **renforcer la cohésion au sein de l’équipe** en la rendant autonome, et **améliorer la confiance inter-équipe** en clarifiant les interactions attendues.
 - Ce livre s’appuie sur la **loi de Conway** :
   - Mel Conway avait fait un article de 1968, finissant par dire que le design des systèmes produits par les organisations représentait des **copies de leur structure de communication**.
-  - Conway parle bien de la communication réelle, c’est-à-dire de la _value creation structure_ (au sens de Pfaeging).
+  - Conway parle bien de la communication réelle, c’est-à-dire de la _value creation structure_ (au sens de Pflaeging).
   - Quand l’architecture voulue est en contradiction avec la structure de l’organisation, l’un des deux est amené à changer.
   - A l’inverse, James Lewis a eu l’idée de mettre en œuvre une “_reverse Conway maneuver_”, où il s’agit de mettre en place une organisation spécifique qui permet l’émergence de l’architecture voulue.
 - La **charge cognitive** d’une équipe a tendance à grossir avec le temps.
