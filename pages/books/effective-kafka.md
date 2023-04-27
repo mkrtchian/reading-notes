@@ -142,7 +142,7 @@
     - Le besoin d’avoir vraiment le contrôle sur la manière de consommer les messages, en stockant soi-même son offset etc.
       - Mais ce cas d’usage est très rare, et difficile à implémenter correctement.
     - Un consumer éphémère qui est là juste pour monitorer ou débugger un topic, sans avoir besoin de persister d’offsets.
-      - C’est ce que fait par exemple l’outil Kafkadrop qui permet de visualiser les messages présents dans les partitions via une interface web : à chaque fois il attache un consumer sans groupe.
+      - C’est ce que fait par exemple l’outil Kafdrop qui permet de visualiser les messages présents dans les partitions via une interface web : à chaque fois il attache un consumer sans groupe.
 
 ## 4 - Installation
 
