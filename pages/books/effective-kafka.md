@@ -157,3 +157,31 @@
     - Le livre part là-dessus.
 - La configuration de Kafka peut se faire en changeant les fichiers de conf dans le dossier `config/`.
   - On peut voir les configs prises en compte dans les logs, à chaque fois qu’on démarre Kafka.
+
+## 5 - Getting Started
+
+- On a du tooling livré avec Kafka sous forme de scripts shell pour le gérer en CLI.
+  - On peut par exemple créer un topic puis y ajouter des records.
+  - On peut changer des offsets pour un consumer group.
+  - etc.
+- L’auteur **déconseille de laisser Kafka créer automatiquement les topics** (`auto.create.topics.enable` à `true`) pour plusieurs raisons :
+  - Les valeurs par défaut de Kafka remontent à sa création, et n’ont pas forcément été pensés pour l’usage qu’il a en général aujourd’hui.
+  - Quand on crée un topic, on devrait décider du nombre de partitions en fonction des critères de parallélisation. Donc un nombre par défaut ne va en général pas être satisfaisant.
+  - La création de topic à la lecture est encore plus problématique, puisqu’on va avoir des lecteurs qui croient lire quelque chose et qui ne lisent rien.
+- Le _lag_ est la différence entre l’offset qui a été commité par un consumer sur une partition donnée et le _high water mark_ de la partition (c’est-à-dire le dernier record dispo à la consommation).
+- La **suppression d’un topic est asynchrone**, c’est-à-dire qu’elle sera effectivement réalisée quelque part dans le futur par Kafka, après qu’on l’ait demandée.
+  - Pour nos **tests d’intégration**, il va donc falloir trouver des solutions :
+    - 1 - Supprimer le consumer group, les offsets enregistrés, ou mettre les offsets au high water mark (tous les trois ont le même effet).
+    - 2 - Tronquer les partitions en avançant le _low water mark_ (le record le plus ancien disponible à la consommation).
+    - 3 - Utiliser des noms de topics uniques, et les supprimer au fil de l’eau (si on ne les réutilise pas, le fait qu’ils soient supprimés de manière asynchrone ne pose problème).
+      - Cette dernière option est celle recommandée par l’auteur.
+- Supprimer les offsets pour un consumer group et sur un topic donné, fait que la prochaine fois que ces consumers voudront consommer le topic, ils seront par défaut assignés au dernier record.
+  - Ou au premier en fonction de l’option `auto.offset.reset`.
+  - Si on supprimer un consumer group, c’est comme si on supprimait ses offsets pour l’ensemble des topics où il avait consommé des records.
+- L’essentiel des classes du client Java se résument à :
+  - 1 - L’interface `Producer`, l’implémentation `KafkaProducer`, et la représentation du record `ProducerRecord`.
+  - 2 - La même chose côté consumer : `Consumer`, `KafkaConsumer`, `ConsumerRecord`.
+  - Et c’est à peu près la même chose pour les autres clients qui s’en inspirent.
+- L’option `enable.idempotence` à la création du producer permet de garder des séquences pour les couples producer/partition, pour s’assurer qu’un record n’est pas publié deux fois ou dans le mauvais ordre, dans le cas où il y aurait un timeout pendant une publication.
+  - L’auteur conseille de l’activer.
+- Il faut bien penser à fermer la connexion, sinon on risque de monopoliser des ressources côté client et serveur.
