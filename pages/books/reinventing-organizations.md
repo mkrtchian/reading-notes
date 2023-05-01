@@ -326,7 +326,7 @@
       - La réunion de gouvernance se déroule comme suit :
         - Un facilitateur guide le déroulement et traite chaque question mise à l'ordre du jour par les membres.
         - 1- La proposition est présentée par l'auteur.
-        - 2- Les autre sposent des questions de clarification pour mieux comprendre, sans réagir à la proposition.
+        - 2- Les autres posent des questions de clarification pour mieux comprendre, sans réagir à la proposition.
         - 3- Chaque personne réagit à la proposition, sans qu'il n'y ait de réponse.
         - 4- L'auteur peut clarifier ou amender sa proposition en fonction de ce qui a été dit.
         - 5- On fait le tour à nouveau pour récolter les objections sans les discuter. Si il n'y en a pas la proposition sera adoptée.
