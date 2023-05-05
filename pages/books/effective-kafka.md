@@ -185,3 +185,47 @@
 - L’option `enable.idempotence` à la création du producer permet de garder des séquences pour les couples producer/partition, pour s’assurer qu’un record n’est pas publié deux fois ou dans le mauvais ordre, dans le cas où il y aurait un timeout pendant une publication.
   - L’auteur conseille de l’activer.
 - Il faut bien penser à fermer la connexion, sinon on risque de monopoliser des ressources côté client et serveur.
+
+## 6 - Design Considerations
+
+- A propos de la séparation des **responsabilités** entre producers et consumers.
+  - Dans le cas d’un **event-oriented broadcast**, c’est le producer qui a la responsabilité de la configuration du topic et du format des données publiées.
+    - C’est utile pour que les producers ne connaissent pas du tout les consumers, et qu’on reste sur du couplage faible.
+    - Le fait qu’on puisse avoir plusieurs consumers aux intérêts différents montre qu’il est plus pertinent que le producer ait la responsabilité des messages.
+      - Pour autant, on peut se demander comment faire en sorte que les consumers soient tous satisfaits par le modèle proposé par le producer.
+      - On peut mettre en place du **topic conditioning**, c’est-à-dire compartimenter les problèmes liés à chaque consumer avec une architecture SEDA, contenant pour chaque consumer (ou groupe de consumers aux intérêts communs), un module de conditionnement publiant à son tour dans un topic pour le consumer visé.
+        - Cette solution permet de séparer les responsabilités, et laisser le producer avec son modèle, et chaque consumer avec le sien.
+  - Pour du **peer-to-peer messaging**, c’est au contraire le consumer qui a la responsabilité de la configuration du topic et du format de données.
+    - Le consumer envoie des commandes au producer, pour que celui-ci lui prépare des données qu’il mettra dans Kafka.
+  - Dans tous les cas, les flows doivent être designés avec soin, en prenant en compte les besoins des producers et des consumers.
+- Concernant la question du **parallélisme** dans le cas où on veut laisser plusieurs consumers consommer depuis plusieurs partitions, il y a des facteurs à prendre en compte pour obtenir quelque chose de performant.
+  - L’organisation des partitions d’un topic est **consumer-driven**, du fait du design de Kafka. Le consumer se pose la question de la **bonne clé de partitionnement**.
+    - En pratique, le consumer doit trouver une entité suffisamment stable pour que son identifiant puisse servir de clé de partitionnement.
+    - Par exemple, si on a des tournois de football, avec des events représentant ce qui se passe dans le jeu, on peut prendre le match comme entité stable, et avoir tous les events d’un même match ordonnés dans une même partition.
+    - Si on garde l’exemple mais qu’un consumer est intéressé par le déroulement du tournoi, alors il nous faudra garder l’ordre des matchs, et donc choisir comme entité stable le tournoi.
+      - Mais on aura alors moins de possibilités de parallélisation puisqu’on ne pourra plus paralléliser les matchs.
+      - L’autre possibilité c’est de laisser le consumer qui a besoin de l’ordre des tournois le reconstituer lui-même, avec des infos qu’il a dans les events.
+  - Se pose ensuite la question du **nombre de partitions du topic**.
+    - Pour rappel on ne peut pas enlever de partitions sans détruire de messages, et en rajouter fait que la fonction de hash n’envoie plus dans les mêmes partitions qu’avant le rajout (donc il vaut mieux éviter si on veut garder l’ordre des messages).
+    - Une solution peut être d’avoir dès le début un **nombre suffisamment élevé de partitions par topic**, pour ne jamais avoir à les augmenter.
+      - Attention cependant, trop de partitions peut causer des problèmes de performance.
+      - Confluent recommande `100 x b x r` partitions (avec `b` le nombre de brokers du cluster, et `r` le facteur de réplication).
+      - Si on atteint le nombre maximal de partitions qu’on avait prévu, une technique peut être de créer un nouveau topic avec plus de partitions, et de copier l’ensemble des messages de l’ancien topic vers le nouveau. Ça nécessite un peu d’effort.
+  - Le **nombre de consumers** dans un consumer group doit être au moins aussi grand que le nombre de partitions si on veut profiter du maximum de parallélisme.
+    - Par contre, allouer un tel nombre peut aussi mener à du gâchis de ressources, vu que le broker ne fonctionne pas forcément en flux tendu.
+    - On peut alors plutôt allouer un nombre variable de consumers au groupe, basé sur l’activité du cluster.
+  - Enfin on peut envisager d’avoir du **parallélisme à l’intérieur des consumers**, en gérant plusieurs threads, pour traiter plusieurs records en même temps.
+- A propos de la question de la **delivery des messages**.
+  - On parle ici de “delivery” au sens où les messages sont traités jusqu’au bout par les consumers, pas juste du fait qu’ils soient disponibles à la lecture (ça, ils le restent de toute façon pour tous les consumers dès lors que la publication a marché).
+  - On peut avoir une delivery **at-most-once**, en faisant le commit dès le début de la lecture.
+    - C’est utile dans les cas où la perte occasionnelle de donnée n’est pas grave, et ne laisse pas le système consommateur dans un état inconsistant de manière permanente.
+    - Ca peut être aussi parce que faire l’action deux fois pose problème, alors le que le fait de la rater de temps en temps non.
+  - On peut avoir une delivery **at-least-once**, en ne faisant le commit qu’après exécution complète de la callback du consumer.
+    - C’est utile dans le cas où la perte de donnée n’est pas acceptable, et où on est prêt à recommencer certains messages pour l’éviter.
+    - Par contre on doit être prêt à avoir la callback potentiellement exécutée plusieurs fois.
+  - Et enfin, si on veut une delivery **exactly-once**, on ne peut malheureusement pas compter sur le message broker à lui seul, on doit s’assurer d’avoir un flow **idempotent**.
+    - On pourrait le vouloir pour avoir à la fois la consistance parce que la perte de donnée ou le fait de ne pas faire une action n’est pas acceptable, mais où le fait de le faire deux fois n’est pas acceptable non plus.
+    - Pour réussir ça, on a besoin d’avoir une **idempotence de bout en bout**, c’est à dire que :
+      - La callback du consumer ne doit faire que des changements idempotents. Par exemple un update en DB qui ne change pas l’état de la DB quand il est joué plusieurs fois.
+      - Le consumer doit vérifier si les side-effects qu’il fait ont déjà été faits pour ne pas les refaire une 2ème fois. Par exemple, Kafka offre un mécanisme de transaction qui permet de ne publier qu’une fois dans un topic sortant pour un message d’un topic entrant.
+      - Dans le cas où on ne peut pas savoir si le side-effect a déjà été fait ou pas, il faut que le side-effect lui-même soit rendu idempotent de bout en bout.
