@@ -229,3 +229,26 @@
       - La callback du consumer ne doit faire que des changements idempotents. Par exemple un update en DB qui ne change pas l’état de la DB quand il est joué plusieurs fois.
       - Le consumer doit vérifier si les side-effects qu’il fait ont déjà été faits pour ne pas les refaire une 2ème fois. Par exemple, Kafka offre un mécanisme de transaction qui permet de ne publier qu’une fois dans un topic sortant pour un message d’un topic entrant.
       - Dans le cas où on ne peut pas savoir si le side-effect a déjà été fait ou pas, il faut que le side-effect lui-même soit rendu idempotent de bout en bout.
+
+## Chapter 7 - Serialization
+
+- Le client Java a des serializers de base et une interface à implémenter pour créer des serializers Kafka custom.
+  - Pour l’auteur, même si cette approche est idiomatique, il vaut mieux avoir Kafka et tout ce qui y est lié isolé dans une couche de messaging pour que la logique business n’y soit pas liée et soit testable.
+    - L’auteur préfère **laisser la sérialisation côté logique business**, et donc conseille de ne pas utiliser les serializers custom de Kafka dans ce cas.
+  - Et de la même manière, les choses spécifiques à Kafka comme le fait de mettre l’ID des customers comme clé, doivent être dans la couche de messaging pour être les mêmes pour tous les use cases.
+- Quand on est en mode **commit manuel**, on peut appeler la fonction qui fait le commit de manière asynchrone **sans l’attendre**.
+  - Ça aura pour effet d’avoir plus d’offsets pas encore commités mais un throughput plus élevé.
+  - On respecte quand même le at-least-one delivery.
+- Dans le cas où on utilise le mécanisme de poll-process loop (où on consomme les messages par batch), le client Java va avoir deux threads : un pour aller chercher plus de records et un autre pour faire le processing des records qui sont déjà là.
+  - Il s’agit là d’un mécanisme de **pipelining**, où la 1ère étape va chercher de la donnée pour la mettre dans le buffer suivant jusqu’à ce que le buffer soit plein, auquel cas elle attend avant de continuer.
+  - L’auteur propose une version encore plus parallélisée, en ajoutant une 3ème étape dans la pipeline pour séparer la désérialisation du reste du traitement du message.
+    - L’avantage c’est que ça peut augmenter le throughput, mais l’inconvénient c’est une utilisation plus intensive du CPU.
+    - Il faut créer un thread à la main, et gérer la communication inter-thread à travers un buffer, avec tous les edge cases liés au parallélisme.
+    - Selon l’auteur, cette technique a du sens parce que :
+      - L’utilisation de Kafka est souvent associée à des cas d’usages qui ont besoin de performance.
+      - Elle ajoute de la complexité, mais qu’on n’a à faire qu’une fois et qu’on peut isoler dans un adapter qu’on réutilise.
+    - Côté publisher ça aurait moins de sens vu que la sérialisation est moins coûteuse que la désérialisation.
+- Il peut être pertinent de **filtrer des messages au niveau de la couche adapter** du consumer Kafka.
+  - Par exemple, si le topic contient plus de messages que ce que le use-case qui le consomme peut ou veut désérialiser.
+    - Ça peut être parce que le producer publie les messages plusieurs fois, en indiquant la version du schéma dans le header, et qu’on ne veut en lire qu’une version sans avoir à parser les autres.
+    - Ça peut aussi être un topic qui contient plusieurs types de messages, dont on ne veut traiter qu’un type.
