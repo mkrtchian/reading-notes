@@ -252,3 +252,51 @@
   - Par exemple, si le topic contient plus de messages que ce que le use-case qui le consomme peut ou veut désérialiser.
     - Ça peut être parce que le producer publie les messages plusieurs fois, en indiquant la version du schéma dans le header, et qu’on ne veut en lire qu’une version sans avoir à parser les autres.
     - Ça peut aussi être un topic qui contient plusieurs types de messages, dont on ne veut traiter qu’un type.
+
+## 8 - Bootstrapping and Advertised Listeners
+
+- Chaque partition a un leader broker, et `n` follower brokers qui contiennent sa donnée (avec `n + 1` étant le **replication factor**).
+- Pour pouvoir écrire un record, un client publisher doit l’envoyer au broker leader de la partition qui l’intéresse.
+  - Le leader transférera aux followers, mais on ne peut pas compter sur un des followers pour transférer d’abord au leader.
+  - Ça veut donc dire que **le client devra avoir une connexion directe** avec quasi tous (ou même tous) les brokers, vu que tous les brokers peuvent être des leaders de partitions et qu’il risque de vouloir en lire plusieurs.
+  - Les brokers sont au courant de la topologie du cluster parce qu’ils ont l’info partagée via ZooKeeper.
+    - Le client peut donc **demander la liste des adresses IP des brokers à n’importe lequel d’entre eux**. Et donc, pour peu qu’il ait au moins une adresse de broker valide, il peut réobtenir toutes les autres.
+    - Le client est initialement fourni avec une _bootstrap list_ des brokers, et ensuite se débrouille pour la mettre à jour en leur demandant.
+  - Cette technique de base de demander la liste des adresses à au moins un broker dont on a l’adresse valide n’est pas super fiable : si le client n’a plus aucune adresse valide parce qu’elles ont toutes changé, il est coincé.
+    - Ce que fait la communauté pour répondre à cette problématique c’est d’utiliser des **alias DNS, pointant vers les bonnes adresses IP des brokers**.
+    - La spécification DNS permet même d’indiquer un seul nom qui sera associé à une liste d’adresses IP pointant vers chacun des brokers.
+- Il y a un problème classique de configuration auquel beaucoup de monde se heurte, et qui empêche la connexion du client aux brokers : le client demande la liste des adresses, et le broker lui répond des adresses en `localhost`.
+  - La solution est de configurer les **advertised listeners** dans le fichier `config/server.properties`.
+  - Les propriétés sont initialement commentées dans le fichier, et donc c’est les valeurs par défaut qui s’appliquent (on peut les retrouver dans la [documentation de Kafka](https://kafka.apache.org/documentation/#brokerconfigs)).
+  - `advertised.listeners` permet d’indiquer les URI qui seront envoyées aux clients qui demandent la liste des adresses des brokers. C’est ça qu’il faut configurer avec le bon hostname pour résoudre le problème de config.
+  - Dans le cas où on a des clients situés dans des environnements réseau différents, on a besoin de leur advertiser des adresses différentes pour les mêmes brokers.
+    - C’est le cas par exemple si on a un VPC (virtual private cloud) avec le cluster Kafka et des clients, et d’autres clients situés à l’extérieur et ne pouvant pas accéder aux adresses IP internes au VPC.
+    - Dans ce cas, on va pouvoir configurer plusieurs URI sur lesquels écoute chaque broker (dans `listeners`), et plusieurs URI qui sont advertised (dans `advertised.listeners`).
+      - Il faut faire attention à indiquer des ports différents pour chacune des URI si on ne veut pas de problèmes.
+- Les problématiques de bootstrapping se posent largement dans les environnements conteneurisés. La simple utilisation de **docker-compose** nous amène à avoir l’équivalent d’un VPC interne aux containers lancés par docker-compose, et un mapping de port vers la machine hôte.
+  - Exemple de config Kafka dans un docker-compose :
+    ```yml
+    kafka:
+      image: bitnami/kafka:2
+      ports:
+        - 9092:9092
+      environment:
+        KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+        ALLOW_PLAINTEXT_LISTENER: "yes"
+        KAFKA_LISTENERS: >-
+          INTERNAL://:29092,EXTERNAL://:9092
+        KAFKA_ADVERTISED_LISTENERS: >-
+          INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >-
+          INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+        KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
+      depends_on:
+        - zookeeper
+    ```
+  - On définit ici deux protocoles propres à Kafka (et associés au type `PLAINTEXT`, donc non sécurisés) : un qu’on appelle `INTERNAL` pour l’URI depuis le réseau interne des containers docker-compose, et un autre qu’on appelle `EXTERNAL` pour le réseau de l’hôte.
+  - `KAFKA_LISTENERS` est l’équivalent de `listeners` dans `config/server.properties`, c’est-à-dire les sockets sur lesquels le broker écoute.
+    - On choisit deux ports différents qui permettent de différencier les connexions internes et externes, et on indique qu’on écoute sur toutes les interfaces possibles (en n’indiquant aucun hostname ni adresse IP).
+  - `KAFKA_ADVERTISED_LISTENERS` est l’équivalent de `advertised.listeners`, c’est-à-dire les adresses URI communiquées aux clients pour joindre le broker.
+    - On indique bien le hostname `localhost` aux clients du réseau externe, et le hostname `kafka` aux clients du réseau interne (le nom des containers sert aussi de hostname dans docker-compose).
+  - `KAFKA_INTER_BROKER_LISTENER_NAME` permet d’indiquer quel protocole doit être utilisé pour la communication avec les autres brokers du cluster.
+  - `depends_on` permet d’indiquer l’ordre dans lequel on start les containers dans docker-compose.
