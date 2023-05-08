@@ -300,3 +300,42 @@
     - On indique bien le hostname `localhost` aux clients du réseau externe, et le hostname `kafka` aux clients du réseau interne (le nom des containers sert aussi de hostname dans docker-compose).
   - `KAFKA_INTER_BROKER_LISTENER_NAME` permet d’indiquer quel protocole doit être utilisé pour la communication avec les autres brokers du cluster.
   - `depends_on` permet d’indiquer l’ordre dans lequel on start les containers dans docker-compose.
+
+## 9 - Broker Configuration
+
+- La configuration peut se faire sur 4 entités de Kafka : les **brokers**, les **topics**, les **clients** et les **users**.
+- Il existe une **configuration statique** et une **configuration dynamique**.
+  - Historiquement la configuration dynamique a été introduite pour faciliter l’administration de gros clusters, et pour ne plus avoir besoin de restart.
+    - La communauté a décidé qu’enlever la configuration statique était trop radical, donc elle a été gardée en fallback.
+  - La configuration statique se fait en changeant le fichier `config/server.properties` et en redémarrant le broker.
+  - La configuration dynamique se fait via l’admin API de Kafka, au niveau du broker ou du cluster entier.
+    - Elle est stockée dans Zookeeper, mais ne nécessite pas la communication directe avec Zookeeper pour faire des modifications de config.
+- Côté **précédence**, c’est d’abord la config dynamique par entité qui prend le pas, puis la config dynamique au niveau du cluster, et enfin la config statique.
+  - Si rien n’est défini, les valeurs par défaut s’appliquent.
+  - Dans le cas de propriétés dépréciées et remplacées par d’autres, les propriétés dépréciées sont prises en compte si elles sont utilisées, et sinon c’est la valeur par défaut des nouvelles propriétés qui est prise en compte.
+- Quelques infos sur les **changements de config des brokers**.
+  - Sur la configuration **statique**.
+    - Toutes les propriétés de `config/server.properties` sont optionnelles, sauf `zookeeper.connect` qui contient la liste des adresses des nœuds ZooKeeper.
+    - Il est considéré comme une bonne pratique de spécifier la propriété `broker.id` qui représente l’identifiant du broker. Si on ne le fait pas, ZooKeeper assignera un ID automatiquement à chaque broker (par défaut en commençant par `1001`).
+      - Pour changer cette propriété, il faut :
+        - D’abord arrêter le broker.
+        - Faire le changement dans `server.properties`.
+        - Faire le changement dans le fichier `meta.properties` (qui se trouve dans le dossier de log du broker), ou même supprimer le fichier `meta.properties` qui sera régénéré.
+          - Le dossier de log contient des fichiers essentiels avec l’info des partitions et des records (rien à voir avec du logging).
+          - Son path est configurée avec l’option `log.dirs`, par défaut c’est `/tmp/kafka-logs`.
+        - Redémarrer le broker.
+  - Sur la configuration **dynamique**.
+    - On peut changer la config via l’outil CLI fourni par Kafka sous forme de script bash : `kafka-configs.sh`, ou via une librairie cliente qu’on tierce qui va se connecter à Kafka.
+      - Par exemple pour afficher la liste des configurations dynamiques pour le broker 1001 sur un Kafka qui tourne localement :
+        ```bash
+        ./kafka-configs.sh
+            --bootstrap-server localhost:9092
+            --entity-type brokers
+            --entity-name 1001
+            --describe
+        ```
+    - Il faut faire attention avec les configurations dynamiques, on peut facilement mettre un cluster par terre si on fait une mauvaise manip.
+      - Quand on modifie **une config pour tout le cluster**, c'est une bonne pratique de la modifier **d’abord pour un broker**, au cas où elle aurait un impact non souhaité qui serait du coup plus limité.
+- A propos de la **configuration des topics**.
+  - Ils peuvent être configurés statiquement via `config/server.properties`, ou dynamiquement au niveau du cluster (une configuration de topic par broker n’aurait pas de sens).
+    - On peut aussi modifier dynamiquement certaines propriétés par topic.
