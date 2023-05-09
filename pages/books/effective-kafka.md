@@ -339,3 +339,131 @@
 - A propos de la **configuration des topics**.
   - Ils peuvent être configurés statiquement via `config/server.properties`, ou dynamiquement au niveau du cluster (une configuration de topic par broker n’aurait pas de sens).
     - On peut aussi modifier dynamiquement certaines propriétés par topic.
+
+## 10 - Client Configuration
+
+- La configuration du client est beaucoup plus sensible, en partie parce qu’elle tombe **sous la responsabilité des développeurs applicatifs**.
+  - En général la configuration des brokers se fait par des personnes spécialistes de l’infra, gérant d’autres éléments d’infrastructure, et connaissant la manière de gérer les risques.
+    - On voit aussi de plus un shift vers les versions de serveurs Kafka pré-configurées. Ça ne peut pas être le cas des clients.
+- **La plupart des problèmes** avec Kafka viennent d’une **mauvaise utilisation côté client**, parce que les développeurs ne le connaissent pas assez bien.
+  - Exemple : il est notoire que Kafka offre des garanties importantes pour ce qui est de la durabilité des records. Mais en réalité ça dépend des paramètres.
+    - Il y a déjà la question du stockage, lui-même influencé par le nombre de brokers.
+    - Et ensuite il y a des configurations côté client :
+      - Le replication factor et quelques autres pour ce qui est de s’assurer que la donnée reste en cas de problème avec certaines machines.
+      - Le nombre d’acknowledgements que le broker leader de la partition doit demander avant de considérer le record comme validé, et le fait d’attendre soi-même l’acknowledgement du leader avant de considérer le message comme publié.
+  - Les développeurs imaginent aussi que le comportement par défaut de Kafka optimise la garantie d’ordre et de delivery des records. Mais ces valeurs sont issues de l’utilisation initiale de Linkedin qui avait surtout besoin de performance dans son cas d’usage.
+- **La 1ère règle de l’optimisation avec Kafka est : ne le faites pas**.
+  - La plupart du temps, les configurations qui offrent des garanties vis-à-vis des records n’ont pas un si grand impact que ça. On peut attendre d’en avoir vraiment besoin.
+- Pour ce qui est des **configurations communes** à tous les types de clients (producer, consumer, admin).
+  - **bootstrap.servers** permet de contacter les brokers, mais ensuite le plus important c’est que les brokers envoient les bonnes adresses (cf. le chapitre précédent).
+  - **client.dns.lookup** donne la possibilité d’utiliser des alias DNS liés à plusieurs adresses.
+  - **client.id** permet de définir l’identifiant du client, comme on l’a fait pour le serveur dans le chapitre d’avant. Ça permet la traçabilité, et la gestion de quotas.
+  - **retries** indique le nombre de fois qu’on va recommencer une opération qui se termine par une erreur transiente, c’est-à-dire qui peut potentiellement ne pas se reproduire en réessayant.
+    - **retry.backoff.ms** indique la durée d’attente avant de réessayer.
+    - Par défaut on bourrine, en recommençant un nombre infini de fois toutes les 100 ms.
+    - L’autre possibilité c’est en gros de limiter les retries, en ayant conscience que du coup on se retrouvera à un moment où un autre à avoir des opérations qui sont en erreur pour des raisons temporaires. Mais on ne bloquera pas pendant longtemps.
+  - Quand on veut utiliser Kafka dans des **tests d’intégration**, il faut prendre en compte que le fait de le lancer dans un environnement virtualisé type Docker va ralentir considérablement son démarrage.
+    - Le fait que Kafka écoute sur le port ne suffit pas pour qu’il soit prêt à accepter des requêtes. Il peut donc falloir attendre un certain temps au début des tests pour qu’il démarre.
+    - Et c’est encore pire avec Docker sur MacOS.
+- Pour ce qui est de la **configuration du producer**.
+  - **acks** permet d’indiquer le nombre d’acknowledgements qu’on veut attendre de la part du broker leader avant de considérer que le message est publié.
+    - `0` indique qu’on ne veut pas attendre du tout.
+    - `1` indique qu’on veut attendre que le leader lui-même ait écrit le record dans son log à lui.
+      - C’est la valeur par défaut si `enable.idempotence` est `false`.
+    - `-1` permet d’indiquer qu’on veut attendre que le leader mais aussi tous les followers aient écrit le record dans leurs log.
+      - C’est la valeur par défaut si `enable.idempotence` est `true`.
+  - **max.in.flight.per.connection** indique le nombre de records qu’on veut pouvoir publier (par défaut 5), avant d’avoir à attendre le nombre d’acknowledgements qu’on a indiqué dans `acks`.
+    - Augmenter ce nombre permet de se prémunir contre la lenteur du réseau, vu qu’attendre la confirmation à chaque fois qu’on veut publier nous empêche de publier vite.
+    - Par contre, on risque de ne pas publier dans le bon ordre pour les records entre deux acknowledgements.
+      - Il suffit qu’un record A ait une erreur transiente qui est retentée puis réussie, mais que le record suivant B ait réussi immédiatement et avant le record A. Ce qui inverse l’ordre de publication de A et B.
+      - Pour ne pas avoir le problème il faudrait soit avoir `max.in.flight.per.connection` à 1 (attendre la confirmation à chaque publication), soit `retries` à 0 (ne jamais réessayer les erreurs transientes).
+      - En réalité il y a une 3ème option qui est d’activer `enable.idempotence`, où Kafka va utiliser un mécanisme qui remet le bon ordre pour les records qui arrivent avec le mauvais ordre.
+  - **enable.idempotence**.
+    - Permet de garantir que :
+      - Les records soient publiés **au plus une fois** (donc dédupliqués).
+      - Les records sont publiés **dans l’ordre indiqué par le client** producer.
+      - Les records sont d’abord persistés sur l’ensemble des réplicas avant d’envoyer l’acknowledgement.
+    - Il nécessite que (si ces propriétés ne sont pas renseignées, elles seront mises aux bonnes valeurs par défaut, mais il ne faut juste pas de conflit) :
+      - `max.in.flight.per.connection` soit **entre 0 et 5**.
+      - `retries` soit plus grand que 0.
+      - `acks` soit à -1.
+    - Le problème de duplication peut se produire dans le cas où l’acknowledgement est en time out, où le broker a reçu les records, mais le client pensant que ça n’a pas marché, les renvoie.
+    - Le mécanisme c’est que chaque broker maintient un système d’ID pour les records qui arrivent, qui s’incrémente à la manière d’un compteur pour les partitions dont il est leader.
+      - Si le record qui arrive est identifié comme étant déjà arrivé, il est ignoré comme duplicata.
+      - Si le record qui arrive se voit attribuer un ID plus grand qu’un incrément de 1, alors le message est considéré comme étant dans le mauvais ordre, et le broker répond une erreur indiquant qu’il faut le requeuer.
+  - **compression.type** permet d’indiquer l’algo de **compression** qui sera utilisé par le producer (détaillé dans le chapitre 12).
+    - Parmi les possibilités :
+      - _none_
+      - _gzip_
+      - _snappy_ (optimisé pour le throughput, au dépend de la compression)
+      - _lz4_ (optimisé aussi pour le throughput, surtout la décompression)
+      - _zstd_ (nouvel algo, qui est censé faire un bon ratio throughput / performance).
+  - **key.serializer** et **value.serializer** servent à indiquer la sérialisation des clés et valeurs des records (cf. le chapitre 7).
+  - **partitioner.class** permet d’indiquer une classe Java qui va définir une manière différente de la manière par défaut d’associer les records et les partitions.
+    - La manière par défaut va, dans l’ordre :
+      - 1 - Si la partition est indiquée explicitement dans la publication du record, elle sera utilisée.
+      - 2 - Sinon, si on a indiqué une clé, la clé sera hashée pour déterminer la partition.
+      - 3 - Sinon, si le batch courant a une partition qui lui est assignée, on utilise cette partition.
+      - 4 - Sinon, on assigne une partition au batch et on l’utilise.
+        - Le 3 et 4 ont été introduits dans Kafka plus récemment, et permettent, dans le cas où on n’a pas de préférence d’ordre liée à une clé, de **n’impliquer qu’un broker pour les records d’un batch.** Ça **améliore les perfs par 2 ou 3**, tout en assurant une distribution entre brokers quand on a un grand nombre de batchs.
+    - Le client Java a aussi deux autres classes disponibles :
+      - `RoundRobinPartitioner` permet d’alterner entre les brokers, sans prendre en compte la clé.
+      - `UniformStickyPartitioner` permet de garder les records d’un même batch pour une même partition, sans prendre en compte la clé.
+    - On peut aussi donner une classe perso, mais l’auteur conseille d’envisager aussi d’encoder notre ordre custom dans une clé.
+  - **interceptor.classes** permet de définir des classes Java qui vont faire quelque chose de particulier à l’envoi et à l’acknowledgement.
+    - Ça peut être utile pour le côté “plugin” réutilisable, parce qu’on est sur de l’AOP (Aspect Oriented Programming).
+    - On peut par exemple l’utiliser pour ajouter une couche qui fait du logging, du tracing, de l’analyse de message pour empêcher la fuite de données etc.
+    - Attention par contre : les exceptions dans les interceptors ne sont pas propagées.
+    - Globalement si on y met quelque chose, il vaut mieux que ce soit du code simple et non bloquant.
+  - **max.block.ms** permet d’indiquer un timeout au processus de publication (par défaut 60 secondes).
+  - **batch.size** permet d’attendre d’avoir une certaine taille de messages (par défaut 16 KB) avant d’envoyer un batch de publication.
+    - **linger.ms** fait la même chose au niveau du temps (par défaut 0 ms) en ajoutant un temps minimal à attendre avant d’envoyer un autre batch.
+    - L’intérêt est de faire moins de requêtes au serveur et donc d’augmenter le throughput.
+  - **request.timeout** permet d’indiquer un timeout vis-à-vis de la réponse du broker pour faire l’acknowledgement (par défaut 30 secondes), avant de réessayer ou d’indiquer la publication comme échouée.
+  - **delivery.timeout** permet d’indiquer un temps global pour une requête de publication, qui englobe l’envoi, les retries, et la réponse du serveur.
+    - Par défaut, c'est 120 secondes.
+    - Il doit être supérieur aux autres timeouts réunis.
+  - **transaction.id** et **transaction.timeout.ms** permettent de gérer le comportement des transactions (cf. le chapitre 18).
+- Pour ce qui est de la **configuration du consumer**.
+  - **key.serializer** et **value.serializer** servent à indiquer la désérialisation des clés et valeurs des records (cf. le chapitre 7).
+  - **interceptor.classes** permet de faire la même chose que côté consumer, en traitant les records par batch.
+  - Une des choses les plus importantes à régler, c'est **la taille de ce qu’on va aller chercher en une requête**. Ça se configure en plusieurs propriétés.
+    - Plus on prendra de données, et plus le throughput sera grand, mais moins on aura un bon délai de propagation de bout en bout d’un record.
+    - La propriété **timeout** donnée à `Consumer.poll()` permet de limiter son temps d’exécution.
+    - **fetch.min.bytes** (par défaut 1) permet de demander au broker d’attendre d’avoir au moins un minimum de données à envoyer avant de les envoyer.
+      - En réalité, le broker doit quand même envoyer une requête même s’il n’a pas assez de données, dans le cas où il dépasse un timeout fixé par **fetch.max.wait.ms** (par défaut 500 ms).
+    - **fetch.max.bytes** (par défaut 50 MB) indique au broker à partir de quelle taille il doit arrêter d’ajouter des données. Vu qu’un record (et donc à fortiori un batch) peut de toute façon dépasser cette taille, la limite n’est qu’indicative.
+      - La même propriété limite existe pour la taille des partitions : **max.partition.fetch.bytes** (par défaut 1 MB).
+        - Cette propriété permet de limiter l’impact des partitions “gourmandes”, en laissant de la place aux partitions qui ont moins de données.
+      - Intéressant à savoir : les brokers ne font pas de traitement sur les batchs. **Les batchs sont envoyés par les producers, stockés tels quels, et envoyés tels quels aux consumers**. C’est un choix de design de Kafka pour garantir une grande performance.
+    - **max.poll.records** (par défaut 500) permet de limiter le nombre de records retournés par `Consumer.poll()`.
+      - Contrairement aux autres propriétés, celle-ci n’impacte pas le broker. C’est le client qui reçoit le même nombre de records par batch, va lui-même limiter ceux qu’il rend disponible. Il bufferise les autres pour les rendre disponibles à l’appel suivant.
+      - Elle est là pour éviter que le client n’ait à traiter trop de records, et ne puisse pas appeler à nouveau `poll()` avant `max.poll.interval.ms`.
+  - **group.id** permet d’indiquer le groupe d’un consumer. Si on ne le fournit pas, il deviendra sans groupe, et ne pourra pas bénéficier des mécanismes de d’assignation automatique de partition, détection des échecs, ni faire de commits au serveur pour sauvegarder son offset.
+  - **group.instance.id** consiste à indiquer un identifiant à un consumer, unique dans son groupe, rendant le consumer _static_. L’effet est que si le consumer n’est plus là, sa partition n’est pas réassignée, mais reste en attente de son retour.
+    - C’est pour éviter les rebalancing trop fréquents dans un contextes de manque d’availability transient.
+    - Pour en savoir plus : chapitre 15.
+  - La **détection d’échecs** est contrôlée par la combinaison de `heartbeat.interval.ms`, `session.timeout.ms` et `max.poll.interval.ms`.
+    - Ce sujet fait partie des sujets délicats, source de nombreux problèmes.
+    - **heartbeat.interval.ms** (par défaut 3 secondes) contrôle la fréquence à laquelle le consumer envoie des heartbeats.
+    - Le broker coordinateur du groupe de son côté vérifie que le consumer n’envoie pas son prochain heartbeat après le délai de **session.timeout.ms** (par défaut 10 secondes). Sinon il l’expulse et réassigne ses partitions dans le groupe.
+    - **max.poll.interval.ms** (par défaut 5 minutes) est le délai maximal pour qu’un consumer rappelle `poll()`. S'il ne l’a pas fait, il va lui-même arrêter d’envoyer des heartbeats et demander à quitter le groupe.
+      - Si le consumer est statique, il arrête les heartbeats mais ne demande pas à quitter le groupe. Il sera évincé par le broker s’il dépasse la `session.timeout.interval` sans avoir réémis de heartbeats.
+      - Le but de ce comportement est d’éviter les situations où plusieurs consumers traitent les mêmes messages.
+  - **auto.reset.offset** permet d’indiquer ce qui se passe quand un consumer n’a pas d’offsets pour la partition qu’il consomme.
+    - Les options sont : `earliest` pour partir du low water mark, `latest` pour partir du high water mark, et `none` pour renvoyer une exception.
+    - Les offsets sont stockés par le group coordinator dans un topic nommé `__consumer_offsets`. Ce topic a un temps de rétention comme n’importe quel topic (par défaut 7 jours).
+    - L’offset peut ne pas exister si :
+      - 1 - C’est le début de la formation du groupe et que la partition n’a pas encore été lue par lui.
+      - 2 - Quand rien n’a été consommé sur cette partition par le groupe (et donc aucun offset n’a été commité dans `__consumer_offsets`) depuis plus longtemps que le délai de rétention de `__consumer_offsets`.
+      - 3 - Quand on a un offset qui pointe vers un record qui est dans un topic où le délai de rétention est plus faible, et a été dépassé. Donc l’offset pointe vers le vide.
+  - **enable.auto.commit** permet d’indiquer si le commit automatique est activé pour un consumer. Il s’agit d’envoyer un commit jusqu’au dernier record traité par le dernier l’appel à `poll()`, pour mettre à jour son offset.
+    - Par défaut le client commit toutes les 5 secondes (temps réglable avec **auto.commit.interval.ms**).
+    - Si ça marchait vraiment comme ça (tel que le dit la doc), le client mettrait à jour son offset au dernier record reçu dans le batch envoyé par le dernier appel à `poll()`, alors même qu’il n’a pas forcément terminé de traiter le batch.
+      - En réalité, l’implémentation règle le problème en envoyant le commit dans le même thread que celui qui traite les records, et seulement après que le batch ait été traité.
+      - Mais ce comportement n’est pas garanti vu que la doc ne dit pas ça, Kafka pourrait à tout moment mettre à jour le comportement pour faire le commit dans un autre thread toutes les 5 secondes.
+      - Pour éviter les problèmes, l’auteur conseille de **faire le commit à la main**.
+  - **isolation.level** permet d’indiquer le type de comportement d’une transaction vis-à-vis du consumer.
+    - La valeur `read_uncommitted` va renvoyer tous les records sans prendre en compte les transactions.
+    - La valeur `read_committed` va renvoyer les records qui ne font pas partie des transactions, et ceux qui font partie de transactions validées, mais pas ceux qui font partie de transactions qui ne sont pas encore validées.
+      - Pour garantir l’ordre, tous les records qui doivent se trouver après les records qui sont dans des transactions non validées seront aussi bloqués le temps de la transaction.
