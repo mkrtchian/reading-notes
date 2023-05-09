@@ -467,3 +467,21 @@
     - La valeur `read_uncommitted` va renvoyer tous les records sans prendre en compte les transactions.
     - La valeur `read_committed` va renvoyer les records qui ne font pas partie des transactions, et ceux qui font partie de transactions validées, mais pas ceux qui font partie de transactions qui ne sont pas encore validées.
       - Pour garantir l’ordre, tous les records qui doivent se trouver après les records qui sont dans des transactions non validées seront aussi bloqués le temps de la transaction.
+
+## 11 - Robust Configuration
+
+- Kafka fait le choix d’émettre un warning dans le cas où on donne un mauvais nom de propriété de configuration.
+  - Pour éviter les typos, on peut utiliser les constantes pour donner les valeurs.
+  - En TypeScript les clients sont typés.
+- Si la propriété vient d’un fichier de config qui n’est pas du code, il n’y aura pas de check à la compilation.
+  - Dans ce cas, il nous faut vérifier le contenu au runtime.
+  - L’auteur propose de faire une classe de validation, qui propose des méthodes de type fluent chaining.
+    ```java
+    final var config = new TypesafeProducerConfig()
+      .withBootstrapServers("localhost:9092")
+      .withKeySerializerClass(StringSerializer.class)
+      .withValueSerializerClass(StringSerializer.class)
+      .withCustomEntry(
+        ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1
+      );
+    ```
