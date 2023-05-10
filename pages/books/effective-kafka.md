@@ -485,3 +485,25 @@
         ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1
       );
     ```
+
+## 12 - Batching and Compression
+
+- Les batchs sont traités par Kafka comme un **processus de bout en bout** : le producer envoie les records par batchs, ils sont stockés comme tels, puis envoyés au consumer sous le même format.
+  - Ca permet de recourir à la _zero-copy optimization_, où les données sont copiées depuis le réseau vers le disque, puis à nouveau vers le réseau, sans que le CPU n’ai eu à intervenir pour transformer la donnée.
+- Ce processus de création de batchs arrive quand il y a beaucoup de records à traiter successivement : Kafka va batcher les records qui sont **en attente d’être envoyés** (en limitant la taille des batchs à `batch.size`). Quand le client veut publier au compte goutte, il ne fait pas de batchs.
+  - `linger.ms` peut permettre d’avoir plus de batchs : pendant ce temps qu’on attend, des records peuvent s’accumuler pour être batchés.
+  - Kafka compte beaucoup sur **du fine tuning fait par des admins** pour la situation précise dans lequel il est utilisé.
+- Le batching a encore plus d’intérêt quand on utilise la **compression**.
+  - On peut obtenir des ratios de compression entre x5 et x7 sur du JSON.
+  - La meilleure performance de compression est obtenue avec de **petits batchs**.
+  - La compression est réalisée par le producer, et la décompression dans le consumer, donc ça a l’avantage de ne pas mettre de charge sur le serveur.
+    - Le serveur offre aussi la possibilité de modifier la compression de son côté si on le veut vraiment : avec la propriété `compression.type` côté broker, qui a par défaut la valeur `producer`, et peut prendre une valeur de type de compression (`gzip`, `snappy` etc.).
+  - L’auteur recommande de **toujours activer la compression pour les records textuels et binaires** (sauf si on sait qu’ils ont une très grande entropie, c’est-à-dire que leur contenu est très variable et difficilement prévisible, donc difficilement compressible).
+  - Côté algo, il conseille les heuristiques suivantes :
+    - Si on a des clients legacy (avec une version inférieure à 2.1.0) :
+      - De base LZ4.
+      - Si le réseau est identifié comme un bottleneck : Gzip.
+    - Si on a des clients récents :
+      - De base LZ4.
+      - Si le réseau est identifié comme un bottleneck : ZStandard.
+    - Bien sûr, si on a un vrai besoin de fine tuner la performance, il faut faire des benchmarks avec chacun des algos dans notre contexte spécifique.
