@@ -507,3 +507,35 @@
       - De base LZ4.
       - Si le réseau est identifié comme un bottleneck : ZStandard.
     - Bien sûr, si on a un vrai besoin de fine tuner la performance, il faut faire des benchmarks avec chacun des algos dans notre contexte spécifique.
+
+## 13 - Replication and Acknowledgements
+
+- Le système de réplication fonctionne par _sequential consistency_ : un leader par partition envoie la donnée aux followers.
+- Plus le replication factor est élevé, et plus l’acknowledgement des records peut être ralenti à cause du fait qu’il faut attendre le follower le plus lent.
+  - Pour répondre à ce problème, chaque leader maintient dans ZooKeeper une liste des **In-Sync Replicas** (ISR), c’est-à-dire les followers qui ne dépassent pas un retard temporel spécifique vis-à-vis des records du leader.
+    - On peut régler un nombre minimal de followers dans l’ISR avec `min.insync.replicas` (par défaut 1, mais l’auteur conseille au moins 2, pour toujours avoir au moins une autre copie à jour).
+      - En dessous de ce nombre se trouvant dans l’ISR, le leader arrête d’accepter la publication de records et attend qu’un nombre suffisant de followers redeviennent éligibles à l’ISR.
+    - Le temps maximal de lag à partir duquel un follower est exclu de l’ISR est configuré avec `replica.lag.time.max.ms` (par défaut 10 secondes).
+    - C’est les followers de l’ISR dont on attendra la confirmation pour une durabilité maximale, et non pas celle de l’ensemble des followers.
+    - Le producer ne peut que dire s’il veut attendre l’acknowledgement de tous les followers (de l’ISR), du leader seulement, ou de personne. Il ne peut pas influer sur qui se trouve ou non dans l’ISR.
+- **Seuls les réplicas de l’ISR** sont éligibles pour devenir **leaders de partition**.
+  - Sauf si on a mis la propriété `unclean.leader.election` à `true`.
+- Quelle que soit l’approche choisie, elle aura des désavantages plus ou moins grands :
+  - Avec un faible `min.insync.replicas` on risque de ne plus avoir de réplicas à jour pour prendre la main au moment où le leader est en échec.
+  - Avec un `min.insync.replicas` élevé proche ou égal au replication factor, on risque d’avoir des réplicas lents qu’on est obligés d'attendre.
+  - Avec un plus grand replication factor (la propriété `default.replication.factor`), et potentiellement plus de brokers, on risque quand même d’être lent parce qu’on a plus de réplicas à mettre à jour.
+- On peut **augmenter le replication factor de topics existants**, mais ça nécessite de créer un fichier de config de réassignement sous forme JSON, avec l’ordre des réplicas qu’on préfèrerait pour chaque partition (pour le choix des nouveaux leaders d’une manière qui les répartit entre brokers).
+  - Pour nous aider avec cette config, il y a l’outil **kafka-reassign-tool** sur GitHub.
+  - La création d’un réplica supplémentaire demande à copier les partitions pour lesquelles on augmente le replication factor, donc ça peut prendre du temps et occuper le cluster.
+- Pour **décommissionner un broker**, il faut d’abord le vider de son rôle de leader pour toutes les partitions où il l’est.
+  - On peut pour ça utiliser la même technique avec le fichier de config de réassignement, en indiquant pour toutes les partitions où il est leader, les IDs d’autres brokers.
+- Concernant l’**acknowledgement**.
+  - Quand un producer choisit de ne pas en recevoir (`acks = 0`), il n’a plus de garantie de durabilité sur ce qu’il envoie (bien que la réplication se fasse comme d’habitude côté serveur), et il n’est plus non plus informé de l’offset des records qu’il publie (par retour de la méthode `send()` par exemple).
+    - Ca peut par exemple être utile dans un cas de traitement de données de température qu’on affiche en direct : la perte de quelques données n’est pas très grave.
+  - Quand un producer choisit d’en recevoir un quand seulement le leader a validé le record (`acks = 1`), en réalité il n’y a pas beaucoup plus de garantie qu’avec `acks = 0`.
+    - Le leader peut échouer à effectivement écrire le record (il répond avant que l’écriture soit complète), ou il peut lui-même être en situation d’échec juste après l’acknowledgement, et avant d’avoir envoyé le record aux autres réplicas.
+    - En fait ça revient à se demander si la machine du leader est considérée plus fiable que celle du producer pour ce qui est de décider si un record est publié ou pas.
+    - De manière générale ce mode est surtout utile dans les cas où la perte de quelques données est tolérable, mais où le client a besoin de connaître l’offset du record qu’il vient d’écrire.
+  - Quand un producer choisit de recevoir tous les acknowledgements (`acks = -1` ou `all`), il a la garantie de durabilité maximale.
+- L’auteur conseille comme heuristique par défaut d’adopter `-1` ou `all` pour la valeur de `acks` (au lieu de `1` par défaut), et au moins `2` `pour min.insync.replicas` (au lieu de `1` par défaut) avec un replication factor d’au moins `3`.
+  - Si on est dans des cas où la perte de données est tolérable, alors on pourra diminuer ces contraintes.
