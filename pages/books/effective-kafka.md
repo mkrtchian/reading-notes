@@ -539,3 +539,50 @@
   - Quand un producer choisit de recevoir tous les acknowledgements (`acks = -1` ou `all`), il a la garantie de durabilité maximale.
 - L’auteur conseille comme heuristique par défaut d’adopter `-1` ou `all` pour la valeur de `acks` (au lieu de `1` par défaut), et au moins `2` `pour min.insync.replicas` (au lieu de `1` par défaut) avec un replication factor d’au moins `3`.
   - Si on est dans des cas où la perte de données est tolérable, alors on pourra diminuer ces contraintes.
+
+## 14 - Data Retention
+
+- Les données de chaque partition sont par défaut dans des dossiers de la forme `/tmp/kafka-logs/getting-started-0/`.
+  - Le dossier contient un fichier nommé `leader-epoch-checkpoint`, qui contient toutes les réassignation de leader pour la partition. De cette manière, chaque réplicat peut ignorer les messages d’un collègue broker qui se prendrait pour le leader de la partition sans l’être.
+  - Le contenu des records se trouve dans fichiers nommés selon le 1er offset du record qu’ils ont, avec l’extension `.log`.
+  - Chaque fichier de log a un index nommé de la même manière mais avec une extension `.index`. Il contient un map entre les offsets des records (ou des batchs) du fichier de log, et l’offset physique dans le fichier de log pour aller les lire.
+  - On a enfin un autre fichier nommé pareil mais avec l’extension `.timeindex`, et qui contient un map entre des timestamps des records et l’offset physique dans le fichier de log.
+- Kafka a des propriétés configurables, liées à la taille des fichiers de log et à leur ancienneté, pour contrôler le moment où on **switch au fichier suivant** pour écrire.
+  - Par exemple `log.segment.bytes` (par défaut 1 GB), `log.roll.hours` (par défaut 1 semaine).
+  - On peut aussi configurer un temps aléatoire de décalage du switch, pour que l’ensemble des partitions ne changent pas de fichier de log en même temps.
+- Les fichiers d’index ont une place pré-allouée, dont la taille est contrôlable par une propriété.
+  - On peut de la même manière activer la pré-allocation des fichiers de log, pour gagner en performance sur certains filesystems.
+- Le script `kafka-dump-log.sh` dans les outils d’admin de Kafka permet de lire le contenu des fichiers qui composent les logs.
+- Il existe des **cleanup policies** qui sont de deux types : supprimer les anciens records, ou faire de la compaction pour gagner en place.
+  - **log.cleanup.policy** permet de contrôler le type de policy, cross-topic ou pour un topic spécifique.
+    - Par défaut la valeur est `delete`, l’autre valeur étant `compact`. On peut spécifier les deux en même temps, en les séparant par une virgule.
+  - Le cleanup ne s’applique qu’aux fichiers de log **inactifs**, c'est-à-dire les fichiers de log dont on a déjà switché vers un autre fichier.
+  - Quand la policy est **delete**.
+    - Un background process va régulièrement (toutes les `log.retention.check.interval.ms`, par défaut 5 minutes) vérifier pour chaque fichier de log inactif s’il est sujet à être supprimé ou non, en fonction des règles de rétention configurées (par exemple `log.retention.bytes` (non configuré par défaut), `log.retention.hours` (par défaut 1 semaine)).
+    - Avec les valeurs par défaut, un fichier de log sera supprimé au bout d’1 semaine. Par contre, il sera supprimé d’un coup. Donc si on n’avait qu’un seul fichier qui n’avait pas atteint la taille d’1 GB pour switch de fichier avant les 1 semaine, on va perdre tous les records d’un coup, et écrire les nouveaux dans un nouveau fichier.
+      - Si on veut une plus grande granularité, on peut configurer de plus petites valeurs pour pour le switch de fichier de log actif (`log.segment.bytes` ou `log.roll.hours`).
+  - Quand la policy est **compact**.
+    - La compaction est utile par exemple dans le cas où on a des **events de type ECST** (l’auteur ne mentionne pas le terme).
+      - Normalement il faut une logique en deux temps : hydrater notre app downstream avec les données de l’app upstream, puis laisser l’app upstream publier ses changements sur Kafka.
+      - Pour éviter d’avoir ce fonctionnement en deux temps, la compaction permet de publier dès le début les ECST dans Kafka, et de ne pas avoir besoin de l’autre mode puisque **Kafka gardera toujours au moins le record le plus récent pour chaque entité**.
+      - Par contre ça ne marche qu’avec les events qui ont la totalité de la donnée de l’entité et qui donc “déprécient” les events précédents pour cette entité. Ça ne marche pas avec les events qui indiquent seulement les champs qui ont changé dans l’entité.
+    - La compaction consiste à transformer Kafka en snapshot, où on ne garde que les données les plus récentes pour chaque entité, qu’on **différencie par la key** associée au record.
+      - La lecture de l’ensemble du topic prendra donc un temps proportionnel au nombre de keys différents dont il existe des records.
+    - D’un point de vue technique, la compaction est faite par des threads en arrière plan.
+      - Côté config :
+        - Leur nombre est contrôlé par `log.cleaner.threads`, par défaut `1`.
+        - `log.cleaner.min.cleanable.ratio` (par défaut `0.5`) indique le ratio de log “sale“ à partir duquel il sera éligible à être compacté.
+        - `log.cleaner.min.compaction.lag.ms` (par défaut `0`) permet d’indiquer un temps minimal avant qu’un record ne puisse faire l’objet de compaction. Sachant que ça ne peut pas concerner le fichier de log _actif_, mais seulement ceux où il y a déjà eu un switch de fichier.
+        - `log.cleaner.min.compaction.lag.ms` (par défaut infini) permet d’indiquer un temps maximal à partir duquel le log sera quand même compacté, même s’il ne satisfaisait pas le ratio de “saleté”.
+        - `log.cleaner.delete.retention.ms` (par défaut 24 heures) indique la durée de vie des _tombstones_.
+        - On peut aussi définir ces configs par topic (sauf pour le nombre de threads de compaction).
+      - Pour calculer le **ratio de “saleté”**, Kafka maintient un _cleaner point_ correspondant au point jusqu’où la compaction a déjà été faite, pour chaque fichier de log.
+        - Le ratio consiste à diviser le nombre de records pas encore traités par le nombre de records existants dans la partie déjà traitée.
+      - La compaction laisse les records **dans le même ordre**, et **ne change pas leur offset**. Elle va juste éliminer des records.
+      - Les **tombstones** sont créés par les producers pour indiquer à Kafka que les entités d’une key particulière ne sont plus utiles.
+        - Ce sont simplement des records, avec une valeur nulle, et la key pour laquelle on veut faire la suppression.
+        - La raison pour laquelle ils restent un temps minimal (par défaut 24h) est de s’assurer que les consumers ont eu le temps d’avoir l’info de suppression du record, pour éviter qu’ils gardent l’entité en base alors qu’elle n’est plus censée exister.
+  - On peut aussi **combiner compaction et deletion**.
+    - Cette possibilité est utile dans des cas particuliers où les events perdent rapidement leur intérêt.
+      - On peut alors potentiellement avoir une compaction plus agressive vu qu’on limite la taille des records en supprimant les plus anciens.
+    - Un exemple peut être le topic `__consumer_offsets` qui compacte pour que le group coordinator puisse rapidement reconstruire l’état des consumers, et supprime les anciens offsets pour les groupes qui n’ont pas été actifs depuis longtemps pour éviter de trop grossir.
