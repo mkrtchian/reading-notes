@@ -446,7 +446,7 @@
   - La **détection d’échecs** est contrôlée par la combinaison de `heartbeat.interval.ms`, `session.timeout.ms` et `max.poll.interval.ms`.
     - Ce sujet fait partie des sujets délicats, source de nombreux problèmes.
     - **heartbeat.interval.ms** (par défaut 3 secondes) contrôle la fréquence à laquelle le consumer envoie des heartbeats.
-    - Le broker coordinateur du groupe de son côté vérifie que le consumer n’envoie pas son prochain heartbeat après le délai de **session.timeout.ms** (par défaut 10 secondes). Sinon il l’expulse et réassigne ses partitions dans le groupe.
+    - Le broker coordinator du groupe de son côté vérifie que le consumer n’envoie pas son prochain heartbeat après le délai de **session.timeout.ms** (par défaut 10 secondes). Sinon il l’expulse et réassigne ses partitions dans le groupe.
     - **max.poll.interval.ms** (par défaut 5 minutes) est le délai maximal pour qu’un consumer rappelle `poll()`. S'il ne l’a pas fait, il va lui-même arrêter d’envoyer des heartbeats et demander à quitter le groupe.
       - Si le consumer est statique, il arrête les heartbeats mais ne demande pas à quitter le groupe. Il sera évincé par le broker s’il dépasse la `session.timeout.interval` sans avoir réémis de heartbeats.
       - Le but de ce comportement est d’éviter les situations où plusieurs consumers traitent les mêmes messages.
