@@ -586,3 +586,95 @@
     - Cette possibilité est utile dans des cas particuliers où les events perdent rapidement leur intérêt.
       - On peut alors potentiellement avoir une compaction plus agressive vu qu’on limite la taille des records en supprimant les plus anciens.
     - Un exemple peut être le topic `__consumer_offsets` qui compacte pour que le group coordinator puisse rapidement reconstruire l’état des consumers, et supprime les anciens offsets pour les groupes qui n’ont pas été actifs depuis longtemps pour éviter de trop grossir.
+
+## 15 - Group Membership and Partition Assignment
+
+- Les **consumer groups **permettent de faire du load balancing au niveau de la consommation.
+  - Kafka garantit qu’il y aura **au plus un consumer d’un même groupe par partition**.
+    - “au plus” pour prendre en compte le cas où aucun consumer ne serait disponible dans le groupe.
+  - L’assignation des consumers se passe en deux temps :
+    - **1 - La phase group membership**.
+      - Il s’agit d’identifier les consumers d’un groupe, et d’élire un **group leader** parmi eux, pour que celui-ci décide des assignations partition / consumer.
+        - 1 - Les consumers envoient un message au **broker qui est coordinator** pour ce group, pour s’identifier comme membres de ce groupe.
+          - Ils savent qui est leur coordinator parce que son id leur est renvoyé par un des brokers, qui lui même peut le savoir par un mécanisme déterministe de hachage entre le group id et une des partitions, et le broker leader de cette partition devient le coordinator du group.
+        - 2 - Le coordinator attend un certain temps avant de répondre, pour que tous les consumers aient pu s’identifier comme membres du groupe, et pour éviter les nombreux rebalancings au début.
+          - Le délai est appliqué quand le groupe est vide.
+          - Le délai est contrôlable avec `group.initial.rebalance.delay.ms` (par défaut 3 secondes).
+          - C’est typiquement inutile dans les scénarios où il n’y a qu’un consumer, comme dans des tests d’intégration par exemple où on peut le mettre à 0.
+        - 3 - Il renvoie une réponse à chacun, contenant les IDs des consumers du groupe et l’ID du consumer leder.
+    - **2 - La phase state synchronisation**.
+      - 1 - Le group leader va faire l’assignation des partitions aux consumers dont il a reçu la liste, et envoyer ça au coordinator.
+      - 2 - Le coordinator à son tour renvoie les assignations à chaque consumer.
+  - A chaque fois qu’un consumer rejoint un groupe existant, le coordinator oblige les autres consumers à se réidentifier, et se voir potentiellement réassigner des partitions (on appelle ça le **rebalancing**).
+    - Pendant le rebalancing, les consumers se verront refuser toutes leurs opérations (y compris heartbeats) par une réponse `REBALANCE_IN_PROGRESS`.
+    - A chaque rebalancing, le coordinator va assigner à chaque consumer un id qui est incrémenté monotoniquement. Donc un consumer zombie qui aurait oublié de se réidentifier serait rejeté la prochaine fois qu’il voudrait consommer.
+    - Le client met à disposition la possibilité d’enregistrer des callbacks sur les events d’un rebalancing :
+      - `onPartitionsRevoked()` est appelé dès que la consommation doit s’arrêter pour que le rebalancing puisse avoir lieu.
+      - `onPartitionsAssigned()` indique au client les éventuelles nouvelles partitions qui lui ont été assignées.
+      - `onPartitionLost()` indique d’éventuelles partitions perdues par le consumer.
+        - Ça peut se produire si le consumer n’avait pas émis de heartbeats et était considéré comme en échec.
+    - Le rebalancing par défaut (_eager rebalancing_) se fait en une étape.
+      - Il implique donc que les consumers doivent à chaque fois partir du principe que l’ensemble des assignations de partition sont potentiellement révoquées et cleaner les messages en cours de traitement.
+      - L’**incremental cooperative rebalancing** permet d’éviter ça en faisant le rebalancing en plaçant les assignations à la fin, en utilisant éventuellement plusieurs étapes :
+        - Une seule étape s’il n’y a que de nouvelles assignations de partitions.
+        - S’il y a aussi des révocations : une première étape de révocations, et une deuxième étape d’assignations.
+      - Pour que l’incremental cooperative rebalancing soit plus efficace, et contrebalance le fait qu’il nécessite plus d’appels réseau, il faut que la stratégie d’assignation de partition soit **sticky** (c’est-à-dire qu’on essaye au maximum de garder les assignations qui existent pendant le rebalancing).
+- Dans les systèmes distribués, il y a deux propriétés importantes : la **liveness** qui est le fait qu’un système continue d’opérer et de progresser dans ses tâches, et la **safety** qui est le fait que les invariants du système soient préservés.
+  - Kafka satisfait la liveness par :
+    - Les checks réguliers d’availability des consumers par le système de heartbeats à envoyer avant un timeout.
+    - La vérification que les consumers progressent, en s’assurant qu’ils appellent régulièrement `poll()` avant de dépasser un timeout.
+  - Plus les valeurs des deux timeouts sont petites et plus le client détectera vite les échecs, mais au prix de plus de consommation de ressources et de plus de faux positifs.
+    - Globalement l’**auteur trouve ces valeurs par défaut raisonnables** dans la plupart des cas.
+  - Dans le cas où on doit retenter une requête vers un composant externe (DB, broker etc) qui échoue plusieurs fois, on risque d’échouer nous-mêmes à respecter le timeout prouvant qu’on progresse (`max.poll.interval.ms`), on alors 5 possibilités :
+    - 1 - Mettre très grande valeur à `max.poll.interval.ms`, pour “désactiver” le timeout.
+      - Il s’agit d’un cas où on veut que l’ordre soit absolument respecté, et que les actions pour chaque record soient absolument réalisées, au prix d’une potentielle attente jusqu’à ce que la ressource externe réponde correctement.
+      - Le problème c’est qu’on ne prend pas en compte qu’on pourrait avoir un problème en interne, notamment des bugs dans le consumer lui-même, et que notre timeout nous protégeait aussi de ça.
+    - 2 - Mettre une valeur raisonnable pour le timeout. Dans ce cas, tant que le service externe est down, le consumer va recommencer jusqu’au timeout, et être rebalancé (exclu puis réintégré).
+      - C’est le même comportement que le 1- où on veut faire les records dans l’ordre coûte que coûte, mais là on règle les éventuels problèmes de consumer bloqué.
+      - Il y a par contre un risque de perdre en performance à force d’enchaîner les rebalancings.
+    - 3 - Détecter nous mêmes dans le consumer le fait qu’on va bientôt dépasser le timeout, et se déconnecter après avoir nettoyé ses tâches en cours, pour se reconnecter tout de suite après.
+      - En fait, vu qu'on se réconnecte/reconnecte, on va entraîner un rebalancing de fait.
+      - Le petit avantage par rapport à la 2- c’est qu’on va pouvoir faire des checks supplémentaires localement sur le fait de ne processer le record qu’une fois.
+    - 4 - Mettre en place une deadline par record, et si la deadline est dépassée, considérer qu’il a été traité en passant au suivant, mais le republier dans le topic pour qu’il soit retraité plus tard.
+      - Cette solution implique que l’ordre de traitement des records n’est pas essentiel.
+      - On pourrait aussi avoir un temps maximal ou un nombre de retries maximal dans le record, indiquant combien de temps ou de fois il faut continuer à essayer de le republier avant que ça ne serve plus à rien, dans le cas où il devient obsolète avec le temps.
+      - Les consumer groups étant indépendants et pouvant lire dans un même topic, requeuer un message derrière le topic juste parce qu’un consumer group n’a pas pu le traiter à temps n’est pas vraiment ce qu’on veut.
+        - Au lieu de ça, on peut avoir une topologie de type _fanout_, c’est-à-dire un topic qui publie dans un fanout group, qui lui-même publie dans un topic par consumer group. Et dans ce deuxième niveau on pourra requeuer un message non géré par un consumer groupe spécifique.
+    - 5 - Mettre en place une deadline comme dans le 4-, mais sans requeuer le record du tout.
+      - Il peut être intéressant, tout comme pour le 4-, de penser à mettre les records non traités dans une _dead letter queue_ pour pouvoir investiguer la lenteur plus tard.
+  - Malgré les garanties apportées par Kafka, il est possible que **deux consumers traitent le même record**.
+    - Ça arrive dans le cas suivant :
+      - 1 - Un consumer met beaucoup de temps à traiter un record, et dépasse le timeout pour appeler `poll()`.
+      - 2 - Il se fait exclure parce que son thread responsable des heartbeats n’en émet plus et même demande explicitement à être révoqué.
+      - 3 - Le coordinator révoque le consumer et fait un rebalancing pour assigner sa partition à un autre consumer.
+      - 4 - Le nouveau consumer commence à traiter les records non commités.
+      - 5 - pendant ce temps, le consumer révoqué continue de traiter son record en cours, sans savoir qu’il a été arrêté.
+    - Pour éviter ça, Kafka ne propose pas grand chose. L’auteur propose 3 approches à faire soi-même :
+      - 1 - Se débrouiller pour que le consumer **ne dépasse jamais le timeout**, et que sinon on gère les conséquences à la main pour ne pas avoir de rebalancing.
+      - 2 - Utiliser un **distributed lock manager** (DLM) pour protéger les sections critiques d’être traitées en même temps par deux consumers.
+        - La protection agit sur le fait de traiter _en même temps_, pas le fait de traiter plusieurs fois en général.
+          - Ceci dit, on peut du coup vérifier qu’on n’a pas déjà traité la section critique du record avant de traiter.
+          - Attention à ne pas être tenté de faire l’optimisation de faire se déconnecter/reconnecter le consumer dans le cas où on remarque que le record a déjà été traité : le consumer qui l’a traité n’a peut être pas encore commité, et donc on risquerait de le retraiter à nouveau.
+        - L’impact du DLM sur le throughput et la latence peuvent être minimisés en regroupant les records du buffer, par exemple par partition, et de faire le lock avant et après le traitement de chacun de ces lots.
+        - A la place du DLM on pourrait aussi avoir n'importe quel store persistant, comme Redis ou une DB.
+      - 3 - Utiliser un **process qui vérifie régulièrement** le process qui tourne pour consommer les records, pour s’assurer qu’il consomme bien régulièrement.
+        - S’il est bloqué depuis un certain temps, le process vérificateur le restart avant que le timeout côté Kafka soit déclenché.
+  - L’idée des **static members** va très bien avec le fait d’avoir un système de health check externe à Kafka : par exemple Kubernetes qui s’assurerait de détecter les consumers en échec, et de les arrêter puis restarter.
+    - Côté liveness, ça peut permettre d’éviter des rebalancings de la part de Kafka, et donc d’avoir un throughput plus important, au prix de certaines partitions spécifiques qui n’avancent plus pendant un temps plus long qu’en mode non static.
+    - Côté safety, Kubernetes peut jouer le rôle d’orchestrateur pour s’assurer que les partitions ne sont pas traitées par plusieurs consumers en même temps.
+- La raison pour laquelle l’assignation des partitions se passe dans un consumer leader, c’est de permettre le **changement de stratégie d’assignation** pour chaque consumer, plutôt que quelque chose de commun en tant que config Kafka.
+  - Il existe 4 assignors disponibles pour choisir ces stratégies :
+    - Le **range assignor** est l’assignor par défaut, il consiste à classer les partitions pour un même topic et les consumers dans l’ordre du plus petit au plus grand, et ensuite d’attribuer des groupes de partitions de part égales aux consumers successifs.
+      - Et on recommence la même chose pour chaque topic.
+      - Si le nombre de partitions n’est pas divisible par le nombre de consumers, les premiers consumers se verront attribuer une partition de plus.
+      - Son désavantage c’est qu’il assigne les partitions équitablement par topic, mais si on prend en compte l’ensemble des partitions existantes dont les consumers doivent s’occuper, on peut tomber sur une répartition assez inégale.
+        - Ça se produit en particulier quand le nombre de partition par topic est plus petit que le nombre de consumers : les premiers consumers reçoivent une partition de chaque topic, alors que les derniers n’en reçoivent pas.
+    - Le **round robin assignor** consiste à rassembler les partitions de tous les topics, puis de les attribuer un par un, dans l’ordre, aux consumers, en rebouclant sur la liste de consumers s’il y a plus de partitions que de consumers.
+      - La répartition est bien meilleure que pour le range assignor, puisqu’elle est cross-topic.
+    - Le **sticky assignor** consiste à assigner de manière à peu près équilibrée, mais surtout s’évertue à préserver le plus possible les assignations déjà faites, quand il faut faire une réassignation.
+      - La répartition est de la même qualité que pour le round robin assignor, mais celui-ci minimise le nombre de partitions changées de main pendant un rebalancing.
+    - Le **cooperative sticky assignor** consiste à faire la même chose que le sticky assignor, mais en utilisant le _cooperative rebalancing protocol_ qui permet de réduire les pauses de rebalancing.
+      - Les consumers ne sont plus obligés de se préparer à la révocation de toutes leurs partitions à chaque rebalancing. Ils savent lesquelles seront révoquées, et ensuite lesquelles leur seront assignées.
+  - Pour **changer la stratégie d’assignation**, on ne peut pas simplement mettre à jour la propriété de config qui le fait (`partition.assignment.strategy`).
+    - Le premier consumer qui sortirait du groupe pour y revenir avec la nouvelle stratégie provoquerait un problème d’inconsistance de stratégie au niveau de ce groupe.
+    - On assigne d’abord l’ancienne stratégie et la nouvelle, puis on supprime l’ancienne. AU final on aura eu 2 bounces.
