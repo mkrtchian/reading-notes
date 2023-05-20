@@ -678,3 +678,124 @@
   - Pour **changer la stratégie d’assignation**, on ne peut pas simplement mettre à jour la propriété de config qui le fait (`partition.assignment.strategy`).
     - Le premier consumer qui sortirait du groupe pour y revenir avec la nouvelle stratégie provoquerait un problème d’inconsistance de stratégie au niveau de ce groupe.
     - On assigne d’abord l’ancienne stratégie et la nouvelle, puis on supprime l’ancienne. AU final on aura eu 2 bounces.
+
+## 16 - Security
+
+- Kafka n’est pas configuré par défaut pour fonctionner de manière sécurisée.
+  - Par défaut, n'importe quel client peut se connecter, y compris à ZooKeeper.
+  - Les connexions ne sont pas chiffrées.
+  - Même une fois l’authentification mise en place, les autorisations sont maximales.
+- La première sécurité est le **blocage au niveau réseau** avec un firewall.
+  - L’auteur propose une topologie réseau en 4 blocs séparés par des firewalls :
+    - Le bloc ZooKeeper, accédé uniquement par les brokers.
+    - Le bloc Kafka brokers, accédé par les clients.
+    - Le bloc clients : consumers, publishers, admin clients.
+    - Le bloc externe qui passe par internet, et peut contenir un site distant, ou encore des télétravailleurs accédant via VPN.
+- Ensuite il faut activer le **chiffrement TLS** supporté par Kafka.
+  - Chaque broker a besoin d’une clé RSA et d’un certificat CA, correspondant à son hostname.
+  - La configuration SSL/TLS peut se faire dans `server.properties`.
+    - Il faut notamment utiliser le protocole existant `SSL` sur un port différent de `PLAINTEXT`, à la fois pour `listeners` et `advertised.listeners`.
+    - Pour activer le chiffrement pour les communications inter-broker, on peut ajouter `inter.broker.listener.name=SSL`.
+  - Il suffit ensuite de connecter le client sur le bon port de Kafka, en indiquant les bonnes creds et le protocole utilisé.
+  - Une fois qu’on s’est assuré que la connexion chiffrée fonctionne, l’auteur recommande de désactiver le socket non chiffré dans le serveur, en enlevant la version qui utilise `PLAINTEXT` dans `listeners` et `advertised.listeners`.
+    - On peut même configurer le firewall pour interdire les connexions sur le port 9092.
+  - Kafka n’a pas de **mécanisme de chiffrement de la donnée elle-même**, par défaut elle sera stockée en clair sur le filesystem des brokers.
+    - Une des possibilités peut être d’utiliser un chiffrement au niveau du filesystem ou du disque dur entier des machines des brokers.
+    - La méthode la plus sûre est de recourir à du **chiffrement de bout en bout** de la donnée, en chiffrant dans le publisher, et déchiffrant dans le consumer.
+      - Il existe plusieurs projets open source qui permettent de le faire. Par exemple, le projet _Kafka Encryption_.
+      - Si on publie des messages déjà chiffrés, il devient inutile d’activer la compression dans Kafka, puisque l’entropie des messages sera alors maximale.
+      - Le chiffrement de bout en bout ne rend pas l’utilisation de TLS inutile.
+        - TLS protège l’ensemble du record, y compris les headers par exemple.
+        - Il protège contre les attaques man in the middle, en assurant l’identité de l’émetteur.
+- Kafka supporte plusieurs types d’**authentification**.
+  - Le **mutual TLS** permet d’utiliser le mécanisme TLS habituellement utilisé pour que le client fasse confiance au serveur aussi dans l’autre sens : le client lui aussi envoie un certificat signé par un CA auquel le serveur fait confiance.
+    - Côté serveur, on peut activer la fonctionnalité avec la propriété `ssl.client.auth` :
+      - Elle vaut `none` par défaut.
+      - `required` permet de forcer les clients à fournir un certificat valide s’ils veulent se connecter.
+      - Il y a une 3ème option utile pour faire une migration progressive : `requested` permet d’accepter l’authentification par ce moyen, mais sans le rendre obligatoire le temps que tous les clients aient été migrés.
+    - Côté client, il faut obtenir un certificat certifié par un CA valide du point de vue du serveur, et se connecter avec les propriétés de config qui sont le miroir de celles qu’utilise le serveur pour lui-même configurer TLS.
+    - Pour obtenir l’information sur l’**identité du client** qui se connecte, c’est par défaut le champ CN du certificat qui sera utilisé.
+      - La propriété `ssl.principal.mapping.rules` permet de personnaliser le champ à prendre par des règles de type regex.
+      - Par contre, la fiabilité de la méthode pour déterminer l'identité dépend de la rigueur avec laquelle les certificats sont établis :
+        - Si un des clients peut mettre l’identité d’un autre client dans le champ CN d’un certificat qu’il fait générer par l’autorité de confiance, alors il pourra se faire passer pour l’autre client.
+      - Un autre problème aussi c’est que Kafka ne permet pas de révoquer un certificat pour un client particulier.
+        - Le mieux qu’on puisse faire c’est de déployer un nouveau CA, et de faire signer tous les certificats des clients par ce CA.
+        - Il faut aussi penser à utiliser des CA différents si on a plusieurs clusters Kafka.
+    - L’authentification mutual TLS ne peut pas être utilisée en même temps que d’autres types d’authentification au niveau applicatif, même si la mutual TLS se trouve dans une couche réseau différente.
+  - **SASL** (Simple Authentication and Security Layer) consiste à ajouter une méthode d’authentification à un protocole utilisateur.
+    - Il est en général utilisé avec du TLS.
+    - L’une des variantes supportées est **GSSAPI** (Generic Security Service API), aussi connu sous le nom de son implémentation principale qui est Kerberos.
+      - Cet outil va avec l’usage de répertoires centralisés type Active Directory.
+      - Il est surtout adapté aux utilisateurs individuels, mais Kafka a besoin d’avoir une authentification plutôt orientée autour de _service accounts_, parce qu’on ne peut pas démarrer et arrêter un client à chaque interaction utilisateur.
+        - Le problème avec l’approche _service accounts_ c’est que Kerberos n’étant pas forcément compatible avec toutes les ressources (par exemple Redis), on va pouvoir désactiver un account mais sans être sûr que l’ensemble des ressources le sont pour cet account.
+      - L’auteur trouve que Kerberos est un système complexe pour ce qu’il apporte, et conseille plutôt les autres méthodes SASL.
+    - Les autres variantes SASL supportées par Kafka sont **PLAIN** et **SCRAM**.
+      - PLAIN est le diminutif de plaintext, pour dire que le user et mot de passe sont transmis en clair.
+      - SCRAM est l’acronyme de _Salted Challenge Response Authentication Mechanism_, et il a la particularité de **ne pas impliquer d'envoyer les credentials directement au serveur**. Il apporte donc une meilleure sécurité.
+      - Comme dit plus haut, l’authentification SASL n’est pas compatible avec l’authentification SSL côté client (avec le client qui fournit un certificat signé par un CA de confiance) : Kafka ne saurait pas quoi prendre comme identifiant entre le username dans SASL et le champ CN du certificat.
+        - Si on fournit les deux, la configuration pour l’authentification SSL côté client ne sera pas prise en compte.
+      - Avec SCRAM, les versions hashées des credentials valides sont stockées dans ZooKeeper, par exemple avec le script `kafka-config.sh`.
+        - PLAIN quant à lui les stocke en clair dans `server.properties`.
+      - On peut aussi utiliser SASL pour la communication inter-broker au lieu de juste SSL.
+        - Attention à bien protéger le fichier `server.properties` qui va du coup contenir le username et password en clair, par exemple avec un petit `chmod 600`.
+        - Une autre solution peut être de créer un fichier dans `config/` qu’on protège, et d’y mettre la config jaas. Il faudra alors passer ce fichier dans l’option CLI `java.security.auth.login.config` au moment de démarrer le broker.
+      - On peut à chaque fois utiliser `netstat -an | egrep "9092|9093|9094"` pour vérifier sur quels ports il y a Kafka en écoute et sur quels ports il y a une connexion établie.
+    - La version de SASL avec **OAuth bearer** est là seulement dans un objectif de **testing**. Elle n’est pas sécurisée.
+      - L’application peut spécifier un user arbitraire dans un token JWT.
+      - On peut utiliser une implémentation open source comme _Kafka OAuth_.
+    - Les **delegation tokens** sont un mécanisme complémentaire à SASL, permettant de faciliter la gestion des credentials sur un grand nombre de brokers.
+      - Pour Kerberos il va s’agir de remplacer le déploiement des TGT ou keytab, et pour PLAIN et SCRAM ça va être les user / password.
+      - Les delegation tokens sont limités dans le temps et donc permettent de ne pas compromettre les vrais credentials.
+      - C’est particulièrement pratique dans le cas où les brokers sont créés de manière éphémère dans des workers.
+      - Il faut faire la configuration côté broker en mettant en place `delegation.token.master.key` à la même valeur pour tous les brokers du cluster.
+        - On crée ensuite les tokens avec une commande CLI `kafka-delegation-tokens.sh`.
+        - Le token doit être renouvelé avant la période d’expiration (par défaut 1 jour) avec le même fichier de commande CLI.
+      - Côté client, il faut indiquer qu’on utilise l’authentification avec delegation token, et indiquer les valeurs de `TOKENID` et `HMAC` qu’on a pu récupérer au moment de créer le token sur le broker.
+  - On peut configurer une **authentification sur ZooKeeper**, en utilisant SASL.
+    - Ça concerne du coup les brokers et les clients admin.
+    - ZooKeeper a en plus un mécanisme d’autorisation à base d’ACL, permettant d’attribuer 5 types de droits aux utilisateurs anonymes et utilisateurs authentifiés par SASL.
+    - De l’aveu de l’auteur, ajouter une authentification à un ZooKeeper qu’on a déjà isolé dans un réseau à part peut être excessif. Le niveau de sécurité dont on a besoin dépendra du contexte.
+    - Pour activer l’authentification, il faut modifier `zookeeper.properties` et y ajouter la config pour activer SASL.
+      - Il ne faut pas oublier de changer les autorisations qui existent pour les utilisateurs anonymes avec la commande CLI `zookeeper-security-migration.sh`.
+    - Il faut ensuite activer l’authentification sécurisée à ZooKeeper depuis le broker, en ajoutant la propriété `zookeeper.set.acl=true`, et en redémarrant le broker avec l’option `java.security.auth.login.config` pointant vers le fichier de config contenant les identifiants SASL.
+  - Les **clients admin**, que ce soit en script CLI ou de type Kafdrop, doivent aussi être configurés pour se connecter aux brokers qui ont une authentification activée.
+    - Pour les scripts CLI, on peut changer le fichier `client.properties`.
+    - Pour Kafdrop, il faut modifier le fichier `kafka.properties`.
+- Concernant l’**autorisation**.
+  - Kafka a un système d’autorisations sous forme d’ACL centrées sur les ressources.
+    - Il s’agit d’un système distinct de celui de ZooKeeper.
+  - On a la possibilité d’autoriser des droits :
+    - Par utilisateur.
+    - Par host.
+    - Pour un type de ressource particulier (par exemple Topic ou Group).
+    - Pour un pattern spécifique à appliquer aux ressources (par exemple toutes les ressources commençant par un préfix, ou avec des `*` pour dire qu’on peut avoir n’importe quoi dans une partie du nom).
+    - Pour une opération particulière (par exemple `Read`, `Write`, `Describe` etc.).
+  - Pour commencer, il faut activer l’autorisation dans le serveur en ajoutant la classe d’autorisation et la liste des super users dans `server.properties` :
+    ```
+    authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+    super.users=User:admin
+    ```
+    - Les super users sont séparés par des point-virgules.
+    - A partir de là, seuls les super users auront la possibilité de faire des choses. Tous les autres seront bloqués.
+  - Parmi les scripts CLI, `kafka-acls.sh` permet de visualiser et configurer les ACLs.
+  - La bonne pratique c’est d’**assigner des utilisateurs distincts** à chaque application (publisher, consumer etc.).
+    - La même chose vaut pour le user utilisé pour l’inter-broker communication : il vaut mieux lui donner les bons droits plutôt que le mettre en super admin.
+  - Kafka donne la possibilité d’**autoriser ou interdire** pour une règle d’autorisation donnée.
+    - Les règles d’interdiction prennent toujours le pas sur les règles d’autorisation, quelles que soient les granularités.
+    - On peut grâce à ça, par exemple :
+      - Partir du fait que le défaut dans Kafka c’est que tout est interdit pour tout le monde.
+      - Puis mettre une règle qui autorise un droit de lecture sur un topic pour tous les utilisateurs (en utilisant le wildcard “`*`”).
+      - Et enfin mettre des règles interdisant ce droit d’écriture pour certains utilisateurs particuliers (par exemple un utilisateur _guest_ dont on donne les identifiants à ceux qui veulent essayer).
+  - Il y a des moyens de filtrer plus ou moins de choses quand on liste des droits avec le script CLI `kafka-acls.sh` :
+    - On a la possibilité de lister tous les droits qui pourraient s’appliquer au nom qu’on indique (parce qu’ils comportent des règles de wildcard ou de préfix etc.), grâce à l’option `--resource-pattern-type=any`.
+    - Ou alors lister seulement les droits qui portent sur le nom exact qu’on indique, grâce à l’option `--resource-pattern-type=match`.
+  - Kafka permet de créer des règles d’autorisation ou d’interdiction pour les clients basé sur leurs adresses IP.
+    - L’auteur déconseille cette fonctionnalité, étant donné la nature mouvante des topologies de client dans le cloud.
+    - Il conseille à la limite d’utiliser le firewall pour faire ce genre de restrictions.
+  - Il y a en fait quelques **scénarios d’autorisation habituels** qu’on met en place :
+    - **Créer des topics** : l’opération `Create` qu’on attribue pour les topics commençant par un préfixe.
+    - **Supprimer des topics **: l’opération `Delete` sur les topics avec le même préfixe.
+    - **Publier dans un topic** : l’opération `Write` ou `IdempotentWrite` (pour que ça marche avec la publication en mode idempotent), qu’on attribue pour les topics commençant par un préfixe.
+    - **Consommer depuis un topic** :
+      - Pour un consumer sans groupe, il faut l’opération `Read` sur le topic. En général on met le topic exact pour éviter d’augmenter l’exposition des données.
+      - Si le consumer fait partie d’un groupe, alors il faudra aussi l’opération `Read` sur le groupe.
