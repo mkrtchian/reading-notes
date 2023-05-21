@@ -329,7 +329,7 @@
 - La topologie d’équipes, et notamment le type d'interaction, doit **évoluer** en fonction du contexte de l’entreprise.
 - Les interactions entre équipes doivent être claires à chaque instant, et être limitées à ce qui est nécessaire.
 - Il y a 3 modes d’interaction entre équipes :
-  - **Collaboration** : les deux équipes communiquent régulièrement autour d’un sujet particulier sur lequel ils sont en collaboration.
+  - **Collaboration** : les deux équipes communiquent régulièrement autour d’un sujet particulier sur lequel elles sont en collaboration.
     - Ce mode est utile quand deux équipes sont sur de la découverte, de l’**exploration de nouvelles techniques ou technologies**.
     - Il a lieu entre deux équipes avec des compétences complémentaires, nécessaires pour le problème en question.
       - Par exemple : faire du cloud-based sensor management avec une équipe qui a les connaissances cloud, et l’autre les connaissances sur les sensors.
