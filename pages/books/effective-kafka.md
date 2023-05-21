@@ -490,6 +490,7 @@
 
 - Les batchs sont traités par Kafka comme un **processus de bout en bout** : le producer envoie les records par batchs, ils sont stockés comme tels, puis envoyés au consumer sous le même format.
   - Ca permet de recourir à la _zero-copy optimization_, où les données sont copiées depuis le réseau vers le disque, puis à nouveau vers le réseau, sans que le CPU n’ai eu à intervenir pour transformer la donnée.
+    - Dans le cas où TLS serait activé, la zero-copy optimization ne serait plus vraiment possible puisqu’il faudrait au moins déchiffrer ce qu’envoie le producer et chiffrer ensuite pour envoyer au consumer, ce qui utilise du CPU proportionnellement à la donnée.
 - Ce processus de création de batchs arrive quand il y a beaucoup de records à traiter successivement : Kafka va batcher les records qui sont **en attente d’être envoyés** (en limitant la taille des batchs à `batch.size`). Quand le client veut publier au compte goutte, il ne fait pas de batchs.
   - `linger.ms` peut permettre d’avoir plus de batchs : pendant ce temps qu’on attend, des records peuvent s’accumuler pour être batchés.
   - Kafka compte beaucoup sur **du fine tuning fait par des admins** pour la situation précise dans lequel il est utilisé.
