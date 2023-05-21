@@ -268,7 +268,7 @@
       - 2 - D’avoir une procédure cross-équipes pour la résolution d’incidents importants.
     - L’équipe support peut être renommée “service experience team”, pour marquer le fait qu’elle n’est pas que technique.
   - Les **architecture teams** doivent :
-    - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions et les guildes informelles permettant de faire le lien entre équipes.
+    - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions, et les chapters / guildes permettant de faire le lien entre équipes.
     - soit rejoindre des enabling teams **à mi-temps** (pour ne pas trop empiéter sur les stream-aligned teams).
       - Il s'agit avant tout de penser la topologie d’équipes (type d’équipes, et leurs interactions) pour influer naturellement sur l’architecture du système.
 
