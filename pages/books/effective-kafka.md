@@ -590,7 +590,7 @@
 
 ## 15 - Group Membership and Partition Assignment
 
-- Les **consumer groups **permettent de faire du load balancing au niveau de la consommation.
+- Les **consumer groups** permettent de faire du load balancing au niveau de la consommation.
   - Kafka garantit qu’il y aura **au plus un consumer d’un même groupe par partition**.
     - “au plus” pour prendre en compte le cas où aucun consumer ne serait disponible dans le groupe.
   - L’assignation des consumers se passe en deux temps :
@@ -795,7 +795,7 @@
     - Il conseille à la limite d’utiliser le firewall pour faire ce genre de restrictions.
   - Il y a en fait quelques **scénarios d’autorisation habituels** qu’on met en place :
     - **Créer des topics** : l’opération `Create` qu’on attribue pour les topics commençant par un préfixe.
-    - **Supprimer des topics **: l’opération `Delete` sur les topics avec le même préfixe.
+    - **Supprimer des topics** : l’opération `Delete` sur les topics avec le même préfixe.
     - **Publier dans un topic** : l’opération `Write` ou `IdempotentWrite` (pour que ça marche avec la publication en mode idempotent), qu’on attribue pour les topics commençant par un préfixe.
     - **Consommer depuis un topic** :
       - Pour un consumer sans groupe, il faut l’opération `Read` sur le topic. En général on met le topic exact pour éviter d’augmenter l’exposition des données.
