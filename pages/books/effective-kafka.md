@@ -800,3 +800,54 @@
     - **Consommer depuis un topic** :
       - Pour un consumer sans groupe, il faut l’opération `Read` sur le topic. En général on met le topic exact pour éviter d’augmenter l’exposition des données.
       - Si le consumer fait partie d’un groupe, alors il faudra aussi l’opération `Read` sur le groupe.
+
+## 17 - Quotas
+
+- Les quotas servent à :
+  - Empêcher les **attaques DOS** en faisant du throttling.
+  - Aider à **planifier la capacité** de la machine pour assurer une bonne qualité de service.
+    - En particulier quand on commence à avoir suffisamment de clients Kafka pour que les quelques brokers initialement nécessaires commencent à manquer de ressources.
+- Les quotas s’appliquent aux utilisateurs au niveau de **chaque broker**.
+  - Ca veut dire qu’il faut prendre en compte le nombre de brokers, et potentiellement revoir les quotas quand on ajoute des brokers.
+- Il existe deux types de quotas :
+  - **1 - Network bandwidth quotas**.
+    - Vérifie que les producers et consumers ne dépassent pas une certaine quantité de données transférées (en bytes / seconde).
+      - Ca permet d’englober de nombreux aspects : bande passante réseau, ressources I/O, ressources mémoire à cause du buffering, ressources CPU dans le cas du chiffrement TLS.
+    - Le broker calcule l’utilisation de la bande passante de chaque client par fenêtre glissante.
+      - Quand il y a un dépassement, le broker va **introduire artificiellement un délai** avant de répondre. Le client ne saura donc pas s'il a subi une restriction ou si c’est juste des lenteurs réseau.
+  - **2 - Request rate quotas**.
+    - Vérifie que les producers et consumers n’utilisent pas plus d’un certain pourcentage de CPU d’un thread I/O.
+      - 50% correspond à la moitié de l’utilisation du thread I/O, 200% correspond à l’utilisation pleine de 2 threads.
+    - Le _network bandwidth quota_ couvre déjà une grande partie des cas. _Request rate quotas_ vient le compléter dans les cas où **un client a fait un mauvais réglage** qui l’amène à faire un très grand nombre de requêtes vers le serveur, sans qu’il n’y ait forcément beaucoup de données dans ces requêtes.
+      - Ca peut être par exemple si un consumer a configuré une valeur de `fetch.max.wait.ms` très basse, le poussant à faire des requêtes très régulières pour demander plus de records.
+      - Comme autre cas de mauvaise configuration, ça peut aussi être de nombreuses requêtes qui aboutissent à “unauthorized”, ou encore une configuration différente de la compression entre client et serveur, aboutissant à une sur-utilisation du CPU inutile.
+    - Ce mode de quota fonctionne aussi par fenêtre glissante, et ajoute aussi des pénalités d’attente silencieuses en cas de dépassement.
+- Les quotas sont **attribués aux usernames et aux client IDs**.
+  - Les _usernames_ sont ceux qui sont utilisés et vérifiés par Kafka par les mécanismes d’authentification (champ CN du certificat en cas d’authentification par mutual TLS, et champ username en cas d’authentification SASL) et d’autorisation.
+  - Les _client IDs_ sont les identifiants qu’un client **déclare librement** au moment de se connecter au serveur, avec le champ `client.id`.
+  - On utilise souvent une combinaison des deux : le username pour l’authentification, et le client ID pour distinguer plusieurs machines appartenant à la même personne ou au même groupe de personnes.
+- L’attribution se fait via **configuration dynamique**, via le script CLI `kafka-configs.sh` ou un autre client admin.
+  - Il est possible de spécifier des quotas pour un couple username / client ID, sachant que chaque membre du couple de valeurs peut avoir soit une valeur, soit la valeur `&lt;default>`, soit ne pas avoir de valeur.
+    - Le fait de savoir quelle règle de quota va s’appliquer se fait par matching parmi les règles existantes, avec une priorité aux règles les plus précises.
+  - En fonction de la règle de quota qui est retenue pour chaque consumer, **si deux consumers partagent la même règle partageront aussi la valeur du quota**.
+  - D’un point de vue sécurité, l’auteur conseille de spécifier d’abord des valeurs par défaut qui sont très basses (en commençant par le couple username / client ID : `&lt;default>` / `&lt;default>`), et ensuite de les écraser par des règles plus spécifiques ayant des quotas plus larges.
+- La propriété **buffer.memory** (par défaut 32 Mo) côté client permet permet de le bloquer quand le buffer dépasse cette taille, ce qui peut permettre d’éviter le throttling côté serveur.
+- Le fait que **le client ne sache pas s’il fait l’objet de pénalités d’attente** ou s’il y a simplement de la congestion sur le réseau peut poser problème dans certains cas.
+  - Il peut bombarder de requêtes et finir par subir une attente si longue qu’elle dépasserait le delivery timeout. Il pourrait alors avoir tendance à réessayer plusieurs fois, menant à une forme de _congestive collapse_.
+    - En général on peut résoudre ce problème en diminuant la propriété **buffer.memory** (par défaut 32 Mo) côté client pour obliger le client à attendre avant de publier plus que ce qu’il a en buffer.
+  - Parfois on se trouve dans un cas où le client veut publier beaucoup de messages, et parmi eux la plupart des messages sans urgence particulière, et certains messages urgents dont il ne veut pas qu’ils fassent l’objet de ralentissement.
+    - Dans ce cas, il est obligé d’essayer de deviner (par des moyens probabilistes) s’il fait l’objet de pénalités liées au quotas ou pas, pour éviter d’envoyer les autres messages le temps d’envoyer les messages urgents.
+      - 1 - Il peut noter le nombre records envoyés mais pas encore acknowledgés par le broker : normalement ce chiffre devrait augmenter en cas de throttling, et diminuer pour atteindre presque 0 dans le cas contraire.
+      - 2 - Il peut noter le timestamp du dernier record, et le comparer au temps actuel : s’il y a une différence importante, il est possible qu’il y ait eu du throttling.
+- La méthode de **fenêtres glissantes** qui calcule s’il faut appliquer des pénalités d’attente est configurable.
+  - Le calcul se fait sur N samples d’une durée de S secondes, qui se renouvellent sample par sample.
+    - N est configurable par `quota.window.num` (par défaut `11` samples).
+    - S est configurable par `quota.window.size.seconds` (par défaut `1` seconde).
+  - Une fois qu’un client a dépassé le quota dans la fenêtre de samples, il pourra à chaque sample de temps publier une quantité minimale, jusqu’à ce que sa consommation totale sur la fenêtre redescende en dessous de sa limite de quota.
+    - Ça implique qu'un client qui publie à fond produise des pics tous les N samples, suivis de très faibles quantités publiées.
+  - A propos de la stratégie de tuning de ces règles :
+    - Plus on va **augmenter _quota.window.num_**, et plus **le pic ponctuel pourra être élevé** avant de subir une pénalité.
+      - L’auteur conseille d’éventuellement modifier ce paramètre en conséquence.
+    - Plus on va **augmenter _quota.window.size.seconds_**, et plus **le temps d’attente de pénalité sera long**.
+      - L’auteur conseille de ne pas y toucher et de le laisser au minimum, c’est à dire 1 seconde.
+  - Attention cependant, ce comportement non uniforme qui provoque des pics n’est pas documenté, et pourrait être modifié sans avoir besoin d’un process long.
