@@ -388,9 +388,9 @@
       - `retries` soit plus grand que 0.
       - `acks` soit à -1.
     - Le problème de duplication peut se produire dans le cas où l’acknowledgement est en time out, où le broker a reçu les records, mais le client pensant que ça n’a pas marché, les renvoie.
-    - Le mécanisme c’est que chaque broker maintient un système d’ID pour les records qui arrivent, qui s’incrémente à la manière d’un compteur pour les partitions dont il est leader.
+    - Le mécanisme c’est que chaque broker maintient un compteur monotonique pour les records d’un même couple [ producer ID, partition où on publie le record ].
       - Si le record qui arrive est identifié comme étant déjà arrivé, il est ignoré comme duplicata.
-      - Si le record qui arrive se voit attribuer un ID plus grand qu’un incrément de 1, alors le message est considéré comme étant dans le mauvais ordre, et le broker répond une erreur indiquant qu’il faut le requeuer.
+      - Si le record qui arrive se voit attribuer un ID au niveau du compteur plus grand qu’un incrément de 1, alors le message est considéré comme étant dans le mauvais ordre, et le broker répond une erreur indiquant qu’il faut le requeuer.
   - **compression.type** permet d’indiquer l’algo de **compression** qui sera utilisé par le producer (détaillé dans le chapitre 12).
     - Parmi les possibilités :
       - _none_
