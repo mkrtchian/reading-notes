@@ -851,3 +851,70 @@
     - Plus on va **augmenter _quota.window.size.seconds_**, et plus **le temps d’attente de pénalité sera long**.
       - L’auteur conseille de ne pas y toucher et de le laisser au minimum, c’est à dire 1 seconde.
   - Attention cependant, ce comportement non uniforme qui provoque des pics n’est pas documenté, et pourrait être modifié sans avoir besoin d’un process long.
+
+## 18 - Transactions
+
+- Les transactions permettent de réaliser des **exactly-once deliveries à travers une pipeline de plusieurs jobs** (qu’on appelle _stages_) chaînés via des topics Kafka successifs.
+  - Ils y arrivent parce qu’ils permettent de **réaliser l’idempotence à travers plusieurs stages**, et qu’en combinant ça avec l’_at-least-one delivery_, on obtient l’_exactly-one delivery_.
+- La **problématique** est la suivante :
+  - On part d’un cas où on a un stage qui a besoin de consommer un topic Kafka, et pour chaque record consommé, publier un record dans un autre topic Kafka.
+    - On ne s’intéresse pas ici à d’autres side-effects comme l’écriture en DB pour laquelle les transactions Kafka ne peuvent rien, mais bien seulement aux messages Kafka publiés et consommés.
+  - Les problèmes suivants peuvent se produire :
+    - Des **erreurs réseau et des crashs du serveur**, pour lesquelles on n’a pas besoin des transactions.
+      - Le consumer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas fait le commit.
+      - Le producer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas reçu d’acknowledgement, et au mécanisme d’idempotence qui garantit l'ordre et la déduplication.
+    - Pour les **crashs du process client **on a un point faible : le cas où le client a déjà commencé à exécuter la callback du record, et est arrivé jusqu’à publier le record sortant, mais **n’a pas encore fait le commit de son offset** en tant que consumer.
+      - S’il crash à ce moment-là, la prochaine fois qu’il se réveille il va traiter le même record entrant, et va publier encore le record qu’il avait déjà publié.
+      - On a donc un risque de publier le message sortant plusieurs fois, sans que la publication avec l’option d’idempotence ne puisse rien y faire, puisqu’il ne s’agit pas de retries d’un même message.
+  - Le même problème peut se généraliser avec la publication de plusieurs messages qui doivent tous n’être publiés qu'une fois par le stage.
+- Alors que Kafka permet de base une bonne _durability_ (notamment grâce à la réplication des données dans chaque broker), avec le mécanisme de transactions il se voit doté d’autres caractéristiques d’**ACID** :
+  - Atomicity : l’ensemble des messages publiés dans une même transaction sont soit tous validés, soit tous non validés, y compris dans des topics et partitions différents.
+  - Consistency : on ne se retrouve pas dans un demi-état, soit tous les records sont validés, soit aucun.
+  - Isolation : les transactions faites en parallèle ont le même résultat que si elles étaient faites les unes après les autres.
+- D’un point de vue performance, on n’a que 3 à 5% de diminution du throughput quand on utilise les transactions.
+- Pour ce qui est du **fonctionnement détaillé**.
+  - Les **transaction coordinators** tournent sur les brokers.
+    - Ils ont pour rôle :
+      - 1 - d’assigner un ID à chaque producer (Producer ID, ou PID) qui en fait la demande.
+      - 2 - gérer le statut des transactions dans un topic caché de Kafka (dont le nom est `__transaction_state`).
+    - Pour que le système de transactions fonctionne, il faut que **le PID du producer reste le même entre deux records consommés**.
+      - Et pour ça, il faut que le producer du stage suivant déclare le même `transactional.id` que le précédent.
+        - Ce qui a pour effet que le transaction coordinator va assigner le même PID, tant que le délai `transactional.id.expiration` (par défaut 1 semaine) n’est pas dépassé.
+      - L’association [ transactional ID, PID ] contient aussi une propriété **epoch** qui indique la date de la dernière mise à jour de cette association.
+        - Ce mécanisme permet de bloquer les process client zombies, c’est-à-dire qui ont été éjectés, mais qui continuent de penser que c’est à eux de publier : si leur epoch est plus ancien, ils ne pourront pas publier.
+  - L’essentiel de l’aspect transactionnel se passe côté **API du producer**.
+    - Le client producer Java a ces méthodes :
+      - `initTransactions()` permet d’initialiser le système de transactions pour un producer donné.
+        - On ne l’appelle qu’une fois, et ça assigne un PID et un epoch pour l’association [ transactional ID, PID ].
+        - Ça va aussi attendre que les transactions précédentes associées à ce transactional ID soient terminées (soit COMMITED, soit ABORTED).
+      - `beginTransaction()` permet de commencer la transaction.
+      - `sendOffsetsToTransaction()` envoie les offsets du consumer.
+        - Le consumer va donc faire son commit à travers l’API du producer, et non pas avec sa méthode commit habituelle.
+        - Il faut bien sûr que l’auto-commit soit désactivé pour le consumer.
+      - `commitTransaction()` permet de valider la transaction.
+      - `abortTransaction()` permet de l’annuler.
+  - Le **choix du transactional ID** est un des sujets majeurs de confusion autour des transactions Kafka.
+    - Parmi les possibilités naïves qu’on pourrait imaginer :
+      - Si on lui attribue une même valeur parmi l’ensemble producer process d’un même stage, seul le producer le plus récent pourra prendre la main, en transformant les producers qui sont issus de la lecture de toutes les autres partitions, en zombies.
+      - Si on lui attribue une valeur complètement aléatoire et unique du type UUID, alors aucun producer ne sera transformé en zombie, pas même ceux qui auront été éjectés à cause d’un timeout.
+        - Ces process à qui on aurait enlevé la responsabilité de leurs partitions, et qui seraient encore en train d’attendre qu’une transaction se termine, pourraient encore bloquer le fait que de nouveaux messages apparraissent dans leurs anciennes partitions pendant `transactional.id.expiration.ms` (par défaut 1 heure).
+        - Dans le cas où ces process auraient encore des messages dans leur buffer, ils pourraient aussi continuer à exécuter leurs callbacks.
+    - La bonne solution est d’assigner un transactional ID composé de la **concaténation entre l’input topic et l’index de la partition de ce topic** qu’on est en train de consommer.
+      - Le résultat c’est potentiellement un grand nombre de producers créés, avec chacun son transactional ID composé du topic et de l’index de la partition.
+  - Côté **consumers**, la notion de transaction se matérialise dans le choix de ce qui sera lu.
+    - Quand le producer publie des messages dans des topics dans le cadre d’une transaction, il va les **publier directement et de manière irrévocable**, mais ils seront entourés de **markers**.
+      - Il y a un marker pour indiquer le début de la transaction dans la partition, et un autre pour indiquer fin de transaction réussie (COMMITTED) ou échouée (ABORTED).
+    - Le consumer dispose d’une option `isolation.level` (par défaut `read_uncommited`).
+      - La valeur `read_uncommited` permet de lire tous les records de la partition, ceux qui ne font pas partie d’une transaction comme ceux qui en font partie, que la transaction soit validée, annulée, ou toujours en cours.
+      - La valeur `read_commited` permet de ne lire que les records qui ne font pas partie d’une transaction, ou ceux qui sont dans une transaction validée.
+        - Pour un consumer qui a `read_commited` activé, l’End Offset est remplacé par la notion de **LSO (Last Stable Offset)**, qui pointe vers le dernier record qui ne fait pas partie d’une transaction non terminée.
+        - Tant que la transaction est en cours, le consumer ne pourra pas lire plus loin.
+- Les transactions ont un certain nombre de **limitations**.
+  - Le système de transaction de Kafka n’est pas compatible avec d’autres systèmes de transaction comme A ou JTA.
+  - Une transaction est limitée à un même producer (même transactional ID, même PID).
+  - La transaction peut être **lue de manière partielle** par des consumers : il suffit que le consumer n’ait à sa charge que certaines partitions où la transaction a publié des messages, mais pas les autres.
+  - La exactly-once delivery ne s‘applique pas aux side effects en dehors de Kafka : par exemple on peut jouer une callback plusieurs fois, et ajouter plusieurs entrées en DB, même si côté Kafka les messages sont bien publiés exactly-once.
+- **Faut-il utiliser les transactions ?**
+  - On peut se poser la question de la complexité additionnelle par rapport à ce que ça apporte : une déduplication des messages à travers les stages.
+    - Dans le cas où la consommation de nos messages n’a que des side-effects idempotents, alors avoir des messages en double dans Kafka peut ne pas être problématique.
+    - D’un autre côté, la complexité en question peut être abstraite dans une couche adapter.
