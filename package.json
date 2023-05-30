@@ -13,20 +13,20 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "next": "13.4.3",
+    "next": "13.4.4",
     "nextra": "^2.4.2",
     "nextra-theme-docs": "^2.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "20.2.3",
+    "@types/node": "20.2.5",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
-    "@typescript-eslint/parser": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.7",
     "eslint": "8.41.0",
-    "eslint-config-next": "13.4.3",
+    "eslint-config-next": "13.4.4",
     "eslint-config-prettier": "^8.8.0",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
