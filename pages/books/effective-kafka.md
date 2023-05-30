@@ -222,8 +222,8 @@
   - On peut avoir une delivery **at-least-once**, en ne faisant le commit qu’après exécution complète de la callback du consumer.
     - C’est utile dans le cas où la perte de donnée n’est pas acceptable, et où on est prêt à recommencer certains messages pour l’éviter.
     - Par contre on doit être prêt à avoir la callback potentiellement exécutée plusieurs fois.
-  - Et enfin, si on veut une delivery **exactly-once**, on ne peut malheureusement pas compter sur le message broker à lui seul, on doit s’assurer d’avoir un flow **idempotent**.
-    - On pourrait le vouloir pour avoir à la fois la consistance parce que la perte de donnée ou le fait de ne pas faire une action n’est pas acceptable, mais où le fait de le faire deux fois n’est pas acceptable non plus.
+  - Et enfin, si on veut une delivery **exactly-once**, on ne peut malheureusement pas compter sur le message broker à lui seul : on doit s’assurer d’avoir un flow **idempotent**.
+    - On pourrait le vouloir pour avoir à la fois la consistance parce que la perte de donnée ou le fait de ne pas faire une action n’est pas acceptable, mais en même temps où le fait de le faire deux fois n’est pas acceptable non plus.
     - Pour réussir ça, on a besoin d’avoir une **idempotence de bout en bout**, c’est à dire que :
       - La callback du consumer ne doit faire que des changements idempotents. Par exemple un update en DB qui ne change pas l’état de la DB quand il est joué plusieurs fois.
       - Le consumer doit vérifier si les side-effects qu’il fait ont déjà été faits pour ne pas les refaire une 2ème fois. Par exemple, Kafka offre un mécanisme de transaction qui permet de ne publier qu’une fois dans un topic sortant pour un message d’un topic entrant.
