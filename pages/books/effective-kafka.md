@@ -270,10 +270,10 @@
   - `advertised.listeners` permet d’indiquer les URI qui seront envoyées aux clients qui demandent la liste des adresses des brokers. C’est ça qu’il faut configurer avec le bon hostname pour résoudre le problème de config.
   - Dans le cas où on a des clients situés dans des environnements réseau différents, on a besoin de leur advertiser des adresses différentes pour les mêmes brokers.
     - C’est le cas par exemple si on a un VPC (virtual private cloud) avec le cluster Kafka et des clients, et d’autres clients situés à l’extérieur et ne pouvant pas accéder aux adresses IP internes au VPC.
-    - Dans ce cas, on va pouvoir configurer plusieurs URI sur lesquels écoute chaque broker (dans `listeners`), et plusieurs URI qui sont advertised (dans `advertised.listeners`).
+    - Dans ce cas, on va pouvoir configurer plusieurs URI (ou plutôt sockets) sur lesquels écoute chaque broker (dans `listeners`), et plusieurs URI qui sont advertised (dans `advertised.listeners`).
       - Il faut faire attention à indiquer des ports différents pour chacune des URI si on ne veut pas de problèmes.
 - Les problématiques de bootstrapping se posent largement dans les environnements conteneurisés. La simple utilisation de **docker-compose** nous amène à avoir l’équivalent d’un VPC interne aux containers lancés par docker-compose, et un mapping de port vers la machine hôte.
-  - Exemple de config Kafka dans un docker-compose :
+  - Exemple de config Kafka dans un _docker-compose_ :
     ```yml
     kafka:
       image: bitnami/kafka:2
@@ -292,13 +292,13 @@
       depends_on:
         - zookeeper
     ```
-  - On définit ici deux protocoles propres à Kafka (et associés au type `PLAINTEXT`, donc non sécurisés) : un qu’on appelle `INTERNAL` pour l’URI depuis le réseau interne des containers docker-compose, et un autre qu’on appelle `EXTERNAL` pour le réseau de l’hôte.
+  - On définit ici deux protocoles propres à Kafka (et associés au type `PLAINTEXT`, donc non sécurisés) : un qu’on appelle `INTERNAL` pour l’URI depuis le réseau interne des containers _docker-compose_, et un autre qu’on appelle `EXTERNAL` pour le réseau de l’hôte.
   - `KAFKA_LISTENERS` est l’équivalent de `listeners` dans `config/server.properties`, c’est-à-dire les sockets sur lesquels le broker écoute.
     - On choisit deux ports différents qui permettent de différencier les connexions internes et externes, et on indique qu’on écoute sur toutes les interfaces possibles (en n’indiquant aucun hostname ni adresse IP).
   - `KAFKA_ADVERTISED_LISTENERS` est l’équivalent de `advertised.listeners`, c’est-à-dire les adresses URI communiquées aux clients pour joindre le broker.
-    - On indique bien le hostname `localhost` aux clients du réseau externe, et le hostname `kafka` aux clients du réseau interne (le nom des containers sert aussi de hostname dans docker-compose).
+    - On indique bien le hostname `localhost` aux clients du réseau externe, et le hostname `kafka` aux clients du réseau interne (le nom des containers sert aussi de hostname dans _docker-compose_).
   - `KAFKA_INTER_BROKER_LISTENER_NAME` permet d’indiquer quel protocole doit être utilisé pour la communication avec les autres brokers du cluster.
-  - `depends_on` permet d’indiquer l’ordre dans lequel on start les containers dans docker-compose.
+  - `depends_on` permet d’indiquer l’ordre dans lequel on start les containers dans _docker-compose_.
 
 ## 9 - Broker Configuration
 
