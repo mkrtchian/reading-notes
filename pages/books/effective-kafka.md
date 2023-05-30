@@ -315,16 +315,16 @@
 - Quelques infos sur les **changements de config des brokers**.
   - Sur la configuration **statique**.
     - Toutes les propriétés de `config/server.properties` sont optionnelles, sauf `zookeeper.connect` qui contient la liste des adresses des nœuds ZooKeeper.
-    - Il est considéré comme une bonne pratique de spécifier la propriété `broker.id` qui représente l’identifiant du broker. Si on ne le fait pas, ZooKeeper assignera un ID automatiquement à chaque broker (par défaut en commençant par `1001`).
+    - Il est considéré comme une **bonne pratique** de spécifier la propriété `broker.id` qui représente l’identifiant du broker. Si on ne le fait pas, ZooKeeper assignera un ID automatiquement à chaque broker (par défaut en commençant par `1001`).
       - Pour changer cette propriété, il faut :
         - D’abord arrêter le broker.
         - Faire le changement dans `server.properties`.
         - Faire le changement dans le fichier `meta.properties` (qui se trouve dans le dossier de log du broker), ou même supprimer le fichier `meta.properties` qui sera régénéré.
-          - Le dossier de log contient des fichiers essentiels avec l’info des partitions et des records (rien à voir avec du logging).
+          - Le dossier de log contient des fichiers essentiels avec l’info des partitions et des records (rien à voir avec du logging, on parle des données de Kafka).
           - Son path est configurée avec l’option `log.dirs`, par défaut c’est `/tmp/kafka-logs`.
         - Redémarrer le broker.
   - Sur la configuration **dynamique**.
-    - On peut changer la config via l’outil CLI fourni par Kafka sous forme de script bash : `kafka-configs.sh`, ou via une librairie cliente qu’on tierce qui va se connecter à Kafka.
+    - On peut changer la config via l’outil CLI fourni par Kafka sous forme de script bash : `kafka-configs.sh`, ou via une librairie cliente tierce qui va se connecter à Kafka.
       - Par exemple pour afficher la liste des configurations dynamiques pour le broker 1001 sur un Kafka qui tourne localement :
         ```bash
         ./kafka-configs.sh
