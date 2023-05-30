@@ -16,7 +16,6 @@
       - Parmi les autres possibilités qu’on aurait pour l’exemple e-commerce :
         - On peut les mettre dans un monolith (non-modulaire), mais la complexité risque d’augmenter à mesure que le modèle global est enrichi.
         - On peut utiliser des patterns d’intégration : des messages synchrones envoyés par le composant e-commerce ou par les deux autres. Dans ce cas on se rapproche du distributed monolith parce que les composants ne seront pas indépendants.
-          - NDLR : toute communication synchrone relèverait du distributed monolith, un peu violent…
         - On peut utiliser la _data decapsulation_, où les composants BI et CRM viennent lire la DB du composant e-commerce. Dans ce cas on se retrouve dans un mode “get rich quick scheme” qui mène toujours à des pleurs. Le couplage est maximal.
       - Cet exemple montre que **l’EDA scale de manière linéaire**, alors qu’avec les approches plus couplées, la complexité explose quand on scale le nombre de composants.
   - L’EDA est beaucoup **plus résilient** que les approches couplées : si un composant est en situation d’échec, il a peu de chances d’impacter d’autres composants.
@@ -32,7 +31,7 @@
   - L’EDA n’est cependant pas adaptée dans certains cas.
     - Elle n’est **pas adaptée aux interactions synchrones**.
     - Par contre, dans les cas où on peut l’utiliser, elle permet des améliorations significatives des aspects non fonctionnels.
-- L’**event streaming** est un moyen d’obtenir un stream **durable** et **ordonné**, d’events **immutables**, délivrés aux consumers qui ont souscrit.
+- L’**event streaming** est un moyen d’obtenir un stream **durable** et **ordonné** d’events **immutables**, délivrés aux consumers qui ont souscrit.
   - L’event streaming n’est pas nécessaire pour implémenter l’EDA, qui peut d’ailleurs être implémenté dans un monolith (cf. outils comme React qui sont basés sur des events).
   - En revanche l’**event streaming est pertinent** comme choix face aux solutions concurrentes (comme les message queues) **dans le cadre d’EDA distribuées**, parce qu’il a été conçu pour ça.
     - L’event streaming supporte nativement l’immutabilité des events.
@@ -58,7 +57,7 @@
   - **SEDA pipelines** : le Stage Event-Driven Architecture est l’implémentation d’une pipeline d’events, où on fait une opération à chaque étape, avant d'émettre un event modifié pour l’étape suivante.
     - C’est typiquement utilisé avec les data warehouses, data lakes, le reporting et autres outils de BI.
     - On peut voir le log aggregation comme une forme de SEDA.
-  - **CEP** : le Complex Event Processing consiste à un composant qui consomme des events de multiples sources, et en extrait l’information pertinente.
+  - **CEP** : le Complex Event Processing consiste en un composant qui consomme des events de multiples sources, et en extrait l’information pertinente.
     - Il a souvent besoin d’un stockage pour se rappeler les patterns déjà vus et y réagir.
     - Ça peut être par exemple pour le trading algorithmique, l’analyse des menaces de sécurité, l’analyse de fraude en temps réel etc.
   - **Event-sourced CQRS** : Kafka se place entre la DB master et les DBs de projection, en permettant de les alimenter chacune au travers du concept de _consumer groups_.
