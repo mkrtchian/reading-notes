@@ -72,16 +72,16 @@
       - Un même nœud peut être master pour certaines partitions, et follower pour d’autres.
       - L’ownership peut passer à un autre nœud en cas de besoin (opération spéciale qui le nécessite ou échec du nœud qui était master de la partition).
       - Concernant l’attribution de l’ownership, ça se fait d’abord en élisant un des nœuds comme _cluster controller_, puis celui-ci assigne l’ownership des partitions au gré des besoins.
-    - Augmenter le nombre de nœuds constitue un moyen de scaler Kafka.
-      - On peut améliorer la durability en ayant plusieurs copies de chaque partition (autant que le nombre de nœuds).
-      - On peut améliorer l’availability pour les données en lecture.
+    - Augmenter le nombre de nœuds brokers constitue un moyen de scaler Kafka.
+      - On peut améliorer la _durability_ en ayant plusieurs copies de chaque partition (jusqu'à autant que le nombre de nœuds).
+      - On peut améliorer l’_availability_ pour les données en lecture.
   - **Zookeeper nodes** : Zookeeper est un projet open source distinct de Kafka.
     - Ses nœuds sont chargés d’élire le broker qui sera le _cluster controller_, de garantir qu’il n’y en ait qu’un, et d’en réélire un s’il n’est plus opérationnel.
     - Ils fournissent aussi diverses métadonnées à propos du cluster, par exemple l’état des différents nœuds, des informations de quotas, les access control list etc.
   - **Producers** : les applications clientes qui écrivent dans les topics.
     - Un producer communique avec Kafka via TCP, avec une connexion par broker node.
   - **Consumers** : les applications clientes qui lisent des topics.
-- Le fonctionnement de Kafka se base sur des notions d’ordering venant de la théorie des ensembles (set theory).
+- Le fonctionnement de Kafka se base sur des notions d’ordering venant de la théorie des ensembles (_set theory_).
   - Le **total ordering** consiste à avoir un ensemble d’éléments dont une **seule configuration est possible**.
     - On peut l’illustrer avec un set de nombres entiers `{ 2, 4, 6 }`. Si on enlève l’élément 4, puis qu’on le remet, il ne pourra qu’être à la 2ème place, avant le 6 et après le 2.
   - Le **partial ordering** consiste à avoir un ensemble d’éléments ordonnés selon un critère spécifique, mais dont **plusieurs configurations sont possibles** pour satisfaire le critère.
@@ -94,11 +94,11 @@
   - Ils sont composés :
     - D’attributs assez classiques : la _value_ qui peut être sous forme binaire, des _headers_ pour donner des métadonnées, la _partition_ associée au record, l’_offset_ par rapport aux autres records de la partition, un _timestamp_.
       - La combinaison _partition_ + _offset_ permet d’identifier un record de manière unique.
-      - L’_offset_ est une valeur entière qui ne peut qu’augmenter, même s'il peut y avoir des gaps entre deux offsets qui se suivent.
+      - L’_offset_ est une valeur entière qui ne peut qu’augmenter, même s'il peut y avoir des gaps entre deux offsets qui se suivent (cf. compaction chapitre 14).
     - D’un champ binaire un peu plus inhabituel qui est la _key_, et qui est utilisée par Kafka pour associer les records avec une même partition.
   - Kafka est largement utilisé pour traiter des events à l’intérieur d’un bounded context, tout comme les events entre bounded contexts.
   - Il est aussi de plus en plus utilisé en remplacement des brokers traditionnels (**RabbitMQ**, **ActiveMQ**, **AWS SQS/SNS**, **Google Cloud Pub/Sub** etc.). Dans ce cas, les records ne correspondent pas forcément à des events, et on n’est pas forcément dans de l’EDA.
-- Les **partitions** sont l’unité de stream principale qui contiennent les records.
+- Les **partitions** sont l’unité de stream principale qui contient les records.
   - Les records d’une même partition sont _totally ordered_.
   - Les records publiés dans une partition par un même producer seront donc aussi _causally ordered_ (la précédence respectée).
     - En revanche, si plusieurs producers publient dans la même partition sans eux-mêmes se synchroniser entre eux, les records de chaque producer seront causally ordered pour un même producer, mais ne le seront pas entre les producers (ça dépendra de qui l’a emporté pour publier plus vite).
@@ -125,7 +125,7 @@
     - On peut passer d’une stratégie _at-most-once_ à une stratégie _at-least-once_ en faisant le commit après l’exécution de la callback au lieu du moment où le message est pris par le consumer.
     - Par défaut, Kafka va faire un commit toutes les 5 secondes, sauf si un record est toujours en train d‘être exécuté, auquel cas il attendra la prochaine occasion 5 secondes plus tard.
       - On peut régler cette durée de 5 secondes à une autre valeur avec la configuration `auto.commit.interval.ms`.
-      - Ça implique que si le record est exécuté, et que dans les quelques secondes après, le cluster bascule la partition sur un autre consumer, on risque de ne pas avoir commité et de réexécuter la callback du record dans le nouveau consumer.
+      - Ça implique que si le record est exécuté, et que dans les quelques secondes après le cluster bascule la partition sur un autre consumer, on risque de ne pas avoir commité et de réexécuter la callback du record dans le nouveau consumer.
       - Si on veut avoir le contrôle sur le moment exact où on veut faire le commit, on peut désactiver le commit automatique (configuration `enable.auto.commit` à `false`), et le faire à la main dans le consumer.
   - Le commit peut se faire via un canal in-memory asynchrone pour ne pas bloquer le consumer, avec la possibilité de fournir une callback qui sera exécutée par Kafka quand le commit aura été pris en compte
     - Ou alors le consumer peut aussi utiliser un appel synchrone pour le commit.
