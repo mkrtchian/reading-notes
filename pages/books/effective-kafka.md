@@ -346,7 +346,7 @@
     - On voit aussi de plus un shift vers les versions de serveurs Kafka pré-configurées. Ça ne peut pas être le cas des clients.
 - **La plupart des problèmes** avec Kafka viennent d’une **mauvaise utilisation côté client**, parce que les développeurs ne le connaissent pas assez bien.
   - Exemple : il est notoire que Kafka offre des garanties importantes pour ce qui est de la durabilité des records. Mais en réalité ça dépend des paramètres.
-    - Il y a déjà la question du stockage, lui-même influencé par le nombre de brokers.
+    - Il y a déjà la question du stockage, elle-même influencée par le nombre de brokers.
     - Et ensuite il y a des configurations côté client :
       - Le replication factor et quelques autres pour ce qui est de s’assurer que la donnée reste en cas de problème avec certaines machines.
       - Le nombre d’acknowledgements que le broker leader de la partition doit demander avant de considérer le record comme validé, et le fait d’attendre soi-même l’acknowledgement du leader avant de considérer le message comme publié.
@@ -360,7 +360,7 @@
   - **retries** indique le nombre de fois qu’on va recommencer une opération qui se termine par une erreur transiente, c’est-à-dire qui peut potentiellement ne pas se reproduire en réessayant.
     - **retry.backoff.ms** indique la durée d’attente avant de réessayer.
     - Par défaut on bourrine, en recommençant un nombre infini de fois toutes les 100 ms.
-    - L’autre possibilité c’est en gros de limiter les retries, en ayant conscience que du coup on se retrouvera à un moment où un autre à avoir des opérations qui sont en erreur pour des raisons temporaires. Mais on ne bloquera pas pendant longtemps.
+    - L’autre possibilité c’est en gros de limiter les retries, en ayant conscience que du coup on se retrouvera à un moment où un autre à avoir des opérations qui sont en erreur pour des raisons temporaires. Mais on n'aura pas bloqué pendant longtemps.
   - Quand on veut utiliser Kafka dans des **tests d’intégration**, il faut prendre en compte que le fait de le lancer dans un environnement virtualisé type Docker va ralentir considérablement son démarrage.
     - Le fait que Kafka écoute sur le port ne suffit pas pour qu’il soit prêt à accepter des requêtes. Il peut donc falloir attendre un certain temps au début des tests pour qu’il démarre.
     - Et c’est encore pire avec Docker sur MacOS.
@@ -431,12 +431,13 @@
     - La propriété **timeout** donnée à `Consumer.poll()` permet de limiter son temps d’exécution.
     - **fetch.min.bytes** (par défaut 1) permet de demander au broker d’attendre d’avoir au moins un minimum de données à envoyer avant de les envoyer.
       - En réalité, le broker doit quand même envoyer une requête même s’il n’a pas assez de données, dans le cas où il dépasse un timeout fixé par **fetch.max.wait.ms** (par défaut 500 ms).
-    - **fetch.max.bytes** (par défaut 50 MB) indique au broker à partir de quelle taille il doit arrêter d’ajouter des données. Vu qu’un record (et donc à fortiori un batch) peut de toute façon dépasser cette taille, la limite n’est qu’indicative.
+    - **fetch.max.bytes** (par défaut 50 MB) indique au broker à partir de quelle taille il doit arrêter d’ajouter des données.
+      - Vu qu’un record à lui seul (et donc à fortiori un batch) peut de toute façon dépasser cette taille, la limite n’est qu’indicative.
       - La même propriété limite existe pour la taille des partitions : **max.partition.fetch.bytes** (par défaut 1 MB).
         - Cette propriété permet de limiter l’impact des partitions “gourmandes”, en laissant de la place aux partitions qui ont moins de données.
-      - Intéressant à savoir : les brokers ne font pas de traitement sur les batchs. **Les batchs sont envoyés par les producers, stockés tels quels, et envoyés tels quels aux consumers**. C’est un choix de design de Kafka pour garantir une grande performance.
+      - Intéressant à savoir : les brokers ne font en général pas de traitement sur les batchs. **Les batchs sont envoyés par les producers, stockés tels quels, et envoyés tels quels aux consumers**. C’est un choix de design de Kafka pour garantir une grande performance.
     - **max.poll.records** (par défaut 500) permet de limiter le nombre de records retournés par `Consumer.poll()`.
-      - Contrairement aux autres propriétés, celle-ci n’impacte pas le broker. C’est le client qui reçoit le même nombre de records par batch, va lui-même limiter ceux qu’il rend disponible. Il bufferise les autres pour les rendre disponibles à l’appel suivant.
+      - Contrairement aux autres propriétés, celle-ci n’impacte pas le broker. C’est le client qui reçoit le même nombre de records par batch, et il va lui-même limiter ceux qu’il rend disponible. Il bufferise les autres pour les rendre disponibles à l’appel suivant.
       - Elle est là pour éviter que le client n’ait à traiter trop de records, et ne puisse pas appeler à nouveau `poll()` avant `max.poll.interval.ms`.
   - **group.id** permet d’indiquer le groupe d’un consumer. Si on ne le fournit pas, il deviendra sans groupe, et ne pourra pas bénéficier des mécanismes de d’assignation automatique de partition, détection des échecs, ni faire de commits au serveur pour sauvegarder son offset.
   - **group.instance.id** consiste à indiquer un identifiant à un consumer, unique dans son groupe, rendant le consumer _static_. L’effet est que si le consumer n’est plus là, sa partition n’est pas réassignée, mais reste en attente de son retour.
@@ -445,13 +446,13 @@
   - La **détection d’échecs** est contrôlée par la combinaison de `heartbeat.interval.ms`, `session.timeout.ms` et `max.poll.interval.ms`.
     - Ce sujet fait partie des sujets délicats, source de nombreux problèmes.
     - **heartbeat.interval.ms** (par défaut 3 secondes) contrôle la fréquence à laquelle le consumer envoie des heartbeats.
-    - Le broker coordinator du groupe de son côté vérifie que le consumer n’envoie pas son prochain heartbeat après le délai de **session.timeout.ms** (par défaut 10 secondes). Sinon il l’expulse et réassigne ses partitions dans le groupe.
+    - Le broker _coordinator_ du groupe de son côté vérifie que le consumer n’envoie pas son prochain heartbeat après le délai de **session.timeout.ms** (par défaut 10 secondes). Sinon il l’expulse et réassigne ses partitions dans le groupe.
     - **max.poll.interval.ms** (par défaut 5 minutes) est le délai maximal pour qu’un consumer rappelle `poll()`. S'il ne l’a pas fait, il va lui-même arrêter d’envoyer des heartbeats et demander à quitter le groupe.
       - Si le consumer est statique, il arrête les heartbeats mais ne demande pas à quitter le groupe. Il sera évincé par le broker s’il dépasse la `session.timeout.interval` sans avoir réémis de heartbeats.
       - Le but de ce comportement est d’éviter les situations où plusieurs consumers traitent les mêmes messages.
   - **auto.reset.offset** permet d’indiquer ce qui se passe quand un consumer n’a pas d’offsets pour la partition qu’il consomme.
     - Les options sont : `earliest` pour partir du low water mark, `latest` pour partir du high water mark, et `none` pour renvoyer une exception.
-    - Les offsets sont stockés par le group coordinator dans un topic nommé `__consumer_offsets`. Ce topic a un temps de rétention comme n’importe quel topic (par défaut 7 jours).
+    - Les offsets sont stockés par le _group coordinator_ dans un topic nommé `__consumer_offsets`. Ce topic a un temps de rétention comme n’importe quel topic (par défaut 7 jours).
     - L’offset peut ne pas exister si :
       - 1 - C’est le début de la formation du groupe et que la partition n’a pas encore été lue par lui.
       - 2 - Quand rien n’a été consommé sur cette partition par le groupe (et donc aucun offset n’a été commité dans `__consumer_offsets`) depuis plus longtemps que le délai de rétention de `__consumer_offsets`.
@@ -465,7 +466,7 @@
   - **isolation.level** permet d’indiquer le type de comportement d’une transaction vis-à-vis du consumer.
     - La valeur `read_uncommitted` va renvoyer tous les records sans prendre en compte les transactions.
     - La valeur `read_committed` va renvoyer les records qui ne font pas partie des transactions, et ceux qui font partie de transactions validées, mais pas ceux qui font partie de transactions qui ne sont pas encore validées.
-      - Pour garantir l’ordre, tous les records qui doivent se trouver après les records qui sont dans des transactions non validées seront aussi bloqués le temps de la transaction.
+      - Pour garantir l’ordre, tous les records qui doivent se trouver après les records qui sont dans des transactions non validées, seront aussi bloqués le temps de la transaction.
 
 ## 11 - Robust Configuration
 
