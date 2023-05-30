@@ -234,11 +234,11 @@
 - Le client Java a des serializers de base et une interface à implémenter pour créer des serializers Kafka custom.
   - Pour l’auteur, même si cette approche est idiomatique, il vaut mieux avoir Kafka et tout ce qui y est lié isolé dans une couche de messaging pour que la logique business n’y soit pas liée et soit testable.
     - L’auteur préfère **laisser la sérialisation côté logique business**, et donc conseille de ne pas utiliser les serializers custom de Kafka dans ce cas.
-  - Et de la même manière, les choses spécifiques à Kafka comme le fait de mettre l’ID des customers comme clé, doivent être dans la couche de messaging pour être les mêmes pour tous les use cases.
+  - Et de la même manière, les choses spécifiques à Kafka comme le fait de mettre l’ID des customers comme clé, doivent être dans la couche de messaging pour pouvoir être mis en commun entre les use cases.
 - Quand on est en mode **commit manuel**, on peut appeler la fonction qui fait le commit de manière asynchrone **sans l’attendre**.
   - Ça aura pour effet d’avoir plus d’offsets pas encore commités mais un throughput plus élevé.
-  - On respecte quand même le at-least-one delivery.
-- Dans le cas où on utilise le mécanisme de poll-process loop (où on consomme les messages par batch), le client Java va avoir deux threads : un pour aller chercher plus de records et un autre pour faire le processing des records qui sont déjà là.
+  - On respecte quand même le _at-least-one delivery_.
+- Dans le cas où on utilise le mécanisme de _poll-process loop_ (où on consomme les messages par batch), le client Java va avoir deux threads : un pour aller chercher plus de records et un autre pour faire le processing des records qui sont déjà là.
   - Il s’agit là d’un mécanisme de **pipelining**, où la 1ère étape va chercher de la donnée pour la mettre dans le buffer suivant jusqu’à ce que le buffer soit plein, auquel cas elle attend avant de continuer.
   - L’auteur propose une version encore plus parallélisée, en ajoutant une 3ème étape dans la pipeline pour séparer la désérialisation du reste du traitement du message.
     - L’avantage c’est que ça peut augmenter le throughput, mais l’inconvénient c’est une utilisation plus intensive du CPU.
