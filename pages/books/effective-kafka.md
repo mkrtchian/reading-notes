@@ -793,7 +793,7 @@
   - Kafka permet de créer des règles d’autorisation ou d’interdiction pour les clients basé sur leurs adresses IP.
     - L’auteur déconseille cette fonctionnalité, étant donné la nature mouvante des topologies de client dans le cloud.
     - Il conseille à la limite d’utiliser le firewall pour faire ce genre de restrictions.
-  - Il y a en fait quelques **scénarios d’autorisation habituels** qu’on met en place :
+  - Voilà quelques **scénarios d’autorisation habituels** qu’on met en place :
     - **Créer des topics** : l’opération `Create` qu’on attribue pour les topics commençant par un préfixe.
     - **Supprimer des topics** : l’opération `Delete` sur les topics avec le même préfixe.
     - **Publier dans un topic** : l’opération `Write` ou `IdempotentWrite` (pour que ça marche avec la publication en mode idempotent), qu’on attribue pour les topics commençant par un préfixe.
@@ -807,7 +807,7 @@
   - Empêcher les **attaques DOS** en faisant du throttling.
   - Aider à **planifier la capacité** de la machine pour assurer une bonne qualité de service.
     - En particulier quand on commence à avoir suffisamment de clients Kafka pour que les quelques brokers initialement nécessaires commencent à manquer de ressources.
-- Les quotas s’appliquent aux utilisateurs au niveau de **chaque broker**.
+- Les quotas s’appliquent aux **utilisateurs** au niveau de **chaque broker**.
   - Ca veut dire qu’il faut prendre en compte le nombre de brokers, et potentiellement revoir les quotas quand on ajoute des brokers.
 - Il existe deux types de quotas :
   - **1 - Network bandwidth quotas**.
@@ -828,11 +828,11 @@
   - On utilise souvent une combinaison des deux : le username pour l’authentification, et le client ID pour distinguer plusieurs machines appartenant à la même personne ou au même groupe de personnes.
 - L’attribution se fait via **configuration dynamique**, via le script CLI `kafka-configs.sh` ou un autre client admin.
   - Il est possible de spécifier des quotas pour un couple username / client ID, sachant que chaque membre du couple de valeurs peut avoir soit une valeur, soit la valeur `&lt;default>`, soit ne pas avoir de valeur.
-    - Le fait de savoir quelle règle de quota va s’appliquer se fait par matching parmi les règles existantes, avec une priorité aux règles les plus précises.
-  - En fonction de la règle de quota qui est retenue pour chaque consumer, **si deux consumers partagent la même règle partageront aussi la valeur du quota**.
+    - Le fait de savoir quelle règle de quota va s’appliquer se fait par matching parmi les règles existantes, avec une **priorité aux règles les plus précises**.
+  - En fonction de la règle de quota qui est retenue pour chaque consumer, **si deux consumers partagent la même règle, ils partageront aussi la valeur du quota**.
   - D’un point de vue sécurité, l’auteur conseille de spécifier d’abord des valeurs par défaut qui sont très basses (en commençant par le couple username / client ID : `&lt;default>` / `&lt;default>`), et ensuite de les écraser par des règles plus spécifiques ayant des quotas plus larges.
-- La propriété **buffer.memory** (par défaut 32 Mo) côté client permet permet de le bloquer quand le buffer dépasse cette taille, ce qui peut permettre d’éviter le throttling côté serveur.
-- Le fait que **le client ne sache pas s’il fait l’objet de pénalités d’attente** ou s’il y a simplement de la congestion sur le réseau peut poser problème dans certains cas.
+- La propriété **buffer.memory** (par défaut 32 Mo) côté client permet de le bloquer quand le buffer dépasse cette taille, ce qui peut permettre d’éviter le throttling côté serveur.
+- Le fait que **le client ne sache pas s’il fait l’objet de pénalités d’attente** ou s’il y a simplement de la congestion sur le réseau, peut poser problème dans certains cas.
   - Il peut bombarder de requêtes et finir par subir une attente si longue qu’elle dépasserait le delivery timeout. Il pourrait alors avoir tendance à réessayer plusieurs fois, menant à une forme de _congestive collapse_.
     - En général on peut résoudre ce problème en diminuant la propriété **buffer.memory** (par défaut 32 Mo) côté client pour obliger le client à attendre avant de publier plus que ce qu’il a en buffer.
   - Parfois on se trouve dans un cas où le client veut publier beaucoup de messages, et parmi eux la plupart des messages sans urgence particulière, et certains messages urgents dont il ne veut pas qu’ils fassent l’objet de ralentissement.
