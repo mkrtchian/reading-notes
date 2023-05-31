@@ -597,12 +597,12 @@
     - **1 - La phase group membership**.
       - Il s’agit d’identifier les consumers d’un groupe, et d’élire un **group leader** parmi eux, pour que celui-ci décide des assignations partition / consumer.
         - 1 - Les consumers envoient un message au **broker qui est coordinator** pour ce group, pour s’identifier comme membres de ce groupe.
-          - Ils savent qui est leur coordinator parce que son id leur est renvoyé par un des brokers, qui lui même peut le savoir par un mécanisme déterministe de hachage entre le group id et une des partitions, et le broker leader de cette partition devient le coordinator du group.
+          - Ils savent qui est leur coordinator parce que son id leur est renvoyé par un des brokers, qui lui même peut le savoir par un mécanisme déterministe de hachage entre le group id et une des partitions : le broker leader de cette partition devient le coordinator du group.
         - 2 - Le coordinator attend un certain temps avant de répondre, pour que tous les consumers aient pu s’identifier comme membres du groupe, et pour éviter les nombreux rebalancings au début.
           - Le délai est appliqué quand le groupe est vide.
           - Le délai est contrôlable avec `group.initial.rebalance.delay.ms` (par défaut 3 secondes).
           - C’est typiquement inutile dans les scénarios où il n’y a qu’un consumer, comme dans des tests d’intégration par exemple où on peut le mettre à 0.
-        - 3 - Il renvoie une réponse à chacun, contenant les IDs des consumers du groupe et l’ID du consumer leder.
+        - 3 - Il renvoie une réponse à chacun, contenant les IDs des consumers du groupe et l’ID du consumer leader.
     - **2 - La phase state synchronisation**.
       - 1 - Le group leader va faire l’assignation des partitions aux consumers dont il a reçu la liste, et envoyer ça au coordinator.
       - 2 - Le coordinator à son tour renvoie les assignations à chaque consumer.
@@ -613,10 +613,10 @@
       - `onPartitionsRevoked()` est appelé dès que la consommation doit s’arrêter pour que le rebalancing puisse avoir lieu.
       - `onPartitionsAssigned()` indique au client les éventuelles nouvelles partitions qui lui ont été assignées.
       - `onPartitionLost()` indique d’éventuelles partitions perdues par le consumer.
-        - Ça peut se produire si le consumer n’avait pas émis de heartbeats et était considéré comme en échec.
+        - Ça peut se produire si le consumer n’avait pas émis de heartbeats et était considéré en échec.
     - Le rebalancing par défaut (_eager rebalancing_) se fait en une étape.
       - Il implique donc que les consumers doivent à chaque fois partir du principe que l’ensemble des assignations de partition sont potentiellement révoquées et cleaner les messages en cours de traitement.
-      - L’**incremental cooperative rebalancing** permet d’éviter ça en faisant le rebalancing en plaçant les assignations à la fin, en utilisant éventuellement plusieurs étapes :
+      - L’**incremental cooperative rebalancing** permet d’éviter ça en plaçant les assignations à la fin, en utilisant éventuellement plusieurs étapes :
         - Une seule étape s’il n’y a que de nouvelles assignations de partitions.
         - S’il y a aussi des révocations : une première étape de révocations, et une deuxième étape d’assignations.
       - Pour que l’incremental cooperative rebalancing soit plus efficace, et contrebalance le fait qu’il nécessite plus d’appels réseau, il faut que la stratégie d’assignation de partition soit **sticky** (c’est-à-dire qu’on essaye au maximum de garder les assignations qui existent pendant le rebalancing).
@@ -634,7 +634,7 @@
       - C’est le même comportement que le 1- où on veut faire les records dans l’ordre coûte que coûte, mais là on règle les éventuels problèmes de consumer bloqué.
       - Il y a par contre un risque de perdre en performance à force d’enchaîner les rebalancings.
     - 3 - Détecter nous mêmes dans le consumer le fait qu’on va bientôt dépasser le timeout, et se déconnecter après avoir nettoyé ses tâches en cours, pour se reconnecter tout de suite après.
-      - En fait, vu qu'on se réconnecte/reconnecte, on va entraîner un rebalancing de fait.
+      - En fait, vu qu'on se déconnecte/reconnecte, on va entraîner un rebalancing de fait.
       - Le petit avantage par rapport à la 2- c’est qu’on va pouvoir faire des checks supplémentaires localement sur le fait de ne processer le record qu’une fois.
     - 4 - Mettre en place une deadline par record, et si la deadline est dépassée, considérer qu’il a été traité en passant au suivant, mais le republier dans le topic pour qu’il soit retraité plus tard.
       - Cette solution implique que l’ordre de traitement des records n’est pas essentiel.
@@ -646,7 +646,7 @@
   - Malgré les garanties apportées par Kafka, il est possible que **deux consumers traitent le même record**.
     - Ça arrive dans le cas suivant :
       - 1 - Un consumer met beaucoup de temps à traiter un record, et dépasse le timeout pour appeler `poll()`.
-      - 2 - Il se fait exclure parce que son thread responsable des heartbeats n’en émet plus et même demande explicitement à être révoqué.
+      - 2 - Il se fait exclure parce que son thread responsable des heartbeats n’en émet plus et demande même explicitement à être révoqué.
       - 3 - Le coordinator révoque le consumer et fait un rebalancing pour assigner sa partition à un autre consumer.
       - 4 - Le nouveau consumer commence à traiter les records non commités.
       - 5 - pendant ce temps, le consumer révoqué continue de traiter son record en cours, sans savoir qu’il a été arrêté.
@@ -654,9 +654,9 @@
       - 1 - Se débrouiller pour que le consumer **ne dépasse jamais le timeout**, et que sinon on gère les conséquences à la main pour ne pas avoir de rebalancing.
       - 2 - Utiliser un **distributed lock manager** (DLM) pour protéger les sections critiques d’être traitées en même temps par deux consumers.
         - La protection agit sur le fait de traiter _en même temps_, pas le fait de traiter plusieurs fois en général.
-          - Ceci dit, on peut du coup vérifier qu’on n’a pas déjà traité la section critique du record avant de traiter.
-          - Attention à ne pas être tenté de faire l’optimisation de faire se déconnecter/reconnecter le consumer dans le cas où on remarque que le record a déjà été traité : le consumer qui l’a traité n’a peut être pas encore commité, et donc on risquerait de le retraiter à nouveau.
-        - L’impact du DLM sur le throughput et la latence peuvent être minimisés en regroupant les records du buffer, par exemple par partition, et de faire le lock avant et après le traitement de chacun de ces lots.
+          - Ceci dit, on peut du coup vérifier qu’on n’a pas déjà traité la section critique du record avant de la traiter à nouveau.
+          - Attention à ne pas être tenté de faire l’optimisation de faire déconnecter/reconnecter le consumer dans le cas où on remarque que le record a déjà été traité : le consumer qui l’a traité n’a peut-être pas encore commité, et donc on risquerait de le retraiter à nouveau.
+        - L’impact du DLM sur le throughput et la latence peuvent être minimisés en regroupant les records du buffer, par exemple par partition, et en faisant le lock avant et après le traitement de chacun de ces lots.
         - A la place du DLM on pourrait aussi avoir n'importe quel store persistant, comme Redis ou une DB.
       - 3 - Utiliser un **process qui vérifie régulièrement** le process qui tourne pour consommer les records, pour s’assurer qu’il consomme bien régulièrement.
         - S’il est bloqué depuis un certain temps, le process vérificateur le restart avant que le timeout côté Kafka soit déclenché.
@@ -678,7 +678,7 @@
       - Les consumers ne sont plus obligés de se préparer à la révocation de toutes leurs partitions à chaque rebalancing. Ils savent lesquelles seront révoquées, et ensuite lesquelles leur seront assignées.
   - Pour **changer la stratégie d’assignation**, on ne peut pas simplement mettre à jour la propriété de config qui le fait (`partition.assignment.strategy`).
     - Le premier consumer qui sortirait du groupe pour y revenir avec la nouvelle stratégie provoquerait un problème d’inconsistance de stratégie au niveau de ce groupe.
-    - On assigne d’abord l’ancienne stratégie et la nouvelle, puis on supprime l’ancienne. AU final on aura eu 2 bounces.
+    - On assigne d’abord l’ancienne stratégie et la nouvelle, puis on supprime l’ancienne. Au final on aura eu 2 bounces.
 
 ## 16 - Security
 
