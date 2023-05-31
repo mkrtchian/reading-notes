@@ -544,7 +544,7 @@
 ## 14 - Data Retention
 
 - Les données de chaque partition sont par défaut dans des dossiers de la forme `/tmp/kafka-logs/getting-started-0/`.
-  - Le dossier contient un fichier nommé `leader-epoch-checkpoint`, qui contient toutes les réassignation de leader pour la partition. De cette manière, chaque réplicat peut ignorer les messages d’un collègue broker qui se prendrait pour le leader de la partition sans l’être.
+  - Le dossier contient un fichier nommé `leader-epoch-checkpoint`, qui contient toutes les réassignation de leader pour la partition. De cette manière, chaque réplica peut ignorer les messages d’un collègue broker qui se prendrait pour le leader de la partition sans l’être.
   - Le contenu des records se trouve dans fichiers nommés selon le 1er offset du record qu’ils ont, avec l’extension `.log`.
   - Chaque fichier de log a un index nommé de la même manière mais avec une extension `.index`. Il contient un map entre les offsets des records (ou des batchs) du fichier de log, et l’offset physique dans le fichier de log pour aller les lire.
   - On a enfin un autre fichier nommé pareil mais avec l’extension `.timeindex`, et qui contient un map entre des timestamps des records et l’offset physique dans le fichier de log.
