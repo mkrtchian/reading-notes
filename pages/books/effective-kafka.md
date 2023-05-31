@@ -895,7 +895,7 @@
       - `abortTransaction()` permet de l’annuler.
   - Le **choix du transactional ID** est un des sujets majeurs de confusion autour des transactions Kafka.
     - Parmi les possibilités naïves qu’on pourrait imaginer :
-      - Si on lui attribue une même valeur parmi l’ensemble producer process d’un même stage, seul le producer le plus récent pourra prendre la main, en transformant les producers qui sont issus de la lecture de toutes les autres partitions, en zombies.
+      - Si on lui attribue une même valeur parmi l’ensemble des producer process d’un même stage, seul l’instance de producer la plus récente pourra prendre la main, en transformant les producers qui sont issus de la lecture de toutes les autres partitions, en zombies.
       - Si on lui attribue une valeur complètement aléatoire et unique du type UUID, alors aucun producer ne sera transformé en zombie, pas même ceux qui auront été éjectés à cause d’un timeout.
         - Ces process à qui on aurait enlevé la responsabilité de leurs partitions, et qui seraient encore en train d’attendre qu’une transaction se termine, pourraient encore bloquer le fait que de nouveaux messages apparraissent dans leurs anciennes partitions pendant `transactional.id.expiration.ms` (par défaut 1 heure).
         - Dans le cas où ces process auraient encore des messages dans leur buffer, ils pourraient aussi continuer à exécuter leurs callbacks.
@@ -903,16 +903,16 @@
       - Le résultat c’est potentiellement un grand nombre de producers créés, avec chacun son transactional ID composé du topic et de l’index de la partition.
   - Côté **consumers**, la notion de transaction se matérialise dans le choix de ce qui sera lu.
     - Quand le producer publie des messages dans des topics dans le cadre d’une transaction, il va les **publier directement et de manière irrévocable**, mais ils seront entourés de **markers**.
-      - Il y a un marker pour indiquer le début de la transaction dans la partition, et un autre pour indiquer fin de transaction réussie (COMMITTED) ou échouée (ABORTED).
+      - Il y a un marker pour indiquer le début de la transaction dans la partition, et un autre pour indiquer la fin de transaction réussie (COMMITTED) ou échouée (ABORTED).
     - Le consumer dispose d’une option `isolation.level` (par défaut `read_uncommited`).
       - La valeur `read_uncommited` permet de lire tous les records de la partition, ceux qui ne font pas partie d’une transaction comme ceux qui en font partie, que la transaction soit validée, annulée, ou toujours en cours.
       - La valeur `read_commited` permet de ne lire que les records qui ne font pas partie d’une transaction, ou ceux qui sont dans une transaction validée.
         - Pour un consumer qui a `read_commited` activé, l’End Offset est remplacé par la notion de **LSO (Last Stable Offset)**, qui pointe vers le dernier record qui ne fait pas partie d’une transaction non terminée.
         - Tant que la transaction est en cours, le consumer ne pourra pas lire plus loin.
 - Les transactions ont un certain nombre de **limitations**.
-  - Le système de transaction de Kafka n’est pas compatible avec d’autres systèmes de transaction comme A ou JTA.
+  - Le système de transaction de Kafka n’est pas compatible avec d’autres systèmes de transaction comme XA ou JTA.
   - Une transaction est limitée à un même producer (même transactional ID, même PID).
-  - La transaction peut être **lue de manière partielle** par des consumers : il suffit que le consumer n’ait à sa charge que certaines partitions où la transaction a publié des messages, mais pas les autres.
+  - La transaction peut être **lue de manière partielle** par des consumers sans qu’ils s’en rendent compte : il suffit que le consumer n’ait à sa charge que certaines partitions où la transaction a publié des messages, mais pas les autres.
   - La exactly-once delivery ne s‘applique pas aux side effects en dehors de Kafka : par exemple on peut jouer une callback plusieurs fois, et ajouter plusieurs entrées en DB, même si côté Kafka les messages sont bien publiés exactly-once.
 - **Faut-il utiliser les transactions ?**
   - On peut se poser la question de la complexité additionnelle par rapport à ce que ça apporte : une déduplication des messages à travers les stages.
