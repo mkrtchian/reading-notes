@@ -472,7 +472,7 @@
 
 - Kafka fait le choix d’émettre un warning dans le cas où on donne un mauvais nom de propriété de configuration.
   - Pour éviter les typos, on peut utiliser les constantes pour donner les valeurs.
-  - En TypeScript les clients sont typés.
+  - NDLR : en TypeScript les clients sont typés.
 - Si la propriété vient d’un fichier de config qui n’est pas du code, il n’y aura pas de check à la compilation.
   - Dans ce cas, il nous faut vérifier le contenu au runtime.
   - L’auteur propose de faire une classe de validation, qui propose des méthodes de type fluent chaining.
@@ -535,8 +535,8 @@
     - Ca peut par exemple être utile dans un cas de traitement de données de température qu’on affiche en direct : la perte de quelques données n’est pas très grave.
   - Quand un producer choisit d’en recevoir un quand seulement le leader a validé le record (`acks = 1`), en réalité il n’y a pas beaucoup plus de garantie qu’avec `acks = 0`.
     - Le leader peut échouer à effectivement écrire le record (il répond avant que l’écriture soit complète), ou il peut lui-même être en situation d’échec juste après l’acknowledgement, et avant d’avoir envoyé le record aux autres réplicas.
-    - En fait ça revient à se demander si la machine du leader est considérée plus fiable que celle du producer pour ce qui est de décider si un record est publié ou pas.
-    - De manière générale ce mode est surtout utile dans les cas où la perte de quelques données est tolérable, mais où le client a besoin de connaître l’offset du record qu’il vient d’écrire.
+    - En fait ça revient à se demander si la machine du leader est considérée comme plus fiable que celle du producer pour ce qui est de décider si un record est publié ou pas.
+    - De manière générale ce mode est surtout utile **dans les cas où la perte de quelques données est tolérable**, mais où le client a besoin de connaître l’offset du record qu’il vient d’écrire.
   - Quand un producer choisit de recevoir tous les acknowledgements (`acks = -1` ou `all`), il a la garantie de durabilité maximale.
 - L’auteur conseille comme heuristique par défaut d’adopter `-1` ou `all` pour la valeur de `acks` (au lieu de `1` par défaut), et au moins `2` `pour min.insync.replicas` (au lieu de `1` par défaut) avec un replication factor d’au moins `3`.
   - Si on est dans des cas où la perte de données est tolérable, alors on pourra diminuer ces contraintes.
