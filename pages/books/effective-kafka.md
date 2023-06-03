@@ -208,7 +208,7 @@
     - Pour rappel on ne peut pas enlever de partitions sans détruire de messages, et en rajouter fait que la fonction de hash n’envoie plus dans les mêmes partitions qu’avant le rajout (donc il vaut mieux éviter si on veut garder l’ordre des messages).
     - Une solution peut être d’avoir dès le début un **nombre suffisamment élevé de partitions par topic**, pour ne jamais avoir à les augmenter.
       - Attention cependant, trop de partitions peut causer des problèmes de performance.
-      - Confluent recommande au maximum `100 x b x r` partitions (avec `b` le nombre de brokers du cluster, et `r` le facteur de réplication).
+      - Confluent recommande un nombre de partitions maximal par broker de `100 x b x r` partitions (avec `b` le nombre de brokers du cluster, et `r` le facteur de réplication).
       - Si on atteint le nombre maximal de partitions qu’on avait prévu, une technique peut être de créer un nouveau topic avec plus de partitions, et de copier l’ensemble des messages de l’ancien topic vers le nouveau. Ça nécessite un peu d’effort.
   - Le **nombre de consumers** dans un consumer group doit être au moins aussi grand que le nombre de partitions si on veut profiter du maximum de parallélisme.
     - Par contre, allouer un tel nombre peut aussi mener à du gâchis de ressources, vu que le broker ne fonctionne pas forcément en flux tendu.
