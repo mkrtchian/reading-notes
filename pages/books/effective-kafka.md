@@ -627,7 +627,7 @@
   - Plus les valeurs des deux timeouts sont petites et plus le client détectera vite les échecs, mais au prix de plus de consommation de ressources et de plus de faux positifs.
     - Globalement l’**auteur trouve ces valeurs par défaut raisonnables** dans la plupart des cas.
   - Dans le cas où on doit retenter une requête vers un composant externe (DB, broker etc) qui échoue plusieurs fois, on risque d’échouer nous-mêmes à respecter le timeout prouvant qu’on progresse (`max.poll.interval.ms`), on alors 5 possibilités :
-    - 1 - Mettre très grande valeur à `max.poll.interval.ms`, pour “désactiver” le timeout.
+    - 1 - Mettre une très grande valeur à `max.poll.interval.ms`, pour “désactiver” le timeout.
       - Il s’agit d’un cas où on veut que l’ordre soit absolument respecté, et que les actions pour chaque record soient absolument réalisées, au prix d’une potentielle attente jusqu’à ce que la ressource externe réponde correctement.
       - Le problème c’est qu’on ne prend pas en compte qu’on pourrait avoir un problème en interne, notamment des bugs dans le consumer lui-même, et que notre timeout nous protégeait aussi de ça.
     - 2 - Mettre une valeur raisonnable pour le timeout. Dans ce cas, tant que le service externe est down, le consumer va recommencer jusqu’au timeout, et être rebalancé (exclu puis réintégré).
