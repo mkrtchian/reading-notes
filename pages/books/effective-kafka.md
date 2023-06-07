@@ -365,6 +365,7 @@
     - Le fait que Kafka écoute sur le port ne suffit pas pour qu’il soit prêt à accepter des requêtes. Il peut donc falloir attendre un certain temps au début des tests pour qu’il démarre.
     - Et c’est encore pire avec Docker sur MacOS.
 - Pour ce qui est de la **configuration du producer**.
+
   - **acks** permet d’indiquer le nombre d’acknowledgements qu’on veut attendre de la part du broker leader avant de considérer que le message est publié.
     - `0` indique qu’on ne veut pas attendre du tout.
     - `1` indique qu’on veut attendre que le leader lui-même ait écrit le record dans son log à lui.
@@ -378,6 +379,7 @@
       - Pour ne pas avoir le problème il faudrait soit avoir `max.in.flight.per.connection` à 1 (attendre la confirmation à chaque publication), soit `retries` à 0 (ne jamais réessayer les erreurs transientes).
       - En réalité il y a une 3ème option qui est d’activer `enable.idempotence`, où Kafka va utiliser un mécanisme qui remet le bon ordre pour les records qui arrivent avec le mauvais ordre.
   - **enable.idempotence**.
+
     - Permet de garantir que :
       - Les records soient publiés **au plus une fois** (donc dédupliqués).
       - Les records sont publiés **dans l’ordre indiqué par le client** producer.
@@ -386,10 +388,11 @@
       - `max.in.flight.per.connection` soit **entre 0 et 5**.
       - `retries` soit plus grand que 0.
       - `acks` soit à -1.
-    - Le problème de duplication peut se produire dans le cas où l’acknowledgement est en time out, où le broker a reçu les records, mais le client pensant que ça n’a pas marché, les renvoie.
-    - Le mécanisme c’est que chaque broker maintient un compteur monotonique pour les records d’un même couple [ producer ID, partition où on publie le record ].
+    - Pour ce qui est du problème de duplication, il peut se produire dans le cas où le producer subit un timeout alors que le message a été pris en compte par le serveur, mais avant qu’il ne reçoive l’acknowledgement. Il va donc réessayer d’envoyer le message juste après, ce qui fera un doublon.
+    - Le mécanisme passe par l’attribution à chaque message par le producer, d’un ID qui s’incrémente monotoniquement. Et le broker maintient le dernier ID traité pour chaque couple [ producer ID, partition où on publie le record ].
       - Si le record qui arrive est identifié comme étant déjà arrivé, il est ignoré comme duplicata.
-      - Si le record qui arrive se voit attribuer un ID au niveau du compteur plus grand qu’un incrément de 1, alors le message est considéré comme étant dans le mauvais ordre, et le broker répond une erreur indiquant qu’il faut le requeuer.
+      - Si le record qui arrive a un ID plus grand qu’un incrément de 1 par rapport au dernier message traité, alors le message est considéré comme étant dans le mauvais ordre, et le broker répond une erreur indiquant au producer qu’il faut le requeuer.
+
   - **compression.type** permet d’indiquer l’algo de **compression** qui sera utilisé par le producer (détaillé dans le chapitre 12).
     - Parmi les possibilités :
       - _none_
@@ -423,6 +426,7 @@
     - Par défaut, c'est 120 secondes.
     - Il doit être supérieur aux autres timeouts réunis.
   - **transaction.id** et **transaction.timeout.ms** permettent de gérer le comportement des transactions (cf. le chapitre 18).
+
 - Pour ce qui est de la **configuration du consumer**.
   - **key.serializer** et **value.serializer** servent à indiquer la désérialisation des clés et valeurs des records (cf. le chapitre 7).
   - **interceptor.classes** permet de faire la même chose que côté consumer, en traitant les records par batch.
