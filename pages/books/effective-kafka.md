@@ -496,11 +496,11 @@
   - Ca permet de recourir à la _zero-copy optimization_, où les données sont copiées depuis le réseau vers le disque, puis à nouveau vers le réseau, sans que le CPU n’ai eu à intervenir pour transformer la donnée.
     - Dans le cas où TLS serait activé, la zero-copy optimization ne serait plus vraiment possible puisqu’il faudrait au moins déchiffrer ce qu’envoie le producer et chiffrer ensuite pour envoyer au consumer, ce qui utilise du CPU proportionnellement à la donnée.
 - Ce processus de création de batchs arrive quand il y a beaucoup de records à traiter successivement : Kafka va batcher les records qui sont **en attente d’être envoyés** (en limitant la taille des batchs à `batch.size`). Quand le client veut publier au compte goutte, il ne fait pas de batchs.
-  - `linger.ms` peut permettre d’avoir plus de batchs : pendant ce temps qu’on attend, des records peuvent s’accumuler pour être batchés.
+  - `linger.ms` peut permettre d’avoir plus souvent des batchs : pendant ce temps qu’on attend, des records peuvent s’accumuler pour être batchés.
   - Kafka compte beaucoup sur **du fine tuning fait par des admins** pour la situation précise dans lequel il est utilisé.
 - Le batching a encore plus d’intérêt quand on utilise la **compression**.
-  - On peut obtenir des ratios de compression entre x5 et x7 sur du JSON.
-  - La meilleure performance de compression est obtenue avec de **petits batchs**.
+  - Il n’est pas inhabituel d’obtenir des ratios de compression entre x5 et x7 sur du JSON.
+  - L’essentiel de la performance de compression est obtenue déjà avec de **petits batchs**.
   - La compression est réalisée par le producer, et la décompression dans le consumer, donc ça a l’avantage de ne pas mettre de charge sur le serveur.
     - Le serveur offre aussi la possibilité de modifier la compression de son côté si on le veut vraiment : avec la propriété `compression.type` côté broker, qui a par défaut la valeur `producer`, et peut prendre une valeur de type de compression (`gzip`, `snappy` etc.).
   - L’auteur recommande de **toujours activer la compression pour les records textuels et binaires** (sauf si on sait qu’ils ont une très grande entropie, c’est-à-dire que leur contenu est très variable et difficilement prévisible, donc difficilement compressible).
