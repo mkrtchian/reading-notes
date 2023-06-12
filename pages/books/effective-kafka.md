@@ -861,11 +861,11 @@
 - Les transactions permettent de réaliser des **exactly-once deliveries à travers une pipeline de plusieurs jobs** (qu’on appelle _stages_) chaînés via des topics Kafka successifs.
   - Ils y arrivent parce qu’ils permettent de **réaliser l’idempotence à travers plusieurs stages**, et qu’en combinant ça avec l’_at-least-one delivery_, on obtient l’_exactly-one delivery_.
 - La **problématique** est la suivante :
-  - On part d’un cas où on a un stage qui a besoin de consommer un topic Kafka, et pour chaque record consommé, publier un record dans un autre topic Kafka.
+  - On part d’un cas où on a un _stage_ qui a besoin de consommer un topic Kafka, et pour chaque record consommé, publier un record dans un autre topic Kafka.
     - On ne s’intéresse pas ici à d’autres side-effects comme l’écriture en DB pour laquelle les transactions Kafka ne peuvent rien, mais bien seulement aux messages Kafka publiés et consommés.
   - Les problèmes suivants peuvent se produire :
     - Des **erreurs réseau et des crashs du serveur**, pour lesquelles on n’a pas besoin des transactions.
-      - Le consumer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas fait le commit.
+      - Le consumer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas fait le commit d'offset.
       - Le producer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas reçu d’acknowledgement, et au mécanisme d’idempotence qui garantit l'ordre et la déduplication.
     - Pour les **crashs du process client **on a un point faible : le cas où le client a déjà commencé à exécuter la callback du record, et est arrivé jusqu’à publier le record sortant, mais **n’a pas encore fait le commit de son offset** en tant que consumer.
       - S’il crash à ce moment-là, la prochaine fois qu’il se réveille il va traiter le même record entrant, et va publier encore le record qu’il avait déjà publié.
@@ -886,11 +886,13 @@
         - Ce qui a pour effet que le transaction coordinator va assigner le même PID, tant que le délai `transactional.id.expiration` (par défaut 1 semaine) n’est pas dépassé.
       - L’association [ transactional ID, PID ] contient une propriété **epoch** qui indique la date de la dernière mise à jour de cette association.
         - Ce mécanisme permet de bloquer les process client zombies, c’est-à-dire qui ont été éjectés, mais qui continuent de penser que c’est à eux de publier : si leur epoch est plus ancien, ils ne pourront pas publier.
+      - Garder le même PID permet aussi de terminer les transactions non terminées du producer qui vient de crash ou timeout.
   - L’essentiel de l’aspect transactionnel se passe côté **API du producer**.
     - Le client producer Java a ces méthodes :
       - `initTransactions()` permet d’initialiser le système de transactions pour un producer donné.
         - On ne l’appelle qu’une fois, et ça assigne un PID et un epoch pour l’association [ transactional ID, PID ].
         - Ça va aussi attendre que les transactions précédentes associées à ce transactional ID soient terminées (soit COMMITED, soit ABORTED).
+          - Dans le cas où le consumer précédent n’a pas eu le temps de dire s’il voulait commit ou abort, par défaut le broker va déclarer la transaction ABORTED.
       - `beginTransaction()` permet de commencer la transaction.
       - `sendOffsetsToTransaction()` envoie les offsets du consumer.
         - Le consumer va donc faire son commit à travers l’API du producer, et non pas avec sa méthode commit habituelle.
@@ -905,6 +907,7 @@
         - Dans le cas où ces process auraient encore des messages dans leur buffer, ils pourraient aussi continuer à exécuter leurs callbacks.
     - La bonne solution est d’assigner un transactional ID composé de la **concaténation entre l’input topic et l’index de la partition de ce topic** qu’on est en train de consommer.
       - Le résultat c’est potentiellement un grand nombre de producers créés, avec chacun son transactional ID composé du topic et de l’index de la partition.
+        - Pour éviter d’en avoir trop, l’approche privilégiée est de ne créer que les producers pour les partitions assignées à un consumer donné, et de les supprimer si les partitions sont rebalancées et enlevées.
   - Côté **consumers**, la notion de transaction se matérialise dans le choix de ce qui sera lu.
     - Quand le producer publie des messages dans des topics dans le cadre d’une transaction, il va les **publier directement et de manière irrévocable**, mais ils seront entourés de **markers**.
       - Il y a un marker pour indiquer le début de la transaction dans la partition, et un autre pour indiquer la fin de transaction réussie (COMMITTED) ou échouée (ABORTED).
