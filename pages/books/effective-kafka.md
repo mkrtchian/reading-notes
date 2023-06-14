@@ -433,7 +433,7 @@
   - Une des choses les plus importantes à régler, c'est **la taille de ce qu’on va aller chercher en une requête**. Ça se configure en plusieurs propriétés.
     - Plus on prendra de données, et plus le throughput sera grand, mais moins on aura un bon délai de propagation de bout en bout d’un record.
     - La propriété **timeout** donnée à `Consumer.poll()` permet de limiter son temps d’exécution.
-    - **fetch.min.bytes** (par défaut 1) permet de demander au broker d’attendre d’avoir au moins un minimum de données à envoyer avant de les envoyer.
+    - **fetch.min.bytes** (par défaut 1) permet de demander au broker d’attendre d’avoir au moins un minimum de données à envoyer avant de répondre.
       - En réalité, le broker doit quand même envoyer une requête même s’il n’a pas assez de données, dans le cas où il dépasse un timeout fixé par **fetch.max.wait.ms** (par défaut 500 ms).
     - **fetch.max.bytes** (par défaut 50 MB) indique au broker à partir de quelle taille il doit arrêter d’ajouter des données.
       - Vu qu’un record à lui seul (et donc à fortiori un batch) peut de toute façon dépasser cette taille, la limite n’est qu’indicative.
