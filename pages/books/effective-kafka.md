@@ -886,7 +886,7 @@
         - Ce qui a pour effet que le transaction coordinator va assigner le même PID, tant que le délai `transactional.id.expiration` (par défaut 1 semaine) n’est pas dépassé.
       - L’association [ transactional ID, PID ] contient une propriété **epoch** qui indique la date de la dernière mise à jour de cette association.
         - Ce mécanisme permet de bloquer les process client zombies, c’est-à-dire qui ont été éjectés, mais qui continuent de penser que c’est à eux de publier : si leur epoch est plus ancien, ils ne pourront pas publier.
-      - Garder le même PID permet aussi de terminer les transactions non terminées du producer qui vient de crash ou timeout.
+      - Garder le même PID permet aussi au producteur successeur de terminer les transactions non terminées du producer qui vient de crash ou timeout.
   - L’essentiel de l’aspect transactionnel se passe côté **API du producer**.
     - Le client producer Java a ces méthodes :
       - `initTransactions()` permet d’initialiser le système de transactions pour un producer donné.
