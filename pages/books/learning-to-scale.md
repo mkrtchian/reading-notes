@@ -57,3 +57,20 @@
     - Mais toutes ces approches ont en commun d’être toujours sur la notion de **contrôle** : la question de savoir qui l’exerce et comment.
     - Le lean est radicalement différent de toutes ces approches parce qu’il se base sur la manière dont les gens **apprennent sur le terrain** (et non pas sur une histoire de contrôle donc).
     - _Le lean n’est pas un système de production, c’est un système d’apprentissage._
+
+## 3 - Faire de l’apprentissage une stratégie
+
+- Pour être une **entreprise apprenante**, il y a deux composantes :
+  - **1 - Rechercher activement ce que nous ignorons et qui limite nos performances.**
+  - **2 - Développer activement les connaissances et compétences de chacun.**
+  - Exemple : un CTO arrive dans une entreprise, et la direction met la pression pour délivrer un projet. Il va se concentrer sur les deux aspects d'apprentissage.
+    - 1 - Il cherche ce que les équipes ignorent et qui limite les performances.
+      - Il commence par les problèmes de qualité : un tiers du temps de dev est passé sur des bugs.
+      - Il passe du temps avec des devs et des PMs pour identifier l’origine de plusieurs bugs individuellement (plutôt que par statistique).
+      - Il finissent par identifier que les PM ne prennent pas en compte des edge cases problématiques, et que les devs ont des pratiques de qualité de code qui ne sont pas suffisamment solides.
+    - 2 - Il crée un environnement où le travail quotidien va permettre une acquisition rapide de compétences et de connaissances.
+      - Il lance le département produit sur la réduction des bugs.
+      - Il montre aux PMs et à leur responsable, pendant des séances individuelles, comment prendre en compte les cas particuliers dans les spécifications.
+      - Il met en place une manière pour les devs de faire remonter les soucis dans les specs de manière régulière aux PMs pour établir une discussion entre eux.
+      - Il travaille avec les Tech Leads sur l’amélioration des pratiques de qualité de code, à partir de leur expérience mais aussi en passant en revue les articles et livres de référence sur ces sujets.
+      - Les Tech Leads utilisent ces connaissances pour former les devs et trouver des améliorations importantes pour pas trop d’efforts.
