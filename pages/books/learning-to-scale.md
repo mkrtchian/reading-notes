@@ -74,3 +74,53 @@
       - Il met en place une manière pour les devs de faire remonter les soucis dans les specs de manière régulière aux PMs pour établir une discussion entre eux.
       - Il travaille avec les Tech Leads sur l’amélioration des pratiques de qualité de code, à partir de leur expérience mais aussi en passant en revue les articles et livres de référence sur ces sujets.
       - Les Tech Leads utilisent ces connaissances pour former les devs et trouver des améliorations importantes pour pas trop d’efforts.
+- Pour que l’apprentissage soit au cœur de l'entreprise, il faut que les employés soient dans un **environnement qui les incite à apprendre**.
+  - La question de quelles compétences sont les plus utiles sur le moment se pose : par exemple pour développeur, explorer de nouvelles technos ou apprendre à faire du code avec peu de bugs.
+  - Il faut que le moment de l’apprentissage soit très proche du moment de la mise en pratique.
+  - Il faut de l’autonomie pour tester les choses par soi-même.
+  - Il faut de la sécurité psychologique.
+- Au management classique Command & Control, le lean vient opposer le management de type Orient & Support.
+  - Le **Command and Control** consiste à donner des directives précises, puis à vérifier qu’elles sont exécutées.
+    - Les employés sont là pour exécuter correctement les ordres et non pas réfléchir. De toute façon, ils en seraient bien incapables.
+    - Exemple : “_Les chiffres de vente sont décevants. Chacun travaille de manière différente, donc j’ai repensé l’argumentaire commercial, élaboré un nouveau processus de vente et créé un nouveau modèle de proposition qu’il vous suffit juste de compléter pour gagner du temps. J’ai également augmenté la part variable de votre rémunération afin que vous soyez pleinement motivés. Je vais mettre en place des rendez-vous hebdomadaires avec chacun d’entre vous, d’ici quelques jours, pour répondre à vos questions et vous aider à appliquer ce nouveau processus avec succès._”
+  - L’**Orient & Support** consiste à déterminer des objectifs impératifs à atteindre, puis à aider les employés à exprimer la manière de les atteindre.
+    - La détermination des objectifs elle-même vient de l’analyse de ce qui se passe sur le terrain, en compagnie des gens qui sont sur le terrain.
+    - On part du principe qu’on a recruté des gens compétents et impliqués, qui, dans de bonnes conditions et avec un peu d’aide, pourront aller chercher les compétences et les connaissances dont ils auront besoin pour trouver les solutions.
+    - Exemple : “_Nous avons pris du retard sur nos objectifs de vente, nous avons donc besoin de comprendre ce qui se passe. Comme vous le savez, tous les problèmes rencontrés par le client qui achète nos produits se traduisent par un cycle de vente plus long. J’ai repensé notre tableau de ventes afin que chaque commercial puisse se rendre compte du lead time de chaque vente en cours. A partir de demain, je viendrai creuser chaque jour quelques cas de vente afin que nous puissions décortiquer des dossiers spécifiques. Cela devrait nous aider à découvrir pourquoi il est difficile pour certains clients d’acheter chez nous, et ce que nous pouvons faire pour développer une meilleure relation avec eux._”
+- Centrer la stratégie autour de l’apprentissage **commence par la hiérarchie**.
+  - Si le CEO et l’équipe de direction n’adoptent pas la démarche lean, elle n’aura au mieux qu’un effet marginal dans l’entreprise.
+  - Si la hiérarchie ne pratique pas l’apprentissage au quotidien à partir du terrain :
+    - Elle fera des erreurs avec de lourdes conséquences.
+    - Les employés finiront par se démotiver, voyant leurs propositions se faire rejeter par une direction qui a des idées préconçues.
+- Dans le lean, la stratégie se décline en **4C**.
+  - **Chercher**.
+    - L’équipe dirigeante va fréquemment sur le terrain pour aider les équipes à résoudre des problèmes du quotidien.
+  - **Confronter**.
+    - Elle adopte une “vue d’hélicoptère” pour découvrir les enjeux majeurs.
+      - L’exercice de l’**hélicoptère** consiste à faire des va et vient entre les détails des problèmes du terrain, et le niveau stratégique où il s’agit d’avoir une vision d’ensemble.
+  - **Cadrer**.
+    - Elle décline ces enjeux au sein des équipes pour que chacune contribue à son niveau à l’effort d’apprentissage de l’entreprise.
+  - **Co-construire**.
+    - Les managers aident les équipes à trouver des solutions pour répondre aux enjeux qui les concernent.
+- La stratégie 4C implique **d’arrêter de bouleverser l’entreprise** sur des coups de tête.
+  - Les managers ont en général du mal à accepter ce point, parce que jouer aux apprentis sorciers est addictif.
+  - Parmi ce qui rentre là-dedans :
+    - Réorganiser les services.
+    - Pousser des idées de nouveaux produits.
+    - Déployer de nouveaux processus de fonctionnement.
+    - Externaliser des parties de l’activité.
+- Côté cadre de fonctionnement pour favoriser l’apprentissage, le lean dispose du modèle **TPS** (Toyota Production System).
+  - Une partie des anciens de Toyota l’ont renommé _Thinking People System_ pour mieux communiquer l’intention qu’il y a derrière.
+  - Il a été éprouvé dans de nombreuses industries, et pour toutes les tailles d’entreprise.
+  - Il est constitué de 4 parties principales :
+    - **La satisfaction client**.
+      - Répondre au besoin spécifique de chaque client.
+      - Créer de nouveaux produits pour apporter de la valeur aux clients.
+    - **Le Jidoka**.
+      - Réussir à faire un travail de qualité, et éliminer la cause des défauts **dès qu’ils se présentent**.
+    - **Le Juste-à-temps**.
+      - Réduire le _lead time_, et avoir un **flux continu** de valeur.
+    - **Le socle de stabilité**.
+      - Être dans un environnement qui favorise la contribution et l’apprentissage de chacun sur le terrain.
+  - Le lean nécessite des mois, voire des années à être maîtrisé du fait de nombreux concepts contre-intuitifs
+    - Mais selon l’auteur ça en vaut la peine, parce qu’il répond efficacement à la plupart des questions de management, et permet d’être efficace tout en créant un environnement agréable pour les employés.
