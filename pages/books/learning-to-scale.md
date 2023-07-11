@@ -124,3 +124,25 @@
       - Être dans un environnement qui favorise la contribution et l’apprentissage de chacun sur le terrain.
   - Le lean nécessite des mois, voire des années à être maîtrisé du fait de nombreux concepts contre-intuitifs
     - Mais selon l’auteur ça en vaut la peine, parce qu’il répond efficacement à la plupart des questions de management, et permet d’être efficace tout en créant un environnement agréable pour les employés.
+
+## 4 - Votre périple lean
+
+- Ce qu’il **ne faut pas** faire (en tant que dirigeant) :
+  - Déléguer la mise en place du lean.
+  - Lire quelques ressources sur le sujet et se dire qu’on est bon.
+    - Le lean c’est **avant tout de la pratique**.
+  - Appliquer le lean aux autres plutôt qu’à soi.
+  - Mettre en place plein d’outils lean, et s’assurer que les gens les utilisent.
+- Le lean est une **pratique personnelle, comme le tennis ou le piano**.
+  - Il y a des pratiquants de différents niveaux.
+  - Quand on est débutant, on n’arrive pas à grand-chose et c’est normal : il faut commencer par des exercices et progresser petit à petit.
+  - Il faut se lancer dans la pratique, et la compréhension viendra au fur et à mesure.
+  - Au bout d’un moment on arrive à un plateau, on peut alors lire une ressource plus avancée, ou se faire accompagner par un pratiquant qui a de l’expérience (_senseï_).
+    - Vu la nature du lean (apprendre au quotidien à partir du terrain), un senseï extérieur ne pourra que tenir le rôle de coach, en donnant des pistes à partir de ce qu’il voit, des idées d’exercice etc. Il ne pourra pas mettre le lean en place dans l’entreprise à notre place.
+- On ne peut pas mettre en place le lean dans l’entreprise en l’imposant comme un process à respecter. Ça ne marcherait pas.
+  - Une des raisons c’est que le lean nécessite une grande implication pour entrer dans un processus d’apprentissage, et on ne peut pas espérer que tous les employés d’une entreprise aient cette implication en même temps.
+  - Une des conséquences c’est que **le lean ne se met pas en place en quelques semaines**.
+  - La bonne manière de s’y prendre c’est de commencer soi-même à appliquer le processus en commençant par des exercices (le chapitre suivant en donne).
+    - On peut ensuite embarquer les personnes motivées autour de soi, en les aidant à faire la même chose de leur côté.
+    - Au bout d’un moment, de plus en plus de personnes de l’entreprise pratiquent le lean.
+    - Il se peut qu’il reste finalement quelques personnes complètement réticentes à cette approche : elles trouveront une meilleure opportunité professionnelle ailleurs.
