@@ -101,7 +101,7 @@
   - **Cadrer**.
     - Elle décline ces enjeux au sein des équipes pour que chacune contribue à son niveau à l’effort d’apprentissage de l’entreprise.
   - **Co-construire**.
-    - Les managers aident les équipes à trouver des solutions pour répondre aux enjeux qui les concernent.
+    - Les managers aident les équipes à développer des capacités à trouver des solutions, pour répondre aux enjeux qui les concernent.
 - La stratégie 4C implique **d’arrêter de bouleverser l’entreprise** sur des coups de tête.
   - Les managers ont en général du mal à accepter ce point, parce que jouer aux apprentis sorciers est addictif.
   - Parmi ce qui rentre là-dedans :
