@@ -146,3 +146,34 @@
     - On peut ensuite embarquer les personnes motivées autour de soi, en les aidant à faire la même chose de leur côté.
     - Au bout d’un moment, de plus en plus de personnes de l’entreprise pratiquent le lean.
     - Il se peut qu’il reste finalement quelques personnes complètement réticentes à cette approche : elles trouveront une meilleure opportunité professionnelle ailleurs.
+
+## 5 - Passez à la pratique
+
+### 1 - Chercher pour confronter
+
+#### Commencer par le Gemba
+
+- _Gemba_ veut dire “l’endroit où les choses se passent réellement”, c’est “le terrain”.
+  - Ça peut être d’aller voir les clients qui utilisent le produit, les employés qui fabriquent le produit, ou encore même les fournisseurs s’il y en a.
+- La posture à adopter pendant les Gemba walk c’est “**_Aller voir, demander pourquoi, faire preuve de respect_**” : il s’agit en grande partie d’essayer d’**y apprendre des choses sur la réalité du terrain**.
+- **Exercice :**
+  - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, par exemple un jour par semaine, où on va faire un Gemba walk.
+  - On peut commencer par poser des questions axées orient and support.
+    - Si on va voir un client :
+      - Orient : qu'est-ce que vous essayez d’obtenir avec notre produit ?
+      - Support : qu'est-ce que vous appréciez dans notre produit ? Qu’est-ce qui vous aiderait davantage ?
+    - Si on va voir une équipe de delivery :
+      - Orient : qu’est-ce que vous essayez d’améliorer dans le produit ?
+      - Support : qu’est-ce qui est difficile ? Comment je pourrais vous aider ? Quelle est la prochaine étape pour résoudre le problème ?
+  - On va ensuite demander à **voir la réalité des faits**.
+    - Par exemple, si on a demandé à une équipe de dev de raconter un incident de prod, on peut maintenant demander à voir le code, les specs, et les tests correspondant à l’endroit problématique.
+    - A une équipe de sales, après les avoir questionnés sur un client manqué, on pourra demander à voir les échanges par mail, les propositions commerciales etc. pour en apprendre plus à partir des faits.
+  - Si on tombe face à quelque chose qui nous surprend, il faut résister à la tentation “Command & Control” de dire ce qu’il faut faire pour faire “mieux”.
+    - Au lieu de ça, il faut **chercher à comprendre pourquoi**, pour essayer de remonter à la cause du problème, et laisser à l’équipe la possibilité de découvrir elle-même comment le régler.
+      - L’idée c’est qu’elle soit dans un processus d’apprentissage, pour qu’elle sache à l’avenir régler le problème elle-même.
+  - En tant que dirigeant, on doit aussi être **attentif aux dérives Command & Control** et mauvaises pratiques du genre.
+    - Est-ce que certains employés sont mis sous pression ? Est-ce qu’ils en sont réduits à suivre des processus au détriment de l’intérêt du client ? Est-ce qu’ils se battent pour l’intérêt de leur département au détriment de l’intérêt de l’entreprise ? etc.
+- Pour que les employés osent révéler les vrais problèmes, il faut les mettre dans un** climat de confiance** et de sécurité psychologique. Et donc il faut tolérer l’erreur.
+  - En revanche, il faut être moins tolérant envers le fait de commettre deux fois la même erreur, pour qu’ils ne s’imaginent pas que c’est la fête non plus.
+    - NDLR : “La confiance mais pas trop”...
+- Les problèmes pertinents à résoudre sont regroupés autour de 4 axes, et sont décrits par le TPS.
