@@ -185,7 +185,7 @@
   - Il s’agit bien sûr pour l’entreprise de répondre aux besoins de l’ensemble des clients, mais en restant concentré sur les besoins individuels on a de meilleures chances d’avoir un produit qui soit plus adapté à l’ensemble des clients.
 - **Exercice :**
   - On peut faire un tableau de type “**mur client**”, qui liste les problèmes remontés par les clients.
-    - Le tableau contient les colonnes “Date”, “Client”, “Problème”, “Causes probables”, “Contre-mesure”, “Résultat”.
+    - Le tableau contient les colonnes `Date | Client | Problème | Causes probables | Contre-mesure | Résultat`.
     - L’objectif est de remettre les clients au centre de l’attention, et de mieux connaître leurs besoins.
 - Il ne faut pas se jeter trop vite sur les solutions. Et en particulier il faut faire attention à :
   - Ne pas proposer de solutions avant que tout le monde soit d’accord sur le problème.
