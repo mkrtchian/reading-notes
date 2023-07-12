@@ -177,3 +177,34 @@
   - En revanche, il faut être moins tolérant envers le fait de commettre deux fois la même erreur, pour qu’ils ne s’imaginent pas que c’est la fête non plus.
     - NDLR : “La confiance mais pas trop”...
 - Les problèmes pertinents à résoudre sont regroupés autour de 4 axes, et sont décrits par le TPS.
+
+#### Gagner le sourire des clients
+
+- La satisfaction client est un des piliers du lean, elle permet de **rester concentré sur ce qui est important**, pour éviter de perdre du temps avec des process inutiles, des jeux de pouvoir etc.
+- L’idée du lean c’est de traiter chaque client **individuellement**, avec leurs besoins propres, plutôt que de créer des abstractions représentant des catégories de clients.
+  - Il s’agit bien sûr pour l’entreprise de répondre aux besoins de l’ensemble des clients, mais en restant concentré sur les besoins individuels on a de meilleures chances d’avoir un produit qui soit plus adapté à l’ensemble des clients.
+- **Exercice :**
+  - On peut faire un tableau de type “**mur client**”, qui liste les problèmes remontés par les clients.
+    - Le tableau contient les colonnes “Date”, “Client”, “Problème”, “Causes probables”, “Contre-mesure”, “Résultat”.
+    - L’objectif est de remettre les clients au centre de l’attention, et de mieux connaître leurs besoins.
+- Il ne faut pas se jeter trop vite sur les solutions. Et en particulier il faut faire attention à :
+  - Ne pas proposer de solutions avant que tout le monde soit d’accord sur le problème.
+  - Ne pas essayer de deviner des problèmes qui ne sont peut-être pas là.
+  - Bien examiner les conséquences négatives des solutions avant de les adopter.
+- Une méthode pour résoudre efficacement les problèmes est le cycle **PDCA** (Plan, Do, Check, Act).
+  - 1 - On clarifie d’abord le problème, et on se base sur les faits en analysant le Gemba.
+  - 2 - On cherche une cause racine probable.
+    - On cherche à répondre à la question : **Quelle est l’erreur de raisonnement que nous commettons sans cesse, et qui est à l’origine de ce problème ?**
+    - Il ne faut pas s’arrêter aux causes évidentes, mais chercher plusieurs possibilités, et creuser chaque cause pour arriver à son origine, en posant à chaque fois la question “Pourquoi ?” .
+  - 3 - **Plan** : on trouve **le plus petit changement possible** qui permettrait de remédier au problème.
+  - 4 - **Do** : on le met en place, avec l’accord de tout le monde.
+  - 5 - **Check** : on vérifie si la situation s’améliore et dans quelle mesure.
+  - 6 - **Act** : on fait le point sur ce qu’on a appris, et on voit s’il faut une nouvelle petite itération PDCA ou si le problème semble résolu durablement.
+- Pour que la résolution de problème donne lieu à un apprentissage, il faut :
+  - Que la personne qui a fait le travail le retranscrive **par écrit**, dans un tableau du type “mur client”.
+  - En rediscuter plus tard avec la personne.
+- Les problèmes à chercher en priorité sont d’ordre **opérationnel**, et non pas de relations entre individus et équipes, ou de motivation.
+  - La raison est que la cause du problème est souvent de ce côté, et que le versant relationnel / émotionnel n’en est qu’une conséquence qu’il faut traiter une fois qu’on a résolu le problème de fond.
+  - Exemples :
+    - Un commercial démotivé, mais qui ne sait pas rédiger de bonnes propositions commerciales.
+    - Deux équipes qui n’arrivent pas à travailler ensemble, mais qui ne savent pas très bien ce que le client veut.
