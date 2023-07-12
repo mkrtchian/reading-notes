@@ -116,10 +116,10 @@
     - **La satisfaction client**.
       - Répondre au besoin spécifique de chaque client.
       - Créer de nouveaux produits pour apporter de la valeur aux clients.
-    - **Le Jidoka**.
-      - Réussir à faire un travail de qualité, et éliminer la cause des défauts **dès qu’ils se présentent**.
     - **Le Juste-à-temps**.
       - Réduire le _lead time_, et avoir un **flux continu** de valeur.
+    - **Le Jidoka**.
+      - Réussir à faire un travail de qualité, et éliminer la cause des défauts **dès qu’ils se présentent**.
     - **Le socle de stabilité**.
       - Être dans un environnement qui favorise la contribution et l’apprentissage de chacun sur le terrain.
   - Le lean nécessite des mois, voire des années à être maîtrisé du fait de nombreux concepts contre-intuitifs
