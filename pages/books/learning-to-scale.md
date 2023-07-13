@@ -292,3 +292,53 @@
     - Pour autant il ne faut pas s’arrêter à ça, mais creuser les raisons de ces variations pour obtenir une compréhension fine de ce qui se passe.
   - La mise en place de chacun de ces mécanismes devrait révéler des problèmes et soulever des questions. Il faudra les régler un par un.
     - Cette phase de mise en place est importante, parce que **l’objectif reste l’apprentissage et le développement des individus** et non pas juste la mise en place d’un processus.
+
+#### Arrêt au défaut
+
+- L’autre pilier de la maison TPS c’est le **Jidoka**. Il est composé de 3 parties :
+  - **Andon** : n’importe quelle personne (ou même une machine) peut arrêter la chaîne de production s’il voit une situation anormale, et faire intervenir le management pour aider à éliminer la cause racine.
+    - Exemples de situations anormales :
+      - Une erreur dans le texte de la page d’accueil qu’on construit.
+      - Un serveur qui utilise son processeur à 100%.
+      - Des détails qui manquent dans le cahier des charges.
+    - Le but est d’aider la personne qui constate le problème, mais aussi de porter l’attention de chacun sur la **qualité à toutes les étapes**.
+    - Le mécanisme peut être un simple message dans un système de chat.
+    - Le principe :
+      - 1 - Un membre de l’équipe ou une machine remarque une situation anormale.
+      - 2 - Il arrête la production et signale le problème.
+      - 3 - Le team leader aide la personne à résoudre le problème pour relancer la production.
+        - Ou si c’est une machine, un membre règle le problème avec si besoin le team leader.
+      - 4 - Le team leader / la personne responsable travaillent à éliminer la cause racine.
+    - Pour que ce système fonctionne tout en étant capable de continuer à produire, il faut des personnes dédiées à aider à répondre aux appels Andon : il s’agit des **team leaders**.
+      - Il faut un team leader tous les 4 à 8 personnes formant une équipe.
+        - Et tous les 4 à 8 team leaders, il faut un team leader de team leaders, et ainsi de suite si l’entreprise est grande.
+      - Il ne s’agit pas d’une hiérarchie classique : les team leaders du niveau 2 soutiennent les team leaders dont ils sont les formateurs, et de même pour les team leaders vis-à-vis de leur équipe.
+      - Les team leaders ne sont pas des managers au sens classique, leur rôle est essentiellement **opérationnel**.
+      - Ils doivent passer au moins la moitié de leur temps sur leurs activités de team leader :
+        - **Visualiser** : s’assurer que les membres de l’équipe participent aux objectifs, utilisent le Kanban etc.
+        - **Soutenir** : répondre aux appels Andon de l’équipe.
+        - **Faire remonter** : escalader des appels Andon qu’ils sont incapable de résoudre.
+        - **Former** : faire des sessions de formation pour l’équipe chaque semaine.
+        - **Maintenir** : s’assurer que l’environnement de travail de l’équipe est optimal.
+        - **Améliorer** : mener la démarche d’amélioration et d’apprentissage au quotidien avec l’équipe (Kaizen).
+    - **Exercice :**
+      - Les **bacs rouges** sont utilisés en usine pour y mettre les articles défectueux, pour les analyser plus tard.
+        - On peut reprendre le même principe avec des espaces “bacs rouges” numériques, où on met ce qui a pu causer un appel Andon, et qu’on examine avec son team leader dans un but d’apprentissage et pour éliminer la cause racine.
+  - **Poka yoke** : créer des systèmes qui rendent le travail moins pénible.
+    - Dans le cas où on se rend compte que les problèmes viennent de personnes qui font preuve d’inattention, on peut être tentés de mettre en place des contrôles pour s’assurer qu’elles font attention.
+    - Il faut y résister parce que c’est une solution peu respectueuse des employés, et parce que ça introduirait une charge cognitive supplémentaire liée à l’activité de contrôle.
+    - Au lieu de ça, il faut mettre en place des mécanismes qui empêchent l’erreur.
+    - Exemples :
+      - Des câbles USB qui ne peuvent pas être branchés dans la mauvaise direction.
+      - Des widgets de date qui ne permettent pas de sélectionner de date invalide.
+      - Du typage / linting dans le code, pour éviter des erreurs basiques.
+  - **Séparation homme / machine** : construire des outils qui mettent en valeur les personnes au lieu de les contrôler.
+    - L’automatisation peut apporter de grands gains de productivité, mais elle peut aussi servir à maltraiter les humains.
+      - Par exemple, quand les humains doivent passer des heures à observer que des machines ne s’arrêtent pas ou ne fassent pas de défauts.
+    - L’approche lean est de faire exécuter les tâches répétitives, rapides et précises aux machines, et les situations imprévues et les améliorations aux êtres humains.
+    - Les étapes sont :
+      - 1 - Les humains améliorent leur activité jusqu'à la stabiliser et la rendre automatisable.
+      - 2 - Ils automatisent les parties répétitives.
+      - 3 - Ils mettent en place un mécanisme automatique pour que la machine prévienne en cas d’anomalie, et ils peuvent se consacrer aux améliorations et à la gestion des imprévus.
+    - **Exercice :**
+      - Pendant un Gemba walk, se demander si les outils que l’entreprise met à disposition aident les employés à faire leur travail ou sont là pour les contrôler.
