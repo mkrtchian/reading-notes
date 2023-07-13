@@ -208,3 +208,87 @@
   - Exemples :
     - Un commercial démotivé, mais qui ne sait pas rédiger de bonnes propositions commerciales.
     - Deux équipes qui n’arrivent pas à travailler ensemble, mais qui ne savent pas très bien ce que le client veut.
+
+#### Créer un flux de valeur
+
+- Le lead time est le temps entre la demande ou le besoin du client, et la livraison au client.
+  - Par extension c’est le temps qu’un élément met à aller du début à la fin de la chaîne de valeur.
+    - Et c’est donc aussi la représentation de tous les problèmes qui peuvent avoir lieu le long de cette chaîne.
+  - La **réduction du lead time** est une des obsessions du lean.
+    - Elle permet de faire remonter les problèmes pour les traiter, et offre des occasions d’apprentissage quotidiens pour tout le monde.
+    - Elle permet de travailler en équipe, avec un objectif cross-silos.
+    - Elle permet de diminuer les coûts.
+    - Elle permet de satisfaire les clients en s’adaptant à leurs besoins rapidement.
+- Le lean voit l’entreprise comme un **ensemble de flux**, quels que soient les départements.
+  - Exemples :
+    - L’achat d’un client passe par la sélection d’un produit, l’achat, l’expédition, le transport, la livraison.
+    - L’approvisionnement d’un produit suit lui aussi un ensemble d’étapes.
+    - Et pareil pour le recrutement : on définit le poste, on cherche des candidats, on fait passer des entretiens, on négocie etc.
+- **Exercice :**
+  - On peut choisir un flux dont on est responsable au sein de l’entreprise, et rendre visuel le lead time des éléments de ce flux : il s’agit du **Kanban**.
+    - Le Kanban n’est pas un outil qui organise la production, mais un **outil d’apprentissage qui permet d’analyser** visuellement quel élément stagne et pourquoi, pour aider à réduire le lead time.
+    - Le principe c’est qu’un client (service interne ou client externe à l’entreprise) commande quelque chose à une équipe. On a alors besoin de quelques informations simples :
+      - Qui est le client ?
+      - Qu’est-ce qui est commandé ?
+      - A quel moment la commande a été émise ?
+      - Qui s’en occupe ou va s’en occuper ?
+  - En regardant le Kanban, on pourra :
+    - Se demander si tel ou tel élément sur lequel l’équipe travaille est pertinent dans le contexte.
+    - Prendre quelques cas **individuels** de tâches qui stagnent, et essayer d’analyser pourquoi en reconstituant les événements.
+      - Pour ça, on peut utiliser le PDCA, avec un tableau du type `Date | Client | Problème | Causes probables | Contre-mesure | Résultat`.
+      - Le plus efficace est de résoudre les problèmes avec 1 ou 2 personnes sur le Gemba.
+      - Le tableau devrait être affiché pour que l’équipe l’ait sous les yeux, et pour que les cadres puissent s’appuyer dessus pendant des Gemba walks.
+      - Les membres de l’équipe peuvent présenter les problèmes qu’ils ont résolus comme ça, par exemple pendant leur daily.
+      - L’idée c’est de résoudre des problèmes tous les jours.
+- Le lead time est composé de 3 type de temps :
+  - La stagnation : c’est en général 80% du temps, la tâche est laissée sans qu’on travaille dessus.
+  - Le contact : une personne ou une machine travaille sur la tâche. On peut le réduire en améliorant la manière dont on fait les choses.
+  - L’ajout de valeur : c’est le moment, pendant le travail, où il y a une transformation qui va apporter plus de valeur au client. C’est cette partie-là qu’on veut maximiser.
+- **Les variations d’activité doivent être réduites**.
+  - Pour les raisons suivantes :
+    - La créativité qu’on met en œuvre pour répondre à la variation de l’activité n’est pas vraiment utile en elle-même. On peut tout autant faire preuve de créativité pour réduire ces variations.
+    - Sur le long terme, la motivation vient du fait d’améliorer une activité stable, plutôt que de réagir en permanence à quelque chose de chaotique.
+    - Une entreprise flexible c’est une entreprise qui accepte des demandes variables des clients, mais qui est quand même capable de les traiter en interne par des processus stables.
+  - Pour les réduire, on peut s’y prendre en 3 étapes :
+    - 1 - **réduire la surcharge** : que ce soit pour les personnes ou les machines, quand elles sont au-delà de leurs capacités, elles deviennent moins performantes.
+    - 2 - **réduire la variabilité** : on a du mal à faire des améliorations sur des choses qui varient trop.
+      - Ça peut être une charge de travail différente d’un jour à l’autre, des équipes différentes qui font la même tâche d’un jour à l’autre, des façons de travailler différentes d’un jour à l’autre etc.
+    - 3 - **réduire le gaspillage** : toutes les activités qui n’apportent pas de valeur et dont on pourrait se passer. Ça peut aussi être le fait d’attendre, ou de faire des context switch.
+- **Exercice :**
+  - Pour pouvoir mesurer le lead time de nos flux et essayer de le réduire, il faut être au clair sur la **différence entre une tâche et un produit** dans notre cas.
+    - **Le lead time se mesure sur un produit disponible pour le client**.
+    - Mais la création d’un produit est en général composée de plusieurs tâches.
+    - Exemples :
+      - Le produit qu’on crée peut être un rapport, et l’une des tâches peut être de collecter des données.
+      - Une équipe marketing peut créer des contenus multimédias, et parmi leurs tâches il peut y avoir l’analyse des campagnes actuelles, la recherche d’idées, la rédaction de texte etc.
+  - On peut commencer par lister les produits qui sont créés dans notre département, et calculer le volume moyen par unité de temps, puis se concentrer sur l’activité qui a le plus gros volume.
+    - Par exemple : on fait en moyenne 1 newsletter et 4 vidéos par semaine : on va commencer par réduire le lead time des vidéos.
+- Ce qu’on cherche à atteindre c’est le **juste-à-temps** : que chaque personne dans la chaîne de valeur se passent la main exactement au moment où le suivant a fini sa tâche courante.
+  - Le but c’est qu’il n’y ait aucune personne qui reste en attente, ni de tâches non traitées qui s’accumulent.
+  - Ca passe par 3 techniques :
+    - **Le Takt time** : on aligne toutes les activités sur une même cadence.
+      - **Exercice :**
+        - On peut calculer le Takt time de son activité en divisant la durée d’une itération par le nombre de “produits” qui sont sortis.
+        - Ce Takt time va correspondre à la **durée moyenne d’une étape**, et donc on va pouvoir comparer dans un graphique la durée de chaque étape à cette durée moyenne.
+          - Si une tâche met en moyenne moins de temps que le Takt time, alors les personnes qui la font se retrouve sans rien à faire.
+          - Si une tâche met plus de temps, alors les personnes qui la font se retrouvent avec des tâches qui s’accumulent et qu’ils n’arrivent pas à traiter.
+        - Par exemple, si une tâche de discovery prend deux fois moins de temps dans une itération qu’une tâche de delivery, il faudra probablement deux fois plus de personnes sur la delivery pour que les cadences soient alignées.
+    - **Le flux continu pièce à pièce** : on fait circuler les tâches d’une étape à l’autre, une par une en continu.
+      - Il faut **éviter de faire les tâches par lot**.
+        - Exemple : l’équipe de discovery fait une spécification très détaillée avant de passer la main à l’équipe de delivery.
+        - On peut alors moins vite mettre les produits dans les mains du client.
+        - Les défauts sont noyés dans la masse et rendent l’analyse plus difficile.
+        - On remarque aussi moins les problèmes de collaboration vu qu’il suffit de passer sur une autre tâche dès qu’on est bloqué.
+      - **Exercice :**
+        - Travailler en flux pièce-à-pièce veut dire **n’avoir qu’une tâche en cours**.
+          - On peut donc rendre visible dans le Kanban les cas où une personne a plusieurs tâches en cours (par exemple elle était bloquée sur l’une et a basculé sur la 2ème).
+          - Et ensuite on peut travailler avec les membres de l’équipe sur les raisons de ces tâches commencées mais non terminées, et comment faire pour y remédier.
+    - **Le système de flux tiré** : quand le flux continu n’est pas possible, on ne va produire que quand l’étape suivante a besoin de plus.
+      - **Exercice :**
+        - A chaque étape, la personne maintient un stock de “produits” sur lesquels elle a fait sa partie et qui ne sont pas encore traités par l’étape suivante, et au bout d’un certain nombre elle arrête d’en faire plus parce que ce serait contre-productif.
+        - Le nombre d’éléments maximal dans le stock est à définir entre les personnes de chacune des deux étapes.
+        - Et d’ailleurs ce mécanisme doit aussi permettre aussi d’amorcer une communication sur ce que la personne d’après attend en terme de qualité, ce qui lui faciliterait la vie etc.
+  - Que ce soit pour le Takt time ou le lead time, il est probable qu’on tombe sur une certaine variabilité des durées.
+    - Pour autant il ne faut pas s’arrêter à ça, mais creuser les raisons de ces variations pour obtenir une compréhension fine de ce qui se passe.
+  - La mise en place de chacun de ces mécanismes devrait révéler des problèmes et soulever des questions. Il faudra les régler un par un.
+    - Cette phase de mise en place est importante, parce que **l’objectif reste l’apprentissage et le développement des individus** et non pas juste la mise en place d’un processus.
