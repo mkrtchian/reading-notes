@@ -383,3 +383,52 @@
           - Un paragraphe qui indique l’intention.
           - Les **points clés**.
           - Les **erreurs classiques**.
+
+### 2 - Confronter pour cadrer
+
+- Dans la phase _Chercher_, on a pu analyser l’entreprise en profondeur, et trouver les problèmes qui empêchent d’aller vite, faire un travail de qualité etc.
+  - Dans la phase _Confronter_ il s’agit de revenir sur ce qu’on a trouvé, et d’accepter le feedback, surtout celui qui **nous amène à reconsidérer une vision erronée des choses**.
+- La première étape est de **chercher l’éléphant qui se cache sous les yeux de tous**, et dont personne ne veut parler.
+  - Exemples d’éléphants en interne :
+    - _Nous avons perdu notre avantage compétitif au fil du temps, la plupart de nos équipes font du travail de bas niveau, sans valeur ajoutée, ce qui conduit les clients à nous considérer comme un choix bas de gamme._
+    - _Nous sommes à la traîne car le CEO est un commercial compulsif qui fait souffrir l’équipe R&D depuis des années avec ses demandes de fonctionnalités aléatoires._
+  - Exemple d’éléphant qui vient de causes extérieures :
+    - _Les jeunes générations sont moins intéressées par le fait de posséder une voiture _(pour une entreprise qui fabrique des voitures)_._
+- Ensuite, il faut **intensifier la collaboration entre cadres dirigeants**.
+  - Les dirigeants de chaque département ont chacun leurs objectifs, et donc vont avoir tendance à tirer la couverture vers leur département.
+    - C’est le rôle du CEO de les rassembler autour d’un **objectif commun désirable**, et faire en sorte d’instaurer une collaboration où chacun aide les autres à réussir.
+  - Pour que les objectifs soient clairs, il est préférable de les rendre **visuels**.
+  - **Exercice :**
+    - L’**Obeya** consiste à réunir l’équipe dirigeante chaque semaine dans une grande pièce, avec de grands visuels qui servent de base à des études de problèmes.
+    - C’est un lieu d’apprentissage, pas un lieu de planification et de supervision (ce qui le transformerait en du Command & Control).
+      - On peut y faire de l’exploration en profondeur d’un problème, avec toujours **le client au centre** de l’attention.
+      - Ça peut être un des collaborateurs qui présente un PDCA terminé, avec les apprentissages qu’il en tire.
+    - Pour ce qui est des visuels, un exemple de ce qu’on peut y trouver :
+      - Les challenges : quels sont nos objectifs pour cette année, pour les années qui viennent ?
+      - Les clients : qu'est-ce qu’ils nous disent ? Comment les aider ?
+      - Les indicateurs de performance : comment mesurer nos progrès ?
+      - Une place pour ce qui se passe dans chaque département : quels changements sommes-nous en train de mener dans l’entreprise ?
+- Dans la stratégie lean, les objectifs tournent autour de thématiques éprouvées.
+  - Il s’agit de chercher à réduire de moitié ce qu’on ne veut pas, ou doubler ce qu’on veut.
+  - Les thématiques sont :
+    - **La sécurité** : diviser le nombre d’accidents, diviser par deux le taux de turnover.
+    - **La qualité** : diviser par deux le nombre de défauts, le nombre de demandes de support client.
+    - **Le lead time** : diviser par deux les délais de fabrication.
+    - **Le coût** : doubler la productivité (quantité de produits quotidiens divisé par le nombre total d’employés).
+    - **L’environnement** : diviser par deux l’empreinte environnementale.
+  - L’aspect **purement financier** ne fait pas partie des objectifs stratégiques, parce qu’il résulte de toute façon des autres objectifs opérationnels et qu’il est **à la traîne**.
+    - La qualité permet de diminuer les coûts, et de rendre le client satisfait, donc ça a un impact direct sur l’aspect financier.
+    - La réduction du lead time a de nombreux bénéfices qui ont des retombées financières : diminution des coûts de production, diminution des problèmes qu’on fait remonter, décision d’achat plus rapide du client.
+  - **Exercice :**
+    - Le rapport financier principal dans une entreprise lean est assez différent d’une entreprise classique : il s’agit du **compte d’exploitation par flux de valeur**.
+      - Il tient dans une simple feuille A4.
+      - C’est un outil pratique pour un dirigeant pour faire l’exercice de l’hélicoptère, et choisir le prochain endroit où faire son Gemba walk.
+      - Le rapport contient un tableau avec en colonne les mois, et en lignes :
+        - Le chiffre d’affaires
+        - L’EBITDA
+        - La trésorerie
+        - Et ensuite une ligne pour chaque aspect stratégique. Par exemple :
+          - Pourcentage de turnover des employés (sécurité).
+          - Pourcentage de résiliation de clients (qualité).
+          - Nombre d’appels client (qualité).
+          - etc.
