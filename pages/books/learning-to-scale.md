@@ -432,3 +432,30 @@
           - Pourcentage de résiliation de clients (qualité).
           - Nombre d’appels client (qualité).
           - etc.
+
+### 3 - Cadrer pour co-construire
+
+- Les dirigeants commencent par rassembler les employés autour de deux questions qui vont constituer un **défi d’apprentissage** :
+  - 1 - Comment pouvons-nous contribuer à l’objectif général ?
+  - 2 - Qu’avons-nous besoin d’apprendre, au travers d’expérimentations PDCA, pour réussir ?
+  - Il ne faut surtout pas donner un plan de route pour chaque service, sinon on retomberait dans le _Command & Control_.
+- L’étape suivante c’est de construire un **consensus** avec l’exercice “**attrapper la balle”**.
+  - L’alignement ne va se faire ni d’en haut, ni d’en bas, mais du résultat d’une **négociation globale**.
+    - Les dirigeants proposent un objectif global.
+    - Les team leaders et leurs équipes contribuent : “_voici les gains de performance et les défis d’apprentissage que nous pouvons apporter à notre niveau_”.
+  - Les objectifs fixés par les dirigeants et ceux proposés par les équipes doivent être **mesurables**.
+    - Par contre il faut qu’ils soient orientés “apprentissage”, c’est-à-dire laisser de la place pour que les équipes trouvent elles-mêmes des solutions, et non pas constituer un plan d’action.
+    - Exemples d’objectifs _Command & Control_ :
+      - _Publier 10 annonces sur les 5 sites d’emploi les plus visibles._
+      - _Fournir le nouveau process global des réclamations._
+      - _Un événement de team building trimestriel par service._
+    - Exemples d’objectifs _Orient & Support_ :
+      - _Faire une proposition aux candidats moins de 5 jours après le premier contact._
+      - _Réduire le lead time des réclamations de 50%._
+      - _Atteindre une note de 4 / 5 de satisfaction des employés._
+  - Concernant les **OKR**, selon l’auteur ils peuvent être adaptés au lean, à condition qu’on ait en tête une perspective Orient & Support quand on les définit.
+    - Mais on peut aussi en faire un outil de _Command & Control_.
+    - L’auteur propose d’ailleurs de les renommer OKL (Objectives & Key Learnings) pour que l’intention soit plus claire.
+- Pour éviter que les équipes soient complètement perdues sur des objectifs qu’elles ne savent pas comment faire avancer, le lean propose tout simplement **le cadre du TPS**.
+  - Il s’agit de l’ensemble des outils de ce chapitre : Andon, bacs rouges, Takt, Heijunka, flux pièce à pièce, réduction du lead time etc..
+  - On priorise et résout petit à petit les problèmes qui font avancer notre objectif.
