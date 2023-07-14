@@ -342,3 +342,44 @@
       - 3 - Ils mettent en place un mécanisme automatique pour que la machine prévienne en cas d’anomalie, et ils peuvent se consacrer aux améliorations et à la gestion des imprévus.
     - **Exercice :**
       - Pendant un Gemba walk, se demander si les outils que l’entreprise met à disposition aident les employés à faire leur travail ou sont là pour les contrôler.
+
+#### Créer une base de stabilité
+
+- Pour que les employés restent motivés, il faut un environnement stable et non pas chaotique, pour ça il y a deux piliers.
+  - **1 - Reprendre le contrôle sur son environnement de travail**.
+    - Si l’environnement de travail de tous les jours est chaotique, et qu’ils n’ont pas la possibilité de régler ces problèmes, les employés vont perdre la confiance dans le management et l’entreprise.
+      - Exemple : un employé du service client essaye d’aider un client, mais la qualité du téléphone est mauvaise et le CRM est hyper lent.
+    - Ca passe par :
+      - Avoir l’**aide du team leader** et de la direction pendant ses Gemba walks pour résoudre les problèmes d’environnement de travail.
+      - **TPM** (Total Productive Maintenance) : faire soi-même la maintenance des équipements qu’on utilise.
+      - S’approprier son espace de travail avec la démarche **5S**.
+        - Ça peut être des outils physiques, mais pas seulement : pour un développeur le code va faire partie de l’espace de travail.
+        - Les 5S sont :
+          - **Sort** : savoir ce qui est plus ou moins utilisé.
+          - **Straighten** : faire en sorte que les choses les plus utilisées soient à portée de main.
+          - **Shine** : arranger visuellement l’espace de travail pour que les anomalies soient immédiatement visibles.
+          - **Standardize** : faire en sorte que l’espace de travail revienne à la normale après chaque séance.
+          - **Sustain** : rester disciplinés en tant qu’équipe pour appliquer les 4 premiers principes de manière durable.
+        - **Exercice :**
+          - On peut commencer par s'interroger sur la liste des éléments du 5S, et demander ensuite à d’autres membres de l’équipe ce qu’ils font.
+  - **2 - rendre le travail varié et intéressant**
+    - **Heijunka** : on crée un plan de production lissé représentant le client idéal.
+      - On a deux problèmes :
+        - Les demandes client fluctuent, donc si on y répond tel quel on va créer des **variations de charge de travail** dans les équipes.
+        - Si on travaille sur un seul produit à la chaîne, on sera plus efficace mais **le travail sera ennuyeux**, et les délais pour envoyer au client plus longs.
+      - On va donc créer un modèle de client qui achète la quantité moyenne du mix de ce qu’achètent les clients, **lissé dans le temps**, et l’utiliser pour guider le rythme de production.
+        - Il faut le combiner au Kanban à flux tiré, et on obtient une production fluide, qui va s’améliorer avec l’utilisation de l’Andon et de l’apprentissage permanent.
+      - **Exercice :**
+        - A partir des informations de besoin client, on peut créer un _Heijunka box_, qui est un tableau avec les produits en lignes, et des éléments temporels en colonnes (par exemple “lundi, mardi, mercredi etc.).
+          - Dans chaque colonne on coche une case en mettant un trait, avec l’idée d’alterner les activités pour l’équipe.
+    - **Les standards** sont là pour aider les employés à distinguer les situations normales des situations anormales.
+      - Il faut résister à la tentation d’en faire quelque chose de prescriptif qui est là pour les contraindre, mais plutôt faire en sorte que le standard soit là juste pour guider et laisser la personne utiliser son intelligence.
+        - Exemple de standard “Command & Control” à ne pas faire : une liste d’étapes détaillées à suivre pas à pas pour créer une page d’accueil.
+      - **Exercice :**
+        - D’abord on peut lister les 10 compétences essentielles que l’équipe doit connaître.
+        - Et ensuite on peut définir avec l’équipe les situations normales des situations anormales.
+        - Dans certains cas, ça peut donner lieu à un standard qui peut être une feuille de papier (maximum), ou un code de référence qui montre un formatage par exemple.
+        - Le contenu d’un standard en mode “Orient & Support” est en général composé de :
+          - Un paragraphe qui indique l’intention.
+          - Les **points clés**.
+          - Les **erreurs classiques**.
