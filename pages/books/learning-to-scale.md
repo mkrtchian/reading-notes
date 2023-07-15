@@ -459,3 +459,45 @@
 - Pour éviter que les équipes soient complètement perdues sur des objectifs qu’elles ne savent pas comment faire avancer, le lean propose tout simplement **le cadre du TPS**.
   - Il s’agit de l’ensemble des outils de ce chapitre : Andon, bacs rouges, Takt, Heijunka, flux pièce à pièce, réduction du lead time etc..
   - On priorise et résout petit à petit les problèmes qui font avancer notre objectif.
+
+### 4 - Co-construire pour chercher
+
+- Régler les situations anormales n’est pas suffisant, il faut aussi faire preuve de créativité pour améliorer la situation normale : c’est le principe du **Kaizen**.
+  - Le Kaizen se fait **au quotidien**, par de petites améliorations.
+  - C’est le rôle du team leader de trouver des sujets d’amélioration pour l’équipe.
+    - Il faut que le sujet soit motivant, pertinent par rapport à l’activité quotidienne de l’équipe, et atteignable en quelques jours ou semaines maximum.
+    - Exemple de sujet de Kaizen : réduire le temps de réponse d’une application.
+  - Il s’agit là aussi d’utiliser le PDCA, mais en cherchant à améliorer le standard actuel, en faisant preuve de créativité.
+  - Le Kaizen courant doit **être affiché sur un mur**, avec les 6 étapes bien visibles :
+    - **1 - Définir le potentiel d’amélioration** : une petite avancée, mais qui est quand même enthousiasmante.
+    - **2 - Analyser les méthodes actuelles** : on analyse les pratiques de travail actuelles en détail pour trouver le principal point de blocage qu’on peut améliorer.
+    - **3 - Produire des idées originales** : on trouve des idées, et on n'hésite pas à regarder ce que fait le reste de l’industrie.
+    - **4 - Développer un plan de mise en œuvre** : l’idée c’est d’essayer la solution le plus vite possible, et d’avoir une manière d’évaluer les résultats.
+    - **5 - Mettre en place le plan**.
+    - **6 - Évaluer la nouvelle méthode** :
+      - On détermine ce qui fonctionne ou non, et si ça a marché, comment ne pas retourner en arrière.
+      - On va aussi présenter notre apprentissage à d’autres équipes.
+- Quand une équipe obtient des améliorations qui marchent, il faut résister à la tentation de vouloir la généraliser à toute l’entreprise, sinon on va retomber dans le syndrome des grandes entreprises où les gens appliquent ce qu’on leur dit sans comprendre.
+  - Il faut plutôt considérer qu’**on transmet un processus d’apprentissage et non pas un savoir**.
+  - On va donc présenter le tableau PDCA qui résume les étapes clés qui ont permis l’apprentissage, et laisser aux autres équipes la possibilité d’expérimenter par elles-mêmes si elles le veulent.
+- Concernant les **features produit**, elles sont souvent le résultat de nombreuses personnes qui poussent chacune leur idée.
+  - Ca donne des problèmes :
+    - Les devs se mettent à implémenter de **nombreuses features**, rendant la maintenance du produit difficile, à mesure qu’il devient gros.
+    - La plupart de ces features ne répondent à **aucune problématique des clients**, mais viennent juste de l’idée des différents cadres de l’entreprise.
+    - Vu que les features sont le résultat d’une négociation entre diverses personnes, elles n’ont **pas de cohérence** entre-elles.
+  - La solution du lean est d’avoir **un ingénieur en chef du produit**.
+    - Ça peut être le CTO, le CEO, un PM, un PO etc. peu importe son titre.
+      - Il doit avoir une passion pour le produit et la confiance de la direction.
+    - Il définit une vision produit cohérente, et qui est en accord avec les besoins des clients.
+      - Il met tout le monde d’accord, et s’assure qu’il y ait une bonne collaboration autour du produit.
+      - Il s’assure que le produit avance par petites itérations, synchronisées au rythme du Takt.
+        - **Exercice :**
+          - On peut créer un tableau avec chaque produit en lignes, et des unités de temps en colonnes : on va alors mettre des traits à chaque release.
+  - L’**équipe produit** (ou l’équipe d’ingénieurs) se voit confier un objectif de type _Orient & Support_, qui va les amener à mettre en œuvre un apprentissage PDCA pour trouver la meilleure solution.
+    - Exemple d’objectif _Command & Control_ dans ce cas : “_Ajouter un système de favoris_”.
+    - Exemple en mode _Orient & Support_ : “_Accéder rapidement aux pages fréquemment utilisées_”.
+  - **Exercice :**
+    - Pour réfléchir à la prochaine version du produit, on peut utiliser une **matrice QFD (Quality / Function Deployment)**.
+    - On crée un tableau avec :
+      - En lignes la liste des préférences / besoins des clients, par exemple “_Chargement rapide_”, “_Ne pas manquer de nouveaux emails_”.
+      - En colonnes les solutions techniques qu’on peut mettre en place, par exemple “_Mises à jour d’arrière plan_“, “_Vue prioritaire_”.
