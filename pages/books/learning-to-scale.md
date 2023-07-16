@@ -501,3 +501,15 @@
     - On crée un tableau avec :
       - En lignes la liste des préférences / besoins des clients, par exemple “_Chargement rapide_”, “_Ne pas manquer de nouveaux emails_”.
       - En colonnes les solutions techniques qu’on peut mettre en place, par exemple “_Mises à jour d’arrière plan_“, “_Vue prioritaire_”.
+
+## 6 - La stratégie lean
+
+- Chaque cycle 4C permet à l’entreprise de **s’adapter aux évolutions du marché**.
+- Mais la question fondamentale du lean reste : “**Qui doit apprendre quoi pour que l’entreprise réussisse ?**”.
+  - C’est une vraie question que l’équipe dirigeante doit traiter régulièrement.
+  - **Exercice :**
+    - On peut créer un tableau avec une ligne pour chaque employé, et en colonnes les apprentissages, par exemple :
+      - **Nom** : Suzanne.
+      - **Autonome pour** : élaborer des pages d’accueil et des campagnes publicitaires.
+      - **Prochain développement** : élaborer et coordonner des campagnes marketing multicanal complètes.
+      - **Défi** : améliorer les ventes en ligne de 20% par rapport à l’année dernière sur la campagne de Noël.
