@@ -1,1 +1,71 @@
 # Designing Cloud Data Platforms
+
+## 1 - Introducing the data platform
+
+- Les **analytics** permettent essentiellement d’obtenir des métriques pour faire des choix business.
+  - Avant l’avènement des ordinateurs, les entreprises utilisaient des moyens manuels, et leur intuition.
+  - Dans les années 80 on a vu émerger le concept de data warehouse, qui est une base centralisée de données venant de diverses sources.
+- Les **data warehouses** posent de plus en plus de **problèmes** de nos jours.
+  - Les tendances suivantes y contribuent :
+    - Les données sont issues de sources de diverses nature, y compris certaines d’entre-elles non structurées, et leur volume est de plus en plus important.
+    - Le découpage des applications en microservices fait que collecter des données revient forcément à devoir agréger de multiples sources.
+    - Les data scientists ont aussi besoin d’accéder à une version brute de la donnée, et cet usage ne peut pas passer par un data warehouse.
+  - Elles ont du mal avec les **3V** (Variety, Volume, Velocity).
+    - **Variety** : les data warehouses ne supportent que les _structured data_ dont le schéma est stable, c’est-à-dire en pratique qui sont issues de DB relationnelles.
+      - Or avec l’avènement des SaaS, des réseaux sociaux, et de l’IoT, on se retrouve avec :
+        - Des _semistructured data_ du type JSON, Avro etc, dont le schéma varie souvent.
+        - Des _unstructured data_ comme le binaire, le son, la vidéo.
+    - **Volume** : le fait que dans un data warehouse, la puissance de calcul et le stockage doivent se trouver sur **la même machine physique**, implique qu’on ne peut pas scaler les deux séparément, et donc les coûts explosent.
+      - Même les petites organisations peuvent être amenées à traiter plusieurs TB de données.
+    - **Velocity** : les data warehouses ne sont pas adaptées aux analytics en mode real time, elles sont plus orientées batch processing.
+    - Le machine learning en particulier pose tous les problèmes en même temps : il nécessite une grande quantité de données variées, et accapare la puissance de calcul du data warehouse.
+- Les **data lakes** répondent en partie à ces problèmes.
+  - L’idée principale des data lakes c’est qu’on **stocke de la donnée telle quelle** (ou quasi), et qu’on essayera de la traiter et de lui coller un schéma dès qu’on en aura besoin.
+  - Les data lakes se sont généralisés à partir de 2006 avec l’arrivée de **Hadoop**, qui est un **filesystem distribué sur plusieurs machines** pas chères.
+    - Hadoop répond en partie aux 3V :
+      - A la _Variety_ par l’écriture schema-less.
+      - Au _Volume_ par le fait que ce soit distribué sur des machines pas chères.
+      - A la _Velocity_ par la facilité de streaming à partir du filesystem distribué.
+    - Mais il a aussi des problèmes :
+      - C’est un système complexe qu’il faut installer sur un datacenter et gérer par des Ops expérimentés.
+      - D’un point de vue business, c’est plus difficile de travailler avec les outils qui traitent les données non structurées qu’avec du SQL comme dans un data warehouse.
+      - Bien qu’il soit distribué sur de petites machines pas chères, le computing et le stockage ne sont pas séparés, ce qui limite quand même la réduction de coût quand on a besoin de beaucoup de l’un sans l’autre.
+  - Le **cloud public** vient répondre aux problèmes de Hadoop.
+    - Les data warehouses et les data lakes ont été proposés par les cloud providers, avec de nombreux avantages :
+      - La possibilité de scaler la puissance de calcul et le stockage séparément.
+      - Payer uniquement à l’usage des machines qu’on emprunte.
+      - Ne plus avoir à gérer la complexité de l’infrastructure.
+      - Des outils et frameworks avancés développés par les cloud providers autour de leurs produits.
+    - Exemple : **AWS EMR** permet de lancer un cluster sur lequel on va pouvoir exécuter des jobs **Hadoop** et **Spark**,
+      - On a juste à indiquer le nombre de nœuds qu’on veut, et les packages qu’on veut installer dessus.
+      - Et on a la possibilité de faire des allers-retours vers **S3** pour scaler différemment le calcul et le stockage.
+- La **cloud data platform** moderne utilise à la fois le data warehouse et le data lake, hébergés dans un cloud public, chacun d’entre remplissant un usage particulier.
+  - Pour être polyvalente et pas chère, la data platform doit avoir des **4 composants principaux faiblement couplés**, interagissant entre-eux avec une API bien définie.
+    - **Ingestion layer** : on va chercher les données chez les différents types de sources (DB relationnelle, DB NoSQL, API externes etc.).
+      - On va en général utiliser un ensemble d’outils open source ou commerciaux pour chaque type de données à aller chercher.
+      - Il ne faut **surtout pas altérer la donnée à cette étape**, pour que la donnée brute soit disponible pour les data scientists qui en auraient l’usage.
+    - **Storage layer** : on utilise le stockage cloud comme stockage de notre _data lake_, dans lequel on met ce qu’on a ingéré.
+      - Le stockage cloud a l’avantage de ne pas avoir besoin de planifier la capacité de stockage : il grossit automatiquement au besoin.
+    - **Processing layer** : on transforme la donnée pour la rendre utilisable par la plupart des clients de la plateforme.
+      - C’est la partie calcul de notre _data lake_, il va lire depuis le cloud storage puis écrire à nouveau dedans.
+      - Dans le cas du **streaming**, on ne passe pas par le storage layer qui prend trop de temps, mais on envoie la donnée **directement au processing layer**, qui va ensuite la rendre disponible au layer d’après.
+      - Le processing est généralement fait avec des outils open source, les plus connus étant **Spark**, **Beam** et **Flink**.
+    - **Serving layer** : on rend la donnée disponible sous divers formats, selon les besoins des clients de la plateforme.
+      - Les usages peuvent être :
+        - Des analystes qui ont besoin d’exécuter des requêtes SQL sur la donnée.
+          - On peut charger la donnée dans un _data warehouse_ chez le cloud provider.
+        - Des applications qui ont besoin d’un accès rapide à la donnée.
+          - On peut la charger dans une key / value DB, ou une document DB.
+        - Des équipes de data scientists / engineers ont besoin de transformer la donnée eux-mêmes.
+          - On peut leur donner accès au storage du _data lake_, et les laisser utiliser **Spark**, **Beam** ou **Flink**.
+  - La cloud data platform répond aux 3V :
+    - L’ingestion layer couplé au stockage sans schéma permet une grande _Variety_ des données.
+    - La séparation calcul / stockage et le fait de ne payer que ce qu’on utilise permet d’optimiser les coûts, et d’avoir un gros _Volume_.
+    - La possibilité d’envoyer directement au _processing layer_ permet de la _Velocity_.
+    - On peut aussi prendre en compte deux autres V :
+      - La _Veracity_ qui indique le niveau de _data governance_, c’est-à-dire la qualité de la donnée. On l’obtient itérativement, au cours d’étapes au sein du data lake.
+      - Et la _Value_ qu’on peut tirer de la donnée, qui peut être plus élevée si on prend plus de données en amont de notre processus de nettoyage.
+- Il faut comprendre les **cas d’usages principaux** d’un _data lake_, pour éviter de le transformer en _data swamp_.
+  - Parmi les plus courants il y a la **vue 360° des clients**, où il s’agit de récupérer toutes les données d’interaction avec eux, pour proposer ensuite des services plus personnalisés, vendre plus etc.
+  - Il y a aussi les **données venant d’IoT**, qui ont la particularité d’être incertaines et d’avoir un gros volume, ce qui rend l’utilisation du _data warehouse_ peu intéressante.
+  - Et enfin il y a le **machine learning** qui a besoin d’une très grande quantité de données, et qui tire avantage de puissance de calcul séparée des autres use-cases grâce au _data lake_.
