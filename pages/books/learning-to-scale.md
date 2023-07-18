@@ -28,10 +28,11 @@
         - NDLR : c’est très bien illustré dans **_The Phoenix Project_**.
     - **Récompenser l’obéissance plutôt que l’initiative**.
       - On peut par exemple penser à un PM qui trouve des solutions issues de sa discovery, mais qui voit toutes ses propositions rejetées par son chef qui a déjà ses idées à lui.
-    - **Confondre le leg et l’héritage technologique**.
-      - Chaque entreprise qui a à un moment une bonne idée technologique qui perce finit par elle-même être dépassée par des concurrents qui innovent.
-        - Il faut savoir abandonner les technologies qui procuraient un avantage concurrentiel hier et qui n’en procurent plus aujourd’hui.
-        - Exemple : les clients lourds se font dépasser par le web.
+    - **Confondre le leg (_legacy_) et l’héritage technologique (_heritage_)**.
+      - Chaque entreprise qui a à un moment une bonne idée technologique qui perce, finit par elle-même être dépassée par des concurrents qui innovent.
+        - Il faut savoir abandonner les technologies qui procuraient un avantage concurrentiel hier et qui n’en procurent plus aujourd’hui (legacy).
+          - Exemple : les clients lourds se font dépasser par le web.
+        - Et il faut savoir identifier une technologie qui reste un vrai avantage.
 - Les modèles classiques de management sont basés sur les théories de personnes comme Taylor ou Ford. Mais elles posent des problèmes.
   - Faire correspondre un produit uniforme à une clientèle la plus vaste possible permet d’économiser des coûts, mais les clients s’en vont quand la concurrence augmente.
   - Découper l’activité en petites tâches reproductibles permet d’être plus efficace, mais dès que le contexte change, le découpage en question ne correspond plus à ce qu’il faut faire.
