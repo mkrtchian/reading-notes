@@ -39,13 +39,13 @@
   - Spécialiser les personnes dans des rôles leur permet d’être plus performants dans ce qu’ils font, mais ils perdent de vue l’ensemble et peuvent agir contre l’intérêt de l’entreprise sans s’en rendre compte.
   - Le contrôle centralisé permet d’agir vite, mais quand l’entreprise grossit, les dirigeants perdent le contact avec la réalité du terrain.
 - Dans le management classique de type **Command & Control**, on applique un processus en **4D**.
-  - **Définir**.
+  - **Définir** (Define)
     - L’équipe dirigeante définit les **enjeux stratégiques** de l’entreprise en s’appuyant éventuellement sur des conseils externes.
-  - **Décider**.
+  - **Décider** (Decide)
     - L’équipe dirigeante définit la **stratégie d’entreprise**, c’est-à-dire le plan d’action.
-  - **Diriger**.
+  - **Diriger** (Drive)
     - L’équipe dirigeante communique le plan aux investisseurs et aux employés, et s’occupe de la **mise en place** en nommant des personnes pour l’exécution et en définissant des objectifs.
-  - **Démêler**.
+  - **Démêler** (Deal [with consequences])
     - Au bout d’un moment, le plan d’action décidé en dehors des réalités du terrain finit par avoir des conséquences néfastes. L’équipe dirigeante pense alors à définir une **nouvelle stratégie**.
 - Le management de type 4D a pour conséquence :
   - Une baisse de la motivation.
@@ -93,15 +93,15 @@
   - Si la hiérarchie ne pratique pas l’apprentissage au quotidien à partir du terrain :
     - Elle fera des erreurs avec de lourdes conséquences.
     - Les employés finiront par se démotiver, voyant leurs propositions se faire rejeter par une direction qui a des idées préconçues.
-- Dans le lean, la stratégie se décline en **4C**.
-  - **Chercher**.
+- Dans le lean, la stratégie se décline en **4C** (4F).
+  - **Chercher** (Find)
     - L’équipe dirigeante va fréquemment sur le terrain pour aider les équipes à résoudre des problèmes du quotidien.
-  - **Confronter**.
+  - **Confronter** (Face)
     - Elle adopte une “vue d’hélicoptère” pour découvrir les enjeux majeurs.
       - L’exercice de l’**hélicoptère** consiste à faire des va et vient entre les détails des problèmes du terrain, et le niveau stratégique où il s’agit d’avoir une vision d’ensemble.
-  - **Cadrer**.
+  - **Cadrer** (Frame)
     - Elle décline ces enjeux au sein des équipes pour que chacune contribue à son niveau à l’effort d’apprentissage de l’entreprise.
-  - **Co-construire**.
+  - **Co-construire** (Form)
     - Les managers aident les équipes à développer des capacités à trouver des solutions, pour répondre aux enjeux qui les concernent.
 - La stratégie 4C implique **d’arrêter de bouleverser l’entreprise** sur des coups de tête.
   - Les managers ont en général du mal à accepter ce point, parce que jouer aux apprentis sorciers est addictif.
