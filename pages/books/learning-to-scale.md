@@ -70,17 +70,17 @@
       - Il passe du temps avec des devs et des PMs pour identifier l’origine de plusieurs bugs individuellement (plutôt que par statistique).
       - Il finissent par identifier que les PM ne prennent pas en compte des edge cases problématiques, et que les devs ont des pratiques de qualité de code qui ne sont pas suffisamment solides.
     - 2 - Il crée un environnement où le travail quotidien va permettre une acquisition rapide de compétences et de connaissances.
-      - Il lance le département produit sur la réduction des bugs.
+      - Il engage le département produit sur la réduction des bugs.
       - Il montre aux PMs et à leur responsable, pendant des séances individuelles, comment prendre en compte les cas particuliers dans les spécifications.
       - Il met en place une manière pour les devs de faire remonter les soucis dans les specs de manière régulière aux PMs pour établir une discussion entre eux.
       - Il travaille avec les Tech Leads sur l’amélioration des pratiques de qualité de code, à partir de leur expérience mais aussi en passant en revue les articles et livres de référence sur ces sujets.
       - Les Tech Leads utilisent ces connaissances pour former les devs et trouver des améliorations importantes pour pas trop d’efforts.
 - Pour que l’apprentissage soit au cœur de l'entreprise, il faut que les employés soient dans un **environnement qui les incite à apprendre**.
-  - La question de quelles compétences sont les plus utiles sur le moment se pose : par exemple pour développeur, explorer de nouvelles technos ou apprendre à faire du code avec peu de bugs.
+  - La question de quelles compétences sont les plus utiles sur le moment se pose : par exemple pour les développeurs, choisir entre explorer de nouvelles technos ou apprendre à faire du code avec peu de bugs.
   - Il faut que le moment de l’apprentissage soit très proche du moment de la mise en pratique.
   - Il faut de l’autonomie pour tester les choses par soi-même.
   - Il faut de la sécurité psychologique.
-- Au management classique Command & Control, le lean vient opposer le management de type Orient & Support.
+- Au management classique _Command & Control_, le lean vient opposer le management de type _Orient & Support_.
   - Le **Command and Control** consiste à donner des directives précises, puis à vérifier qu’elles sont exécutées.
     - Les employés sont là pour exécuter correctement les ordres et non pas réfléchir. De toute façon, ils en seraient bien incapables.
     - Exemple : “_Les chiffres de vente sont décevants. Chacun travaille de manière différente, donc j’ai repensé l’argumentaire commercial, élaboré un nouveau processus de vente et créé un nouveau modèle de proposition qu’il vous suffit juste de compléter pour gagner du temps. J’ai également augmenté la part variable de votre rémunération afin que vous soyez pleinement motivés. Je vais mettre en place des rendez-vous hebdomadaires avec chacun d’entre vous, d’ici quelques jours, pour répondre à vos questions et vous aider à appliquer ce nouveau processus avec succès._”
@@ -159,7 +159,7 @@
 - La posture à adopter pendant les Gemba walk c’est “**_Aller voir, demander pourquoi, faire preuve de respect_**” : il s’agit en grande partie d’essayer d’**y apprendre des choses sur la réalité du terrain**.
 - **Exercice :**
   - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, par exemple un jour par semaine, où on va faire un Gemba walk.
-  - On peut commencer par poser des questions axées orient and support.
+  - On peut commencer par poser des questions axées _Orient and Support_.
     - Si on va voir un client :
       - Orient : qu'est-ce que vous essayez d’obtenir avec notre produit ?
       - Support : qu'est-ce que vous appréciez dans notre produit ? Qu’est-ce qui vous aiderait davantage ?
@@ -169,10 +169,10 @@
   - On va ensuite demander à **voir la réalité des faits**.
     - Par exemple, si on a demandé à une équipe de dev de raconter un incident de prod, on peut maintenant demander à voir le code, les specs, et les tests correspondant à l’endroit problématique.
     - A une équipe de sales, après les avoir questionnés sur un client manqué, on pourra demander à voir les échanges par mail, les propositions commerciales etc. pour en apprendre plus à partir des faits.
-  - Si on tombe face à quelque chose qui nous surprend, il faut résister à la tentation “Command & Control” de dire ce qu’il faut faire pour faire “mieux”.
+  - Si on tombe face à quelque chose qui nous surprend, il faut résister à la tentation _Command & Control_ de dire ce qu’il faut faire pour faire “mieux”.
     - Au lieu de ça, il faut **chercher à comprendre pourquoi**, pour essayer de remonter à la cause du problème, et laisser à l’équipe la possibilité de découvrir elle-même comment le régler.
       - L’idée c’est qu’elle soit dans un processus d’apprentissage, pour qu’elle sache à l’avenir régler le problème elle-même.
-  - En tant que dirigeant, on doit aussi être **attentif aux dérives Command & Control** et mauvaises pratiques du genre.
+  - En tant que dirigeant, on doit aussi être **attentif aux dérives _Command & Control_** et mauvaises pratiques du genre.
     - Est-ce que certains employés sont mis sous pression ? Est-ce qu’ils en sont réduits à suivre des processus au détriment de l’intérêt du client ? Est-ce qu’ils se battent pour l’intérêt de leur département au détriment de l’intérêt de l’entreprise ? etc.
 - Pour que les employés osent révéler les vrais problèmes, il faut les mettre dans un** climat de confiance** et de sécurité psychologique. Et donc il faut tolérer l’erreur.
   - En revanche, il faut être moins tolérant envers le fait de commettre deux fois la même erreur, pour qu’ils ne s’imaginent pas que c’est la fête non plus.
@@ -207,8 +207,8 @@
 - Les problèmes à chercher en priorité sont d’ordre **opérationnel**, et non pas de relations entre individus et équipes, ou de motivation.
   - La raison est que la cause du problème est souvent de ce côté, et que le versant relationnel / émotionnel n’en est qu’une conséquence qu’il faut traiter une fois qu’on a résolu le problème de fond.
   - Exemples :
-    - Un commercial démotivé, mais qui ne sait pas rédiger de bonnes propositions commerciales.
-    - Deux équipes qui n’arrivent pas à travailler ensemble, mais qui ne savent pas très bien ce que le client veut.
+    - Un commercial démotivé, mais qui ne sait de toute façon pas rédiger de bonnes propositions commerciales.
+    - Deux équipes qui n’arrivent pas à travailler ensemble, mais qui ne savent de toute façon pas très bien ce que le client veut.
 
 #### Créer un flux de valeur
 
@@ -288,7 +288,7 @@
       - **Exercice :**
         - A chaque étape, la personne maintient un stock de “produits” sur lesquels elle a fait sa partie et qui ne sont pas encore traités par l’étape suivante, et au bout d’un certain nombre elle arrête d’en faire plus parce que ce serait contre-productif.
         - Le nombre d’éléments maximal dans le stock est à définir entre les personnes de chacune des deux étapes.
-        - Et d’ailleurs ce mécanisme doit aussi permettre aussi d’amorcer une communication sur ce que la personne d’après attend en terme de qualité, ce qui lui faciliterait la vie etc.
+        - Et d’ailleurs ce mécanisme doit aussi permettre d’amorcer une communication sur ce que la personne d’après attend en terme de qualité, ce qui lui faciliterait la vie etc.
   - Que ce soit pour le Takt time ou le lead time, il est probable qu’on tombe sur une certaine variabilité des durées.
     - Pour autant il ne faut pas s’arrêter à ça, mais creuser les raisons de ces variations pour obtenir une compréhension fine de ce qui se passe.
   - La mise en place de chacun de ces mécanismes devrait révéler des problèmes et soulever des questions. Il faudra les régler un par un.
@@ -401,7 +401,7 @@
   - Pour que les objectifs soient clairs, il est préférable de les rendre **visuels**.
   - **Exercice :**
     - L’**Obeya** consiste à réunir l’équipe dirigeante chaque semaine dans une grande pièce, avec de grands visuels qui servent de base à des études de problèmes.
-    - C’est un lieu d’apprentissage, pas un lieu de planification et de supervision (ce qui le transformerait en du Command & Control).
+    - C’est un lieu d’apprentissage, pas un lieu de planification et de supervision (ce qui le transformerait en du _Command & Control_).
       - On peut y faire de l’exploration en profondeur d’un problème, avec toujours **le client au centre** de l’attention.
       - Ça peut être un des collaborateurs qui présente un PDCA terminé, avec les apprentissages qu’il en tire.
     - Pour ce qui est des visuels, un exemple de ce qu’on peut y trouver :
@@ -454,7 +454,7 @@
       - _Faire une proposition aux candidats moins de 5 jours après le premier contact._
       - _Réduire le lead time des réclamations de 50%._
       - _Atteindre une note de 4 / 5 de satisfaction des employés._
-  - Concernant les **OKR**, selon l’auteur ils peuvent être adaptés au lean, à condition qu’on ait en tête une perspective Orient & Support quand on les définit.
+  - Concernant les **OKR**, selon l’auteur ils peuvent être adaptés au lean, à condition qu’on ait en tête une perspective _Orient & Support_ quand on les définit.
     - Mais on peut aussi en faire un outil de _Command & Control_.
     - L’auteur propose d’ailleurs de les renommer OKL (Objectives & Key Learnings) pour que l’intention soit plus claire.
 - Pour éviter que les équipes soient complètement perdues sur des objectifs qu’elles ne savent pas comment faire avancer, le lean propose tout simplement **le cadre du TPS**.
