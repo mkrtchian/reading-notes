@@ -158,8 +158,8 @@
   - Ça peut être d’aller voir les clients qui utilisent le produit, les employés qui fabriquent le produit, ou encore même les fournisseurs s’il y en a.
 - La posture à adopter pendant les Gemba walk c’est “**_Aller voir, demander pourquoi, faire preuve de respect_**” : il s’agit en grande partie d’essayer d’**y apprendre des choses sur la réalité du terrain**.
 - **Exercice :**
-  - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, par exemple un jour par semaine, où on va faire un Gemba walk.
-  - On peut commencer par poser des questions axées _Orient and Support_.
+  - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, de préférence plusieurs fois par semaine, où on va faire un Gemba walk.
+  - On peut commencer par poser des questions axées _Orient and Support_ : vers quoi les gens veulent aller, et en quoi on peut les aider.
     - Si on va voir un client :
       - Orient : qu'est-ce que vous essayez d’obtenir avec notre produit ?
       - Support : qu'est-ce que vous appréciez dans notre produit ? Qu’est-ce qui vous aiderait davantage ?
