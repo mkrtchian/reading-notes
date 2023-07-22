@@ -184,6 +184,7 @@
 - La satisfaction client est un des piliers du lean, elle permet de **rester concentré sur ce qui est important**, pour éviter de perdre du temps avec des process inutiles, des jeux de pouvoir etc.
 - L’idée du lean c’est de traiter chaque client **individuellement**, avec leurs besoins propres, plutôt que de créer des abstractions représentant des catégories de clients.
   - Il s’agit bien sûr pour l’entreprise de répondre aux besoins de l’ensemble des clients, mais en restant concentré sur les besoins individuels on a de meilleures chances d’avoir un produit qui soit plus adapté à l’ensemble des clients.
+  - Exemple chez Theodo : l’équipe sales personnalise son offre en fonction des problèmes de chaque client, et prépare même des mock ups spécifiques pour eux, ce qui lui permet d’augmenter son taux de closing.
 - **Exercice :**
   - On peut faire un tableau de type “**mur client**”, qui liste les problèmes remontés par les clients.
     - Le tableau contient les colonnes `Date | Client | Problème | Causes probables | Contre-mesure | Résultat`.
@@ -192,15 +193,19 @@
   - Ne pas proposer de solutions avant que tout le monde soit d’accord sur le problème.
   - Ne pas essayer de deviner des problèmes qui ne sont peut-être pas là.
   - Bien examiner les conséquences négatives des solutions avant de les adopter.
-- Une méthode pour résoudre efficacement les problèmes est le cycle **PDCA** (Plan, Do, Check, Act).
-  - 1 - On clarifie d’abord le problème, et on se base sur les faits en analysant le Gemba.
-  - 2 - On cherche une cause racine probable.
-    - On cherche à répondre à la question : **Quelle est l’erreur de raisonnement que nous commettons sans cesse, et qui est à l’origine de ce problème ?**
-    - Il ne faut pas s’arrêter aux causes évidentes, mais chercher plusieurs possibilités, et creuser chaque cause pour arriver à son origine, en posant à chaque fois la question “Pourquoi ?” .
-  - 3 - **Plan** : on trouve **le plus petit changement possible** qui permettrait de remédier au problème.
-  - 4 - **Do** : on le met en place, avec l’accord de tout le monde.
-  - 5 - **Check** : on vérifie si la situation s’améliore et dans quelle mesure.
-  - 6 - **Act** : on fait le point sur ce qu’on a appris, et on voit s’il faut une nouvelle petite itération PDCA ou si le problème semble résolu durablement.
+- Une méthode pour résoudre efficacement les problèmes est le cycle **PDCA** (Plan, Do, Check, Act). Elle a des airs de méthode scientifique.
+  - 1 - **Plan** :
+    - 1.1 - On clarifie d’abord le problème, et on se base sur les faits en analysant le Gemba.
+    - 1.2 - On cherche une cause racine probable.
+      - On cherche à répondre à la question : **Quelle est l’erreur de raisonnement que nous commettons sans cesse, et qui est à l’origine de ce problème ?**
+      - Il ne faut pas s’arrêter aux causes évidentes, mais chercher plusieurs possibilités, et creuser chaque cause pour arriver à son origine, en posant à chaque fois la question “Pourquoi ?” .
+      - On sait qu’on est arrivé au bout des “Pourquoi ?” quand la réponse est quelque chose comme “_On pensait que ça marchait comme ça, mais en fait…_”, ou “_On ne pensait pas que ça pouvait avoir cet effet là…_”.
+    - 1.3 - On trouve **le plus petit changement possible** qui permettrait de remédier au problème.
+  - 2 - **Do** : on le met en place, avec l’accord de tout le monde.
+  - 3 - **Check** : on vérifie si la situation s’améliore et dans quelle mesure.
+  - 4 - **Act** : on fait le point sur ce qu’on a appris, et on voit s’il faut une nouvelle petite itération PDCA ou si le problème semble résolu durablement.
+- Le PDCA est aussi un excellent **outil de teamwork**, parce qu’il permet de se concentrer sur l’analyse des causes du problème, plutôt que de passer essentiellement du temps à donner des solutions et se battre sur qui a le plus de pouvoir pour imposer la sienne.
+  - D’ailleurs on constate qu’on s’améliore sur le PDCA quand les discussions à ce sujet sont animées mais sans être “enflammées”.
 - Pour que la résolution de problème donne lieu à un apprentissage, il faut :
   - Que la personne qui a fait le travail le retranscrive **par écrit**, dans un tableau du type “mur client”.
   - En rediscuter plus tard avec la personne.
