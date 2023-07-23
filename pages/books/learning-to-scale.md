@@ -159,7 +159,7 @@
 - La posture à adopter pendant les Gemba walk c’est “**_Aller voir, demander pourquoi, faire preuve de respect_**” : il s’agit en grande partie d’essayer d’**y apprendre des choses sur la réalité du terrain**.
 - **Exercice :**
   - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, de préférence plusieurs fois par semaine, où on va faire un Gemba walk.
-  - On peut commencer par poser des questions axées _Orient and Support_ : vers quoi les gens veulent aller, et en quoi on peut les aider.
+  - On va poser des questions axées _Orient and Support_ : vers quoi les gens veulent aller, et en quoi on peut les aider.
     - Si on va voir un client :
       - Orient : qu'est-ce que vous essayez d’obtenir avec notre produit ?
       - Support : qu'est-ce que vous appréciez dans notre produit ? Qu’est-ce qui vous aiderait davantage ?
@@ -171,7 +171,7 @@
     - A une équipe de sales, après les avoir questionnés sur un client manqué, on pourra demander à voir les échanges par mail, les propositions commerciales etc. pour en apprendre plus à partir des faits.
   - Si on tombe face à quelque chose qui nous surprend, il faut résister à la tentation _Command & Control_ de dire ce qu’il faut faire pour faire “mieux”.
     - Au lieu de ça, il faut **chercher à comprendre pourquoi**, pour essayer de remonter à la cause du problème, et laisser à l’équipe la possibilité de découvrir elle-même comment le régler.
-      - L’idée c’est qu’elle soit dans un processus d’apprentissage, pour qu’elle sache à l’avenir régler le problème elle-même.
+      - Le but n’est pas forcément de résoudre ce problème spécifique, mais plutôt **que l’équipe apprenne** comment avoir un autre regard sur le problème, pour le résoudre toute seule la prochaine fois.
   - En tant que dirigeant, on doit aussi être **attentif aux dérives _Command & Control_** et mauvaises pratiques du genre.
     - Est-ce que certains employés sont mis sous pression ? Est-ce qu’ils en sont réduits à suivre des processus au détriment de l’intérêt du client ? Est-ce qu’ils se battent pour l’intérêt de leur département au détriment de l’intérêt de l’entreprise ? etc.
 - Pour que les employés osent révéler les vrais problèmes, il faut les mettre dans un** climat de confiance** et de sécurité psychologique. Et donc il faut tolérer l’erreur.
@@ -313,20 +313,25 @@
       - 1 - Un membre de l’équipe ou une machine remarque une situation anormale.
       - 2 - Il arrête la production et signale le problème.
       - 3 - Le team leader aide la personne à résoudre le problème pour relancer la production.
-        - Ou si c’est une machine, un membre règle le problème avec si besoin le team leader.
+        - Ou si c’est une machine, un membre règle le problème avec si besoin l'aide du team leader.
+        - L’intervention du team leader a surtout pour but d’aiguiller la personne, de l’aider à **apprendre en résolvant elle-même le problème**.
       - 4 - Le team leader / la personne responsable travaillent à éliminer la cause racine.
+        - Le lean recommande de traiter les problèmes le plus tôt possible, plutôt que de les laisser empirer.
     - Pour que ce système fonctionne tout en étant capable de continuer à produire, il faut des personnes dédiées à aider à répondre aux appels Andon : il s’agit des **team leaders**.
       - Il faut un team leader tous les 4 à 8 personnes formant une équipe.
         - Et tous les 4 à 8 team leaders, il faut un team leader de team leaders, et ainsi de suite si l’entreprise est grande.
       - Il ne s’agit pas d’une hiérarchie classique : les team leaders du niveau 2 soutiennent les team leaders dont ils sont les formateurs, et de même pour les team leaders vis-à-vis de leur équipe.
       - Les team leaders ne sont pas des managers au sens classique, leur rôle est essentiellement **opérationnel**.
-      - Ils doivent passer au moins la moitié de leur temps sur leurs activités de team leader :
+        - Ils doivent s’assurer du bon fonctionnement de l’équipe et de la mise en place d’une culture de l’excellence technique. En quelque sorte ils sont l’équivalent des _senseï_ lean en interne.
+      - Ils doivent passer au moins la moitié (et parfois jusqu’à 90%) de leur temps sur leurs activités de team leader :
         - **Visualiser** : s’assurer que les membres de l’équipe participent aux objectifs, utilisent le Kanban etc.
         - **Soutenir** : répondre aux appels Andon de l’équipe.
         - **Faire remonter** : escalader des appels Andon qu’ils sont incapable de résoudre.
         - **Former** : faire des sessions de formation pour l’équipe chaque semaine.
         - **Maintenir** : s’assurer que l’environnement de travail de l’équipe est optimal.
         - **Améliorer** : mener la démarche d’amélioration et d’apprentissage au quotidien avec l’équipe (Kaizen).
+    - Les **tests** sont faits **au plus près de la réalisation du produit** : c’est la personne qui fait qui est responsable de la qualité.
+      - Le test final n’est alors plus là pour vérifier que le produit final est bon, mais plutôt pour apprendre comment améliorer la qualité au moment de la fabrication.
     - **Exercice :**
       - Les **bacs rouges** sont utilisés en usine pour y mettre les articles défectueux, pour les analyser plus tard.
         - On peut reprendre le même principe avec des espaces “bacs rouges” numériques, où on met ce qui a pu causer un appel Andon, et qu’on examine avec son team leader dans un but d’apprentissage et pour éliminer la cause racine.
