@@ -375,6 +375,7 @@
         - Si on travaille sur un seul produit à la chaîne, on sera plus efficace mais **le travail sera ennuyeux**, et les délais pour envoyer au client plus longs.
       - On va donc créer un modèle de client qui achète la quantité moyenne du mix de ce qu’achètent les clients, **lissé dans le temps**, et l’utiliser pour guider le rythme de production.
         - Il faut le combiner au Kanban à flux tiré, et on obtient une production fluide, qui va s’améliorer avec l’utilisation de l’Andon et de l’apprentissage permanent.
+        - Exemple : chez Theodo, le recrutement est lissé dans le temps, de manière à embaucher toute l’année au lieu d’embaucher par pics dès qu’on fait rentrer de l’argent.
       - **Exercice :**
         - A partir des informations de besoin client, on peut créer un _Heijunka box_, qui est un tableau avec les produits en lignes, et des éléments temporels en colonnes (par exemple “lundi, mardi, mercredi etc.).
           - Dans chaque colonne on coche une case en mettant un trait, avec l’idée d’alterner les activités pour l’équipe.
@@ -519,3 +520,4 @@
       - **Autonome pour** : élaborer des pages d’accueil et des campagnes publicitaires.
       - **Prochain développement** : élaborer et coordonner des campagnes marketing multicanal complètes.
       - **Défi** : améliorer les ventes en ligne de 20% par rapport à l’année dernière sur la campagne de Noël.
+    - La trajectoire de chaque employé est unique, les managers doivent aider à la développer dans sa singularité, de la même manière qu’il faut prendre en compte les besoins individuels de chaque client.
