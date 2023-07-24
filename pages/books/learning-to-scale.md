@@ -330,8 +330,9 @@
         - **Former** : faire des sessions de formation pour l’équipe chaque semaine.
         - **Maintenir** : s’assurer que l’environnement de travail de l’équipe est optimal.
         - **Améliorer** : mener la démarche d’amélioration et d’apprentissage au quotidien avec l’équipe (Kaizen).
-    - Les **tests** sont faits **au plus près de la réalisation du produit** : c’est la personne qui fait qui est responsable de la qualité.
+    - Les **tests** sont faits **au plus près de la réalisation du produit** : c’est l'équipe qui fait qui est responsable de la qualité.
       - Le test final n’est alors plus là pour vérifier que le produit final est bon, mais plutôt pour apprendre comment améliorer la qualité au moment de la fabrication.
+      - Il faut aussi que ce soit l’équipe qui a fait l’étape problématique qui règle le problème, pour apprendre et faire mieux la prochaine fois.
     - **Exercice :**
       - Les **bacs rouges** sont utilisés en usine pour y mettre les articles défectueux, pour les analyser plus tard.
         - On peut reprendre le même principe avec des espaces “bacs rouges” numériques, où on met ce qui a pu causer un appel Andon, et qu’on examine avec son team leader dans un but d’apprentissage et pour éliminer la cause racine.
@@ -479,6 +480,7 @@
   - C’est le rôle du team leader de trouver des sujets d’amélioration pour l’équipe.
     - Il faut que le sujet soit motivant, pertinent par rapport à l’activité quotidienne de l’équipe, et atteignable en quelques jours ou semaines maximum.
     - Exemple de sujet de Kaizen : réduire le temps de réponse d’une application.
+  - Il participe à rendre le travail plus intéressant.
   - Il s’agit là aussi d’utiliser le PDCA, mais en cherchant à améliorer le standard actuel, en faisant preuve de créativité.
   - Le Kaizen courant doit **être affiché sur un mur**, avec les 6 étapes bien visibles :
     - **1 - Définir le potentiel d’amélioration** : une petite avancée, mais qui est quand même enthousiasmante.
