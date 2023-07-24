@@ -57,7 +57,8 @@
   - D’autres formes de management très différentes ont été expérimentées : en utilisant des mécanismes de récompense, en allant vers une autonomie totale des employés, en mettant en place les entreprises libérées, l’holacratie etc.
     - Mais toutes ces approches ont en commun d’être toujours sur la notion de **contrôle** : la question de savoir qui l’exerce et comment.
     - Le lean est radicalement différent de toutes ces approches parce qu’il se base sur la manière dont les gens **apprennent sur le terrain** (et non pas sur une histoire de contrôle donc).
-    - _Le lean n’est pas un système de production, c’est un système d’apprentissage._
+    - "_Le lean n’est pas un système de production, c’est un système d’apprentissage._"
+    - "_The lean strategy is neither a top-down nor bottom-up approach. Leaders don’t forcefully impose their will, and people don’t vote to make decisions. The lean strategy isn’t about who’s in control. It transforms the role of the CEO into someone whose purpose is to nurture a company-wide desire to deal with problems efficiently and adapt. Of course, a lean leader keeps most of the responsibilities any business leader has. You must decide on the major strategic orientations, promote the right people and know who to delegate. However you are much better prepared to make these decisions because of the time spent on the gemba. Changing points of view, going back and forth from a high-level vision to the analysis of detailed issues with the TPS gives you a much richer vision of the company’s problems, customer expectations and the real abilities of your team._"
 
 ## 3 - Faire de l’apprentissage une stratégie
 
@@ -159,7 +160,7 @@
 - La posture à adopter pendant les Gemba walk c’est “**_Aller voir, demander pourquoi, faire preuve de respect_**” : il s’agit en grande partie d’essayer d’**y apprendre des choses sur la réalité du terrain**.
 - **Exercice :**
   - En tant que cadre / dirigeant, on réserve des créneaux dans son agenda, de préférence plusieurs fois par semaine, où on va faire un Gemba walk.
-  - On va poser des questions axées _Orient and Support_ : vers quoi les gens veulent aller, et en quoi on peut les aider.
+  - On va **poser des questions** axées _Orient and Support_ : vers quoi les gens veulent aller, et en quoi on peut les aider.
     - Si on va voir un client :
       - Orient : qu'est-ce que vous essayez d’obtenir avec notre produit ?
       - Support : qu'est-ce que vous appréciez dans notre produit ? Qu’est-ce qui vous aiderait davantage ?
