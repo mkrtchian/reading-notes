@@ -234,10 +234,12 @@
 - **Exercice :**
   - On peut choisir un flux dont on est responsable au sein de l’entreprise, et rendre visuel le lead time des éléments de ce flux : il s’agit du **Kanban**.
     - Le Kanban n’est pas un outil qui organise la production, mais un **outil d’apprentissage qui permet d’analyser** visuellement quel élément stagne et pourquoi, pour aider à réduire le lead time.
+      - Il peut contenir différentes informations en fonction de ce que l’équipe veut apprendre à ce moment.
     - Le principe c’est qu’un client (service interne ou client externe à l’entreprise) commande quelque chose à une équipe. On a alors besoin de quelques informations simples :
       - Qui est le client ?
       - Qu’est-ce qui est commandé ?
       - A quel moment la commande a été émise ?
+        - On peut le représenter directement sous la forme du lead time (durée depuis la création de la tâche) si le support digital permet de maintenir la valeur à jour.
       - Qui s’en occupe ou va s’en occuper ?
   - En regardant le Kanban, on pourra :
     - Se demander si tel ou tel élément sur lequel l’équipe travaille est pertinent dans le contexte.
