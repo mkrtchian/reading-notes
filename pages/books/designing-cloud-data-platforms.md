@@ -39,7 +39,7 @@
     - Exemple : **AWS EMR** permet de lancer un cluster sur lequel on va pouvoir exécuter des jobs **Hadoop** et **Spark**,
       - On a juste à indiquer le nombre de nœuds qu’on veut, et les packages qu’on veut installer dessus.
       - Et on a la possibilité de faire des allers-retours vers **S3** pour scaler différemment le calcul et le stockage.
-- La **cloud data platform** moderne utilise à la fois le data warehouse et le data lake, hébergés dans un cloud public, chacun d’entre remplissant un usage particulier.
+- La **cloud data platform** moderne utilise à la fois le data warehouse et le data lake, hébergés dans un cloud public, chacun d’entre eux remplissant un usage particulier.
   - Pour être polyvalente et pas chère, la data platform doit avoir des **4 composants principaux faiblement couplés**, interagissant entre-eux avec une API bien définie.
     - **Ingestion layer** : on va chercher les données chez les différents types de sources (DB relationnelle, DB NoSQL, API externes etc.).
       - On va en général utiliser un ensemble d’outils open source ou commerciaux pour chaque type de données à aller chercher.
