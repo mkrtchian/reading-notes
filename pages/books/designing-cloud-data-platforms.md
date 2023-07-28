@@ -69,3 +69,64 @@
   - Parmi les plus courants il y a la **vue 360° des clients**, où il s’agit de récupérer toutes les données d’interaction avec eux, pour proposer ensuite des services plus personnalisés, vendre plus etc.
   - Il y a aussi les **données venant d’IoT**, qui ont la particularité d’être incertaines et d’avoir un gros volume, ce qui rend l’utilisation du _data warehouse_ peu intéressante.
   - Et enfin il y a le **machine learning** qui a besoin d’une très grande quantité de données, et qui tire avantage de puissance de calcul séparée des autres use-cases grâce au _data lake_.
+
+## 2 - Why a data platform and not just a data warehouse
+
+- Ce chapitre donne des **arguments pour le choix d’une _cloud data platform_, plutôt qu’une simple _data warehouse_**.
+- On implémente les deux solutions pour une situation d’**exemple** qu’on va utiliser dans ce chapitre :
+  - Nous sommes l’équipe data, et le département marketing a besoin que nous récupérions deux sources de données et qu’on les corrèle régulièrement.
+    - L’une des sources est une table de campagnes de marketing, issue d’une DB MySQL interne.
+    - Et l’autre est constituée de fichiers CSV de clics utilisateurs, issus de logs applicatifs (et donc _semistructured_).
+  - On part sur Microsoft Azure pour les deux solutions.
+  - Concernant l’implémentation _data warehouse only_ :
+    - 1 - On va utiliser deux **Azure Data Factory** pour récupérer la donnée dans le serveur de DB et dans les fichiers CSV dans le serveur SFTP. C’est notre _ingest layer_.
+    - 2 - Ensuite on redirige ça vers l’**Azure Synapse**, qui est la data warehouse de chez Azure. Elle va faire office de _store layer_, _process layer_ et _serve layer_.
+  - Concernant l’implémentation _cloud data platform_ :
+    - 1 - On a notre _ingest layer_ avec **Azure Data Factory**, qui redirige les données vers le _store layer_.
+    - 2 - Le _store layer_ est implémenté avec **Azure Blob Storage**. Il s’agit d’un stockage de type _data lake_.
+    - 3 - On a un _process layer_ qui utilise **Azure Databricks**, et qui fait tourner **Spark**.
+    - 4 - Le _serve layer_ utilise enfin **Azure Synapse** qui est le data warehouse.
+- Concernant l’**ingestion**.
+  - Pour la version _data warehouse only_ :
+    - La pipeline contient :
+      - Des _linked services_ : ici la _data source_ MySQL en entrée, et la _data sink_ **Azure Synapse** en sortie.
+      - Des _data sets_ : il s’agit de la description du schéma de données d’entrée et de sortie, et leur mapping.
+    - Si le schéma de la DB source change, il faudra mettre à jour le schéma défini dans la pipeline et le mapping.
+      - Mais surtout il faudra **gérer soi-même la migration** du _data sink_.
+  - Pour la version _cloud data platform_ :
+    - Cette fois le _data sink_ est un **Azure Blob Storage**.
+      - Il n’y a plus besoin de spécifier les schémas et le mapping entre input et output puisque l’output accueille la donnée telle quelle.
+    - Si le schéma de la DB source change, il n’y a **rien à faire côté ingestion** : on écrira de toute façon la donnée dans un nouveau fichier.
+      - On déplace le problème de mapping plus loin.
+- Concernant le **processing**.
+  - Dans la version _data warehouse only_ :
+    - On va charger les deux données :
+      - La DB MySQL sans charger sa structure parce qu’elle est déjà relationnelle.
+      - La donnée CSV semistructurée dans des rows de type texte qu’on parsera en JSON avec une fonction SQL built-in.
+    - La **requête SQL** qu’on va écrire aura les désavantages suivants :
+      - Elle sera **peu lisible**, à cause du code de parsing nécessaire.
+        - On pourrait la rendre plus lisible en pré-parsant la donnée, mais ça veut dire plus de temps et des coûts plus élevés.
+        - Une autre solution de lisibilité pourrait être d’ajouter des UDF (User Defined Functions), qu’il faudrait maintenir et déployer sur chaque instance d’**Azure Synapse**.
+      - Elle sera **difficile à tester**.
+      - Elle risque de ne pas profiter de la **performance** offerte par la structure en colonne du data warehouse, parce que les données texte qu’on parse en JSON ne sont pas organisables physiquement en colonnes.
+  - Dans la version _cloud data platform_ :
+    - On a la possibilité d’utiliser un _distributed data processing engine_ comme **Apache Spark**.
+      - On pourra écrire des requêtes SQL pour des expérimentations rapides.
+      - Et on pourra aussi écrire du code **lisible, maintenable et testable** dans un langage comme Python ou Scala, quand il s’agit de projet de plus long terme.
+- Concernant l’**accès à la donnée**.
+  - Il peut y avoir plusieurs types de consommateurs :
+    - Des utilisateurs plutôt **orientés business** comme des équipes marketing.
+      - Ils vont préférer utiliser des outils de reporting type **Power BI**, et donc auront besoin de la donnée sous forme relationnelle, par exemple dans **Azure Synapse**.
+    - Des utilisateurs orientés **data analyse / data science**.
+      - Ils pourront bénéficier de SQL qu’ils utilisent souvent directement, au travers de **Spark SQL**.
+      - Ils pourront avoir accès à des données non filtrées pour leur projets data science, grâce **Spark** directement.
+    - Au final la _cloud data platform_, qui contient à la fois la donnée sous forme brute dans le _data lake_, et la donnée dans le _data warehouse_, est **adaptée à chaque usage**.
+- A propos des **coûts financiers**.
+  - Il est difficile de comparer les coûts des services cloud.
+    - En général on constate que le stockage est plutôt pas cher, et que l’essentiel des coûts se trouve dans les calculs.
+  - L’**elastic scaling** consiste à pouvoir calibrer le service pour l’usage exact qu’on en a, et de ne pas avoir à payer plus.
+    - C’est un des éléments qui permet de vraiment optimiser les coûts.
+  - Pour la version _data warehouse only_, l’essentiel des coûts va aller dans **Azure Synapse**.
+    - Le scaling de ce service peut prendre des dizaines de minutes, donc c’est quelque chose qu’on ne peut faire que de temps en temps.
+  - Pour la version _cloud data platform_, l’essentiel des coûts est porté par le _processing layer_, par exemple **Spark**.
+    - **Spark** est particulièrement élastique, au point où il est commun de démarrer une instance juste le temps d’une requête.
