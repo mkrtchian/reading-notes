@@ -130,3 +130,78 @@
     - Le scaling de ce service peut prendre des dizaines de minutes, donc c’est quelque chose qu’on ne peut faire que de temps en temps.
   - Pour la version _cloud data platform_, l’essentiel des coûts est porté par le _processing layer_, par exemple **Spark**.
     - **Spark** est particulièrement élastique, au point où il est commun de démarrer une instance juste le temps d’une requête.
+
+## 3 - Getting bigger and leveraging the Big 3: Amazon, Microsoft, and Google
+
+- Il existe un trade off entre choisir des **services vendor-specific** de type PaaS, et choisir des **services open source**.
+  - D’un côté on se couple au vendor mais on minimise les coûts d’Ops, et de l’autre on permet une meilleure portabilité mais on augmente les coûts d’Ops.
+  - Les auteurs trouvent que la solution vendor-specific est celle qui a en général le moins de désavantages.
+- Pour répondre aux problématiques de la data moderne, il faut une **architecture en 6 couches**.
+  - **1 - Data ingestion layer**.
+    - Son but est de :
+      - Se connecter aux sources et récupérer la donnée dans le data lake sans trop la modifier.
+      - Enregistrer des statistiques et un statut dans le _metadata repository_.
+    - Selon les auteurs, il vaut mieux mettre en place **à la fois un mécanisme de type batch et un mécanisme de type streaming**.
+      - L'industrie est en train de se diriger vers le streaming, mais de nombreuses sources externes fournissent la donnée sous un format de type batch avec des éléments groupés, par exemple CSV, JSON, XML.
+      - On pourrait utiliser la partie batch pour ingérer des données par petits batchs, et éviter de faire la version streaming. Mais ça créerait de la **dette technique** parce qu’on finira par avoir besoin du streaming à un moment ou un autre.
+      - La _lambda architecture_ consiste à avoir la donnée qui passe à la fois par le mécanisme de batch et par le mécanisme de streaming.
+        - Cette duplication était nécessaire parce que le streaming n’était pas fiable dans les débuts de Hadoop, mais ce n’est plus le cas.
+        - Le _cloud data platform_ ne consiste pas à faire une telle duplication : selon la source, la donnée va passer par le mécanisme de streaming ou de batch.
+    - On entend parfois plusieurs choses différentes quand on parle de _real time_ pour des analytics :
+      - 1 - La _real time ingestion_ consiste à avoir la donnée disponible pour de l’analyse dès qu’elle arrive.
+      - 2 - Le _real time analytics_ consiste à avoir des fonctionnalités d’analytics qui se mettent à jour à chaque arrivée de donnée.
+        - Cette dernière est plus difficile à faire, donc il vaut mieux bien clarifier les besoins.
+        - Exemple : détection de fraude en temps réel.
+  - **2 - Storage layer**.
+    - Son but est de :
+      - Stocker la donnée pour du court terme et du long terme.
+      - La rendre disponible pour la consommation streaming et la consommation batch.
+    - Le **slow storage** est là pour le mode batch.
+      - La donnée y est persistée pour pas cher, grâce à la possibilité de scaler le stockage sans ajouter de capacité de calcul.
+      - Par contre les temps d’accès sont grands.
+    - Le **fast storage** est là pour le mode streaming.
+      - Il s’agit d’utiliser un outil qui est fait pour l’accès rapide, comme **Apache Kafka**.
+      - Par contre, on n’a en général pas la possibilité de scaler le stockage sans ajouter de puissance de calcul, et donc les coûts sont plus grands.
+      - On va donc purger régulièrement la donnée du fast storage, et de la transférer dans le slow storage.
+  - **3 - Processing layer**.
+    - Son but est de :
+      - Lire la donnée depuis le stockage et y appliquer de la business logic.
+      - Persister la donnée modifiée à nouveau dans le stockage pour un usage par les data scientists.
+      - Délivrer la donnée aux autres consumers.
+    - Il faut un ou plusieurs outils qui permettent de réaliser des transformations de données, y compris avec du calcul distribué.
+      - Un exemple peut être **Google Dataflow**, qui est une version PaaS d’**Apache Beam**, qui supporte à la fois le mode streaming et le mode batch.
+  - **4 - Technical metadata layer**.
+    - Son but est de :
+      - Stocker des informations techniques sur chaque layer.
+        - Ça peut être les schémas d’ingestion, le statut de telle ou telle étape, des statistiques sur les données ou les erreurs, etc.
+      - Permettre à chaque d’ajouter/modifier ou consulter des informations.
+    - Par exemple, le processing layer peut vérifier dans la _technical metadata layer_ qu’une certaine donnée est disponible pour aller la chercher, plutôt que de demander à l’ingestion layer.
+      - Ce qui permet un certain **découplage**.
+    - D’autres exemples peuvent impliquer des usages de **monitoring**.
+    - La _business metadata_ est une autre notion qui peut avoir son layer, mais qui n’est pas explorée dans ce livre.
+      - Il s’agit d’identifier l’usage business qui est fait de chaque donnée qu’on récupère des sources, et d’en faire un catalogue.
+    - Il n’y a pas vraiment d’outil unique qui permette de remplir ce rôle pour le moment, donc on devra sans doute en utiliser plusieurs.
+      - Par exemple **Confluent Schema Registry** et **Amazon Glue** peuvent supporter certains des cas d’usages.
+  - **5 - Serving layer**.
+    - Son but est de :
+      - Servir les consumers qui ont besoin de données relationnelles via une _data warehouse_.
+      - Servir les consumers qui ont besoin de la donnée brute, en accédant directement au _data lake_.
+        - Les data scientistes vont en général vouloir y accéder via le slow storage.
+        - Et l’accès via le fast storage va plutôt intéresser les applications qui s’abonnent en mode streaming.
+          - Par exemple un système de recommandation ecommerce en temps réel.
+  - **6.1 - Orchestration overlay layer**.
+    - Son but est de :
+      - Coordonner l’exécution de jobs, sous la forme d’un graphe de dépendance.
+      - Gérer les échecs et les retries.
+    - C’est un peu le complément du _technical metadata layer_ pour permettre le faible couplage entre les layers.
+    - L’outil le plus connu d’orchestration est **Apache Airflow**, adopté par Google Cloud Platform sous le nom de **Google Composer**.
+      - AWS et Azure ont quant à eux choisi d’inclure des fonctionnalités d’orchestration dans leur outil d’ETL.
+  - **6.2 - ETL overlay layer**.
+    - Son but est de :
+      - Prendre en charge les fonctionnalités de certains layers (ingestion, processing, metadata, orchestration) **avec peu ou pas de code**.
+    - On pourrait faire l’ensemble de notre pipeline avec cet outil ETL, la question à se poser c’est : **à quel point il est ouvert à l’extension ?**
+      - On peut vouloir à l’avenir par exemple utiliser un autre outil de processing, ou s’interfacer avec un outil open source.
+      - Dans le cas où il y a une incompatibilité avec un usage qu’on a, on peut toujours l’implémenter à part de l’outil ETL.
+        - Le problème c’est qu’au bout d’un moment, les usages à côté deviennent aussi complexes que la solution entière sans l’outil ETL, mais avec une **architecture spaghetti**.
+    - Parmi les outils ETL il y a **AWS Glue**, **Azure Data Factory** et **Google Cloud Data Fusion**.
+      - Il existe des solutions commerciales non cloud-natives comme **Talend** et **Informatica**, mais ce livre se limite au cloud-native et aux outils open source.
