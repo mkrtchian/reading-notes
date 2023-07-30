@@ -205,3 +205,59 @@
         - Le problème c’est qu’au bout d’un moment, les usages à côté deviennent aussi complexes que la solution entière sans l’outil ETL, mais avec une **architecture spaghetti**.
     - Parmi les outils ETL il y a **AWS Glue**, **Azure Data Factory** et **Google Cloud Data Fusion**.
       - Il existe des solutions commerciales non cloud-natives comme **Talend** et **Informatica**, mais ce livre se limite au cloud-native et aux outils open source.
+- Les **couches** doivent être bien **séparées et découplées**.
+  - Une première raison est de pouvoir utiliser les outils les plus adaptés aux besoins de chaque couche.
+    - Le cloud bougeant très vite, on voudra sans doute pouvoir changer seulement l’un d’entre eux quand on a une meilleure alternative pour une couche en particulier.
+  - Une autre raison est qu’on peut avoir plusieurs équipes en charge de la data platform, et il vaut mieux qu’elles ne se gênent pas.
+    - Par exemple, on voudra souvent avoir l’ingestion plutôt centralisée, et le processing plutôt en mode libre service pour chaque équipe qui en a besoin.
+- Les **outils** pouvant servir dans une des couches de notre plateforme sont classés en 4 catégories (les auteurs les priorisent dans cet ordre) :
+  - 1 - Solutions **cloud-native PaaS** d’AWS, GCP ou Azure.
+    - Leur avantage principal c’est le gain de temps : on n’a pas à se préoccuper de la compatibilité. On configure très facilement et c’est en prod.
+    - Par contre, c’est la solution qui va être la moins extensible : si par exemple un connecteur n’est pas supporté, on aura du mal à l’ajouter.
+    - Elle est aussi peu portable, vu qu’on n’a pas les mêmes services d’un cloud provider à un autre.
+  - 2 - Solutions **serverless**.
+    - Il s’agit de pouvoir déployer son code custom, mais sans avoir à se préoccuper des serveurs, de leur configuration, du scaling etc.
+    - C’est une solution intermédiaire d’un point de vue trade-offs sur la flexibilité, la portabilité et le gain de temps.
+  - 3 - Solutions **open-source**.
+    - Leur avantage c’est c’est la flexibilité et la portabilité maximales, mais de l’autre côté on a à gérer soi-même des VMs dans le cloud donc plus de travail d’Ops.
+  - 4 - Solutions **SaaS commerciales**.
+    - Elles peuvent avoir un intérêt si elles ont une fonctionnalité non disponible sous forme PaaS ou open source.
+  - Dans les faits, on va utiliser un **mix de solutions des 4 catégories** en fonction des layers et des besoins qu’on a.
+    - On a de plus en plus d’entreprises qui utilisent des solutions de **plusieurs cloud providers**. Par exemple le gros des services sur AWS, et le use-case machine learning sur GCP.
+- Outils sur **AWS**.
+  - Batch ingestion.
+    - **AWS Glue** supporte l’ingestion à partir de **AWS S3**, ou à partir d’une connexion JDBC.
+    - **AWS Database Migration Service** sert à la base à transférer ses DBs vers AWS, mais on peut l’utiliser comme ingestion layer.
+    - **AWS DMS** permet d’implémenter un mécanisme de change data capture à partir d’une DB.
+    - Si aucune des solutions PaaS ne supporte notre data source, on peut utiliser la solution serverless **AWS Lambda** où il faudra écrire et maintenir du code.
+  - Streaming ingestion.
+    - **AWS Kinesis** est un message broker pour lequel il faudra écrire du code pour publier dedans. Il a malheureusement très peu de connecteurs entrants.
+      - En revanche il a des connecteurs sortants appelés **Kinesis Firehose**, qui permettent par exemple d’envoyer la donnée de Kinesis dans un **S3** sous format Parquet.
+    - **AWS Managed Streaming for Apache Kafka (MSK)** est une version de **Kafka** entièrement managée.
+      - On peut l’utiliser à la place de **Kinesis**, par exemple si on migre une application avec **Kafka** vers AWS.
+  - Storage.
+    - **AWS S3** permet de stocker de la donnée de manière scalable, avec la possibilité de choisir entre plusieurs formules avec des latences plus ou moins grandes.
+  - Batch processing.
+    - **AWS Elastic MapReduce (EMR)** est une version managée de **Spark**.
+      - On va en général lire la donnée depuis **S3**, faire le calcul, puis détruire le cluster **EMR**.
+  - Streaming processing.
+    - **AWS Kinesis Data Analytics** permet de se brancher sur **Kinesis**, et de faire du processing en streaming.
+    - Si on utilise **AWS MSK**, on peut brancher dessus **Kafka Streams** pour le processing en streaming.
+  - Data warehouse.
+    - **AWS Redshift** est un data warehouse distributé sur plusieurs noeuds.
+      - **Redshift Spectrum** permet de faire des requêtes depuis **Redshift** pour obtenir des données qui sont en fait sur **S3**.
+        - Il faudra définir des “tables externes”, et la performance de la query sera moins bonne, mais ça permet d’économiser de la place dans le data warehouse.
+  - Direct access.
+    - **AWS Athena** permet de faire une requête SQL distribuée en utilisant directement la donnée sur **S3**.
+      - On lance l’instance le temps de la requête, puis on détruit l’instance.
+  - ETL overlay et metadata repository.
+    - **AWS Glue** est un outil d’ETL complet.
+      - Il est construit autour de **Spark**, et possède des templates pour faciliter de nombreuses transformations.
+        - Il a aussi des add-ons **Spark** non-standards, ce qui nuit à la portabilité par rapport à un simple **Spark** managé.
+      - Il maintient un _Data Catalog_ à partir des données disponibles sur **S3**.
+      - Il maintient un ensemble de statistiques sur l’exécution des jobs.
+  - Orchestration.
+    - **AWS Step Functions** permet de créer des workflows qui mettent en jeu différents services, y compris ceux qui ne seraient pas gérés par **Glue** comme **AWS Lambda** avec du code custom.
+  - Consumers.
+    - Pour les outils comme **Tableau** qui ont besoin d’une connexion JDBC/ODBC qui supporte SQL, elles peuvent se connecter à **Redshift** ou **Athena**.
+    - Pour du streaming avec faible latence, on peut envoyer la donnée dans un key/value store comme **DynamoDB**, ou dans une DB comme **AWS RDS** ou **AWS Aurora**.
