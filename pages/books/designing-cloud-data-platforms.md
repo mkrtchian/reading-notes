@@ -261,3 +261,41 @@
   - Consumers.
     - Pour les outils comme **Tableau** qui ont besoin d’une connexion JDBC/ODBC qui supporte SQL, elles peuvent se connecter à **Redshift** ou **Athena**.
     - Pour du streaming avec faible latence, on peut envoyer la donnée dans un key/value store comme **DynamoDB**, ou dans une DB comme **AWS RDS** ou **AWS Aurora**.
+- Outils sur **GCP**.
+  - Batch ingestion.
+    - **Cloud Data Fusion** est un ETL overlay qui permet d’ingérer des données depuis une DB relationnelle avec JDBC, des fichiers depuis **Google Cloud Storage**, et même depuis un FTP ou depuis **AWS S3**.
+      - Il est basé sur un projet open source, et donc supporte des connecteurs custom.
+    - **BigQuery Data Transfer Service** permet d’ingérer de la donnée depuis les services SaaS de Google, et depuis des centaines d’autres services SaaS connus grâce à un partenariat avec Fivetran.
+      - Par contre, la donnée va directement dans le data warehouse, ce qui ne permet pas vraiment l’architecture modulaire qu’on vise.
+    - **Cloud Functions représente** l’équivalent d’**AWS Lambda**, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
+  - Stream ingrestion.
+    - **Cloud Pub/Sub** est un broker équivalent à **AWS Kinesis**.
+  - Storage.
+    - **Google Cloud Storage** est un équivalent à **AWS S3**.
+  - Batch processing.
+    - **Dataproc** est un **Spark** managé équivalent à **AWS EMR**.
+    - **Cloud Dataflow** est un **Apache Beam** managé.
+      - **Beam** a l’avantage d’offrir une même API pour le batch processing et le streaming processing, là où **Spark** ne supporte que le batch mais est une techno plus mature.
+  - Streaming processing.
+    - **Cloud Dataflow** représente la manière clou-native de faire du streaming sur GCP.
+    - **Dataproc** avec **Spark Streaming** peut représenter une alternative, mais il s’agit en fait de micro-batch et non pas de traiter les messages un par un.
+      - Les auteurs conseillent **Beam**, sauf si on a déjà investi en temps ou connaissances sur **Spark**.
+  - Data warehouse.
+    - **BigQuery** est un équivalent à **AWS RedShift**.
+      - Il a l’avantage de scaler le nombre de nœuds tout seul.
+      - Par contre il a un modèle de facturation basé sur la donnée lue par chaque requête, ce qui peut rendre les coûts difficiles à prédire.
+  - Direct access.
+    - GCP ne propose pas de services pour accéder au _data lake_ directement avec du SQL.
+      - On peut éventuellement créer des tables vers de la donnée externe (donc dans le _data lake_) à partir de **BigQuery**.
+      - On peut aussi utiliser **Spark SQL** pour identifier et lire de la donnée sur le _data lake_.
+  - ETL overlay et metadata repository.
+    - **Cloud Data Fusion** est un ETL overlay équivalent à **AWS Glue**. Il fournit une UI qui permet de configurer la pipeline.
+      - Il met à disposition un moyen d’analyser quelle partie de la pipeline peut affecter telle ou telle donnée.
+      - Il met aussi à disposition des statistiques sur l’exécution des jobs.
+  - Orchestration.
+    - **Cloud Composer** permet de créer des flows d’orchestration entre jobs.
+      - Il est basé sur **Apache Airflow**.
+  - Consumers.
+    - **BigQuery** n’a pas de connexion JDBC/ODBC pour y connecter un outil BI par exemple.
+      - Il a une API REST, et il est directement compatible avec certains outils BI.
+    - Si on veut consommer la donnée avec une faible latence, on peut la mettre dans le key/value store **Cloud Bigtable**.
