@@ -267,7 +267,7 @@
       - Il est basé sur un projet open source, et donc supporte des connecteurs custom.
     - **BigQuery Data Transfer Service** permet d’ingérer de la donnée depuis les services SaaS de Google, et depuis des centaines d’autres services SaaS connus grâce à un partenariat avec Fivetran.
       - Par contre, la donnée va directement dans le data warehouse, ce qui ne permet pas vraiment l’architecture modulaire qu’on vise.
-    - **Cloud Functions représente** l’équivalent d’**AWS Lambda**, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
+    - **Cloud Functions** représente l’équivalent d’**AWS Lambda**, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
   - Stream ingrestion.
     - **Cloud Pub/Sub** est un broker équivalent à **AWS Kinesis**.
   - Storage.
@@ -299,3 +299,50 @@
     - **BigQuery** n’a pas de connexion JDBC/ODBC pour y connecter un outil BI par exemple.
       - Il a une API REST, et il est directement compatible avec certains outils BI.
     - Si on veut consommer la donnée avec une faible latence, on peut la mettre dans le key/value store **Cloud Bigtable**.
+- Outils sur **Azure**.
+  - Batch ingestion.
+    - **Azure Data Factory** est un ETL overlay permettant de faire de l’ingestion depuis diverses sources (DB, SaaS externes, **S3**, **GCS** etc.).
+      - Il est celui qui a le plus de connecteurs comparé à **AWS Glue** et **Cloud Data Fusion**.
+    - **Azure Functions** est l’équivalent d’**AWS Lambda**.
+      - Il ne supporte que Java et Python.
+  - Streaming ingestion.
+    - **Azure Event Hubs** est équivalent à **AWS Kinesis**.
+      - Il a la particularité d’être compatible avec **Apache Kafka**.
+  - Storage.
+    - **Azure Blob Storage** est équivalent à **AWS S3**.
+    - **Azure Data Lake Storage** est une version améliorée qui supporte mieux le calcul distribué avec de grandes quantités de données.
+  - Batch processing.
+    - Pour le batch processing, Azure a choisi de miser sur un partenariat avec **Databricks**, qui est un service créé par les créateurs de **Spark**.
+      - La version managée de **Databricks** est disponible sur AWS et Azure, mais elle est celle par défaut sur Azure, donc mieux supportée par son écosystème.
+  - Streaming processing.
+    - Azure Stream Analytics se branche sur Event Hubs et permet de faire du streaming processing.
+  - Data warehouse.
+    - **Azure Synapse** est le _data warehouse_ d’Azure.
+      - Il est entre **AWS Redshift** et **Google BigQuery** dans la mesure où il nécessite de choisir la capacité de calcul, mais il scale l’espace disque tout seul.
+  - Direct access.
+    - **Azure Databricks** est la manière privilégiée d’accéder à la donnée sur le _data lake_, soit par l’API native de **Spark**, soit en SQL avec **Spark SQL**.
+  - ETL overlay et metadata repository.
+    - **Azure Data Factory** est équivalent à **AWS Glue**.
+      - Il s’intègre parfaitement avec **Databricks** pour les transformations complexes.
+      - Il fournit des métriques sur la data pipeline.
+  - Orchestration.
+    - La partie orchestration des jobs est prise en charge par Azure Data Factory.
+  - Consumers.
+    - **Azure Synapse** fournit une connexion JDBC/ODBC pour connecter les outils de BI.
+      - **Azure Databricks** fournit la même chose, mais il faut un cluster Spark toujours allumé, ce qui peut coûter cher.
+    - **Cosmos DB** est une DB orientée document où on peut stocker les résultats de processings pour un accès faible latence.
+- Alternatives **commerciales** ou **open source**.
+  - Certains logiciels open source sont trop difficiles à mettre en place, par exemple un _data warehouse_ distribué comme **Apache Druid**.
+  - Batch ingestion.
+    - Il existe pas mal d’outils open source et commerciaux qui permettent d’ingérer des données, leur valeur ajoutée étant en général le grand nombre de sources supportées.
+    - **Apachi NiFi** est une solution open source qui supporte de nombreuses sources, et permet d’en ajouter soi-même en Java.
+    - Il existe de nombreux outils SaaS commerciaux qui gèrent l’ingestion.
+      - Ces outils vont souvent envoyer la donnée directement dans un data warehouse.
+      - Il faut bien réfléchir à la problématique de la sécurité.
+  - Streaming ingestion.
+    - **Apache Kafka** est le principal outil utilisé en dehors d’une solution managée de streaming.
+      - Il a l’avantage de pouvoir se connecter à de nombreuses sources avec **Kafka Connect**, et il a un moyen d’implémenter des applications de streaming avec **Kafka Streams**.
+      - Les raisons de choisir **Kafka** plutôt qu’une solution cloud-native peuvent être l’investissement qu’on a déjà dans **Kafka** (par exemple connaissances), ou le besoin de performance nécessitant le fine-tuning du serveur **Kafka**.
+  - Orchestration.
+    - **Apache Airflow** est le principal outil utilisé en dehors d’une solution managée d’orchestration.
+      - La raison de l’utiliser en mode non managé peut être de profiter de sa flexibilité, avec ses fichiers en Python.
