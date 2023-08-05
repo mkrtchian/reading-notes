@@ -381,7 +381,9 @@
       - Il s’agit d’avoir un composant qui va :
         - 1 - Exécuter la requête vers la DB concernée.
           - Ca peut être un simple :
-            - `SELECT * FROM table`
+            ```sql
+            SELECT * FROM table
+            ```
         - 2 - Récupérer la donnée sous un format qu’il comprend.
         - 3 - Mapper la donnée dans le bon format pour la stocker sur le _storage layer_.
         - Il y a donc **2 mappings** qui se produisent pendant l’opération.
@@ -402,7 +404,9 @@
         - Pour savoir quelle donnée a changé :
           - La table d’origine doit avoir un champ `LAST_MODIFIED`, mis à jour automatiquement par la DB.
           - En retenant le `MAX(LAST_MODIFIED)` du dernier run d’ingestion (qu’on appelle le _highest watermark_), on peut construire une query qui récupère uniquement les nouvelles données :
-            - `SELECT * FROM subscriptions WHERE LAST_MODIFIED > "2019-05-01 17:01:00"`
+            ```sql
+            SELECT * FROM subscriptions WHERE LAST_MODIFIED > "2019-05-01 17:01:00"
+            ```
           - On pourra mettre le _highest watermark_ dans le _technical metadata layer_.
             - **AWS Glue** gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme **Google Cloud SQL** ou **Azure SQL Database**.
         - Cette _incremental table ingestion_ permet d’ingérer moins de données dupliquées, mais elle a encore des inconvénients :
