@@ -350,7 +350,7 @@
 ## 4 - Getting data into the platform
 
 - Le layer d’ingestion peut avoir besoin d’ingérer différents types de données :
-  - **Les bases de données relationnelles**.
+  - **1 - Les bases de données relationnelles**.
     - Leurs données sont organisées en colonnes et typées, mais chaque vendor a des types à lui.
       - Il y a donc un **mapping** à faire entre le type de chaque colonne et notre modèle.
       - Ce mapping va changer régulièrement en fonction des évolutions fonctionnelles des applications qui utilisent cette DB.
@@ -358,26 +358,26 @@
       - Il faudra donc **automatiser le mapping** pour éviter de le faire à la main.
     - La donnée change régulièrement dans la DB, pour refléter l’état de l’application, elle est **volatile**.
       - Il faudra donc aller chercher régulièrement les derniers changements.
-  - **Les fichiers.**
+  - **2 - Les fichiers.**
     - Les fichiers sont structurés selon divers types de format texte ou binaire (CSV, JSON XML, Avro, Protobuf etc.) qui ne contiennent pas d’information de type.
       - Il faut donc pouvoir **supporter le parsing de tous ces formats**.
     - Les fichiers ne garantissent aucun schéma, et on voit beaucoup plus souvent des changements dans celui-ci que pour les DB relationnelles.
       - Il faut donc gérer les **changements de schéma fréquents**.
     - Les fichiers représentent en général de la **donnée figée**.
       - La nouvelle donnée est écrite dans un autre fichier, donc on se retrouve à devoir ingérer **de nombreux fichiers**.
-  - **La donnée SaaS via API.**
+  - **3 - La donnée SaaS via API.**
     - Les données SaaS sont en général disponibles via une API REST, qui renvoie du JSON.
     - Chaque provider a sa propre API, et son propre format. Il faudra donc **implémenter la partie ingestion pour chacun des providers**.
       - Il faudra faire la validation du schéma à chaque fois.
       - Il faudra la tenir à jour en fonction des changements d’API.
-  - **Les streams**.
+  - **4 - Les streams**.
     - Les mêmes données peuvent arriver plusieurs fois, donc il faut que notre pipeline puisse **gérer les duplicatas**.
     - Les events des streams sont immutables, et peuvent être corrigés en ajoutant un autre message modifié au stream.
       - Donc il faut que notre pipeline **gère la réconciliation entre plusieurs versions d’un même message**.
     - Les données de streaming ont en général un **grand volume**, donc il faut une infrastructure qui le supporte.
 - Concernant le cas des **bases de données relationnelles**.
   - Il y a deux moyens d’ingérer de la donnée depuis une DB relationnelle :
-    - **L’utilisation de requêtes SQL**.
+    - **1 - L’utilisation de requêtes SQL**.
       - Il s’agit d’avoir un composant qui va :
         - 1 - Exécuter la requête vers la DB concernée.
           - Ca peut être un simple :
@@ -408,4 +408,4 @@
         - Cette _incremental table ingestion_ permet d’ingérer moins de données dupliquées, mais elle a encore des inconvénients :
           - Il faut faire du processing pour faire apparaître les données supprimées, en comparant les snapshots entre eux.
           - Les données qui sont insérées puis supprimées entre deux snapshots ne seront pas capturées par ce mécanisme, donc **on perd des informations**.
-    - **Le Change Data Capture (CDC)**.
+    - **2 - Le Change Data Capture (CDC)**.
