@@ -346,3 +346,66 @@
   - Orchestration.
     - **Apache Airflow** est le principal outil utilisé en dehors d’une solution managée d’orchestration.
       - La raison de l’utiliser en mode non managé peut être de profiter de sa flexibilité, avec ses fichiers en Python.
+
+## 4 - Getting data into the platform
+
+- Le layer d’ingestion peut avoir besoin d’ingérer différents types de données :
+  - **Les bases de données relationnelles**.
+    - Leurs données sont organisées en colonnes et typées, mais chaque vendor a des types à lui.
+      - Il y a donc un **mapping** à faire entre le type de chaque colonne et notre modèle.
+      - Ce mapping va changer régulièrement en fonction des évolutions fonctionnelles des applications qui utilisent cette DB.
+    - Vu que la donnée est normalisée, elle se trouve dans des centaines de tables qu’on peut joindre au moment des queries.
+      - Il faudra donc **automatiser le mapping** pour éviter de le faire à la main.
+    - La donnée change régulièrement dans la DB, pour refléter l’état de l’application, elle est **volatile**.
+      - Il faudra donc aller chercher régulièrement les derniers changements.
+  - **Les fichiers.**
+    - Les fichiers sont structurés selon divers types de format texte ou binaire (CSV, JSON XML, Avro, Protobuf etc.) qui ne contiennent pas d’information de type.
+      - Il faut donc pouvoir **supporter le parsing de tous ces formats**.
+    - Les fichiers ne garantissent aucun schéma, et on voit beaucoup plus souvent des changements dans celui-ci que pour les DB relationnelles.
+      - Il faut donc gérer les **changements de schéma fréquents**.
+    - Les fichiers représentent en général de la **donnée figée**.
+      - La nouvelle donnée est écrite dans un autre fichier, donc on se retrouve à devoir ingérer **de nombreux fichiers**.
+  - **La donnée SaaS via API.**
+    - Les données SaaS sont en général disponibles via une API REST, qui renvoie du JSON.
+    - Chaque provider a sa propre API, et son propre format. Il faudra donc **implémenter la partie ingestion pour chacun des providers**.
+      - Il faudra faire la validation du schéma à chaque fois.
+      - Il faudra la tenir à jour en fonction des changements d’API.
+  - **Les streams**.
+    - Les mêmes données peuvent arriver plusieurs fois, donc il faut que notre pipeline puisse **gérer les duplicatas**.
+    - Les events des streams sont immutables, et peuvent être corrigés en ajoutant un autre message modifié au stream.
+      - Donc il faut que notre pipeline **gère la réconciliation entre plusieurs versions d’un même message**.
+    - Les données de streaming ont en général un **grand volume**, donc il faut une infrastructure qui le supporte.
+- Concernant le cas des **bases de données relationnelles**.
+  - Il y a deux moyens d’ingérer de la donnée depuis une DB relationnelle :
+    - **L’utilisation de requêtes SQL**.
+      - Il s’agit d’avoir un composant qui va :
+        - 1 - Exécuter la requête vers la DB concernée.
+          - Ca peut être un simple :
+            - `SELECT * FROM table`
+        - 2 - Récupérer la donnée sous un format qu’il comprend.
+        - 3 - Mapper la donnée dans le bon format pour la stocker sur le _storage layer_.
+        - Il y a donc **2 mappings** qui se produisent pendant l’opération.
+      - Alors que la donnée opérationnelle s’intéresse à l’état actuel (“Quels sont les articles dans le panier ?”), **la donnée analytique s’intéresse à l’évolution de l’état dans le temps** (“Quels articles ont été ajoutés ou enlevés et dans quel ordre ?”).
+        - Il faut donc un moyen pour capturer l’évolution de la donnée dans le temps.
+      - Une 1ère solution pour garder l’évolution dans le temps est de faire une **full table ingestion**.
+        - On va récupérer l’ensemble des données d’une table à intervals réguliers, sauver ces snapshots dans le _data lake_, et les charger dans le _data warehouse_.
+        - Pour en tirer quelque chose, il faut** superposer les rows des snapshots** dans la même table du _data warehouse_.
+          - Pour différencier les rows de chaque snapshot, on peut ajouter une colonne `INGEST_DATE`.
+          - On peut directement utiliser du SQL pour obtenir les données qu’on veut, mais pour certains usages on aura besoin de faire une transformation dans le _processing layer_.
+        - Parmi les données dérivées qu’on voudra créer, il peut y avoir :
+          - Créer une _view_ qui ne montre que les rows du dernier snapshot.
+          - De la donnée qui **identifie les suppressions**, en identifiant les rows qui existaient dans un snapshot et n’existaient plus dans le suivant.
+          - Une version “compactée”, qui élimine les rows qui n’ont pas changé par rapport au snapshot précédent.
+        - Le problème de la full table ingestion, c’est la charge sur la machine de DB, et l’**énorme quantité de données** qu’on finit par avoir.
+      - Une autre solution peut être l’**incremental table ingestion**.
+        - Il s’agit toujours de récupérer des snapshots à intervalles réguliers, mais **seulement de la donnée qui a changé** depuis le précédent snapshot.
+        - Pour savoir quelle donnée a changé :
+          - La table d’origine doit avoir un champ `LAST_MODIFIED`, mis à jour automatiquement par la DB.
+          - En retenant le `MAX(LAST_MODIFIED)` du dernier run d’ingestion (qu’on appelle le _highest watermark_), on peut construire une query qui récupère uniquement les nouvelles données :
+            - `SELECT * FROM subscriptions WHERE LAST_MODIFIED > "2019-05-01 17:01:00"`
+          - On pourra mettre le _highest watermark_ dans le _technical metadata layer_.
+            - **AWS Glue** gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme **Google Cloud SQL** ou **Azure SQL Database**.
+        - Cette _incremental table ingestion_ permet d’ingérer moins de données dupliquées, mais elle a encore des inconvénients :
+          - Il faut faire du processing pour faire apparaître les données supprimées, en comparant les snapshots entre eux.
+          - Les données qui sont insérées puis supprimées entre deux snapshots ne seront pas capturées par ce mécanisme, donc **on perd des informations**.
+    - **Le Change Data Capture (CDC)**.
