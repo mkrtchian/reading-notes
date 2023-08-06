@@ -413,3 +413,65 @@
           - Il faut faire du processing pour faire apparaître les données supprimées, en comparant les snapshots entre eux.
           - Les données qui sont insérées puis supprimées entre deux snapshots ne seront pas capturées par ce mécanisme, donc **on perd des informations**.
     - **2 - Le Change Data Capture (CDC)**.
+      - Le CDC permet de récupérer **l’ensemble des opérations** qui ont lieu sur la table, **sans aucun doublon**.
+      - Il s’agit de lire le log de changements créé par la DB, à l’aide d’une application qui sait le faire.
+        - L’application peut être fournie par la DB, ou une application cloud-native comme **AWS Database Migration Service**, ou une application open source comme **Debezium**.
+      - Etant donné que les DBs ne gardent pas longtemps leur log de changements, **le CDC nécessite une infrastructure de type streaming** pour être récupéré.
+      - Le format des messages récupérés depuis le log de changements contient la valeur du row avant, sa valeur après l’opération, le type d’opération, et des metadata.
+        - On va vouloir mettre dans le _data warehouse_ uniquement la valeur après l’opération et le type d’opération.
+        - La table dans le _data warehouse_ ressemble du coup au cas de l’_incremental table ingestion_ : on a une entrée par changement.
+      - Le CDC sur une DB **Oracle**.
+        - Oracle fournit **Oracle GoldenGate**, une application qui permet de lire son log de changement et de le transférer vers diverses plateformes.
+          - Il faut acheter la licence pour pouvoir l’utiliser.
+        - On peut mettre en place **Debezium** qui est open source, mais il faudra qu’il puisse se connecter à **Oracle XStream API**, qui lui-même nécessite quand même une licence **GoldenGate**.
+        - Oracle fournit un outil d’analyse qui s’appelle **LogMiner**, qui est considéré comme pas 100% fiable.
+          - Certains outils comme **AWS Database Migration Service** l’utilisent malgré tout.
+        - Une alternative moins chère à **GoldenGate** peut être **SharePlex**, un produit fait par Quest.
+      - Le CDC sur une DB **MySQL**.
+        - **MySQL** écrit les changements dans un log servant principalement à la réplication, pour ajouter des DBs followers.
+        - Vu que c’est une DB open source, il existe de nombreux outils pour servir d’application CDC à partir de ce log, par exemple : **Debezium** et **Apache NiFi**.
+      - Le CDC sur une DB **MS SQL Server**.
+        - **MS SQL Server** fournit la possibilité de rediriger le log de changements d’une table vers une table créée spécialement pour ça.
+          - On peut donc facilement implémenter un outil CDC qui n’a qu’à utiliser SQL pour lire cette nouvelle table régulièrement.
+        - Parmi les outils qui supportent le CDC sur **MS SQL Server**, il y a par exemple: **Debezium**, **Apache NiFi** et **AWS Database Migration Service**.
+      - Le CDC sur une DB **PostgreSQL**.
+        - **PostgreSQL** supporte le fait de fournir son log de changements sous un format Protobuf ou JSON, ce qui facilite le travail des applications CDC.
+        - Il existe de nombreux outils qui savent lire ces données, par exemple : **Debezium** et **AWS Database Migration Service**.
+  - Concernant le **mapping des données** depuis la DB vers le _data warehouse_, il va falloir faire une **analyse pour vérifier la compatibilité** :
+    - 1 - On prépare une liste des types de données supportées par la DB dont on veut capturer les données.
+      - Il vaut mieux prendre l’ensemble des types, en prévision d’ajout de colonnes avec des types qui n’étaient pas utilisés jusque là par l’application.
+    - 2 - On prépare une liste des types supportés par le _data warehouse_ de destination, et on identifie les différences avec la précédente.
+    - 3 - On identifie les types qui ne correspondent pas exactement, mais permetteront une conversion sans perte d’information.
+      - Par exemple un type `SMALLINT` sur **MySQL** comme source, et le seul entier disponible sur **Google BigQuery** qui est l’équivalent d’un `BIGINT`.
+    - 4 - On identifie les types qui n’ont pas de correspondance satisfaisante, et pourraient mener à une perte d’information.
+      - On essaye de voir si on ne peut pas trouver un workaround, par exemple transformer des données géospatiales en string, puis utiliser du processing pour les parser au moment de la lecture.
+    - 5 - Si on est devant une impasse, on essaye de voir s’il n’y a pas un outil de _data warehouse_ plus adapté.
+    - 6 - Dans le cas où notre application d’ingestion n’est pas faite à la main, on vérifie les types qu’elle supporte, et leur compatibilité avec la source et la destination.
+      - Les auteurs conseillent de faire plusieurs PoC, et disent de ne pas faire confiance aux documentations de ces outils.
+    - 7 - Si on écrit l’application d’ingestion à la main, il faut vérifier les types supportés par le driver qui nous permet d’accéder à la DB. Par exemple le driver JDBC.
+  - Les DBs **NoSQL** sont à traiter différemment des DBs relationnelles.
+    - Parmi les solutions courantes :
+      - On peut utiliser un outil SaaS commercial qui supporte notre DB NoSQL : dans ce cas rien de plus à faire.
+      - Implémenter l’application d’ingestion à la main, en utilisant l’API de notre DB NoSQL directement pour accéder aux données.
+      - Utiliser une application CDC si c’est disponible.
+        - Par exemple **Debezium** supporte MongoDB.
+      - On peut utiliser l’outil d’export de données de notre DB NoSQL, et le faire tourner régulièrement pour avoir un snapshot des données.
+        - **MongoDB** permet d’obtenir les données sous un format CSV ou JSON, et l’outil permet d’ajouter des requêtes, donc on peut avoir une colonne qui a la date de la dernière modification, et faire un _incremental table ingestion_.
+        - **Cassandra** permet d’obtenir les données sous un format CSV, mais uniquement en mode _full table ingestion_.
+  - Concernant les **metadata liées à l’ingestion**.
+    - Il faut sauvegarder un certain nombre de statistiques pour pouvoir ensuite faire des vérifications sur la **qualité des données** ingérées, et du **monitoring** de l’ingestion.
+      - On va mettre tout ça dans notre _technical metadata layer_.
+    - Parmi les **statistiques** qu’on veut :
+      - Le nom et l’adresse IP du serveur de DB.
+      - Le nom de la base de données ou du schéma.
+      - Le nom de la table.
+      - Le type de DB dans le cas où on en gère plusieurs.
+      - Pour de l’ingestion en batch, le nombre de rows ingérées.
+        - On pourra à partir de ça vérifier que l’ensemble des données sont arrivées à destination.
+        - On peut monitorer ce chiffre pour être alerté dans le cas d’une variation anormale.
+      - La durée de chaque job d’ingestion, de même que le début et la fin de l’ingestion.
+        - C’est un moyen de monitorer la santé de la pipeline.
+      - Pour de l’ingestion en streaming, on prend les statistiques par **fenêtre temporelle**.
+        - Par exemple insérer un row toutes les 5 mn dans notre DB de technical metadata. Plus on a besoin de réagir vite, et plus on va choisir une fenêtre petite.
+        - On peut aussi ajouter le nombre d’inserts, updates, deletes etc. pour chaque fenêtre.
+      - Les changements dans le schéma de la DB source, ce qui nous permettra d’être alerté et d’adapter la pipeline.
