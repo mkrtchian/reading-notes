@@ -1,3 +1,5 @@
+import { Tool } from "../../components/markers/Tool";
+
 # Effective Kafka
 
 ## 1 - Event Streaming Fundamentals
@@ -42,7 +44,7 @@
 
 - Kafka est une plateforme d’event streaming, mais elle comprend aussi un écosystème entier qui permet l’implémentation d’EDAs.
 - L’event streaming est récent comparé aux formes traditionnelles de messaging (MQ-style).
-  - Il n’y a pas de standard, mais Kafka est le leader du domaine, et son fonctionnement sert de modèle pour les solutions concurrentes comme **Azure Event Hubs** et **Apache Pulsar**.
+  - Il n’y a pas de standard, mais Kafka est le leader du domaine, et son fonctionnement sert de modèle pour les solutions concurrentes comme <Tool>Azure Event Hubs</Tool> et <Tool>Apache Pulsar</Tool>.
 - Historiquement, Kafka a été open-sourcé en 2011 par LinkedIn, et confié à la fondation Apache.
   - Il avait été conçu notamment pour gérer les events d’activité des utilisateurs.
   - En 2019, LinkedIn opérait 100 clusters Kafka, pour un total de 100 000 topics et 7 millions de partitions.
@@ -51,7 +53,7 @@
 - Parmi les usages qui permettent l’EDA, Kafka supporte :
   - **Publish-subscribe** : un emitter publie des events, et plusieurs consumers les consomment sans que ces noeuds se connaissent.
     - C’est notamment utilisé pour des microservices avec un faible couplage.
-  - **Log aggregation** : un ensemble de sources publient des events sous forme de log (soit applicatifs, soit d’infrastructure), qu’on va ensuite agréger au sein du même topic, pour le consommer dans une DB optimisée pour la lecture, comme **Elasticsearch** ou **HBase**.
+  - **Log aggregation** : un ensemble de sources publient des events sous forme de log (soit applicatifs, soit d’infrastructure), qu’on va ensuite agréger au sein du même topic, pour le consommer dans une DB optimisée pour la lecture, comme <Tool>Elasticsearch</Tool> ou <Tool>HBase</Tool>.
   - **Log shipping** : il s’agit de streamer des logs depuis une DB master vers un topic où plusieurs DB followers vont consommer et se mettre à jour.
     - Ce pattern permet notamment d’implémenter l’event sourcing.
   - **SEDA pipelines** : le Stage Event-Driven Architecture est l’implémentation d’une pipeline d’events, où on fait une opération à chaque étape, avant d'émettre un event modifié pour l’étape suivante.
@@ -97,7 +99,7 @@
       - L’_offset_ est une valeur entière qui ne peut qu’augmenter, même s'il peut y avoir des gaps entre deux offsets qui se suivent (cf. compaction chapitre 14).
     - D’un champ binaire un peu plus inhabituel qui est la _key_, et qui est utilisée par Kafka pour associer les records avec une même partition.
   - Kafka est largement utilisé pour traiter des events à l’intérieur d’un bounded context, tout comme les events entre bounded contexts.
-  - Il est aussi de plus en plus utilisé en remplacement des brokers traditionnels (**RabbitMQ**, **ActiveMQ**, **AWS SQS/SNS**, **Google Cloud Pub/Sub** etc.). Dans ce cas, les records ne correspondent pas forcément à des events, et on n’est pas forcément dans de l’EDA.
+  - Il est aussi de plus en plus utilisé en remplacement des brokers traditionnels (<Tool>RabbitMQ</Tool>, <Tool>ActiveMQ</Tool>, <Tool>AWS SQS/SNS</Tool>, <Tool>Google Cloud Pub/Sub</Tool> etc.). Dans ce cas, les records ne correspondent pas forcément à des events, et on n’est pas forcément dans de l’EDA.
 - Les **partitions** sont l’unité de stream principale qui contient les records.
   - Les records d’une même partition sont _totally ordered_.
   - Les records publiés dans une partition par un même producer seront donc aussi _causally ordered_ (la précédence respectée).
@@ -530,7 +532,7 @@
   - Avec un `min.insync.replicas` élevé proche ou égal au replication factor, on risque d’avoir des réplicas lents qu’on est obligés d'attendre.
   - Avec un plus grand replication factor (la propriété `default.replication.factor`), et potentiellement plus de brokers, on risque quand même d’être lent parce qu’on a plus de réplicas à mettre à jour.
 - On peut **augmenter le replication factor de topics existants**, mais ça nécessite de créer un fichier de config de réassignement sous forme JSON, avec l’ordre des réplicas qu’on préfèrerait pour chaque partition (pour le choix des nouveaux leaders d’une manière qui les répartit entre brokers).
-  - Pour nous aider avec cette config, il y a l’outil **kafka-reassign-tool** sur GitHub.
+  - Pour nous aider avec cette config, il y a l’outil <Tool>kafka-reassign-tool</Tool> sur GitHub.
   - La création d’un réplica supplémentaire demande à copier les partitions pour lesquelles on augmente le replication factor, donc ça peut prendre du temps et occuper le cluster.
 - Pour **décommissionner un broker**, il faut d’abord le vider de son rôle de leader pour toutes les partitions où il l’est.
   - On peut pour ça utiliser la même technique avec le fichier de config de réassignement, en indiquant pour toutes les partitions où il est leader, les IDs d’autres brokers.
@@ -707,7 +709,7 @@
   - Kafka n’a pas de **mécanisme de chiffrement de la donnée elle-même**, par défaut elle sera stockée en clair sur le filesystem des brokers.
     - Une des possibilités peut être d’utiliser un chiffrement au niveau du filesystem ou du disque dur entier des machines des brokers.
     - La méthode la plus sûre est de recourir à du **chiffrement de bout en bout** de la donnée, en chiffrant dans le publisher, et déchiffrant dans le consumer.
-      - Il existe plusieurs projets open source qui permettent de le faire. Par exemple, le projet _Kafka Encryption_.
+      - Il existe plusieurs projets open source qui permettent de le faire. Par exemple, le projet <Tool>Kafka Encryption</Tool>.
       - Si on publie des messages déjà chiffrés, il devient inutile d’activer la compression dans Kafka, puisque l’entropie des messages sera alors maximale.
       - Le chiffrement de bout en bout ne rend pas l’utilisation de TLS inutile.
         - TLS protège l’ensemble du record, y compris les headers par exemple.
@@ -867,7 +869,7 @@
     - Des **erreurs réseau et des crashs du serveur**, pour lesquelles on n’a pas besoin des transactions.
       - Le consumer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas fait le commit d'offset.
       - Le producer peut les gérer grâce au mécanisme de retries tant qu’il n’a pas reçu d’acknowledgement, et au mécanisme d’idempotence qui garantit l'ordre et la déduplication.
-    - Pour les **crashs du process client **on a un point faible : le cas où le client a déjà commencé à exécuter la callback du record, et est arrivé jusqu’à publier le record sortant, mais **n’a pas encore fait le commit de son offset** en tant que consumer.
+    - Pour les **crashs du process client** on a un point faible : le cas où le client a déjà commencé à exécuter la callback du record, et est arrivé jusqu’à publier le record sortant, mais **n’a pas encore fait le commit de son offset** en tant que consumer.
       - S’il crash à ce moment-là, la prochaine fois qu’il se réveille il va traiter le même record entrant, et va publier encore le record qu’il avait déjà publié.
       - On a donc un risque de publier le message sortant plusieurs fois, sans que la publication avec l’option d’idempotence ne puisse rien y faire, puisqu’il ne s’agit pas de retries d’un même message.
   - Le même problème peut se généraliser avec la publication de plusieurs messages qui doivent tous n’être publiés qu'une fois par le stage.
