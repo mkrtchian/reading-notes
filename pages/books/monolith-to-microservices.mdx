@@ -1,3 +1,6 @@
+import { Book } from "../../components/markers/Book";
+import { Tool } from "../../components/markers/Tool";
+
 # Monolith to Microservices: : Evolutionary Patterns to Transform Your Monolith
 
 ## 1 - Just Enough Microservices
@@ -71,7 +74,7 @@
       - Par exemple, si un service envoie un message à un autre service, qui doit d'abord interroger un 3ème avant de répondre. Si le 3ème est down le 2ème ne pourra pas répondre.
         - La solution peut être pour le 2ème service d'avoir les données du 3ème en cache.
         - Une autre solution pourrait être d'utiliser des communications asynchrones : le 3ème service reçoit le message asynchrone et recontacte le 2ème quand il est dispo.
-      - Pour plus d'infos sur le type de communications, voir le chapitre 4 de **_Building Microservices_**.
+      - Pour plus d'infos sur le type de communications, voir le chapitre 4 de <Book>Building Microservices</Book>.
     - **Deployment coupling** : à chaque fois qu'on doit redéployer des services quand on en déploie un.
       - Idéalement on veut pouvoir déployer le plus petit set de choses pour avoir peu de risques et un feedback rapide (et aller vers une continuous delivery).
       - Les _release trains_ sont une mauvaise idée.
@@ -154,7 +157,7 @@
   - Par exemple, on décide qu'il nous faut des microservices pour gérer une augmentation de trafic. Puis on se dit que ce serait pas mal d'augmenter aussi l'autonomie des équipes, et d'adopter un nouveau langage.
     - Il faut bien garder en tête que c'était l'augmentation du trafic qui était la plus importante. Et donc si on trouve un autre moyen plus simple de régler le problème, peut-être que les autres raisons devront attendre.
   - Un bon moyen pour aider aux décisions est de représenter l'ensemble des raisons d'adopter les microservices avec des curseurs de 1 à 5 : si on augmente le curseur pour une raison, on doit le baisser pour une autre.
-- Pour réussir à créer un **changement organisationnel** (pour mettre en place des microservices ou autre chose), l'auteur propose la méthode en 8 étapes de John Kotter, décrite plus en détail dans son livre **_Leading Change_**.
+- Pour réussir à créer un **changement organisationnel** (pour mettre en place des microservices ou autre chose), l'auteur propose la méthode en 8 étapes de John Kotter, décrite plus en détail dans son livre <Book>Leading Change</Book>.
   - **Étape 1 : Establishing a sense of urgency**. Le meilleur moment pour initier le changement c'est juste après une crise dont l'idée qu'on veut mettre en place règlerait le problème sous-jacent, avec l'idée "Il faut le mettre en place _maintenant_".
   - **Étape 2 : Creating the guiding coalition**. On a besoin de convaincre des personnes autour de nous. En fonction de l'impact de notre idée, il faudra avoir des personnes plus ou moins haut placées, et typiquement des personnes du business dans le cas où on introduit des systèmes distribuées qui vont impacter les utilisateurs.
   - **Étape 3 : Developing a vision and strategy**. La vision définit le "quoi", elle doit donner envie mais être réaliste. La stratégie définit le "comment".
@@ -174,7 +177,7 @@
   - La notion de **bounded context** et les relations entre les BCs nous permet de représenter un découpage possible en microservices.
   - On n'a pas besoin d'un modèle super détaillé des BCs, mais d'avoir **juste assez d'information** pour pouvoir commencer à faire des choix. Et comme on procède de manière incrémentale, une erreur est vite rattrapée.
   - L'**event storming** est un outil recommandé par l'auteur pour obtenir une connaissance partagée du modèle, et pouvoir faire des choix pertinents à partir de là.
-    - Pour approfondir il y a **_Introducing EventStorming_**, le livre pas encore terminé d'Alberto Brandolini.
+    - Pour approfondir il y a <Book>Introducing EventStorming</Book>, le livre pas encore terminé d'Alberto Brandolini.
   - Pour prioriser, on peut se servir du **context mapping** (le nom n'est pas mentionné par l'auteur).
     - Un BC qui a beaucoup de liens avec d'autres BCs ne sera peut être pas le bon premier candidat pour être extrait en microservice parce qu'il impliquera beaucoup de communications réseau.
     - A noter que le context map qu'on a à ce stade ne représente pas forcément le vrai découpage. Il va falloir regarder dans le code et vérifier ce que le BC fait dans base de données.
@@ -187,7 +190,7 @@
     - Pour intervenir sur une fonctionnalité il fallait passer par plusieurs équipes.
   - De nos jours, avec des mouvements comme DevOps, les spécialités sont poussées vers les équipes de delivery, qui sont organisées autour de domaines fonctionnels, en _vertical slices_.
     - Le rôle des équipes centrales qui restent s'est transformé : au lieu de faire eux-mêmes, ils aident les équipes delivery, en y envoyant des spécialistes, organisant des formations, et en créant des **outils self-service**.
-  - Pour aller plus loin, l'auteur recommande **_Team Topologies_** et **_The Devops Handbook_**.
+  - Pour aller plus loin, l'auteur recommande <Book>Team Topologies</Book> et <Book>The Devops Handbook</Book>.
   - Il faut faire attention à ne pas chercher à copier tel quel les autres organisations, sans prendre en compte le contexte, la culture d'entreprise etc. On peut en revanche s'en inspirer.
     - Le changement **prend du temps**. Par exemple, on peut intégrer des ops dans des équipes de dev pour former petit à petit chacun aux problématiques de l'autre.
     - Pour commencer le changement, on peut réunir des personnes de chaque équipe, et faire un mapping des responsabilités liées à la delivery, en fonction de chaque équipe.
@@ -218,7 +221,7 @@
   - Dans le cas où on peut modifier le code du monolithe, si le code est en trop mauvais état, ça peut aussi parfois être plus rapide de le réécrire dans le microservice plutôt que de l'extraire.
 - Une des grandes difficultés c'est d'**isoler le code qu'on veut extraire dans notre microservice**, c'est-à-dire modulariser le monolithe.
   - En général le code dans les monolithes est organisé autour de considérations techniques et pas de domaines métier, c'est pourtant ça qu'on veut extraire.
-  - Pour aider à faire ça, l'auteur recommande le concept de _seam_, qu'on trouve dans **_Working Effectively with Legacy Code_** de Michael Feathers.
+  - Pour aider à faire ça, l'auteur recommande le concept de _seam_, qu'on trouve dans <Book>Working Effectively with Legacy Code</Book> de Michael Feathers.
     - Un _seam_ est une délimitation autour d'une zone qu'on veut changer. On travaille ensuite à une nouvelle implémentation de la fonctionnalité, et à la fin on remplace l'ancienne par la nouvelle.
     - Ça peut être plus ou moins grand, ici ce qui nous intéresse c'est un bounded context.
   - Réorganiser le code pour obtenir un **modular monolith** peut être suffisant pour ce qu'on recherche, en fonction de nos objectifs (cf. chapitre précédent).
@@ -269,7 +272,7 @@
   - Donc ils ont mis en place une interception des appels FTP, et le remapping vers du HTTP pour taper dans le microservice responsable de ça.
 - **Exemple : Message Interception** : dans le cas de messages **asynchrones** à router vers le nouveau microservice.
   - Une première possibilité est le **content-based routing**, où un router va consommer tous les messages du message broker, et les queuer sur deux autres queues : une pour le monolithe, et une pour le microservice extrait.
-    - Ce pattern vient d'**_Enterprise Integration Patterns_**. Et de manière générale l'auteur recommande ce livre pour des patterns de communication asynchrone.
+    - Ce pattern vient d'<Book>Enterprise Integration Patterns</Book>. Et de manière générale l'auteur recommande ce livre pour des patterns de communication asynchrone.
     - L'avantage c'est qu'on n'a pas à toucher au monolithe.
     - L'inconvénient c'est qu'on complexifie là encore le système de communication plutôt que les programmes. Donc l'auteur est plutôt réticent.
   - L'autre possibilité c'est la **selective consumption**, où le monolithe et le microservice consomment sur la même queue, mais sélectionnent les messages qui leur sont destinés.
@@ -395,7 +398,7 @@
 - Les views ont quelques limitations :
   - Elles peuvent poser des problèmes de performance, et la version materialized de la view est plus efficace, mais contiendra des données anciennes, datant de la dernière fois qu'on a fait un update.
   - Elles sont **read-only**.
-  - Toutes les DB n'ont pas la fonctionnalité. Les DB relationnelles l'ont, et certaines DB NoSQL aussi (c'est le cas de **Cassandra** et **Mongo** par exemple).
+  - Toutes les DB n'ont pas la fonctionnalité. Les DB relationnelles l'ont, et certaines DB NoSQL aussi (c'est le cas de <Tool>Cassandra</Tool> et <Tool>Mongo</Tool> par exemple).
   - Il est probable que le schéma de la view doive se trouver sur la même database engine que le schéma initial.
 - En termes d'ownership, l'auteur conseille de le donner à l'équipe qui a la charge de la DB source.
 - Cette étape va dans la bonne direction, mais l'auteur déconseille de faire ça à la place d'une décomposition de la DB sans avoir de bonnes raisons.
@@ -422,7 +425,7 @@
   - Les écritures doivent se faire via API.
   - Il y aura donc une latence entre ce qu'on écrit, et ce qu'on lit de la DB publique qui pourrait être en retard dans la synchronisation.
 - Pour ce qui est de la manière d'implémenter le mapping engine :
-  - Une première solution robuste peut être d'utiliser le **change data capture** de la DB. Pour l'exploiter, il y a des outils comme **Debezium**.
+  - Une première solution robuste peut être d'utiliser le **change data capture** de la DB. Pour l'exploiter, il y a des outils comme <Tool>Debezium</Tool>.
   - Une autre solution serait d'avoir un batch process qui met à jour régulièrement la DB publique.
   - Et une 3ème option peut être d'émettre des **events**, et de reconstruire la DB à l'extérieur à partir de ceux-ci.
 - Cette solution est plus avancée que le database view pattern, et aussi plus difficile à mettre en place d'un point de vue technique.
@@ -486,7 +489,7 @@
 ### Splitting Apart the Database
 
 - On parle ici de séparation de **schémas logiques**, qui peuvent être sur une même database engine, ou sur différentes database engines.
-- L'auteur conseille d'utiliser un outil pour gérer les migrations sur chaque DB. Il conseille en particulier **FlywayDB**.
+- L'auteur conseille d'utiliser un outil pour gérer les migrations sur chaque DB. Il conseille en particulier <Tool>FlywayDB</Tool>.
 - Pour extraire un microservice, on doit extraire le code, et la donnée qui lui appartient. On peut faire :
   - **D'abord le split de la DB**.
     - On se donne alors la possibilité de switcher vers le nouveau microservice ou vers le monolithe sans perte de données.
@@ -494,7 +497,7 @@
     - **Pattern: Repository per bounded context**.
       - On a en général une couche de repository qui permet de mapper le code à la DB. Il s'agit ici de **découper ce repository** en suivant les lignes de nos bounded contexts.
       - Ça va nous aider à y voir plus clair sur quel bounded context utilise quelle donnée extérieure à lui.
-      - On peut ajouter à ça un outil pour visualiser la structure de la DB, comme **SchemaSpy**.
+      - On peut ajouter à ça un outil pour visualiser la structure de la DB, comme <Tool>SchemaSpy</Tool>.
     - **Pattern: Database per bounded context**.
       - Avant de séparer le code de chaque bounded context en microservice, on va ici séparer les données.
       - Chez ThoughtWorks, un mécanisme de calcul a été modularisé, avec chaque module ayant sa DB, ce qui a fait un excellent exemple de modular monolith. L'extraction de microservices n'a jamais été faite.
@@ -529,7 +532,7 @@
   - Dans le cas où l'association doit être faite vers une table possédée par un autre bounded context, on ne peut pas faire de foreign key DB, puisque **les deux tables sont dans des DB différentes**.
 - La solution est de casser la relation de foreign key dans la DB, et de faire le lien dans le code.
   - Côté **performance** ce sera beaucoup moins bien. En fonction du besoin, on peut être amené à faire des recherches groupées, ou à créer un cache local de la donnée de l'autre microservice, contre laquelle on veut faire une jointure.
-    - Des outils comme **Jaeger** permettent de mesurer la latence, pour voir si même plus lente, elle n'est pas acceptable quand même.
+    - Des outils comme <Tool>Jaeger</Tool> permettent de mesurer la latence, pour voir si même plus lente, elle n'est pas acceptable quand même.
   - L'autre problème c'est la **consistance** qui n'est plus garantie par la DB : la donnée qui est liée à notre donnée peut être supprimée sans qu'on ne le sache.
     - On pourrait vérifier qu'aucun microservice n'a de lien vers nos données avant d'en supprimer. Mais il faudrait alors un mécanisme de lock, et il faudrait le faire avec de nombreux services. L'auteur le déconseille fortement.
     - Une meilleure solution peut être que le service ayant besoin du lien prenne en compte que l'autre peut à tout moment répondre que l'objet n'existe plus.
@@ -614,7 +617,7 @@
     - Il existe des outils appelés BPM (business process modeling), utilisés par les non développeurs pour définir des process business par drag-and-drop.
       - L'auteur les déconseille parce qu'ils sont en général utilisés par les développeurs, et sont difficiles à versionner ou à tester de manière automatisée.
       - Il est plus facile de projeter des représentation des process business à partir du code (si c'est ce qu'on veut faire).
-      - Si vraiment on veut explorer des solutions BPM qui essayent d'être developer-friendly, il y a **Camunda** et **Zeebe**.
+      - Si vraiment on veut explorer des solutions BPM qui essayent d'être developer-friendly, il y a <Tool>Camunda</Tool> et <Tool>Zeebe</Tool>.
   - Les **choreographed sagas** : on a un ensemble de services qui **émettent des events, et réagissent eux-mêmes à des events**, et l'ensemble de ces noeuds forme la saga.
     - Les services ne savent pas qui écoute leur event, elles émettent simplement le bon event au bon moment, et il peut être géré par qui est intéressé.
       - Exemple : le service _Warehouse_ réagit à l'event de commande initiée, et émet un event pour dire que son étape est faite, ou alors qu'il n'a pas pu le faire. Et d'autres services gèreront les conséquences en écoutant les bons events.
@@ -626,7 +629,7 @@
   - Selon l'auteur, même si les choreographed sagas ont la difficulté d'utiliser l'event driven architecture, les avantages en termes de découplage qu'elles apportent valent le coup.
   - L'autre conseil c'est que **l'orchestrated saga est acceptable si une même équipe est en charge de l'ensemble de la saga**. Si plusieurs équipes sont impliquées, il vaut mieux une version choreographed.
 - L'utilisation des sagas a l'avantage de **modéliser explicitement** les process business importants.
-- Pour aller plus en profondeur sur ce sujet, l'auteur recommande la chapitre 4 de **_Building Microservices_**, et **_Enterprise Integration Patterns_**.
+- Pour aller plus en profondeur sur ce sujet, l'auteur recommande la chapitre 4 de <Book>Building Microservices</Book>, et <Book>Enterprise Integration Patterns</Book>.
 
 ## Chapter 5 - Growing Pains
 
@@ -645,7 +648,7 @@
     - Un des signes peut être aussi le fait de chercher à déployer plusieurs services en même temps pour plusieurs équipes.
   - Les solutions sont :
     - De faire du **contract testing**, ou au moins rendre le schéma de l'API publique du microservice explicite, et difficile à changer.
-      - Des outils comme **protolock** permettent d'empêcher les changements dans les schémas de communication.
+      - Des outils comme <Tool>protolock</Tool> permettent d'empêcher les changements dans les schémas de communication.
     - D'**éviter de casser les contrats** le plus possible.
       - Par exemple ajouter une nouvelle fonction exposée en laissant l'ancienne aussi.
     - De donner le temps aux autres services de migrer si on casse le contrat.
@@ -657,20 +660,20 @@
     - Parfois on oublie les personnes qui font de l'analyse par dessus la DB du monolithe, et on s'en rend compte quand le travail de migration est déjà avancé.
   - Si on veut garder la possibilité pour les personnes qui font l'analyse de continuer à le faire avec des requêtes SQL dans une DB, on peut **créer une DB publique** juste pour eux.
     - Cette DB publique serait alors alimentée par les microservices qui sont maintenant les owners des bouts de la DB qui doit être utilisée pour l'analyse.
-  - L'auteur renvoie vers le chapitre 5 de **_Building Microservices_** pour plus de détails sur ce sujet.
+  - L'auteur renvoie vers le chapitre 5 de <Book>Building Microservices</Book> pour plus de détails sur ce sujet.
 - **Monitoring and Troubleshooting**.
   - Plus le nombre de microservices augmente, plus on a du mal à savoir si le système va bien ou pas, et quel est l'origine exacte des problèmes.
   - Parmi les solutions :
     - Ajouter un **log aggregation system** : collecter les logs de l'ensemble des microservices en un même endroit.
-      - Parmi les outils il y a la **ELT stack** (Elastic search, Logstash/Fluent D, Kibana) et **Humio**.
+      - Parmi les outils il y a la <Tool>ELT stack</Tool> (Elastic search, Logstash/Fluent D, Kibana) et <Tool>Humio</Tool>.
       - NDLR : l'auteur ne le mentionne pas, mais il y a aussi Datadog comme log aggregation system en SaaS.
       - L'auteur conseille de commencer par le mettre en place avant de sortir des microservices : c'est utile dès le début, et en plus si on n'en est pas capable, c'est peut être qu'on n'est pas encore mature pour commencer à sortir des microservices.
     - Ajouter du **tracing** :
       - Ajouter un **correlation ID** à nos messages qui vont de microservice en microservice, pour repérer les flows internes liés à une même demande initiale.
-      - Utiliser un outil qui permet de tracer le temps mis pour les appels. Exemple d'outil : **Jaeger**.
+      - Utiliser un outil qui permet de tracer le temps mis pour les appels. Exemple d'outil : <Tool>Jaeger</Tool>.
     - Faire des **tests en production** : il s'agit des _synthetic transactions_, où on va faire des tests end to end contre la production, pour se rendre compte des problèmes.
     - Ajouter de l'**observability** : comme on ne sait pas quels problèmes on aura réellement, il faut collecter beaucoup de données, et utiliser des outils qui nous permettront de faire des requêtes pour investiguer ce qu'on n'avait pas prévu.
-      - L'auteur conseille **_Distributed Systems Observability_** pour creuser la question.
+      - L'auteur conseille <Book>Distributed Systems Observability</Book> pour creuser la question.
 - **Local Developer Experience**.
   - Quand les devs ont besoin de faire des tests en local avec une dizaine de microservices ou plus, ils risquent de ne plus pouvoir le faire à cause de la performance de leur machine.
     - Ce problème arrive surtout dans les organisations où il n'y a pas de strong ownership, et donc où on a besoin de toucher au code de plusieurs microservices.
@@ -678,24 +681,24 @@
     - Stubber les microservices avec lesquels le microservice modifié interagit.
     - Avoir un environnement distant auquel le développeur peut se connecter, pour que son microservice local puisse communiquer avec des microservices tournant dans un environnement de développement distant.
       - Cette solution amène à consommer plus de ressources.
-      - **Telepresence** est un exemple d'outil qui permet de faire un workflow de dev local/remote avec Kubernetes.
+      - <Tool>Telepresence</Tool> est un exemple d'outil qui permet de faire un workflow de dev local/remote avec Kubernetes.
 - **Running Too Many Things**.
   - Plus on a de microservices, et plus on va avoir de process à gérer en production.
     - Avec des dizaines ou des centaines de microservices, la configuration et le choix du nombre d'instances de chaque microservice vont devenir compliqués.
     - On va avoir besoin de plus en plus de personnes pour gérer l'aspect infrastructure.
-  - La solution peut être l'utilisation de **Kubernetes** pour gérer les instances de microservice.
+  - La solution peut être l'utilisation de <Tool>Kubernetes</Tool> pour gérer les instances de microservice.
     - Dans le cas où on héberge notre solution dans un cloud public, l'auteur conseille de partir d'abord sur du FaaS (Function as a Service), et de ne partir sur des options plus complexes comme Kubernetes que si les limitations du serverless nous posent problème.
-    - Kubernetes lui-même n'est pas très developer-friendly, on peut opter pour une solution plus abstraite comme **OpenShift** de RedHat.
+    - Kubernetes lui-même n'est pas très developer-friendly, on peut opter pour une solution plus abstraite comme <Tool>OpenShift</Tool> de RedHat.
     - L'utilisation de Kubernetes n'est pas obligatoire pour faire du microservice. Si on extrait par exemple 5 microservices en tout, et qu'on est OK comme ça, on n'en aura pas besoin.
 - **End-to-End Testing**.
   - Les tests end to end prennent beaucoup de temps, et sont sujets aux faux positifs. Ils le sont encore plus quand il s'agit de tester des cas d'usage impliquant plusieurs microservices.
     - Le risque c'est qu'on se mette à passer de plus en plus de temps sur ces tests.
-  - Un chapitre entier de **_Building Microservices_** détaille la manière de tester avec les microservices.
+  - Un chapitre entier de <Book>Building Microservices</Book> détaille la manière de tester avec les microservices.
   - Parmi les solutions :
     - **Limiter le scope des tests** : les tests peuvent couvrir plusieurs microservices, à condition qu'ils soient gérés par la même équipe.
     - **Utiliser des consumer-driven contracts** (CDC) : au lieu d'avoir des tests end to end, chaque service consommateur crée des tests pour spécifier ce qu'il attend du microservice qu'il va utiliser.
       - Vu que c'est le consommateur qui définit le contrat, il y a moins de chances de casser un contrat implicite sans faire exprès.
-      - Parmi les outils pour faire du CDC il y a **Pact**.
+      - Parmi les outils pour faire du CDC il y a <Tool>Pact</Tool>.
     - Mettre en place une **progressive delivery**, et une **automated release remediation** : on peut faire une canary release auprès de peu de clients, puis avoir un système automatique qui rollback si jamais des mesures clés (par exemple le 95ème percentile de latence et de taux d'erreur) ne sont pas bonnes.
       - Même sans avoir la partie automatique, une simple canary release manuelle est déjà une avancée.
     - Garder un œil sur ce qui n'est pas assez testé et où il y a beaucoup de problèmes, et ce qui est éventuellement trop testé pour en enlever.
@@ -717,7 +720,7 @@
     - Utiliser des timeouts raisonnables pour éviter les blocages trop longs.
     - Lancer plusieurs instances de chaque microservice pour le cas où une instance est en échec.
     - Plus généralement, il faut avoir un état d'esprit qui permet la résilience, par exemple en documentant les problèmes survenus, et les solutions appliquées. Et en tirer les conséquences sur notre organisation.
-  - L'auteur recommande de lire le chapitre 11 de **_Building Microservices_** ou le livre **_Release It!_** de Michael Nygard pour plus de détails.
+  - L'auteur recommande de lire le chapitre 11 de <Book>Building Microservices</Book> ou le livre <Book>Release It!</Book> de Michael Nygard pour plus de détails.
 - **Orphaned Services**.
   - On se retrouve parfois (au bout d'une très longue période d'utilisation de microservices) à avoir des services qui tournent, mais dont personne ne se rappelle ce qu'ils sont censés faire, et qu'on a peur d'éteindre.
     - Parfois on a perdu le code source.
