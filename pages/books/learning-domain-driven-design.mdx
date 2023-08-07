@@ -1,3 +1,6 @@
+import { Tool } from "../../components/markers/Tool";
+import { Orange, Rose, Blue, Yellow, Pink, Green, Purple } from "../../components/markers/Colors";
+
 # Learning Domain Driven Design: Aligning Software Architecture and Business Strategy
 
 ### Introduction
@@ -426,7 +429,7 @@
     - On va utiliser le pattern Proxy pour que la requête passe d'abord par le layer (le proxy), puis soit traduite correctement vers la target.
     - La traduction peut être **synchrone**, auquel cas le proxy est dans le même composant.
       - On peut aussi vouloir utiliser un **API gateway pattern**, en ayant un composant externe tenant le rôle du proxy et permettant d'intégrer plusieurs flux vers une même target.
-        - Dans ce cas, on pourra utiliser une solution open source comme **Kong** ou **KrakenD**, ou une solution payante comme **AWS API Gateway**, **Google Api-gee** ou **Azure API Management**.
+        - Dans ce cas, on pourra utiliser une solution open source comme <Tool>Kong</Tool> ou <Tool>KrakenD</Tool>, ou une solution payante comme <Tool>AWS API Gateway</Tool>, <Tool>Google Api-gee</Tool> ou <Tool>Azure API Management</Tool>.
     - La traduction peut aussi être **asynchrone**, auquel cas le proxy est un composant qui souscrit à des events, et envoie des messages.
       - Il pourrait en plus filtrer certains messages non pertinents.
       - Dans le cas d'un Open-Host Service, le modèle asynchrone est très pratique parce qu'il permet de **traduire correctement les événements du langage privé vers les événements du langage public**.
@@ -434,7 +437,7 @@
   - En mode **statefull** où le layer possède sa BDD et implémente une logique complexe.
     - On a le cas où on veut **agréger les données entrantes**. Soit parce qu'on veut les traiter par batchs, soit parce qu'on veut créer un plus gros message à partir de plus petits messages arrivant.
       - Le BDD propre au proxy sert alors à gérer ce processus d'agrégation.
-      - Parfois on peut utiliser un outil tout fait comme **Kafka**, **AWS Kinesis**, ou une solution de batch comme **Apache Nifi**, **AWS Glue**, **Spark**.
+      - Parfois on peut utiliser un outil tout fait comme <Tool>Kafka</Tool>, <Tool>AWS Kinesis</Tool>, ou une solution de batch comme <Tool>Apache Nifi</Tool>, <Tool>AWS Glue</Tool>, <Tool>Spark</Tool>.
     - On a aussi le cas où on veut **unifier des sources de données**. Par exemple un backend for frontend qui va chercher des données chez plusieurs autres bounded contexts pour les afficher.
 - A propos de l'**implémentation technique des domain events émis par les aggregates** et consommé par les autres composants.
   - Une façon de faire triviale mais mauvaise serait de laisser l'aggregate faire l'ajout de l'event dans le message bus.
@@ -556,7 +559,7 @@
   - Il faut une salle spacieuse, et rien qui ne gène pour que chaque participant accède librement au tableau.
     - Il ne faut pas de chaises, les participants sont debout.
 - L'atelier se passe en 10 étapes, pendant lequel le modèle est enrichi collectivement :
-  - **Étape 1 - Unstructured Exploration** : il s'agit d'une étape en mode brainstorming : tous les participants prennent des **post-its oranges**, et **écrivent dessus des events liés au process business** auquel on s'intéresse.
+  - **Étape 1 - Unstructured Exploration** : il s'agit d'une étape en mode brainstorming : tous les participants prennent des <Orange>post-its oranges</Orange>, et **écrivent dessus des events liés au process business** auquel on s'intéresse.
     - Les events sont collés sur le tableau sans se soucier de l'ordre ou de la redondance.
     - Les events sont formulés au passé.
     - Exemple d'events : “Notification sent”, “Destination chosen”, “Order shipped”.
@@ -564,28 +567,28 @@
     - On peut tracer des flèches à partir d'un post-it pour mener à plusieurs flows de posi-its possibles.
     - C'est aussi le moment d'enlever les doublons.
   - **Étape 3 - Pain Points** : On va marquer les points qui **requièrent une attention particulière** : des bottlenecks, des étapes manuelles à automatiser, de la doc ou du domain knowledge manquant etc.
-    - On fait ça avec des **post-its roses, tournés de 45°** pour être “en diamant”.
+    - On fait ça avec des <Pink>post-its roses, tournés de 45°</Pink> pour être “en diamant”.
     - Cette étape y est dédiée spécifiquement, mais le facilitateur doit aussi faire attention aux pain points levés tout au long de l'atelier et les marquer.
   - **Étape 4 - Pivotal Events** : On va s'intéresser à des events **marquant une étape importante** dans le processus, et tracer **une barre verticale** le long du tableau, pour délimiter l'avant et l'après cet event.
     - Exemple : dans un flow d'achat, “order initialized”, “order shipped” et “order delivered” peuvent être des events importants.
-  - **Étape 5 - Commands** : On va ajouter des commandes sur des **post-its bleus**, juste avant l'event qui résulte de la commande.
+  - **Étape 5 - Commands** : On va ajouter des commandes sur des <Blue>post-its bleus</Blue>, juste avant l'event qui résulte de la commande.
     - Les commandes sont formulées à l'impératif.
     - Exemple : “Publish campaign”, “Submit order”.
-    - Si l'actor (la persona du business domain, ex : client, administrateur etc.) qui émet la commande est évident, on l'ajoute sur le post-it de la commande avec un **post-it jaune**.
+    - Si l'actor (la persona du business domain, ex : client, administrateur etc.) qui émet la commande est évident, on l'ajoute sur le post-it de la commande avec un <Yellow>post-it jaune</Yellow>.
   - **Étape 6 - Policies** : Presque à chaque fois il y a des commandes qui n'ont pas d'actor associé. On peut alors leur ajouter une **automation policy** qui consiste à les **déclencher lors d'un domain event, sans intervention manuelle**.
-    - On ajoute ces policies avec des **post-its violets**, et on va les placer entre la commande et l'event concernés.
+    - On ajoute ces policies avec des <Purple>post-its violets</Purple>, et on va les placer entre la commande et l'event concernés.
     - On peut ajouter d'éventuels critères de déclenchement. Par exemple, si un event “complaint received” doit déclencher la commande “escalate” seulement si ça vient d'un client VIP, on peut mettre sur le post-it de policy que c'est seulement si client VIP.
     - Dans le cas où l'event et la commande sont loin, ne pas hésiter à tracer une flèche pour les joindre.
   - **Étape 7 - Read Models** : On ajoute les “read models”, c'est-à-dire les interfaces utilisateur (écran, rapport, notification etc.) utilisées par les actors pour prendre leurs décisions d'exécuter les commandes.
-    - Ils seront ajoutés sur des **post-its verts**.
+    - Ils seront ajoutés sur des <Green>post-its verts</Green>.
     - Exemple de read model : “Shopping cart”, pour un actor “customer”, qui va actionner la commande “submit order”.
   - **Étape 8 - External Systems** : On va représenter les intéractions avec des systèmes externes, c'est-à-dire qui ne font pas partie du domaine qu'on est en train d'explorer.
-    - Ils seront ajoutés sur des **post-its roses**.
+    - Ils seront ajoutés sur des <Pink>post-its roses</Pink>.
     - Ça peut être un composant qui déclenche une commande, par exemple un CRM qui déclenche l'ordre d'expédier une commande?
     - Ca peut aussi être un composant qu'on va notifier, par exemple notifier le CRM suite à un event qui dit que l'expédition est approuvée.
     - **A la fin de cette étape, toutes les commandes devront avoir leur origine associée** : soit un actor, soit une policy, soit un système externe.
   - **Étape 9 - Aggregates** : On va pouvoir organiser les commandes et events représentés en aggregates, sachant qu'un aggregate reçoit des commandes, et émet des events.
-    - On va ajouter de **longs post-its jaunes verticaux** pour représenter l'aggregate. On va les placer entre les commandes et les events.
+    - On va ajouter de <Yellow>longs post-its jaunes verticaux</Yellow> pour représenter l'aggregate. On va les placer entre les commandes et les events.
   - **Étape 10 - Bounded Contexts** : On va finalement essayer de **regrouper les aggregates entre eux**, soit parce qu'ils représentent des fonctionnalités liées entre elles, soit par leur couplage via des policies.
     - Ces groupes d'aggregates seront de bons candidats pour des bounded contexts.
     - On peut les matérialiser avec des pointillés entourant les groupes d'aggregates liés.
