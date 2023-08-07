@@ -1,3 +1,5 @@
+import { Book } from "../../components/markers/Book";
+
 # Refactoring: Improving the Design of Existing Code
 
 ## 1 - Refactoring : exemple introductif
@@ -523,11 +525,11 @@
 - L'utilisation de _feature branches_ est problématique par rapport aux conflits de mege, et en particulier par rapport aux refactorings qui vont provoquer beaucoup de conflits.
   - La pratique du refactoring va de pair avec la Continuous Integration (CI), aussi appelée trunk-based development, qui consiste à **intégrer au moins une fois par** jour son travail sur le branche principale.
     - Les deux pratiques font partie de l'_Extreme Programming_.
-    - A noter que la CI est prouvée comme plus efficace que les autres pratiques d'intégration (cf. le livre **_Accelerate_**).
+    - A noter que la CI est prouvée comme plus efficace que les autres pratiques d'intégration (cf. le livre <Book>Accelerate</Book>).
 - Pour faire des refactorings, il faut soit des **tests** qui assurent que le comportement n'est pas changé, soit utiliser des outils qui font des **refactorings automatiquement** (par exemple renommer une variable ou extraire une fonction).
-  - Dans **_Working Effectively with Legacy Code_**, Michael Feathers décrit comment ajouter des tests à du code legacy : il faut trouver des points d'entrée où insérer des tests, et pour ça il faut prendre des risques en faisant du refactoring.
+  - Dans <Book>Working Effectively with Legacy Code</Book>, Michael Feathers décrit comment ajouter des tests à du code legacy : il faut trouver des points d'entrée où insérer des tests, et pour ça il faut prendre des risques en faisant du refactoring.
 - Pour ce qui est du **refactoring de bases de données**, il faut aussi y aller par petits pas, en créant de petites migrations successives.
-  - Il y a un livre à ce sujet : **_Refactoring Databases_**.
+  - Il y a un livre à ce sujet : <Book>Refactoring Databases</Book>.
   - Une bonne pratique est le **changement parallèle** (aussi appelé expand-contract) où on va d'abord créer la nouvelle structure, puis l'alimenter avec l'ancienne, puis migrer tout petit à petit pour utiliser la nouvelle. Et finalement supprimer l'ancienne.
 - Le refactoring implique d'adopter une **approche incrémentale de l'architecture**.
   - On appelle ça aussi **YAGNI** (you aren't going to need it) : il s'agit de ne pas rendre le code inutilement flexible pour plus tard “au cas où”.
@@ -550,10 +552,10 @@
     - Le fait d'avoir du code bien refactoré permet de plus facilement comprendre ce qui se passe, et aide donc à optimiser.
     - Cette approche est **la plus efficace**.
 - Quelques livres intéressants sur le refactoring :
-  - **_Refactoring Workbook_** de Bill Wake : un livre avec des exercices pour mettre en application le refactoring.
-  - **_Refactoring to Patterns_** de Josh Kerievsky : comment appliquer le refactoring en utilisant les design patterns du gang of four.
-  - **_Refactoring Databases_** de Scott Ambler et Pramod Sadalage et **_Refactoring HTML_** de Elliotte Rusty : des livres appliquant le refactoring à des domaines spécifiques.
-  - **_Working Effectively with Legacy Code_** de Michael Feathers : comment faire du refactoring sur du code avec peu ou pas de tests.
+  - <Book>Refactoring Workbook</Book> de Bill Wake : un livre avec des exercices pour mettre en application le refactoring.
+  - <Book>Refactoring to Patterns</Book> de Josh Kerievsky : comment appliquer le refactoring en utilisant les design patterns du gang of four.
+  - <Book>Refactoring Databases</Book> de Scott Ambler et Pramod Sadalage et <Book>Refactoring HTML</Book> de Elliotte Rusty : des livres appliquant le refactoring à des domaines spécifiques.
+  - <Book>Working Effectively with Legacy Code</Book> de Michael Feathers : comment faire du refactoring sur du code avec peu ou pas de tests.
 
 ## 3 - Quand le code sent mauvais
 
@@ -2046,7 +2048,7 @@
 - **Théorie :**
   - Les pipelines permettent de suivre les opérations de manière linéaire, avec les entrées et sorties claires. L'auteur les trouve plus claires que les boucles.
   - Parmi les opérations de pipeline on a par exemple les classiques _map_, _filter_, _reduce_.
-  - Pour plus d'exemples, Fowler propose son essai **_Refactoring with Loops and Collection Pipelines_**.
+  - Pour plus d'exemples, Fowler propose son essai <Book>Refactoring with Loops and Collection Pipelines</Book>.
 
 ### Remove Dead Code
 
