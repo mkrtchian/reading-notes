@@ -1,3 +1,5 @@
+import { Book } from "../../components/markers/Book";
+
 # Continuous Discovery Habits: Discover Products that Create Customer Value and Business Value
 
 ## Part I - What is continuous discovery
@@ -54,7 +56,7 @@
     - **De prendre de meilleures décisions.**
       - Vu qu'on a sous les yeux les possibilités, y compris celles qu'on a déjà explorées, on évite de tomber dans des biais qui vont fausser notre décision.
         - Par exemple : à chaque fois qu'on a une nouvelle demande client, tomber dans le travers de se demander si on arrête tout pour l'implémenter ou non, au lieu de garder la vue d'ensemble.
-      - A ce propos, elle conseille un livre à lire juste après le sien : **_Decisive_** de Chip et Dan Heath.
+      - A ce propos, elle conseille un livre à lire juste après le sien : <Book>Decisive</Book> de Chip et Dan Heath.
     - **D'obtenir des cycles d'apprentissage rapides.**
       - On dit souvent que les PM doivent définir le problème, et les développeurs apporter la solution. C'est une erreur. Pour être efficace, il faut que les mêmes personnes (product trio) soient en charge des deux.
       - l'OST permet de visualiser les deux, et à chaque fois qu'une solution est implémentée et ne permet pas de satisfaire l'opportunity, on peut la garder en tête tout en sachant pourquoi ça n'avait pas marché, et pouvoir basculer sur une solution mieux pensée.
@@ -97,9 +99,9 @@
 - Quelques anti-patterns à éviter :
   - **Avoir trop d'outcomes en même temps** : on s'éparpille en avançant un peu sur chacun des outcomes, mais on n'a pas de gros impact sur l'un d'entre eux. En général, le mieux est de chercher à satisfaire **un outcome à la fois**.
   - **Faire du ping pong entre plusieurs outcomes** : on a tendance à basculer d'outcome en outcome à cause d'une culture du firefighting où un besoin client en chasse un autre. **Rester sur le même outcome pendant plusieurs trimestres** permet de profiter de ce qu'on a appris dans le 1er et d'être vraiment efficace sur les 2ème et 3ème trimestres.
-  - **Définir des outcomes individuels plutôt que des outcomes pour le product trio** : on a parfois des objectifs individuels pour obtenir de la rémunération, portant sur des outcomes business pour le PM, des outcomes UX pour le designer, et des outcomes techniques pour le tech. Ces objectifs empêchent le bon fonctionnement du product trio. Il vaut mieux des** outcomes d'équipe**.
+  - **Définir des outcomes individuels plutôt que des outcomes pour le product trio** : on a parfois des objectifs individuels pour obtenir de la rémunération, portant sur des outcomes business pour le PM, des outcomes UX pour le designer, et des outcomes techniques pour le tech. Ces objectifs empêchent le bon fonctionnement du product trio. Il vaut mieux des **outcomes d'équipe**.
   - **Choisir un output au lieu d'un outcome** :
-    - Vu qu'on est habitués à utiliser des outputs, on va avoir tendance à revenir à ça. Le bon critère à regarder pour voir si on est plutôt vers l'outcome ou l'output c'est** l'impact**.
+    - Vu qu'on est habitués à utiliser des outputs, on va avoir tendance à revenir à ça. Le bon critère à regarder pour voir si on est plutôt vers l'outcome ou l'output c'est **l'impact**.
     - Un bon début c'est de s'assurer que notre outcome représente **un nombre**.
   - **Se focus sur un seul outcome au détriment de tous les autres** : il faut en choisir un à la fois à faire avancer, mais il ne faut pas oublier de monitorer les autres outcomes pour s'assurer qu'ils **ne se dégradent pas**.
     - Par exemple l'acquisition de clients, en vérifiant en même temps que leur satisfaction ne baisse pas.
@@ -107,7 +109,7 @@
 ### 4 - Visualizing what you know
 
 - Quand le product trio commence avec un outcome, il va d'abord créer un **experience map** pour représenter le workflow lié à cet outcome, et rassembler les connaissances actuelles du trio.
-- Il faut **définir le scope **plus ou moins large pour notre experience map : un scope très large permettra d'explorer des marchés adjacents, et un scope plus étroit permettra de se cantonner à notre produit. En général on cherche quelque chose d'intermédiaire.
+- Il faut **définir le scope** plus ou moins large pour notre experience map : un scope très large permettra d'explorer des marchés adjacents, et un scope plus étroit permettra de se cantonner à notre produit. En général on cherche quelque chose d'intermédiaire.
   - Exemple : On a une application de streaming, et notre outcome c'est d'augmenter le nombre de minutes regardées. Un scope large serait “Comment est-ce que les clients se divertissent en général ?”, et un scope étroit serait “Comment est-ce que les clients se divertissent avec notre service ?”. Quelque chose d'intermédiaire peut être “Comment est-ce que les clients se divertissent avec de la vidéo ?”.
 - L'experience map doit représenter les étapes du **point de vue du customer**.
   - Par exemple, si notre scope c'est “Comment est-ce que les clients se divertissent avec de la vidéo ?”, on peut commencer par imaginer quelqu'un qui nous partage le nom d'un contenu vidéo, puis on fait une action de recherche. On peut éventuellement être face à des problèmes pour trouver le contenu, et ainsi de suite.
@@ -160,14 +162,14 @@
     - Il faut s'efforcer de formuler l'opportunity avec **les mots du client**, pour que ça représente son point de vue, et non le point de vue de notre entreprise.
   - On a aussi une place pour noter des **insights** qui ne sont pas des opportunities (ni des besoins, ni des pain points, ni des désirs).
   - Et enfin on a une place pour **dessiner la story** racontée par le client, avec des boîtes et des traits, sur le même modèle que notre experience map.
-- Il est très important de** faire des interviews de clients chaque semaine**. Commencer ou arrêter une habitude est beaucoup plus difficile que d'en maintenir une.
+- Il est très important de **faire des interviews de clients chaque semaine**. Commencer ou arrêter une habitude est beaucoup plus difficile que d'en maintenir une.
   - Le plus difficile pour ça c'est d'**automatiser le process de recrutement** des personnes qu'on va interviewer. On a parfois des urgences business, des absents dans l'équipe etc. et dans ces moments on a besoin d'avoir son interview de la semaine déjà bookée sans rien faire.
   - Parmi les manières de recruter :
     - Le plus simple est d'avoir un **petit bandeau** qui s'affiche dans notre application, et qui dit “Est-ce que vous auriez 20mn à nous accorder pour améliorer notre service, en échange de 20€ ?”.
       - Ça marche bien si on a beaucoup de trafic, dans ce cas on peut demander le numéro de la personne avec un formulaire.
       - Si on a moins de trafic, à la place du numéro on peut proposer un service de scheduling en ligne pour que le client puisse directement réserver un créneau avec nous.
       - Si on n'a pas de trafic du tout, on peut toujours utiliser de la publicité qui redirige vers une landing page, où il y aura le formulaire proposant de nous aider.
-    - Une autre solution est de demander aux** équipes customer facing** (CSM, sales etc.).
+    - Une autre solution est de demander aux **équipes customer facing** (CSM, sales etc.).
       - D'abord on leur demande de rejoindre un de leurs calls 5 mn à la fin, pour prendre une story. Le but est de mettre un pied dans la porte pour qu'ils disent oui facilement.
       - Une fois qu'on est plus à l'aise, on peut demander aux équipes CSM de programmer des interviews pour nous. On leur donne des “triggers” qu'on met à jour régulièrement.
         - Par exemple : si un client pose une question sur la feature X, programme lui un interview avec nous.
@@ -214,10 +216,10 @@
     - soit qu'on a deux opportunities qui sont en fait à peu près les mêmes, et qu'on peut reformuler en une.
     - soit il nous manque des opportunities de même niveau parce que l'opportunity enfant n'est pas suffisante pour résoudre le parent. Dans ce cas, il faudra trouver d'autres opportunities pour ne pas rester sur un sous-arbre vertical.
   - **Des opportunities ont plusieurs parents** : si on a bien nos opportunities top level qui sont vraiment des moments différents dans le temps ça ne doit pas arriver. Il est possible que l'opportunity problématique soit formulée de manière trop générale.
-  - **Des opportunities non spécifiques **: des opportunities comme “J'aimerais que ce soit facile à utiliser” ne sont pas assez spécifiques, on peut les rendre plus spécifiques, par exemple “J'aimerais que voir un show soit plus facile”.
+  - **Des opportunities non spécifiques**: des opportunities comme “J'aimerais que ce soit facile à utiliser” ne sont pas assez spécifiques, on peut les rendre plus spécifiques, par exemple “J'aimerais que voir un show soit plus facile”.
   - **Des opportunities qui sont des solutions déguisées** : Il faut qu'il y ait **plusieurs solutions possibles** à une opportunity, sinon c'est déjà une solution.
     - Par exemple : “Je veux passer rapidement les pubs” est en fait une solution. L'opportunity pourrait être “Je n'aime pas voir les pubs”, et auquel on pourra répondre par les passer, mais aussi par “Faire des pubs plus attrayantes” ou encore “Avoir un abonnement sans pub”.
-  - **Capturer des sentiments comme des opportunities** : si on a un sentiment qui est donné par le client, c'est qu'il y a une opportunity pas loin. Mais il faut alors** chercher la cause** de ce sentiment pour avoir l'opportunity.
+  - **Capturer des sentiments comme des opportunities** : si on a un sentiment qui est donné par le client, c'est qu'il y a une opportunity pas loin. Mais il faut alors **chercher la cause** de ce sentiment pour avoir l'opportunity.
     - Exemple : “Je me sens frustré” => Pourquoi => “Je déteste retaper mon mot de passe à chaque achat”.
 
 ### 7 - Prioritizing opportunities, not solutions
@@ -240,7 +242,7 @@
   - **Les facteurs liés à l'entreprise** : On doit prendre en compte la stratégie, la vision et les valeurs de l'entreprise, pour aller dans le même sens.
   - **Les facteurs liés au client** : Il s'agit de l'impact sur la satisfaction client : on va choisir l'opportunity qui en procurera le plus.
 - Il ne faut pas attribuer de note précise à chaque opportunité et pour chaque critère. Les critères permettent d'avoir un débat au sein du product trio, et **le choix doit être grossier et subjectif**.
-- Il est important que les **décisions de discovery** en général soient considérées par le product trio comme potentiellement **modifiables au bout de quelques jours **(la discovery est continuous).
+- Il est important que les **décisions de discovery** en général soient considérées par le product trio comme potentiellement **modifiables au bout de quelques jours** (la discovery est continuous).
   - Avec cet état d'esprit on n'a pas besoin de passer trop de temps à choisir l'opportunity. Si elle se révèle mauvaise, on la changera très vite.
 - Quelques anti-patterns à éviter :
   - **Remettre la décision à plus tard, quand il y aura plus de données** : on en apprendra plus en examinant les conséquences d'une opportunity qu'on choisit maintenant, qu'en attendant d'avoir plus de données pour un meilleur choix.
@@ -250,7 +252,7 @@
 
 ### 8 - Supercharged ideation
 
-- Les études montrent que quand on recherche la créativité, **les meilleures idées sont parmi les dernières qu'on trouve. **Plus on en cherche, et plus on tombe sur des choses originales et pertinentes.
+- Les études montrent que quand on recherche la créativité, **les meilleures idées sont parmi les dernières qu'on trouve.** Plus on en cherche, et plus on tombe sur des choses originales et pertinentes.
   - Il faut donc résister à notre propension à choisir la première idée ou solution qui nous passe par la tête.
 - Toutes les opportunities ne nécessitent pas d'y passer du temps pour trouver des solutions originales. On en a besoin surtout pour celles qui sont stratégiques, où on veut se distinguer de la concurrence.
 - Les études montrent que **faire un brainstorming est moins efficace que de chercher des idées chacun de son côté** : on trouve plus d'idées différentes, des idées plus originales et plus variées.
@@ -280,7 +282,7 @@
 
 ### 9 - Identifying hidden assumptions
 
-- On a en général** tendance à s'accrocher à nos idées**.
+- On a en général **tendance à s'accrocher à nos idées**.
   - Parmi les biais ici il y a notamment :
     - Le biais de confirmation qui fait qu'on va accorder de l'importance à ce qui confirme notre idée, et peu d'importance à ce qui la réfute.
     - Le biais des coûts irrécupérables qui fait que plus on investit dans une idée, plus on pense devoir continuer.
@@ -311,7 +313,7 @@
   - 1 - On va **partir du principe que la solution existe déjà**, et voir l'apport de valeur sur l'utilisateur. Il ne s'agit pas de mesurer la difficulté d'implémentation.
   - 2 - On va ensuite **identifier les acteurs clés** : ça peut être plusieurs users dans un réseau social, des acheteurs/vendeurs, un user et un chatbot etc.
   - 3 - On **liste les étapes** nécessaires pour chaque acteur, pour que la fonctionnalité qui nous intéresse apporte de la valeur.
-  - 4 - On dispose les étapes en** séquence horizontale **sur un graphique.
+  - 4 - On dispose les étapes en **séquence horizontale** sur un graphique.
     - Il faut respecter l'ordre causal des étapes entre acteurs.
     - Si on a des étapes optionnelles on les représente aussi.
     - On représente les successful paths, et s'il y en a plusieurs, on les représente tous.
@@ -335,7 +337,7 @@
         - Viability : Intégrer un flux de chaîne partenaire locale ne coûtera pas trop cher.
         - Ethical : Les clients seront d'accord pour que nous partagions les données de vues avec les chaînes locales.
 - Il ne faut pas trop s'inquiéter d'avoir des dizaines d'assumptions. Si on a bien fait notre travail, la plupart seront justes, et l'important c'est surtout de trouver celles qui sont risquées.
-- Une autre technique pour identifier les assumptions risqués c'est de faire une session** pre-mortem**.
+- Une autre technique pour identifier les assumptions risqués c'est de faire une session **pre-mortem**.
   - Il s'agit de se placer dans quelques mois, d'imaginer que le produit a été un échec cuisant, et se demander pourquoi.
   - Pour que ça marche il est important d'imaginer que le produit **a été** un échec, pas qu'il pourrait l'être.
 - Une autre manière de les trouver encore c'est d'**utiliser l'opportunity solution tree, en remontant depuis les solutions vers les opportunities, puis vers l'outcome**.
@@ -362,7 +364,7 @@
 - Quelques anti-patterns à éviter :
   - **Ne pas générer assez d'assumptions** : Teresa en génère en général 20/30 par idée. On n'aura pas à toutes les tester, mais si n'en génère pas beaucoup on ne trouvera pas non plus les plus risquées.
   - **Formuler les assumptions de manière négative** : on est parfois tenté de formuler une assumption comme “Les clients ne retiendront pas leur mot de passe”, mais cette formulation rendra le test plus difficile. Il vaut mieux formuler ce qui est nécessaire pour que la solution fonctionne (que les clients retiennent leur mot de passe par exemple).
-  - **Ne pas être assez spécifique **: une assumption comme “Les clients auront le temps” n'est pas assez précise, il vaut mieux quelque chose comme “Les clients prendront le temps de parcourir toutes les options de la page de démarrage”.
+  - **Ne pas être assez spécifique** : une assumption comme “Les clients auront le temps” n'est pas assez précise, il vaut mieux quelque chose comme “Les clients prendront le temps de parcourir toutes les options de la page de démarrage”.
   - **Favoriser certaines catégories au détriment d'autres** : si on a par exemple des difficultés de faisabilité, on aura tendance à oublier de tester que la solution est au moins désirable. On oublie aussi souvent les problématiques éthiques etc. Il faut utiliser les catégories pour trouver les angles morts.
 
 ### 10 - Testing assumptions, not ideas
@@ -371,7 +373,7 @@
   - Parfois les tests ne sont pas pensés pour les assumptions visées, mais pour tester l'idée en entier.
   - Parfois on teste sur la mauvaise audience, ou on s'éparpille vers des données intéressantes mais sans rapport avec le problème.
 - Il faut **tester les trois idées en même temps**. Si on les traite une par une, on risque de céder à nos biais (confirmation et coûts irrécupérables).
-- Pour rendre nos assumptions les plus risqués moins risqués, on va** collecter des données sur ce que les clients font vraiment dans un cas spécifique**, pas sur ce qu'ils disent qu'ils feraient en général.
+- Pour rendre nos assumptions les plus risqués moins risqués, on va **collecter des données sur ce que les clients font vraiment dans un cas spécifique**, pas sur ce qu'ils disent qu'ils feraient en général.
   - Il va s'agir de simuler une mise en situation, et de comparer le comportement de l'utilisateur avec celui que notre assumption aurait sous-tendu.
   - Exemple : si on reprend notre exemple de plateforme de streaming, et qu'on veut tester l'assumption “Nos clients veulent regarder du sport”. On va pouvoir simuler la situation en présentant un mockup de la page d'accueil de notre plateforme, et leur demander : “Qu'est-ce que vous aimeriez regarder maintenant ?” en leur proposant plusieurs options.
 - On se retrouve souvent avec plusieurs idées qui partagent la même assumption : du coup la traiter permet de traiter plusieurs idées.
@@ -399,8 +401,8 @@
   - Par exemple : le nombre de fois où les sports ont été recherchés par les utilisateurs.
   - Attention là aussi à définir à l'avance le nombre qui constituerait un critère de succès du test.
 - Pour aller plus loin sur les types de tests à mettre en place elle conseille deux livres :
-  - **_UX for Lean Startups_** de Laura Klein.
-  - **_Testing business ideas_** de David Bland.
+  - <Book>UX for Lean Startups</Book> de Laura Klein.
+  - <Book>Testing business ideas</Book> de David Bland.
 - Quelques anti-patterns à éviter :
   - **Des simulations trop longues** : le but est d'aller vite pour pouvoir itérer dans la bonne direction. Nos tests devraient être complétés en un jour ou deux, ou une semaine max.
   - **Utiliser des pourcentages au lieu des nombres bruts pour les critères de succès** : définir les nombres (total et de succès) permet de garder en tête la fiabilité au cours des différents tests plus ou moins importants.
