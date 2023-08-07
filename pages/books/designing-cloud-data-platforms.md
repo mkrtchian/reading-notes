@@ -1,5 +1,3 @@
-import { Tool } from "../../components/markers/Tool";
-
 # Designing Cloud Data Platforms
 
 ## 1 - Introducing the data platform
@@ -23,7 +21,7 @@ import { Tool } from "../../components/markers/Tool";
     - Le machine learning en particulier pose tous les problèmes en même temps : il nécessite une grande quantité de données variées, et accapare la puissance de calcul du data warehouse.
 - Les **data lakes** répondent en partie à ces problèmes.
   - L’idée principale des data lakes c’est qu’on **stocke de la donnée telle quelle** (ou quasi), et qu’on essayera de la traiter et de lui coller un schéma dès qu’on en aura besoin.
-  - Les data lakes se sont généralisés à partir de 2006 avec l’arrivée de <Tool>Hadoop</Tool>, qui est un **filesystem distribué sur plusieurs machines** pas chères.
+  - Les data lakes se sont généralisés à partir de 2006 avec l’arrivée de **Hadoop**, qui est un **filesystem distribué sur plusieurs machines** pas chères.
     - Hadoop répond en partie aux 3V :
       - A la _Variety_ par l’écriture schema-less.
       - Au _Volume_ par le fait que ce soit distribué sur des machines pas chères.
