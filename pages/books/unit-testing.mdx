@@ -1,3 +1,5 @@
+import { Book } from "../../components/markers/Book";
+
 # Unit Testing: Principles, Practices, and Patterns
 
 ## I - The bigger picture
@@ -25,14 +27,14 @@
 ### 2 - What is a unit test?
 
 - Il existe deux écoles de unit testing : la **classical school** (qu'on pratiquait à l'origine), et la **London school**, qui est née à Londres.
-  - Un livre canonique pour le style classique est **_Test-Driven Development: By Example_** de Kent Beck, et un livre pour le style London est **_Growing Object -Oriented Software, Guided by Tests_** de Steve Freeman et Nat Pryce.
+  - Un livre canonique pour le style classique est <Book>Test-Driven Development: By Example</Book> de Kent Beck, et un livre pour le style London est <Book>Growing Object -Oriented Software, Guided by Tests</Book> de Steve Freeman et Nat Pryce.
 - Un **unit test** est un test qui vérifie une **unité de code**, de manière **rapide**, et **isolée**.
 - Le code testé peut avoir des dépendances.
   - Les **shared dependencies** sont celles qui affectent les tests entre eux parce qu'ils sont changés par le code et ne sont pas réinitialisés entre les tests. Par exemple, une base de données est shared. Elle pourrait ne pas l'être si elle était instanciée à chaque test.
   - Les **private dependencies** sont celles qui ne sont pas partagées.
   - Les **out-of-process dependencies** sont celles qui sont exécutées dans un autre processus. Elles impliquent un temps d'exécution plus important que de rester dans le même processus que le code exécuté. La base de données est out-of-process, même si on l'instancie à chaque fois.
   - Les **volatile dependencies** sont soit non installées sur un environnement par défaut (c'est le cas d'une base de données, mais pas d'un filesystem par exemple), soit on un comportement non déterministe (par exemple `new Date()`).
-  - A propos de la gestion de dépendances, l'auteur conseille **_Dependency Injection: Principles, Practices, Patterns_** de Steven Deursen et Mark Seemann.
+  - A propos de la gestion de dépendances, l'auteur conseille <Book>Dependency Injection: Principles, Practices, Patterns</Book> de Steven Deursen et Mark Seemann.
 - On appellera par la suite
   - **collaborators** les dépendances qui sont soit shared, soit mutables (un objet utilisé par l'objet qu'on teste, la base de données etc.)
   - **values** les dépendances qui sont immutables (par exemple un Value Object, le nombre 5 etc.).
@@ -871,7 +873,7 @@
 
   - Selon l'auteur, **les logs doivent être testé** uniquement s'ils sont destinés à être **observés par des personnes autres que les développeurs** eux-mêmes.
     - Par exemple des personnes du business qui en ont besoin pour des insights.
-    - Steve Freeman et Nat Pryce distinguent deux types de logs dans **Growing Object-Oriented Software, Guided by Tests** : le **support logging** qui est destiné au personnel de support et sysadmins, et le **diagnostic logging** qui est destiné aux développeurs eux-mêmes pour du débug.
+    - Steve Freeman et Nat Pryce distinguent deux types de logs dans <Book>Growing Object-Oriented Software, Guided by Tests</Book> : le **support logging** qui est destiné au personnel de support et sysadmins, et le **diagnostic logging** qui est destiné aux développeurs eux-mêmes pour du débug.
   - Il faut bien distinguer le diagnostic logging et le support logging, en n'y appliquant pas la même technique de code.
 
     - Le support logging étant plus important, on pourra utiliser une classe à part inspirée du **structured logging** : une manière de logger qui sépare les paramètres et le texte principal, de manière à pouvoir reformater ces logs comme on veut.
