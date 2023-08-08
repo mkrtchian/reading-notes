@@ -1,3 +1,5 @@
+import { Book } from "../../components/markers/Book";
+
 # Team Topologies
 
 ## 1 - The Problem with Org Charts
@@ -6,10 +8,10 @@
   - Mais dans la réalité une telle représentation statique est inefficace, et les gens contactent ceux qu’ils ont besoin de contacter pour mener à bien leur tâches.
   - On pourrait comparer ça à un document d’architecture, qui devient obsolète dès qu’il est écrit.
 - La manière de voir les organisations évolue :
-  - Le livre **_Improving Performance_** de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
-  - Le livre **_Project to Product_** de Mik Kersten va un cran plus loin en mettant l’accent sur le produit, et la centralité des équipes.
-  - **_Team Topologies_** se veut être une étape de plus dans cette direction.
-- Niels Pflaeging, dans **_Organize for Complexity_** :
+  - Le livre <Book>Improving Performance</Book> de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
+  - Le livre <Book>Project to Product</Book> de Mik Kersten va un cran plus loin en mettant l’accent sur le produit, et la centralité des équipes.
+  - <Book>Team Topologies</Book> se veut être une étape de plus dans cette direction.
+- Niels Pflaeging, dans <Book>Organize for Complexity</Book> :
   - Identifie 3 structures dans l’organisation :
     - **Formal structure** : l’organigramme.
     - **Informal structure** : le domaine d’influence entre individus.
@@ -33,7 +35,7 @@
   - Une organisation qui est organisée en silos techniques (équipes QA, DBA, sécurité etc.) ne pourra pas produire de système architecturé pour l’optimisation du flow.
   - Autre exemple : une organisation qui s’organise principalement autour de la vente dans des régions géographiques a peu de chances de mettre en place une architecture logicielle globale qui fournit des services à toutes les régions.
 - Le **Reverse Conway Maneuver** est une pratique qui fonctionne.
-  - Les recherches menées par les auteurs d’**_Accelerate_** montrent que c’est efficace.
+  - Les recherches menées par les auteurs d’<Book>Accelerate</Book> montrent que c’est efficace.
   - Le but c’est de transformer l’organisation pour créer un contexte où le travail peut être fait de bout en bout, sans avoir besoin d’une communication inter-équipe importante.
   - Par exemple, si on a 4 équipes de devs back et front, qui transfèrent le travail à une unique équipe DBA, on va obtenir 4 applications back/front, et une seule DB centralisée.
     - Dans le cas où on voudrait une DB par app, on peut dissoudre l’équipe DBA, et intégrer ses membres aux 4 équipes.
@@ -55,7 +57,7 @@
 
 ## 3 - Team-First Thinking
 
-- Citation d’Allan Kelly dans **_Project Mytopia_** : _“Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy”_.
+- Citation d’Allan Kelly dans <Book>Project Mytopia</Book> : _“Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy”_.
 - La recherche montre que, dans les domaines de résolution de problèmes où il y a une grande quantité d’information à traiter, **les équipes cohésives ont une meilleure performance que les individus**.
   - cf. Driskell and Salas, [Collective Behavior and Team Performance](https://www.researchgate.net/publication/239937465_Collective_Behavior_and_Team_Performance).
   - Une étude de Google sur ses propres équipes a montré que la dynamique d’équipe compte plus pour la performance que les individus qui la composent.
@@ -129,7 +131,7 @@
     - Le but est de favoriser la collaboration et augmenter l’empathie entre membres du même flow stream-aligned.
     - Ils ont aussi permis aux personnes de facilement déplacer leurs affaires pour s’installer là où c’est le plus utile sur le moment, et ont mis en place des espaces communs à ces équipes.
   - Dans le cas du **remote first**, il faut aussi organiser l’environnement :
-    - Jason Fried et DHH adressent ce problème dans leur livre **_Remote: Office Not Required_**.
+    - Jason Fried et DHH adressent ce problème dans leur livre <Book>Remote: Office Not Required</Book>.
     - L'environnement comprend les outils (chat, wiki, reporting etc.), mais aussi les règles qu’on se fixe (horaires, temps de réponse, manière de communiquer, conf calls etc.).
     - Côté outil de chat, n peut utiliser des canaux préfixés : `#team-vesuvius`, `#support-logging`, `#practices-testing`
 - Attention à ne pas oublier les pratiques techniques fondamentales (continuous delivery, TDD etc.), sans elles le team-first n’ira pas bien loin.
@@ -285,7 +287,7 @@
     - Si c’est une petite organisation ça peut passer, mais dès qu’elle grossit, les équipes croulent sous le poids de la cognitive load.
   - **Monolithic Thinking (Standardization)** : il s’agit d’une standardisation excessive des approches et technologies entre équipes.
     - Cette standardisation réduit la capacité des équipes à utiliser les bons outils, expérimenter, et réduit leur motivation de manière générale.
-    - C’est confirmé par la recherche faite par les auteurs d’**_Accelerate_**.
+    - C’est confirmé par la recherche faite par les auteurs d’<Book>Accelerate</Book>.
   - **Monolithic Workspace (Open-Plan Office)** : le fait d’adopter un unique layout de bureau (que ce soit le bureau isolé ou l’open space) est moins efficace que de l’adapter à la nature des équipes, et pour supporter leurs interactions.
 - Une mauvaise séparation de l’application peut mener à des inconsistances de diverses sortes. Pour éviter ça il faut couper le long des **fracture planes**.
   - Les fracture planes sont des frontières naturelles au travers desquelles il faut découper l’application, si possible en les combinant.
@@ -384,7 +386,7 @@
   - On peut changer l’interaction entre deux équipes de manière **temporaire**, pour **aider une autre équipe, et augmenter l’empathie**.
     - Deux équipes peuvent par exemple, de manière **délibérée**, entrer en mode collaboration, et échanger des membres pour faire du pair pendant quelques jours ou semaines.
     - Il faut bien sûr que ces changements soient pleinement consentis par les équipes.
-    - Pour plus de détails sur ce genre de pratique, les auteurs recommandent **_Dynamic Reteaming_** de Heidi Helfand.
+    - Pour plus de détails sur ce genre de pratique, les auteurs recommandent <Book>Dynamic Reteaming</Book> de Heidi Helfand.
   - On peut utiliser les **écarts entre les interactions prévues et les interactions réelles** pour déceler les mauvaises limites architecturales du système.
     - Par exemple : imaginons qu’on ait une équipe stream-aligned utilisant “as a service” un composant de calcul fait par une équipe complicated subsystem. Si l’utilisation implique de nombreuses interactions, on peut se poser des questions.
       - Peut être que la limite du composant a été mal définie.
@@ -424,7 +426,7 @@
     - Contexte :
       - Les produits ont tendance à grossir, et à force ils dépassent la cognitive load d’une équipe.
       - Plus les mêmes personnes travaillent sur les mêmes choses au sein de l’équipe, plus on va optimiser en fonction de ce que ceux qui sont disponibles savent, plutôt que ce qui est le plus prioritaire.
-        - Pour creuser ce point, on peut lire **_The Phoenix Project_** ou encore **_The DevOps Handbook_**.
+        - Pour creuser ce point, on peut lire <Book>The Phoenix Project</Book> ou encore <Book>The DevOps Handbook</Book>.
   - **La cadence de delivery devient de plus en plus lente**.
     - Symptômes :
       - On ressent, et éventuellement mesure le ralentissement comme étant une tendance de fond.
@@ -501,6 +503,6 @@
       - Mentoring
       - Service management
       - Documentation
-    - Pour le détail des transformations d’organisation, les auteurs renvoient au livre **_Fearless Change_** de Mary Lynn Manns et Linda Rising.
+    - Pour le détail des transformations d’organisation, les auteurs renvoient au livre <Book>Fearless Change</Book> de Mary Lynn Manns et Linda Rising.
   - 5 - On **explique les principes de la nouvelle manière de travailler** centrée autour des équipes.
     - On peut présenter la loi de Conway, expliquer la cognitive load, le principe team first basé sur l’humain, le fait de limiter les interactions entre équipes et les différentes interactions possibles, avec les raisons de chacune etc.
