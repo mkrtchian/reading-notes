@@ -475,3 +475,92 @@
         - Par exemple insérer un row toutes les 5 mn dans notre DB de technical metadata. Plus on a besoin de réagir vite, et plus on va choisir une fenêtre petite.
         - On peut aussi ajouter le nombre d’inserts, updates, deletes etc. pour chaque fenêtre.
       - Les changements dans le schéma de la DB source, ce qui nous permettra d’être alerté et d’adapter la pipeline.
+- Concernant le cas des **fichiers**.
+  - Les fichiers (par exemple CSV, JSON) permettent un bon découplage entre deux systèmes.
+  - On a en général deux moyens de mettre à disposition des fichiers :
+    - Via un serveur dédié qui expose un protocole **FTP**.
+    - Via le service de **storage d’un cloud provider**.
+      - Les avantages sont l’aspect _elastic_, et les mécanismes de sécurité pré-configurés.
+      - Le désavantage principal c’est que c’est cloud provider met en place des coûts pour faire sortir la donnée de son infrastructure.
+  - Les fichiers sont **immutables** une fois qu’ils sont écrits, ce qu’on aura besoin de tracker c’est **quels fichiers ont déjà été ingérés**.
+    - 1 - Une approche recommandée par les auteurs c’est d’avoir **deux dossiers** dans le système source qui met à disposition les fichiers : **incoming** et **processed** :
+      - L’application d’ingestion va ingérer un fichier depuis _incoming_, puis une fois que l’ingestion est terminée, elle va le copier dans _processed_ et le supprimer d’_incoming_.
+      - On le laisse dans _processed_ pendant quelques jours dans un but de débug et de replay, avant de le supprimer.
+      - Parmi les avantages :
+        - On n’a pas besoin de tracker quels fichiers ont été traités : il suffit de traiter ceux du dossier _incoming_.
+        - On peut facilement rejouer l’ingestion en replaçant le fichier depuis _processed_ vers _incoming_.
+    - 2 - Dans le cas où l’approche des deux dossiers n’est pas possible, parce que le système source veut organiser autrement ses fichiers, ou qu’on n’a pas la possibilité de les modifier, on peut mettre en place l’approche des **timestamps**.
+      - Chaque fichier va avoir un timestamp de la dernière fois qu’il a été modifié, et on va devoir garder le timestamp le plus récent dont on a ingéré un fichier dans le _technical metadata layer_.
+      - Vu que le filesystem ne fournit pas de système d’indexation, on va devoir lire à chaque fois les metadata de l’ensemble des fichiers pour savoir s’ils sont plus récents ou moins récents que notre timestamp sauvegardé.
+        - On peut se retrouver face à un problème de performance, surtout avec les stockages cloud de masse.
+      - Cette méthode rend plus compliqué le replay des fichiers : on devra possiblement modifier notre dernier timestamp sauvegardé, et on aura du mal avec les fichiers qui ont le même timestamp de modification.
+      - Certains outils comme **Apache NiFi** implémentent déjà ce mécanisme.
+        - Il faudra faire attention à faire un backup de ces données pour ne pas avoir à reprocesser tous les fichiers.
+    - 3 - Une variante de l’approche des timestamps consiste à organiser les fichiers source dans une **arborescence de dossiers représentant la date d’ajout**.
+      - Exemple :
+        ```bash
+        /ftp/inventory_data/incoming/2019/05/28/sales_1_081232
+        ```
+      - On peut s’en servir pour ne lire que les metadata des fichiers qui sont à la date qu’on veut ingérer.
+    - 4 - Des **outils cloud-native** existent pour copier des fichiers d’un storage à un autre, et de ne copier que les nouveaux fichiers à chaque fois qu’il y en a.
+      - **gsutil** permet de le faire chez Google Cloud, **blobxfer** chez Azure, et **s3 sync** chez AWS.
+      - Il est compliqué de faire du replay avec ces outils, parce qu’il n’y a pas de dernier timestamp stocké à modifier.
+  - Concernant les **metadata techniques à garder** :
+    - On ne va pas à ce stade récupérer de statistiques sur le nombre de rows dans le fichier, parce que ce serait techniquement coûteux pour l’ingestion layer.
+      - On le fait pour les DBs parce que c’est pas cher.
+    - Parmi les **statistiques à récupérer** :
+      - Nom permettant d’identifier la source.
+      - Taille du fichier.
+      - Durée de l’ingestion.
+      - Le nom du fichier et le path où il était (peut contenir des infos importantes).
+- Concernant le cas des **streams**.
+  - Il s’agit ici de lire de la donnée disponible dans Kafka, ou encore dans un équivalent cloud-native.
+  - On parle ici seulement d’**ingestion en mode streaming**, c’est-à-dire que la donnée est disponible dans la plateforme dès que possible, mais elle sera exploitée plus tard.
+  - Les étapes à mettre en place sont :
+    - 1 - La 1ère étape est de l**ire le stream source, et de l’écrire dans le _fast storage_** de notre _cloud data platform_, qui est aussi un stream.
+      - On peut faire ça avec **Kafka Connect**, qui permet de lire et écrire entre deux topics **Kafka**, mais aussi de lire depuis **Kafka** et écrire dans une solution de streaming cloud-native, ou l’inverse.
+      - On peut aussi faire notre propre application **consumer Kafka à la main**, mais il faudra alors s’occuper de la gestion des erreurs, du logging, et du scaling de notre consumer. Les auteurs le **déconseillent**.
+    - 2 - On va ensuite **l’écrire dans le _data warehouse_**.
+      - Les auteurs conseillent fortement d’utiliser une solution **cloud-native** pour ça, en fonction de notre fast storage :
+        - **Azure Stream Analytics** qui lit depuis **Azure Event Hubs** pour écrire dans **Azure SQL Warehouse**.
+        - **Google Cloud Dataflow** qui lit depuis **Cloud Pub/Sub** pour écrire dans **BigQuery**.
+        - **AWS Kinesis Data Firehose** qui lit depuis **AWS Kinesis** pour écrire dans **Redshift**.
+      - Pour **BigQuery** on peut ingérer dans le data warehouse en streaming, mais pour les deux autres, il faudra faire de petits batchs.
+    - 3 - L’autre chose à faire en parallèle c’est d’écrire la donnée **depuis le _fast storage_ vers le _slow storage_**.
+      - On peut là aussi utiliser les solutions cloud-natives.
+      - Il va falloir écrire la donnée par batchs pour des raisons de performance. Les auteurs recommandent des **batchs de plusieurs centaines de MB** si c’est possible.
+  - **Kafka** (et les solutions cloud-natives similaires) doit faire le commit de son offset, et en général il le fait après avoir traité plusieurs messages pour des raisons de performance;
+    - Ça veut dire que si il y a un crash, les message traités mais non commités seront traités à nouveau. Donc il faut **gérer la duplication**.
+    - Un des moyens de le faire c’est d’avoir un identifiant unique par message, et ensuite d’enlever les doublons dans la phase de processing.
+  - **Kafka** a en général une _cleanup policy_ qui est de l’ordre de la semaine, ce qui fait que pour **rejouer de la donnée**, il faut prévoir une étape qui va la chercher dans le _slow storage_, et la remet dans le _fast storage_.
+  - Concernant les **metadata techniques à garder** :
+    - Les metadata à garder ressemblent à ceux du cas CDC depuis les DBs relationnelles.
+    - On mesure le nombre de messages ingérés par fenêtre de temps (dont la taille dépendra du type de données ingérées).
+- Concernant le cas des **applications SaaS** qui fournissent de la donnée.
+  - Les applications SaaS vont en général exposer leurs données via une API REST, le contenu étant formaté en JSON ou parfois en XML.
+    - Il faut d’abord s’authentifier, souvent avec OAuth.
+    - Et ensuite il faut étudier la documentation du provider SaaS pour savoir quel call faire.
+  - Il y a un certain nombre de difficultés.
+    - Chaque provider va **designer son API selon ses contraintes**. Et donc si on veut supporter de nombreux providers, il va falloir adapter l’_ingestion layer_ pour chacun d’eux.
+    - Chaque provider va fournir soit du **full data export** soit de l’**incremental data export**, et parfois les deux.
+      - Le _full data export_ consiste à obtenir une liste d’objets, puis à aller chercher les données pour chacun d’entre eux.
+      - L’_incremental data export_ consiste à obtenir une liste d’objets qui ont changé entre deux timestamps qu’on fournit, pour ensuite aller chercher leurs données récentes uniquement.
+    - Le **JSON** reçu est en général **imbriqué sur plusieurs niveaux**.
+      - Certains _data warehouses_ gèrent les données imbriquées, mais ce n’est pas le cas de **Redshift** pour lequel il faudra faire une étape de processing pour mettre ces données à plat.
+      - De manière générale, mettre les données à plat dans plusieurs tables plus petites est plus pratique pour les data scientists.
+  - Etant donné la difficulté à implémenter et maintenir une pipeline ingérant de la donnée de sources SaaS, les auteurs conseillent de **bien réfléchir à l’implémenter soi-même**.
+    - S’il s’agit d’une source pas trop compliquée, ça peut passer.
+    - Si par contre il s’agit de nombreuses sources, alors il nous faudra une grande quantité de code et de maintenance.
+      - Les auteurs conseillent plutôt une solution off-the-shelf comme **Fivetran** qui supporte la plupart des sources SaaS connues.
+  - Concernant les **metadata techniques à garder** :
+    - Il s’agit du même type de metadata que pour les sources en batch comme les DBs ou les fichiers.
+    - On voudra notamment :
+      - Le nom de la source.
+      - Le nom de l’objet qu’on va chercher dans la source.
+      - Les temps de début et fin d’ingestion.
+      - Le nombre de rows qu’on récupère.
+- Pour des questions de **sécurité**, il est préférable d’encapsuler notre cloud data platform dans un **virtual private cloud (VPC)**.
+  - Pour faire le lien entre la plateforme dans le VPC et la donnée qu'on veut aller chercher, on peut utiliser un **VPN Gateway**, qui permet de passer par internet de manière sécurisée.
+  - Dans le cas des SaaS comme source, ils fournissent des APIs sécurisées par HTTPS, et disponibles globalement sur internet, donc il n’est pas nécessaire d’établir une connexion via _VPN Gateway_.
+  - Dans le cas où on veut transférer des centaines de GB par jour, il vaut mieux mettre en place une **connexion directe**.
+    - Les solutions cloud-natives ont leur outil de connexion directe : **AWS Direct Connect**, **Azure ExpressRoute**, **Google Cloud Interconnect**.
