@@ -564,3 +564,131 @@
   - Dans le cas des SaaS comme source, ils fournissent des APIs sécurisées par HTTPS, et disponibles globalement sur internet, donc il n’est pas nécessaire d’établir une connexion via _VPN Gateway_.
   - Dans le cas où on veut transférer des centaines de GB par jour, il vaut mieux mettre en place une **connexion directe**.
     - Les solutions cloud-natives ont leur outil de connexion directe : **AWS Direct Connect**, **Azure ExpressRoute**, **Google Cloud Interconnect**.
+
+## 5 - Organizing and processing data
+
+- Les architectes de l’ancienne école ont encore tendance à recommander de **faire le processing dans le data warehouse**.
+  - Les auteurs du livre suggèrent que la manière moderne est de le faire **sur des machines à part**, par exemple avec **Spark**, qui lirait et écrirait dans le _data lake_.
+  - Les arguments sont les suivants ((1) pour faire le calcul dans le _data warehouse_, et (2) pour utiliser la _layered architecture_) :
+    - **Flexibility** : avec la (1) le résultat du processing n’est utilisable que dans le _data warehouse_, avec la (2) on peut facilement le rediriger ailleurs.
+    - **Developer productivity** : il y a plus de personnes qui connaissent le SQL, donc le (1) a un avantage court terme, bien que **Spark** soit plus puissant, il faut souvent former les devs.
+    - **Data governance** : la source principale étant le _data lake_, faire les transformations au même endroit permet d’être sûr d’avoir toutes les versions alignées. Dans le cas où on fait ça dans le _data warehouse_, il est préférable de ne pas le faire dans le _data lake_ pour ne pas avoir de divergence.
+    - **Cross-platform portability** : changer de cloud vendor est bien plus simple avec **Spark** qu’avec du code SQL qu’il faudra au moins tester.
+    - **Performance** : avec la (1) le processing impacte le data warehouse, avec le (2) on fait le calcul complètement à part et on n’impacte personne.
+    - **Speed of processing** : avec la (1) on peut faire du _real time analytics_ dans certains cas avec difficulté, avec la (2) ça marche facilement.
+    - **Cost** : tous les providers de _data warehouse_ ne le font pas (mais ils vont finir par le faire), mais pour ceux qui font payer le processing ça revient plus cher que de faire le processing sur des machines complètement à part.
+    - **Reusability** : avec la (1) on peut parfois utiliser des _stored procedures_, avec la (2) on a du code qu’on peut directement réutiliser.
+- Le processing se décompose en **stages**.
+  - Chaque _stage_ contient : une _area_ de stockage dans le data lake, et un job de calcul distribué (par exemple avec **Spark**), qui va créer la donnée pour l’étape suivante.
+    - Les jobs sont coordonnés par l’_orchestration layer_.
+    - Les jobs peuvent être de deux types :
+      - **Common **data processing : les transformations communes, par exemple dédupliquer les messages, valider les dates etc.
+      - **Business logic specific **processing : les transformations spécifiques à chaque use-case, qui vont par exemple filtrer les campagnes de marketing à succès uniquement si le use-case c’est d’afficher les meilleures campagnes.
+  - Avoir un ensemble de _stages_ standardisés est important pour que chacun puisse s’y retrouver malgré le scale.
+  - Les étapes proposés par les auteurs sont :
+    - **1 - Landing area** : c’est là que la donnée arrive en premier, il ne s’agit pas d’un stockage long terme.
+    - **2 - Staging area** : la donnée subit des checks basiques de qualité, et on vérifie qu’elle est conforme au schéma attendu. Elle est stockée sous format **Avro**.
+    - **3 - Archive area** : la donnée est copiée depuis la _landing area_ vers l’_archive area_.
+      - Cette opération n’est effectuée qu’après que la donnée ait pu aller vers la _staging area_ avec succès.
+      - On pourra refaire le processing de la donnée simplement en la copiant depuis l’_archive area_ vers la _landing area_.
+    - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d’aller là.
+      - Elle est aussi transformée du format **Avro** vers **Parquet**, qui est plus adapté pour faire de l’analytics.
+      - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation autre que le format **Parquet**, et ensuite la copie dans le _data warehouse_.
+        - Ce use-case “basique” est utile pour débugguer les autres use-cases.
+      - **4.2 - Cloud data warehouse and production area** : les use-cases qui ont besoin de la donnée dans le _data warehouse_ passent d’abord par le processing de la _staging area_ vers la _production area_.
+    - **5 - Failed area** : chaque étape peut être face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
+      - Les messages qui n’ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu’il faut corriger.
+      - Une fois la correction faite, il suffit de les copier dans l’area de l’étape où ils ont échoués.
+  - Chaque **area** doit être dans un **container** du service de stockage de notre cloud provider.
+    - Les _containers_ contiennent des _folders_.
+    - Ils sont appelés _buckets_ chez AWS et GCP.
+    - C’est au niveau de ces containers qu’on peut configurer les droits d’accès, et choisir le prix qu’on paye pour les performances qu’on aura (hot / cold / archive storage).
+      - Parmi nos 5 areas, toutes sont de type _hot_, sauf l’archive area qui peut être _cold_ / _archive_.
+- On a besoin d’une **organisation des folders** claire dans chaque _area_.
+  - Les éléments communs sont :
+    - Le **namespace** représente la catégorisation la plus high level, pour les petites organisations ça peut être juste le nom de l’organisation, mais pour les plus grandes ça peut être le nom du département.
+    - Le **pipeline name** représente le nom d’un job en particulier. Il faut qu’il soit clair par rapport à ce que fait le job, et utilisé partout pour parler de lui.
+    - Le **data source name** identifie une source. C’est l’_ingestion layer_ qui choisit ce nom et le note dans le _metadata layer_.
+    - Le **batchId** représente l’identifiant de chaque batch de donnée écrit dans la _landing area_ par l’_ingestion layer_.
+      - On peut utiliser un UUID pour le représenter, ou encore un ULID, qui a la particularité d’être plus court et de permettre de savoir facilement si un autre ULID est plus grand ou plus petit.
+  - Pour la _landing area_, les auteurs proposent la folder structure :
+    - `landing/NAMESPACE/PIPELINE/SOURCE_NAME/BATCH_ID/`
+      - _landing_ représente le nom du container.
+    - Exemple : `/landing/my_company/sales_oracle_ingest/customers/01DFTQ028FX89YDFAXREPJTR94/`
+  - Pour la _staging area_, de même que pour les autres _areas_, il s’agit de stocker la donnée sur le long terme, donc on aimerait une structure qui fasse apparaître le **temps**, avec 3 folders supplémentaires :
+    - Il s’agit d’ajouter 3 folders supplémentaires qui viennent de la convention de **Hadoop** : `year=YYYY/month=MM/day=DD`.
+    - Exemple : `/staging/my_company/sales_oracle_ingest/customers/year=2019/month=07/day=03/01DFTQ028FX89YDFAXREPJTR94/`
+    - De nombreux outils (y compris **Spark**) vont reconnaître ce format, et si notre batchId est un ULID, les folders les plus récents seront présentés en premier.
+  - Pour la _production area_, on ne peut pas vraiment reporter les sources qui ont servi à la donnée dans le folder name - il y en a potentiellement des dizaines.
+    - On va donc plutôt créer des **sources dérivées** dont on mettra le nom à la place de la source, et on documentera ces sources dérivées dans le _metadata layer_.
+- La donnée qui arrive en **streaming** :
+  - Va passer directement vers la version streaming du _processing layer_ sans être stockée d’abord dans le _slow storage_. C’est traité au chapitre 6.
+  - Mais on va quand même l’envoyer dans le slow storage en parallèle pour un but d’archivage et rejeu si besoin.
+    - Un job va lire depuis le fast storage où arrive la donnée en streaming, par batchs suffisamment gros, et va écrire ça dans la _landing area_.
+    - Les fichiers seront ensuite passés de stage en stage jusqu'à la production area.
+- Parmi les **common processing steps** :
+  - **File format conversion.**
+    - L’approche data lake traditionnelle consiste à laisser les données telles quelles, et laisser chaque pipeline parser elle-même la donnée et faire les traitements dont elle a besoin.
+      - Mais cette approche a du mal à scaler.
+      - Dans la _cloud data platform architecture_, on choisit de faire certains traitements en amont, pour éviter d’avoir à tester et maintenir du code qui fait ça dans chaque pipeline.
+    - **Avro** et **Parquet** sont des formats binaires intégrant un schéma.
+      - Ils permettent de ne pas répéter le nom des champs, et donc d’économiser de la place.
+      - Ils permettent de garantir le schéma de la donnée.
+      - Avro est organisé en blocs de _rows_, alors que Parquet est organisé en blocs de _columns_.
+        - Les fichiers organisés en _rows_ sont utiles quand on lit la donnée de toutes les colonnes pour certains _rows_ donnés. La _staging area_ sert principalement à faire des transformations ou de l’exploration ad-hoc, donc **Avro** est adapté.
+        - Les fichiers organisés en _columns_ sont utiles quand on ne veut traiter qu’une _column_ sur un grand nombre de _rows_. La production area sert à faire des requêtes d’analytics, donc **Parquet** est adapté.
+    - Pour la conversion depuis le format initial vers **Avro**, puis vers **Parquet**, **Spark** permet de lire et écrire ces différents formats.
+      - Exemple :
+        ```python
+        clicks_df = spark.read.json(in_path)
+        clicks_df = spark.write.format("avro").save(out_path)
+        ```
+  - **Data deduplication**.
+    - On s’intéresse ici au fait d’avoir un attribut sur notre donnée qui soit unique dans l’ensemble des données.
+      - A partir du moment où on n’a pas de garanties d’unicité, on peut se retrouver dans une situation de duplication, par exemple si le _metadata repository_ est corrompu, la source envoie une donnée dupliquée, ou encore un dev rejoue certaines données qui avaient déjà marché.
+      - Le problème existe aussi avec **Kafka**, où des transactions existent si on lit un record et qu’on écrit dans un topic **Kafka**, mais pas si on écrit sur un service de storage.
+    - **Spark** a une fonction intégrée `dropDuplicates()` qui permet de dédupliquer en fonction d’une ou plusieurs colonnes.
+      - On peut dédupliquer sur un batch qui arrive dans la _landing area_ pour pas cher :
+        ```python
+        users_df = spark.read.format("csv").load(in_path)
+        users_deduplicate_df =
+          users_df.dropDuplicates(["user_id"])
+        ```
+      - Si on veut vraiment dédupliquer sérieusement, il faut aussi joindre l’ensemble des données déjà présentes dans la _staging area_ au batch courant, et appliquer la déduplication dessus, par exemple avec du SQL qu’on passe à **Spark**.
+        ```python
+        incoming_users_df
+          .createOrReplaceTempView("incomgin_users")
+        staging.users_df
+          .createOrReplaceTempView("staging_users")
+        users_deduplicate_df = spark.sql(
+          "SELECT * FROM incoming_users u1
+          LEFT JOIN staging_users u2
+          ON u1.user_id = u2.user_id
+          WHERE u2.user_id IS NULL"
+        )
+        ```
+      - Le problème c’est que la déduplication à chaque fois avec l’ensemble des données coûte cher. Donc il faut vérifier que notre use-case le nécessite d’un point de vue business.
+        - On peut aussi dédupliquer avec seulement les fichiers dans le dossier de l’année actuelle, du mois actuel etc. depuis la _staging area_.
+  - **Data quality checks**.
+    - Une vérification minimale de la qualité de la donnée est en général nécessaire pour la plupart des cas d’usages. Par exemple :
+      - La longueur de certaines colonnes.
+      - La valeur numérique acceptable de certaines colonnes.
+      - Le fait d’avoir certaines colonnes “obligatoires”.
+      - Le fait d’avoir certaines colonnes respecter un pattern, par exemple l’email.
+    - Spark a la fonction `filter()` qui permet d’obtenir les colonnes qui respectent une mauvaise condition.
+      - On a aussi `subtract()` qui permet d’enlever ces rows du batch, pour passer les rows valides à la _production area_, et les rows invalides à la _failed area_.
+        - Attention à la **consistance des données**, en fonction du contexte business, il peut être plus judicieux de laisser passer la donnée, et de simplement informer les data engineers du problème.
+        - De manière générale, il faut réfléchir à **la criticité de chaque problème de qualité** pour décider quoi faire en cas de donnée malformée : filtrer la donnée, laisser passer et prévenir quelqu’un, ou annuler l’ingestion du batch entier.
+      - Exemple :
+        ```python
+        users_df = spark.read.format("csv").load(in_path)
+        bad_user_rows =
+          users_df.filter(
+            "length(email) > 100 OR username IS NULL"
+          )
+        users_df = users_df.subtract(bad_user_rows)
+        ```
+- On peut créer des **jobs configurables** : l’orchestration layer lance un job, en lui donnant d’abord la configuration contenant les sources à traiter, le schéma à valider en fonction des sources, la folder structure où insérer les nouveaux fichiers etc.
+  - Ça permet d’économiser du code, au moins pour les jobs de transformation “common”.
+  - Le bon endroit pour la configuration c’est le _metadata layer_.
+  - Pour déclencher nos jobs, il faut qu’il y ait une forme de monitoring de la _landing area_, soit avec du code qu’on écrit nous-mêmes, soit avec la fonctionnalité de monitoring d’un outil d’orchestration cloud.
