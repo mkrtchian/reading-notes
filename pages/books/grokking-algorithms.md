@@ -8,22 +8,20 @@
   - Code :
     ```typescript
     function binarySearch(array: number[], target: number) {
-    let left = 0;
-    let right = array.length - 1;
-    while(left &lt;= right) {
+      let left = 0;
+      let right = array.length - 1;
+      while (left <= right) {
         const middle = Math.floor(left + right);
         const current = array[middle];
-        if(current === target) {
-        return current;
+        if (current === target) {
+          return current;
+        } else if (current > target) {
+          right = middle - 1;
+        } else {
+          left = middle - 1;
         }
-        else if(current > target) {
-        right = middle - 1;
-        }
-        else {
-        left = middle - 1;
-        }
-    }
-    return null;
+      }
+      return null;
     }
     ```
     - La boucle s’arrête quand on a atteint le dernier élément possible, et dans ce cas soit c’est lui, soit il n’existe pas.
