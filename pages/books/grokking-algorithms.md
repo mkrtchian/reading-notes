@@ -172,3 +172,20 @@
   - Il se trouve que quicksort est plus rapide d’une constante (qu’on ne retrouve donc pas dans la notation `O`). Comme les deux ont la même _time complexity_, la constante compte.
   - Quicksort a une _worst case time complexity_ de `O(n²)`, mais sa best case time complexity est de `O(n * log(n))`, et son _average time complexity_ est aussi de `O(n * log(n))`.
     - Il se trouve qu’on est sûr d’atteindre l’_average time complexity_ si à chaque fois **on choisit le pivot au hasard**.
+
+## 5 - Hash tables
+
+- Les **hash tables** permettent de trouver un élément en temps `O(1)`.
+  - Ce sont des structures impliquant un peu de calcul :
+    - 1 - On donne l’input en entrée qui représente la clé à chercher en `O(1)`.
+    - 2 - La hash table va passer l’input dans une **hash function** qui est censée renvoyer une adresse mémoire dans un endroit réservé comme avec un _array_.
+    - 3 - On peut stocker la valeur qu’on veut dans cet emplacement, et la prochaine fois qu’on donnera la même clé en input, on accèdera à nouveau au même emplacement.
+  - Ils permettent aussi de filtrer les clés dupliquées : il suffit de vérifier si la clé existe déjà dans la hash table.
+  - Un des cas d’usage est la mise en cache de la donnée, qu’on peut ensuite retrouver instantanément en donnant une clé qui a servi à créer l’entrée de l’élément en cache.
+- En réalité, il est très difficile de mapper des clés à un espace mémoire limité sans créer de **collisions**, c’est-à-dire que la _hash function_ renvoie le même emplacement mémoire pour plusieurs clés.
+  - Pour gérer ces cas, une des possibilités est de créer une _linked list_ à partir de l’emplacement où on se retrouve à avoir plusieurs éléments. Mais on va alors perdre en performance, en particulier si nos _linked lists_ sont longues.
+    - On se retrouve donc avec un temps d’accès en lecture/écriture qui est en `O(1)` pour l’average case, et `O(n)` pour le worst case.
+    - Il existe d’autres implémentations de la hash table, par exemple la méthode _cuckoo hashing_ permet de faire plus d’opérations à l’insertion, pour s’assurer que la lecture reste en `O(1)`.
+  - Un des facteurs qui va déterminer la performance d’une _hash table_ est le **load factor** : le nombre d’emplacements occupés divisé par le nombre d’emplacements disponibles dans l’espace mémoire de la hash table.
+    - Plus le load factor est élevé, plus notre hash table est “saturée” et va provoquer des collisions. Si on dépasse un load factor de 1, on est sûr de ne pas pouvoir stocker chaque élément dans un emplacement unique.
+    - Quand le load factor devient grand (par exemple 0.7), on peut faire un _resizing_, c’est-à-dire allouer un espace mémoire plus grand, et y déplacer l’ensemble des éléments actuels.
