@@ -189,3 +189,47 @@
   - Un des facteurs qui va déterminer la performance d’une _hash table_ est le **load factor** : le nombre d’emplacements occupés divisé par le nombre d’emplacements disponibles dans l’espace mémoire de la hash table.
     - Plus le load factor est élevé, plus notre hash table est “saturée” et va provoquer des collisions. Si on dépasse un load factor de 1, on est sûr de ne pas pouvoir stocker chaque élément dans un emplacement unique.
     - Quand le load factor devient grand (par exemple 0.7), on peut faire un _resizing_, c’est-à-dire allouer un espace mémoire plus grand, et y déplacer l’ensemble des éléments actuels.
+
+## 6 - Breadth-first search
+
+- Les **graphs** sont une structure qui permet de relier des choses les unes aux autres.
+  - Il s’agit simplement d’avoir des nœuds, reliés entre eux par des flèches.
+  - Ils permettent des applications très intéressantes :
+    - Trouver des corrections de mots.
+    - Trouver le chemin le plus court pour aller quelque part, ou la liste des commerces proches.
+    - Créer un robot d’indexation de pages web.
+- La plupart du temps, on voudra résoudre un problème du type “**trouver le plus court chemin**” dans le _graph_, et pour ça on a un algorithme qui s’appelle **breadth-first search (BFS)**.
+
+  - Il s’agit de consulter tous les éléments des nœuds du niveau 1, avant d’aller aux nœuds du niveau 2 etc.
+  - On peut utiliser une **queue** pour représenter les éléments du _graph_ qu’on va choisir de consulter dans le bon ordre.
+    - Une _queue_ est une structure qui permet d’ajouter un élément d’un côté, et de dépiler de l’autre côté. Les éléments ajoutés en premier seront dépilés en premier (FIFO).
+  - Le _graph_ en lui-même peut être exprimé à l’aide d’une _hash table_. où une clé représente un nœud, et sa valeur représente les nœuds vers lesquels il a un lien.
+  - Imaginons qu’on ait un _graph_ représentant des personnes liées entre-elles. Et on cherche la personne la plus proche qui est un vendeur à partir d’un nom donné. Le code est le suivant :
+
+    ```typescript
+    function findSellerBFS(graph: Record<string, string[]>, name: string) {
+      let queue = [...graph[name]];
+      const alreadySearched = new Set();
+      while (queue.length) {
+        const currentPerson = queue.pop();
+        if (!alreadySearched.has(currentPerson)) {
+          if (isSeller(currentPerson)) {
+            return currentPerson;
+          } else {
+            queue = [...graph[currentPerson], ...queue];
+            alreadySearched.add(currentPerson);
+          }
+        }
+      }
+      return false;
+    }
+
+    function isSeller(name: string) {
+      return name.startsWith("s");
+    }
+    ```
+
+    - On commence par ajouter les amis de la personne initiale à la liste des personnes à vérifier.
+    - A chaque fois qu’on en vérifie une, si ce n’est pas elle qu’on veut, on ajoute ses amis à la fin de la _queue_ et on continue avec la personne suivante.
+    - On a besoin d’un set qui retient les personnes déjà cherchées, pour éviter les _graphs_ circulaires.
+    - On parcourt chaque personne au pire une fois, et on parcourt la liste des associations au pire une fois, donc la time complexity est de `O(nombre de personnes + nombre de liens)`.
