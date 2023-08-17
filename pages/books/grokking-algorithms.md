@@ -239,8 +239,27 @@
 - Les **trees** sont des graphs dont les flèches ne vont que dans un seul sens, et qui ne bouclent pas sur eux-mêmes.
   - Le _root node_ est le tout premier dont tous les autres découlent, et on appelle les nœuds finaux qui n’ont pas d’enfants les _leaf nodes_.
   - Le code d’un BFS parcourant le _tree_ n’aura pas besoin de garder un _set_ des nœuds déjà visités, puisque les _trees_ n’ont pas de cycles.
-- Les **binary trees** sont des _trees_ avec au plus deux enfants par nœud.
+- Le **depth-first search (DFS)** consiste à parcourir un graph non pas niveau par niveau, mais en allant chercher toute la profondeur d’un nœud enfant, avant d’aller vers les autres.
+  - Contrairement au BFS, il ne permet pas de trouver le plus court chemin.
+  - Le code pour trouver s’il existe un vendeur parmi la liste de noeuds :
+    ```typescript
+    function findSellerDFS(tree: Tree) {
+      if (!tree) {
+        return false;
+      }
+      if (isSeller(tree.value)) {
+        return true;
+      }
+      for (let child of tree.children) {
+        if (findSellerDFS(child)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    ```
 - **Huffman coding** est un algorithme utilisant les _binary trees_ pour compresser du texte.
+  - Les **binary trees** sont des _trees_ avec au plus deux enfants par nœud.
   - La manière habituelle d’encoder du texte est de le faire avec des blocs fixes de bits, ce qui permet d’interpréter chaque bloc comme une lettre.
   - _Huffman coding_ va créer un _binary tree_ contenant seulement les lettres qui composent les mots qu’on veut encoder.
   - Il suffit à chaque nœud de suivre le nœud de gauche si on a un 0, et celui de droite si on a un 1. Dès qu’on arrive à un _leaf node_, on a la lettre.
