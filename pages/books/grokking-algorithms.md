@@ -230,6 +230,18 @@
     ```
 
     - On commence par ajouter les amis de la personne initiale à la liste des personnes à vérifier.
-    - A chaque fois qu’on en vérifie une, si ce n’est pas elle qu’on veut, on ajoute ses amis à la fin de la _queue_ et on continue avec la personne suivante.
+    - A chaque fois qu’on en vérifie une, si ce n’est pas elle qu’on veut, on ajoute ses amis à l'entrée de la _queue_ et on continue avec la personne suivante.
     - On a besoin d’un set qui retient les personnes déjà cherchées, pour éviter les _graphs_ circulaires.
     - On parcourt chaque personne au pire une fois, et on parcourt la liste des associations au pire une fois, donc la time complexity est de `O(nombre de personnes + nombre de liens)`.
+
+## 7 - Trees
+
+- Les **trees** sont des graphs dont les flèches ne vont que dans un seul sens, et qui ne bouclent pas sur eux-mêmes.
+  - Le _root node_ est le tout premier dont tous les autres découlent, et on appelle les nœuds finaux qui n’ont pas d’enfants les _leaf nodes_.
+  - Le code d’un BFS parcourant le _tree_ n’aura pas besoin de garder un _set_ des nœuds déjà visités, puisque les _trees_ n’ont pas de cycles.
+- Les **binary trees** sont des _trees_ avec au plus deux enfants par nœud.
+- **Huffman coding** est un algorithme utilisant les _binary trees_ pour compresser du texte.
+  - La manière habituelle d’encoder du texte est de le faire avec des blocs fixes de bits, ce qui permet d’interpréter chaque bloc comme une lettre.
+  - _Huffman coding_ va créer un _binary tree_ contenant seulement les lettres qui composent les mots qu’on veut encoder.
+  - Il suffit à chaque nœud de suivre le nœud de gauche si on a un 0, et celui de droite si on a un 1. Dès qu’on arrive à un _leaf node_, on a la lettre.
+  - Ça donne l’avantage de pouvoir encoder les lettres sur peu de bits, avec un nombre variable de bits : plus le mot est récurrent, et plus il sera encodé sur un nombre faible de bits.
