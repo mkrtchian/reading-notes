@@ -692,3 +692,20 @@
   - Ça permet d’économiser du code, au moins pour les jobs de transformation “common”.
   - Le bon endroit pour la configuration c’est le _metadata layer_.
   - Pour déclencher nos jobs, il faut qu’il y ait une forme de monitoring de la _landing area_, soit avec du code qu’on écrit nous-mêmes, soit avec la fonctionnalité de monitoring d’un outil d’orchestration cloud.
+
+## 6 - Real-time data processing and analytics
+
+- La notion de **real-time** (ou **streaming**) dans le contexte d’une pipeline data peut recouvrir deux choses différentes :
+  - **1 - real-time ingestion** : on ingère la donnée une par une avec un mécanisme de message streaming, et on l’amène jusqu’au _data warehouse_. Mais la consommation de la donnée ne se fait pas en temps réel.
+    - L’aspect “real-time” ne concerne que l’_ingestion layer_.
+    - **Le processing se fait à la demande, et peut prendre des secondes voire des minutes**, mais il se fait sur une donnée fraîche.
+    - Il peut se faire selon un schedule, ou à la demande des utilisateurs humains qui attendront un peu avant d’avoir un résultat.
+    - Exemple : un data analyste veut pouvoir exécuter une requête pour afficher un dashboard sur des données fraîches quand il en a besoin. Le dashboard n’est pas mis à jour en continu mais juste à l’exécution de cette requête.
+  - **2 - real-time processing** : on récupère la donnée une par une, et on la redirige vers un autre système qui va réagir à chaque donnée qui arrive pour se mettre à jour.
+    - Le _real-time processing_ nécessite la _real-time ingestion_. L’aspect “real-time” concerne donc l’_ingestion layer_ et le _processing layer_.
+    - On est dans un cas d’usage où on a besoin que **le processing se fasse très vite et en continu**, en général à destination d’un autre système.
+    - Exemple : la donnée qui arrive dans la pipeline est ensuite mise à disposition d’un système de jeu vidéo pour adapter le comportement du jeu en fonction de ce que fait le joueur en temps réel. Par exemple, ajuster la probabilité de faire apparaître un monstre.
+    - La donnée est traitée par un **real-time job** qui tourne en permanence et ajuste les calculs en fonction des nouvelles données.
+      - Elle est ensuite mise à disposition d’un _key/value store_ ou éventuellement d’une DB relationnelle, pour un accès rapide. Le data warehouse est trop lent et est fait pour des requêtes à la demande sur de grandes quantités de données.
+      - Elle peut aussi être postée dans le _fast storage_, c’est-à-dire comme event de streaming pour déclencher un autre processing.
+  - Il est très important de **clarifier le besoin** : dans le cas où on n’a besoin que de real-time ingestion, la complexité de mise en œuvre est beaucoup moins grande.
