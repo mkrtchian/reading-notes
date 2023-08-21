@@ -596,7 +596,7 @@
       - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation autre que le format **Parquet**, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
       - **4.2 - Cloud data warehouse and production area** : les use-cases qui ont besoin de la donnée dans le _data warehouse_ passent d’abord par le processing de la _staging area_ vers la _production area_.
-    - **5 - Failed area** : chaque étape peut être face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
+    - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
       - Les messages qui n’ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu’il faut corriger.
       - Une fois la correction faite, il suffit de les copier dans l’area de l’étape où ils ont échoués.
   - Chaque **area** doit être dans un **container** du service de stockage de notre cloud provider.
@@ -708,4 +708,39 @@
     - La donnée est traitée par un **real-time job** qui tourne en permanence et ajuste les calculs en fonction des nouvelles données.
       - Elle est ensuite mise à disposition d’un _key/value store_ ou éventuellement d’une DB relationnelle, pour un accès rapide. Le data warehouse est trop lent et est fait pour des requêtes à la demande sur de grandes quantités de données.
       - Elle peut aussi être postée dans le _fast storage_, c’est-à-dire comme event de streaming pour déclencher un autre processing.
-  - Il est très important de **clarifier le besoin** : dans le cas où on n’a besoin que de real-time ingestion, la complexité de mise en œuvre est beaucoup moins grande.
+  - Il est très important de **clarifier le besoin** : dans le cas où on n’a besoin que de _real-time ingestion_, la complexité de mise en œuvre est beaucoup moins grande.
+    - Les auteurs conseillent d’utiliser la _real-time ingestion_ plutôt que la _batch ingestion_, sauf quand la source ne supporte pas le real time.
+      - La _real-time ingestion_ implique moins de nécessité d’orchestration et de monitoring.
+      - Pour éviter l’incohérence pour les utilisateurs, il vaut mieux éviter de mixer des données real-time avec des données qui viennent en batch.
+      - On n’a en général pas la possibilité d’utiliser le même système pour traiter les données qui arrivent en real-time et les données qui arrivent par batch.
+        - Par exemple **Google Cloud Dataflow** le permet avec l’utilisation de **Beam**, mais la plupart du temps on aura besoin de deux outils.
+    - Selon les auteurs, la plupart du temps quand les utilisateurs demandent du “real-time”, ils veulent en fait juste de la _real-time ingestion_.
+      - Quand des utilisateurs demandent à pouvoir afficher leur dashboard en “real-time” alors qu’il tourne une fois par jour, bien souvent avoir de la _real-time ingestion_ et faire tourner le processing du rapport toutes les heures ou toutes les 15 minutes leur suffira.
+      - Parmi les cas d’usage qui pourraient nécessiter du real-time processing : les systèmes d’action in-game, les systèmes de recommandation, les systèmes de détection de fraude.
+    - Transiter une pipeline de la _batch ingestion_ à la real-time ingestion se fait sans trop de difficulté.
+      - Transiter du _batch processing_ au _real-time processing_ est bien plus complexe vu qu’il va falloir en général changer d’outils, et donc il faut penser ça en amont.
+- Le **fast storage** est composé d’un système d’**event streaming** du type **Kafka**.
+  - Les messages (qui font entre quelques KB et 1 MB) sont traités un par un, et stockés dans des _topics_. Ils sont identifiables par leur offset.
+  - Les _producers_ écrivent dans les topics, et les _consumers_ lisent depuis les topics. **Kafka** a des mécanismes qui leur permettent de publier et consommer de manière fiable malgré les fautes.
+  - Pour permettre de scaler, le contenu des topics est séparé en _partitions_, qui se trouvent sur des machines différentes, avec des copies pour plus de fiabilité.
+  - Là où lire et écrire dans **S3** mettrait quelques centaines de ms, le faire dans Kafka en prend 10 fois moins, mais surtout **Kafka** tient la charge avec une très grande quantité de petits messages.
+- De même que pour le _slow storage_ et le _batch processing_, le _fast storage_ est **organisé en areas** qui servent à des stages de processing.
+  - Les étapes sont :
+    - **1 - Landing area** : l’_ingestion layer_ écrit la donnée dans cet endroit.
+    - **2 - Staging area** : la donnée subit des checks basiques de qualité, et on vérifie qu’elle est conforme au schéma attendu.
+    - **3 - Archive area** : la donnée est copiée depuis la _landing area_ vers l’_archive area_.
+      - Il s’agit d’espace de stockage cloud classique.
+      - On pourra refaire le processing de la donnée simplement en la copiant depuis l’_archive area_ vers la _landing area_.
+    - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d’aller là.
+      - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation, et ensuite la copie dans le _data warehouse_.
+        - Ce use-case “basique” est utile pour débugguer les autres use-cases.
+      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
+    - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
+      - Les messages qui n’ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu’il faut corriger.
+      - Une fois la correction faite, il suffit de les copier dans l’area de l’étape où ils ont échoués.
+  - Côté **organisation en topics** :
+    - Les providers limitent en général le nombre de topics à quelques milliers, et c’est l’abstraction principale qu’on a. Avec des centaines de tables par DB qu’on utilise comme source, les topics sont vite très nombreux.
+    - Selon les auteurs, l’organisation la plus pertinente pour le cas général serait d’utiliser **un topic par area**, et de faire la distinction entre sources avec un champ à l’intérieur des messages.
+      - Mais dans le cas où on a des sources qui donnent des messages structurés très différemment, ou qui ne permettent pas d’utiliser des jobs de processings communs, on peut faire des topics différents par source.
+      - Une autre raison de séparer en topics par source peut être la limitation en termes de quotas par topic, de la part du provider.
+      - Une autre raison pour publier dans des topics différents peut être la structure interne des équipes, et les questions de sécurité, pour restreindre certaines données à certaines équipes.
