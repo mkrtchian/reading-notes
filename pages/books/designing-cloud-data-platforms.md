@@ -391,7 +391,7 @@
         - Il faut donc un moyen pour capturer l’évolution de la donnée dans le temps.
       - Une 1ère solution pour garder l’évolution dans le temps est de faire une **full table ingestion**.
         - On va récupérer l’ensemble des données d’une table à intervals réguliers, sauver ces snapshots dans le _data lake_, et les charger dans le _data warehouse_.
-        - Pour en tirer quelque chose, il faut** superposer les rows des snapshots** dans la même table du _data warehouse_.
+        - Pour en tirer quelque chose, il faut **superposer les rows des snapshots** dans la même table du _data warehouse_.
           - Pour différencier les rows de chaque snapshot, on peut ajouter une colonne `INGEST_DATE`.
           - On peut directement utiliser du SQL pour obtenir les données qu’on veut, mais pour certains usages on aura besoin de faire une transformation dans le _processing layer_.
         - Parmi les données dérivées qu’on voudra créer, il peut y avoir :
@@ -582,8 +582,8 @@
   - Chaque _stage_ contient : une _area_ de stockage dans le data lake, et un job de calcul distribué (par exemple avec **Spark**), qui va créer la donnée pour l’étape suivante.
     - Les jobs sont coordonnés par l’_orchestration layer_.
     - Les jobs peuvent être de deux types :
-      - **Common **data processing : les transformations communes, par exemple dédupliquer les messages, valider les dates etc.
-      - **Business logic specific **processing : les transformations spécifiques à chaque use-case, qui vont par exemple filtrer les campagnes de marketing à succès uniquement si le use-case c’est d’afficher les meilleures campagnes.
+      - **Common** data processing : les transformations communes, par exemple dédupliquer les messages, valider les dates etc.
+      - **Business logic specific** processing : les transformations spécifiques à chaque use-case, qui vont par exemple filtrer les campagnes de marketing à succès uniquement si le use-case c’est d’afficher les meilleures campagnes.
   - Avoir un ensemble de _stages_ standardisés est important pour que chacun puisse s’y retrouver malgré le scale.
   - Les étapes proposés par les auteurs sont :
     - **1 - Landing area** : c’est là que la donnée arrive en premier, il ne s’agit pas d’un stockage long terme.
@@ -734,7 +734,7 @@
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d’aller là.
       - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
-      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
+      - **4.2 - Staging to production** : des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
     - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
       - Les messages qui n’ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu’il faut corriger.
       - Une fois la correction faite, il suffit de les copier dans l’area de l’étape où ils ont échoués.
