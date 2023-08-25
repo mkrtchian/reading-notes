@@ -734,7 +734,7 @@
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d’aller là.
       - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
-      - **4.2 - Staging to production** : des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
+      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
     - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
       - Les messages qui n’ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu’il faut corriger.
       - Une fois la correction faite, il suffit de les copier dans l’area de l’étape où ils ont échoués.
@@ -744,3 +744,25 @@
       - Mais dans le cas où on a des sources qui donnent des messages structurés très différemment, ou qui ne permettent pas d’utiliser des jobs de processings communs, on peut faire des topics différents par source.
       - Une autre raison de séparer en topics par source peut être la limitation en termes de quotas par topic, de la part du provider.
       - Une autre raison pour publier dans des topics différents peut être la structure interne des équipes, et les questions de sécurité, pour restreindre certaines données à certaines équipes.
+- Parmi les transformations qu’on a couramment dans les systèmes real-time, il y a la **déduplication des messages**.
+  - Les duplications sont courantes dans les systèmes real-time, elles sont deux origines :
+    - 1 - Des duplications issues de la source, sur lesquelles on n’a pas de contrôle.
+    - 2 - Des duplications qui sont dues au fonctionnement des systèmes real-time, et à leur nature distribuée.
+      - On peut par exemple avoir un producer qui envoie un message, mais ne reçoit pas l’acknowledgement à cause d’un problème réseau. Un autre broker sera élu master de la partition et on se retrouvera avec une duplication.
+      - Côté consumer, il suffit que l’un d’entre eux envoie un message et crash avant de commiter. Il va alors renvoyer le même message quand il reviendra à la vie.
+  - La difficulté pour dédupliquer avec les systèmes real-time c’est qu’on a une donnée qui arrive en permanence, et qui est distribuée sur plusieurs machines.
+    - Une solution peut être d’utiliser une **time window** : on choisit un début et une fin de timestamp, et on récupère tous les messages correspondants pour faire une déduplication parmi eux.
+      - On peut avoir par exemple une _sliding window_ qui se déplace dans le temps, ou _tumbling window_ qui va diviser le temps en tranches disjointes.
+      - Le problème c’est qu’on est limités sur la tranche de temps qu’une machine peut traiter, et la déduplication ne se fait que pour les messages de cette tranche, et pas avec les autres tranches.
+    - Une autre solution est d’avoir un **key/value cache** dans lequel on met l’ID de chaque message traité, et qu’on réinterroge à chaque fois pour éviter de le retraiter encore.
+      - La taille va rarement être un problème : stocker 1 milliard de UUID fait ~15 Go.
+      - Par contre il faut que le store soit _highly available_ et performant, donc une solution cloud est bien adaptée.
+      - Exemples de key/value stores : **Azure Cosmos DB**, **Google Cloud Bigtable**, **AWS DynamoDB**.
+    - Une 3ème solution peut être de laisser les messages dupliqués jusqu’au _data warehouse_, et dédupliquer ensuite par **un job en mode batch**, soit dans le _data lake_, soit dans le _data warehouse_.
+      - Ca permet d’avoir une real-time ingestion particulièrement rapide, mais il faut que la duplication soit OK dans un premier temps.
+- Une autre transformation courante est la **conversion de format**.
+  - Les messages dans le système real-time sont consommés un par un, donc il est capital d’avoir des schémas bien définis entre producers et consumers. Le _metadata layer_ pourra nous aider à le stocker.
+  - Concernant le format :
+    - JSON ne fournit pas de mécanisme de gestion de schéma, et est plus volumineux. Il peut être compressé, mais ce serait surtout efficace avec plusieurs messages où des noms de champ se répètent par exemple.
+    - **Avro** permet de **minimiser la taille du message**, et permet une gestion du schéma avec la possibilité de le stocker dans un store.
+    - **Parquet** **n’apporte aucun avantage** dans un système real-time puisque son but est de permettre de lire de grandes quantités de données pour faire du processing dessus, et qu’on est ici sur du message par message.
