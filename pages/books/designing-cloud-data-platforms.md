@@ -766,3 +766,56 @@
     - JSON ne fournit pas de mécanisme de gestion de schéma, et est plus volumineux. Il peut être compressé, mais ce serait surtout efficace avec plusieurs messages où des noms de champ se répètent par exemple.
     - **Avro** permet de **minimiser la taille du message**, et permet une gestion du schéma avec la possibilité de le stocker dans un store.
     - **Parquet** **n’apporte aucun avantage** dans un système real-time puisque son but est de permettre de lire de grandes quantités de données pour faire du processing dessus, et qu’on est ici sur du message par message.
+- Concernant les **quality checks**, on peut avoir un job qui vérifie la qualité de chaque message avant de le placer dans l’area du stage suivant ou dans la _failed area_.
+  - Dans le cas où on a de nombreuses sources gérées par plusieurs équipes, la difficulté va surtout être dans la définition de ce qu’est une donnée avec une qualité suffisante.
+  - Nos _quality checks_ peuvent impliquer de vérifier une caractéristique impliquant plusieurs messages, par exemple “pas plus de 10% des commandes avec le statut cancelled”.
+    - Il faudra alors utiliser les techniques de _windowing_ comme avec la déduplication.
+    - Si la durée sur laquelle on veut faire les checks est trop grande par rapport à ce que supportent nos outils, il faudra faire passer le flow par le batch processing.œ
+- Dans le cas où on veut **combiner une source de données real-time et une source batch**, on peut :
+  - 1 - Avoir le job real-time qui lit le message batch à combiner avec les données du message real-time, et qui le stocke dans sa RAM.
+  - 2 - Puis ce job combine les deux pour les mettre dans la real-time production area.
+  - 3 - Et il continue avec les messages suivants en utilisant le message batch qui est dans sa RAM, jusqu’à ce qu’il y en ait un nouveau.
+  - La limitation pourrait être la taille du message batch : s’il ne rentre pas dans la ram des VMs qui font le real-time processing, on peut fallback sur du batch processing.
+- Les **3 cloud vendors principaux** fournissent chacun deux outils pour le real-time processing : un outil de real-time storage type **Kafka**, et un outil qui fait le real-time processing.
+  - **AWS**.
+    - **Kinesis Data Streams** est équivalent à **Kafka**.
+      - Il fournit des clients dans 5 langages, dont Node.js.
+      - Il a l’équivalent des topics sous le nom de _Data Streams_.
+      - Il a l’équivalent des partitions sous le nom de _shard_, et limite la throughput à 1 MB/s par shard.
+      - Il supporte le “resharding” à la hausse ou à la baisse.
+      - Il limite la taille des records à 1 MB.
+      - La rétention par défaut est d’un jour, et va jusqu’à une semaine.
+    - **Kinesis Data Analytics** est l’outil de processing real-time.
+      - Il fournit une API SQL pour créer les jobs, mais c’est limité à des records qui contiendront du CSV ou du JSON.
+      - Il fournit aussi une API Java, qui utilise **Apache Flink** et permet plus de flexibilité sur le format des records.
+      - Il ne fournit pas de mécanisme de déduplication.
+  - **GCP**.
+    - **Cloud Pub/Sub** est un peu différent de **Kafka** et il abstrait plus de choses.
+      - Il fournit des clients dans 7 langages, dont Node.js.
+      - Les _topics_ permettent de regrouper les records, mais il n’y a **pas de notion de partition**, ou en tout cas elle est abstraite derrière l’API.
+      - Les consumers peuvent faire une _subscription_ à un topic pour consommer les records.
+        - Ils peuvent aussi utiliser une _subscription_ pour recevoir de la donnée combinée de plusieurs _topics_.
+        - On se sert aussi des subscriptions pour scaler le throughput : on a le droit à 1 MB/s par subscription.
+      - Les records sont limités à 10 MB.
+      - La rétention des données maximale est d’une semaine.
+      - Il ne fournit pas d’offsets pour les records, ce qui limite la possibilité de rejouer certains messages particuliers.
+        - On peut faire des _snapshots_ pour pouvoir les rejouer, mais ils sont limités à 5000 par projet.
+        - On a aussi la possibilité de rejouer par timestamp, mais c’est peu précis.
+    - **Cloud Dataflow** est l’outil de processing real-time.
+      - Il fournit une API SQL pour créer les jobs, mais c’est limité à des records qui contiendront du JSON.
+      - Il fournit aussi une API Java et Python, qui utilise **Apache Beam** et permet plus de flexibilité sur le format des records.
+      - Il permet de dédupliquer les messages issus de problèmes techniques, et propose aussi une déduplication des messages par ID, sur une fenêtre de 10 minutes.
+  - **Azure**.
+    - **Event Hubs** est équivalent à **Kafka**.
+      - Il fournit des clients en .NET et Python, mais des versions open source sont disponibles pour d’autres langages.
+      - **Il supporte 3 protocoles pour s’y intégrer** en tant que producer ou consumer : HTTPS, AMQP et **Kafka**. Ça permet de migrer vers Azure sans avoir à tout réécrire.
+      - Il a l’équivalent des topics dans le cas de **Kafka**, ou des hubs dans le cas d’AMQP.
+      - Il a l’équivalent des partitions, qu’il faut définir à l’avance comme pour **Kafka**, et à l’inverse de **Kinesis Data Streams** pour lequel on peut “resharder”.
+      - Le throughput est limité à 1 MB/s ou 1000 messages/s par partition.
+      - Les records ne peuvent pas dépasser 1 MB.
+      - La période de rétention maximale est d’une semaine.
+      - Contrairement à **Kinesis Data Streams** qui stocke les offsets des consumers dans **DynamoDB**, ou à **Kafka** qui le stocke dans un topic interne, **Event Hubs** laisse cette responsabilité aux consumers.
+    - **Azure Stream Analytics** est l’outil de processing real-time.
+      - Il ne propose qu’une API SQL, avec des fonctionnalités avancées de type windowing, recherche dans des dictionnaires etc.
+      - Si on veut plus de flexibilité, on peut utiliser **Spark** à travers **Azure Databricks**, mais il s’agira de micro-batching et non pas de vrai streaming.
+      - Il ne fournit pas de fonctionnalités de déduplication.
