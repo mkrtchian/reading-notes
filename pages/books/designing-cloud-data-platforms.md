@@ -819,3 +819,100 @@
       - Il ne propose qu’une API SQL, avec des fonctionnalités avancées de type windowing, recherche dans des dictionnaires etc.
       - Si on veut plus de flexibilité, on peut utiliser **Spark** à travers **Azure Databricks**, mais il s’agira de micro-batching et non pas de vrai streaming.
       - Il ne fournit pas de fonctionnalités de déduplication.
+
+## 7 - Metadata layer architecture
+
+- Il existe deux types de metadata dans le cadre de la data.
+  - 1 - La **business metadata** permet de **donner du contexte** à la donnée.
+    - Ca peut être par exemple : la source, le propriétaire de la donnée, la date de sa création, la taille de la donnée, le but de la donnée, son niveau de qualité etc.
+    - Ça aide notamment à trouver la donnée qu’on cherche.
+    - On appelle souvent l’outillage autour de la business metadata le **data catalog**.
+      - Les cloud vendors ont chacun leur outil : **Google Cloud Data Catalog**, **Azure Data Catalog**, **AWS Glue Data Catalog**.
+  - 2 - La **data platform metadata** (ou _pipeline metadata_) permet de rassembler des informations sur les pipelines de données.
+    - Ça peut être des informations sur les sources, sur le succès ou l’échec de runs de pipelines, les erreurs qui ont eu lieu etc.
+    - Ça permet notamment le **monitoring et la configuration des pipelines**.
+    - Cette metadata est plus alignée avec la responsabilité des data engineers, et c’est sur elle que se concentre ce livre.
+- Une seule pipeline simple peut être gérée avec du code, mais dès que le système de pipelines se complexifie, il faut **gérer cette complexité**.
+  - On a le choix de :
+    - 1 - **Dupliquer le code des pipelines** pour les rendre simples, mais alors il faudra refaire des modifications à plusieurs endroits à chaque fois qu’on voudra changer quelque chose qui concerne plusieurs pipelines.
+    - 2 - **Mettre du code en commun** pour éviter de réécrire trop de choses, mais alors la codebase se complexifie, et l’investigation des problèmes aussi.
+  - Les auteurs du livre conseillent de mettre le code en commun, et de **rendre les pipelines configurables** pour éviter l’explosion de complexité.
+    - On pourra par exemple mettre en commun d’ingestion de sources de type RDBMS, et celles de type file. Ou encore mettre en commun des jobs de _data quality check_.
+    - Si la configuration se trouve dans un endroit séparé, il devient facile de la changer sans avoir à toucher au code.
+    - Parmi les éléments de configuration, il peut y avoir par exemple : l’endroit d’où on récupère la donnée, l’endroit où on l’envoie, les checks de qualité et transformations qu’il faut faire sur chaque donnée etc.
+- La data platform metadata a 3 fonctions :
+  - 1 - **Stocker les configurations des pipelines**.
+    - Par exemple, si un path d’input sur un serveur FTP change, il suffira d’aller changer la configuration de la pipeline dans le _metadata layer_, sans toucher au code.
+    - Pour connaître les inputs et outputs d’une pipeline, il suffira aussi de regarder sa configuration.
+  - 2 - **Monitorer l’exécution et le statut des pipelines**.
+    - Par exemple, en cas d’erreur sur un pipeline, il suffira d’aller regarder dans le metadata layer pour avoir un statut détaillé de la pipeline, avec des statistiques d’échec, de nombre de duplicatas etc.
+  - 3 - **Servir de schema repository**.
+    - Cette partie sera plus développée dans le chapitre 8.
+- Il n’existe pas vraiment de standard concernant le **modèle d’un metadata layer**.
+  - Les auteurs du livre en proposent un centré autour de 4 domaines, contenant les aspects qu’ils pensent être suffisamment universels.
+    - 1 - La **Pipeline Metadata** contient les informations d’input, output et transformations de chaque pipeline.
+      - L’objet **Namespace** se trouve au plus haut niveau, et permet de séparer des groupes de pipelines.
+        - Il s’agit par exemple de pouvoir appliquer des droits d’accès différents à des ensembles de pipelines.
+        - On pourra l’utiliser pour nommer les folders, ou les topics de notre système de slow et fast storage.
+        - Sa structure est :
+          - _ID_
+          - _Name_
+          - _Description_
+          - _Created At_
+          - _Updated At_
+      - L’objet **Pipeline** décrit un ensemble de jobs qui prend un ou plusieurs inputs, et écrit dans une ou plusieurs destinations, avec d’éventuelles transformations.
+        - Les pipelines seront souvent liées : par exemple une pipeline d’ingestion qui écrit dans le data lake, puis une autre qui lit cette donnée, la combien avec une autre, et écrit à nouveau dans le data lake.
+        - Sa structure est :
+          - _ID_
+          - _Name_
+          - _Description_
+          - _Type_ : indiquer par exemple si c’est une pipeline d’ingestion ou de transformation.
+          - _Velocity_ : batch ou real-time.
+          - _Sources and Destinations_ : liste les identifiants d’objets _Source_ desquels la pipeline lit, et _Destination_ vers lesquels la pipeline écrit.
+            - En général une pipeline d’ingestion aura une source et une destination, et une pipeline de transformation aura plusieurs sources et une destination.
+          - _Data Quality Checks IDs_ : une liste d’identifiants de checks de qualité à appliquer à l’ensemble des sources et destinations de la pipeline.
+          - _Created At_
+          - _Updated At_
+          - _Connectivity Details_ : pour les pipelines d’ingestion, il s’agit d’avoir des informations sur les sources. Par exemple des URLs, adresses IP etc.
+            - Attention à ne pas stocker de username / mots de passe dans ce layer. Il vaut mieux les mettre dans des outils sécurisés comme **Azure Key Vault**, **AWS Secrets Manager** ou **Google Cloud Secrets Manager**.
+      - L’objet **Source** décrit un endroit dont on veut aller chercher de la donnée en entrée d’une pipeline.
+        - Sa structure est :
+          - _ID_
+          - _Name_
+          - _Schema ID_ : un lien vers le _schema registry_ qui contient le schéma de cette source.
+          - _Data Quality Checks IDs_ : les checks de qualité à appliquer à chaque fois que cette source est utilisée.
+          - _Type_ : le type de source, par exemple “file”, “real-time topic”, “table”.
+          - _Created At_
+          - _Updated At_
+      - L’objet **Destination** est similaire à l’objet Source, mais les types peuvent être différents. Par exemple, on peut vouloir aussi mettre dans un _key/value store_.
+        - Sa structure est :
+          - _ID_
+          - _Name_
+          - _Schema ID_
+          - _Data Quality Checks IDs_
+          - _Type_
+          - _Created At_
+          - _Updated At_
+    - 2 - Les **Data Quality Checks** permettent d’identifier les données qui posent problème.
+      - Ils s’appliquent à des pipelines et sources ou destinations à travers les namespaces.
+      - Il existe deux types de _data quality checks_ :
+        - Les **proactive** checks sont faits pour contrôler la donnée une par une, et s’assurer que la donnée de mauvaise qualité ne rentre pas.
+          - On va souvent vérifier le format de la donnée, ou le fait que certaines valeurs soient cohérentes. Par exemple 24h dans un jour, pas de dates négatives etc.
+          - Ces checks ne peuvent pas être trop lourds pour ne pas bloquer la pipeline trop longtemps.
+        - Les **retrospective** checks sont shcédulés régulièrement, et opèrent sur de plus grandes quantités de données, pour s’assurer qu’on garde une certaine consistance sur l’ensemble.
+          - Ca peut par exemple être de faire une jointure sur deux jeux de données de départements et d’employés, pour s’assurer qu’aucun département n’est sans employé.
+          - Ils produisent des rapports réguliers pour donner lieu à d’éventuelles actions pour améliorer la qualité de la donnée.
+      - L’élément principal du _data quality check_ est **la règle** à faire respecter. Il existe de nombreuses options sur la manière de l’implémenter.
+        - Ça peut être une requête SQL, ou encore un Domain Specific Language (DSL).
+      - Leur structure est :
+        - _ID_
+        - _Name_
+        - _Severity_ : la gravité du problème si la règle n’est pas respectée.
+          - _info_ indique qu’on laisse passer la donnée, qu’on log le problème dans l’activity metadata, mais qu’on ne crée pas d’alerte.
+          - _warning_ indique qu’on laisse passer la donnée, et qu’on crée une alerte pour avertir un data engineer.
+          - _critical_ indique qu’on ne laisse pas passer la donnée et qu’on la met en quarantaine, avec aussi une alerte.
+        - _Rule_ : en fonction de la manière dont on gère nos règles, cet attribut contiendra quelque chose de différent.
+        - _Created At_
+        - _Updated At_
+    - 3 - Les **Pipeline Activities**.
+    - 4 - **Schema Registry**.
