@@ -914,5 +914,59 @@
         - _Rule_ : en fonction de la manière dont on gère nos règles, cet attribut contiendra quelque chose de différent.
         - _Created At_
         - _Updated At_
-    - 3 - Les **Pipeline Activities**.
+    - 3 - Les **Pipeline Activities** contiennent des informations de succès, échecs, statistiques etc. sur l’exécution régulière des pipelines.
+      - On enregistre les informations de chaque pipeline qui tourne, et on ne supprime jamais ces données, pour pouvoir ensuite investiguer, ou faire des analyses dessus.
+      - On pourra par exemple répondre à des questions comme :
+        - Quelle est la durée moyenne d’une pipeline ?
+        - Combien de rows lit en moyenne une pipeline ?
+        - Combien de données on collecte en moyenne depuis une source donnée ?
+      - Parmi les éléments de structure que les auteurs ont trouvé utiles dans la plupart des contextes :
+        - _Activity ID_
+        - _Pipeline ID_
+        - _Start time_, _Stop time_ : début et fin de l’exécution de la pipeline.
+        - _Status_ : succès / échec.
+        - _Error Message_ : en cas d’échec, mettre l’erreur dans ce champ fait gagner beaucoup de temps de recherche dans les logs.
+        - _Source and Destination Ids_ : la liste précise des sources et destinations qui ont été utilisées par la pipeline.
+        - _Rows Read_ : nombre de rows qui ont été lues, dans le cas de fichiers ça permet notamment de s’assurer qu’on a lu le fichier entier.
+        - _Rows Written_
+        - _Bytes Read_
+        - _Bytes Written_ : on peut l’utiliser pour du monitoring, par exemple pour s’assurer que la valeur ne vaut pas 0 si _Bytes Read_ ne vaut pas 0.
+        - _Extra_ : des infos additionnelles comme le path où le fichier a été écrit sur le storage, le nom du topic et le window dans le cas de real-time.
+      - Dans le cas de real-time processing, c’est une bonne idée d’aligner le _time window_ avec la fréquence d’écriture des messages dans le slow storage.
+      -
     - 4 - **Schema Registry**.
+- Selon l’expérience des auteurs, il n’y a pas d’outil open source ou commercial qui permette de mettre en œuvre le metadata layer de manière satisfaisante. Ils conseillent donc de **le coder soi-même**.
+  - 1 - Une première solution simple est d’implémenter le _metadata layer_ avec des **fichiers**.
+    - Il s’agit de la solution la plus simple, quand on a peu de sources et de pipelines.
+    - La _pipeline metadata_ peut être implémentée avec des fichiers de configuration de type JSON ou YAML par exemple.
+      - Il s’agit d’avoir par exemple un fichier pour les namespaces, un pour les pipelines etc.
+      - Les IDs doivent être assignés à la main.
+      - Il s’agira de les mettre dans le gestionnaire de version avec le reste du code, et de les déployer à chaque fois avec la pipeline de CI/CD.
+    - Les _pipeline activities metadata_ sont l’équivalent de fichiers logs où la donnée afflue régulièrement.
+      - Pour pouvoir chercher dedans, il faut un outil spécialisé qui permette de le faire, il s’agit des **Cloud Log Aggregation Services** : **Azure Monitor** avec **Log Analytics** sur Azure, **Cloud Logging** sur GCP, et **Elasticsearch** sur AWS.
+  - 2 - Un cran de complexité au-dessus, on a l’utilisation d’une **base de données** pour stocker les fichiers de configuration (la _pipeline metadata_).
+    - Les fichiers de configuration sont toujours dans le gestionnaire de version, et servent de source de vérité pour la configuration du _metadata layer_. C’est nécessaire pour avoir un historique des changements.
+    - A chaque fois qu’un changement est fait dans ces fichiers, une migration sera faite sur la _metadata database_.
+    - L’avantage d’avoir cette DB, c’est qu’on va pouvoir faire des requêtes pour obtenir des informations spécifiques qui existent à travers les fichiers de config. Par exemple : “Je veux voir toutes les sources qui utilisent ce _data quality check_”.
+    - La DB peut être une DB relationnelle ou une DB de document qui permettra plus de flexibilité sur l’évolution du schéma.
+      - Des exemples typiques peuvent être **Google Cloud Datastore**, **Azure Cosmos DB** et **AWS DynamoDB**.
+  - 3 - Quand on a plusieurs équipes en charge des pipelines, il faut une solution qui puisse abstraire les détails d’implémentation exposés par la DB : on peut utiliser une **metadata API**.
+    - L’idée c’est que le changement dans la structure de la DB n’impactera pas de nombreux outils maintenus par plusieurs équipes différentes. On pourra par exemple faire plusieurs versions de l’API.
+    - La metadata API est en général faite selon les principes REST.
+      - Pour plus d’infos sur comment designer une API REST, il y a **_The Design of Web APIs_** d’Arnaud Lauret.
+    - Il faudra que l’ensemble des outils qui utilisaient la DB, y compris les pipelines, utilisent maintenant l’API pour accéder aux configurations.
+  - Les auteurs conseillent de **commencer par implémenter la solution la plus simple qui satisfait les besoins actuels** de la _data platform_, avec la possibilité de passer à la version un cran plus complexe dès que le besoin sera là.
+    - Chaque solution se base sur la précédente en lui ajoutant quelque chose, donc ça devrait être relativement facile de migrer.
+- Parmi les **outils qu’on peut trouver chez les cloud vendors**, qui se rapprochent le plus de ce qu’on recherche avec notre _metadata layer_, il y a :
+  - **AWS Glue Data Catalog** stocke des informations à propos des sources et destinations, et des statistiques sur les runs des pipelines, ce qui fait de cet outil le plus proche de ce qu’on recherche.
+    - Le désavantage majeur c’est sa flexibilité : il faut implémenter les pipelines avec **AWS Glue ETL**, ce qui veut dire n’avoir que des _batch jobs_, et qui soient compatibles avec **Glue** (donc pas de source REST par exemple).
+  - **Azure Data Catalog** et **Google Cloud Data Catalog** sont plus orientées _business metadata_, et fournissent surtout de la **data discovery** : permettre aux utilisateurs de la donnée de faire une recherche dans une UI pour trouver la table qui les intéresse.
+- Parmi les **outils open source**, qui se rapprochent le plus de ce qu’on recherche avec notre _metadata layer_, il y a :
+  - **Apache Atlas** permet de faire de la _data discovery_, mais aussi de gérer la configuration de pipelines de manière **flexible** : on peut utiliser les _Types_ qu’il propose pour créer la configuration des namespaces, des pipelines, sources, destinations etc. avec des liens entre les objets.
+    - Son inconvénient principal est qu’il a été créé pour l’écosystème de **Hadoop**, et possède de nombreuses fonctionnalités qui lui sont dédiées.
+    - Un autre inconvénient est que c’est un outil open source qui nécessite de faire tourner d’autres outils open sources difficiles à administrer : **HBase** et **Solr**.
+  - **DataHub** est similaire à Atlas, dans la mesure où il est suffisamment flexible pour permettre d’implémenter le modèle décrit dans ce chapitre, et permet aussi la data discovery.
+    - Il a aussi l’inconvénient de nécessiter de faire tourner des outils open source difficiles à administrer : **Kafka**, **MySQL**, **Elasticsearch** et **Neo4j**.
+  - **Marquez** permet principalement de mettre à disposition des informations de **data lineage**, c’est-à-dire des informations sur l’origine des données.
+    - Il n’est pas assez flexible pour implémenter le modèle présenté dans ce chapitre.
+    - Il a l’avantage de ne nécessiter que **PostgreSQL** comme dépendance à faire tourner, et on peut le faire comme service managé.
