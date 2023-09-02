@@ -933,8 +933,7 @@
         - _Bytes Written_ : on peut l’utiliser pour du monitoring, par exemple pour s’assurer que la valeur ne vaut pas 0 si _Bytes Read_ ne vaut pas 0.
         - _Extra_ : des infos additionnelles comme le path où le fichier a été écrit sur le storage, le nom du topic et le window dans le cas de real-time.
       - Dans le cas de real-time processing, c’est une bonne idée d’aligner le _time window_ avec la fréquence d’écriture des messages dans le slow storage.
-      -
-    - 4 - **Schema Registry**.
+    - 4 - **Schema Registry** contient l’ensemble des versions des schémas des données entrantes. Il est détaillé au chapitre suivant.
 - Selon l’expérience des auteurs, il n’y a pas d’outil open source ou commercial qui permette de mettre en œuvre le metadata layer de manière satisfaisante. Ils conseillent donc de **le coder soi-même**.
   - 1 - Une première solution simple est d’implémenter le _metadata layer_ avec des **fichiers**.
     - Il s’agit de la solution la plus simple, quand on a peu de sources et de pipelines.
