@@ -969,3 +969,42 @@
   - **Marquez** permet principalement de mettre à disposition des informations de **data lineage**, c’est-à-dire des informations sur l’origine des données.
     - Il n’est pas assez flexible pour implémenter le modèle présenté dans ce chapitre.
     - Il a l’avantage de ne nécessiter que **PostgreSQL** comme dépendance à faire tourner, et on peut le faire comme service managé.
+
+## 8 - Schema management
+
+- Certaines organisations ont une approche **proactive**, et planifient les conséquences des changements dans les DBs opérationnelles sur les équipes data.
+  - D’autres ont une approche **”do nothing and wait for things to break”**, et attendent simplement que la pipeline ETL casse pour que l’équipe data la répare en prenant en compte le changement de schéma.
+- Dans les **architectures data traditionnelles** basées sur le _data warehouse_, les données arrivent dans une _landing table_ qui reproduit exactement leur schéma, et donc quand elles changent, l’ingestion casse.
+  - Il existe une approche alternative **schema-on-read** où il s’agit d’ingérer la donnée telle quelle dans un système de fichiers distribués, et dans ce cas on repousse le problème au _processing layer_.
+- Coupler le _schema-on-read_ avec une approche ”_do nothing and wait for things to break_” est plutôt une mauvaise idée selon les auteurs. Comme alternatives, on a :
+  - 1 - **Le schema as a contract** où il s’agit pour l’équipe de développeurs d’enregistrer le schéma de leur source de donnée dans le _schema repository_, et d’en être **responsables**.
+    - Ils doivent alors ne faire que des changements _backward-compatibles_ dans leur DB. Par exemple ajouter des colonnes mais pas en renommer.
+    - Pour que ça marche, il faut deux choses :
+      - Un grand niveau de maturité dans les process de développement, notamment d’un point de vue automatisation de du check de rétrocompatibilité dans la pipeline de CI.
+      - Un owner pour chaque source de donnée externe à l’organisation.
+    - De l’expérience des auteurs, les organisations n’ont en général peu la maturité technique suffisante, et le besoin de schéma versionné venant après coup, il est difficile de convaincre les équipes opérationnelles de mettre en place le _schema as a contract_.
+    - NDLR : il s’agit de l'approche mise en avant par le Data Mesh.
+  - 2 - **La gestion du schéma dans la data platform**. Dans ce cas, la responsabilité se trouve du côté de l’équipe qui gère la data platform.
+    - Les auteurs trouvent que cette solution marche bien dans pas mal de contextes. Elle a l’avantage de permettre de **centraliser** au même endroit les schémas des données qui viennent des équipes internes et ceux qui viennent de l’extérieur.
+      - Cette centralisation permet ensuite d’avoir un catalogue de données dans lequel on peut fouiller.
+      - Ca permet d’avoir un historique des schémas pour pouvoir utiliser n’importe quelle donnée archivée, ou faire du debugging.
+      - Ca peut aussi permettre de détecter et ajuster les changements de schémas avant que la pipeline n’échoue.
+    - Une autre solution peut être de laisser aux équipes internes la responsabilité du schéma de leurs données, et de centraliser les schémas des sources externes chez l’équipe responsable de la data platform.
+- Dans le cas où la gestion des schémas se fait dans la data platform, elle doit être ajoutée en tant que **1ère étape du common data processing**.
+  - Le module de _schema-management_ va d’abord vérifier si un schéma existe déjà pour cette source.
+    - S’il n’existe pas, le module va inférer un schéma depuis les données, puis enregistrer ce schéma dans le _schéma registry_ en tant que V1.
+    - S’il existe, le module va récupérer la dernière version depuis le _schema registry_, puis inférer le schéma depuis les données, créer un nouveau schéma compatible avec les deux et l’enregistrer en tant que version actuelle.
+  - **L’inférence de schéma** dont on est en train de parler se base sur **Apache Spark**.
+    - **Spark** est capable d’inférer le schéma de fichiers CSV, JSON, y compris s’il y a plusieurs records dedans.
+    - Il utilise un sample de records pour faire l’inférence, par défaut 1000, et ce nombre est configurable.
+      - S’il est trop faible on risque d’avoir une inférence faussée qui ne permet pas de parser l’ensemble des données. Et s’il est trop grand on risque d’avoir des problèmes de performance.
+      - Pour une table d’une DB relationnelle par exemple, le nombre pourra être bas parce que la schéma est garanti par la DB.
+    - Dans le cas où la donnée est différente entre deux records, **Spark** essayera de trouver un type qui englobe les deux. Par exemple, un nombre et un string vont donner un string.
+    - Dans le cas où un type commun n’est pas possible, les données minoritaires seront placées dans le champ `_corrupt_record`.
+    - Le schéma inféré par **Spark** va d’abord être converti en schéma **Avro** avant d’être mis dans le _schema registry_.
+    - Si on utilise un outil qui ne supporte pas l’inférence de schéma, comme par exemple **Google Cloud Dataflow** basé sur **Apache Beam**, alors il faudra gérer les schémas à la main.
+  - Dans le cas d’une **real-time pipeline**, on ne peut pas utiliser l’inférence à cause du problème de performance et de la quantité de schémas qui seraient générés.
+    - Dans ce cas, les auteurs conseillent de **laisser les développeurs qui génèrent les données de streaming maintenir le schéma**.
+  - Pour pouvoir avoir du **monitoring** sur les changements de schémas, le module de _schema-management_ peut créer un log dans la partie _Pipeline Activities_ du _metadata layer_ à chaque fois qu’il trouve des données avec un schéma qui a changé.
+    - Même si l’ingestion et les _common data processing_ steps peuvent se “réparer” automatiquement, la suite du processing peut ne pas donner le résultat voulu. Par exemple un rapport qui n’a plus les valeurs d’une colonne qui a été enlevée par la source.
+    - Il vaut mieux être alerté du changement de schéma, et prévenir les équipes qui utilisent les données de cette source, avant qu’ils ne s’aperçoivent du problème par eux-mêmes.
