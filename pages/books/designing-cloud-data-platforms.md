@@ -1008,3 +1008,50 @@
   - Pour pouvoir avoir du **monitoring** sur les changements de schémas, le module de _schema-management_ peut créer un log dans la partie _Pipeline Activities_ du _metadata layer_ à chaque fois qu’il trouve des données avec un schéma qui a changé.
     - Même si l’ingestion et les _common data processing_ steps peuvent se “réparer” automatiquement, la suite du processing peut ne pas donner le résultat voulu. Par exemple un rapport qui n’a plus les valeurs d’une colonne qui a été enlevée par la source.
     - Il vaut mieux être alerté du changement de schéma, et prévenir les équipes qui utilisent les données de cette source, avant qu’ils ne s’aperçoivent du problème par eux-mêmes.
+- Côté **implémentation** du _schema registry_ :
+  - **Apache Avro** est l’option conseillée par les auteurs pour servir de format de base pour l’ensemble des données de la _data platform_.
+    - Son schéma peut être écrit et maintenu à la main.
+    - **Spark** peut aussi transformer son schéma inféré en schéma **Avro** automatiquement.
+    - Ces schémas peuvent être représentés par du simple JSON, et donc n’importe quelle DB qui supporte ça peut les héberger.
+    - **Avro** a un très bon système de gestion des versions des schémas.
+  - Les **solutions cloud-natives** de type _data catalog_ permettent d'implémenter un _schema registry_, mais ont des limitations.
+    - La plupart sont surtout orientés data discovery, et manquent de fonctionnalités concernant la gestion des versions des schémas et le support d’**Avro**.
+    - **Confluent Schema Registry** offre les fonctionnalités de gestion de version des schémas et un bon support d’**Avro**, mais il nécessite d’utiliser **Kafka**, ou un outil compatible avec **Kafka**.
+      - Donc si on utilise par exemple **Kinesis**, ou bien si on ne fait pas de real-time, on ne pourra pas utiliser leur _schema registry_.
+  - La **solution maison** proposée par les auteurs consiste à avoir soit une DB, soit une API avec une DB derrière.
+    - Le solution pure texte stockée dans le gestionnaire de version, similaire au reste de la configuration du metadata layer, ne peut pas marcher pour le _schema registry_ parce qu’il faut pouvoir le mettre à jour automatiquement.
+    - Comme DB, on peut utiliser les mêmes **Cosmos DB**, **Datastore** et **DynamoDB**.
+    - La structure des objets de schéma sera :
+      - _ID_
+      - _Version_ : l’_ID_ et la _Version_ forment ensemble une clé unique. L’_ID_ en elle-même n’est donc pas unique pour éviter d’avoir à mettre à jour en permanence les configurations des sources et destinations.
+      - _Schema_ : le champ qui stocke le schéma **Avro** au format texte.
+      - _Created At_
+      - _Updated At_
+- Concernant la stratégie de **gestion de version des schémas**.
+  - Il existe deux types de compatibilité entre les schémas :
+    - **1 - Backward-compatible** : la dernière version du schéma doit permettre de lire l’ensemble des données existantes, y compris produites par un ancien schéma.
+      - **Avro** impose des règles précises pour garder la _backward-compatibility_. Par exemple ajouter une colonne le permet, dans ce cas la lecture d’une donnée ancienne par un schéma récent donnera lieu à l’usage de la valeur par défaut pour la colonne manquante.
+    - **2 - Forward-compatible** : une version plus ancienne du schéma doit permettre de lire les données produites par une version plus récente.
+      - Si on reprend l’exemple de l’ajout de colonne, **Avro** permet une forward-compatibility : l’ancien schéma ignorera la nouvelle colonne au moment de la lecture de la nouvelle donnée.
+    - Le renommage de colonne est l’équivalent d’une création de colonne, et d’une suppression de colonne. Donc si on a des valeurs par défaut dans le schéma, elle sera à la fois _backward-compatible_ et _forward-compatible_.
+    - **Avro** supporte aussi automatiquement certains changements de types, par exemple un entier 32 bits vers 64 bits. On peut aussi soi-même implémenter d’autres règles de conversion, mais les auteurs le déconseillent pour garder la complexité des pipelines faible.
+    - Les règles d’évolution de schéma d’**Avro** sont disponibles [dans leur doc](https://avro.apache.org/docs/1.7.7/spec.html#Schema+Resolution).
+  - Les _common data transformation pipelines_ ne vont en général pas avoir besoin de la présence colonnes spécifiques, et donc vont être résilientes aux changements de schémas.
+    - Les _business processing pipelines_ en revanche vont y être beaucoup plus sensibles.
+  - Les auteurs conseillent d’**utiliser les anciens schémas** dans les pipelines, et de passer aux nouveaux quand les changements de code ont été faits. Ca veut dire s’efforcer à faire des changements de schémas _forward-compatibles_.
+    - Quelle que soit la stratégie, même si la pipeline ne casse pas grâce aux règles de _backward / forward compatibility_, il est possible qu’on se retrouve avec des **erreurs logiques** dans nos transformations.
+      - Par exemple, une colonne indiquant le nombre de ventes est renommée, et peut continuer à être lue de manière forward compatible avec la valeur par défaut `NULL`. Mais le dashboard se mettra à montrer une absence de ventes.
+      - Il n’y a pas de solution simple à ce problème. Il faut avoir un système de monitoring et d'alerting efficaces, et prévenir les clients en amont que leurs dashboards risquent d’avoir des incohérences le temps de mettre à jour le code.
+- Alors que les fichiers peuvent avoir chacun leur version de schéma associée, la donnée qui se trouve dans une table du **data warehouse** ne peut pas avoir plusieurs schémas en même temps.
+  - On ne peut pas simplement utiliser le _schema registry_ pour mettre à jour la table du _data warehouse_, il va falloir le faire avec **du code dans le module de schema-management**, qui fait partie des _common data transformations_.
+    - Ça veut dire que les changements de schéma se feront quand même de manière automatique, avec des règles pré-établies où on va générer le bon SQL pour restructurer la table, en fonction de chaque changement de schéma **Avro**.
+  - On ne peut pas non plus appliquer les mêmes règles qu’avec les transformations de schémas entre fichiers : dans le cas de suppression d’une colonne (ou de renommage, qui implique une suppression de fait), on va **garder l’ancienne colonne** quand même pour garder la donnée historique.
+    - Parfois, quand les données ne sont pas trop grosses, il pourra être préférable de supprimer la colonne et de la recréer avec les données historiques et les nouvelles données dedans.
+  - Côté **data warehouses des cloud vendors** :
+    - **AWS Redshift** et **Azure Synapse** ont une approche similaire :
+      - Ils sont ancrés dans le monde du relationnel, et nécessitent la définition du schéma avant de charger de la donnée.
+      - Ils supportent `ALTER TABLE` pour faire des changements sur les tables.
+      - **Redshift** supporte **Avro** mais sans inférence à partir du schéma, alors que **Synapse** supporte seulement **CSV**, **ORC** et **Parquet**.
+    - **Google BigQuery** a une approche moins relationnelle, et permet d’inférer le schéma à partir de la donnée qu’on lui donne.
+      - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour **Avro**, **JSON** et **Parquet**.
+      - En revanche, il ne permet pas de modifier les tables après coup, sauf en ajoutant ou supprimant des colonnes, ce qui peut prendre du temps et coûter cher.
