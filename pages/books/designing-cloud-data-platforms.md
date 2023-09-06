@@ -1055,3 +1055,40 @@
     - **Google BigQuery** a une approche moins relationnelle, et permet d’inférer le schéma à partir de la donnée qu’on lui donne.
       - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour **Avro**, **JSON** et **Parquet**.
       - En revanche, il ne permet pas de modifier les tables après coup, sauf en ajoutant ou supprimant des colonnes, ce qui peut prendre du temps et coûter cher.
+
+## 9 - Data access and security
+
+- Les données d’analytics sont utilisées par de plus en plus de personnes au sein des entreprises, et par des moyens variés.
+  - 1 - Il y a les **utilisateurs humains** qui utilisent en général des outils BI ou veulent exécuter des requêtes SQL. Et il y a les data scientists qui veulent accéder à la _raw data_.
+  - 2 - Et il y a les **applications** qui utilisent la donnée par exemple pour des applications ML de recommandation ou de prédiction. Le _data warehouse_ ne suffit pas pour ces cas d’usage.
+- Le **data warehouse** reste quand même l’outil le plus commun pour accéder à la donnée d’analytics, du fait de la compatibilité avec les outils BI et du support du SQL.
+  - **AWS Redshift**.
+    - Il s’agit d’un data warehouse **distributé**, c’est-à-dire qu’il répartit la donnée sur plusieurs machines.
+      - Un nœud _leader_ reçoit les requêtes et répartit le travail à faire et les données sur les autres nœuds.
+      - Les autres nœuds eux-mêmes sont subdivisés en _slices_. Ces slices peuvent être déplacés de nœud en nœud, pour équilibrer la capacité par du _rebalancing_.
+      - Quand on crée une table, on peut indiquer sa propriété _DISTSTYLE_ pour choisir la manière dont ses données seront distribuées sur les nœuds. C’est le réglage de performance le plus impactant.
+        - _ALL_ : une copie de la table est créée sur chaque nœud. On peut le faire qu’avec les petites tables qui sont souvent l’objet de jointures.
+        - _EVEN_ : les rows de la table sont répartis de manière équitable sur les nœuds.
+        - _KEY_ : permet d’indiquer une colonne dont les valeurs identiques donneront lieu à ce que la donnée soit stockée sur la même machine.
+        - _AUTO_ : vaut _ALL_ au début, et passe à _EVEN_ quand la table grandit.
+    - Il est basé sur PostgreSQL et présente les caractéristiques des DB relationnelles.
+      - Il ne supporte que les types “primitifs”, c’est-à-dire pas les tableaux ou les objets imbriqués. Il est donc peu adapté à de la donnée JSON, avec laquelle les optimisations d’encodage ou de distribution dans les nœuds par clé ne pourront pas servir.
+    - On peut optimiser la taille des données en choisissant le type d’encodage pour les colonnes : par exemple dans le cas où une colonne peut avoir seulement quelques valeurs possibles, l’encodage _byte-dictionary_ permet de limiter la taille de ces données.
+    - Il possède une fonctionnalité appelée **Spectrum**, qui permet de créer une table dans **Redshift**, dont les données sont sur **S3**.
+      - Ca permet d’éviter d’utiliser des ressources CPU et de l’espace sur le data warehouse, pour des données qu’on veut juste explorer par exemple.
+      - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds **Redshift**.
+      - Les auteurs recommandent de créer une DB dédiée sur Redshift pour regrouper ces tables qui pointent vers ailleurs.
+  - **Azure Synapse**.
+    - C’est une DB distribuée comme **Redshift**, avec un control node principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
+      - Il y a une **séparation storage / compute**. Les données sont séparées en 60 distributions, et sont associées à des _compute nodes_.
+      - Il n’est pas complètement élastique, puisque pour redimensionner le cluster, il faut tout arrêter, et ça peut prendre du temps.
+      - Les tables peuvent être configurées pour la répartition de leurs données, de la même manière que **Redshift**.
+        - _REPLICATE_ : l’équivalent de _ALL_, c’est-à-dire copier sur chaque nœud.
+        - _ROUND ROBIN_ : l’équivalent de _EVEN_, c’est-à-dire répartir entre les nœuds.
+        - _HASH_ : l’équivalent de _KEY_, c’est-à-dire spécifier une colonne dont les valeurs permettront de répartir les données.
+    - Il présente des caractéristiques relationnelles.
+      - Il supporte seulement les types primitifs, et fournit des fonctions de parsing pour JSON, mais au prix de nombreuses optimisations perdues.
+    - Il a une fonctionnalité similaire à **Spectrum**, configurable par la notion de **pools**.
+      - _SQL pool_ représente l’utilisation normale du _data warehouse_.
+      - _SQL on-demand pool_ permet de faire des requêtes sur des données sur **Azur Blob Storage** au format **Parquet**, CSV ou JSON.
+      - _Spark pool_ permet de faire des requêtes avec **Spark**, sur des données qui sont dans **Azur Blob Storage**. Ils permettent l’auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
