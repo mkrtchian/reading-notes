@@ -1079,7 +1079,7 @@
       - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds **Redshift**.
       - Les auteurs recommandent de créer une DB dédiée sur Redshift pour regrouper ces tables qui pointent vers ailleurs.
   - **Azure Synapse**.
-    - C’est une DB distribuée comme **Redshift**, avec un control node principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
+    - C’est une DB distribuée comme **Redshift**, avec un _control node_ principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
       - Il y a une **séparation storage / compute**. Les données sont séparées en 60 distributions, et sont associées à des _compute nodes_.
       - Il n’est pas complètement élastique, puisque pour redimensionner le cluster, il faut tout arrêter, et ça peut prendre du temps.
       - Les tables peuvent être configurées pour la répartition de leurs données, de la même manière que **Redshift**.
@@ -1092,3 +1092,44 @@
       - _SQL pool_ représente l’utilisation normale du _data warehouse_.
       - _SQL on-demand pool_ permet de faire des requêtes sur des données sur **Azur Blob Storage** au format **Parquet**, CSV ou JSON.
       - _Spark pool_ permet de faire des requêtes avec **Spark**, sur des données qui sont dans **Azur Blob Storage**. Ils permettent l’auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
+  - **Google BigQuery**.
+    - **BigQuery** est un **peu plus “managé”** que les deux autres, dans la mesure où il n’y a pas de besoin de planifier la capacité dont on aura besoin à l’avance.
+      - La puissance de calcul est “provisionnée” **à chaque requête**, grâce à des groupes de dizaines de milliers de nœuds qui tournent en permanence dans l’infra de Google.
+      - Comme il est plus managé, on peut aussi moins facilement contrôler la manière dont les données d’une table sont réparties au sein des nœuds.
+        - On a quand même la notion de _partitioning_ qui permet de répartir les données selon les valeurs d’une colonne.
+        - Et de _clustering_ qui permet d’organiser physiquement les données de manière à rendre les requêtes qu’on fait le plus souvent plus efficaces.
+      - Le pricing se fait aussi sur la quantité de données traitée, ce qui peut être avantageux quand on a de petits besoins, mais rend les coûts difficilement prédictibles.
+    - Les nœuds de calcul sont sur des machines différentes des nœuds de stockage : on n’a **pas de _data locality_**.
+      - C’est moins rapide que si la donnée était locale, mais ça évite d’avoir à recopier la donnée à chaque rebalancing. La donnée est accédée via le réseau local de Google qui est suffisamment performant pour que ça passe.
+    - **BigQuery** vient initialement plutôt d’un système permettant de traiter des fichiers de log, et non pas un système relationnel comme les deux autres.
+      - Il a un **support natif des structures imbriquées**, et peut traiter le JSON comme une structure et pas juste du texte, avec la possibilité d’appliquer des traitements sur les attributs.
+      - Il est du coup moins facilement compatible avec les outils BI, il faudra passer par une API REST.
+  - Les grandes organisations peuvent tirer parti de l'utilisation de **plusieurs cloud providers**, mais pour les petites le **coût opérationnel** n’en vaut pas la peine. Le choix du data warehouse dépendra donc en général du choix du cloud provider pour le reste de l’infra.
+- Les **applications** utilisent de plus en plus la data dans des systèmes customer-facing, par exemple dans des systèmes de recommandation.
+  - Donner à l’application un **accès au data warehouse serait une mauvaise idée** pour plusieurs raisons :
+    - Les _data warehouses_ ne sont pas conçues pour offrir des **latences** se comptant en millisecondes, mais en secondes voire minutes sur de grandes quantités de données.
+    - Ils ne sont pas conçus pour supporter un trop **grand nombre de transactions** en même temps (par exemple des dizaines ou centaines de milliers) comme pourrait le nécessiter une application.
+    - Si l'application est compromise, l’ensemble du contenu du data warehouse pourrait fuiter, alors que si l’application a seulement accès à une DB qui a ce dont elle a besoin, on aura une meilleure **sécurité**.
+  - **1 - Cloud relational databases**.
+    - Chaque cloud provider a ses services de DBs managées, qui tiennent sans problèmes jusqu’à 1 TB. Au-delà de ça, ou si on a besoin de situer les machines géographiquement, il faut une DB distribuée.
+    - AWS propose **Relational Database** Service (RDS) pour **PostgreSQL**, **MySQL**, **MariaDB**, **Oracle** et **SQL Server**.
+      - Il propose **Aurora** comme DB distribuée, compatible avec **MySQL** et **PostgreSQL**.
+    - GCP propose **Google Cloud SQL**, qui supporte **MySQL**, **PostgreSQL** et **SQL Server**.
+      - Il propose **Google Cloud Spanner** pour la version distribuée.
+    - Azure propose **Azure SQL Database**, qui supporte **MySQL**, **PostgreSQL** et **SQL Server**.
+      - Il propose **HyperScale** pour la version distribuée, disponible seulement pour **SQL Server**.
+  - **2 - Cloud key / value data stores**.
+    - Les services key/value offrent une faible latence pour insérer et retrouver des valeurs par leur clé.
+      - Ils sont souvent utilisés par les nouveaux projets pour pouvoir itérer vite sans avoir de migration à faire.
+    - Les cloud providers proposent soit une version _pay per use_ plus avantageuse en cas de faible utilisation, et une version _pay per provisioned capacity_ plus avantageuse en cas de grosse utilisation.
+    - AWS propose **DynamoDB**, qui reste performant quel que soit le scale, et offre les deux types de facturation.
+    - GCP propose **Datastore** qui est similaire à **DynamoDB** et qui propose du _pay per use_, et **Cloud Bigtable** qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
+      - **Cloud Bigtable** est d’ailleurs compatible avec HBase.
+    - Azure propose **CosmosDB**, qui a la particularité de supporter les API clientes de **MongoDB**, **Cassandra**, SQL et de graph API, ce qui rend le portage depuis ces technos facile.
+  - **3 - Full-text search services**.
+    - Dans le cas où la fonctionnalité de notre application est de permettre une recherche dans la donnée, il existe **Solr** et **Elasticsearch**, tous deux basés sur **Lucene**.
+      - Par exemple, si on veut chercher quelque chose de similaire à ce qui est tapé par l’utilisateur.
+    - AWS propose **CloudSearch**, Azure propose **Azure Search**, et GCP ne propose rien de managé au moment de l’écriture du livre.
+  - **4 - In-memory cache**.
+    - Les caches permettent des temps d’accès inférieurs à la milliseconde grâce au stockage en RAM. Ils doivent être liés à une DB persistante pour pouvoir être reconstruits.
+    - AWS propose **ElasticCache**, qui supporte **Memcached** et **Redis**, GCP propose **Memorystore** qui supporte **Memcached**, et Azure propose **Azure Cache** qui supporte **Redis**.
