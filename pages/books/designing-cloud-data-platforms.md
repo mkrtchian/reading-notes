@@ -1133,3 +1133,32 @@
   - **4 - In-memory cache**.
     - Les caches permettent des temps d’accès inférieurs à la milliseconde grâce au stockage en RAM. Ils doivent être liés à une DB persistante pour pouvoir être reconstruits.
     - AWS propose **ElasticCache**, qui supporte **Memcached** et **Redis**, GCP propose **Memorystore** qui supporte **Memcached**, et Azure propose **Azure Cache** qui supporte **Redis**.
+- Les modèles de **machine learning** nécessitent l’accès à une grande quantité de données variée, une grande puissance de calcul, et l’accès à des outils spécifiques. La _cloud data platform_ est parfaitement adaptée à ça.
+  - Dans les plateformes traditionnelles, les data scientists passent 80% de leur temps à récupérer la donnée sur leur machine, et la nettoyer et la transformer pour qu’elle puisse être interprétée par leurs outils.
+    - Ils vont ensuite faire des tests exploratoires pour comprendre ce qu’ils peuvent faire ce cette donnée.
+    - Puis ils séparent la donnée en deux : la donnée d’entraînement et la donnée de validation.
+    - Ils vont faire un cycle _entraînement / validation_ où ils vont plusieurs fois améliorer le modèle puis le tester contre la donnée de validation.
+      - Cette validation permet d’éviter l’_overfitting_ où le modèle ne serait bon que sur les données avec lesquelles il s’est entraîné.
+      - Faire l’entraînement sur leur machine locale leur prend beaucoup de temps.
+    - Une fois que le modèle est fonctionnel, il faut le rendre production-ready pour le déployer, en ajoutant du logging, de la gestion d’erreurs etc. ce qui est souvent difficile.
+  - La _cloud data platform_ aide au développement de modèles ML.
+    - Une bonne partie de la mise en forme et de la validation des données est faite dans l’_ingestion layer_ et dans le _processing layer_ avec les _common data transformation steps_.
+    - Les data scientists peuvent copier la donnée comme ils veulent dans le _storage_ de la _cloud data platform_, et faire de l'exploration ou du processing sans télécharger les données en local.
+    - Ils peuvent collaborer sur un même jeu de données puisqu’il est dans le cloud, et peuvent avoir accès à de la donnée de production en grande quantité.
+    - Chacun des cloud vendors fournit un service de ML permettant de gérer un projet ML de bout en bout, et de mieux collaborer entre data scientists : **SageMaker** chez AWS, **AI Platform** chez GCP, et **Azure ML** chez Azure.
+- La **business intelligence** et le **reporting** sont en général le premier usage de la donnée de type analytics.
+  - Ces outils nécessitent souvent que la donnée soit **relationnelle**, c'est-à-dire que chaque donnée soit dans sa colonne avec la table “à plat” reliée à d’autres tables par des clés étrangères, plutôt que d’avoir des données imbriquées comme dans du JSON.
+    - **BigQuery** commence à être supporté par des outils comme **Tableau**, mais tous ne le supportent pas correctement.
+  - Bien que de nombreux outils BI supportent **Spark SQL**, et pourraient se **brancher directement sur le _data lake_**, **les auteurs le déconseillent** parce que ça rendrait l’interface de ces outils peu interactive et lente. Se brancher sur le _data warehouse_ est bien plus adapté pour cette raison.
+  - **Excel** peut se brancher sur le _data warehouse_ grâce à son API JDBC/ODBC, mais c’est un outil qui tourne sur une machine locale, donc il sera limité sur la quantité de données, et télécharger les données sur sa machine locale pose des problèmes de performance.
+  - On voit souvent des **outils externes**, par exemple chez d’autres cloud providers, accéder à la donnée de la _cloud data platform_.
+    - Il faut faire attention aux **coûts de sortie des données** (_data egress costs_), que chaque cloud provider applique.
+    - Chaque cloud provider a sa solution BI : **Azure Power BI** qui est très connu, AWS **QuickSight**, et **DataStudio** et **Looker BI** pour GCP.
+- La **sécurité** est essentielle pour une plateforme data.
+  - Il vaut mieux éviter les accès ad hoc dès qu’il y a un besoin, mais plutôt utiliser les concepts de **Users**, **Groups** et **Roles** fournis par les cloud providers.
+    - Les groupes facilitent grandement la gestion des permissions, il vaut mieux les configurer à ce niveau là dans la mesure du possible.
+    - Une bonne pratique est de ne fournir que les permissions nécessaires à chaque type d’utilisateur (_principle of least privilege_).
+  - Il existe des outils cloud-native pour l’authentification, à la place des mots de passe, par exemple **Azure Active Directory**. Les auteurs conseillent de les utiliser quand c’est possible.
+  - Certaines configurations permettent de rendre des services accessibles publiquement. Pour limiter le risque, on peut faire diverses choses comme des audits, ou l’utilisation du principe _infrastructure-as-code_.
+  - Dans le cas où on a des données sensibles, il ne faut pas hésiter à chiffrer des colonnes particulières.
+  - Une autre solution peut être de limiter l’accès réseau à la donnée, dans le cas où les utilisateurs seraient sur un réseau particulier.
