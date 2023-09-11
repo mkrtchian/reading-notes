@@ -1162,3 +1162,31 @@
   - Certaines configurations permettent de rendre des services accessibles publiquement. Pour limiter le risque, on peut faire diverses choses comme des audits, ou l’utilisation du principe _infrastructure-as-code_.
   - Dans le cas où on a des données sensibles, il ne faut pas hésiter à chiffrer des colonnes particulières.
   - Une autre solution peut être de limiter l’accès réseau à la donnée, dans le cas où les utilisateurs seraient sur un réseau particulier.
+
+## 10 - Fueling business value with data platforms
+
+- La _data platform_ doit être organisée autour d’une **data strategy**, c’est-à-dire être au service des objectifs business.
+  - Parmi les grands objectifs business, on trouve :
+    - Augmenter les revenus.
+    - Augmenter l’efficacité opérationnelle.
+    - Améliorer l’expérience utilisateur.
+    - Permettre de l’innovation.
+    - Améliorer la conformité.
+  - Exemples :
+    - Dans le cas d’une entreprise de jeux vidéo qui veut maximiser les achats ou la publicité in-game, la stratégie peut être d’optimiser la plateforme data pour du real-time processing des événements du jeu.
+    - Dans le cas d’une entreprise minière qui veut réduire ses coûts opérationnels, la stratégie peut être d'optimiser la plateforme pour ingérer la donnée des capteurs des engins miniers, et prédire quand faire la maintenance.
+- La **maturité data** d’une organisation passe par 4 étapes.
+  - **1 - See** : le business veut voir des rapports et des dashboards pour mieux comprendre ce qui se passe par rapport à ce qui s’est passé dans le passé.
+    - Traditionnellement les rapports sont créés par des personnes spécialistes de ces outils, à la demande du business.
+    - Dans les plateformes modernes, on applique le principe _Bring Your Own Analytics (BYOA)_, où **les personnes du business utilisent leurs propres outils** qu’ils branchent sur la _data platform_, pour créer leurs rapports.
+    - Ces outils sont branchés sur le _data warehouse_.
+  - **2 - Predict** : une fois qu'on a ce qui s’est passé et se passe, on veut prédire ce qui va se passer, par exemple avec du ML.
+    - Il faut que la plateforme puisse proposer une grande quantité de données.
+    - Les données brutes vont être plutôt sur le _data lake_, et les données raffinées sur le _data warehouse_.
+  - **3 - Do** : on va donner le résultat des deux premières étapes à des systèmes pour déclencher des actions.
+    - Ça peut être du ML avec par exemple des systèmes de recommandation, ou même simplement de la donnée qui est déplacée vers le système opérationnel pour servir les clients.
+    - Le fait de déplacer des données du monde analytics au monde opérationnel s’appelle l’**orchestration**.
+    - Ça implique que le système qui utilise cette donnée soit disponible et réponde aux exigences d’un système de production.
+  - **4 - Create** : la donnée initialement collectée comme analytics devient la source pour un nouveau produit.
+    - Par exemple, une banque qui a collecté des données pour améliorer l’expérience utilisateur en aidant les agents à anticiper les réactions des clients, s’est rendue compte qu’elle pouvait l’utiliser aussi pour améliorer l’app mobile.
+    - Autre exemple, une entreprise de sécurité s’est servie des dashboards construits pour visualiser les intrusions, pour montrer aux clients en quoi elle leur apportait de la valeur avec tous les risques qu’elle a évités.
