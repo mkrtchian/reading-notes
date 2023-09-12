@@ -1190,3 +1190,16 @@
   - **4 - Create** : la donnée initialement collectée comme analytics devient la source pour un nouveau produit.
     - Par exemple, une banque qui a collecté des données pour améliorer l’expérience utilisateur en aidant les agents à anticiper les réactions des clients, s’est rendue compte qu’elle pouvait l’utiliser aussi pour améliorer l’app mobile.
     - Autre exemple, une entreprise de sécurité s’est servie des dashboards construits pour visualiser les intrusions, pour montrer aux clients en quoi elle leur apportait de la valeur avec tous les risques qu’elle a évités.
+- Certains challenges non techniques peuvent faire **échouer la cloud data platform**.
+  - **Délivrer de valeur business rapidement** : le business a besoin d’itérations qui résolvent de vrais besoins au bout de quelques mois maximum.
+    - Les auteurs conseillent de partir d’un use-case pas trop complexe lié à la data, et de l’implémenter en faisant avancer la plateforme. Et on passe comme ça de use-cases en use-cases.
+    - L’alternative moins intéressante c’est d’ingérer toutes les sources possibles, pour finir par trouver des cas d’usage avec les sources qu’on supporte déjà.
+  - **Faire adopter la plateforme par les utilisateurs** : les utilisateurs ont peut-être déjà leur manière de travailler avec les analytics, en particulier la production de rapport traditionnelle plutôt que la data self-service.
+    - Il y a les _early adopters_ qui supportent la nouvelle plateforme, les _blockers_ qui montrent leur scepticisme publiquement, les _chickens_ qui ont peur de tout ce qui est nouveau, et les _avoiders_ qui ne veulent pas toucher à ce qui est nouveau.
+    - Quelques conseils pour avoir une meilleure adoption :
+      - S’assurer que les premiers utilisateurs soient à la fois des _early adopters_ et des employés influents.
+      - Après les _early adopters_, on peut aider un _blocker_ pour tenter de le retourner. Si ça marche c’est excellent pour le projet.
+      - Les _chickens_ ont besoin de beaucoup de formation.
+      - Les _avoiders_ mettront plus de temps, mais c’est OK.
+      - Ce serait bien d’avoir un sponsor C-level qui soutient le projet, et crée de la visibilité pour lui.
+        - Exemple : Disney avait lancé un concours interne où les utilisateurs data pouvaient montrer leurs résultats avec la plateforme et être récompensés.
