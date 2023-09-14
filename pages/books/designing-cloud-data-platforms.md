@@ -1203,3 +1203,18 @@
       - Les _avoiders_ mettront plus de temps, mais c’est OK.
       - Ce serait bien d’avoir un sponsor C-level qui soutient le projet, et crée de la visibilité pour lui.
         - Exemple : Disney avait lancé un concours interne où les utilisateurs data pouvaient montrer leurs résultats avec la plateforme et être récompensés.
+  - **Obtenir et garder la confiance des utilisateurs** : il faut que la qualité de la donnée soit suffisamment bonne pour que les utilisateurs aient confiance en elle.
+    - Prendre en compte l’utilisateur de la donnée et ses besoins rendre dans le cadre de la **data governance**.
+    - Parmi les métriques de qualité à surveiller, il peut y avoir le pourcentage de données correctes, les champs obligatoires remplis, la précision, la consistance, l’intégrité de la donnée etc.
+    - Quand la qualité qu’on s’est fixée n’est plus respectée, il faut :
+      - 1 - prévenir les consommateurs de la donnée.
+      - 2 - Mettre l’équipe sur le coup pour régler le problème au plus vite.
+  - **Éviter la formation de d’un silo autour de la data platform** : la responsabilité de la donnée, des règles de qualité et la mesure de la qualité, les SLA etc. doivent être drivées par le business.
+    - La donnée part des sources potentiellement extérieures, et irrigue l’organisation à travers divers systèmes. On ne peut pas considérer que la responsabilité de l’équipe technique s'arrête au moment où la donnée sort de la plateforme.
+    - Il faut constituer des équipes pluridisciplinaires capables de prendre en charge la responsabilité du système de bout en bout : le fonctionnement de la plateforme et l’utilisation de la donnée.
+  - **Prendre en compte les coûts** : pour que la plateforme soit un succès, il faut adopter le point de vue de l’entreprise.
+    - Il faut s’intéresser aux manières d’optimiser les coûts des services cloud (_FinOps_), et comprendre les trade-offs qui y sont liés.
+      - Et à l’inverse s’intéresser à ce que la plateforme permet de rapporter d’un point de vue business.
+    - Exemple : une grande entreprise de télécommunications recueille des données IoT.
+      - La bonne pratique est de faire le processing dans le _data lake_ avec Spark, mais il se trouve que le business avait un deal avec GCP pour une utilisation illimitée de BigQuery à prix fixe.
+      - Dans ce cas, la bonne chose à faire sera sans doute de faire des concessions sur le design, et faire le processing dans le _data warehouse_.
