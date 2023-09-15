@@ -23,7 +23,7 @@ import { Tool } from "../../components/markers/Tool";
     - Le machine learning en particulier pose tous les problèmes en même temps : il nécessite une grande quantité de données variées, et accapare la puissance de calcul du _data warehouse_.
 - Les **data lakes** répondent en partie à ces problèmes.
   - L’idée principale des _data lakes_ c’est qu’on **stocke de la donnée telle quelle** (ou quasi), et qu’on essayera de la traiter et de lui coller un schéma dès qu’on en aura besoin.
-  - Les _data lakes_ se sont généralisés à partir de 2006 avec l’arrivée de **Hadoop**, qui est un **filesystem distribué sur plusieurs machines** pas chères.
+  - Les _data lakes_ se sont généralisés à partir de 2006 avec l’arrivée de <Tool>Hadoop</Tool>, qui est un **filesystem distribué sur plusieurs machines** pas chères.
     - Hadoop répond en partie aux 3V :
       - A la _Variety_ par l’écriture schema-less.
       - Au _Volume_ par le fait que ce soit distribué sur des machines pas chères.
@@ -32,15 +32,15 @@ import { Tool } from "../../components/markers/Tool";
       - C’est un système complexe qu’il faut installer sur un datacenter et gérer par des Ops expérimentés.
       - D’un point de vue business, c’est plus difficile de travailler avec les outils qui traitent les données non structurées qu’avec du SQL comme dans un _data warehouse_.
       - Bien qu’il soit distribué sur de petites machines pas chères, le computing et le stockage ne sont pas séparés, ce qui limite quand même la réduction de coût quand on a besoin de beaucoup de l’un sans l’autre.
-  - Le **cloud public** vient répondre aux problèmes de **Hadoop**.
+  - Le **cloud public** vient répondre aux problèmes de <Tool>Hadoop</Tool>.
     - Les _data warehouses_ et les _data lakes_ ont été proposés par les cloud providers, avec de nombreux avantages :
       - La possibilité de scaler la puissance de calcul et le stockage séparément.
       - Payer uniquement à l’usage des machines qu’on emprunte.
       - Ne plus avoir à gérer la complexité de l’infrastructure.
       - Des outils et frameworks avancés développés par les cloud providers autour de leurs produits.
-    - Exemple : **AWS EMR** permet de lancer un cluster sur lequel on va pouvoir exécuter des jobs **Hadoop** et **Spark**,
+    - Exemple : <Tool>AWS EMR</Tool> permet de lancer un cluster sur lequel on va pouvoir exécuter des jobs <Tool>Hadoop</Tool> et <Tool>Spark</Tool>,
       - On a juste à indiquer le nombre de nœuds qu’on veut, et les packages qu’on veut installer dessus.
-      - Et on a la possibilité de faire des allers-retours vers **S3** pour scaler différemment le calcul et le stockage.
+      - Et on a la possibilité de faire des allers-retours vers <Tool>S3</Tool> pour scaler différemment le calcul et le stockage.
 - La **cloud data platform** moderne utilise à la fois le _data warehouse_ et le _data lake_, hébergés dans un cloud public, chacun d’entre eux remplissant un usage particulier.
   - Pour être polyvalente et pas chère, la data platform doit avoir des **4 composants principaux faiblement couplés**, interagissant entre-eux avec une API bien définie.
     - **Ingestion layer** : on va chercher les données chez les différents types de sources (DB relationnelle, DB NoSQL, API externes etc.).
@@ -51,7 +51,7 @@ import { Tool } from "../../components/markers/Tool";
     - **Processing layer** : on transforme la donnée pour la rendre utilisable par la plupart des clients de la plateforme.
       - C’est la partie calcul de notre _data lake_, il va lire depuis le cloud storage puis écrire à nouveau dedans.
       - Dans le cas du **streaming**, on ne passe pas par le storage layer qui prend trop de temps, mais on envoie la donnée **directement au processing layer**, qui va ensuite la rendre disponible au layer d’après.
-      - Le processing est généralement fait avec des outils open source, les plus connus étant **Spark**, **Beam** et **Flink**.
+      - Le processing est généralement fait avec des outils open source, les plus connus étant <Tool>Spark</Tool>, <Tool>Beam</Tool> et <Tool>Flink</Tool>.
     - **Serving layer** : on rend la donnée disponible sous divers formats, selon les besoins des clients de la plateforme.
       - Les usages peuvent être :
         - Des analystes qui ont besoin d’exécuter des requêtes SQL sur la donnée.
@@ -59,7 +59,7 @@ import { Tool } from "../../components/markers/Tool";
         - Des applications qui ont besoin d’un accès rapide à la donnée.
           - On peut la charger dans une key / value DB, ou une document DB.
         - Des équipes de data scientists / engineers ont besoin de transformer la donnée eux-mêmes.
-          - On peut leur donner accès au storage du _data lake_, et les laisser utiliser **Spark**, **Beam** ou **Flink**.
+          - On peut leur donner accès au storage du _data lake_, et les laisser utiliser <Tool>Spark</Tool>, <Tool>Beam</Tool> ou <Tool>Flink</Tool>.
   - La cloud data platform répond aux 3V :
     - L’ingestion layer couplé au stockage sans schéma permet une grande _Variety_ des données.
     - La séparation calcul / stockage et le fait de ne payer que ce qu’on utilise permet d’optimiser les coûts, et d’avoir un gros _Volume_.
@@ -77,61 +77,61 @@ import { Tool } from "../../components/markers/Tool";
 - Ce chapitre donne des **arguments pour le choix d’une _cloud data platform_, plutôt qu’une simple _data warehouse_**.
 - On implémente les deux solutions pour une situation d’**exemple** qu’on va utiliser dans ce chapitre :
   - Nous sommes l’équipe data, et le département marketing a besoin que nous récupérions deux sources de données et qu’on les corrèle régulièrement.
-    - L’une des sources est une table de campagnes de marketing, issue d’une DB **MySQL** interne.
+    - L’une des sources est une table de campagnes de marketing, issue d’une DB <Tool>MySQL</Tool> interne.
     - Et l’autre est constituée de fichiers CSV de clics utilisateurs, issus de logs applicatifs (et donc _semistructured_).
   - On part sur Microsoft Azure pour les deux solutions.
   - Concernant l’implémentation _data warehouse only_ :
-    - 1 - On va utiliser deux **Azure Data Factory** pour récupérer la donnée dans le serveur de DB et les fichiers CSV dans le serveur SFTP. C’est notre _ingest layer_.
-    - 2 - Ensuite on redirige ça vers l’**Azure Synapse**, qui est la _data warehouse_ de chez Azure. Elle va faire office de _store layer_, _process layer_ et _serve layer_.
+    - 1 - On va utiliser deux <Tool>Azure Data Factory</Tool> pour récupérer la donnée dans le serveur de DB et les fichiers CSV dans le serveur SFTP. C’est notre _ingest layer_.
+    - 2 - Ensuite on redirige ça vers l’<Tool>Azure Synapse</Tool>, qui est la _data warehouse_ de chez Azure. Elle va faire office de _store layer_, _process layer_ et _serve layer_.
   - Concernant l’implémentation _cloud data platform_ :
-    - 1 - On a notre _ingest layer_ avec **Azure Data Factory**, qui redirige les données vers le _store layer_.
-    - 2 - Le _store layer_ est implémenté avec **Azure Blob Storage**. Il s’agit d’un stockage de type _data lake_.
-    - 3 - On a un _process layer_ qui utilise **Azure Databricks**, et qui fait tourner **Spark**.
-    - 4 - Le _serve layer_ enfin utilise **Azure Synapse** qui est le _data warehouse_.
+    - 1 - On a notre _ingest layer_ avec <Tool>Azure Data Factory</Tool>, qui redirige les données vers le _store layer_.
+    - 2 - Le _store layer_ est implémenté avec <Tool>Azure Blob Storage</Tool>. Il s’agit d’un stockage de type _data lake_.
+    - 3 - On a un _process layer_ qui utilise <Tool>Azure Databricks</Tool>, et qui fait tourner <Tool>Spark</Tool>.
+    - 4 - Le _serve layer_ enfin utilise <Tool>Azure Synapse</Tool> qui est le _data warehouse_.
 - Concernant l’**ingestion**.
   - Pour la version _data warehouse only_ :
     - La pipeline contient :
-      - Des _linked services_ : ici la _data source_ **MySQL** en entrée, et la _data sink_ **Azure Synapse** en sortie.
+      - Des _linked services_ : ici la _data source_ <Tool>MySQL</Tool> en entrée, et la _data sink_ <Tool>Azure Synapse</Tool> en sortie.
       - Des _data sets_ : il s’agit de la description du schéma de données d’entrée et de sortie, et leur mapping.
     - Si le schéma de la DB source change, il faudra mettre à jour le schéma défini dans la pipeline et le mapping.
       - Mais surtout il faudra **gérer soi-même la migration** du _data sink_.
   - Pour la version _cloud data platform_ :
-    - Cette fois le _data sink_ est un **Azure Blob Storage**.
+    - Cette fois le _data sink_ est un <Tool>Azure Blob Storage</Tool>.
       - Il n’y a plus besoin de spécifier les schémas et le mapping entre input et output puisque l’output accueille la donnée telle quelle.
     - Si le schéma de la DB source change, il n’y a **rien à faire côté ingestion** : on écrira de toute façon la donnée dans un nouveau fichier.
       - On déplace le problème de mapping plus loin.
 - Concernant le **processing**.
   - Dans la version _data warehouse only_ :
     - On va charger les deux données :
-      - La DB **MySQL** sans charger sa structure parce qu’elle est déjà relationnelle.
+      - La DB <Tool>MySQL</Tool> sans charger sa structure parce qu’elle est déjà relationnelle.
       - La donnée CSV semistructurée dans des rows de type texte qu’on parsera en JSON avec une fonction SQL built-in.
     - La **requête SQL** qu’on va écrire aura les désavantages suivants :
       - Elle sera **peu lisible**, à cause du code de parsing nécessaire.
         - On pourrait la rendre plus lisible en pré-parsant la donnée, mais ça veut dire plus de temps et des coûts plus élevés.
-        - Une autre solution de lisibilité pourrait être d’ajouter des UDF (User Defined Functions), qu’il faudrait maintenir et déployer sur chaque instance d’**Azure Synapse**.
+        - Une autre solution de lisibilité pourrait être d’ajouter des UDF (User Defined Functions), qu’il faudrait maintenir et déployer sur chaque instance d’<Tool>Azure Synapse</Tool>.
       - Elle sera **difficile à tester**.
       - Elle risque de ne pas profiter de la **performance** offerte par la structure en colonne du _data warehouse_, parce que les données texte qu’on parse en JSON ne sont pas organisables physiquement en colonnes.
   - Dans la version _cloud data platform_ :
-    - On a la possibilité d’utiliser un _distributed data processing engine_ comme **Apache Spark**.
+    - On a la possibilité d’utiliser un _distributed data processing engine_ comme <Tool>Apache Spark</Tool>.
       - On pourra écrire des requêtes SQL pour des expérimentations rapides.
       - Et on pourra aussi écrire du code **lisible, maintenable et testable** dans un langage comme Python ou Scala, quand il s’agit de projet de plus long terme.
 - Concernant l’**accès à la donnée**.
   - Il peut y avoir plusieurs types de consommateurs :
     - Des utilisateurs plutôt **orientés business** comme des équipes marketing.
-      - Ils vont préférer utiliser des outils de reporting type **Power BI**, et donc auront besoin de la donnée sous forme relationnelle, par exemple dans **Azure Synapse**.
+      - Ils vont préférer utiliser des outils de reporting type <Tool>Power BI</Tool>, et donc auront besoin de la donnée sous forme relationnelle, par exemple dans <Tool>Azure Synapse</Tool>.
     - Des utilisateurs orientés **data analyse / data science**.
-      - Ils pourront bénéficier de SQL qu’ils utilisent souvent directement, au travers de **Spark SQL**.
-      - Ils pourront avoir accès à des données non filtrées pour leur projets data science, grâce **Spark** directement.
+      - Ils pourront bénéficier de SQL qu’ils utilisent souvent directement, au travers de <Tool>Spark SQL</Tool>.
+      - Ils pourront avoir accès à des données non filtrées pour leur projets data science, grâce <Tool>Spark</Tool> directement.
     - Au final la _cloud data platform_, qui contient à la fois la donnée sous forme brute dans le _data lake_, et la donnée dans le _data warehouse_, est **adaptée à chaque usage**.
 - A propos des **coûts financiers**.
   - Il est difficile de comparer les coûts des services cloud.
     - En général on constate que le stockage est plutôt pas cher, et que l’essentiel des coûts se trouve dans les calculs.
   - L’**elastic scaling** consiste à pouvoir calibrer le service pour l’usage exact qu’on en a, et de ne pas avoir à payer plus.
     - C’est un des éléments qui permet de vraiment optimiser les coûts.
-  - Pour la version _data warehouse only_, l’essentiel des coûts va aller dans **Azure Synapse**.
+  - Pour la version _data warehouse only_, l’essentiel des coûts va aller dans <Tool>Azure Synapse</Tool>.
     - Le scaling de ce service peut prendre des dizaines de minutes, donc c’est quelque chose qu’on ne peut faire que de temps en temps.
-  - Pour la version _cloud data platform_, l’essentiel des coûts est porté par le _processing layer_, par exemple **Spark**.
-    - **Spark** est particulièrement élastique, au point où il est commun de démarrer une instance juste le temps d’une requête.
+  - Pour la version _cloud data platform_, l’essentiel des coûts est porté par le _processing layer_, par exemple <Tool>Spark</Tool>.
+    - <Tool>Spark</Tool> est particulièrement élastique, au point où il est commun de démarrer une instance juste le temps d’une requête.
 
 ## 3 - Getting bigger and leveraging the Big 3: Amazon, Microsoft, and Google
 
@@ -147,7 +147,7 @@ import { Tool } from "../../components/markers/Tool";
       - L'industrie est en train de se diriger vers le streaming, mais de nombreuses sources externes fournissent la donnée sous un format de type batch avec des éléments groupés, par exemple CSV, JSON, XML.
       - On pourrait utiliser la partie batch pour ingérer des données par petits batchs, et éviter de faire la version streaming. Mais ça créerait de la **dette technique** parce qu’on finira par avoir besoin du streaming à un moment ou un autre.
       - La _lambda architecture_ consiste à avoir la donnée qui passe à la fois par le mécanisme de batch et par le mécanisme de streaming.
-        - Cette duplication était nécessaire parce que le streaming n’était pas fiable dans les débuts de **Hadoop**, mais ce n’est plus le cas.
+        - Cette duplication était nécessaire parce que le streaming n’était pas fiable dans les débuts de <Tool>Hadoop</Tool>, mais ce n’est plus le cas.
         - La _cloud data platform_ ne consiste pas à faire une telle duplication : selon la source, la donnée va passer par le mécanisme de streaming ou de batch.
     - On entend parfois plusieurs choses différentes quand on parle de _real time_ pour des analytics :
       - 1 - La _real time ingestion_ consiste à avoir la donnée disponible pour de l’analyse dès qu’elle arrive.
@@ -162,7 +162,7 @@ import { Tool } from "../../components/markers/Tool";
       - La donnée y est persistée pour pas cher, grâce à la possibilité de scaler le stockage sans ajouter de capacité de calcul.
       - Par contre les temps d’accès sont grands.
     - Le **fast storage** est là pour le mode streaming.
-      - Il s’agit d’utiliser un outil qui est fait pour l’accès rapide, comme **Apache Kafka**.
+      - Il s’agit d’utiliser un outil qui est fait pour l’accès rapide, comme <Tool>Apache Kafka</Tool>.
       - Par contre, on n’a en général pas la possibilité de scaler le stockage sans ajouter de puissance de calcul, et donc les coûts sont plus grands.
       - On va donc purger régulièrement la donnée du fast storage, et de la transférer dans le slow storage.
   - **3 - Processing layer**.
@@ -171,7 +171,7 @@ import { Tool } from "../../components/markers/Tool";
       - Persister la donnée modifiée à nouveau dans le stockage pour un usage par les data scientists.
       - Délivrer la donnée aux autres consumers.
     - Il faut un ou plusieurs outils qui permettent de réaliser des transformations de données, y compris avec du calcul distribué.
-      - Un exemple peut être **Google Dataflow**, qui est une version PaaS d’**Apache Beam**, qui supporte à la fois le mode streaming et le mode batch.
+      - Un exemple peut être <Tool>Google Dataflow</Tool>, qui est une version PaaS d’<Tool>Apache Beam</Tool>, qui supporte à la fois le mode streaming et le mode batch.
   - **4 - Technical metadata layer**.
     - Son but est de :
       - Stocker des informations techniques sur chaque layer.
@@ -183,7 +183,7 @@ import { Tool } from "../../components/markers/Tool";
     - La _business metadata_ est une autre notion qui peut avoir son layer, mais qui n’est pas explorée dans ce livre.
       - Il s’agit d’identifier l’usage business qui est fait de chaque donnée qu’on récupère des sources, et d’en faire un catalogue.
     - Il n’y a pas vraiment d’outil unique qui permette de remplir ce rôle pour le moment, donc on devra sans doute en utiliser plusieurs.
-      - Par exemple **Confluent Schema Registry** et **Amazon Glue** peuvent supporter certains des cas d’usages.
+      - Par exemple <Tool>Confluent Schema Registry</Tool> et <Tool>Amazon Glue</Tool> peuvent supporter certains des cas d’usages.
   - **5 - Serving layer**.
     - Son but est de :
       - Servir les consumers qui ont besoin de données relationnelles via une _data warehouse_.
@@ -196,7 +196,7 @@ import { Tool } from "../../components/markers/Tool";
       - Coordonner l’exécution de jobs, sous la forme d’un graphe de dépendance.
       - Gérer les échecs et les retries.
     - C’est un peu le complément du _technical metadata layer_ pour permettre le faible couplage entre les layers.
-    - L’outil le plus connu d’orchestration est **Apache Airflow**, adopté par Google Cloud Platform sous le nom de **Google Composer**.
+    - L’outil le plus connu d’orchestration est <Tool>Apache Airflow</Tool>, adopté par Google Cloud Platform sous le nom de <Tool>Google Composer</Tool>.
       - AWS et Azure ont quant à eux choisi d’inclure des fonctionnalités d’orchestration dans leur outil d’ETL.
   - **6.2 - ETL overlay layer**.
     - Son but est de :
@@ -205,8 +205,8 @@ import { Tool } from "../../components/markers/Tool";
       - On peut vouloir à l’avenir par exemple utiliser un autre outil de processing, ou s’interfacer avec un outil open source.
       - Dans le cas où il y a une incompatibilité avec un usage qu’on a, on peut toujours l’implémenter à part de l’outil ETL.
         - Le problème c’est qu’au bout d’un moment, les usages à côté deviennent aussi complexes que la solution entière sans l’outil ETL, mais avec une **architecture spaghetti**.
-    - Parmi les outils ETL il y a **AWS Glue**, **Azure Data Factory** et **Google Cloud Data Fusion**.
-      - Il existe des solutions commerciales non cloud-natives comme **Talend** et **Informatica**, mais ce livre se limite au cloud-native et aux outils open source.
+    - Parmi les outils ETL il y a <Tool>AWS Glue</Tool>, <Tool>Azure Data Factory</Tool> et <Tool>Google Cloud Data Fusion</Tool>.
+      - Il existe des solutions commerciales non cloud-natives comme <Tool>Talend</Tool> et <Tool>Informatica</Tool>, mais ce livre se limite au cloud-native et aux outils open source.
 - Les **couches** doivent être bien **séparées et découplées**.
   - Une première raison est de pouvoir utiliser les outils les plus adaptés aux besoins de chaque couche.
     - Le cloud bougeant très vite, on voudra sans doute pouvoir changer seulement l’un d’entre eux quand on a une meilleure alternative pour une couche en particulier.
@@ -228,125 +228,125 @@ import { Tool } from "../../components/markers/Tool";
     - On a de plus en plus d’entreprises qui utilisent des solutions de **plusieurs cloud providers**. Par exemple le gros des services sur AWS, et le use-case machine learning sur GCP.
 - Outils sur **AWS**.
   - Batch ingestion.
-    - **AWS Glue** supporte l’ingestion à partir de **AWS S3**, ou à partir d’une connexion JDBC.
-    - **AWS Database Migration Service** sert à la base à transférer ses DBs vers AWS, mais on peut l’utiliser comme ingestion layer.
-    - **AWS DMS** permet d’implémenter un mécanisme de change data capture à partir d’une DB.
-    - Si aucune des solutions PaaS ne supporte notre data source, on peut utiliser la solution serverless **AWS Lambda** où il faudra écrire et maintenir du code.
+    - <Tool>AWS Glue</Tool> supporte l’ingestion à partir de <Tool>AWS S3</Tool>, ou à partir d’une connexion JDBC.
+    - <Tool>AWS Database Migration Service</Tool> sert à la base à transférer ses DBs vers AWS, mais on peut l’utiliser comme ingestion layer.
+    - <Tool>AWS DMS</Tool> permet d’implémenter un mécanisme de change data capture à partir d’une DB.
+    - Si aucune des solutions PaaS ne supporte notre data source, on peut utiliser la solution serverless <Tool>AWS Lambda</Tool> où il faudra écrire et maintenir du code.
   - Streaming ingestion.
-    - **AWS Kinesis** est un message broker pour lequel il faudra écrire du code pour publier dedans. Il a malheureusement très peu de connecteurs entrants.
-      - En revanche il a des connecteurs sortants appelés **Kinesis Firehose**, qui permettent par exemple d’envoyer la donnée de Kinesis dans un **S3** sous format **Parquet**.
-    - **AWS Managed Streaming for Apache Kafka (MSK)** est une version de **Kafka** entièrement managée.
-      - On peut l’utiliser à la place de **Kinesis**, par exemple si on migre une application avec **Kafka** vers AWS.
+    - <Tool>AWS Kinesis</Tool> est un message broker pour lequel il faudra écrire du code pour publier dedans. Il a malheureusement très peu de connecteurs entrants.
+      - En revanche il a des connecteurs sortants appelés <Tool>Kinesis Firehose</Tool>, qui permettent par exemple d’envoyer la donnée de Kinesis dans un <Tool>S3</Tool> sous format <Tool>Parquet</Tool>.
+    - <Tool>AWS Managed Streaming for Apache Kafka (MSK)</Tool> est une version de <Tool>Kafka</Tool> entièrement managée.
+      - On peut l’utiliser à la place de <Tool>Kinesis</Tool>, par exemple si on migre une application avec <Tool>Kafka</Tool> vers AWS.
   - Storage.
-    - **AWS S3** permet de stocker de la donnée de manière scalable, avec la possibilité de choisir entre plusieurs formules avec des latences plus ou moins grandes.
+    - <Tool>AWS S3</Tool> permet de stocker de la donnée de manière scalable, avec la possibilité de choisir entre plusieurs formules avec des latences plus ou moins grandes.
   - Batch processing.
-    - **AWS Elastic MapReduce (EMR)** est une version managée de **Spark**.
-      - On va en général lire la donnée depuis **S3**, faire le calcul, puis détruire le cluster **EMR**.
+    - <Tool>AWS Elastic MapReduce (EMR)</Tool> est une version managée de <Tool>Spark</Tool>.
+      - On va en général lire la donnée depuis <Tool>S3</Tool>, faire le calcul, puis détruire le cluster <Tool>EMR</Tool>.
   - Streaming processing.
-    - **AWS Kinesis Data Analytics** permet de se brancher sur **Kinesis**, et de faire du processing en streaming.
-    - Si on utilise **AWS MSK**, on peut brancher dessus **Kafka Streams** pour le processing en streaming.
+    - <Tool>AWS Kinesis Data Analytics</Tool> permet de se brancher sur <Tool>Kinesis</Tool>, et de faire du processing en streaming.
+    - Si on utilise <Tool>AWS MSK</Tool>, on peut brancher dessus <Tool>Kafka Streams</Tool> pour le processing en streaming.
   - Data warehouse.
-    - **AWS Redshift** est un _data warehouse_ distributé sur plusieurs noeuds.
-      - **Redshift Spectrum** permet de faire des requêtes depuis **Redshift** pour obtenir des données qui sont en fait sur **S3**.
+    - <Tool>AWS Redshift</Tool> est un _data warehouse_ distributé sur plusieurs noeuds.
+      - <Tool>Redshift Spectrum</Tool> permet de faire des requêtes depuis <Tool>Redshift</Tool> pour obtenir des données qui sont en fait sur <Tool>S3</Tool>.
         - Il faudra définir des “tables externes”, et la performance de la query sera moins bonne, mais ça permet d’économiser de la place dans le _data warehouse_.
   - Direct access.
-    - **AWS Athena** permet de faire une requête SQL distribuée en utilisant directement la donnée sur **S3**.
+    - <Tool>AWS Athena</Tool> permet de faire une requête SQL distribuée en utilisant directement la donnée sur <Tool>S3</Tool>.
       - On lance l’instance le temps de la requête, puis on détruit l’instance.
   - ETL overlay et metadata repository.
-    - **AWS Glue** est un outil d’ETL complet.
-      - Il est construit autour de **Spark**, et possède des templates pour faciliter de nombreuses transformations.
-        - Il a aussi des add-ons **Spark** non-standards, ce qui nuit à la portabilité par rapport à un simple **Spark** managé.
-      - Il maintient un _Data Catalog_ à partir des données disponibles sur **S3**.
+    - <Tool>AWS Glue</Tool> est un outil d’ETL complet.
+      - Il est construit autour de <Tool>Spark</Tool>, et possède des templates pour faciliter de nombreuses transformations.
+        - Il a aussi des add-ons <Tool>Spark</Tool> non-standards, ce qui nuit à la portabilité par rapport à un simple <Tool>Spark</Tool> managé.
+      - Il maintient un _Data Catalog_ à partir des données disponibles sur <Tool>S3</Tool>.
       - Il maintient un ensemble de statistiques sur l’exécution des jobs.
   - Orchestration.
-    - **AWS Step Functions** permet de créer des workflows qui mettent en jeu différents services, y compris ceux qui ne seraient pas gérés par **Glue** comme **AWS Lambda** avec du code custom.
+    - <Tool>AWS Step Functions</Tool> permet de créer des workflows qui mettent en jeu différents services, y compris ceux qui ne seraient pas gérés par <Tool>Glue</Tool> comme <Tool>AWS Lambda</Tool> avec du code custom.
   - Consumers.
-    - Pour les outils comme **Tableau** qui ont besoin d’une connexion JDBC/ODBC qui supporte SQL, elles peuvent se connecter à **Redshift** ou **Athena**.
-    - Pour du streaming avec faible latence, on peut envoyer la donnée dans un key/value store comme **DynamoDB**, ou dans une DB comme **AWS RDS** ou **AWS Aurora**.
+    - Pour les outils comme <Tool>Tableau</Tool> qui ont besoin d’une connexion JDBC/ODBC qui supporte SQL, elles peuvent se connecter à <Tool>Redshift</Tool> ou <Tool>Athena</Tool>.
+    - Pour du streaming avec faible latence, on peut envoyer la donnée dans un key/value store comme <Tool>DynamoDB</Tool>, ou dans une DB comme <Tool>AWS RDS</Tool> ou <Tool>AWS Aurora</Tool>.
 - Outils sur **GCP**.
   - Batch ingestion.
-    - **Cloud Data Fusion** est un ETL overlay qui permet d’ingérer des données depuis une DB relationnelle avec JDBC, des fichiers depuis **Google Cloud Storage**, et même depuis un FTP ou depuis **AWS S3**.
+    - <Tool>Cloud Data Fusion</Tool> est un ETL overlay qui permet d’ingérer des données depuis une DB relationnelle avec JDBC, des fichiers depuis <Tool>Google Cloud Storage</Tool>, et même depuis un FTP ou depuis <Tool>AWS S3</Tool>.
       - Il est basé sur un projet open source, et donc supporte des connecteurs custom.
-    - **BigQuery Data Transfer Service** permet d’ingérer de la donnée depuis les services SaaS de Google, et depuis des centaines d’autres services SaaS connus grâce à un partenariat avec Fivetran.
+    - <Tool>BigQuery Data Transfer Service</Tool> permet d’ingérer de la donnée depuis les services SaaS de Google, et depuis des centaines d’autres services SaaS connus grâce à un partenariat avec Fivetran.
       - Par contre, la donnée va directement dans le _data warehouse_, ce qui ne permet pas vraiment l’architecture modulaire qu’on vise.
-    - **Cloud Functions** représente l’équivalent d’**AWS Lambda**, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
+    - <Tool>Cloud Functions</Tool> représente l’équivalent d’<Tool>AWS Lambda</Tool>, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
   - Stream ingrestion.
-    - **Cloud Pub/Sub** est un broker équivalent à **AWS Kinesis**.
+    - <Tool>Cloud Pub/Sub</Tool> est un broker équivalent à <Tool>AWS Kinesis</Tool>.
   - Storage.
-    - **Google Cloud Storage** est un équivalent à **AWS S3**.
+    - <Tool>Google Cloud Storage</Tool> est un équivalent à <Tool>AWS S3</Tool>.
   - Batch processing.
-    - **Dataproc** est un **Spark** managé équivalent à **AWS EMR**.
-    - **Cloud Dataflow** est un **Apache Beam** managé.
-      - **Beam** a l’avantage d’offrir une même API pour le batch processing et le streaming processing, là où **Spark** ne supporte que le batch mais est une techno plus mature.
+    - <Tool>Dataproc</Tool> est un <Tool>Spark</Tool> managé équivalent à <Tool>AWS EMR</Tool>.
+    - <Tool>Cloud Dataflow</Tool> est un <Tool>Apache Beam</Tool> managé.
+      - <Tool>Beam</Tool> a l’avantage d’offrir une même API pour le batch processing et le streaming processing, là où <Tool>Spark</Tool> ne supporte que le batch mais est une techno plus mature.
   - Streaming processing.
-    - **Cloud Dataflow** représente la manière cloud-native de faire du streaming sur GCP.
-    - **Dataproc** avec **Spark Streaming** peut représenter une alternative, mais il s’agit en fait de micro-batch et non pas de traiter les messages un par un.
-      - Les auteurs conseillent **Beam**, sauf si on a déjà investi en temps ou connaissances sur **Spark**.
+    - <Tool>Cloud Dataflow</Tool> représente la manière cloud-native de faire du streaming sur GCP.
+    - <Tool>Dataproc</Tool> avec <Tool>Spark Streaming</Tool> peut représenter une alternative, mais il s’agit en fait de micro-batch et non pas de traiter les messages un par un.
+      - Les auteurs conseillent <Tool>Beam</Tool>, sauf si on a déjà investi en temps ou connaissances sur <Tool>Spark</Tool>.
   - Data warehouse.
-    - **BigQuery** est un équivalent à **AWS RedShift**.
+    - <Tool>BigQuery</Tool> est un équivalent à <Tool>AWS Redshift</Tool>.
       - Il a l’avantage de scaler le nombre de nœuds tout seul.
       - Par contre il a un modèle de facturation basé sur la donnée lue par chaque requête, ce qui peut rendre les coûts difficiles à prédire.
   - Direct access.
     - GCP ne propose pas de services pour accéder au _data lake_ directement avec du SQL.
-      - On peut éventuellement créer des tables vers de la donnée externe (donc dans le _data lake_) à partir de **BigQuery**.
-      - On peut aussi utiliser **Spark SQL** pour identifier et lire de la donnée sur le _data lake_.
+      - On peut éventuellement créer des tables vers de la donnée externe (donc dans le _data lake_) à partir de <Tool>BigQuery</Tool>.
+      - On peut aussi utiliser <Tool>Spark SQL</Tool> pour identifier et lire de la donnée sur le _data lake_.
   - ETL overlay et metadata repository.
-    - **Cloud Data Fusion** est un ETL overlay équivalent à **AWS Glue**. Il fournit une UI qui permet de configurer la pipeline.
+    - <Tool>Cloud Data Fusion</Tool> est un ETL overlay équivalent à <Tool>AWS Glue</Tool>. Il fournit une UI qui permet de configurer la pipeline.
       - Il met à disposition un moyen d’analyser quelle partie de la pipeline peut affecter telle ou telle donnée.
       - Il met aussi à disposition des statistiques sur l’exécution des jobs.
   - Orchestration.
-    - **Cloud Composer** permet de créer des flows d’orchestration entre jobs.
-      - Il est basé sur **Apache Airflow**.
+    - <Tool>Cloud Composer</Tool> permet de créer des flows d’orchestration entre jobs.
+      - Il est basé sur <Tool>Apache Airflow</Tool>.
   - Consumers.
-    - **BigQuery** n’a pas de connexion JDBC/ODBC pour y connecter un outil BI par exemple.
+    - <Tool>BigQuery</Tool> n’a pas de connexion JDBC/ODBC pour y connecter un outil BI par exemple.
       - Il a une API REST, et il est directement compatible avec certains outils BI.
-    - Si on veut consommer la donnée avec une faible latence, on peut la mettre dans le key/value store **Cloud Bigtable**.
+    - Si on veut consommer la donnée avec une faible latence, on peut la mettre dans le key/value store <Tool>Cloud Bigtable</Tool>.
 - Outils sur **Azure**.
   - Batch ingestion.
-    - **Azure Data Factory** est un ETL overlay permettant de faire de l’ingestion depuis diverses sources (DB, SaaS externes, **S3**, **GCS** etc.).
-      - Il est celui qui a le plus de connecteurs comparé à **AWS Glue** et **Cloud Data Fusion**.
-    - **Azure Functions** est l’équivalent d’**AWS Lambda**.
+    - <Tool>Azure Data Factory</Tool> est un ETL overlay permettant de faire de l’ingestion depuis diverses sources (DB, SaaS externes, <Tool>S3</Tool>, <Tool>GCS</Tool> etc.).
+      - Il est celui qui a le plus de connecteurs comparé à <Tool>AWS Glue</Tool> et <Tool>Cloud Data Fusion</Tool>.
+    - <Tool>Azure Functions</Tool> est l’équivalent d’<Tool>AWS Lambda</Tool>.
       - Il ne supporte que Java et Python.
   - Streaming ingestion.
-    - **Azure Event Hubs** est équivalent à **AWS Kinesis**.
-      - Il a la particularité d’être compatible avec **Apache Kafka**.
+    - <Tool>Azure Event Hubs</Tool> est équivalent à <Tool>AWS Kinesis</Tool>.
+      - Il a la particularité d’être compatible avec <Tool>Apache Kafka</Tool>.
   - Storage.
-    - **Azure Blob Storage** est équivalent à **AWS S3**.
-    - **Azure Data Lake Storage** est une version améliorée qui supporte mieux le calcul distribué avec de grandes quantités de données.
+    - <Tool>Azure Blob Storage</Tool> est équivalent à <Tool>AWS S3</Tool>.
+    - <Tool>Azure Data Lake Storage</Tool> est une version améliorée qui supporte mieux le calcul distribué avec de grandes quantités de données.
   - Batch processing.
-    - Pour le batch processing, Azure a choisi de miser sur un partenariat avec **Databricks**, qui est un service créé par les créateurs de **Spark**.
-      - La version managée de **Databricks** est disponible sur AWS et Azure, mais elle est celle par défaut sur Azure, donc mieux supportée par son écosystème.
+    - Pour le batch processing, Azure a choisi de miser sur un partenariat avec <Tool>Databricks</Tool>, qui est un service créé par les créateurs de <Tool>Spark</Tool>.
+      - La version managée de <Tool>Databricks</Tool> est disponible sur AWS et Azure, mais elle est celle par défaut sur Azure, donc mieux supportée par son écosystème.
   - Streaming processing.
-    - **Azure Stream Analytics** se branche sur **Event Hubs** et permet de faire du streaming processing.
+    - <Tool>Azure Stream Analytics</Tool> se branche sur <Tool>Event Hubs</Tool> et permet de faire du streaming processing.
   - Data warehouse.
-    - **Azure Synapse** est le _data warehouse_ d’Azure.
-      - Il est entre **AWS Redshift** et **Google BigQuery** dans la mesure où il nécessite de choisir la capacité de calcul, mais il scale l’espace disque tout seul.
+    - <Tool>Azure Synapse</Tool> est le _data warehouse_ d’Azure.
+      - Il est entre <Tool>AWS Redshift</Tool> et <Tool>Google BigQuery</Tool> dans la mesure où il nécessite de choisir la capacité de calcul, mais il scale l’espace disque tout seul.
   - Direct access.
-    - **Azure Databricks** est la manière privilégiée d’accéder à la donnée sur le _data lake_, soit par l’API native de **Spark**, soit en SQL avec **Spark SQL**.
+    - <Tool>Azure Databricks</Tool> est la manière privilégiée d’accéder à la donnée sur le _data lake_, soit par l’API native de <Tool>Spark</Tool>, soit en SQL avec <Tool>Spark SQL</Tool>.
   - ETL overlay et metadata repository.
-    - **Azure Data Factory** est équivalent à **AWS Glue**.
-      - Il s’intègre parfaitement avec **Databricks** pour les transformations complexes.
+    - <Tool>Azure Data Factory</Tool> est équivalent à <Tool>AWS Glue</Tool>.
+      - Il s’intègre parfaitement avec <Tool>Databricks</Tool> pour les transformations complexes.
       - Il fournit des métriques sur la data pipeline.
   - Orchestration.
-    - La partie orchestration des jobs est prise en charge par **Azure Data Factory**.
+    - La partie orchestration des jobs est prise en charge par <Tool>Azure Data Factory</Tool>.
   - Consumers.
-    - **Azure Synapse** fournit une connexion JDBC/ODBC pour connecter les outils de BI.
-      - **Azure Databricks** fournit la même chose, mais il faut un cluster **Spark** toujours allumé, ce qui peut coûter cher.
-    - **Cosmos DB** est une DB orientée document où on peut stocker les résultats de processings pour un accès faible latence.
+    - <Tool>Azure Synapse</Tool> fournit une connexion JDBC/ODBC pour connecter les outils de BI.
+      - <Tool>Azure Databricks</Tool> fournit la même chose, mais il faut un cluster <Tool>Spark</Tool> toujours allumé, ce qui peut coûter cher.
+    - <Tool>Cosmos DB</Tool> est une DB orientée document où on peut stocker les résultats de processings pour un accès faible latence.
 - Alternatives **commerciales** ou **open source**.
-  - Certains logiciels open source sont trop difficiles à mettre en place, par exemple un _data warehouse_ distribué comme **Apache Druid**.
+  - Certains logiciels open source sont trop difficiles à mettre en place, par exemple un _data warehouse_ distribué comme <Tool>Apache Druid</Tool>.
   - Batch ingestion.
     - Il existe pas mal d’outils open source et commerciaux qui permettent d’ingérer des données, leur valeur ajoutée étant en général le grand nombre de sources supportées.
-    - **Apachi NiFi** est une solution open source qui supporte de nombreuses sources, et permet d’en ajouter soi-même en Java.
+    - <Tool>Apachi NiFi</Tool> est une solution open source qui supporte de nombreuses sources, et permet d’en ajouter soi-même en Java.
     - Il existe de nombreux outils SaaS commerciaux qui gèrent l’ingestion.
       - Ces outils vont souvent envoyer la donnée directement dans un _data warehouse_.
       - Il faut bien réfléchir à la problématique de la sécurité.
   - Streaming ingestion.
-    - **Apache Kafka** est le principal outil utilisé en dehors d’une solution managée de streaming.
-      - Il a l’avantage de pouvoir se connecter à de nombreuses sources avec **Kafka Connect**, et il a un moyen d’implémenter des applications de streaming avec **Kafka Streams**.
-      - Les raisons de choisir **Kafka** plutôt qu’une solution cloud-native peuvent être l’investissement qu’on a déjà dans **Kafka** (par exemple connaissances), ou le besoin de performance nécessitant le fine-tuning du serveur **Kafka**.
+    - <Tool>Apache Kafka</Tool> est le principal outil utilisé en dehors d’une solution managée de streaming.
+      - Il a l’avantage de pouvoir se connecter à de nombreuses sources avec <Tool>Kafka Connect</Tool>, et il a un moyen d’implémenter des applications de streaming avec <Tool>Kafka Streams</Tool>.
+      - Les raisons de choisir <Tool>Kafka</Tool> plutôt qu’une solution cloud-native peuvent être l’investissement qu’on a déjà dans <Tool>Kafka</Tool> (par exemple connaissances), ou le besoin de performance nécessitant le fine-tuning du serveur <Tool>Kafka</Tool>.
   - Orchestration.
-    - **Apache Airflow** est le principal outil utilisé en dehors d’une solution managée d’orchestration.
+    - <Tool>Apache Airflow</Tool> est le principal outil utilisé en dehors d’une solution managée d’orchestration.
       - La raison de l’utiliser en mode non managé peut être de profiter de sa flexibilité, avec ses fichiers en Python.
 
 ## 4 - Getting data into the platform
@@ -410,14 +410,14 @@ import { Tool } from "../../components/markers/Tool";
             SELECT * FROM subscriptions WHERE LAST_MODIFIED > "2019-05-01 17:01:00"
             ```
           - On pourra mettre le _highest watermark_ dans le _technical metadata layer_.
-            - **AWS Glue** gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme **Google Cloud SQL** ou **Azure SQL Database**.
+            - <Tool>AWS Glue</Tool> gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme **Google Cloud SQL** ou **Azure SQL Database**.
         - Cette _incremental table ingestion_ permet d’ingérer moins de données dupliquées, mais elle a encore des inconvénients :
           - Il faut faire du processing pour faire apparaître les données supprimées, en comparant les snapshots entre eux.
           - Les données qui sont insérées puis supprimées entre deux snapshots ne seront pas capturées par ce mécanisme, donc **on perd des informations**.
     - **2 - Le Change Data Capture (CDC)**.
       - Le CDC permet de récupérer **l’ensemble des opérations** qui ont lieu sur la table, **sans aucun doublon**.
       - Il s’agit de lire le log de changements créé par la DB, à l’aide d’une application qui sait le faire.
-        - L’application peut être fournie par la DB, ou une application cloud-native comme **AWS Database Migration Service**, ou une application open source comme **Debezium**.
+        - L’application peut être fournie par la DB, ou une application cloud-native comme <Tool>AWS Database Migration Service</Tool>, ou une application open source comme **Debezium**.
       - Etant donné que les DBs ne gardent pas longtemps leur log de changements, **le CDC nécessite une infrastructure de type streaming** pour être récupéré.
       - Le format des messages récupérés depuis le log de changements contient la valeur du row avant, sa valeur après l’opération, le type d’opération, et des metadata.
         - On va vouloir mettre dans le _data warehouse_ uniquement la valeur après l’opération et le type d’opération.
@@ -427,24 +427,24 @@ import { Tool } from "../../components/markers/Tool";
           - Il faut acheter la licence pour pouvoir l’utiliser.
         - On peut mettre en place **Debezium** qui est open source, mais il faudra qu’il puisse se connecter à **Oracle XStream API**, qui lui-même nécessite quand même une licence **GoldenGate**.
         - Oracle fournit un outil d’analyse qui s’appelle **LogMiner**, qui est considéré comme pas 100% fiable.
-          - Certains outils comme **AWS Database Migration Service** l’utilisent malgré tout.
+          - Certains outils comme <Tool>AWS Database Migration Service</Tool> l’utilisent malgré tout.
         - Une alternative moins chère à **GoldenGate** peut être **SharePlex**, un produit fait par Quest.
-      - Le CDC sur une DB **MySQL**.
-        - **MySQL** écrit les changements dans un log servant principalement à la réplication, pour ajouter des DBs followers.
+      - Le CDC sur une DB <Tool>MySQL</Tool>.
+        - <Tool>MySQL</Tool> écrit les changements dans un log servant principalement à la réplication, pour ajouter des DBs followers.
         - Vu que c’est une DB open source, il existe de nombreux outils pour servir d’application CDC à partir de ce log, par exemple : **Debezium** et **Apache NiFi**.
       - Le CDC sur une DB **MS SQL Server**.
         - **MS SQL Server** fournit la possibilité de rediriger le log de changements d’une table vers une table créée spécialement pour ça.
           - On peut donc facilement implémenter un outil CDC qui n’a qu’à utiliser SQL pour lire cette nouvelle table régulièrement.
-        - Parmi les outils qui supportent le CDC sur **MS SQL Server**, il y a par exemple: **Debezium**, **Apache NiFi** et **AWS Database Migration Service**.
+        - Parmi les outils qui supportent le CDC sur **MS SQL Server**, il y a par exemple: **Debezium**, **Apache NiFi** et <Tool>AWS Database Migration Service</Tool>.
       - Le CDC sur une DB **PostgreSQL**.
         - **PostgreSQL** supporte le fait de fournir son log de changements sous un format Protobuf ou JSON, ce qui facilite le travail des applications CDC.
-        - Il existe de nombreux outils qui savent lire ces données, par exemple : **Debezium** et **AWS Database Migration Service**.
+        - Il existe de nombreux outils qui savent lire ces données, par exemple : **Debezium** et <Tool>AWS Database Migration Service</Tool>.
   - Concernant le **mapping des données** depuis la DB vers le _data warehouse_, il va falloir faire une **analyse pour vérifier la compatibilité** :
     - 1 - On prépare une liste des types de données supportées par la DB dont on veut capturer les données.
       - Il vaut mieux prendre l’ensemble des types, en prévision d’ajout de colonnes avec des types qui n’étaient pas utilisés jusque là par l’application.
     - 2 - On prépare une liste des types supportés par le _data warehouse_ de destination, et on identifie les différences avec la précédente.
     - 3 - On identifie les types qui ne correspondent pas exactement, mais permetteront une conversion sans perte d’information.
-      - Par exemple un type `SMALLINT` sur **MySQL** comme source, et le seul entier disponible sur **Google BigQuery** qui est l’équivalent d’un `BIGINT`.
+      - Par exemple un type `SMALLINT` sur <Tool>MySQL</Tool> comme source, et le seul entier disponible sur <Tool>Google BigQuery</Tool> qui est l’équivalent d’un `BIGINT`.
     - 4 - On identifie les types qui n’ont pas de correspondance satisfaisante, et pourraient mener à une perte d’information.
       - On essaye de voir si on ne peut pas trouver un workaround, par exemple transformer des données géospatiales en string, puis utiliser du processing pour les parser au moment de la lecture.
     - 5 - Si on est devant une impasse, on essaye de voir s’il n’y a pas un outil de _data warehouse_ plus adapté.
@@ -520,21 +520,21 @@ import { Tool } from "../../components/markers/Tool";
   - On parle ici seulement d’**ingestion en mode streaming**, c’est-à-dire que la donnée est disponible dans la plateforme dès que possible, mais elle sera exploitée plus tard.
   - Les étapes à mettre en place sont :
     - 1 - La 1ère étape est de l**ire le stream source, et de l’écrire dans le _fast storage_** de notre _cloud data platform_, qui est aussi un stream.
-      - On peut faire ça avec **Kafka Connect**, qui permet de lire et écrire entre deux topics **Kafka**, mais aussi de lire depuis **Kafka** et écrire dans une solution de streaming cloud-native, ou l’inverse.
+      - On peut faire ça avec <Tool>Kafka Connect</Tool>, qui permet de lire et écrire entre deux topics <Tool>Kafka</Tool>, mais aussi de lire depuis <Tool>Kafka</Tool> et écrire dans une solution de streaming cloud-native, ou l’inverse.
       - On peut aussi faire notre propre application **consumer Kafka à la main**, mais il faudra alors s’occuper de la gestion des erreurs, du logging, et du scaling de notre consumer. Les auteurs le **déconseillent**.
     - 2 - On va ensuite **l’écrire dans le _data warehouse_**.
       - Les auteurs conseillent fortement d’utiliser une solution **cloud-native** pour ça, en fonction de notre fast storage :
-        - **Azure Stream Analytics** qui lit depuis **Azure Event Hubs** pour écrire dans **Azure SQL Warehouse**.
-        - **Google Cloud Dataflow** qui lit depuis **Cloud Pub/Sub** pour écrire dans **BigQuery**.
-        - **AWS Kinesis Data Firehose** qui lit depuis **AWS Kinesis** pour écrire dans **Redshift**.
-      - Pour **BigQuery** on peut ingérer dans le data warehouse en streaming, mais pour les deux autres, il faudra faire de petits batchs.
+        - <Tool>Azure Stream Analytics</Tool> qui lit depuis <Tool>Azure Event Hubs</Tool> pour écrire dans **Azure SQL Warehouse**.
+        - **Google Cloud Dataflow** qui lit depuis <Tool>Cloud Pub/Sub</Tool> pour écrire dans <Tool>BigQuery</Tool>.
+        - **AWS Kinesis Data Firehose** qui lit depuis <Tool>AWS Kinesis</Tool> pour écrire dans <Tool>Redshift</Tool>.
+      - Pour <Tool>BigQuery</Tool> on peut ingérer dans le data warehouse en streaming, mais pour les deux autres, il faudra faire de petits batchs.
     - 3 - L’autre chose à faire en parallèle c’est d’écrire la donnée **depuis le _fast storage_ vers le _slow storage_**.
       - On peut là aussi utiliser les solutions cloud-natives.
       - Il va falloir écrire la donnée par batchs pour des raisons de performance. Les auteurs recommandent des **batchs de plusieurs centaines de MB** si c’est possible.
-  - **Kafka** (et les solutions cloud-natives similaires) doit faire le commit de son offset, et en général il le fait après avoir traité plusieurs messages pour des raisons de performance;
+  - <Tool>Kafka</Tool> (et les solutions cloud-natives similaires) doit faire le commit de son offset, et en général il le fait après avoir traité plusieurs messages pour des raisons de performance;
     - Ça veut dire que si il y a un crash, les message traités mais non commités seront traités à nouveau. Donc il faut **gérer la duplication**.
     - Un des moyens de le faire c’est d’avoir un identifiant unique par message, et ensuite d’enlever les doublons dans la phase de processing.
-  - **Kafka** a en général une _cleanup policy_ qui est de l’ordre de la semaine, ce qui fait que pour **rejouer de la donnée**, il faut prévoir une étape qui va la chercher dans le _slow storage_, et la remet dans le _fast storage_.
+  - <Tool>Kafka</Tool> a en général une _cleanup policy_ qui est de l’ordre de la semaine, ce qui fait que pour **rejouer de la donnée**, il faut prévoir une étape qui va la chercher dans le _slow storage_, et la remet dans le _fast storage_.
   - Concernant les **metadata techniques à garder** :
     - Les metadata à garder ressemblent à ceux du cas CDC depuis les DBs relationnelles.
     - On mesure le nombre de messages ingérés par fenêtre de temps (dont la taille dépendra du type de données ingérées).
@@ -548,7 +548,7 @@ import { Tool } from "../../components/markers/Tool";
       - Le _full data export_ consiste à obtenir une liste d’objets, puis à aller chercher les données pour chacun d’entre eux.
       - L’_incremental data export_ consiste à obtenir une liste d’objets qui ont changé entre deux timestamps qu’on fournit, pour ensuite aller chercher leurs données récentes uniquement.
     - Le **JSON** reçu est en général **imbriqué sur plusieurs niveaux**.
-      - Certains _data warehouses_ gèrent les données imbriquées, mais ce n’est pas le cas de **Redshift** pour lequel il faudra faire une étape de processing pour mettre ces données à plat.
+      - Certains _data warehouses_ gèrent les données imbriquées, mais ce n’est pas le cas de <Tool>Redshift</Tool> pour lequel il faudra faire une étape de processing pour mettre ces données à plat.
       - De manière générale, mettre les données à plat dans plusieurs tables plus petites est plus pratique pour les data scientists.
   - Etant donné la difficulté à implémenter et maintenir une pipeline ingérant de la donnée de sources SaaS, les auteurs conseillent de **bien réfléchir à l’implémenter soi-même**.
     - S’il s’agit d’une source pas trop compliquée, ça peut passer.
@@ -570,18 +570,18 @@ import { Tool } from "../../components/markers/Tool";
 ## 5 - Organizing and processing data
 
 - Les architectes de l’ancienne école ont encore tendance à recommander de **faire le processing dans le data warehouse**.
-  - Les auteurs du livre suggèrent que la manière moderne est de le faire **sur des machines à part**, par exemple avec **Spark**, qui lirait et écrirait dans le _data lake_.
+  - Les auteurs du livre suggèrent que la manière moderne est de le faire **sur des machines à part**, par exemple avec <Tool>Spark</Tool>, qui lirait et écrirait dans le _data lake_.
   - Les arguments sont les suivants ((1) pour faire le calcul dans le _data warehouse_, et (2) pour utiliser la _layered architecture_) :
     - **Flexibility** : avec la (1) le résultat du processing n’est utilisable que dans le _data warehouse_, avec la (2) on peut facilement le rediriger ailleurs.
-    - **Developer productivity** : il y a plus de personnes qui connaissent le SQL, donc le (1) a un avantage court terme, bien que **Spark** soit plus puissant, il faut souvent former les devs.
+    - **Developer productivity** : il y a plus de personnes qui connaissent le SQL, donc le (1) a un avantage court terme, bien que <Tool>Spark</Tool> soit plus puissant, il faut souvent former les devs.
     - **Data governance** : la source principale étant le _data lake_, faire les transformations au même endroit permet d’être sûr d’avoir toutes les versions alignées. Dans le cas où on fait ça dans le _data warehouse_, il est préférable de ne pas le faire dans le _data lake_ pour ne pas avoir de divergence.
-    - **Cross-platform portability** : changer de cloud vendor est bien plus simple avec **Spark** qu’avec du code SQL qu’il faudra au moins tester.
+    - **Cross-platform portability** : changer de cloud vendor est bien plus simple avec <Tool>Spark</Tool> qu’avec du code SQL qu’il faudra au moins tester.
     - **Performance** : avec la (1) le processing impacte le data warehouse, avec le (2) on fait le calcul complètement à part et on n’impacte personne.
     - **Speed of processing** : avec la (1) on peut faire du _real time analytics_ dans certains cas avec difficulté, avec la (2) ça marche facilement.
     - **Cost** : tous les providers de _data warehouse_ ne le font pas (mais ils vont finir par le faire), mais pour ceux qui font payer le processing ça revient plus cher que de faire le processing sur des machines complètement à part.
     - **Reusability** : avec la (1) on peut parfois utiliser des _stored procedures_, avec la (2) on a du code qu’on peut directement réutiliser.
 - Le processing se décompose en **stages**.
-  - Chaque _stage_ contient : une _area_ de stockage dans le data lake, et un job de calcul distribué (par exemple avec **Spark**), qui va créer la donnée pour l’étape suivante.
+  - Chaque _stage_ contient : une _area_ de stockage dans le data lake, et un job de calcul distribué (par exemple avec <Tool>Spark</Tool>), qui va créer la donnée pour l’étape suivante.
     - Les jobs sont coordonnés par l’_orchestration layer_.
     - Les jobs peuvent être de deux types :
       - **Common** data processing : les transformations communes, par exemple dédupliquer les messages, valider les dates etc.
@@ -594,8 +594,8 @@ import { Tool } from "../../components/markers/Tool";
       - Cette opération n’est effectuée qu’après que la donnée ait pu aller vers la _staging area_ avec succès.
       - On pourra refaire le processing de la donnée simplement en la copiant depuis l’_archive area_ vers la _landing area_.
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d’aller là.
-      - Elle est aussi transformée du format **Avro** vers **Parquet**, qui est plus adapté pour faire de l’analytics.
-      - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation autre que le format **Parquet**, et ensuite la copie dans le _data warehouse_.
+      - Elle est aussi transformée du format **Avro** vers <Tool>Parquet</Tool>, qui est plus adapté pour faire de l’analytics.
+      - **4.1 - Pass-through job** : il s’agit d’un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation autre que le format <Tool>Parquet</Tool>, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
       - **4.2 - Cloud data warehouse and production area** : les use-cases qui ont besoin de la donnée dans le _data warehouse_ passent d’abord par le processing de la _staging area_ vers la _production area_.
     - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu’elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
@@ -618,9 +618,9 @@ import { Tool } from "../../components/markers/Tool";
       - _landing_ représente le nom du container.
     - Exemple : `/landing/my_company/sales_oracle_ingest/customers/01DFTQ028FX89YDFAXREPJTR94/`
   - Pour la _staging area_, de même que pour les autres _areas_, il s’agit de stocker la donnée sur le long terme, donc on aimerait une structure qui fasse apparaître le **temps**, avec 3 folders supplémentaires :
-    - Il s’agit d’ajouter 3 folders supplémentaires qui viennent de la convention de **Hadoop** : `year=YYYY/month=MM/day=DD`.
+    - Il s’agit d’ajouter 3 folders supplémentaires qui viennent de la convention de <Tool>Hadoop</Tool> : `year=YYYY/month=MM/day=DD`.
     - Exemple : `/staging/my_company/sales_oracle_ingest/customers/year=2019/month=07/day=03/01DFTQ028FX89YDFAXREPJTR94/`
-    - De nombreux outils (y compris **Spark**) vont reconnaître ce format, et si notre batchId est un ULID, les folders les plus récents seront présentés en premier.
+    - De nombreux outils (y compris <Tool>Spark</Tool>) vont reconnaître ce format, et si notre batchId est un ULID, les folders les plus récents seront présentés en premier.
   - Pour la _production area_, on ne peut pas vraiment reporter les sources qui ont servi à la donnée dans le folder name - il y en a potentiellement des dizaines.
     - On va donc plutôt créer des **sources dérivées** dont on mettra le nom à la place de la source, et on documentera ces sources dérivées dans le _metadata layer_.
 - La donnée qui arrive en **streaming** :
@@ -633,13 +633,13 @@ import { Tool } from "../../components/markers/Tool";
     - L’approche data lake traditionnelle consiste à laisser les données telles quelles, et laisser chaque pipeline parser elle-même la donnée et faire les traitements dont elle a besoin.
       - Mais cette approche a du mal à scaler.
       - Dans la _cloud data platform architecture_, on choisit de faire certains traitements en amont, pour éviter d’avoir à tester et maintenir du code qui fait ça dans chaque pipeline.
-    - **Avro** et **Parquet** sont des formats binaires intégrant un schéma.
+    - **Avro** et <Tool>Parquet</Tool> sont des formats binaires intégrant un schéma.
       - Ils permettent de ne pas répéter le nom des champs, et donc d’économiser de la place.
       - Ils permettent de garantir le schéma de la donnée.
       - Avro est organisé en blocs de _rows_, alors que Parquet est organisé en blocs de _columns_.
         - Les fichiers organisés en _rows_ sont utiles quand on lit la donnée de toutes les colonnes pour certains _rows_ donnés. La _staging area_ sert principalement à faire des transformations ou de l’exploration ad-hoc, donc **Avro** est adapté.
-        - Les fichiers organisés en _columns_ sont utiles quand on ne veut traiter qu’une _column_ sur un grand nombre de _rows_. La production area sert à faire des requêtes d’analytics, donc **Parquet** est adapté.
-    - Pour la conversion depuis le format initial vers **Avro**, puis vers **Parquet**, **Spark** permet de lire et écrire ces différents formats.
+        - Les fichiers organisés en _columns_ sont utiles quand on ne veut traiter qu’une _column_ sur un grand nombre de _rows_. La production area sert à faire des requêtes d’analytics, donc <Tool>Parquet</Tool> est adapté.
+    - Pour la conversion depuis le format initial vers **Avro**, puis vers <Tool>Parquet</Tool>, <Tool>Spark</Tool> permet de lire et écrire ces différents formats.
       - Exemple :
         ```python
         clicks_df = spark.read.json(in_path)
@@ -648,15 +648,15 @@ import { Tool } from "../../components/markers/Tool";
   - **Data deduplication**.
     - On s’intéresse ici au fait d’avoir un attribut sur notre donnée qui soit unique dans l’ensemble des données.
       - A partir du moment où on n’a pas de garanties d’unicité, on peut se retrouver dans une situation de duplication, par exemple si le _metadata repository_ est corrompu, la source envoie une donnée dupliquée, ou encore un dev rejoue certaines données qui avaient déjà marché.
-      - Le problème existe aussi avec **Kafka**, où des transactions existent si on lit un record et qu’on écrit dans un topic **Kafka**, mais pas si on écrit sur un service de storage.
-    - **Spark** a une fonction intégrée `dropDuplicates()` qui permet de dédupliquer en fonction d’une ou plusieurs colonnes.
+      - Le problème existe aussi avec <Tool>Kafka</Tool>, où des transactions existent si on lit un record et qu’on écrit dans un topic <Tool>Kafka</Tool>, mais pas si on écrit sur un service de storage.
+    - <Tool>Spark</Tool> a une fonction intégrée `dropDuplicates()` qui permet de dédupliquer en fonction d’une ou plusieurs colonnes.
       - On peut dédupliquer sur un batch qui arrive dans la _landing area_ pour pas cher :
         ```python
         users_df = spark.read.format("csv").load(in_path)
         users_deduplicate_df =
           users_df.dropDuplicates(["user_id"])
         ```
-      - Si on veut vraiment dédupliquer sérieusement, il faut aussi joindre l’ensemble des données déjà présentes dans la _staging area_ au batch courant, et appliquer la déduplication dessus, par exemple avec du SQL qu’on passe à **Spark**.
+      - Si on veut vraiment dédupliquer sérieusement, il faut aussi joindre l’ensemble des données déjà présentes dans la _staging area_ au batch courant, et appliquer la déduplication dessus, par exemple avec du SQL qu’on passe à <Tool>Spark</Tool>.
         ```python
         incoming_users_df
           .createOrReplaceTempView("incomgin_users")
@@ -715,17 +715,17 @@ import { Tool } from "../../components/markers/Tool";
       - La _real-time ingestion_ implique moins de nécessité d’orchestration et de monitoring.
       - Pour éviter l’incohérence pour les utilisateurs, il vaut mieux éviter de mixer des données real-time avec des données qui viennent en batch.
       - On n’a en général pas la possibilité d’utiliser le même système pour traiter les données qui arrivent en real-time et les données qui arrivent par batch.
-        - Par exemple **Google Cloud Dataflow** le permet avec l’utilisation de **Beam**, mais la plupart du temps on aura besoin de deux outils.
+        - Par exemple **Google Cloud Dataflow** le permet avec l’utilisation de <Tool>Beam</Tool>, mais la plupart du temps on aura besoin de deux outils.
     - Selon les auteurs, la plupart du temps quand les utilisateurs demandent du “real-time”, ils veulent en fait juste de la _real-time ingestion_.
       - Quand des utilisateurs demandent à pouvoir afficher leur dashboard en “real-time” alors qu’il tourne une fois par jour, bien souvent avoir de la _real-time ingestion_ et faire tourner le processing du rapport toutes les heures ou toutes les 15 minutes leur suffira.
       - Parmi les cas d’usage qui pourraient nécessiter du real-time processing : les systèmes d’action in-game, les systèmes de recommandation, les systèmes de détection de fraude.
     - Transiter une pipeline de la _batch ingestion_ à la real-time ingestion se fait sans trop de difficulté.
       - Transiter du _batch processing_ au _real-time processing_ est bien plus complexe vu qu’il va falloir en général changer d’outils, et donc il faut penser ça en amont.
-- Le **fast storage** est composé d’un système d’**event streaming** du type **Kafka**.
+- Le **fast storage** est composé d’un système d’**event streaming** du type <Tool>Kafka</Tool>.
   - Les messages (qui font entre quelques KB et 1 MB) sont traités un par un, et stockés dans des _topics_. Ils sont identifiables par leur offset.
-  - Les _producers_ écrivent dans les topics, et les _consumers_ lisent depuis les topics. **Kafka** a des mécanismes qui leur permettent de publier et consommer de manière fiable malgré les fautes.
+  - Les _producers_ écrivent dans les topics, et les _consumers_ lisent depuis les topics. <Tool>Kafka</Tool> a des mécanismes qui leur permettent de publier et consommer de manière fiable malgré les fautes.
   - Pour permettre de scaler, le contenu des topics est séparé en _partitions_, qui se trouvent sur des machines différentes, avec des copies pour plus de fiabilité.
-  - Là où lire et écrire dans **S3** mettrait quelques centaines de ms, le faire dans Kafka en prend 10 fois moins, mais surtout **Kafka** tient la charge avec une très grande quantité de petits messages.
+  - Là où lire et écrire dans <Tool>S3</Tool> mettrait quelques centaines de ms, le faire dans Kafka en prend 10 fois moins, mais surtout <Tool>Kafka</Tool> tient la charge avec une très grande quantité de petits messages.
 - De même que pour le _slow storage_ et le _batch processing_, le _fast storage_ est **organisé en areas** qui servent à des stages de processing.
   - Les étapes sont :
     - **1 - Landing area** : l’_ingestion layer_ écrit la donnée dans cet endroit.
@@ -767,7 +767,7 @@ import { Tool } from "../../components/markers/Tool";
   - Concernant le format :
     - JSON ne fournit pas de mécanisme de gestion de schéma, et est plus volumineux. Il peut être compressé, mais ce serait surtout efficace avec plusieurs messages où des noms de champ se répètent par exemple.
     - **Avro** permet de **minimiser la taille du message**, et permet une gestion du schéma avec la possibilité de le stocker dans un store.
-    - **Parquet** **n’apporte aucun avantage** dans un système real-time puisque son but est de permettre de lire de grandes quantités de données pour faire du processing dessus, et qu’on est ici sur du message par message.
+    - <Tool>Parquet</Tool> **n’apporte aucun avantage** dans un système real-time puisque son but est de permettre de lire de grandes quantités de données pour faire du processing dessus, et qu’on est ici sur du message par message.
 - Concernant les **quality checks**, on peut avoir un job qui vérifie la qualité de chaque message avant de le placer dans l’area du stage suivant ou dans la _failed area_.
   - Dans le cas où on a de nombreuses sources gérées par plusieurs équipes, la difficulté va surtout être dans la définition de ce qu’est une donnée avec une qualité suffisante.
   - Nos _quality checks_ peuvent impliquer de vérifier une caractéristique impliquant plusieurs messages, par exemple “pas plus de 10% des commandes avec le statut cancelled”.
@@ -778,9 +778,9 @@ import { Tool } from "../../components/markers/Tool";
   - 2 - Puis ce job combine les deux pour les mettre dans la real-time production area.
   - 3 - Et il continue avec les messages suivants en utilisant le message batch qui est dans sa RAM, jusqu’à ce qu’il y en ait un nouveau.
   - La limitation pourrait être la taille du message batch : s’il ne rentre pas dans la ram des VMs qui font le real-time processing, on peut fallback sur du batch processing.
-- Les **3 cloud vendors principaux** fournissent chacun deux outils pour le real-time processing : un outil de real-time storage type **Kafka**, et un outil qui fait le real-time processing.
+- Les **3 cloud vendors principaux** fournissent chacun deux outils pour le real-time processing : un outil de real-time storage type <Tool>Kafka</Tool>, et un outil qui fait le real-time processing.
   - **AWS**.
-    - **Kinesis Data Streams** est équivalent à **Kafka**.
+    - **Kinesis Data Streams** est équivalent à <Tool>Kafka</Tool>.
       - Il fournit des clients dans 5 langages, dont Node.js.
       - Il a l’équivalent des topics sous le nom de _Data Streams_.
       - Il a l’équivalent des partitions sous le nom de _shard_, et limite la throughput à 1 MB/s par shard.
@@ -792,7 +792,7 @@ import { Tool } from "../../components/markers/Tool";
       - Il fournit aussi une API Java, qui utilise **Apache Flink** et permet plus de flexibilité sur le format des records.
       - Il ne fournit pas de mécanisme de déduplication.
   - **GCP**.
-    - **Cloud Pub/Sub** est un peu différent de **Kafka** et il abstrait plus de choses.
+    - <Tool>Cloud Pub/Sub</Tool> est un peu différent de <Tool>Kafka</Tool> et il abstrait plus de choses.
       - Il fournit des clients dans 7 langages, dont Node.js.
       - Les _topics_ permettent de regrouper les records, mais il n’y a **pas de notion de partition**, ou en tout cas elle est abstraite derrière l’API.
       - Les consumers peuvent faire une _subscription_ à un topic pour consommer les records.
@@ -803,23 +803,23 @@ import { Tool } from "../../components/markers/Tool";
       - Il ne fournit pas d’offsets pour les records, ce qui limite la possibilité de rejouer certains messages particuliers.
         - On peut faire des _snapshots_ pour pouvoir les rejouer, mais ils sont limités à 5000 par projet.
         - On a aussi la possibilité de rejouer par timestamp, mais c’est peu précis.
-    - **Cloud Dataflow** est l’outil de processing real-time.
+    - <Tool>Cloud Dataflow</Tool> est l’outil de processing real-time.
       - Il fournit une API SQL pour créer les jobs, mais c’est limité à des records qui contiendront du JSON.
-      - Il fournit aussi une API Java et Python, qui utilise **Apache Beam** et permet plus de flexibilité sur le format des records.
+      - Il fournit aussi une API Java et Python, qui utilise <Tool>Apache Beam</Tool> et permet plus de flexibilité sur le format des records.
       - Il permet de dédupliquer les messages issus de problèmes techniques, et propose aussi une déduplication des messages par ID, sur une fenêtre de 10 minutes.
   - **Azure**.
-    - **Event Hubs** est équivalent à **Kafka**.
+    - <Tool>Event Hubs</Tool> est équivalent à <Tool>Kafka</Tool>.
       - Il fournit des clients en .NET et Python, mais des versions open source sont disponibles pour d’autres langages.
-      - **Il supporte 3 protocoles pour s’y intégrer** en tant que producer ou consumer : HTTPS, AMQP et **Kafka**. Ça permet de migrer vers Azure sans avoir à tout réécrire.
-      - Il a l’équivalent des topics dans le cas de **Kafka**, ou des hubs dans le cas d’AMQP.
-      - Il a l’équivalent des partitions, qu’il faut définir à l’avance comme pour **Kafka**, et à l’inverse de **Kinesis Data Streams** pour lequel on peut “resharder”.
+      - **Il supporte 3 protocoles pour s’y intégrer** en tant que producer ou consumer : HTTPS, AMQP et <Tool>Kafka</Tool>. Ça permet de migrer vers Azure sans avoir à tout réécrire.
+      - Il a l’équivalent des topics dans le cas de <Tool>Kafka</Tool>, ou des hubs dans le cas d’AMQP.
+      - Il a l’équivalent des partitions, qu’il faut définir à l’avance comme pour <Tool>Kafka</Tool>, et à l’inverse de **Kinesis Data Streams** pour lequel on peut “resharder”.
       - Le throughput est limité à 1 MB/s ou 1000 messages/s par partition.
       - Les records ne peuvent pas dépasser 1 MB.
       - La période de rétention maximale est d’une semaine.
-      - Contrairement à **Kinesis Data Streams** qui stocke les offsets des consumers dans **DynamoDB**, ou à **Kafka** qui le stocke dans un topic interne, **Event Hubs** laisse cette responsabilité aux consumers.
-    - **Azure Stream Analytics** est l’outil de processing real-time.
+      - Contrairement à **Kinesis Data Streams** qui stocke les offsets des consumers dans <Tool>DynamoDB</Tool>, ou à <Tool>Kafka</Tool> qui le stocke dans un topic interne, <Tool>Event Hubs</Tool> laisse cette responsabilité aux consumers.
+    - <Tool>Azure Stream Analytics</Tool> est l’outil de processing real-time.
       - Il ne propose qu’une API SQL, avec des fonctionnalités avancées de type windowing, recherche dans des dictionnaires etc.
-      - Si on veut plus de flexibilité, on peut utiliser **Spark** à travers **Azure Databricks**, mais il s’agira de micro-batching et non pas de vrai streaming.
+      - Si on veut plus de flexibilité, on peut utiliser <Tool>Spark</Tool> à travers <Tool>Azure Databricks</Tool>, mais il s’agira de micro-batching et non pas de vrai streaming.
       - Il ne fournit pas de fonctionnalités de déduplication.
 
 ## 7 - Metadata layer architecture
@@ -960,14 +960,14 @@ import { Tool } from "../../components/markers/Tool";
     - Chaque solution se base sur la précédente en lui ajoutant quelque chose, donc ça devrait être relativement facile de migrer.
 - Parmi les **outils qu’on peut trouver chez les cloud vendors**, qui se rapprochent le plus de ce qu’on recherche avec notre _metadata layer_, il y a :
   - **AWS Glue Data Catalog** stocke des informations à propos des sources et destinations, et des statistiques sur les runs des pipelines, ce qui fait de cet outil le plus proche de ce qu’on recherche.
-    - Le désavantage majeur c’est sa flexibilité : il faut implémenter les pipelines avec **AWS Glue ETL**, ce qui veut dire n’avoir que des _batch jobs_, et qui soient compatibles avec **Glue** (donc pas de source REST par exemple).
+    - Le désavantage majeur c’est sa flexibilité : il faut implémenter les pipelines avec **AWS Glue ETL**, ce qui veut dire n’avoir que des _batch jobs_, et qui soient compatibles avec <Tool>Glue</Tool> (donc pas de source REST par exemple).
   - **Azure Data Catalog** et **Google Cloud Data Catalog** sont plus orientées _business metadata_, et fournissent surtout de la **data discovery** : permettre aux utilisateurs de la donnée de faire une recherche dans une UI pour trouver la table qui les intéresse.
 - Parmi les **outils open source**, qui se rapprochent le plus de ce qu’on recherche avec notre _metadata layer_, il y a :
   - **Apache Atlas** permet de faire de la _data discovery_, mais aussi de gérer la configuration de pipelines de manière **flexible** : on peut utiliser les _Types_ qu’il propose pour créer la configuration des namespaces, des pipelines, sources, destinations etc. avec des liens entre les objets.
-    - Son inconvénient principal est qu’il a été créé pour l’écosystème de **Hadoop**, et possède de nombreuses fonctionnalités qui lui sont dédiées.
+    - Son inconvénient principal est qu’il a été créé pour l’écosystème de <Tool>Hadoop</Tool>, et possède de nombreuses fonctionnalités qui lui sont dédiées.
     - Un autre inconvénient est que c’est un outil open source qui nécessite de faire tourner d’autres outils open sources difficiles à administrer : **HBase** et **Solr**.
   - **DataHub** est similaire à Atlas, dans la mesure où il est suffisamment flexible pour permettre d’implémenter le modèle décrit dans ce chapitre, et permet aussi la data discovery.
-    - Il a aussi l’inconvénient de nécessiter de faire tourner des outils open source difficiles à administrer : **Kafka**, **MySQL**, **Elasticsearch** et **Neo4j**.
+    - Il a aussi l’inconvénient de nécessiter de faire tourner des outils open source difficiles à administrer : <Tool>Kafka</Tool>, <Tool>MySQL</Tool>, **Elasticsearch** et **Neo4j**.
   - **Marquez** permet principalement de mettre à disposition des informations de **data lineage**, c’est-à-dire des informations sur l’origine des données.
     - Il n’est pas assez flexible pour implémenter le modèle présenté dans ce chapitre.
     - Il a l’avantage de ne nécessiter que **PostgreSQL** comme dépendance à faire tourner, et on peut le faire comme service managé.
@@ -996,15 +996,15 @@ import { Tool } from "../../components/markers/Tool";
   - Le module de _schema-management_ va d’abord vérifier si un schéma existe déjà pour cette source.
     - S’il n’existe pas, le module va inférer un schéma depuis les données, puis enregistrer ce schéma dans le _schéma registry_ en tant que V1.
     - S’il existe, le module va récupérer la dernière version depuis le _schema registry_, puis inférer le schéma depuis les données, créer un nouveau schéma compatible avec les deux et l’enregistrer en tant que version actuelle.
-  - **L’inférence de schéma** dont on est en train de parler se base sur **Apache Spark**.
-    - **Spark** est capable d’inférer le schéma de fichiers CSV, JSON, y compris s’il y a plusieurs records dedans.
+  - **L’inférence de schéma** dont on est en train de parler se base sur <Tool>Apache Spark</Tool>.
+    - <Tool>Spark</Tool> est capable d’inférer le schéma de fichiers CSV, JSON, y compris s’il y a plusieurs records dedans.
     - Il utilise un sample de records pour faire l’inférence, par défaut 1000, et ce nombre est configurable.
       - S’il est trop faible on risque d’avoir une inférence faussée qui ne permet pas de parser l’ensemble des données. Et s’il est trop grand on risque d’avoir des problèmes de performance.
       - Pour une table d’une DB relationnelle par exemple, le nombre pourra être bas parce que la schéma est garanti par la DB.
-    - Dans le cas où la donnée est différente entre deux records, **Spark** essayera de trouver un type qui englobe les deux. Par exemple, un nombre et un string vont donner un string.
+    - Dans le cas où la donnée est différente entre deux records, <Tool>Spark</Tool> essayera de trouver un type qui englobe les deux. Par exemple, un nombre et un string vont donner un string.
     - Dans le cas où un type commun n’est pas possible, les données minoritaires seront placées dans le champ `_corrupt_record`.
-    - Le schéma inféré par **Spark** va d’abord être converti en schéma **Avro** avant d’être mis dans le _schema registry_.
-    - Si on utilise un outil qui ne supporte pas l’inférence de schéma, comme par exemple **Google Cloud Dataflow** basé sur **Apache Beam**, alors il faudra gérer les schémas à la main.
+    - Le schéma inféré par <Tool>Spark</Tool> va d’abord être converti en schéma **Avro** avant d’être mis dans le _schema registry_.
+    - Si on utilise un outil qui ne supporte pas l’inférence de schéma, comme par exemple **Google Cloud Dataflow** basé sur <Tool>Apache Beam</Tool>, alors il faudra gérer les schémas à la main.
   - Dans le cas d’une **real-time pipeline**, on ne peut pas utiliser l’inférence à cause du problème de performance et de la quantité de schémas qui seraient générés.
     - Dans ce cas, les auteurs conseillent de **laisser les développeurs qui génèrent les données de streaming maintenir le schéma**.
   - Pour pouvoir avoir du **monitoring** sur les changements de schémas, le module de _schema-management_ peut créer un log dans la partie _Pipeline Activities_ du _metadata layer_ à chaque fois qu’il trouve des données avec un schéma qui a changé.
@@ -1013,16 +1013,16 @@ import { Tool } from "../../components/markers/Tool";
 - Côté **implémentation** du _schema registry_ :
   - **Apache Avro** est l’option conseillée par les auteurs pour servir de format de base pour l’ensemble des données de la _data platform_.
     - Son schéma peut être écrit et maintenu à la main.
-    - **Spark** peut aussi transformer son schéma inféré en schéma **Avro** automatiquement.
+    - <Tool>Spark</Tool> peut aussi transformer son schéma inféré en schéma **Avro** automatiquement.
     - Ces schémas peuvent être représentés par du simple JSON, et donc n’importe quelle DB qui supporte ça peut les héberger.
     - **Avro** a un très bon système de gestion des versions des schémas.
   - Les **solutions cloud-natives** de type _data catalog_ permettent d'implémenter un _schema registry_, mais ont des limitations.
     - La plupart sont surtout orientés data discovery, et manquent de fonctionnalités concernant la gestion des versions des schémas et le support d’**Avro**.
-    - **Confluent Schema Registry** offre les fonctionnalités de gestion de version des schémas et un bon support d’**Avro**, mais il nécessite d’utiliser **Kafka**, ou un outil compatible avec **Kafka**.
-      - Donc si on utilise par exemple **Kinesis**, ou bien si on ne fait pas de real-time, on ne pourra pas utiliser leur _schema registry_.
+    - <Tool>Confluent Schema Registry</Tool> offre les fonctionnalités de gestion de version des schémas et un bon support d’**Avro**, mais il nécessite d’utiliser <Tool>Kafka</Tool>, ou un outil compatible avec <Tool>Kafka</Tool>.
+      - Donc si on utilise par exemple <Tool>Kinesis</Tool>, ou bien si on ne fait pas de real-time, on ne pourra pas utiliser leur _schema registry_.
   - La **solution maison** proposée par les auteurs consiste à avoir soit une DB, soit une API avec une DB derrière.
     - Le solution pure texte stockée dans le gestionnaire de version, similaire au reste de la configuration du metadata layer, ne peut pas marcher pour le _schema registry_ parce qu’il faut pouvoir le mettre à jour automatiquement.
-    - Comme DB, on peut utiliser les mêmes **Cosmos DB**, **Datastore** et **DynamoDB**.
+    - Comme DB, on peut utiliser les mêmes <Tool>Cosmos DB</Tool>, **Datastore** et <Tool>DynamoDB</Tool>.
     - La structure des objets de schéma sera :
       - _ID_
       - _Version_ : l’_ID_ et la _Version_ forment ensemble une clé unique. L’_ID_ en elle-même n’est donc pas unique pour éviter d’avoir à mettre à jour en permanence les configurations des sources et destinations.
@@ -1050,12 +1050,12 @@ import { Tool } from "../../components/markers/Tool";
   - On ne peut pas non plus appliquer les mêmes règles qu’avec les transformations de schémas entre fichiers : dans le cas de suppression d’une colonne (ou de renommage, qui implique une suppression de fait), on va **garder l’ancienne colonne** quand même pour garder la donnée historique.
     - Parfois, quand les données ne sont pas trop grosses, il pourra être préférable de supprimer la colonne et de la recréer avec les données historiques et les nouvelles données dedans.
   - Côté **data warehouses des cloud vendors** :
-    - **AWS Redshift** et **Azure Synapse** ont une approche similaire :
+    - <Tool>AWS Redshift</Tool> et <Tool>Azure Synapse</Tool> ont une approche similaire :
       - Ils sont ancrés dans le monde du relationnel, et nécessitent la définition du schéma avant de charger de la donnée.
       - Ils supportent `ALTER TABLE` pour faire des changements sur les tables.
-      - **Redshift** supporte **Avro** mais sans inférence à partir du schéma, alors que **Synapse** supporte seulement **CSV**, **ORC** et **Parquet**.
-    - **Google BigQuery** a une approche moins relationnelle, et permet d’inférer le schéma à partir de la donnée qu’on lui donne.
-      - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour **Avro**, **JSON** et **Parquet**.
+      - <Tool>Redshift</Tool> supporte **Avro** mais sans inférence à partir du schéma, alors que **Synapse** supporte seulement **CSV**, **ORC** et <Tool>Parquet</Tool>.
+    - <Tool>Google BigQuery</Tool> a une approche moins relationnelle, et permet d’inférer le schéma à partir de la donnée qu’on lui donne.
+      - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour **Avro**, **JSON** et <Tool>Parquet</Tool>.
       - En revanche, il ne permet pas de modifier les tables après coup, sauf en ajoutant ou supprimant des colonnes, ce qui peut prendre du temps et coûter cher.
 
 ## 9 - Data access and security
@@ -1064,7 +1064,7 @@ import { Tool } from "../../components/markers/Tool";
   - 1 - Il y a les **utilisateurs humains** qui utilisent en général des outils BI ou veulent exécuter des requêtes SQL. Et il y a les data scientists qui veulent accéder à la _raw data_.
   - 2 - Et il y a les **applications** qui utilisent la donnée par exemple pour des applications ML de recommandation ou de prédiction. Le _data warehouse_ ne suffit pas pour ces cas d’usage.
 - Le **data warehouse** reste quand même l’outil le plus commun pour accéder à la donnée d’analytics, du fait de la compatibilité avec les outils BI et du support du SQL.
-  - **AWS Redshift**.
+  - <Tool>AWS Redshift</Tool>.
     - Il s’agit d’un data warehouse **distributé**, c’est-à-dire qu’il répartit la donnée sur plusieurs machines.
       - Un nœud _leader_ reçoit les requêtes et répartit le travail à faire et les données sur les autres nœuds.
       - Les autres nœuds eux-mêmes sont subdivisés en _slices_. Ces slices peuvent être déplacés de nœud en nœud, pour équilibrer la capacité par du _rebalancing_.
@@ -1076,15 +1076,15 @@ import { Tool } from "../../components/markers/Tool";
     - Il est basé sur PostgreSQL et présente les caractéristiques des DB relationnelles.
       - Il ne supporte que les types “primitifs”, c’est-à-dire pas les tableaux ou les objets imbriqués. Il est donc peu adapté à de la donnée JSON, avec laquelle les optimisations d’encodage ou de distribution dans les nœuds par clé ne pourront pas servir.
     - On peut optimiser la taille des données en choisissant le type d’encodage pour les colonnes : par exemple dans le cas où une colonne peut avoir seulement quelques valeurs possibles, l’encodage _byte-dictionary_ permet de limiter la taille de ces données.
-    - Il possède une fonctionnalité appelée **Spectrum**, qui permet de créer une table dans **Redshift**, dont les données sont sur **S3**.
+    - Il possède une fonctionnalité appelée **Spectrum**, qui permet de créer une table dans <Tool>Redshift</Tool>, dont les données sont sur <Tool>S3</Tool>.
       - Ca permet d’éviter d’utiliser des ressources CPU et de l’espace sur le data warehouse, pour des données qu’on veut juste explorer par exemple.
-      - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds **Redshift**.
+      - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds <Tool>Redshift</Tool>.
       - Les auteurs recommandent de créer une DB dédiée sur Redshift pour regrouper ces tables qui pointent vers ailleurs.
-  - **Azure Synapse**.
-    - C’est une DB distribuée comme **Redshift**, avec un _control node_ principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
+  - <Tool>Azure Synapse</Tool>.
+    - C’est une DB distribuée comme <Tool>Redshift</Tool>, avec un _control node_ principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
       - Il y a une **séparation storage / compute**. Les données sont séparées en 60 distributions, et sont associées à des _compute nodes_.
       - Il n’est pas complètement élastique, puisque pour redimensionner le cluster, il faut tout arrêter, et ça peut prendre du temps.
-      - Les tables peuvent être configurées pour la répartition de leurs données, de la même manière que **Redshift**.
+      - Les tables peuvent être configurées pour la répartition de leurs données, de la même manière que <Tool>Redshift</Tool>.
         - _REPLICATE_ : l’équivalent de _ALL_, c’est-à-dire copier sur chaque nœud.
         - _ROUND ROBIN_ : l’équivalent de _EVEN_, c’est-à-dire répartir entre les nœuds.
         - _HASH_ : l’équivalent de _KEY_, c’est-à-dire spécifier une colonne dont les valeurs permettront de répartir les données.
@@ -1092,10 +1092,10 @@ import { Tool } from "../../components/markers/Tool";
       - Il supporte seulement les types primitifs, et fournit des fonctions de parsing pour JSON, mais au prix de nombreuses optimisations perdues.
     - Il a une fonctionnalité similaire à **Spectrum**, configurable par la notion de **pools**.
       - _SQL pool_ représente l’utilisation normale du _data warehouse_.
-      - _SQL on-demand pool_ permet de faire des requêtes sur des données sur **Azur Blob Storage** au format **Parquet**, CSV ou JSON.
-      - _Spark pool_ permet de faire des requêtes avec **Spark**, sur des données qui sont dans **Azur Blob Storage**. Ils permettent l’auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
-  - **Google BigQuery**.
-    - **BigQuery** est un **peu plus “managé”** que les deux autres, dans la mesure où il n’y a pas de besoin de planifier la capacité dont on aura besoin à l’avance.
+      - _SQL on-demand pool_ permet de faire des requêtes sur des données sur **Azur Blob Storage** au format <Tool>Parquet</Tool>, CSV ou JSON.
+      - _Spark pool_ permet de faire des requêtes avec <Tool>Spark</Tool>, sur des données qui sont dans **Azur Blob Storage**. Ils permettent l’auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
+  - <Tool>Google BigQuery</Tool>.
+    - <Tool>BigQuery</Tool> est un **peu plus “managé”** que les deux autres, dans la mesure où il n’y a pas de besoin de planifier la capacité dont on aura besoin à l’avance.
       - La puissance de calcul est “provisionnée” **à chaque requête**, grâce à des groupes de dizaines de milliers de nœuds qui tournent en permanence dans l’infra de Google.
       - Comme il est plus managé, on peut aussi moins facilement contrôler la manière dont les données d’une table sont réparties au sein des nœuds.
         - On a quand même la notion de _partitioning_ qui permet de répartir les données selon les valeurs d’une colonne.
@@ -1103,7 +1103,7 @@ import { Tool } from "../../components/markers/Tool";
       - Le pricing se fait aussi sur la quantité de données traitée, ce qui peut être avantageux quand on a de petits besoins, mais rend les coûts difficilement prédictibles.
     - Les nœuds de calcul sont sur des machines différentes des nœuds de stockage : on n’a **pas de _data locality_**.
       - C’est moins rapide que si la donnée était locale, mais ça évite d’avoir à recopier la donnée à chaque rebalancing. La donnée est accédée via le réseau local de Google qui est suffisamment performant pour que ça passe.
-    - **BigQuery** vient initialement plutôt d’un système permettant de traiter des fichiers de log, et non pas un système relationnel comme les deux autres.
+    - <Tool>BigQuery</Tool> vient initialement plutôt d’un système permettant de traiter des fichiers de log, et non pas un système relationnel comme les deux autres.
       - Il a un **support natif des structures imbriquées**, et peut traiter le JSON comme une structure et pas juste du texte, avec la possibilité d’appliquer des traitements sur les attributs.
       - Il est du coup moins facilement compatible avec les outils BI, il faudra passer par une API REST.
   - Les grandes organisations peuvent tirer parti de l'utilisation de **plusieurs cloud providers**, mais pour les petites le **coût opérationnel** n’en vaut pas la peine. Le choix du data warehouse dépendra donc en général du choix du cloud provider pour le reste de l’infra.
@@ -1114,19 +1114,19 @@ import { Tool } from "../../components/markers/Tool";
     - Si l'application est compromise, l’ensemble du contenu du data warehouse pourrait fuiter, alors que si l’application a seulement accès à une DB qui a ce dont elle a besoin, on aura une meilleure **sécurité**.
   - **1 - Cloud relational databases**.
     - Chaque cloud provider a ses services de DBs managées, qui tiennent sans problèmes jusqu’à 1 TB. Au-delà de ça, ou si on a besoin de situer les machines géographiquement, il faut une DB distribuée.
-    - AWS propose **Relational Database** Service (RDS) pour **PostgreSQL**, **MySQL**, **MariaDB**, **Oracle** et **SQL Server**.
-      - Il propose **Aurora** comme DB distribuée, compatible avec **MySQL** et **PostgreSQL**.
-    - GCP propose **Google Cloud SQL**, qui supporte **MySQL**, **PostgreSQL** et **SQL Server**.
+    - AWS propose **Relational Database** Service (RDS) pour **PostgreSQL**, <Tool>MySQL</Tool>, **MariaDB**, **Oracle** et **SQL Server**.
+      - Il propose **Aurora** comme DB distribuée, compatible avec <Tool>MySQL</Tool> et **PostgreSQL**.
+    - GCP propose **Google Cloud SQL**, qui supporte <Tool>MySQL</Tool>, **PostgreSQL** et **SQL Server**.
       - Il propose **Google Cloud Spanner** pour la version distribuée.
-    - Azure propose **Azure SQL Database**, qui supporte **MySQL**, **PostgreSQL** et **SQL Server**.
+    - Azure propose **Azure SQL Database**, qui supporte <Tool>MySQL</Tool>, **PostgreSQL** et **SQL Server**.
       - Il propose **HyperScale** pour la version distribuée, disponible seulement pour **SQL Server**.
   - **2 - Cloud key / value data stores**.
     - Les services key/value offrent une faible latence pour insérer et retrouver des valeurs par leur clé.
       - Ils sont souvent utilisés par les nouveaux projets pour pouvoir itérer vite sans avoir de migration à faire.
     - Les cloud providers proposent soit une version _pay per use_ plus avantageuse en cas de faible utilisation, et une version _pay per provisioned capacity_ plus avantageuse en cas de grosse utilisation.
-    - AWS propose **DynamoDB**, qui reste performant quel que soit le scale, et offre les deux types de facturation.
-    - GCP propose **Datastore** qui est similaire à **DynamoDB** et qui propose du _pay per use_, et **Cloud Bigtable** qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
-      - **Cloud Bigtable** est d’ailleurs compatible avec HBase.
+    - AWS propose <Tool>DynamoDB</Tool>, qui reste performant quel que soit le scale, et offre les deux types de facturation.
+    - GCP propose **Datastore** qui est similaire à <Tool>DynamoDB</Tool> et qui propose du _pay per use_, et <Tool>Cloud Bigtable</Tool> qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
+      - <Tool>Cloud Bigtable</Tool> est d’ailleurs compatible avec HBase.
     - Azure propose **CosmosDB**, qui a la particularité de supporter les API clientes de **MongoDB**, **Cassandra**, SQL et de graph API, ce qui rend le portage depuis ces technos facile.
   - **3 - Full-text search services**.
     - Dans le cas où la fonctionnalité de notre application est de permettre une recherche dans la donnée, il existe **Solr** et **Elasticsearch**, tous deux basés sur **Lucene**.
@@ -1150,8 +1150,8 @@ import { Tool } from "../../components/markers/Tool";
     - Chacun des cloud vendors fournit un service de ML permettant de gérer un projet ML de bout en bout, et de mieux collaborer entre data scientists : **SageMaker** chez AWS, **AI Platform** chez GCP, et **Azure ML** chez Azure.
 - La **business intelligence** et le **reporting** sont en général le premier usage de la donnée de type analytics.
   - Ces outils nécessitent souvent que la donnée soit **relationnelle**, c'est-à-dire que chaque donnée soit dans sa colonne avec la table “à plat” reliée à d’autres tables par des clés étrangères, plutôt que d’avoir des données imbriquées comme dans du JSON.
-    - **BigQuery** commence à être supporté par des outils comme **Tableau**, mais tous ne le supportent pas correctement.
-  - Bien que de nombreux outils BI supportent **Spark SQL**, et pourraient se **brancher directement sur le _data lake_**, **les auteurs le déconseillent** parce que ça rendrait l’interface de ces outils peu interactive et lente. Se brancher sur le _data warehouse_ est bien plus adapté pour cette raison.
+    - <Tool>BigQuery</Tool> commence à être supporté par des outils comme <Tool>Tableau</Tool>, mais tous ne le supportent pas correctement.
+  - Bien que de nombreux outils BI supportent <Tool>Spark SQL</Tool>, et pourraient se **brancher directement sur le _data lake_**, **les auteurs le déconseillent** parce que ça rendrait l’interface de ces outils peu interactive et lente. Se brancher sur le _data warehouse_ est bien plus adapté pour cette raison.
   - **Excel** peut se brancher sur le _data warehouse_ grâce à son API JDBC/ODBC, mais c’est un outil qui tourne sur une machine locale, donc il sera limité sur la quantité de données, et télécharger les données sur sa machine locale pose des problèmes de performance.
   - On voit souvent des **outils externes**, par exemple chez d’autres cloud providers, accéder à la donnée de la _cloud data platform_.
     - Il faut faire attention aux **coûts de sortie des données** (_data egress costs_), que chaque cloud provider applique.
