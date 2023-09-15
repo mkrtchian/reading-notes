@@ -137,18 +137,18 @@ import { Tool } from "../../components/markers/Tool";
 
 - Il existe un trade off entre choisir des **services vendor-specific** de type PaaS, et choisir des **services open source**.
   - D’un côté on se couple au vendor mais on minimise les coûts d’Ops, et de l’autre on permet une meilleure portabilité mais on augmente les coûts d’Ops.
-  - Les auteurs trouvent que la solution vendor-specific est celle qui a en général le moins de désavantages.
+  - Les auteurs trouvent que **la solution vendor-specific est celle qui a en général le moins de désavantages**.
 - Pour répondre aux problématiques de la data moderne, il faut une **architecture en 6 couches**.
   - **1 - Data ingestion layer**.
     - Son but est de :
-      - Se connecter aux sources et récupérer la donnée dans le data lake sans trop la modifier.
+      - Se connecter aux sources et récupérer la donnée dans le _data lake_ sans trop la modifier.
       - Enregistrer des statistiques et un statut dans le _metadata repository_.
     - Selon les auteurs, il vaut mieux mettre en place **à la fois un mécanisme de type batch et un mécanisme de type streaming**.
       - L'industrie est en train de se diriger vers le streaming, mais de nombreuses sources externes fournissent la donnée sous un format de type batch avec des éléments groupés, par exemple CSV, JSON, XML.
       - On pourrait utiliser la partie batch pour ingérer des données par petits batchs, et éviter de faire la version streaming. Mais ça créerait de la **dette technique** parce qu’on finira par avoir besoin du streaming à un moment ou un autre.
       - La _lambda architecture_ consiste à avoir la donnée qui passe à la fois par le mécanisme de batch et par le mécanisme de streaming.
-        - Cette duplication était nécessaire parce que le streaming n’était pas fiable dans les débuts de Hadoop, mais ce n’est plus le cas.
-        - Le _cloud data platform_ ne consiste pas à faire une telle duplication : selon la source, la donnée va passer par le mécanisme de streaming ou de batch.
+        - Cette duplication était nécessaire parce que le streaming n’était pas fiable dans les débuts de **Hadoop**, mais ce n’est plus le cas.
+        - La _cloud data platform_ ne consiste pas à faire une telle duplication : selon la source, la donnée va passer par le mécanisme de streaming ou de batch.
     - On entend parfois plusieurs choses différentes quand on parle de _real time_ pour des analytics :
       - 1 - La _real time ingestion_ consiste à avoir la donnée disponible pour de l’analyse dès qu’elle arrive.
       - 2 - Le _real time analytics_ consiste à avoir des fonctionnalités d’analytics qui se mettent à jour à chaque arrivée de donnée.
@@ -176,8 +176,8 @@ import { Tool } from "../../components/markers/Tool";
     - Son but est de :
       - Stocker des informations techniques sur chaque layer.
         - Ça peut être les schémas d’ingestion, le statut de telle ou telle étape, des statistiques sur les données ou les erreurs, etc.
-      - Permettre à chaque d’ajouter/modifier ou consulter des informations.
-    - Par exemple, le processing layer peut vérifier dans la _technical metadata layer_ qu’une certaine donnée est disponible pour aller la chercher, plutôt que de demander à l’ingestion layer.
+      - Permettre à chaque layer d’ajouter/modifier ou consulter des informations.
+    - Par exemple, le _processing layer_ peut vérifier dans la _technical metadata layer_ qu’une certaine donnée est disponible pour aller la chercher, plutôt que de demander à l’_ingestion layer_.
       - Ce qui permet un certain **découplage**.
     - D’autres exemples peuvent impliquer des usages de **monitoring**.
     - La _business metadata_ est une autre notion qui peut avoir son layer, mais qui n’est pas explorée dans ce livre.
@@ -234,7 +234,7 @@ import { Tool } from "../../components/markers/Tool";
     - Si aucune des solutions PaaS ne supporte notre data source, on peut utiliser la solution serverless **AWS Lambda** où il faudra écrire et maintenir du code.
   - Streaming ingestion.
     - **AWS Kinesis** est un message broker pour lequel il faudra écrire du code pour publier dedans. Il a malheureusement très peu de connecteurs entrants.
-      - En revanche il a des connecteurs sortants appelés **Kinesis Firehose**, qui permettent par exemple d’envoyer la donnée de Kinesis dans un **S3** sous format Parquet.
+      - En revanche il a des connecteurs sortants appelés **Kinesis Firehose**, qui permettent par exemple d’envoyer la donnée de Kinesis dans un **S3** sous format **Parquet**.
     - **AWS Managed Streaming for Apache Kafka (MSK)** est une version de **Kafka** entièrement managée.
       - On peut l’utiliser à la place de **Kinesis**, par exemple si on migre une application avec **Kafka** vers AWS.
   - Storage.
@@ -246,9 +246,9 @@ import { Tool } from "../../components/markers/Tool";
     - **AWS Kinesis Data Analytics** permet de se brancher sur **Kinesis**, et de faire du processing en streaming.
     - Si on utilise **AWS MSK**, on peut brancher dessus **Kafka Streams** pour le processing en streaming.
   - Data warehouse.
-    - **AWS Redshift** est un data warehouse distributé sur plusieurs noeuds.
+    - **AWS Redshift** est un _data warehouse_ distributé sur plusieurs noeuds.
       - **Redshift Spectrum** permet de faire des requêtes depuis **Redshift** pour obtenir des données qui sont en fait sur **S3**.
-        - Il faudra définir des “tables externes”, et la performance de la query sera moins bonne, mais ça permet d’économiser de la place dans le data warehouse.
+        - Il faudra définir des “tables externes”, et la performance de la query sera moins bonne, mais ça permet d’économiser de la place dans le _data warehouse_.
   - Direct access.
     - **AWS Athena** permet de faire une requête SQL distribuée en utilisant directement la donnée sur **S3**.
       - On lance l’instance le temps de la requête, puis on détruit l’instance.
@@ -268,7 +268,7 @@ import { Tool } from "../../components/markers/Tool";
     - **Cloud Data Fusion** est un ETL overlay qui permet d’ingérer des données depuis une DB relationnelle avec JDBC, des fichiers depuis **Google Cloud Storage**, et même depuis un FTP ou depuis **AWS S3**.
       - Il est basé sur un projet open source, et donc supporte des connecteurs custom.
     - **BigQuery Data Transfer Service** permet d’ingérer de la donnée depuis les services SaaS de Google, et depuis des centaines d’autres services SaaS connus grâce à un partenariat avec Fivetran.
-      - Par contre, la donnée va directement dans le data warehouse, ce qui ne permet pas vraiment l’architecture modulaire qu’on vise.
+      - Par contre, la donnée va directement dans le _data warehouse_, ce qui ne permet pas vraiment l’architecture modulaire qu’on vise.
     - **Cloud Functions** représente l’équivalent d’**AWS Lambda**, avec le désavantage d’avoir une limite de temps d’exécution des fonctions serverless.
   - Stream ingrestion.
     - **Cloud Pub/Sub** est un broker équivalent à **AWS Kinesis**.
@@ -279,7 +279,7 @@ import { Tool } from "../../components/markers/Tool";
     - **Cloud Dataflow** est un **Apache Beam** managé.
       - **Beam** a l’avantage d’offrir une même API pour le batch processing et le streaming processing, là où **Spark** ne supporte que le batch mais est une techno plus mature.
   - Streaming processing.
-    - **Cloud Dataflow** représente la manière clou-native de faire du streaming sur GCP.
+    - **Cloud Dataflow** représente la manière cloud-native de faire du streaming sur GCP.
     - **Dataproc** avec **Spark Streaming** peut représenter une alternative, mais il s’agit en fait de micro-batch et non pas de traiter les messages un par un.
       - Les auteurs conseillent **Beam**, sauf si on a déjà investi en temps ou connaissances sur **Spark**.
   - Data warehouse.
@@ -317,7 +317,7 @@ import { Tool } from "../../components/markers/Tool";
     - Pour le batch processing, Azure a choisi de miser sur un partenariat avec **Databricks**, qui est un service créé par les créateurs de **Spark**.
       - La version managée de **Databricks** est disponible sur AWS et Azure, mais elle est celle par défaut sur Azure, donc mieux supportée par son écosystème.
   - Streaming processing.
-    - Azure Stream Analytics se branche sur Event Hubs et permet de faire du streaming processing.
+    - **Azure Stream Analytics** se branche sur **Event Hubs** et permet de faire du streaming processing.
   - Data warehouse.
     - **Azure Synapse** est le _data warehouse_ d’Azure.
       - Il est entre **AWS Redshift** et **Google BigQuery** dans la mesure où il nécessite de choisir la capacité de calcul, mais il scale l’espace disque tout seul.
@@ -328,10 +328,10 @@ import { Tool } from "../../components/markers/Tool";
       - Il s’intègre parfaitement avec **Databricks** pour les transformations complexes.
       - Il fournit des métriques sur la data pipeline.
   - Orchestration.
-    - La partie orchestration des jobs est prise en charge par Azure Data Factory.
+    - La partie orchestration des jobs est prise en charge par **Azure Data Factory**.
   - Consumers.
     - **Azure Synapse** fournit une connexion JDBC/ODBC pour connecter les outils de BI.
-      - **Azure Databricks** fournit la même chose, mais il faut un cluster Spark toujours allumé, ce qui peut coûter cher.
+      - **Azure Databricks** fournit la même chose, mais il faut un cluster **Spark** toujours allumé, ce qui peut coûter cher.
     - **Cosmos DB** est une DB orientée document où on peut stocker les résultats de processings pour un accès faible latence.
 - Alternatives **commerciales** ou **open source**.
   - Certains logiciels open source sont trop difficiles à mettre en place, par exemple un _data warehouse_ distribué comme **Apache Druid**.
@@ -339,7 +339,7 @@ import { Tool } from "../../components/markers/Tool";
     - Il existe pas mal d’outils open source et commerciaux qui permettent d’ingérer des données, leur valeur ajoutée étant en général le grand nombre de sources supportées.
     - **Apachi NiFi** est une solution open source qui supporte de nombreuses sources, et permet d’en ajouter soi-même en Java.
     - Il existe de nombreux outils SaaS commerciaux qui gèrent l’ingestion.
-      - Ces outils vont souvent envoyer la donnée directement dans un data warehouse.
+      - Ces outils vont souvent envoyer la donnée directement dans un _data warehouse_.
       - Il faut bien réfléchir à la problématique de la sécurité.
   - Streaming ingestion.
     - **Apache Kafka** est le principal outil utilisé en dehors d’une solution managée de streaming.
