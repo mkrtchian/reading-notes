@@ -77,21 +77,21 @@ import { Tool } from "../../components/markers/Tool";
 - Ce chapitre donne des **arguments pour le choix d’une _cloud data platform_, plutôt qu’une simple _data warehouse_**.
 - On implémente les deux solutions pour une situation d’**exemple** qu’on va utiliser dans ce chapitre :
   - Nous sommes l’équipe data, et le département marketing a besoin que nous récupérions deux sources de données et qu’on les corrèle régulièrement.
-    - L’une des sources est une table de campagnes de marketing, issue d’une DB MySQL interne.
+    - L’une des sources est une table de campagnes de marketing, issue d’une DB **MySQL** interne.
     - Et l’autre est constituée de fichiers CSV de clics utilisateurs, issus de logs applicatifs (et donc _semistructured_).
   - On part sur Microsoft Azure pour les deux solutions.
   - Concernant l’implémentation _data warehouse only_ :
-    - 1 - On va utiliser deux **Azure Data Factory** pour récupérer la donnée dans le serveur de DB et dans les fichiers CSV dans le serveur SFTP. C’est notre _ingest layer_.
-    - 2 - Ensuite on redirige ça vers l’**Azure Synapse**, qui est la data warehouse de chez Azure. Elle va faire office de _store layer_, _process layer_ et _serve layer_.
+    - 1 - On va utiliser deux **Azure Data Factory** pour récupérer la donnée dans le serveur de DB et les fichiers CSV dans le serveur SFTP. C’est notre _ingest layer_.
+    - 2 - Ensuite on redirige ça vers l’**Azure Synapse**, qui est la _data warehouse_ de chez Azure. Elle va faire office de _store layer_, _process layer_ et _serve layer_.
   - Concernant l’implémentation _cloud data platform_ :
     - 1 - On a notre _ingest layer_ avec **Azure Data Factory**, qui redirige les données vers le _store layer_.
     - 2 - Le _store layer_ est implémenté avec **Azure Blob Storage**. Il s’agit d’un stockage de type _data lake_.
     - 3 - On a un _process layer_ qui utilise **Azure Databricks**, et qui fait tourner **Spark**.
-    - 4 - Le _serve layer_ utilise enfin **Azure Synapse** qui est le data warehouse.
+    - 4 - Le _serve layer_ enfin utilise **Azure Synapse** qui est le _data warehouse_.
 - Concernant l’**ingestion**.
   - Pour la version _data warehouse only_ :
     - La pipeline contient :
-      - Des _linked services_ : ici la _data source_ MySQL en entrée, et la _data sink_ **Azure Synapse** en sortie.
+      - Des _linked services_ : ici la _data source_ **MySQL** en entrée, et la _data sink_ **Azure Synapse** en sortie.
       - Des _data sets_ : il s’agit de la description du schéma de données d’entrée et de sortie, et leur mapping.
     - Si le schéma de la DB source change, il faudra mettre à jour le schéma défini dans la pipeline et le mapping.
       - Mais surtout il faudra **gérer soi-même la migration** du _data sink_.
@@ -103,14 +103,14 @@ import { Tool } from "../../components/markers/Tool";
 - Concernant le **processing**.
   - Dans la version _data warehouse only_ :
     - On va charger les deux données :
-      - La DB MySQL sans charger sa structure parce qu’elle est déjà relationnelle.
+      - La DB **MySQL** sans charger sa structure parce qu’elle est déjà relationnelle.
       - La donnée CSV semistructurée dans des rows de type texte qu’on parsera en JSON avec une fonction SQL built-in.
     - La **requête SQL** qu’on va écrire aura les désavantages suivants :
       - Elle sera **peu lisible**, à cause du code de parsing nécessaire.
         - On pourrait la rendre plus lisible en pré-parsant la donnée, mais ça veut dire plus de temps et des coûts plus élevés.
         - Une autre solution de lisibilité pourrait être d’ajouter des UDF (User Defined Functions), qu’il faudrait maintenir et déployer sur chaque instance d’**Azure Synapse**.
       - Elle sera **difficile à tester**.
-      - Elle risque de ne pas profiter de la **performance** offerte par la structure en colonne du data warehouse, parce que les données texte qu’on parse en JSON ne sont pas organisables physiquement en colonnes.
+      - Elle risque de ne pas profiter de la **performance** offerte par la structure en colonne du _data warehouse_, parce que les données texte qu’on parse en JSON ne sont pas organisables physiquement en colonnes.
   - Dans la version _cloud data platform_ :
     - On a la possibilité d’utiliser un _distributed data processing engine_ comme **Apache Spark**.
       - On pourra écrire des requêtes SQL pour des expérimentations rapides.
