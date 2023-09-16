@@ -355,8 +355,8 @@ import { Tool } from "../../components/markers/Tool";
   - **1 - Les bases de données relationnelles**.
     - Leurs données sont organisées en colonnes et typées, mais chaque vendor a des types à lui.
       - Il y a donc un **mapping** à faire entre le type de chaque colonne et notre modèle.
-      - Ce mapping va changer régulièrement en fonction des évolutions fonctionnelles des applications qui utilisent cette DB.
-    - Vu que la donnée est normalisée, elle se trouve dans des centaines de tables qu’on peut joindre au moment des queries.
+      - Ce mapping va changer régulièrement en fonction des évolutions fonctionnelles des applications qui possèdent ces DBs.
+    - Vu que la donnée est normalisée, elle se trouve dans des centaines de tables.
       - Il faudra donc **automatiser le mapping** pour éviter de le faire à la main.
     - La donnée change régulièrement dans la DB, pour refléter l’état de l’application, elle est **volatile**.
       - Il faudra donc aller chercher régulièrement les derniers changements.
@@ -519,7 +519,7 @@ import { Tool } from "../../components/markers/Tool";
   - Il s’agit ici de lire de la donnée disponible dans Kafka, ou encore dans un équivalent cloud-native.
   - On parle ici seulement d’**ingestion en mode streaming**, c’est-à-dire que la donnée est disponible dans la plateforme dès que possible, mais elle sera exploitée plus tard.
   - Les étapes à mettre en place sont :
-    - 1 - La 1ère étape est de l**ire le stream source, et de l’écrire dans le _fast storage_** de notre _cloud data platform_, qui est aussi un stream.
+    - 1 - La 1ère étape est de **lire le stream source, et de l’écrire dans le _fast storage_** de notre _cloud data platform_, qui est aussi un stream.
       - On peut faire ça avec <Tool>Kafka Connect</Tool>, qui permet de lire et écrire entre deux topics <Tool>Kafka</Tool>, mais aussi de lire depuis <Tool>Kafka</Tool> et écrire dans une solution de streaming cloud-native, ou l’inverse.
       - On peut aussi faire notre propre application **consumer Kafka à la main**, mais il faudra alors s’occuper de la gestion des erreurs, du logging, et du scaling de notre consumer. Les auteurs le **déconseillent**.
     - 2 - On va ensuite **l’écrire dans le _data warehouse_**.
@@ -527,7 +527,7 @@ import { Tool } from "../../components/markers/Tool";
         - <Tool>Azure Stream Analytics</Tool> qui lit depuis <Tool>Azure Event Hubs</Tool> pour écrire dans **Azure SQL Warehouse**.
         - **Google Cloud Dataflow** qui lit depuis <Tool>Cloud Pub/Sub</Tool> pour écrire dans <Tool>BigQuery</Tool>.
         - **AWS Kinesis Data Firehose** qui lit depuis <Tool>AWS Kinesis</Tool> pour écrire dans <Tool>Redshift</Tool>.
-      - Pour <Tool>BigQuery</Tool> on peut ingérer dans le data warehouse en streaming, mais pour les deux autres, il faudra faire de petits batchs.
+      - Pour <Tool>BigQuery</Tool> on peut ingérer dans le _data warehouse_ en streaming, mais pour les deux autres, il faudra faire de petits batchs.
     - 3 - L’autre chose à faire en parallèle c’est d’écrire la donnée **depuis le _fast storage_ vers le _slow storage_**.
       - On peut là aussi utiliser les solutions cloud-natives.
       - Il va falloir écrire la donnée par batchs pour des raisons de performance. Les auteurs recommandent des **batchs de plusieurs centaines de MB** si c’est possible.
@@ -543,7 +543,7 @@ import { Tool } from "../../components/markers/Tool";
     - Il faut d’abord s’authentifier, souvent avec OAuth.
     - Et ensuite il faut étudier la documentation du provider SaaS pour savoir quel call faire.
   - Il y a un certain nombre de difficultés.
-    - Chaque provider va **designer son API selon ses contraintes**. Et donc si on veut supporter de nombreux providers, il va falloir adapter l’_ingestion layer_ pour chacun d’eux.
+    - Chaque provider va **designer son API selon ses contraintes**. Et donc si on veut supporter de nombreux providers, il va falloir adapter l’_ingestion layer_ pour chacun d'entre eux.
     - Chaque provider va fournir soit du **full data export** soit de l’**incremental data export**, et parfois les deux.
       - Le _full data export_ consiste à obtenir une liste d’objets, puis à aller chercher les données pour chacun d’entre eux.
       - L’_incremental data export_ consiste à obtenir une liste d’objets qui ont changé entre deux timestamps qu’on fournit, pour ensuite aller chercher leurs données récentes uniquement.
