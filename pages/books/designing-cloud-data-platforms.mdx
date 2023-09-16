@@ -576,12 +576,12 @@ import { Tool } from "../../components/markers/Tool";
     - **Developer productivity** : il y a plus de personnes qui connaissent le SQL, donc le (1) a un avantage court terme, bien que <Tool>Spark</Tool> soit plus puissant, il faut souvent former les devs.
     - **Data governance** : la source principale étant le _data lake_, faire les transformations au même endroit permet d'être sûr d'avoir toutes les versions alignées. Dans le cas où on fait ça dans le _data warehouse_, il est préférable de ne pas le faire dans le _data lake_ pour ne pas avoir de divergence.
     - **Cross-platform portability** : changer de cloud vendor est bien plus simple avec <Tool>Spark</Tool> qu'avec du code SQL qu'il faudra au moins tester.
-    - **Performance** : avec la (1) le processing impacte le data warehouse, avec le (2) on fait le calcul complètement à part et on n'impacte personne.
+    - **Performance** : avec la (1) le processing impacte le _data warehouse_, avec le (2) on fait le calcul complètement à part et on n'impacte personne.
     - **Speed of processing** : avec la (1) on peut faire du _real time analytics_ dans certains cas avec difficulté, avec la (2) ça marche facilement.
     - **Cost** : tous les providers de _data warehouse_ ne le font pas (mais ils vont finir par le faire), mais pour ceux qui font payer le processing ça revient plus cher que de faire le processing sur des machines complètement à part.
     - **Reusability** : avec la (1) on peut parfois utiliser des _stored procedures_, avec la (2) on a du code qu'on peut directement réutiliser.
 - Le processing se décompose en **stages**.
-  - Chaque _stage_ contient : une _area_ de stockage dans le data lake, et un job de calcul distribué (par exemple avec <Tool>Spark</Tool>), qui va créer la donnée pour l'étape suivante.
+  - Chaque _stage_ contient : une _area_ de stockage dans le _data lake_, et un job de calcul distribué (par exemple avec <Tool>Spark</Tool>), qui va créer la donnée pour l'étape suivante.
     - Les jobs sont coordonnés par l'_orchestration layer_.
     - Les jobs peuvent être de deux types :
       - **Common** data processing : les transformations communes, par exemple dédupliquer les messages, valider les dates etc.
@@ -630,13 +630,13 @@ import { Tool } from "../../components/markers/Tool";
     - Les fichiers seront ensuite passés de stage en stage jusqu'à la production area.
 - Parmi les **common processing steps** :
   - **File format conversion.**
-    - L'approche data lake traditionnelle consiste à laisser les données telles quelles, et laisser chaque pipeline parser elle-même la donnée et faire les traitements dont elle a besoin.
+    - L'approche _data lake_ traditionnelle consiste à laisser les données telles quelles, et laisser chaque pipeline parser elle-même la donnée et faire les traitements dont elle a besoin.
       - Mais cette approche a du mal à scaler.
       - Dans la _cloud data platform architecture_, on choisit de faire certains traitements en amont, pour éviter d'avoir à tester et maintenir du code qui fait ça dans chaque pipeline.
     - **Avro** et <Tool>Parquet</Tool> sont des formats binaires intégrant un schéma.
       - Ils permettent de ne pas répéter le nom des champs, et donc d'économiser de la place.
       - Ils permettent de garantir le schéma de la donnée.
-      - Avro est organisé en blocs de _rows_, alors que Parquet est organisé en blocs de _columns_.
+      - **Avro** est organisé en blocs de _rows_, alors que **Parquet** est organisé en blocs de _columns_.
         - Les fichiers organisés en _rows_ sont utiles quand on lit la donnée de toutes les colonnes pour certains _rows_ donnés. La _staging area_ sert principalement à faire des transformations ou de l'exploration ad-hoc, donc **Avro** est adapté.
         - Les fichiers organisés en _columns_ sont utiles quand on ne veut traiter qu'une _column_ sur un grand nombre de _rows_. La production area sert à faire des requêtes d'analytics, donc <Tool>Parquet</Tool> est adapté.
     - Pour la conversion depuis le format initial vers **Avro**, puis vers <Tool>Parquet</Tool>, <Tool>Spark</Tool> permet de lire et écrire ces différents formats.
@@ -708,7 +708,7 @@ import { Tool } from "../../components/markers/Tool";
     - On est dans un cas d'usage où on a besoin que **le processing se fasse très vite et en continu**, en général à destination d'un autre système.
     - Exemple : la donnée qui arrive dans la pipeline est ensuite mise à disposition d'un système de jeu vidéo pour adapter le comportement du jeu en fonction de ce que fait le joueur en temps réel. Par exemple, ajuster la probabilité de faire apparaître un monstre.
     - La donnée est traitée par un **real-time job** qui tourne en permanence et ajuste les calculs en fonction des nouvelles données.
-      - Elle est ensuite mise à disposition d'un _key/value store_ ou éventuellement d'une DB relationnelle, pour un accès rapide. Le data warehouse est trop lent et est fait pour des requêtes à la demande sur de grandes quantités de données.
+      - Elle est ensuite mise à disposition d'un _key/value store_ ou éventuellement d'une DB relationnelle, pour un accès rapide. Le _data warehouse_ est trop lent et est fait pour des requêtes à la demande sur de grandes quantités de données.
       - Elle peut aussi être postée dans le _fast storage_, c'est-à-dire comme event de streaming pour déclencher un autre processing.
   - Il est très important de **clarifier le besoin** : dans le cas où on n'a besoin que de _real-time ingestion_, la complexité de mise en œuvre est beaucoup moins grande.
     - Les auteurs conseillent d'utiliser la _real-time ingestion_ plutôt que la _batch ingestion_, sauf quand la source ne supporte pas le real time.
@@ -736,7 +736,7 @@ import { Tool } from "../../components/markers/Tool";
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d'aller là.
       - **4.1 - Pass-through job** : il s'agit d'un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
-      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le data warehouse ou dans une DB relationnelle ou NoSQL.
+      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le _data warehouse_ ou dans une DB relationnelle ou NoSQL.
     - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu'elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
       - Les messages qui n'ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu'il faut corriger.
       - Une fois la correction faite, il suffit de les copier dans l'area de l'étape où ils ont échoués.
@@ -747,7 +747,7 @@ import { Tool } from "../../components/markers/Tool";
       - Une autre raison de séparer en topics par source peut être la limitation en termes de quotas par topic, de la part du provider.
       - Une autre raison pour publier dans des topics différents peut être la structure interne des équipes, et les questions de sécurité, pour restreindre certaines données à certaines équipes.
 - Parmi les transformations qu'on a couramment dans les systèmes real-time, il y a la **déduplication des messages**.
-  - Les duplications sont courantes dans les systèmes real-time, elles sont deux origines :
+  - Les duplications sont courantes dans les systèmes real-time, elles ont deux origines :
     - 1 - Des duplications issues de la source, sur lesquelles on n'a pas de contrôle.
     - 2 - Des duplications qui sont dues au fonctionnement des systèmes real-time, et à leur nature distribuée.
       - On peut par exemple avoir un producer qui envoie un message, mais ne reçoit pas l'acknowledgement à cause d'un problème réseau. Un autre broker sera élu master de la partition et on se retrouvera avec une duplication.
@@ -772,7 +772,7 @@ import { Tool } from "../../components/markers/Tool";
   - Dans le cas où on a de nombreuses sources gérées par plusieurs équipes, la difficulté va surtout être dans la définition de ce qu'est une donnée avec une qualité suffisante.
   - Nos _quality checks_ peuvent impliquer de vérifier une caractéristique impliquant plusieurs messages, par exemple “pas plus de 10% des commandes avec le statut cancelled”.
     - Il faudra alors utiliser les techniques de _windowing_ comme avec la déduplication.
-    - Si la durée sur laquelle on veut faire les checks est trop grande par rapport à ce que supportent nos outils, il faudra faire passer le flow par le batch processing.œ
+    - Si la durée sur laquelle on veut faire les checks est trop grande par rapport à ce que supportent nos outils, il faudra faire passer le flow par le batch processing.
 - Dans le cas où on veut **combiner une source de données real-time et une source batch**, on peut :
   - 1 - Avoir le job real-time qui lit le message batch à combiner avec les données du message real-time, et qui le stocke dans sa RAM.
   - 2 - Puis ce job combine les deux pour les mettre dans la real-time production area.
@@ -842,7 +842,7 @@ import { Tool } from "../../components/markers/Tool";
     - On pourra par exemple mettre en commun d'ingestion de sources de type RDBMS, et celles de type file. Ou encore mettre en commun des jobs de _data quality check_.
     - Si la configuration se trouve dans un endroit séparé, il devient facile de la changer sans avoir à toucher au code.
     - Parmi les éléments de configuration, il peut y avoir par exemple : l'endroit d'où on récupère la donnée, l'endroit où on l'envoie, les checks de qualité et transformations qu'il faut faire sur chaque donnée etc.
-- La data platform metadata a 3 fonctions :
+- La _data platform metadata_ a 3 fonctions :
   - 1 - **Stocker les configurations des pipelines**.
     - Par exemple, si un path d'input sur un serveur FTP change, il suffira d'aller changer la configuration de la pipeline dans le _metadata layer_, sans toucher au code.
     - Pour connaître les inputs et outputs d'une pipeline, il suffira aussi de regarder sa configuration.
@@ -863,12 +863,12 @@ import { Tool } from "../../components/markers/Tool";
           - _Created At_
           - _Updated At_
       - L'objet **Pipeline** décrit un ensemble de jobs qui prend un ou plusieurs inputs, et écrit dans une ou plusieurs destinations, avec d'éventuelles transformations.
-        - Les pipelines seront souvent liées : par exemple une pipeline d'ingestion qui écrit dans le data lake, puis une autre qui lit cette donnée, la combien avec une autre, et écrit à nouveau dans le data lake.
+        - Les pipelines seront souvent liées : par exemple une pipeline d'ingestion qui écrit dans le _data lake_, puis une autre qui lit cette donnée, la combine avec une autre, et écrit à nouveau dans le _data lake_.
         - Sa structure est :
           - _ID_
           - _Name_
           - _Description_
-          - _Type_ : indiquer par exemple si c'est une pipeline d'ingestion ou de transformation.
+          - _Type_ : indique par exemple si c'est une pipeline d'ingestion ou de transformation.
           - _Velocity_ : batch ou real-time.
           - _Sources and Destinations_ : liste les identifiants d'objets _Source_ desquels la pipeline lit, et _Destination_ vers lesquels la pipeline écrit.
             - En général une pipeline d'ingestion aura une source et une destination, et une pipeline de transformation aura plusieurs sources et une destination.
@@ -896,12 +896,12 @@ import { Tool } from "../../components/markers/Tool";
           - _Created At_
           - _Updated At_
     - 2 - Les **Data Quality Checks** permettent d'identifier les données qui posent problème.
-      - Ils s'appliquent à des pipelines et sources ou destinations à travers les namespaces.
+      - Ils s'appliquent à des pipelines et sources ou destinations sans êtres spécifiques à un namespace.
       - Il existe deux types de _data quality checks_ :
         - Les **proactive** checks sont faits pour contrôler la donnée une par une, et s'assurer que la donnée de mauvaise qualité ne rentre pas.
           - On va souvent vérifier le format de la donnée, ou le fait que certaines valeurs soient cohérentes. Par exemple 24h dans un jour, pas de dates négatives etc.
           - Ces checks ne peuvent pas être trop lourds pour ne pas bloquer la pipeline trop longtemps.
-        - Les **retrospective** checks sont shcédulés régulièrement, et opèrent sur de plus grandes quantités de données, pour s'assurer qu'on garde une certaine consistance sur l'ensemble.
+        - Les **retrospective** checks sont schédulés régulièrement, et opèrent sur de plus grandes quantités de données, pour s'assurer qu'on garde une certaine consistance sur l'ensemble.
           - Ca peut par exemple être de faire une jointure sur deux jeux de données de départements et d'employés, pour s'assurer qu'aucun département n'est sans employé.
           - Ils produisent des rapports réguliers pour donner lieu à d'éventuelles actions pour améliorer la qualité de la donnée.
       - L'élément principal du _data quality check_ est **la règle** à faire respecter. Il existe de nombreuses options sur la manière de l'implémenter.
