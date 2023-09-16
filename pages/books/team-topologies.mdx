@@ -4,237 +4,237 @@ import { Book } from "../../components/markers/Book";
 
 ## 1 - The Problem with Org Charts
 
-- La plupart des organisations utilisent l’**organigramme** de l’entreprise pour représenter les intéractions et la division du travail.
-  - Mais dans la réalité une telle représentation statique est inefficace, et les gens contactent ceux qu’ils ont besoin de contacter pour mener à bien leur tâches.
-  - On pourrait comparer ça à un document d’architecture, qui devient obsolète dès qu’il est écrit.
+- La plupart des organisations utilisent l'**organigramme** de l'entreprise pour représenter les intéractions et la division du travail.
+  - Mais dans la réalité une telle représentation statique est inefficace, et les gens contactent ceux qu'ils ont besoin de contacter pour mener à bien leur tâches.
+  - On pourrait comparer ça à un document d'architecture, qui devient obsolète dès qu'il est écrit.
 - La manière de voir les organisations évolue :
-  - Le livre <Book>Improving Performance</Book> de Geary Rummler et Alan Brache pose une première étape d’amélioration continue du business.
-  - Le livre <Book>Project to Product</Book> de Mik Kersten va un cran plus loin en mettant l’accent sur le produit, et la centralité des équipes.
+  - Le livre <Book>Improving Performance</Book> de Geary Rummler et Alan Brache pose une première étape d'amélioration continue du business.
+  - Le livre <Book>Project to Product</Book> de Mik Kersten va un cran plus loin en mettant l'accent sur le produit, et la centralité des équipes.
   - <Book>Team Topologies</Book> se veut être une étape de plus dans cette direction.
 - Niels Pflaeging, dans <Book>Organize for Complexity</Book> :
-  - Identifie 3 structures dans l’organisation :
-    - **Formal structure** : l’organigramme.
-    - **Informal structure** : le domaine d’influence entre individus.
-    - **Value creation structure** : la manière concrète dont le travail se fait, sur la notion de réputation au sein de l’équipe et entre équipes.
-  - Lui et d’autres auteurs comme Frédéric Laloux, ou Brian Robertson (Holacracy), pensent que le point de plus important dans les organisations est le lien entre _informal structure_ et _value creation structure_ (c’est-à-dire l’interaction entre les personnes et les équipes).
-  - Ce livre adopte le même point de vue, et oeuvre à **renforcer la cohésion au sein de l’équipe** en la rendant autonome, et **améliorer la confiance inter-équipe** en clarifiant les interactions attendues.
-- Ce livre s’appuie sur la **loi de Conway** :
+  - Identifie 3 structures dans l'organisation :
+    - **Formal structure** : l'organigramme.
+    - **Informal structure** : le domaine d'influence entre individus.
+    - **Value creation structure** : la manière concrète dont le travail se fait, sur la notion de réputation au sein de l'équipe et entre équipes.
+  - Lui et d'autres auteurs comme Frédéric Laloux, ou Brian Robertson (Holacracy), pensent que le point de plus important dans les organisations est le lien entre _informal structure_ et _value creation structure_ (c'est-à-dire l'interaction entre les personnes et les équipes).
+  - Ce livre adopte le même point de vue, et oeuvre à **renforcer la cohésion au sein de l'équipe** en la rendant autonome, et **améliorer la confiance inter-équipe** en clarifiant les interactions attendues.
+- Ce livre s'appuie sur la **loi de Conway** :
   - Mel Conway avait fait un article de 1968, finissant par dire que le design des systèmes produits par les organisations représentait des **copies de leur structure de communication**.
-  - Conway parle bien de la communication réelle, c’est-à-dire de la _value creation structure_ (au sens de Pflaeging).
-  - Quand l’architecture voulue est en contradiction avec la structure de l’organisation, l’un des deux est amené à changer.
-  - A l’inverse, James Lewis a eu l’idée de mettre en œuvre une “_reverse Conway maneuver_”, où il s’agit de mettre en place une organisation spécifique qui permet l’émergence de l’architecture voulue.
-- La **charge cognitive** d’une équipe a tendance à grossir avec le temps.
-  - Si on veut que l’équipe puisse être efficace et motivée, il faut la limiter explicitement.
-- Traiter le développement logiciel comme une sorte d’usine mène à des équipes inefficaces et démotivées.
-  - Les mouvements Agile, Lean et DevOps offrent une solution au travers des équipes autonomes, travaillant itérativement avec les feedbacks de l’utilisateur.
+  - Conway parle bien de la communication réelle, c'est-à-dire de la _value creation structure_ (au sens de Pflaeging).
+  - Quand l'architecture voulue est en contradiction avec la structure de l'organisation, l'un des deux est amené à changer.
+  - A l'inverse, James Lewis a eu l'idée de mettre en œuvre une “_reverse Conway maneuver_”, où il s'agit de mettre en place une organisation spécifique qui permet l'émergence de l'architecture voulue.
+- La **charge cognitive** d'une équipe a tendance à grossir avec le temps.
+  - Si on veut que l'équipe puisse être efficace et motivée, il faut la limiter explicitement.
+- Traiter le développement logiciel comme une sorte d'usine mène à des équipes inefficaces et démotivées.
+  - Les mouvements Agile, Lean et DevOps offrent une solution au travers des équipes autonomes, travaillant itérativement avec les feedbacks de l'utilisateur.
 
-## 2 - Conway’s Law and Why it Matters
+## 2 - Conway's Law and Why it Matters
 
 - La loi de Conway a été depuis confirmée par de nombreuses études, y compris dans des industries différentes (automobile, aviation etc.).
 - La version moderne de cette loi se résume à une citation de Ruth Malan : **“If the architecture of the system and the architecture of the organization are at odds, the architecture of the organization wins”**.
-  - Une organisation qui est organisée en silos techniques (équipes QA, DBA, sécurité etc.) ne pourra pas produire de système architecturé pour l’optimisation du flow.
-  - Autre exemple : une organisation qui s’organise principalement autour de la vente dans des régions géographiques a peu de chances de mettre en place une architecture logicielle globale qui fournit des services à toutes les régions.
+  - Une organisation qui est organisée en silos techniques (équipes QA, DBA, sécurité etc.) ne pourra pas produire de système architecturé pour l'optimisation du flow.
+  - Autre exemple : une organisation qui s'organise principalement autour de la vente dans des régions géographiques a peu de chances de mettre en place une architecture logicielle globale qui fournit des services à toutes les régions.
 - Le **Reverse Conway Maneuver** est une pratique qui fonctionne.
-  - Les recherches menées par les auteurs d’<Book>Accelerate</Book> montrent que c’est efficace.
-  - Le but c’est de transformer l’organisation pour créer un contexte où le travail peut être fait de bout en bout, sans avoir besoin d’une communication inter-équipe importante.
+  - Les recherches menées par les auteurs d'<Book>Accelerate</Book> montrent que c'est efficace.
+  - Le but c'est de transformer l'organisation pour créer un contexte où le travail peut être fait de bout en bout, sans avoir besoin d'une communication inter-équipe importante.
   - Par exemple, si on a 4 équipes de devs back et front, qui transfèrent le travail à une unique équipe DBA, on va obtenir 4 applications back/front, et une seule DB centralisée.
-    - Dans le cas où on voudrait une DB par app, on peut dissoudre l’équipe DBA, et intégrer ses membres aux 4 équipes.
-    - La tendance naturelle va être l’émergence de l’architecture qu’on voulait.
-- Il faut concevoir l’architecture des systèmes de manière à obtenir des **modules de la taille d’une équipe**.
-- La structuration de l’organisation nécessite des compétences techniques.
-  - Il faut au minimum impliquer des personnes techniques (qui comprennent les notions d’abstraction, encapsulation etc.) dans le choix du type d’équipes, de leur scope etc.
+    - Dans le cas où on voudrait une DB par app, on peut dissoudre l'équipe DBA, et intégrer ses membres aux 4 équipes.
+    - La tendance naturelle va être l'émergence de l'architecture qu'on voulait.
+- Il faut concevoir l'architecture des systèmes de manière à obtenir des **modules de la taille d'une équipe**.
+- La structuration de l'organisation nécessite des compétences techniques.
+  - Il faut au minimum impliquer des personnes techniques (qui comprennent les notions d'abstraction, encapsulation etc.) dans le choix du type d'équipes, de leur scope etc.
   - Selon Ruth Malan : “_If we have managers deciding which service will be built, by which teams, we implicitly have managers deciding on the system architecture_”.
   - Selon Allan Kelly, une personne se disant **architecte** doit avoir des compétences techniques, mais aussi de management.
 - Il faut **limiter la communication non nécessaire entre équipes**.
-  - Il faut définir les patterns de communication entre équipes, en fonction de l’architecture du système qu’on veut mettre en place.
-    - Si les équipes communiquent en dehors de ces canaux, alors c’est qu’il y a sans doute quelque chose qui ne va pas : mauvaise API ? Composants mal agencés ou manquants ? etc.
+  - Il faut définir les patterns de communication entre équipes, en fonction de l'architecture du système qu'on veut mettre en place.
+    - Si les équipes communiquent en dehors de ces canaux, alors c'est qu'il y a sans doute quelque chose qui ne va pas : mauvaise API ? Composants mal agencés ou manquants ? etc.
     - On peut monitorer le volume de communication en ligne pour vérifier que les patterns de communication sont les bons.
   - Si deux équipes communiquent juste parce que leur code se trouve dans un dépôt commun ou une application commune, alors on peut les séparer en utilisant les _fracture plane patterns_ (chapitre 6).
 - La gestion des **outils** peut aider à respecter les patterns de communication :
   - Il faut des outils partagés entre équipes qui collaborent, et des outils séparés entre équipes indépendantes.
-- Certaines entreprises font l’erreur d’avoir de nombreuses équipes chargées de petites parties du système (des complicated subsystem teams). Ça doit rester une exception, et la norme doit être les équipes alignées sur le flow.
+- Certaines entreprises font l'erreur d'avoir de nombreuses équipes chargées de petites parties du système (des complicated subsystem teams). Ça doit rester une exception, et la norme doit être les équipes alignées sur le flow.
 - Les réorganisations régulières pour réduire les effectifs ou pour donner des postes à la hiérarchie de management sont incompatibles avec une organisation basée sur la loi de Conway, la notion de cognitive load etc.
 
 ## 3 - Team-First Thinking
 
-- Citation d’Allan Kelly dans <Book>Project Mytopia</Book> : _“Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy”_.
-- La recherche montre que, dans les domaines de résolution de problèmes où il y a une grande quantité d’information à traiter, **les équipes cohésives ont une meilleure performance que les individus**.
+- Citation d'Allan Kelly dans <Book>Project Mytopia</Book> : _“Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy”_.
+- La recherche montre que, dans les domaines de résolution de problèmes où il y a une grande quantité d'information à traiter, **les équipes cohésives ont une meilleure performance que les individus**.
   - cf. Driskell and Salas, [Collective Behavior and Team Performance](https://www.researchgate.net/publication/239937465_Collective_Behavior_and_Team_Performance).
-  - Une étude de Google sur ses propres équipes a montré que la dynamique d’équipe compte plus pour la performance que les individus qui la composent.
+  - Une étude de Google sur ses propres équipes a montré que la dynamique d'équipe compte plus pour la performance que les individus qui la composent.
 - Pour les auteurs, une **équipe** est un groupe de **5 à 9 personnes** qui travaillent avec un but commun.
-  - L’équipe est **la plus petite unité** de l’entreprise. On n’assigne donc pas de tâches aux individus.
-  - Le nombre de personnes est basé sur le nombre de Dunbar (suite aux recherches de l’anthropologue Robin Dunbar)
-    - Dunbar dit qu’une personne peut faire avoir confiance envers 15 personnes, et avoir une confiance profonde envers 5 personnes.
+  - L'équipe est **la plus petite unité** de l'entreprise. On n'assigne donc pas de tâches aux individus.
+  - Le nombre de personnes est basé sur le nombre de Dunbar (suite aux recherches de l'anthropologue Robin Dunbar)
+    - Dunbar dit qu'une personne peut faire avoir confiance envers 15 personnes, et avoir une confiance profonde envers 5 personnes.
     - Ca fonctionne par cercles concentriques pour les échelles suivantes : 50, 150 et 500 personnes.
-  - Si on dépasse 9 personnes, la confiance ne tient plus et l’équipe n’est plus cohésive.
-  - Dans certaines entreprises avec une forte culture de la confiance, on peut monter jusqu’à 15 personnes, mais elles sont plutôt l’exception.
+  - Si on dépasse 9 personnes, la confiance ne tient plus et l'équipe n'est plus cohésive.
+  - Dans certaines entreprises avec une forte culture de la confiance, on peut monter jusqu'à 15 personnes, mais elles sont plutôt l'exception.
 - Les équipes doivent être **stables dans le temps**.
   - Elles mettent plusieurs semaines à plusieurs mois après la formation pour atteindre leur rythme de croisière.
-    - Avec une phase de “storming” où chacun s’habitue aux comportements des autres cf. modèle de Truckman.
+    - Avec une phase de “storming” où chacun s'habitue aux comportements des autres cf. modèle de Truckman.
   - Réorganiser les équipes selon des projets de 6 mois va les mettre en situation de réadaptation permanente.
-  - En fonction de la culture de confiance de l’entreprise, une personne peut changer d’équipe tous les 1 à 2 ans sans impact majeur sur la performance des équipes.
-- **L’équipe doit avoir l’ownership **sur les composants sur lesquels elle travaille.
+  - En fonction de la culture de confiance de l'entreprise, une personne peut changer d'équipe tous les 1 à 2 ans sans impact majeur sur la performance des équipes.
+- **L'équipe doit avoir l'ownership **sur les composants sur lesquels elle travaille.
   - Si la même équipe intervient sur le même logiciel tout au long, elle peut planifier le court, moyen et long terme.
     - Elle se sent responsable en cas de raccourcis pris dans le code.
   - Il ne doit pas y avoir de parties du logiciel sous la responsabilité de plusieurs équipes.
 - Les membres des équipes doivent avoir un **team-first mindset**.
-  - Il s’agit de mettre les besoins de l’équipe au-dessus des leurs :
+  - Il s'agit de mettre les besoins de l'équipe au-dessus des leurs :
     - Aider/débloquer les autres, mentorer les nouveaux.
-    - Se concentrer sur les objectifs d’équipe.
-    - Être ouvert à l’exploration de nouvelles options, plutôt que de chercher à imposer son avis.
-  - Il existe des personnes “team toxic”, qui n’aiment pas le travail en équipe, et n’arrivent pas à s’y adapter. Elles doivent être écartées des équipes avant d’y causer des dommages.
+    - Se concentrer sur les objectifs d'équipe.
+    - Être ouvert à l'exploration de nouvelles options, plutôt que de chercher à imposer son avis.
+  - Il existe des personnes “team toxic”, qui n'aiment pas le travail en équipe, et n'arrivent pas à s'y adapter. Elles doivent être écartées des équipes avant d'y causer des dommages.
     - Ce point est largement validé par la recherche.
 - La recherche montre que les équipes diverses ont plus de chances de produire des solutions créatives, rapides et ont plus de facilité à entrer en empathie avec les autres équipes.
-- Il vaut mieux donner des **bonus d’équipe**, plutôt qu’individuels.
-  - On peut faire la même chose pour le budget formation, qu’on confie à l’équipe pour qu’elle le dépense comme bon lui semble.
-- Il faut faire attention à surveiller et **limiter la cognitive load** de l’équipe.
-  - Il s’agit de la quantité d’effort mental qu’on doit utiliser pour notre mémoire de travail.
+- Il vaut mieux donner des **bonus d'équipe**, plutôt qu'individuels.
+  - On peut faire la même chose pour le budget formation, qu'on confie à l'équipe pour qu'elle le dépense comme bon lui semble.
+- Il faut faire attention à surveiller et **limiter la cognitive load** de l'équipe.
+  - Il s'agit de la quantité d'effort mental qu'on doit utiliser pour notre mémoire de travail.
     - La notion a été théorisée par le psychologue John Sweller.
   - Il identifie 3 types de cognitive load :
     - **Intrinsic cognitive load** : tout ce qui fait partie des fondamentaux à connaître pour résoudre le problème.
-      - Exemple : Fondamentaux de la programmation, spécificités d’un langage en particulier.
+      - Exemple : Fondamentaux de la programmation, spécificités d'un langage en particulier.
       - Il faut la minimiser par des formations, du pair programming etc.
-    - **Extraneous cognitive load** : ce qui concerne l’utilisation de l’environnement de la tâche.
+    - **Extraneous cognitive load** : ce qui concerne l'utilisation de l'environnement de la tâche.
       - Exemple : Comment déployer un service (commandes à taper etc.), comment configurer un outil etc.
-      - Il faut l’éliminer par l’automatisation des tâches.
+      - Il faut l'éliminer par l'automatisation des tâches.
     - **Germane cognitive load** : la partie complexe propre au problème.
-      - Exemple : La manière dont un service devrait interagir avec cet autre, la logique business d’un service etc.
+      - Exemple : La manière dont un service devrait interagir avec cet autre, la logique business d'un service etc.
       - On doit limiter ou éliminer les autres formes pour se concentrer sur celle-là qui est celle qui apporte de la valeur.
-  - Il faut donc à la fois limiter le scope d'action de l’équipe (germane cognitive load), et les laisser se former et automatiser les tâches (intrinsic et extraneous cognitive load).
+  - Il faut donc à la fois limiter le scope d'action de l'équipe (germane cognitive load), et les laisser se former et automatiser les tâches (intrinsic et extraneous cognitive load).
     - Pour diminuer la cognitive load on peut aussi mettre en place un management basé sur les outcomes, diminuer la paperasse et les meetings, et avoir une équipe platform bien découplée.
-  - Pour mesurer la cognitive load d’une équipe, la manière la plus rapide et efficace est de **demander aux membres de l’équipe s’ils se sentent surchargés**.
+  - Pour mesurer la cognitive load d'une équipe, la manière la plus rapide et efficace est de **demander aux membres de l'équipe s'ils se sentent surchargés**.
     - La mesure par le nombre de lignes de code ou ce genre de choses ne marche pas très bien.
-  - Une fois qu’on a identifié les subdomains, on peut appliquer des **heuristiques** pour l’attribution aux équipes.
+  - Une fois qu'on a identifié les subdomains, on peut appliquer des **heuristiques** pour l'attribution aux équipes.
     - On peut les classer par complexité relative :
       - Simple : on sait comment faire l'essentiel du travail.
-      - Compliqué : il faudra faire de l’analyse et itérer.
+      - Compliqué : il faudra faire de l'analyse et itérer.
       - Complexe : il faudra faire beaucoup d'expérimentation.
     - Les heuristiques sont :
       - 1 - Assigner **chaque subdomain** à une équipe.
-        - Si un subdomain est trop gros, on le découpe d’abord.
+        - Si un subdomain est trop gros, on le découpe d'abord.
       - 2 - Assigner **2 ou 3 subdomains** simples à une équipe.
       - 3 - Assigner **un seul subdomain complexe** à une équipe.
-        - Une des raisons c’est qu’elle ne pourra pas avoir tendance à traiter d’abord les tâches simples.
+        - Une des raisons c'est qu'elle ne pourra pas avoir tendance à traiter d'abord les tâches simples.
       - 4 - Ne pas mettre **deux subdomains complexes** dans une même équipe.
 - Il faut que chaque équipe **définisse et documente sa relation aux autres équipes** (sa “Team API”).
-  - Ça inclut le code et la documentation de l’API disponible, et comment éventuellement y contribuer, la manière dont l’équipe travaille, communique, ce sur quoi ils travaillent actuellement etc.
-    - Le but c’est qu’une autre équipe puisse facilement trouver ce qu’il lui faut par elle-même, et trouver comment collaborer avec eux en cas de besoin.
-- Pour permettre une certaine communication entre équipes autonomes sans compromettre l’autonomie, on peut **laisser du temps pour des activités de “guildes”**, où des membres de diverses équipes s’organisent autour de sujets qui les intéressent, pour du partage de connaissances et de l’apprentissage.
-- **L’environnement de travail doit être explicitement pensé**, qu’il soit physique ou virtuel.
+  - Ça inclut le code et la documentation de l'API disponible, et comment éventuellement y contribuer, la manière dont l'équipe travaille, communique, ce sur quoi ils travaillent actuellement etc.
+    - Le but c'est qu'une autre équipe puisse facilement trouver ce qu'il lui faut par elle-même, et trouver comment collaborer avec eux en cas de besoin.
+- Pour permettre une certaine communication entre équipes autonomes sans compromettre l'autonomie, on peut **laisser du temps pour des activités de “guildes”**, où des membres de diverses équipes s'organisent autour de sujets qui les intéressent, pour du partage de connaissances et de l'apprentissage.
+- **L'environnement de travail doit être explicitement pensé**, qu'il soit physique ou virtuel.
   - Il faut que le lieu de travail permette :
     - Des moments de travail sans être dérangé.
-    - Une collaboration fréquente entre membres de l’équipe.
+    - Une collaboration fréquente entre membres de l'équipe.
     - Une collaboration occasionnelle avec les membres des autres équipes.
   - Spotify a organisé, dès 2012, ses équipes en squads ayant un espace commun, et tribes (squads liées entre-elles) situées au même endroit.
-    - CDL (une entreprise d’assurance UK) et la banque ING Netherlands ont fait le même genre de chose.
+    - CDL (une entreprise d'assurance UK) et la banque ING Netherlands ont fait le même genre de chose.
   - Chez Auto Trader, ils ont mis ensemble les équipes techniques et non techniques (sales, product, marketing etc.) qui travaillaient pour la même business area et les mêmes clients.
-    - Le but est de favoriser la collaboration et augmenter l’empathie entre membres du même flow stream-aligned.
-    - Ils ont aussi permis aux personnes de facilement déplacer leurs affaires pour s’installer là où c’est le plus utile sur le moment, et ont mis en place des espaces communs à ces équipes.
-  - Dans le cas du **remote first**, il faut aussi organiser l’environnement :
+    - Le but est de favoriser la collaboration et augmenter l'empathie entre membres du même flow stream-aligned.
+    - Ils ont aussi permis aux personnes de facilement déplacer leurs affaires pour s'installer là où c'est le plus utile sur le moment, et ont mis en place des espaces communs à ces équipes.
+  - Dans le cas du **remote first**, il faut aussi organiser l'environnement :
     - Jason Fried et DHH adressent ce problème dans leur livre <Book>Remote: Office Not Required</Book>.
-    - L'environnement comprend les outils (chat, wiki, reporting etc.), mais aussi les règles qu’on se fixe (horaires, temps de réponse, manière de communiquer, conf calls etc.).
+    - L'environnement comprend les outils (chat, wiki, reporting etc.), mais aussi les règles qu'on se fixe (horaires, temps de réponse, manière de communiquer, conf calls etc.).
     - Côté outil de chat, n peut utiliser des canaux préfixés : `#team-vesuvius`, `#support-logging`, `#practices-testing`
-- Attention à ne pas oublier les pratiques techniques fondamentales (continuous delivery, TDD etc.), sans elles le team-first n’ira pas bien loin.
+- Attention à ne pas oublier les pratiques techniques fondamentales (continuous delivery, TDD etc.), sans elles le team-first n'ira pas bien loin.
 
 ## 4 - Static Team Topologies
 
 - Les auteurs ont identifié deux **team anti-patterns** :
-  - 1 - Les **équipes ad hoc** qu’on crée sans trop réfléchir, par exemple :
+  - 1 - Les **équipes ad hoc** qu'on crée sans trop réfléchir, par exemple :
     - Des équipes qui avaient trop grandi et qui sont découpées au hasard.
-    - Des équipes qui s’occupent de tout le middleware.
+    - Des équipes qui s'occupent de tout le middleware.
     - Des équipes DBA créés après un crash de la prod à cause des problèmes de DB.
   - 2 - Le fait de **remélanger les équipes** régulièrement, au gré des projets qui commencent et se terminent.
-- Le critère que les organisations doivent chercher à optimiser c’est le **flow de changement rapide**.
-  - C’est important pour pouvoir s’adapter rapidement aux clients et au marché.
+- Le critère que les organisations doivent chercher à optimiser c'est le **flow de changement rapide**.
+  - C'est important pour pouvoir s'adapter rapidement aux clients et au marché.
   - Spotify, avec [son papier de 2012](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf) (qui a donné lieu au célèbre “Spotify model”) est un exemple connu de tournant vers ce modèle favorisant le flow rapide.
     - Ils avaient des équipes appelées _squads_, pluridisciplinaires, stables et composées de 5 à 9 personnes.
-    - Les équipes étaient regroupées en _tribes_ contenant plusieurs squads qui collaboraient entre-elles plus qu’avec les autres squads.
+    - Les équipes étaient regroupées en _tribes_ contenant plusieurs squads qui collaboraient entre-elles plus qu'avec les autres squads.
       - Par exemple, les testeurs de chaque squad d'une même tribe formaient un _chapter_, et se rencontraient régulièrement pour se synchroniser.
-    - Un dernier concept utilisé était celui de _guilds_, où il s’agissait de regrouper des communautés de pratique informelles autour de thématiques techniques.
+    - Un dernier concept utilisé était celui de _guilds_, où il s'agissait de regrouper des communautés de pratique informelles autour de thématiques techniques.
   - Pour avoir un flow rapide et répondre aux besoins des clients, les équipes qui conçoivent et développent le logiciel doivent avoir un **feedback régulier depuis la production**.
 - Les auteurs de ce livre ont par le passé créé un ensemble de patterns pour structurer les équipes et leurs interactions, appelés **DevOps Topologies**.
   - Il y a deux idées importantes avec ces patterns :
-    - 1 - Le fait que telle ou telle technique soit ou non appropriée **dépend du contexte de l’organisation** :
+    - 1 - Le fait que telle ou telle technique soit ou non appropriée **dépend du contexte de l'organisation** :
       - Maturité technique et produit.
-        - Les entreprises qui ont une faible maturité (tests automatisés, continuous delivery, discovery) vont mettre du temps à l’acquérir.
-        - Pendant ce temps, c’est OK de garder des équipes spécialisées (développement, opérations, sécurité etc.).
-      - Taille de l’organisation, et taille du logiciel.
+        - Les entreprises qui ont une faible maturité (tests automatisés, continuous delivery, discovery) vont mettre du temps à l'acquérir.
+        - Pendant ce temps, c'est OK de garder des équipes spécialisées (développement, opérations, sécurité etc.).
+      - Taille de l'organisation, et taille du logiciel.
         - Les grandes entreprises ont besoin de plateformes self-service, et éventuellement peuvent adopter le SRE, alors que les plus petites non.
-    - 2 - Il y a une liste de topologies connues comme étant des **anti-patterns** allant à l’encontre de DevOps.
+    - 2 - Il y a une liste de topologies connues comme étant des **anti-patterns** allant à l'encontre de DevOps.
   - Voici quelques uns de ces patterns :
-    - **Les feature teams ont besoin d’une grande maturité technique**.
-      - Le fait d’avoir une feature team (une équipe pluridisciplinaire qui travaille sur une fonctionnalité de bout en bout) peut être problématique dans certains cas :
-      - Dans le cas d’un shared ownership sur le code, si l’équipe passe de composants en composants pour son développement, mais n’a pas une maturité technique suffisante, elle perdra la **confiance** des autres équipes.
-        - Par exemple si elle ne s’applique pas à faire de tests automatisés et n’applique pas la règle du boy scout.
-    - **Les product teams ont besoin d’un système de support**.
-      - Les product teams (des feature teams qui ont l’ownership sur leur produit) ont besoin que certains aspects techniques (infrastructure, environnement de test, pipelines de CI/CD etc.) soient faits pour eux.
-      - L’important est que ça ne soit **pas bloquant dans leur flow de développement**.
-        - Et pour ça il faut que les services en question soient fournis en **self-service**, sans avoir à aller interagir avec d’autres équipes.
-    - **Les cloud teams ne doivent pas créer l’infrastructure applicative**.
+    - **Les feature teams ont besoin d'une grande maturité technique**.
+      - Le fait d'avoir une feature team (une équipe pluridisciplinaire qui travaille sur une fonctionnalité de bout en bout) peut être problématique dans certains cas :
+      - Dans le cas d'un shared ownership sur le code, si l'équipe passe de composants en composants pour son développement, mais n'a pas une maturité technique suffisante, elle perdra la **confiance** des autres équipes.
+        - Par exemple si elle ne s'applique pas à faire de tests automatisés et n'applique pas la règle du boy scout.
+    - **Les product teams ont besoin d'un système de support**.
+      - Les product teams (des feature teams qui ont l'ownership sur leur produit) ont besoin que certains aspects techniques (infrastructure, environnement de test, pipelines de CI/CD etc.) soient faits pour eux.
+      - L'important est que ça ne soit **pas bloquant dans leur flow de développement**.
+        - Et pour ça il faut que les services en question soient fournis en **self-service**, sans avoir à aller interagir avec d'autres équipes.
+    - **Les cloud teams ne doivent pas créer l'infrastructure applicative**.
       - Pour être DevOps, il faut une bonne séparation de responsabilités entre cloud teams et product teams :
-        - Les cloud teams peuvent être responsables de l’infrastructure de la plateforme cloud.
-        - Mais c’est les product teams qui doivent être responsables de provisionner et mettre à jour les ressources dont elles ont besoin.
+        - Les cloud teams peuvent être responsables de l'infrastructure de la plateforme cloud.
+        - Mais c'est les product teams qui doivent être responsables de provisionner et mettre à jour les ressources dont elles ont besoin.
     - **Le SRE a du sens à grande échelle**.
       - Les équipes SRE (Site Reliability Engineering) sont utilisées chez Google **uniquement pour les projets de grande envergure**.
-      - Il s’agit d’une relation dynamique :
+      - Il s'agit d'une relation dynamique :
         - 1 - Au départ l'équipe produit gère son infra.
-        - 2 - Si son produit grossit l’équipe SRE vient l’aider pour que ça marche à grande échelle.
-        - 3 - Ensuite s’établit une relation où l’équipe produit établir des SLO (Service Level Objectives), et doit respecter un error budget, en collaboration avec l’équipe SRE.
-          - Si elle dépasse l’error budget, l’équipe SRE peut temporairement refuser l’ajout de nouveaux changements.
-        - 4 - Si l’usage de l’application diminue, l’équipe produit reprend la main sur son infra, seule.
-      - La mise en place d’une équipe SRE est difficile, dans la mesure où elle implique de garder un équilibre instable entre l’implication de l’équipe produit dans les opérations, et le fait pour l’équipe SRE de fournir leur expertise.
-        - En ce sens, l’équipe SRE peut être vue comme une forme particulière d’équipe **stream-aligned**.
+        - 2 - Si son produit grossit l'équipe SRE vient l'aider pour que ça marche à grande échelle.
+        - 3 - Ensuite s'établit une relation où l'équipe produit établir des SLO (Service Level Objectives), et doit respecter un error budget, en collaboration avec l'équipe SRE.
+          - Si elle dépasse l'error budget, l'équipe SRE peut temporairement refuser l'ajout de nouveaux changements.
+        - 4 - Si l'usage de l'application diminue, l'équipe produit reprend la main sur son infra, seule.
+      - La mise en place d'une équipe SRE est difficile, dans la mesure où elle implique de garder un équilibre instable entre l'implication de l'équipe produit dans les opérations, et le fait pour l'équipe SRE de fournir leur expertise.
+        - En ce sens, l'équipe SRE peut être vue comme une forme particulière d'équipe **stream-aligned**.
     - **Séparer les responsabilités pour casser les silos**.
       - Par exemple on peut casser une équipe “database”, et séparer les DBA (database administration) des DB Dev (database development) :
-        - Les DBA vont rejoindre une équipe Platform (ou être remplacés par l’offre Database-as-a-Service d’un cloud provider).
+        - Les DBA vont rejoindre une équipe Platform (ou être remplacés par l'offre Database-as-a-Service d'un cloud provider).
         - Les DB Dev vont rejoindre une équipe stream-aligned.
   - Pour bien comprendre la relation entre équipes, il est important de **maintenir une liste des dépendances entre équipes**, qui mènent à des interactions.
     - On peut les classer en 3 catégories : les dépendances de connaissances, de tâches, et de ressources.
-    - Chez Spotify, les nouvelles dépendances qui sont entre squads de différentes tribes amènent à vérifier qu’il n’y a pas un problème.
-  - Les DevOps Topologies doivent être utilisées en les adaptant régulièrement à l’évolution des équipes.
-    - Par exemple dans le cas d’un silotage Dev et Ops, on peut introduire une équipe DevOps qui sera là pour évangéliser les pratiques, puis petit à petit disparaîtra à mesure que le Dev et l’Ops ne forment qu’un.
-      - Attention à ce que ça ne devienne pas un anti-pattern où l’équipe DevOps s’installe dans la durée, et forme un silo de plus.
+    - Chez Spotify, les nouvelles dépendances qui sont entre squads de différentes tribes amènent à vérifier qu'il n'y a pas un problème.
+  - Les DevOps Topologies doivent être utilisées en les adaptant régulièrement à l'évolution des équipes.
+    - Par exemple dans le cas d'un silotage Dev et Ops, on peut introduire une équipe DevOps qui sera là pour évangéliser les pratiques, puis petit à petit disparaîtra à mesure que le Dev et l'Ops ne forment qu'un.
+      - Attention à ce que ça ne devienne pas un anti-pattern où l'équipe DevOps s'installe dans la durée, et forme un silo de plus.
 
 ## 5 - The four Fundamental Team Topologies
 
-- Il existe 4 types fondamentales d’équipes.
-  - Toutes les équipes d’une entreprise devaient être ramenées à celles-là.
-    - Cela permet d’éviter les anti-patterns, et d’augmenter la clarté autour du rôle de chaque équipe.
+- Il existe 4 types fondamentales d'équipes.
+  - Toutes les équipes d'une entreprise devaient être ramenées à celles-là.
+    - Cela permet d'éviter les anti-patterns, et d'augmenter la clarté autour du rôle de chaque équipe.
   - Les équipes Ops et Support ne sont pas dans la liste.
-    - Ces équipes doivent être alignées sur le stream, et laisser les équipes avec lesquelles elles s’alignent rester DevOps.
+    - Ces équipes doivent être alignées sur le stream, et laisser les équipes avec lesquelles elles s'alignent rester DevOps.
   - **1 - Stream-Aligned Team**.
-    - Un stream est un **flow continu de travail**, centré autour d’un domaine ou d’une “organizational capability”.
+    - Un stream est un **flow continu de travail**, centré autour d'un domaine ou d'une “organizational capability”.
       - Ça peut être un produit, un service, un parcours utilisateur, un client spécifique etc.
-    - Une équipe stream-aligned délivre de manière continue et **de bout en bout** (sans passage de main à une autre équipe) des incréments autour d’un stream.
+    - Une équipe stream-aligned délivre de manière continue et **de bout en bout** (sans passage de main à une autre équipe) des incréments autour d'un stream.
       - Elle est donc **au contact régulier du client** qui utilise le produit sur lequel elle travaille.
-      - Elle a une approche expérimentale et s’ajuste en permanence par le feedback qu’elle reçoit de la production.
-      - L’équipe doit avoir en interne toutes les compétences nécessaires, par exemple des généralistes qui cumulent certains rôles, et des spécialistes sur d’autres.
-    - Un exemple peut être les équipes principales (_service teams_) qu’Amazon utilise depuis presque 20 ans : pluridisciplinaires, autonomes, centrées autour d’un service.
+      - Elle a une approche expérimentale et s'ajuste en permanence par le feedback qu'elle reçoit de la production.
+      - L'équipe doit avoir en interne toutes les compétences nécessaires, par exemple des généralistes qui cumulent certains rôles, et des spécialistes sur d'autres.
+    - Un exemple peut être les équipes principales (_service teams_) qu'Amazon utilise depuis presque 20 ans : pluridisciplinaires, autonomes, centrées autour d'un service.
   - **2 - Enabling Team**.
     - Elle est composée de personnes spécialistes de leur domaine, et qui **prennent le temps de se tenir à jour** des nouvelles technos et techniques, de tester des choses etc.
     - Ces personnes vont ensuite agir **comme des consultants**, pour guider les équipes stream-aligned, et leur donner les connaissances nécessaires pour leur contexte.
-    - Leur but est de rendre les équipes stream-aligned autonomes, et de n’avoir à agir sur une équipe que **pendant quelques semaines ou mois**.
+    - Leur but est de rendre les équipes stream-aligned autonomes, et de n'avoir à agir sur une équipe que **pendant quelques semaines ou mois**.
     - Exemple chez BCG Digital Ventures :
-      - Ils ont constitué l’équipe suite à des problèmes d’efficacité (lead time trop long etc.), et de connaissance silotée.
-      - Ils se sont concentrés sur le fait d’apprendre les bonnes pratiques aux autres équipes, à faire des pair, des mobs, y compris en filmant et diffusant les séances.
+      - Ils ont constitué l'équipe suite à des problèmes d'efficacité (lead time trop long etc.), et de connaissance silotée.
+      - Ils se sont concentrés sur le fait d'apprendre les bonnes pratiques aux autres équipes, à faire des pair, des mobs, y compris en filmant et diffusant les séances.
       - Leurs métriques portaient sur le nombre de déploiements, le cycle time, le temps pour fixer les incidents de prod.
         - NDLR : métriques DORA.
   - **3 - Complicated-Subsystem Team**.
-    - Il s’agit d’une équipe qui travaille sur une partie spécifique d’un système, avec un besoin de **connaissance spécialisée**, au point que la plupart des membres de l’équipe doivent être spécialistes de ce sujet.
-      - La différence avec les _component teams_ (équipes s’occupant de subsystems communs à plusieurs systèmes) qu’on trouve dans les organisations traditionnelles c’est le critère de forte spécialisation.
-      - En quelque sorte, on accepte une équipe chargée d’un composant qui ne porte pas sur un slice vertical entier, en espérant qu’il s’agit d’une exception du fait du critère de la spécialisation.
+    - Il s'agit d'une équipe qui travaille sur une partie spécifique d'un système, avec un besoin de **connaissance spécialisée**, au point que la plupart des membres de l'équipe doivent être spécialistes de ce sujet.
+      - La différence avec les _component teams_ (équipes s'occupant de subsystems communs à plusieurs systèmes) qu'on trouve dans les organisations traditionnelles c'est le critère de forte spécialisation.
+      - En quelque sorte, on accepte une équipe chargée d'un composant qui ne porte pas sur un slice vertical entier, en espérant qu'il s'agit d'une exception du fait du critère de la spécialisation.
       - Les complicated subsystem teams sont **optionnels** au sein d‘une organisation.
     - Elle permet par ailleurs de soulager la cognitive load des équipes stream-aligned.
-    - La relation avec les équipes stream-aligned est collaborative au début, puis plus indépendante quand l’API du subsystem se stabilise.
-    - Un exemple de spécialités d’une telle équipe peut être : les connaissances sur les codecs vidéo, sur les modèles mathématiques, sur des algorithmes de reconnaissance faciale etc.
+    - La relation avec les équipes stream-aligned est collaborative au début, puis plus indépendante quand l'API du subsystem se stabilise.
+    - Un exemple de spécialités d'une telle équipe peut être : les connaissances sur les codecs vidéo, sur les modèles mathématiques, sur des algorithmes de reconnaissance faciale etc.
   - **4 - Platform Team**.
-    - Elle développe et met à disposition des **outils self-service**, pour soulager les équipes stream-aligned d’une partie de la complexité du système.
+    - Elle développe et met à disposition des **outils self-service**, pour soulager les équipes stream-aligned d'une partie de la complexité du système.
     - Elle traite ses outils comme des **produits à destination des clients** que sont les autres équipes.
       - Elle doit donc utiliser les techniques de product management habituelles pour un produit, y compris la discovery, en itérant à partir du feedback des équipes consommatrices.
-      - Elle doit porter une grande attention à l’UX (plus spécifiquement DevEx dans ce cas).
+      - Elle doit porter une grande attention à l'UX (plus spécifiquement DevEx dans ce cas).
       - Elle doit traiter le produit comme un système en production : définir des horaires de disponibilité des services, une gestion des incidents etc.
       - _A platform is not just a collection of features that Dev teams happened to ask for at specific points in the past, but a holistic, well-crafted, consistent thing that takes into account the direction of technology change in the industry as a whole and the changing needs of the organization._
-    - Elle peut être composée d’équipes internes à la plateforme, et pouvant être des 4 types d’équipes (on obtient une sorte de topologie fractale).
+    - Elle peut être composée d'équipes internes à la plateforme, et pouvant être des 4 types d'équipes (on obtient une sorte de topologie fractale).
     - Des exemples de ce qui peut être dans la plateforme :
       - Provisionner des serveurs.
       - Fournir des outils pour la gestion des accès ou la sécurité.
@@ -243,232 +243,232 @@ import { Book } from "../../components/markers/Book";
       - Fournir des outils de CI/CD.
     - Les auteurs parlent de **Thinnest Viable Platform** (TVP) pour insister sur le fait que la plateforme ne doit inclure que ce qui est vraiment nécessaire et utile aux autres équipes.
       - Si les composants sous-traités fonctionnent bien, la plateforme peut se résumer à une page wiki qui les décrit.
-    - La plateforme est construite sur d’autres plateformes par couches successives.
-      - Un cloud provider peut être une couche, on peut aussi avoir la JVM, Kubernetes, et même un OS peut être vu comme l’une des couches de plateforme.
+    - La plateforme est construite sur d'autres plateformes par couches successives.
+      - Un cloud provider peut être une couche, on peut aussi avoir la JVM, Kubernetes, et même un OS peut être vu comme l'une des couches de plateforme.
       - Il peut être utile de faire une représentation graphique des couches de plateforme du système.
 - Le flow de changements doit être fait par une même équipe stream-aligned, **sans passage de relais**.
   - Pour ça il faut éviter les silos techniques (équipes QA, DBA, UX, architecture, data processing ETL etc.).
-  - Avoir une plateforme n’implique pas de passage de relais.
-    - L’équipe stream-aligned n’a pas besoin de demander une action de la part de l’équipe plateforme pendant les incréments qu’elle fait, puisque les outils sont self-service.
-  - Un des avantages à avoir des équipes pluridisciplinaires c’est que ça pousse à favoriser des solutions simples qui parleront à l’ensemble de l’équipe, plutôt que les solutions qui nécessitent une expertise technique poussée dans un domaine.
+  - Avoir une plateforme n'implique pas de passage de relais.
+    - L'équipe stream-aligned n'a pas besoin de demander une action de la part de l'équipe plateforme pendant les incréments qu'elle fait, puisque les outils sont self-service.
+  - Un des avantages à avoir des équipes pluridisciplinaires c'est que ça pousse à favoriser des solutions simples qui parleront à l'ensemble de l'équipe, plutôt que les solutions qui nécessitent une expertise technique poussée dans un domaine.
 - Comment transformer ses équipes pour adopter le modèle de Team Topologies :
   - La **plupart des équipes** doivent devenir stream-aligned.
     - Le ratio entre stream-aligned et les trois autres réunies dans les organisations qui fonctionnent bien est entre 6:1 et 9:1.
   - Les **infrastructure teams** doivent devenir des plateform teams.
-    - C’est pas forcément évident de demander d’utiliser des techniques de product management à des équipes composées d’admins système.
+    - C'est pas forcément évident de demander d'utiliser des techniques de product management à des équipes composées d'admins système.
   - Les **component teams** doivent être dissoutes pour être intégrées aux stream-aligned teams, ou devenir une des 3 autres catégories de teams.
     - Par exemple :
       - Les équipes de DBA peuvent être converties en enabling team pour aider à monter en compétence sur la performance DB.
       - Les équipes middleware peuvent devenir des platform teams.
   - Les **tooling teams** doivent devenir des enabling teams (en général temporaires), ou faire partie de la plateforme.
-  - Les **support teams** doivent s’aligner sur le stream de changement.
-    - Traditionnellement les organisations ont une équipe support pour l’ensemble des services.
+  - Les **support teams** doivent s'aligner sur le stream de changement.
+    - Traditionnellement les organisations ont une équipe support pour l'ensemble des services.
     - Le modèle qui marche le mieux est :
-      - 1 - De créer une équipe support pour une équipe ou une famille d’équipes stream-aligned, seulement si le besoin se fait sentir.
-        - Ca permet de garder chaque service ou groupe de services séparés, y compris du point de l’environnement de production (cf. loi de Conway).
-        - Les support teams peuvent plus facilement amener le feedback vers l’équipe de dev.
-      - 2 - D’avoir une procédure cross-équipes pour la résolution d’incidents importants.
-    - L’équipe support peut être renommée “service experience team”, pour marquer le fait qu’elle n’est pas que technique.
+      - 1 - De créer une équipe support pour une équipe ou une famille d'équipes stream-aligned, seulement si le besoin se fait sentir.
+        - Ca permet de garder chaque service ou groupe de services séparés, y compris du point de l'environnement de production (cf. loi de Conway).
+        - Les support teams peuvent plus facilement amener le feedback vers l'équipe de dev.
+      - 2 - D'avoir une procédure cross-équipes pour la résolution d'incidents importants.
+    - L'équipe support peut être renommée “service experience team”, pour marquer le fait qu'elle n'est pas que technique.
   - Les **architecture teams** doivent :
     - soit être dissoutes pour être remplacées par les stream-aligned teams prenant leurs propres décisions, et les chapters / guildes permettant de faire le lien entre équipes.
     - soit rejoindre des enabling teams **à mi-temps** (pour ne pas trop empiéter sur les stream-aligned teams).
-      - Il s'agit avant tout de penser la topologie d’équipes (type d’équipes, et leurs interactions) pour influer naturellement sur l’architecture du système.
+      - Il s'agit avant tout de penser la topologie d'équipes (type d'équipes, et leurs interactions) pour influer naturellement sur l'architecture du système.
 
 ## 6 - Choose Team-First Boundaries
 
-- Il s’agit dans ce chapitre d’explorer ce que des techniques comme le _Domain Driven Design_ et les _Fracture Planes_ peuvent faire pour aider à avoir un logiciel divisé en composants de la taille des équipes, et dont le développement n’implique pas de passage de relais entre équipes.
-- La nature **monolithique** d’une application et plus généralement d’une organisation, peut parfois être difficile à détecter, et peut être de différentes natures.
-  - **Joined-at-the-Database Monolith** : l’application partage le même schéma de base de données, malgré l’éventuelle présence de plusieurs services tournant dans des process séparés.
-    - L’organisation considère en général la DB comme l’élément central.
+- Il s'agit dans ce chapitre d'explorer ce que des techniques comme le _Domain Driven Design_ et les _Fracture Planes_ peuvent faire pour aider à avoir un logiciel divisé en composants de la taille des équipes, et dont le développement n'implique pas de passage de relais entre équipes.
+- La nature **monolithique** d'une application et plus généralement d'une organisation, peut parfois être difficile à détecter, et peut être de différentes natures.
+  - **Joined-at-the-Database Monolith** : l'application partage le même schéma de base de données, malgré l'éventuelle présence de plusieurs services tournant dans des process séparés.
+    - L'organisation considère en général la DB comme l'élément central.
     - On voit des équipes de DBA qui sont chargées de maintenir les schémas de DB à la place des équipes applicatives.
   - **Monolithic Builds (Rebuild Everything)** : on teste et déploie les services en même temps.
-    - Parfois c’est parce qu’on a une équipe QA qui teste le tout à la fin.
-  - **Monolithic Model (Single View of the World)** : l’organisation essaye de garder un seul modèle (représentation) à travers l’ensemble de ses contextes.
-    - Si c’est une petite organisation ça peut passer, mais dès qu’elle grossit, les équipes croulent sous le poids de la cognitive load.
-  - **Monolithic Thinking (Standardization)** : il s’agit d’une standardisation excessive des approches et technologies entre équipes.
+    - Parfois c'est parce qu'on a une équipe QA qui teste le tout à la fin.
+  - **Monolithic Model (Single View of the World)** : l'organisation essaye de garder un seul modèle (représentation) à travers l'ensemble de ses contextes.
+    - Si c'est une petite organisation ça peut passer, mais dès qu'elle grossit, les équipes croulent sous le poids de la cognitive load.
+  - **Monolithic Thinking (Standardization)** : il s'agit d'une standardisation excessive des approches et technologies entre équipes.
     - Cette standardisation réduit la capacité des équipes à utiliser les bons outils, expérimenter, et réduit leur motivation de manière générale.
-    - C’est confirmé par la recherche faite par les auteurs d’<Book>Accelerate</Book>.
-  - **Monolithic Workspace (Open-Plan Office)** : le fait d’adopter un unique layout de bureau (que ce soit le bureau isolé ou l’open space) est moins efficace que de l’adapter à la nature des équipes, et pour supporter leurs interactions.
-- Une mauvaise séparation de l’application peut mener à des inconsistances de diverses sortes. Pour éviter ça il faut couper le long des **fracture planes**.
-  - Les fracture planes sont des frontières naturelles au travers desquelles il faut découper l’application, si possible en les combinant.
-  - **1 - Bounded Contexts** : L’essentiel des fracture planes devraient correspondre à des bounded contexts, en suivant la méthode du Domain Driven Design.
+    - C'est confirmé par la recherche faite par les auteurs d'<Book>Accelerate</Book>.
+  - **Monolithic Workspace (Open-Plan Office)** : le fait d'adopter un unique layout de bureau (que ce soit le bureau isolé ou l'open space) est moins efficace que de l'adapter à la nature des équipes, et pour supporter leurs interactions.
+- Une mauvaise séparation de l'application peut mener à des inconsistances de diverses sortes. Pour éviter ça il faut couper le long des **fracture planes**.
+  - Les fracture planes sont des frontières naturelles au travers desquelles il faut découper l'application, si possible en les combinant.
+  - **1 - Bounded Contexts** : L'essentiel des fracture planes devraient correspondre à des bounded contexts, en suivant la méthode du Domain Driven Design.
     - Les bounded contexts correspondent à des modèles, à la fois au niveau du langage, et au niveau de la manière dont les classes et fonctions sont agencées pour représenter une partie cohérence du domaine.
-    - Les bounded contexts sont difficiles à bien délimiter correctement, mais ça vaut le coup d’essayer.
-    - Le DDD a bien d’autres avantages, notamment le fait d’aligner les experts métier avec les développeurs.
+    - Les bounded contexts sont difficiles à bien délimiter correctement, mais ça vaut le coup d'essayer.
+    - Le DDD a bien d'autres avantages, notamment le fait d'aligner les experts métier avec les développeurs.
   - **2 - Regulatory Compliance** : certaines activités impliquent des process lourds pour respecter des normes. Par exemple le PCI DSS pour le stockage de cartes bancaires.
     - On peut donc séparer les parties qui nécessitent les procédures lourdes, du reste du système, pour éviter que le reste du système en subisse les conséquences.
-  - **3 - Change Cadence** : quand on a certaines parties du système qui nécessitent un rythme de changement plus lent, on peut les séparer pour éviter qu’ils ralentissent aussi l’évolution du reste du système.
-  - **4 - Team Location** : quand les personnes sont en présentiel sur des sites différents, ou même sur différents étages d’un même bâtiment, elles peuvent se parler beaucoup plus difficilement.
-    - Ça vaut la peine d’envisager une séparation d’équipe selon la localité.
+  - **3 - Change Cadence** : quand on a certaines parties du système qui nécessitent un rythme de changement plus lent, on peut les séparer pour éviter qu'ils ralentissent aussi l'évolution du reste du système.
+  - **4 - Team Location** : quand les personnes sont en présentiel sur des sites différents, ou même sur différents étages d'un même bâtiment, elles peuvent se parler beaucoup plus difficilement.
+    - Ça vaut la peine d'envisager une séparation d'équipe selon la localité.
     - Dans le cas de travail en remote, le **fuseau horaire** est un facteur déterminant sur la possibilité de se parler.
     - Les auteurs conseillent pour une même équipe, de se trouver soit dans une situation de **full présentiel**, soit dans une situation **remote first** (avec tous les outils construits autour de ça).
-  - **5 - Risk** : certaines parties de l’application peuvent être traitées avec plus de prise de risque (passer moins de temps à s’assurer que tout marche comme prévu et risquer des incidents en production).
+  - **5 - Risk** : certaines parties de l'application peuvent être traitées avec plus de prise de risque (passer moins de temps à s'assurer que tout marche comme prévu et risquer des incidents en production).
     - On peut séparer les produits selon la possibilité de prendre ces risques pour différencier les procédures.
     - Par exemple :
       - Les parties qui sont plus orientées marketing pour appâter de nouveaux clients, vs les parties qui servent à satisfaire les clients existants.
-      - Les parties visibles par des millions d’utilisateurs, vs les parties visibles seulement par un nombre réduit d’utilisateurs payants.
+      - Les parties visibles par des millions d'utilisateurs, vs les parties visibles seulement par un nombre réduit d'utilisateurs payants.
       - Les parties à destination des clients vs les parties à destination des salariés en interne.
   - **6 - Performance Isolation** : les parties qui nécessitent une performance ou une scalabilité particulière peuvent être isolées du reste pour recevoir un traitement particulier.
     - Exemple : la partie du système qui assure le paiement des taxes et qui doit tenir la charge pendant le dernier jour où on peut payer.
-  - **7 - Technology** : la séparation par technologie (frontend, backend, data etc.) est plutôt déconseillée parce qu’elle a tendance à créer des équipes qui ne sont pas autonomes.
+  - **7 - Technology** : la séparation par technologie (frontend, backend, data etc.) est plutôt déconseillée parce qu'elle a tendance à créer des équipes qui ne sont pas autonomes.
     - Pour autant, dans certains cas elle peut être acceptable, par exemple pour de **vieilles technologies** impliquant plus de test manuel, peu de documentation, et un écosystème complètement différent.
   - **8 - User Personas** : dans certaines situations on se retrouve avec des ensemble de fonctionnalités utilisées par des utilisateurs particuliers. On peut faire une séparation à cet endroit.
     - Par exemple dans le cas où on a un pricing par tier, ou encore dans certains cas où il y a des utilisateurs admins et non admins.
-  - On peut essayer de trouver d’autres critères qui marcheraient pour notre organisation. L’idée c’est que l’architecture qui en ressort permettent une **plus grande autonomie des équipes**, et une **cognitive load réduite**.
+  - On peut essayer de trouver d'autres critères qui marcheraient pour notre organisation. L'idée c'est que l'architecture qui en ressort permettent une **plus grande autonomie des équipes**, et une **cognitive load réduite**.
 - Exemple de Poppulo, une entreprise qui aide d'autres entreprises à mesurer leur impact en termes de communication.
   - La plupart des équipes sont alignées sur les business domains.
   - Un des domaines est aligné selon les process de normes ISO à respecter.
-  - La partie reporting de l’usage des features est répartie au sein de plusieurs équipes qui collaborent sur le sujet.
-  - Une équipe UX sert d’enabling team sur ce sujet.
-  - Une équipe SRE s’occupe des produits à forte charge.
-- Exemple d’entreprise avec un use case trop complexe pour ne pas faire de séparation par technologie.
-  - L’entreprise produit des objets physiques connectés, contrôlables depuis une application mobile et depuis le cloud. L’ensemble des données est aussi envoyé dans le cloud.
-  - Comme on a des technologies différentes, des rythmes de changement différents, et de manière générale une cognitive load élevée sur l’ensemble de la stack, on peut exceptionnellement opter pour une séparation par technologie.
+  - La partie reporting de l'usage des features est répartie au sein de plusieurs équipes qui collaborent sur le sujet.
+  - Une équipe UX sert d'enabling team sur ce sujet.
+  - Une équipe SRE s'occupe des produits à forte charge.
+- Exemple d'entreprise avec un use case trop complexe pour ne pas faire de séparation par technologie.
+  - L'entreprise produit des objets physiques connectés, contrôlables depuis une application mobile et depuis le cloud. L'ensemble des données est aussi envoyé dans le cloud.
+  - Comme on a des technologies différentes, des rythmes de changement différents, et de manière générale une cognitive load élevée sur l'ensemble de la stack, on peut exceptionnellement opter pour une séparation par technologie.
   - Les trois gros blocs pourront donc avoir une relation stream-aligned vs platform, où le cloud ou les devices IoT peuvent jouer le rôle de platform.
 
 ## 7 - Team Interaction Modes
 
-- La topologie d’équipes, et notamment le type d'interaction, doit **évoluer** en fonction du contexte de l’entreprise.
+- La topologie d'équipes, et notamment le type d'interaction, doit **évoluer** en fonction du contexte de l'entreprise.
 - Les interactions entre équipes doivent être claires à chaque instant, et être limitées à ce qui est nécessaire.
-- Il y a 3 modes d’interaction entre équipes :
-  - **Collaboration** : les deux équipes communiquent régulièrement autour d’un sujet particulier sur lequel elles sont en collaboration.
-    - Ce mode est utile quand deux équipes sont sur de la découverte, de l’**exploration de nouvelles techniques ou technologies**.
+- Il y a 3 modes d'interaction entre équipes :
+  - **Collaboration** : les deux équipes communiquent régulièrement autour d'un sujet particulier sur lequel elles sont en collaboration.
+    - Ce mode est utile quand deux équipes sont sur de la découverte, de l'**exploration de nouvelles techniques ou technologies**.
     - Il a lieu entre deux équipes avec des compétences complémentaires, nécessaires pour le problème en question.
-      - Par exemple : faire du cloud-based sensor management avec une équipe qui a les connaissances cloud, et l’autre les connaissances sur les sensors.
-    - Il peut y avoir deux manières d’entrer en collaboration :
-      - 1 - Chaque équipe apporte son expertise, et collabore avec l’autre sur un **sujet délimité**.
-      - 2 - Les deux équipes n’en **forment temporairement qu’une**, le temps de résoudre le problème. Elles ne doivent pas dépasser le nombre de Dunbar de 15 personnes au total.
-    - Le mode collaboration entraîne un brouillage des limites de responsabilité. Il faut donc que chaque équipe fasse un effort particulier sur cet aspect, pour que la relation ne parte pas sur de la défiance (accuser l’autre de ce qui ne marche pas etc.).
-    - La collaboration coûte cher, **chaque équipe sera moins efficace que seule**, notamment à cause de la cognitive load plus élevée. Il faut donc que le résultat de l’exploration de la technique ou techno soit tangible.
+      - Par exemple : faire du cloud-based sensor management avec une équipe qui a les connaissances cloud, et l'autre les connaissances sur les sensors.
+    - Il peut y avoir deux manières d'entrer en collaboration :
+      - 1 - Chaque équipe apporte son expertise, et collabore avec l'autre sur un **sujet délimité**.
+      - 2 - Les deux équipes n'en **forment temporairement qu'une**, le temps de résoudre le problème. Elles ne doivent pas dépasser le nombre de Dunbar de 15 personnes au total.
+    - Le mode collaboration entraîne un brouillage des limites de responsabilité. Il faut donc que chaque équipe fasse un effort particulier sur cet aspect, pour que la relation ne parte pas sur de la défiance (accuser l'autre de ce qui ne marche pas etc.).
+    - La collaboration coûte cher, **chaque équipe sera moins efficace que seule**, notamment à cause de la cognitive load plus élevée. Il faut donc que le résultat de l'exploration de la technique ou techno soit tangible.
     - Le besoin de **collaboration permanent ou trop fréquent** peut indiquer un **mauvais découpage** des domaines, ou un mauvais mix de compétences dans les équipes.
-    - Une même équipe ne peut être en collaboration qu’avec **au plus une seule autre équipe** en même temps.
+    - Une même équipe ne peut être en collaboration qu'avec **au plus une seule autre équipe** en même temps.
     - Usage typique :
       - _Stream-aligned team_ avec _complicated subsystem team_.
       - _Stream-aligned team_ avec _platform team_.
       - _Complicated subsystem team_ avec _platform team_.
-  - **X-as-a-Service** : une équipe consomme des services mis en place par l’autre, sans avoir besoin de communiquer avec elle.
+  - **X-as-a-Service** : une équipe consomme des services mis en place par l'autre, sans avoir besoin de communiquer avec elle.
     - Le service en question peut être par exemple une librairie, un composant, un outil de test, une API ou une plateforme.
-    - Il est utilisé **“as a service”** par l’équipe consommatrice, c’est-à-dire qu’il marche tel quel.
-    - Ce mode est possible quand de l’exploration dans un mode plus innovant a déjà eu lieu, et qu’un service avec un contour clair a pu être défini.
+    - Il est utilisé **“as a service”** par l'équipe consommatrice, c'est-à-dire qu'il marche tel quel.
+    - Ce mode est possible quand de l'exploration dans un mode plus innovant a déjà eu lieu, et qu'un service avec un contour clair a pu être défini.
       - Il implique donc une **faible interaction**.
       - Il permet de diminuer la cognitive load grâce à un ownership très clair de chaque partie.
     - Il nécessite une forme de **product management** :
-      - L’équipe qui fournit le service s’intéresse à la manière dont le service est perçu et utilisé côté consommateurs.
+      - L'équipe qui fournit le service s'intéresse à la manière dont le service est perçu et utilisé côté consommateurs.
       - Le service doit avoir une bonne developer experience (DevEx).
       - Toutes les demandes ne sont pas implémentées tel quel, mais sont prises en compte dans la cohérence globale du produit.
-    - Une même équipe peut avoir une interaction X-as-a-service avec **un grand nombre d’équipes** en même temps.
+    - Une même équipe peut avoir une interaction X-as-a-service avec **un grand nombre d'équipes** en même temps.
     - Usage typique :
-      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant la plateforme d’une _platform team_ (platform-as-a-service).
-      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant une librairie ou un composant d’une autre _complicated subsystem team_.
-  - **Facilitating** : une équipe aide l’autre à surmonter des problèmes.
-    - C’est le mode d’interaction principal des enabling teams, mais il peut aussi être utilisé par d’autres types d’équipes.
-    - Il s’agit par exemple d’**aider à être plus efficace** sur des problèmes courants, mieux comprendre une technologie, apprendre plus vite.
-    - Il peut aussi s’agir de faciliter l’interaction entre plusieurs équipes qui ne se comprennent pas :
+      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant la plateforme d'une _platform team_ (platform-as-a-service).
+      - Les _stream-aligned teams_ et les _complicated subsystem teams_ consommant une librairie ou un composant d'une autre _complicated subsystem team_.
+  - **Facilitating** : une équipe aide l'autre à surmonter des problèmes.
+    - C'est le mode d'interaction principal des enabling teams, mais il peut aussi être utilisé par d'autres types d'équipes.
+    - Il s'agit par exemple d'**aider à être plus efficace** sur des problèmes courants, mieux comprendre une technologie, apprendre plus vite.
+    - Il peut aussi s'agir de faciliter l'interaction entre plusieurs équipes qui ne se comprennent pas :
       - En aidant par exemple à clarifier des APIs difficiles à utiliser.
-      - En aidant à mieux définir les interactions entre les équipes pour aller vers l’architecture souhaitée, c’est-à-dire réaliser une **reverse Conway maneuver**.
+      - En aidant à mieux définir les interactions entre les équipes pour aller vers l'architecture souhaitée, c'est-à-dire réaliser une **reverse Conway maneuver**.
         - Quand on le fait, les équipes concernées doivent entrer en mode collaboration pour trouver les problèmes de la nouvelle organisation rapidement.
         - Une ou plusieurs équipes facilitatrices peuvent assister la transition.
-    - Il ne s’agit par contre **pas de construire le logiciel** à la place des équipes qui sont l’objet de l’aide.
-    - Une équipe peut avoir une interaction de facilitation avec **un petit nombre d’autres équipes** en même temps.
+    - Il ne s'agit par contre **pas de construire le logiciel** à la place des équipes qui sont l'objet de l'aide.
+    - Une équipe peut avoir une interaction de facilitation avec **un petit nombre d'autres équipes** en même temps.
     - Usage typique :
       - Une _enabling team_ aidant une des 3 autres types de teams.
-      - N’importe quelle équipe aidant une _stream-aligned team_.
-- Le choix clé qu’on aura souvent à faire se trouve notamment entre la collaboration et le x-as-a-service pour deux équipes données.
-- Les interactions principales pour chaque type d’équipe sont :
+      - N'importe quelle équipe aidant une _stream-aligned team_.
+- Le choix clé qu'on aura souvent à faire se trouve notamment entre la collaboration et le x-as-a-service pour deux équipes données.
+- Les interactions principales pour chaque type d'équipe sont :
   - Stream-aligned team : collaboration ou x-as-a-service
   - Complicated subsystem team : x-as-a-service
   - Enabling team : facilitating
   - Platform team : x-as-a-service
 - Stratégies basées sur les interactions :
   - On peut utiliser le mode collaboration pour **construire et affiner des interactions x-as-a-service**.
-    - Quand un nouveau service est fourni en x-as-a-service, on passe par une phase de collaboration pour le construire d’une manière adaptée aux besoins des consommateurs.
+    - Quand un nouveau service est fourni en x-as-a-service, on passe par une phase de collaboration pour le construire d'une manière adaptée aux besoins des consommateurs.
     - Il faut prévoir des petites phases de collaboration régulières entre équipes qui fournit et qui consomment, pour affiner le service : élargir, réduire son scope, ou le rendre plus ou moins flexible.
-  - On peut changer l’interaction entre deux équipes de manière **temporaire**, pour **aider une autre équipe, et augmenter l’empathie**.
+  - On peut changer l'interaction entre deux équipes de manière **temporaire**, pour **aider une autre équipe, et augmenter l'empathie**.
     - Deux équipes peuvent par exemple, de manière **délibérée**, entrer en mode collaboration, et échanger des membres pour faire du pair pendant quelques jours ou semaines.
     - Il faut bien sûr que ces changements soient pleinement consentis par les équipes.
     - Pour plus de détails sur ce genre de pratique, les auteurs recommandent <Book>Dynamic Reteaming</Book> de Heidi Helfand.
   - On peut utiliser les **écarts entre les interactions prévues et les interactions réelles** pour déceler les mauvaises limites architecturales du système.
-    - Par exemple : imaginons qu’on ait une équipe stream-aligned utilisant “as a service” un composant de calcul fait par une équipe complicated subsystem. Si l’utilisation implique de nombreuses interactions, on peut se poser des questions.
+    - Par exemple : imaginons qu'on ait une équipe stream-aligned utilisant “as a service” un composant de calcul fait par une équipe complicated subsystem. Si l'utilisation implique de nombreuses interactions, on peut se poser des questions.
       - Peut être que la limite du composant a été mal définie.
       - Peut être que la complicated subsystem team a un manque de compétences UX/DevEx en interne.
-    - Autre exemple : imaginons qu’on ait une platform team s’attendant à une relation de collaboration avec une stream-aligned team, en vue du développement d’un nouveau service. Si la platform team ne reçoit pas beaucoup de retour, on peut se poser des questions.
-      - Peut être que la stream-aligned team n’a pas bien compris l’intérêt d’aider la platform team.
-      - Peut être que la stream-aligned team n’a pas les compétences nécessaires en interne, et qu’une autre team serait plus adaptée.
+    - Autre exemple : imaginons qu'on ait une platform team s'attendant à une relation de collaboration avec une stream-aligned team, en vue du développement d'un nouveau service. Si la platform team ne reçoit pas beaucoup de retour, on peut se poser des questions.
+      - Peut être que la stream-aligned team n'a pas bien compris l'intérêt d'aider la platform team.
+      - Peut être que la stream-aligned team n'a pas les compétences nécessaires en interne, et qu'une autre team serait plus adaptée.
 
 ## 8 - Evolve Team Structures with Organizational Sensing
 
-- Vu que nous évoluons dans des contextes changeants, ce qu’il faut avant tout c’est non pas seulement designer la topologie d’équipes, mais surtout **designer les règles selon lesquelles cette topologie va évoluer**.
-- Les types d’intéraction _collaboration_ et _x-as-a-service_ sont en fait adaptés à des situations différentes :
-  - La collaboration permet d’explorer et d’innover rapidement en mettant en commun les compétences des deux équipes, du fait de la communication facilitée. Mais elle implique que la delivery devienne lente pour les deux du fait de la cognitive load plus importante.
-  - Le x-as-a-service permet de délivrer rapidement du fait d’une cognitive load plus faible, et d’une (quasi) absence d'interaction entre les équipes. Mais il ne permet pas d’innover rapidement sur le périmètre des deux équipes, du fait de l’interface pré-définie.
-  - La conséquence c’est que **la collaboration coûte cher, et doit donc être justifiée** par la valeur qu’elle apporte en termes d’exploration ou de construction de quelque chose de commun.
-- Le passage en mode collaboration peut en plus permettre d’apprendre des techniques que l’autre équipe maîtrise.
-  - Exemple : une équipe low level qui fait de l’embarqué, et une équipe qui récupère ces données IoT pour les afficher en utilisant le cloud, entrent en collaboration.
-    - L’équipe embarqué peut apprendre de l’autre comment faire des tests dans des environnements éphémères, alors que l’équipe cloud en apprendra plus sur les problématiques de l’embarqué qui pourraient affecter les données.
+- Vu que nous évoluons dans des contextes changeants, ce qu'il faut avant tout c'est non pas seulement designer la topologie d'équipes, mais surtout **designer les règles selon lesquelles cette topologie va évoluer**.
+- Les types d'intéraction _collaboration_ et _x-as-a-service_ sont en fait adaptés à des situations différentes :
+  - La collaboration permet d'explorer et d'innover rapidement en mettant en commun les compétences des deux équipes, du fait de la communication facilitée. Mais elle implique que la delivery devienne lente pour les deux du fait de la cognitive load plus importante.
+  - Le x-as-a-service permet de délivrer rapidement du fait d'une cognitive load plus faible, et d'une (quasi) absence d'interaction entre les équipes. Mais il ne permet pas d'innover rapidement sur le périmètre des deux équipes, du fait de l'interface pré-définie.
+  - La conséquence c'est que **la collaboration coûte cher, et doit donc être justifiée** par la valeur qu'elle apporte en termes d'exploration ou de construction de quelque chose de commun.
+- Le passage en mode collaboration peut en plus permettre d'apprendre des techniques que l'autre équipe maîtrise.
+  - Exemple : une équipe low level qui fait de l'embarqué, et une équipe qui récupère ces données IoT pour les afficher en utilisant le cloud, entrent en collaboration.
+    - L'équipe embarqué peut apprendre de l'autre comment faire des tests dans des environnements éphémères, alors que l'équipe cloud en apprendra plus sur les problématiques de l'embarqué qui pourraient affecter les données.
     - Que faire ensuite :
-      - Une fois la collaboration ayant porté ses fruits, on peut toujours la laisser durer pour que les équipes fassent plus d’exploration et d’apprentissage.
-      - En l’état les deux équipes doivent se coordonner pour la production de features. Vu qu’elles travaillent sur des stacks très différentes et ont une cadence de cycle différente, on ne peut pas vraiment faire autrement.
-        - On peut choisir l’une pour servir de platform team vis-à-vis de l’autre. Elle devra appliquer les méthodes de product management vis-à-vis de l’équipe consommatrice.
-        - A terme, si la cadence des cycles s’aligne, ils pourront passer sur deux équipes stream-aligned pairées.
+      - Une fois la collaboration ayant porté ses fruits, on peut toujours la laisser durer pour que les équipes fassent plus d'exploration et d'apprentissage.
+      - En l'état les deux équipes doivent se coordonner pour la production de features. Vu qu'elles travaillent sur des stacks très différentes et ont une cadence de cycle différente, on ne peut pas vraiment faire autrement.
+        - On peut choisir l'une pour servir de platform team vis-à-vis de l'autre. Elle devra appliquer les méthodes de product management vis-à-vis de l'équipe consommatrice.
+        - A terme, si la cadence des cycles s'aligne, ils pourront passer sur deux équipes stream-aligned pairées.
 - Les interactions entre équipes peuvent **changer régulièrement**, à condition que ce soit fait de manière **délibérée**.
-  - Dans une grande entreprise, on s’attend à tout instant à ce qu’il y ait de nombreuses relations de collaboration permettant de construire les APIs “as a service”.
-    - Pour chaque produit “as a service” qui fait l’objet d’une collaboration, on peut avoir une équipe stream-aligned qui collabore, et plusieurs autres qui ne collaborent pas, mais qui bénéficieront aussi du service quand il sera plus stable.
+  - Dans une grande entreprise, on s'attend à tout instant à ce qu'il y ait de nombreuses relations de collaboration permettant de construire les APIs “as a service”.
+    - Pour chaque produit “as a service” qui fait l'objet d'une collaboration, on peut avoir une équipe stream-aligned qui collabore, et plusieurs autres qui ne collaborent pas, mais qui bénéficieront aussi du service quand il sera plus stable.
     - La collaboration coûtant cher, on essaye quand même de la limiter à ce qui est vraiment nécessaire.
-  - Ce changement de topologie régulier et délibéré constitue une forme de design stratégique au sein de l’entreprise.
-  - Côté fréquence, le changement d’interaction peut être pertinent pour chaque équipe dans un ordre de temps qui est de plusieurs mois.
-- Il existe des des **triggers courants** qu’on peut repérer, et qui indiquent qu’il faut probablement **changer la topologie d’équipe** :
+  - Ce changement de topologie régulier et délibéré constitue une forme de design stratégique au sein de l'entreprise.
+  - Côté fréquence, le changement d'interaction peut être pertinent pour chaque équipe dans un ordre de temps qui est de plusieurs mois.
+- Il existe des des **triggers courants** qu'on peut repérer, et qui indiquent qu'il faut probablement **changer la topologie d'équipe** :
   - **Le logiciel est devenu trop gros pour une équipe**.
     - Symptômes :
       - Une startup dépasse 15 personnes.
-      - Des équipes attendent le travail d’autres équipes pour avancer.
-      - Les changements dans un même composant sont systématiquement assignés à la même personne dans l’équipe, y compris quand elle est occupée.
-      - Les membres de l’équipe se plaignent d’un manque de doc.
+      - Des équipes attendent le travail d'autres équipes pour avancer.
+      - Les changements dans un même composant sont systématiquement assignés à la même personne dans l'équipe, y compris quand elle est occupée.
+      - Les membres de l'équipe se plaignent d'un manque de doc.
     - Contexte :
-      - Les produits ont tendance à grossir, et à force ils dépassent la cognitive load d’une équipe.
-      - Plus les mêmes personnes travaillent sur les mêmes choses au sein de l’équipe, plus on va optimiser en fonction de ce que ceux qui sont disponibles savent, plutôt que ce qui est le plus prioritaire.
+      - Les produits ont tendance à grossir, et à force ils dépassent la cognitive load d'une équipe.
+      - Plus les mêmes personnes travaillent sur les mêmes choses au sein de l'équipe, plus on va optimiser en fonction de ce que ceux qui sont disponibles savent, plutôt que ce qui est le plus prioritaire.
         - Pour creuser ce point, on peut lire <Book>The Phoenix Project</Book> ou encore <Book>The DevOps Handbook</Book>.
   - **La cadence de delivery devient de plus en plus lente**.
     - Symptômes :
       - On ressent, et éventuellement mesure le ralentissement comme étant une tendance de fond.
       - Le nombre de choses en cours augmente, avec des choses en attente du travail d'autres équipes.
     - Contexte :
-      - Une équipe qui fonctionne bien devrait plutôt augmenter petit à petit sa cadence à mesure qu’elle adopte de meilleures techniques et enlève les bottlenecks.
-      - Le ralentissement peut venir d’un problème de type DevOps : l’équipe n’est plus responsable sur l’ensemble du cycle de vie de son produit, mais doit attendre.
-        - Par exemple, une équipe QA a été mise en place et vérifie chaque changement avec qu’il aille en production.
-      - Ou alors il peut aussi venir d’une dette technique qui grandit et devient de plus en plus insoutenable.
+      - Une équipe qui fonctionne bien devrait plutôt augmenter petit à petit sa cadence à mesure qu'elle adopte de meilleures techniques et enlève les bottlenecks.
+      - Le ralentissement peut venir d'un problème de type DevOps : l'équipe n'est plus responsable sur l'ensemble du cycle de vie de son produit, mais doit attendre.
+        - Par exemple, une équipe QA a été mise en place et vérifie chaque changement avec qu'il aille en production.
+      - Ou alors il peut aussi venir d'une dette technique qui grandit et devient de plus en plus insoutenable.
   - **Les services principaux se basent sur une grande quantité de services sous-jacents**.
     - Symptômes :
       - Les équipes stream-aligned ont du mal à avoir de la visibilité sur ce qui se passe de bout en bout sur leur produit.
-      - Elles ont du mal à avancer sur leur flow à cause de la complexité d’intégration avec les subsystems.
+      - Elles ont du mal à avancer sur leur flow à cause de la complexité d'intégration avec les subsystems.
     - Context :
       - Ce problème se produit surtout dans les secteurs très régulés (banque, assurance, gouvernement etc.).
-        - Ca peut être parce qu’une entreprise d’assurance doit s’interfacer avec des machines physiques d’usine pour faire des vérifications, ou une banque qui doit utiliser des mécanismes de vérification d’identité complexes.
-      - Si les stream-aligned teams connaissent les détails de tous les services bas niveau, elles ne s’en sortent plus.
+        - Ca peut être parce qu'une entreprise d'assurance doit s'interfacer avec des machines physiques d'usine pour faire des vérifications, ou une banque qui doit utiliser des mécanismes de vérification d'identité complexes.
+      - Si les stream-aligned teams connaissent les détails de tous les services bas niveau, elles ne s'en sortent plus.
       - La solution est :
-        - D’avoir une plateforme bas niveau dont l’action est cachée des équipes stream-aligned.
+        - D'avoir une plateforme bas niveau dont l'action est cachée des équipes stream-aligned.
         - Une plateforme haut niveau qui utilise la première, et qui contient des stream-aligned teams développant chaque aspect utile pour les teams stream-aligned finales.
           - Ils peuvent notamment fournir des services de tracking de requête avec des correlation IDs, du logging, des dashboards etc. pour que comprendre ce qui se passe dans les services sous-jacents soit simple pour les équipes steam-aligned finales.
-- Si on a des équipes stables dans le temps, et dont la nature et les interactions sont bien définies à chaque instant, on peut développer un outil stratégique au sein de l’entreprise : l’**organizational sensing**.
-  - Les différentes équipes se comportent alors comme les composants d’un **organisme vivant**, et peuvent **repérer des signaux pour s’adapter **en temps réel.
-    - NDLR : même métaphore de l’organisation comme être vivant que dans _Reinventing Organizations_.
-    - Ils font référence au concept d’_environmental scanning_ de Naomi Stanford.
+- Si on a des équipes stables dans le temps, et dont la nature et les interactions sont bien définies à chaque instant, on peut développer un outil stratégique au sein de l'entreprise : l'**organizational sensing**.
+  - Les différentes équipes se comportent alors comme les composants d'un **organisme vivant**, et peuvent **repérer des signaux pour s'adapter **en temps réel.
+    - NDLR : même métaphore de l'organisation comme être vivant que dans _Reinventing Organizations_.
+    - Ils font référence au concept d'_environmental scanning_ de Naomi Stanford.
   - Les équipes pourront se poser des questions comme :
-    - Faut-il changer les modes d’interaction ?
-      - Est-ce que la collaboration entre deux équipes est encore efficace ou est-ce qu’il faut passer en x-as-a-service ?
+    - Faut-il changer les modes d'interaction ?
+      - Est-ce que la collaboration entre deux équipes est encore efficace ou est-ce qu'il faut passer en x-as-a-service ?
     - Faut-il continuer à développer tel composant in house, ou adopter une version du commerce ?
-    - Est-ce que le flow de telle équipe est aussi fluide que possible et qu’est-ce qui la bloque ?
-    - Est-ce que telle plateforme fournit ce dont les équipes consommatrices ont besoin ? Est-ce qu’ils auraient besoin d’une intervention temporaire d’une équipe facilitatrice ?
-  - Un des éléments qui permet l’organizational sensing est le **feedback venant du logiciel en production**, et donc des utilisateurs.
-    - L’idéal est d’avoir les devs et les ops dans la même équipe (DevOps) pour que ce feedback soit le plus immédiat.
-    - Il ne faut **surtout pas avoir “d’équipe maintenance”** (ou équipe business as usual BAU), mais plutôt d’utiliser la mine d’infos que représente un système en production pour alimenter en feedback les systèmes qui sont en développement plus actif.
-      - On pourrait dire que la séparation “nouveau service / ancien service” n’est pas un très bon fracture plane, il vaut mieux les laisser dans la même équipe (ou au moins deux équipes pairées) et trouver autre chose si besoin de scinder l’équipe.
-    - Il faut que les personnes qui s’occupent des opérations soient parmi **les plus expérimentées** (et non pas les débutants comme le font de nombreuses organisations), pour pouvoir **reconnaître et trier les problèmes** et renvoyer un feedback précieux vers le développement.
+    - Est-ce que le flow de telle équipe est aussi fluide que possible et qu'est-ce qui la bloque ?
+    - Est-ce que telle plateforme fournit ce dont les équipes consommatrices ont besoin ? Est-ce qu'ils auraient besoin d'une intervention temporaire d'une équipe facilitatrice ?
+  - Un des éléments qui permet l'organizational sensing est le **feedback venant du logiciel en production**, et donc des utilisateurs.
+    - L'idéal est d'avoir les devs et les ops dans la même équipe (DevOps) pour que ce feedback soit le plus immédiat.
+    - Il ne faut **surtout pas avoir “d'équipe maintenance”** (ou équipe business as usual BAU), mais plutôt d'utiliser la mine d'infos que représente un système en production pour alimenter en feedback les systèmes qui sont en développement plus actif.
+      - On pourrait dire que la séparation “nouveau service / ancien service” n'est pas un très bon fracture plane, il vaut mieux les laisser dans la même équipe (ou au moins deux équipes pairées) et trouver autre chose si besoin de scinder l'équipe.
+    - Il faut que les personnes qui s'occupent des opérations soient parmi **les plus expérimentées** (et non pas les débutants comme le font de nombreuses organisations), pour pouvoir **reconnaître et trier les problèmes** et renvoyer un feedback précieux vers le développement.
 
 ## Conclusion
 
-- La raison pour laquelle de nombreuses organisations ont des équipes démotivées et n’arrivent pas à avancer, c’est qu’elles ont une obsession pour la delivery de features, et ignorent l’**aspect humain** et les dynamiques d’équipe.
-- Implémenter le modèle proposé par Team Topologies n’est **pas suffisant**, il faut aussi d’autres éléments pour avoir une delivery qui marche bien :
-  - Une **culture saine** où chacun peut aborder les problèmes en toute sécurité, et où l’apprentissage continu est mis en avant.
+- La raison pour laquelle de nombreuses organisations ont des équipes démotivées et n'arrivent pas à avancer, c'est qu'elles ont une obsession pour la delivery de features, et ignorent l'**aspect humain** et les dynamiques d'équipe.
+- Implémenter le modèle proposé par Team Topologies n'est **pas suffisant**, il faut aussi d'autres éléments pour avoir une delivery qui marche bien :
+  - Une **culture saine** où chacun peut aborder les problèmes en toute sécurité, et où l'apprentissage continu est mis en avant.
   - Des **pratiques techniques à la hauteur** :
     - Test-first.
     - Continuous delivery.
@@ -478,31 +478,31 @@ import { Book } from "../../components/markers/Book";
   - Des **pratiques financières saines** :
     - Ne pas faire de séparation CapEx/OpEx (budget pour les nouvelles features / budget pour la maintenance des features actuelles).
     - Éviter les project-driven deadlines.
-    - Allouer le budget training aux équipes plutôt qu’aux individus.
+    - Allouer le budget training aux équipes plutôt qu'aux individus.
   - Une **vision business claire** avec un horizon raisonnable à 3 / 6 / 12 mois, et un raisonnement clair autour du choix des priorités pour que chacun comprenne le pourquoi de ces choix.
 - Comment mettre en place Team Topologies dans notre organisation :
   - 1 - On commence par **se demander ce dont chaque équipe aurait besoin** pour :
-    - Être efficace en tant qu’équipe.
-    - Avoir l’ownership d'une partie du logiciel.
+    - Être efficace en tant qu'équipe.
+    - Avoir l'ownership d'une partie du logiciel.
     - Répondre aux besoins utilisateurs.
     - Réduire la cognitive load non nécessaire.
   - 2 - On identifie les **streams de changement** pertinents.
-    - Il s’agit des flows de changements principaux que veut faire avancer l’organisation.
+    - Il s'agit des flows de changements principaux que veut faire avancer l'organisation.
     - Quelques exemples :
       - Task-oriented streams : les différents services (passport, taxes etc.) disponibles pour les citoyens sur un site gouvernemental.
-      - Role-oriented streams : des produits bancaires comme la gestion de d’argent, l’automatisation des transactions etc.
+      - Role-oriented streams : des produits bancaires comme la gestion de d'argent, l'automatisation des transactions etc.
       - Activity streams : chercher des tickets, acheter des tickets, gérer les annulations etc. pour un système de gestion de tickets.
       - Geographical streams : marché européen, marché nord-américain etc.
       - User-type streams : consommateur, petites et moyennes entreprises, grandes entreprises etc.
   - 3 - On identifie la **Thinnest Viable Platform** (TVP).
-    - Il s’agit de trouver les services qui sont nécessaires pour que les streams soient rapides et fiables.
-    - Attention à n’y mettre que ce qui est nécessaire : la plateforme peut très bien se résumer à une page wiki qui décrit les outils externes utilisés.
+    - Il s'agit de trouver les services qui sont nécessaires pour que les streams soient rapides et fiables.
+    - Attention à n'y mettre que ce qui est nécessaire : la plateforme peut très bien se résumer à une page wiki qui décrit les outils externes utilisés.
   - 4 - On identifie les **écarts de compétences** dont on a besoin au sein des équipes.
-    - En plus de l’expertise technique, on a besoin de :
-      - Coaching d’équipe
+    - En plus de l'expertise technique, on a besoin de :
+      - Coaching d'équipe
       - Mentoring
       - Service management
       - Documentation
-    - Pour le détail des transformations d’organisation, les auteurs renvoient au livre <Book>Fearless Change</Book> de Mary Lynn Manns et Linda Rising.
+    - Pour le détail des transformations d'organisation, les auteurs renvoient au livre <Book>Fearless Change</Book> de Mary Lynn Manns et Linda Rising.
   - 5 - On **explique les principes de la nouvelle manière de travailler** centrée autour des équipes.
-    - On peut présenter la loi de Conway, expliquer la cognitive load, le principe team first basé sur l’humain, le fait de limiter les interactions entre équipes et les différentes interactions possibles, avec les raisons de chacune etc.
+    - On peut présenter la loi de Conway, expliquer la cognitive load, le principe team first basé sur l'humain, le fait de limiter les interactions entre équipes et les différentes interactions possibles, avec les raisons de chacune etc.

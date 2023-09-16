@@ -446,7 +446,7 @@ import { Tool } from "../../components/markers/Tool";
 
 - Dans le cas où la donnée dont le microservice a besoin se trouve encore dans la DB du monolithe, mais que c'est le microservice qui devrait la posséder, il faut la **déplacer dans le microservice**.
   - Le monolithe devra alors appeler le microservice pour obtenir la donnée, ou demander des changements.
-  - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l’aggragate, contrôle des règles de consistance etc.) se trouve dans le microservice.
+  - La question de savoir si les données doivent appartenir au micorservice se résout en se demandant si la logique qui contrôle la donnée (automate à état de l'aggragate, contrôle des règles de consistance etc.) se trouve dans le microservice.
 - **Déplacer de la donnée est difficile**. Ça peut impliquer de devoir casser des foreign keys, des transactions etc. ce sujet est traité plus tard dans le chapitre.
 
 ### Data Synchronization
