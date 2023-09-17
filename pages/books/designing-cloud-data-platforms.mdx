@@ -736,7 +736,7 @@ import { Tool } from "../../components/markers/Tool";
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d'aller là.
       - **4.1 - Pass-through job** : il s'agit d'un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
-      - **4.2 - Staging to production **: des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le _data warehouse_ ou dans une DB relationnelle ou NoSQL.
+      - **4.2 - Staging to production** : des jobs lisent la donnée à partir de la _staging area_ dans un but de reporting/analytics, et créent un dataset dans la _production area_, pour charger la donnée ensuite dans le _data warehouse_ ou dans une DB relationnelle ou NoSQL.
     - **5 - Failed area** : chaque étape peut faire face à des erreurs, qu'elles soient liées à la donnée ou à des échecs temporaires de la pipeline.
       - Les messages qui n'ont pas réussi une étape vont dans cette area où on pourra les examiner et voir ce qu'il faut corriger.
       - Une fois la correction faite, il suffit de les copier dans l'area de l'étape où ils ont échoués.
@@ -984,7 +984,7 @@ import { Tool } from "../../components/markers/Tool";
     - Pour que ça marche, il faut deux choses :
       - Un grand niveau de maturité dans les process de développement, notamment d'un point de vue automatisation de du check de rétrocompatibilité dans la pipeline de CI.
       - Un owner pour chaque source de donnée externe à l'organisation.
-    - De l'expérience des auteurs, les organisations n'ont en général peu la maturité technique suffisante, et le besoin de schéma versionné venant après coup, il est difficile de convaincre les équipes opérationnelles de mettre en place le _schema as a contract_.
+    - De l'expérience des auteurs, les organisations n'ont en général pas la maturité technique suffisante, et le besoin de schéma versionné venant après coup, il est difficile de convaincre les équipes opérationnelles de mettre en place le _schema as a contract_.
     - NDLR : il s'agit de l'approche mise en avant par le Data Mesh.
   - 2 - **La gestion du schéma dans la data platform**. Dans ce cas, la responsabilité se trouve du côté de l'équipe qui gère la data platform.
     - Les auteurs trouvent que cette solution marche bien dans pas mal de contextes. Elle a l'avantage de permettre de **centraliser** au même endroit les schémas des données qui viennent des équipes internes et ceux qui viennent de l'extérieur.
