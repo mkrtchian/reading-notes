@@ -1061,25 +1061,25 @@ import { Tool } from "../../components/markers/Tool";
 ## 9 - Data access and security
 
 - Les données d'analytics sont utilisées par de plus en plus de personnes au sein des entreprises, et par des moyens variés.
-  - 1 - Il y a les **utilisateurs humains** qui utilisent en général des outils BI ou veulent exécuter des requêtes SQL. Et il y a les data scientists qui veulent accéder à la _raw data_.
+  - 1 - Il y a les **utilisateurs humains** qui utilisent en général des outils BI ou veulent exécuter des requêtes SQL, et parfois des data scientists qui veulent accéder à la _raw data_.
   - 2 - Et il y a les **applications** qui utilisent la donnée par exemple pour des applications ML de recommandation ou de prédiction. Le _data warehouse_ ne suffit pas pour ces cas d'usage.
 - Le **data warehouse** reste quand même l'outil le plus commun pour accéder à la donnée d'analytics, du fait de la compatibilité avec les outils BI et du support du SQL.
   - <Tool>AWS Redshift</Tool>.
-    - Il s'agit d'un data warehouse **distributé**, c'est-à-dire qu'il répartit la donnée sur plusieurs machines.
+    - Il s'agit d'un _data warehouse_ **distributé**, c'est-à-dire qu'il répartit la donnée sur plusieurs machines.
       - Un nœud _leader_ reçoit les requêtes et répartit le travail à faire et les données sur les autres nœuds.
       - Les autres nœuds eux-mêmes sont subdivisés en _slices_. Ces slices peuvent être déplacés de nœud en nœud, pour équilibrer la capacité par du _rebalancing_.
       - Quand on crée une table, on peut indiquer sa propriété _DISTSTYLE_ pour choisir la manière dont ses données seront distribuées sur les nœuds. C'est le réglage de performance le plus impactant.
-        - _ALL_ : une copie de la table est créée sur chaque nœud. On peut le faire qu'avec les petites tables qui sont souvent l'objet de jointures.
+        - _ALL_ : une copie de la table est créée sur chaque nœud. On ne peut le faire qu'avec les petites tables qui sont souvent l'objet de jointures.
         - _EVEN_ : les rows de la table sont répartis de manière équitable sur les nœuds.
         - _KEY_ : permet d'indiquer une colonne dont les valeurs identiques donneront lieu à ce que la donnée soit stockée sur la même machine.
         - _AUTO_ : vaut _ALL_ au début, et passe à _EVEN_ quand la table grandit.
-    - Il est basé sur PostgreSQL et présente les caractéristiques des DB relationnelles.
+    - Il est basé sur **PostgreSQL** et présente les caractéristiques des DB relationnelles.
       - Il ne supporte que les types “primitifs”, c'est-à-dire pas les tableaux ou les objets imbriqués. Il est donc peu adapté à de la donnée JSON, avec laquelle les optimisations d'encodage ou de distribution dans les nœuds par clé ne pourront pas servir.
     - On peut optimiser la taille des données en choisissant le type d'encodage pour les colonnes : par exemple dans le cas où une colonne peut avoir seulement quelques valeurs possibles, l'encodage _byte-dictionary_ permet de limiter la taille de ces données.
     - Il possède une fonctionnalité appelée **Spectrum**, qui permet de créer une table dans <Tool>Redshift</Tool>, dont les données sont sur <Tool>S3</Tool>.
-      - Ca permet d'éviter d'utiliser des ressources CPU et de l'espace sur le data warehouse, pour des données qu'on veut juste explorer par exemple.
+      - Ca permet d'éviter d'utiliser des ressources CPU et de l'espace sur le _data warehouse_, pour des données qu'on veut juste explorer par exemple.
       - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds <Tool>Redshift</Tool>.
-      - Les auteurs recommandent de créer une DB dédiée sur Redshift pour regrouper ces tables qui pointent vers ailleurs.
+      - Les auteurs recommandent de créer une DB dédiée sur <Tool>Redshift</Tool> pour regrouper ces tables qui pointent vers ailleurs.
   - <Tool>Azure Synapse</Tool>.
     - C'est une DB distribuée comme <Tool>Redshift</Tool>, avec un _control node_ principal qui reçoit les requêtes, et qui fait appel aux autres nœuds.
       - Il y a une **séparation storage / compute**. Les données sont séparées en 60 distributions, et sont associées à des _compute nodes_.
@@ -1106,15 +1106,15 @@ import { Tool } from "../../components/markers/Tool";
     - <Tool>BigQuery</Tool> vient initialement plutôt d'un système permettant de traiter des fichiers de log, et non pas un système relationnel comme les deux autres.
       - Il a un **support natif des structures imbriquées**, et peut traiter le JSON comme une structure et pas juste du texte, avec la possibilité d'appliquer des traitements sur les attributs.
       - Il est du coup moins facilement compatible avec les outils BI, il faudra passer par une API REST.
-  - Les grandes organisations peuvent tirer parti de l'utilisation de **plusieurs cloud providers**, mais pour les petites le **coût opérationnel** n'en vaut pas la peine. Le choix du data warehouse dépendra donc en général du choix du cloud provider pour le reste de l'infra.
+  - Les grandes organisations peuvent tirer parti de l'utilisation de **plusieurs cloud providers**, mais pour les petites le **coût opérationnel** n'en vaut pas la peine. Le choix du _data warehouse_ dépendra donc en général du choix du cloud provider pour le reste de l'infra.
 - Les **applications** utilisent de plus en plus la data dans des systèmes customer-facing, par exemple dans des systèmes de recommandation.
   - Donner à l'application un **accès au data warehouse serait une mauvaise idée** pour plusieurs raisons :
     - Les _data warehouses_ ne sont pas conçues pour offrir des **latences** se comptant en millisecondes, mais en secondes voire minutes sur de grandes quantités de données.
     - Ils ne sont pas conçus pour supporter un trop **grand nombre de transactions** en même temps (par exemple des dizaines ou centaines de milliers) comme pourrait le nécessiter une application.
-    - Si l'application est compromise, l'ensemble du contenu du data warehouse pourrait fuiter, alors que si l'application a seulement accès à une DB qui a ce dont elle a besoin, on aura une meilleure **sécurité**.
+    - Si l'application est compromise, l'ensemble du contenu du _data warehouse_ pourrait fuiter, alors que si l'application a seulement accès à une DB qui a ce dont elle a besoin, on aura une meilleure **sécurité**.
   - **1 - Cloud relational databases**.
     - Chaque cloud provider a ses services de DBs managées, qui tiennent sans problèmes jusqu'à 1 TB. Au-delà de ça, ou si on a besoin de situer les machines géographiquement, il faut une DB distribuée.
-    - AWS propose **Relational Database** Service (RDS) pour **PostgreSQL**, <Tool>MySQL</Tool>, **MariaDB**, **Oracle** et **SQL Server**.
+    - AWS propose **Relational Database Service** (RDS) pour **PostgreSQL**, <Tool>MySQL</Tool>, **MariaDB**, **Oracle** et **SQL Server**.
       - Il propose **Aurora** comme DB distribuée, compatible avec <Tool>MySQL</Tool> et **PostgreSQL**.
     - GCP propose **Google Cloud SQL**, qui supporte <Tool>MySQL</Tool>, **PostgreSQL** et **SQL Server**.
       - Il propose **Google Cloud Spanner** pour la version distribuée.
@@ -1126,7 +1126,7 @@ import { Tool } from "../../components/markers/Tool";
     - Les cloud providers proposent soit une version _pay per use_ plus avantageuse en cas de faible utilisation, et une version _pay per provisioned capacity_ plus avantageuse en cas de grosse utilisation.
     - AWS propose <Tool>DynamoDB</Tool>, qui reste performant quel que soit le scale, et offre les deux types de facturation.
     - GCP propose **Datastore** qui est similaire à <Tool>DynamoDB</Tool> et qui propose du _pay per use_, et <Tool>Cloud Bigtable</Tool> qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
-      - <Tool>Cloud Bigtable</Tool> est d'ailleurs compatible avec HBase.
+      - <Tool>Cloud Bigtable</Tool> est d'ailleurs compatible avec <Tool>HBase</Tool>.
     - Azure propose **CosmosDB**, qui a la particularité de supporter les API clientes de **MongoDB**, **Cassandra**, SQL et de graph API, ce qui rend le portage depuis ces technos facile.
   - **3 - Full-text search services**.
     - Dans le cas où la fonctionnalité de notre application est de permettre une recherche dans la donnée, il existe **Solr** et **Elasticsearch**, tous deux basés sur **Lucene**.
