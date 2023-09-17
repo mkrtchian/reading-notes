@@ -1,3 +1,4 @@
+import { Book } from "../../components/markers/Book";
 import { Tool } from "../../components/markers/Tool";
 
 # Designing Cloud Data Platforms
@@ -410,35 +411,35 @@ import { Tool } from "../../components/markers/Tool";
             SELECT * FROM subscriptions WHERE LAST_MODIFIED > "2019-05-01 17:01:00"
             ```
           - On pourra mettre le _highest watermark_ dans le _technical metadata layer_.
-            - <Tool>AWS Glue</Tool> gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme **Google Cloud SQL** ou **Azure SQL Database**.
+            - <Tool>AWS Glue</Tool> gère nativement le stockage de ce genre de données, mais on peut le mettre dans une DB managée comme <Tool>Google Cloud SQL</Tool> ou <Tool>Azure SQL Database</Tool>.
         - Cette _incremental table ingestion_ permet d'ingérer moins de données dupliquées, mais elle a encore des inconvénients :
           - Il faut faire du processing pour faire apparaître les données supprimées, en comparant les snapshots entre eux.
           - Les données qui sont insérées puis supprimées entre deux snapshots ne seront pas capturées par ce mécanisme, donc **on perd des informations**.
     - **2 - Le Change Data Capture (CDC)**.
       - Le CDC permet de récupérer **l'ensemble des opérations** qui ont lieu sur la table, **sans aucun doublon**.
       - Il s'agit de lire le log de changements créé par la DB, à l'aide d'une application qui sait le faire.
-        - L'application peut être fournie par la DB, ou une application cloud-native comme <Tool>AWS Database Migration Service</Tool>, ou une application open source comme **Debezium**.
+        - L'application peut être fournie par la DB, ou une application cloud-native comme <Tool>AWS Database Migration Service</Tool>, ou une application open source comme <Tool>Debezium</Tool>.
       - Etant donné que les DBs ne gardent pas longtemps leur log de changements, **le CDC nécessite une infrastructure de type streaming** pour être récupéré.
       - Le format des messages récupérés depuis le log de changements contient la valeur du row avant, sa valeur après l'opération, le type d'opération, et des metadata.
         - On va vouloir mettre dans le _data warehouse_ uniquement la valeur après l'opération et le type d'opération.
         - La table dans le _data warehouse_ ressemble du coup au cas de l'_incremental table ingestion_ : on a une entrée par changement.
-      - Le CDC sur une DB **Oracle**.
-        - Oracle fournit **Oracle GoldenGate**, une application qui permet de lire son log de changement et de le transférer vers diverses plateformes.
+      - Le CDC sur une DB <Tool>Oracle</Tool>.
+        - Oracle fournit <Tool>Oracle GoldenGate</Tool>, une application qui permet de lire son log de changement et de le transférer vers diverses plateformes.
           - Il faut acheter la licence pour pouvoir l'utiliser.
-        - On peut mettre en place **Debezium** qui est open source, mais il faudra qu'il puisse se connecter à **Oracle XStream API**, qui lui-même nécessite quand même une licence **GoldenGate**.
+        - On peut mettre en place <Tool>Debezium</Tool> qui est open source, mais il faudra qu'il puisse se connecter à <Tool>Oracle XStream API</Tool>, qui lui-même nécessite quand même une licence <Tool>GoldenGate</Tool>.
         - Oracle fournit un outil d'analyse qui s'appelle **LogMiner**, qui est considéré comme pas 100% fiable.
           - Certains outils comme <Tool>AWS Database Migration Service</Tool> l'utilisent malgré tout.
-        - Une alternative moins chère à **GoldenGate** peut être **SharePlex**, un produit fait par Quest.
+        - Une alternative moins chère à <Tool>GoldenGate</Tool> peut être <Tool>SharePlex</Tool>, un produit fait par Quest.
       - Le CDC sur une DB <Tool>MySQL</Tool>.
         - <Tool>MySQL</Tool> écrit les changements dans un log servant principalement à la réplication, pour ajouter des DBs followers.
-        - Vu que c'est une DB open source, il existe de nombreux outils pour servir d'application CDC à partir de ce log, par exemple : **Debezium** et **Apache NiFi**.
-      - Le CDC sur une DB **MS SQL Server**.
-        - **MS SQL Server** fournit la possibilité de rediriger le log de changements d'une table vers une table créée spécialement pour ça.
+        - Vu que c'est une DB open source, il existe de nombreux outils pour servir d'application CDC à partir de ce log, par exemple : <Tool>Debezium</Tool> et <Tool>Apache NiFi</Tool>.
+      - Le CDC sur une DB <Tool>MS SQL Server</Tool>.
+        - <Tool>MS SQL Server</Tool> fournit la possibilité de rediriger le log de changements d'une table vers une table créée spécialement pour ça.
           - On peut donc facilement implémenter un outil CDC qui n'a qu'à utiliser SQL pour lire cette nouvelle table régulièrement.
-        - Parmi les outils qui supportent le CDC sur **MS SQL Server**, il y a par exemple: **Debezium**, **Apache NiFi** et <Tool>AWS Database Migration Service</Tool>.
-      - Le CDC sur une DB **PostgreSQL**.
-        - **PostgreSQL** supporte le fait de fournir son log de changements sous un format Protobuf ou JSON, ce qui facilite le travail des applications CDC.
-        - Il existe de nombreux outils qui savent lire ces données, par exemple : **Debezium** et <Tool>AWS Database Migration Service</Tool>.
+        - Parmi les outils qui supportent le CDC sur <Tool>MS SQL Server</Tool>, il y a par exemple: <Tool>Debezium</Tool>, <Tool>Apache NiFi</Tool> et <Tool>AWS Database Migration Service</Tool>.
+      - Le CDC sur une DB <Tool>PostgreSQL</Tool>.
+        - <Tool>PostgreSQL</Tool> supporte le fait de fournir son log de changements sous un format Protobuf ou JSON, ce qui facilite le travail des applications CDC.
+        - Il existe de nombreux outils qui savent lire ces données, par exemple : <Tool>Debezium</Tool> et <Tool>AWS Database Migration Service</Tool>.
   - Concernant le **mapping des données** depuis la DB vers le _data warehouse_, il va falloir faire une **analyse pour vérifier la compatibilité** :
     - 1 - On prépare une liste des types de données supportées par la DB dont on veut capturer les données.
       - Il vaut mieux prendre l'ensemble des types, en prévision d'ajout de colonnes avec des types qui n'étaient pas utilisés jusque là par l'application.
@@ -456,10 +457,10 @@ import { Tool } from "../../components/markers/Tool";
       - On peut utiliser un outil SaaS commercial qui supporte notre DB NoSQL : dans ce cas rien de plus à faire.
       - Implémenter l'application d'ingestion à la main, en utilisant l'API de notre DB NoSQL directement pour accéder aux données.
       - Utiliser une application CDC si c'est disponible.
-        - Par exemple **Debezium** supporte MongoDB.
+        - Par exemple <Tool>Debezium</Tool> supporte MongoDB.
       - On peut utiliser l'outil d'export de données de notre DB NoSQL, et le faire tourner régulièrement pour avoir un snapshot des données.
-        - **MongoDB** permet d'obtenir les données sous un format CSV ou JSON, et l'outil permet d'ajouter des requêtes, donc on peut avoir une colonne qui a la date de la dernière modification, et faire un _incremental table ingestion_.
-        - **Cassandra** permet d'obtenir les données sous un format CSV, mais uniquement en mode _full table ingestion_.
+        - <Tool>MongoDB</Tool> permet d'obtenir les données sous un format CSV ou JSON, et l'outil permet d'ajouter des requêtes, donc on peut avoir une colonne qui a la date de la dernière modification, et faire un _incremental table ingestion_.
+        - <Tool>Cassandra</Tool> permet d'obtenir les données sous un format CSV, mais uniquement en mode _full table ingestion_.
   - Concernant les **metadata liées à l'ingestion**.
     - Il faut sauvegarder un certain nombre de statistiques pour pouvoir ensuite faire des vérifications sur la **qualité des données** ingérées, et du **monitoring** de l'ingestion.
       - On va mettre tout ça dans notre _technical metadata layer_.
@@ -496,7 +497,7 @@ import { Tool } from "../../components/markers/Tool";
       - Vu que le filesystem ne fournit pas de système d'indexation, on va devoir lire à chaque fois les metadata de l'ensemble des fichiers pour savoir s'ils sont plus récents ou moins récents que notre timestamp sauvegardé.
         - On peut se retrouver face à un problème de performance, surtout avec les stockages cloud de masse.
       - Cette méthode rend plus compliqué le replay des fichiers : on devra possiblement modifier notre dernier timestamp sauvegardé, et on aura du mal avec les fichiers qui ont le même timestamp de modification.
-      - Certains outils comme **Apache NiFi** implémentent déjà ce mécanisme.
+      - Certains outils comme <Tool>Apache NiFi</Tool> implémentent déjà ce mécanisme.
         - Il faudra faire attention à faire un backup de ces données pour ne pas avoir à reprocesser tous les fichiers.
     - 3 - Une variante de l'approche des timestamps consiste à organiser les fichiers source dans une **arborescence de dossiers représentant la date d'ajout**.
       - Exemple :
@@ -505,7 +506,7 @@ import { Tool } from "../../components/markers/Tool";
         ```
       - On peut s'en servir pour ne lire que les metadata des fichiers qui sont à la date qu'on veut ingérer.
     - 4 - Des **outils cloud-native** existent pour copier des fichiers d'un storage à un autre, et de ne copier que les nouveaux fichiers à chaque fois qu'il y en a.
-      - **gsutil** permet de le faire chez Google Cloud, **blobxfer** chez Azure, et **s3 sync** chez AWS.
+      - <Tool>gsutil</Tool> permet de le faire chez Google Cloud, <Tool>blobxfer</Tool> chez Azure, et <Tool>s3 sync</Tool> chez AWS.
       - Il est compliqué de faire du replay avec ces outils, parce qu'il n'y a pas de dernier timestamp stocké à modifier.
   - Concernant les **metadata techniques à garder** :
     - On ne va pas à ce stade récupérer de statistiques sur le nombre de rows dans le fichier, parce que ce serait techniquement coûteux pour l'ingestion layer.
@@ -524,9 +525,9 @@ import { Tool } from "../../components/markers/Tool";
       - On peut aussi faire notre propre application **consumer Kafka à la main**, mais il faudra alors s'occuper de la gestion des erreurs, du logging, et du scaling de notre consumer. Les auteurs le **déconseillent**.
     - 2 - On va ensuite **l'écrire dans le _data warehouse_**.
       - Les auteurs conseillent fortement d'utiliser une solution **cloud-native** pour ça, en fonction de notre fast storage :
-        - <Tool>Azure Stream Analytics</Tool> qui lit depuis <Tool>Azure Event Hubs</Tool> pour écrire dans **Azure SQL Warehouse**.
-        - **Google Cloud Dataflow** qui lit depuis <Tool>Cloud Pub/Sub</Tool> pour écrire dans <Tool>BigQuery</Tool>.
-        - **AWS Kinesis Data Firehose** qui lit depuis <Tool>AWS Kinesis</Tool> pour écrire dans <Tool>Redshift</Tool>.
+        - <Tool>Azure Stream Analytics</Tool> qui lit depuis <Tool>Azure Event Hubs</Tool> pour écrire dans <Tool>Azure SQL Warehouse</Tool>.
+        - <Tool>Google Cloud Dataflow</Tool> qui lit depuis <Tool>Cloud Pub/Sub</Tool> pour écrire dans <Tool>BigQuery</Tool>.
+        - <Tool>AWS Kinesis Data Firehose</Tool> qui lit depuis <Tool>AWS Kinesis</Tool> pour écrire dans <Tool>Redshift</Tool>.
       - Pour <Tool>BigQuery</Tool> on peut ingérer dans le _data warehouse_ en streaming, mais pour les deux autres, il faudra faire de petits batchs.
     - 3 - L'autre chose à faire en parallèle c'est d'écrire la donnée **depuis le _fast storage_ vers le _slow storage_**.
       - On peut là aussi utiliser les solutions cloud-natives.
@@ -547,7 +548,7 @@ import { Tool } from "../../components/markers/Tool";
     - Chaque provider va fournir soit du **full data export** soit de l'**incremental data export**, et parfois les deux.
       - Le _full data export_ consiste à obtenir une liste d'objets, puis à aller chercher les données pour chacun d'entre eux.
       - L'_incremental data export_ consiste à obtenir une liste d'objets qui ont changé entre deux timestamps qu'on fournit, pour ensuite aller chercher leurs données récentes uniquement.
-    - Le **JSON** reçu est en général **imbriqué sur plusieurs niveaux**.
+    - Le <Tool>JSON</Tool> reçu est en général **imbriqué sur plusieurs niveaux**.
       - Certains _data warehouses_ gèrent les données imbriquées, mais ce n'est pas le cas de <Tool>Redshift</Tool> pour lequel il faudra faire une étape de processing pour mettre ces données à plat.
       - De manière générale, mettre les données à plat dans plusieurs tables plus petites est plus pratique pour les data scientists.
   - Etant donné la difficulté à implémenter et maintenir une pipeline ingérant de la donnée de sources SaaS, les auteurs conseillent de **bien réfléchir à l'implémenter soi-même**.
@@ -565,7 +566,7 @@ import { Tool } from "../../components/markers/Tool";
   - Pour faire le lien entre la plateforme dans le VPC et la donnée qu'on veut aller chercher, on peut utiliser un **VPN Gateway**, qui permet de passer par internet de manière sécurisée.
   - Dans le cas des SaaS comme source, ils fournissent des APIs sécurisées par HTTPS, et disponibles globalement sur internet, donc il n'est pas nécessaire d'établir une connexion via _VPN Gateway_.
   - Dans le cas où on veut transférer des centaines de GB par jour, il vaut mieux mettre en place une **connexion directe**.
-    - Les solutions cloud-natives ont leur outil de connexion directe : **AWS Direct Connect**, **Azure ExpressRoute**, **Google Cloud Interconnect**.
+    - Les solutions cloud-natives ont leur outil de connexion directe : <Tool>AWS Direct Connect</Tool>, <Tool>Azure ExpressRoute</Tool>, <Tool>Google Cloud Interconnect</Tool>.
 
 ## 5 - Organizing and processing data
 
@@ -589,12 +590,12 @@ import { Tool } from "../../components/markers/Tool";
   - Avoir un ensemble de _stages_ standardisés est important pour que chacun puisse s'y retrouver malgré le scale.
   - Les étapes proposés par les auteurs sont :
     - **1 - Landing area** : c'est là que la donnée arrive en premier, il ne s'agit pas d'un stockage long terme.
-    - **2 - Staging area** : la donnée subit des checks basiques de qualité, et on vérifie qu'elle est conforme au schéma attendu. Elle est stockée sous format **Avro**.
+    - **2 - Staging area** : la donnée subit des checks basiques de qualité, et on vérifie qu'elle est conforme au schéma attendu. Elle est stockée sous format <Tool>Avro</Tool>.
     - **3 - Archive area** : la donnée est copiée depuis la _landing area_ vers l'_archive area_.
       - Cette opération n'est effectuée qu'après que la donnée ait pu aller vers la _staging area_ avec succès.
       - On pourra refaire le processing de la donnée simplement en la copiant depuis l'_archive area_ vers la _landing area_.
     - **4 - Production area** : la donnée subit la transformation business nécessaire pour un use-case particulier avant d'aller là.
-      - Elle est aussi transformée du format **Avro** vers <Tool>Parquet</Tool>, qui est plus adapté pour faire de l'analytics.
+      - Elle est aussi transformée du format <Tool>Avro</Tool> vers <Tool>Parquet</Tool>, qui est plus adapté pour faire de l'analytics.
       - **4.1 - Pass-through job** : il s'agit d'un job qui copie la donnée de la _staging area_ vers la _production area_ sans transformation autre que le format <Tool>Parquet</Tool>, et ensuite la copie dans le _data warehouse_.
         - Ce use-case “basique” est utile pour débugguer les autres use-cases.
       - **4.2 - Cloud data warehouse and production area** : les use-cases qui ont besoin de la donnée dans le _data warehouse_ passent d'abord par le processing de la _staging area_ vers la _production area_.
@@ -633,13 +634,13 @@ import { Tool } from "../../components/markers/Tool";
     - L'approche _data lake_ traditionnelle consiste à laisser les données telles quelles, et laisser chaque pipeline parser elle-même la donnée et faire les traitements dont elle a besoin.
       - Mais cette approche a du mal à scaler.
       - Dans la _cloud data platform architecture_, on choisit de faire certains traitements en amont, pour éviter d'avoir à tester et maintenir du code qui fait ça dans chaque pipeline.
-    - **Avro** et <Tool>Parquet</Tool> sont des formats binaires intégrant un schéma.
+    - <Tool>Avro</Tool> et <Tool>Parquet</Tool> sont des formats binaires intégrant un schéma.
       - Ils permettent de ne pas répéter le nom des champs, et donc d'économiser de la place.
       - Ils permettent de garantir le schéma de la donnée.
-      - **Avro** est organisé en blocs de _rows_, alors que **Parquet** est organisé en blocs de _columns_.
-        - Les fichiers organisés en _rows_ sont utiles quand on lit la donnée de toutes les colonnes pour certains _rows_ donnés. La _staging area_ sert principalement à faire des transformations ou de l'exploration ad-hoc, donc **Avro** est adapté.
+      - <Tool>Avro</Tool> est organisé en blocs de _rows_, alors que <Tool>Parquet</Tool> est organisé en blocs de _columns_.
+        - Les fichiers organisés en _rows_ sont utiles quand on lit la donnée de toutes les colonnes pour certains _rows_ donnés. La _staging area_ sert principalement à faire des transformations ou de l'exploration ad-hoc, donc <Tool>Avro</Tool> est adapté.
         - Les fichiers organisés en _columns_ sont utiles quand on ne veut traiter qu'une _column_ sur un grand nombre de _rows_. La production area sert à faire des requêtes d'analytics, donc <Tool>Parquet</Tool> est adapté.
-    - Pour la conversion depuis le format initial vers **Avro**, puis vers <Tool>Parquet</Tool>, <Tool>Spark</Tool> permet de lire et écrire ces différents formats.
+    - Pour la conversion depuis le format initial vers <Tool>Avro</Tool>, puis vers <Tool>Parquet</Tool>, <Tool>Spark</Tool> permet de lire et écrire ces différents formats.
       - Exemple :
         ```python
         clicks_df = spark.read.json(in_path)
@@ -715,7 +716,7 @@ import { Tool } from "../../components/markers/Tool";
       - La _real-time ingestion_ implique moins de nécessité d'orchestration et de monitoring.
       - Pour éviter l'incohérence pour les utilisateurs, il vaut mieux éviter de mixer des données real-time avec des données qui viennent en batch.
       - On n'a en général pas la possibilité d'utiliser le même système pour traiter les données qui arrivent en real-time et les données qui arrivent par batch.
-        - Par exemple **Google Cloud Dataflow** le permet avec l'utilisation de <Tool>Beam</Tool>, mais la plupart du temps on aura besoin de deux outils.
+        - Par exemple <Tool>Google Cloud Dataflow</Tool> le permet avec l'utilisation de <Tool>Beam</Tool>, mais la plupart du temps on aura besoin de deux outils.
     - Selon les auteurs, la plupart du temps quand les utilisateurs demandent du “real-time”, ils veulent en fait juste de la _real-time ingestion_.
       - Quand des utilisateurs demandent à pouvoir afficher leur dashboard en “real-time” alors qu'il tourne une fois par jour, bien souvent avoir de la _real-time ingestion_ et faire tourner le processing du rapport toutes les heures ou toutes les 15 minutes leur suffira.
       - Parmi les cas d'usage qui pourraient nécessiter du real-time processing : les systèmes d'action in-game, les systèmes de recommandation, les systèmes de détection de fraude.
@@ -759,14 +760,14 @@ import { Tool } from "../../components/markers/Tool";
     - Une autre solution est d'avoir un **key/value cache** dans lequel on met l'ID de chaque message traité, et qu'on réinterroge à chaque fois pour éviter de le retraiter encore.
       - La taille va rarement être un problème : stocker 1 milliard de UUID fait ~15 Go.
       - Par contre il faut que le store soit _highly available_ et performant, donc une solution cloud est bien adaptée.
-      - Exemples de key/value stores : **Azure Cosmos DB**, **Google Cloud Bigtable**, **AWS DynamoDB**.
+      - Exemples de key/value stores : <Tool>Azure Cosmos DB</Tool>, <Tool>Google Cloud Bigtable</Tool>, <Tool>AWS DynamoDB</Tool>.
     - Une 3ème solution peut être de laisser les messages dupliqués jusqu'au _data warehouse_, et dédupliquer ensuite par **un job en mode batch**, soit dans le _data lake_, soit dans le _data warehouse_.
       - Ca permet d'avoir une real-time ingestion particulièrement rapide, mais il faut que la duplication soit OK dans un premier temps.
 - Une autre transformation courante est la **conversion de format**.
   - Les messages dans le système real-time sont consommés un par un, donc il est capital d'avoir des schémas bien définis entre producers et consumers. Le _metadata layer_ pourra nous aider à le stocker.
   - Concernant le format :
     - JSON ne fournit pas de mécanisme de gestion de schéma, et est plus volumineux. Il peut être compressé, mais ce serait surtout efficace avec plusieurs messages où des noms de champ se répètent par exemple.
-    - **Avro** permet de **minimiser la taille du message**, et permet une gestion du schéma avec la possibilité de le stocker dans un store.
+    - <Tool>Avro</Tool> permet de **minimiser la taille du message**, et permet une gestion du schéma avec la possibilité de le stocker dans un store.
     - <Tool>Parquet</Tool> **n'apporte aucun avantage** dans un système real-time puisque son but est de permettre de lire de grandes quantités de données pour faire du processing dessus, et qu'on est ici sur du message par message.
 - Concernant les **quality checks**, on peut avoir un job qui vérifie la qualité de chaque message avant de le placer dans l'area du stage suivant ou dans la _failed area_.
   - Dans le cas où on a de nombreuses sources gérées par plusieurs équipes, la difficulté va surtout être dans la définition de ce qu'est une donnée avec une qualité suffisante.
@@ -780,16 +781,16 @@ import { Tool } from "../../components/markers/Tool";
   - La limitation pourrait être la taille du message batch : s'il ne rentre pas dans la ram des VMs qui font le real-time processing, on peut fallback sur du batch processing.
 - Les **3 cloud vendors principaux** fournissent chacun deux outils pour le real-time processing : un outil de real-time storage type <Tool>Kafka</Tool>, et un outil qui fait le real-time processing.
   - **AWS**.
-    - **Kinesis Data Streams** est équivalent à <Tool>Kafka</Tool>.
+    - <Tool>Kinesis Data Streams</Tool> est équivalent à <Tool>Kafka</Tool>.
       - Il fournit des clients dans 5 langages, dont Node.js.
       - Il a l'équivalent des topics sous le nom de _Data Streams_.
       - Il a l'équivalent des partitions sous le nom de _shard_, et limite la throughput à 1 MB/s par shard.
       - Il supporte le “resharding” à la hausse ou à la baisse.
       - Il limite la taille des records à 1 MB.
       - La rétention par défaut est d'un jour, et va jusqu'à une semaine.
-    - **Kinesis Data Analytics** est l'outil de processing real-time.
+    - <Tool>Kinesis Data Analytics</Tool> est l'outil de processing real-time.
       - Il fournit une API SQL pour créer les jobs, mais c'est limité à des records qui contiendront du CSV ou du JSON.
-      - Il fournit aussi une API Java, qui utilise **Apache Flink** et permet plus de flexibilité sur le format des records.
+      - Il fournit aussi une API Java, qui utilise <Tool>Apache Flink</Tool> et permet plus de flexibilité sur le format des records.
       - Il ne fournit pas de mécanisme de déduplication.
   - **GCP**.
     - <Tool>Cloud Pub/Sub</Tool> est un peu différent de <Tool>Kafka</Tool> et il abstrait plus de choses.
@@ -812,11 +813,11 @@ import { Tool } from "../../components/markers/Tool";
       - Il fournit des clients en .NET et Python, mais des versions open source sont disponibles pour d'autres langages.
       - **Il supporte 3 protocoles pour s'y intégrer** en tant que producer ou consumer : HTTPS, AMQP et <Tool>Kafka</Tool>. Ça permet de migrer vers Azure sans avoir à tout réécrire.
       - Il a l'équivalent des topics dans le cas de <Tool>Kafka</Tool>, ou des hubs dans le cas d'AMQP.
-      - Il a l'équivalent des partitions, qu'il faut définir à l'avance comme pour <Tool>Kafka</Tool>, et à l'inverse de **Kinesis Data Streams** pour lequel on peut “resharder”.
+      - Il a l'équivalent des partitions, qu'il faut définir à l'avance comme pour <Tool>Kafka</Tool>, et à l'inverse de <Tool>Kinesis Data Streams</Tool> pour lequel on peut “resharder”.
       - Le throughput est limité à 1 MB/s ou 1000 messages/s par partition.
       - Les records ne peuvent pas dépasser 1 MB.
       - La période de rétention maximale est d'une semaine.
-      - Contrairement à **Kinesis Data Streams** qui stocke les offsets des consumers dans <Tool>DynamoDB</Tool>, ou à <Tool>Kafka</Tool> qui le stocke dans un topic interne, <Tool>Event Hubs</Tool> laisse cette responsabilité aux consumers.
+      - Contrairement à <Tool>Kinesis Data Streams</Tool> qui stocke les offsets des consumers dans <Tool>DynamoDB</Tool>, ou à <Tool>Kafka</Tool> qui le stocke dans un topic interne, <Tool>Event Hubs</Tool> laisse cette responsabilité aux consumers.
     - <Tool>Azure Stream Analytics</Tool> est l'outil de processing real-time.
       - Il ne propose qu'une API SQL, avec des fonctionnalités avancées de type windowing, recherche dans des dictionnaires etc.
       - Si on veut plus de flexibilité, on peut utiliser <Tool>Spark</Tool> à travers <Tool>Azure Databricks</Tool>, mais il s'agira de micro-batching et non pas de vrai streaming.
@@ -829,7 +830,7 @@ import { Tool } from "../../components/markers/Tool";
     - Ca peut être par exemple : la source, le propriétaire de la donnée, la date de sa création, la taille de la donnée, le but de la donnée, son niveau de qualité etc.
     - Ça aide notamment à trouver la donnée qu'on cherche.
     - On appelle souvent l'outillage autour de la business metadata le **data catalog**.
-      - Les cloud vendors ont chacun leur outil : **Google Cloud Data Catalog**, **Azure Data Catalog**, **AWS Glue Data Catalog**.
+      - Les cloud vendors ont chacun leur outil : <Tool>Google Cloud Data Catalog</Tool>, <Tool>Azure Data Catalog</Tool>, <Tool>AWS Glue Data Catalog</Tool>.
   - 2 - La **data platform metadata** (ou _pipeline metadata_) permet de rassembler des informations sur les pipelines de données.
     - Ça peut être des informations sur les sources, sur le succès ou l'échec de runs de pipelines, les erreurs qui ont eu lieu etc.
     - Ça permet notamment le **monitoring et la configuration des pipelines**.
@@ -876,7 +877,7 @@ import { Tool } from "../../components/markers/Tool";
           - _Created At_
           - _Updated At_
           - _Connectivity Details_ : pour les pipelines d'ingestion, il s'agit d'avoir des informations sur les sources. Par exemple des URLs, adresses IP etc.
-            - Attention à ne pas stocker de username / mots de passe dans ce layer. Il vaut mieux les mettre dans des outils sécurisés comme **Azure Key Vault**, **AWS Secrets Manager** ou **Google Cloud Secrets Manager**.
+            - Attention à ne pas stocker de username / mots de passe dans ce layer. Il vaut mieux les mettre dans des outils sécurisés comme <Tool>Azure Key Vault</Tool>, <Tool>AWS Secrets Manager</Tool> ou <Tool>Google Cloud Secrets Manager</Tool>.
       - L'objet **Source** décrit un endroit dont on veut aller chercher de la donnée en entrée d'une pipeline.
         - Sa structure est :
           - _ID_
@@ -944,33 +945,33 @@ import { Tool } from "../../components/markers/Tool";
       - Les IDs doivent être assignés à la main.
       - Il s'agira de les mettre dans le gestionnaire de version avec le reste du code, et de les déployer à chaque fois avec la pipeline de CI/CD.
     - Les _pipeline activities metadata_ sont l'équivalent de fichiers logs où la donnée afflue régulièrement.
-      - Pour pouvoir chercher dedans, il faut un outil spécialisé qui permette de le faire, il s'agit des **Cloud Log Aggregation Services** : **Azure Monitor** avec **Log Analytics** sur Azure, **Cloud Logging** sur GCP, et **Elasticsearch** sur AWS.
+      - Pour pouvoir chercher dedans, il faut un outil spécialisé qui permette de le faire, il s'agit des **Cloud Log Aggregation Services** : <Tool>Azure Monitor</Tool> avec <Tool>Log Analytics</Tool> sur Azure, <Tool>Cloud Logging</Tool> sur GCP, et <Tool>Elasticsearch</Tool> sur AWS.
   - 2 - Un cran de complexité au-dessus, on a l'utilisation d'une **base de données** pour stocker les fichiers de configuration (la _pipeline metadata_).
     - Les fichiers de configuration sont toujours dans le gestionnaire de version, et servent de source de vérité pour la configuration du _metadata layer_. C'est nécessaire pour avoir un historique des changements.
     - A chaque fois qu'un changement est fait dans ces fichiers, une migration sera faite sur la _metadata database_.
     - L'avantage d'avoir cette DB, c'est qu'on va pouvoir faire des requêtes pour obtenir des informations spécifiques qui existent à travers les fichiers de config. Par exemple : “Je veux voir toutes les sources qui utilisent ce _data quality check_”.
     - La DB peut être une DB relationnelle ou une DB de document qui permettra plus de flexibilité sur l'évolution du schéma.
-      - Des exemples typiques peuvent être **Google Cloud Datastore**, **Azure Cosmos DB** et **AWS DynamoDB**.
+      - Des exemples typiques peuvent être <Tool>Google Cloud Datastore</Tool>, <Tool>Azure Cosmos DB</Tool> et <Tool>AWS DynamoDB</Tool>.
   - 3 - Quand on a plusieurs équipes en charge des pipelines, il faut une solution qui puisse abstraire les détails d'implémentation exposés par la DB : on peut utiliser une **metadata API**.
     - L'idée c'est que le changement dans la structure de la DB n'impactera pas de nombreux outils maintenus par plusieurs équipes différentes. On pourra par exemple faire plusieurs versions de l'API.
     - La metadata API est en général faite selon les principes REST.
-      - Pour plus d'infos sur comment designer une API REST, il y a **_The Design of Web APIs_** d'Arnaud Lauret.
+      - Pour plus d'infos sur comment designer une API REST, il y a <Book>The Design of Web APIs</Book> d'Arnaud Lauret.
     - Il faudra que l'ensemble des outils qui utilisaient la DB, y compris les pipelines, utilisent maintenant l'API pour accéder aux configurations.
   - Les auteurs conseillent de **commencer par implémenter la solution la plus simple qui satisfait les besoins actuels** de la _data platform_, avec la possibilité de passer à la version un cran plus complexe dès que le besoin sera là.
     - Chaque solution se base sur la précédente en lui ajoutant quelque chose, donc ça devrait être relativement facile de migrer.
 - Parmi les **outils qu'on peut trouver chez les cloud vendors**, qui se rapprochent le plus de ce qu'on recherche avec notre _metadata layer_, il y a :
-  - **AWS Glue Data Catalog** stocke des informations à propos des sources et destinations, et des statistiques sur les runs des pipelines, ce qui fait de cet outil le plus proche de ce qu'on recherche.
-    - Le désavantage majeur c'est sa flexibilité : il faut implémenter les pipelines avec **AWS Glue ETL**, ce qui veut dire n'avoir que des _batch jobs_, et qui soient compatibles avec <Tool>Glue</Tool> (donc pas de source REST par exemple).
-  - **Azure Data Catalog** et **Google Cloud Data Catalog** sont plus orientées _business metadata_, et fournissent surtout de la **data discovery** : permettre aux utilisateurs de la donnée de faire une recherche dans une UI pour trouver la table qui les intéresse.
+  - <Tool>AWS Glue Data Catalog</Tool> stocke des informations à propos des sources et destinations, et des statistiques sur les runs des pipelines, ce qui fait de cet outil le plus proche de ce qu'on recherche.
+    - Le désavantage majeur c'est sa flexibilité : il faut implémenter les pipelines avec <Tool>AWS Glue ETL</Tool>, ce qui veut dire n'avoir que des _batch jobs_, et qui soient compatibles avec <Tool>Glue</Tool> (donc pas de source REST par exemple).
+  - <Tool>Azure Data Catalog</Tool> et <Tool>Google Cloud Data Catalog</Tool> sont plus orientées _business metadata_, et fournissent surtout de la **data discovery** : permettre aux utilisateurs de la donnée de faire une recherche dans une UI pour trouver la table qui les intéresse.
 - Parmi les **outils open source**, qui se rapprochent le plus de ce qu'on recherche avec notre _metadata layer_, il y a :
-  - **Apache Atlas** permet de faire de la _data discovery_, mais aussi de gérer la configuration de pipelines de manière **flexible** : on peut utiliser les _Types_ qu'il propose pour créer la configuration des namespaces, des pipelines, sources, destinations etc. avec des liens entre les objets.
+  - <Tool>Apache Atlas</Tool> permet de faire de la _data discovery_, mais aussi de gérer la configuration de pipelines de manière **flexible** : on peut utiliser les _Types_ qu'il propose pour créer la configuration des namespaces, des pipelines, sources, destinations etc. avec des liens entre les objets.
     - Son inconvénient principal est qu'il a été créé pour l'écosystème de <Tool>Hadoop</Tool>, et possède de nombreuses fonctionnalités qui lui sont dédiées.
-    - Un autre inconvénient est que c'est un outil open source qui nécessite de faire tourner d'autres outils open sources difficiles à administrer : **HBase** et **Solr**.
-  - **DataHub** est similaire à Atlas, dans la mesure où il est suffisamment flexible pour permettre d'implémenter le modèle décrit dans ce chapitre, et permet aussi la data discovery.
-    - Il a aussi l'inconvénient de nécessiter de faire tourner des outils open source difficiles à administrer : <Tool>Kafka</Tool>, <Tool>MySQL</Tool>, **Elasticsearch** et **Neo4j**.
-  - **Marquez** permet principalement de mettre à disposition des informations de **data lineage**, c'est-à-dire des informations sur l'origine des données.
+    - Un autre inconvénient est que c'est un outil open source qui nécessite de faire tourner d'autres outils open sources difficiles à administrer : <Tool>HBase</Tool> et <Tool>Solr</Tool>.
+  - <Tool>DataHub</Tool> est similaire à Atlas, dans la mesure où il est suffisamment flexible pour permettre d'implémenter le modèle décrit dans ce chapitre, et permet aussi la data discovery.
+    - Il a aussi l'inconvénient de nécessiter de faire tourner des outils open source difficiles à administrer : <Tool>Kafka</Tool>, <Tool>MySQL</Tool>, <Tool>Elasticsearch</Tool> et <Tool>Neo4j</Tool>.
+  - <Tool>Marquez</Tool> permet principalement de mettre à disposition des informations de **data lineage**, c'est-à-dire des informations sur l'origine des données.
     - Il n'est pas assez flexible pour implémenter le modèle présenté dans ce chapitre.
-    - Il a l'avantage de ne nécessiter que **PostgreSQL** comme dépendance à faire tourner, et on peut le faire comme service managé.
+    - Il a l'avantage de ne nécessiter que <Tool>PostgreSQL</Tool> comme dépendance à faire tourner, et on peut le faire comme service managé.
 
 ## 8 - Schema management
 
@@ -1003,41 +1004,41 @@ import { Tool } from "../../components/markers/Tool";
       - Pour une table d'une DB relationnelle par exemple, le nombre pourra être bas parce que la schéma est garanti par la DB.
     - Dans le cas où la donnée est différente entre deux records, <Tool>Spark</Tool> essayera de trouver un type qui englobe les deux. Par exemple, un nombre et un string vont donner un string.
     - Dans le cas où un type commun n'est pas possible, les données minoritaires seront placées dans le champ `_corrupt_record`.
-    - Le schéma inféré par <Tool>Spark</Tool> va d'abord être converti en schéma **Avro** avant d'être mis dans le _schema registry_.
-    - Si on utilise un outil qui ne supporte pas l'inférence de schéma, comme par exemple **Google Cloud Dataflow** basé sur <Tool>Apache Beam</Tool>, alors il faudra gérer les schémas à la main.
+    - Le schéma inféré par <Tool>Spark</Tool> va d'abord être converti en schéma <Tool>Avro</Tool> avant d'être mis dans le _schema registry_.
+    - Si on utilise un outil qui ne supporte pas l'inférence de schéma, comme par exemple <Tool>Google Cloud Dataflow</Tool> basé sur <Tool>Apache Beam</Tool>, alors il faudra gérer les schémas à la main.
   - Dans le cas d'une **real-time pipeline**, on ne peut pas utiliser l'inférence à cause du problème de performance et de la quantité de schémas qui seraient générés.
     - Dans ce cas, les auteurs conseillent de **laisser les développeurs qui génèrent les données de streaming maintenir le schéma**.
   - Pour pouvoir avoir du **monitoring** sur les changements de schémas, le module de _schema-management_ peut créer un log dans la partie _Pipeline Activities_ du _metadata layer_ à chaque fois qu'il trouve des données avec un schéma qui a changé.
     - Même si l'ingestion et les _common data processing_ steps peuvent se “réparer” automatiquement, la suite du processing peut ne pas donner le résultat voulu. Par exemple un rapport qui n'a plus les valeurs d'une colonne qui a été enlevée par la source.
     - Il vaut mieux être alerté du changement de schéma, et prévenir les équipes qui utilisent les données de cette source, avant qu'ils ne s'aperçoivent du problème par eux-mêmes.
 - Côté **implémentation** du _schema registry_ :
-  - **Apache Avro** est l'option conseillée par les auteurs pour servir de format de base pour l'ensemble des données de la _data platform_.
+  - <Tool>Apache Avro</Tool> est l'option conseillée par les auteurs pour servir de format de base pour l'ensemble des données de la _data platform_.
     - Son schéma peut être écrit et maintenu à la main.
-    - <Tool>Spark</Tool> peut aussi transformer son schéma inféré en schéma **Avro** automatiquement.
+    - <Tool>Spark</Tool> peut aussi transformer son schéma inféré en schéma <Tool>Avro</Tool> automatiquement.
     - Ces schémas peuvent être représentés par du simple JSON, et donc n'importe quelle DB qui supporte ça peut les héberger.
-    - **Avro** a un très bon système de gestion des versions des schémas.
+    - <Tool>Avro</Tool> a un très bon système de gestion des versions des schémas.
   - Les **solutions cloud-natives** de type _data catalog_ permettent d'implémenter un _schema registry_, mais ont des limitations.
-    - La plupart sont surtout orientés data discovery, et manquent de fonctionnalités concernant la gestion des versions des schémas et le support d'**Avro**.
-    - <Tool>Confluent Schema Registry</Tool> offre les fonctionnalités de gestion de version des schémas et un bon support d'**Avro**, mais il nécessite d'utiliser <Tool>Kafka</Tool>, ou un outil compatible avec <Tool>Kafka</Tool>.
+    - La plupart sont surtout orientés data discovery, et manquent de fonctionnalités concernant la gestion des versions des schémas et le support d'<Tool>Avro</Tool>.
+    - <Tool>Confluent Schema Registry</Tool> offre les fonctionnalités de gestion de version des schémas et un bon support d'<Tool>Avro</Tool>, mais il nécessite d'utiliser <Tool>Kafka</Tool>, ou un outil compatible avec <Tool>Kafka</Tool>.
       - Donc si on utilise par exemple <Tool>Kinesis</Tool>, ou bien si on ne fait pas de real-time, on ne pourra pas utiliser leur _schema registry_.
   - La **solution maison** proposée par les auteurs consiste à avoir soit une DB, soit une API avec une DB derrière.
     - Le solution pure texte stockée dans le gestionnaire de version, similaire au reste de la configuration du metadata layer, ne peut pas marcher pour le _schema registry_ parce qu'il faut pouvoir le mettre à jour automatiquement.
-    - Comme DB, on peut utiliser les mêmes <Tool>Cosmos DB</Tool>, **Datastore** et <Tool>DynamoDB</Tool>.
+    - Comme DB, on peut utiliser les mêmes <Tool>Cosmos DB</Tool>, <Tool>Datastore</Tool> et <Tool>DynamoDB</Tool>.
     - La structure des objets de schéma sera :
       - _ID_
       - _Version_ : l'_ID_ et la _Version_ forment ensemble une clé unique. L'_ID_ en elle-même n'est donc pas unique pour éviter d'avoir à mettre à jour en permanence les configurations des sources et destinations.
-      - _Schema_ : le champ qui stocke le schéma **Avro** au format texte.
+      - _Schema_ : le champ qui stocke le schéma <Tool>Avro</Tool> au format texte.
       - _Created At_
       - _Updated At_
 - Concernant la stratégie de **gestion de version des schémas**.
   - Il existe deux types de compatibilité entre les schémas :
     - **1 - Backward-compatible** : la dernière version du schéma doit permettre de lire l'ensemble des données existantes, y compris produites par un ancien schéma.
-      - **Avro** impose des règles précises pour garder la _backward-compatibility_. Par exemple ajouter une colonne le permet, dans ce cas la lecture d'une donnée ancienne par un schéma récent donnera lieu à l'usage de la valeur par défaut pour la colonne manquante.
+      - <Tool>Avro</Tool> impose des règles précises pour garder la _backward-compatibility_. Par exemple ajouter une colonne le permet, dans ce cas la lecture d'une donnée ancienne par un schéma récent donnera lieu à l'usage de la valeur par défaut pour la colonne manquante.
     - **2 - Forward-compatible** : une version plus ancienne du schéma doit permettre de lire les données produites par une version plus récente.
-      - Si on reprend l'exemple de l'ajout de colonne, **Avro** permet une forward-compatibility : l'ancien schéma ignorera la nouvelle colonne au moment de la lecture de la nouvelle donnée.
+      - Si on reprend l'exemple de l'ajout de colonne, <Tool>Avro</Tool> permet une forward-compatibility : l'ancien schéma ignorera la nouvelle colonne au moment de la lecture de la nouvelle donnée.
     - Le renommage de colonne est l'équivalent d'une création de colonne, et d'une suppression de colonne. Donc si on a des valeurs par défaut dans le schéma, elle sera à la fois _backward-compatible_ et _forward-compatible_.
-    - **Avro** supporte aussi automatiquement certains changements de types, par exemple un entier 32 bits vers 64 bits. On peut aussi soi-même implémenter d'autres règles de conversion, mais les auteurs le déconseillent pour garder la complexité des pipelines faible.
-    - Les règles d'évolution de schéma d'**Avro** sont disponibles [dans leur doc](https://avro.apache.org/docs/1.7.7/spec.html#Schema+Resolution).
+    - <Tool>Avro</Tool> supporte aussi automatiquement certains changements de types, par exemple un entier 32 bits vers 64 bits. On peut aussi soi-même implémenter d'autres règles de conversion, mais les auteurs le déconseillent pour garder la complexité des pipelines faible.
+    - Les règles d'évolution de schéma d'<Tool>Avro</Tool> sont disponibles [dans leur doc](https://avro.apache.org/docs/1.7.7/spec.html#Schema+Resolution).
   - Les _common data transformation pipelines_ ne vont en général pas avoir besoin de la présence colonnes spécifiques, et donc vont être résilientes aux changements de schémas.
     - Les _business processing pipelines_ en revanche vont y être beaucoup plus sensibles.
   - Les auteurs conseillent d'**utiliser les anciens schémas** dans les pipelines, et de passer aux nouveaux quand les changements de code ont été faits. Ca veut dire s'efforcer à faire des changements de schémas _forward-compatibles_.
@@ -1046,16 +1047,16 @@ import { Tool } from "../../components/markers/Tool";
       - Il n'y a pas de solution simple à ce problème. Il faut avoir un système de monitoring et d'alerting efficaces, et prévenir les clients en amont que leurs dashboards risquent d'avoir des incohérences le temps de mettre à jour le code.
 - Alors que les fichiers peuvent avoir chacun leur version de schéma associée, la donnée qui se trouve dans une table du **data warehouse** ne peut pas avoir plusieurs schémas en même temps.
   - On ne peut pas simplement utiliser le _schema registry_ pour mettre à jour la table du _data warehouse_, il va falloir le faire avec **du code dans le module de schema-management**, qui fait partie des _common data transformations_.
-    - Ça veut dire que les changements de schéma se feront quand même de manière automatique, avec des règles pré-établies où on va générer le bon SQL pour restructurer la table, en fonction de chaque changement de schéma **Avro**.
+    - Ça veut dire que les changements de schéma se feront quand même de manière automatique, avec des règles pré-établies où on va générer le bon SQL pour restructurer la table, en fonction de chaque changement de schéma <Tool>Avro</Tool>.
   - On ne peut pas non plus appliquer les mêmes règles qu'avec les transformations de schémas entre fichiers : dans le cas de suppression d'une colonne (ou de renommage, qui implique une suppression de fait), on va **garder l'ancienne colonne** quand même pour garder la donnée historique.
     - Parfois, quand les données ne sont pas trop grosses, il pourra être préférable de supprimer la colonne et de la recréer avec les données historiques et les nouvelles données dedans.
   - Côté **data warehouses des cloud vendors** :
     - <Tool>AWS Redshift</Tool> et <Tool>Azure Synapse</Tool> ont une approche similaire :
       - Ils sont ancrés dans le monde du relationnel, et nécessitent la définition du schéma avant de charger de la donnée.
       - Ils supportent `ALTER TABLE` pour faire des changements sur les tables.
-      - <Tool>Redshift</Tool> supporte **Avro** mais sans inférence à partir du schéma, alors que **Synapse** supporte seulement **CSV**, **ORC** et <Tool>Parquet</Tool>.
+      - <Tool>Redshift</Tool> supporte <Tool>Avro</Tool> mais sans inférence à partir du schéma, alors que <Tool>Synapse</Tool> supporte seulement <Tool>CSV</Tool>, <Tool>ORC</Tool> et <Tool>Parquet</Tool>.
     - <Tool>Google BigQuery</Tool> a une approche moins relationnelle, et permet d'inférer le schéma à partir de la donnée qu'on lui donne.
-      - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour **Avro**, **JSON** et <Tool>Parquet</Tool>.
+      - Il va aussi ajouter des colonnes au schéma automatiquement en inférant le type, si on lui présente de la donnée qui a des colonnes en plus. Il le supporte pour <Tool>Avro</Tool>, <Tool>JSON</Tool> et <Tool>Parquet</Tool>.
       - En revanche, il ne permet pas de modifier les tables après coup, sauf en ajoutant ou supprimant des colonnes, ce qui peut prendre du temps et coûter cher.
 
 ## 9 - Data access and security
@@ -1073,10 +1074,10 @@ import { Tool } from "../../components/markers/Tool";
         - _EVEN_ : les rows de la table sont répartis de manière équitable sur les nœuds.
         - _KEY_ : permet d'indiquer une colonne dont les valeurs identiques donneront lieu à ce que la donnée soit stockée sur la même machine.
         - _AUTO_ : vaut _ALL_ au début, et passe à _EVEN_ quand la table grandit.
-    - Il est basé sur **PostgreSQL** et présente les caractéristiques des DB relationnelles.
+    - Il est basé sur <Tool>PostgreSQL</Tool> et présente les caractéristiques des DB relationnelles.
       - Il ne supporte que les types “primitifs”, c'est-à-dire pas les tableaux ou les objets imbriqués. Il est donc peu adapté à de la donnée JSON, avec laquelle les optimisations d'encodage ou de distribution dans les nœuds par clé ne pourront pas servir.
     - On peut optimiser la taille des données en choisissant le type d'encodage pour les colonnes : par exemple dans le cas où une colonne peut avoir seulement quelques valeurs possibles, l'encodage _byte-dictionary_ permet de limiter la taille de ces données.
-    - Il possède une fonctionnalité appelée **Spectrum**, qui permet de créer une table dans <Tool>Redshift</Tool>, dont les données sont sur <Tool>S3</Tool>.
+    - Il possède une fonctionnalité appelée <Tool>Spectrum</Tool>, qui permet de créer une table dans <Tool>Redshift</Tool>, dont les données sont sur <Tool>S3</Tool>.
       - Ca permet d'éviter d'utiliser des ressources CPU et de l'espace sur le _data warehouse_, pour des données qu'on veut juste explorer par exemple.
       - Les performances seront du coup moins bonnes que les données qui sont sur les nœuds <Tool>Redshift</Tool>.
       - Les auteurs recommandent de créer une DB dédiée sur <Tool>Redshift</Tool> pour regrouper ces tables qui pointent vers ailleurs.
@@ -1090,10 +1091,10 @@ import { Tool } from "../../components/markers/Tool";
         - _HASH_ : l'équivalent de _KEY_, c'est-à-dire spécifier une colonne dont les valeurs permettront de répartir les données.
     - Il présente des caractéristiques relationnelles.
       - Il supporte seulement les types primitifs, et fournit des fonctions de parsing pour JSON, mais au prix de nombreuses optimisations perdues.
-    - Il a une fonctionnalité similaire à **Spectrum**, configurable par la notion de **pools**.
+    - Il a une fonctionnalité similaire à <Tool>Spectrum</Tool>, configurable par la notion de **pools**.
       - _SQL pool_ représente l'utilisation normale du _data warehouse_.
-      - _SQL on-demand pool_ permet de faire des requêtes sur des données sur **Azur Blob Storage** au format <Tool>Parquet</Tool>, CSV ou JSON.
-      - _Spark pool_ permet de faire des requêtes avec <Tool>Spark</Tool>, sur des données qui sont dans **Azur Blob Storage**. Ils permettent l'auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
+      - _SQL on-demand pool_ permet de faire des requêtes sur des données sur <Tool>Azur Blob Storage</Tool> au format <Tool>Parquet</Tool>, CSV ou JSON.
+      - _Spark pool_ permet de faire des requêtes avec <Tool>Spark</Tool>, sur des données qui sont dans <Tool>Azur Blob Storage</Tool>. Ils permettent l'auto-scaling, mais nécessitent que 3 nœuds tournent en permanence.
   - <Tool>Google BigQuery</Tool>.
     - <Tool>BigQuery</Tool> est un **peu plus “managé”** que les deux autres, dans la mesure où il n'y a pas de besoin de planifier la capacité dont on aura besoin à l'avance.
       - La puissance de calcul est “provisionnée” **à chaque requête**, grâce à des groupes de dizaines de milliers de nœuds qui tournent en permanence dans l'infra de Google.
@@ -1114,27 +1115,27 @@ import { Tool } from "../../components/markers/Tool";
     - Si l'application est compromise, l'ensemble du contenu du _data warehouse_ pourrait fuiter, alors que si l'application a seulement accès à une DB qui a ce dont elle a besoin, on aura une meilleure **sécurité**.
   - **1 - Cloud relational databases**.
     - Chaque cloud provider a ses services de DBs managées, qui tiennent sans problèmes jusqu'à 1 TB. Au-delà de ça, ou si on a besoin de situer les machines géographiquement, il faut une DB distribuée.
-    - AWS propose **Relational Database Service** (RDS) pour **PostgreSQL**, <Tool>MySQL</Tool>, **MariaDB**, **Oracle** et **SQL Server**.
-      - Il propose **Aurora** comme DB distribuée, compatible avec <Tool>MySQL</Tool> et **PostgreSQL**.
-    - GCP propose **Google Cloud SQL**, qui supporte <Tool>MySQL</Tool>, **PostgreSQL** et **SQL Server**.
-      - Il propose **Google Cloud Spanner** pour la version distribuée.
-    - Azure propose **Azure SQL Database**, qui supporte <Tool>MySQL</Tool>, **PostgreSQL** et **SQL Server**.
-      - Il propose **HyperScale** pour la version distribuée, disponible seulement pour **SQL Server**.
+    - AWS propose <Tool>Relational Database Service</Tool> (RDS) pour <Tool>PostgreSQL</Tool>, <Tool>MySQL</Tool>, <Tool>MariaDB</Tool>, <Tool>Oracle</Tool> et <Tool>SQL Server</Tool>.
+      - Il propose <Tool>Aurora</Tool> comme DB distribuée, compatible avec <Tool>MySQL</Tool> et <Tool>PostgreSQL</Tool>.
+    - GCP propose <Tool>Google Cloud SQL</Tool>, qui supporte <Tool>MySQL</Tool>, <Tool>PostgreSQL</Tool> et <Tool>SQL Server</Tool>.
+      - Il propose <Tool>Google Cloud Spanner</Tool> pour la version distribuée.
+    - Azure propose <Tool>Azure SQL Database</Tool>, qui supporte <Tool>MySQL</Tool>, <Tool>PostgreSQL</Tool> et <Tool>SQL Server</Tool>.
+      - Il propose <Tool>HyperScale</Tool> pour la version distribuée, disponible seulement pour <Tool>SQL Server</Tool>.
   - **2 - Cloud key / value data stores**.
     - Les services key/value offrent une faible latence pour insérer et retrouver des valeurs par leur clé.
       - Ils sont souvent utilisés par les nouveaux projets pour pouvoir itérer vite sans avoir de migration à faire.
     - Les cloud providers proposent soit une version _pay per use_ plus avantageuse en cas de faible utilisation, et une version _pay per provisioned capacity_ plus avantageuse en cas de grosse utilisation.
     - AWS propose <Tool>DynamoDB</Tool>, qui reste performant quel que soit le scale, et offre les deux types de facturation.
-    - GCP propose **Datastore** qui est similaire à <Tool>DynamoDB</Tool> et qui propose du _pay per use_, et <Tool>Cloud Bigtable</Tool> qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
+    - GCP propose <Tool>Datastore</Tool> qui est similaire à <Tool>DynamoDB</Tool> et qui propose du _pay per use_, et <Tool>Cloud Bigtable</Tool> qui ne permet pas de mettre de contrainte de types sur les données, et supporte le _price per provisioned capacity_.
       - <Tool>Cloud Bigtable</Tool> est d'ailleurs compatible avec <Tool>HBase</Tool>.
-    - Azure propose **CosmosDB**, qui a la particularité de supporter les API clientes de **MongoDB**, **Cassandra**, SQL et de graph API, ce qui rend le portage depuis ces technos facile.
+    - Azure propose <Tool>CosmosDB</Tool>, qui a la particularité de supporter les API clientes de <Tool>MongoDB</Tool>, <Tool>Cassandra</Tool>, SQL et de graph API, ce qui rend le portage depuis ces technos facile.
   - **3 - Full-text search services**.
-    - Dans le cas où la fonctionnalité de notre application est de permettre une recherche dans la donnée, il existe **Solr** et **Elasticsearch**, tous deux basés sur **Lucene**.
+    - Dans le cas où la fonctionnalité de notre application est de permettre une recherche dans la donnée, il existe <Tool>Solr</Tool> et <Tool>Elasticsearch</Tool>, tous deux basés sur <Tool>Lucene</Tool>.
       - Par exemple, si on veut chercher quelque chose de similaire à ce qui est tapé par l'utilisateur.
-    - AWS propose **CloudSearch**, Azure propose **Azure Search**, et GCP ne propose rien de managé au moment de l'écriture du livre.
+    - AWS propose <Tool>CloudSearch</Tool>, Azure propose <Tool>Azure Search</Tool>, et GCP ne propose rien de managé au moment de l'écriture du livre.
   - **4 - In-memory cache**.
     - Les caches permettent des temps d'accès inférieurs à la milliseconde grâce au stockage en RAM. Ils doivent être liés à une DB persistante pour pouvoir être reconstruits.
-    - AWS propose **ElasticCache**, qui supporte **Memcached** et **Redis**, GCP propose **Memorystore** qui supporte **Memcached**, et Azure propose **Azure Cache** qui supporte **Redis**.
+    - AWS propose <Tool>ElasticCache</Tool>, qui supporte <Tool>Memcached</Tool> et <Tool>Redis</Tool>, GCP propose <Tool>Memorystore</Tool> qui supporte <Tool>Memcached</Tool>, et Azure propose <Tool>Azure Cache</Tool> qui supporte <Tool>Redis</Tool>.
 - Les modèles de **machine learning** nécessitent l'accès à une grande quantité de données variée, une grande puissance de calcul, et l'accès à des outils spécifiques. La _cloud data platform_ est parfaitement adaptée à ça.
   - Dans les plateformes traditionnelles, les data scientists passent 80% de leur temps à récupérer la donnée sur leur machine, et la nettoyer et la transformer pour qu'elle puisse être interprétée par leurs outils.
     - Ils vont ensuite faire des tests exploratoires pour comprendre ce qu'ils peuvent faire ce cette donnée.
@@ -1147,20 +1148,20 @@ import { Tool } from "../../components/markers/Tool";
     - Une bonne partie de la mise en forme et de la validation des données est faite dans l'_ingestion layer_ et dans le _processing layer_ avec les _common data transformation steps_.
     - Les data scientists peuvent copier la donnée comme ils veulent dans le _storage_ de la _cloud data platform_, et faire de l'exploration ou du processing sans télécharger les données en local.
     - Ils peuvent collaborer sur un même jeu de données puisqu'il est dans le cloud, et peuvent avoir accès à de la donnée de production en grande quantité.
-    - Chacun des cloud vendors fournit un service de ML permettant de gérer un projet ML de bout en bout, et de mieux collaborer entre data scientists : **SageMaker** chez AWS, **AI Platform** chez GCP, et **Azure ML** chez Azure.
+    - Chacun des cloud vendors fournit un service de ML permettant de gérer un projet ML de bout en bout, et de mieux collaborer entre data scientists : <Tool>SageMaker</Tool> chez AWS, <Tool>AI Platform</Tool> chez GCP, et <Tool>Azure ML</Tool> chez Azure.
 - La **business intelligence** et le **reporting** sont en général le premier usage de la donnée de type analytics.
   - Ces outils nécessitent souvent que la donnée soit **relationnelle**, c'est-à-dire que chaque donnée soit dans sa colonne avec la table “à plat” reliée à d'autres tables par des clés étrangères, plutôt que d'avoir des données imbriquées comme dans du JSON.
     - <Tool>BigQuery</Tool> commence à être supporté par des outils comme <Tool>Tableau</Tool>, mais tous ne le supportent pas correctement.
   - Bien que de nombreux outils BI supportent <Tool>Spark SQL</Tool>, et pourraient se **brancher directement sur le _data lake_**, **les auteurs le déconseillent** parce que ça rendrait l'interface de ces outils peu interactive et lente. Se brancher sur le _data warehouse_ est bien plus adapté pour cette raison.
-  - **Excel** peut se brancher sur le _data warehouse_ grâce à son API JDBC/ODBC, mais c'est un outil qui tourne sur une machine locale, donc il sera limité sur la quantité de données, et télécharger les données sur sa machine locale pose des problèmes de performance.
+  - <Tool>Excel</Tool> peut se brancher sur le _data warehouse_ grâce à son API JDBC/ODBC, mais c'est un outil qui tourne sur une machine locale, donc il sera limité sur la quantité de données, et télécharger les données sur sa machine locale pose des problèmes de performance.
   - On voit souvent des **outils externes**, par exemple chez d'autres cloud providers, accéder à la donnée de la _cloud data platform_.
     - Il faut faire attention aux **coûts de sortie des données** (_data egress costs_), que chaque cloud provider applique.
-    - Chaque cloud provider a sa solution BI : **Azure Power BI** qui est très connu, AWS **QuickSight**, et **DataStudio** et **Looker BI** pour GCP.
+    - Chaque cloud provider a sa solution BI : <Tool>Azure Power BI</Tool> qui est très connu, AWS <Tool>QuickSight</Tool>, et <Tool>DataStudio</Tool> et <Tool>Looker BI</Tool> pour GCP.
 - La **sécurité** est essentielle pour une plateforme data.
   - Il vaut mieux éviter les accès ad hoc dès qu'il y a un besoin, mais plutôt utiliser les concepts de **Users**, **Groups** et **Roles** fournis par les cloud providers.
     - Les groupes facilitent grandement la gestion des permissions, il vaut mieux les configurer à ce niveau là dans la mesure du possible.
     - Une bonne pratique est de ne fournir que les permissions nécessaires à chaque type d'utilisateur (_principle of least privilege_).
-  - Il existe des outils cloud-native pour l'authentification, à la place des mots de passe, par exemple **Azure Active Directory**. Les auteurs conseillent de les utiliser quand c'est possible.
+  - Il existe des outils cloud-native pour l'authentification, à la place des mots de passe, par exemple <Tool>Azure Active Directory</Tool>. Les auteurs conseillent de les utiliser quand c'est possible.
   - Certaines configurations permettent de rendre des services accessibles publiquement. Pour limiter le risque, on peut faire diverses choses comme des audits, ou l'utilisation du principe _infrastructure-as-code_.
   - Dans le cas où on a des données sensibles, il ne faut pas hésiter à chiffrer des colonnes particulières.
   - Une autre solution peut être de limiter l'accès réseau à la donnée, dans le cas où les utilisateurs seraient sur un réseau particulier.
