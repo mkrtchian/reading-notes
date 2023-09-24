@@ -678,7 +678,7 @@ import { Tool } from "../../components/markers/Tool";
       - La valeur numérique acceptable de certaines colonnes.
       - Le fait d'avoir certaines colonnes “obligatoires”.
       - Le fait d'avoir certaines colonnes respecter un pattern, par exemple l'email.
-    - Spark a la fonction `filter()` qui permet d'obtenir les colonnes qui respectent une mauvaise condition.
+    - <Tool>Spark</Tool> a la fonction `filter()` qui permet d'obtenir les colonnes qui respectent une mauvaise condition.
       - On a aussi `subtract()` qui permet d'enlever ces rows du batch, pour passer les rows valides à la _production area_, et les rows invalides à la _failed area_.
         - Attention à la **consistance des données**, en fonction du contexte business, il peut être plus judicieux de laisser passer la donnée, et de simplement informer les data engineers du problème.
         - De manière générale, il faut réfléchir à **la criticité de chaque problème de qualité** pour décider quoi faire en cas de donnée malformée : filtrer la donnée, laisser passer et prévenir quelqu'un, ou annuler l'ingestion du batch entier.
