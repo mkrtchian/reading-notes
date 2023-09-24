@@ -648,7 +648,7 @@ import { Tool } from "../../components/markers/Tool";
         ```
   - **Data deduplication**.
     - On s'intéresse ici au fait d'avoir un attribut sur notre donnée qui soit unique dans l'ensemble des données.
-      - A partir du moment où on n'a pas de garanties d'unicité, on peut se retrouver dans une situation de duplication, par exemple si le _metadata repository_ est corrompu, la source envoie une donnée dupliquée, ou encore un dev rejoue certaines données qui avaient déjà marché.
+      - A partir du moment où on n'a pas de garanties d'unicité, on peut se retrouver dans une situation de duplication, par exemple si le _metadata repository_ est corrompu, si la source envoie une donnée dupliquée, ou encore si un dev rejoue certaines données qui avaient déjà marché.
       - Le problème existe aussi avec <Tool>Kafka</Tool>, où des transactions existent si on lit un record et qu'on écrit dans un topic <Tool>Kafka</Tool>, mais pas si on écrit sur un service de storage.
     - <Tool>Spark</Tool> a une fonction intégrée `dropDuplicates()` qui permet de dédupliquer en fonction d'une ou plusieurs colonnes.
       - On peut dédupliquer sur un batch qui arrive dans la _landing area_ pour pas cher :
