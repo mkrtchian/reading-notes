@@ -1039,7 +1039,7 @@ import { Tool } from "../../components/markers/Tool";
     - Le renommage de colonne est l'équivalent d'une création de colonne, et d'une suppression de colonne. Donc si on a des valeurs par défaut dans le schéma, elle sera à la fois _backward-compatible_ et _forward-compatible_.
     - <Tool>Avro</Tool> supporte aussi automatiquement certains changements de types, par exemple un entier 32 bits vers 64 bits. On peut aussi soi-même implémenter d'autres règles de conversion, mais les auteurs le déconseillent pour garder la complexité des pipelines faible.
     - Les règles d'évolution de schéma d'<Tool>Avro</Tool> sont disponibles [dans leur doc](https://avro.apache.org/docs/1.7.7/spec.html#Schema+Resolution).
-  - Les _common data transformation pipelines_ ne vont en général pas avoir besoin de la présence colonnes spécifiques, et donc vont être résilientes aux changements de schémas.
+  - Les _common data transformation pipelines_ ne vont en général pas avoir besoin de la présence de colonnes spécifiques, et donc vont être résilientes aux changements de schémas.
     - Les _business processing pipelines_ en revanche vont y être beaucoup plus sensibles.
   - Les auteurs conseillent d'**utiliser les anciens schémas** dans les pipelines, et de passer aux nouveaux quand les changements de code ont été faits. Ca veut dire s'efforcer à faire des changements de schémas _forward-compatibles_.
     - Quelle que soit la stratégie, même si la pipeline ne casse pas grâce aux règles de _backward / forward compatibility_, il est possible qu'on se retrouve avec des **erreurs logiques** dans nos transformations.
