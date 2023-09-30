@@ -264,3 +264,19 @@
   - _Huffman coding_ va créer un _binary tree_ contenant seulement les lettres qui composent les mots qu'on veut encoder.
   - Il suffit à chaque nœud de suivre le nœud de gauche si on a un 0, et celui de droite si on a un 1. Dès qu'on arrive à un _leaf node_, on a la lettre.
   - Ça donne l'avantage de pouvoir encoder les lettres sur peu de bits, avec un nombre variable de bits : plus le mot est récurrent, et plus il sera encodé sur un nombre faible de bits.
+
+## 8 - Dijkstra's algorithm
+
+- **L’algorithme de Dijkstra** permet de trouver le chemin le plus court en prenant en compte des poids sur les arêtes.
+  - Il ne marche que pour les _directed acyclic graphs (DAG)_.
+  - Il ne marche pas pour les graphs qui ont des valeurs négatives, pour ça on peut utiliser le Bellman-Ford algorithm.
+  - Il peut minimiser des chemins dans le cas où le graph représente des points séparés par des distances, mais aussi par exemple un prix si le graph représente des objets avec des prix à acheter et vendre pour arriver à un objet final.
+  - Il se fait en 4 étapes :
+    - 1 - On trouve le nœud le moins loin du point initial.
+      - On va marquer le temps qu’on met pour arriver à chacun des nœuds existants à partir du nœud initial.
+      - Si le nœud n’est pas directement accessible, il est à l’infini.
+    - 2 - Pour ce nœud, on note le temps que ça prend pour aller à chacun de ses voisins.
+      - On regarde si on met moins de temps par le chemin passant par le nœud actuel que depuis le nœud initial directement, pour atteindre chacun des autres nœuds voisins. Si oui on met à jour le temps de parcours.
+      - On note à chaque fois le parent du nœud à partir duquel le temps est le plus petit pour l’atteindre.
+    - 3 - on Répète 1 et 2 jusqu’à avoir traité tous les nœuds du graph.
+    - 4 - On calcule le chemin final.
