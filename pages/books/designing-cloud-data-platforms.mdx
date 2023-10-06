@@ -748,6 +748,7 @@ import { Tool } from "../../components/markers/Tool";
       - Mais dans le cas où on a des sources qui donnent des messages structurés très différemment, ou qui ne permettent pas d'utiliser des jobs de processings communs, on peut faire des topics différents par source.
       - Une autre raison de séparer en topics par source peut être la limitation en termes de quotas par topic, de la part du provider.
       - Une autre raison pour publier dans des topics différents peut être la structure interne des équipes, et les questions de sécurité, pour restreindre certaines données à certaines équipes.
+  - Pour rendre les jobs configurables, on peut faire en sorte qu’ils lisent le contenu du message et appellent une librairie qui va faire quelque chose de particulier en fonction de la valeur lue.
 - Parmi les transformations qu'on a couramment dans les systèmes real-time, il y a la **déduplication des messages**.
   - Les duplications sont courantes dans les systèmes real-time, elles ont deux origines :
     - 1 - Des duplications issues de la source, sur lesquelles on n'a pas de contrôle.
