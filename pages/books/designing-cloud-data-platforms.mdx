@@ -711,6 +711,7 @@ import { Tool } from "../../components/markers/Tool";
     - La donnée est traitée par un **real-time job** qui tourne en permanence et ajuste les calculs en fonction des nouvelles données.
       - Elle est ensuite mise à disposition d'un _key/value store_ ou éventuellement d'une DB relationnelle, pour un accès rapide. Le _data warehouse_ est trop lent et est fait pour des requêtes à la demande sur de grandes quantités de données.
       - Elle peut aussi être postée dans le _fast storage_, c'est-à-dire comme event de streaming pour déclencher un autre processing.
+      - C’est parce que ce job tourne en continu avec des choses chargées en RAM qu’il donne un résultat rapide, contrairement à une requête SQL dans un _data warehouse_ par exemple, qui ne se déclenche qu’au moment où on la lance.
   - Il est très important de **clarifier le besoin** : dans le cas où on n'a besoin que de _real-time ingestion_, la complexité de mise en œuvre est beaucoup moins grande.
     - Les auteurs conseillent d'utiliser la _real-time ingestion_ plutôt que la _batch ingestion_, sauf quand la source ne supporte pas le real time.
       - La _real-time ingestion_ implique moins de nécessité d'orchestration et de monitoring.
