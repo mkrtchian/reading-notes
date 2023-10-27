@@ -842,7 +842,7 @@ import { Tool } from "../../components/markers/Tool";
     - 1 - **Dupliquer le code des pipelines** pour les rendre simples, mais alors il faudra refaire des modifications à plusieurs endroits à chaque fois qu'on voudra changer quelque chose qui concerne plusieurs pipelines.
     - 2 - **Mettre du code en commun** pour éviter de réécrire trop de choses, mais alors la codebase se complexifie, et l'investigation des problèmes aussi.
   - Les auteurs du livre conseillent de mettre le code en commun, et de **rendre les pipelines configurables** pour éviter l'explosion de complexité.
-    - On pourra par exemple mettre en commun d'ingestion de sources de type RDBMS, et celles de type file. Ou encore mettre en commun des jobs de _data quality check_.
+    - On pourra par exemple mettre en commun l'ingestion de sources de type RDBMS, et celles de type file. Ou encore mettre en commun des jobs de _data quality check_.
     - Si la configuration se trouve dans un endroit séparé, il devient facile de la changer sans avoir à toucher au code.
     - Parmi les éléments de configuration, il peut y avoir par exemple : l'endroit d'où on récupère la donnée, l'endroit où on l'envoie, les checks de qualité et transformations qu'il faut faire sur chaque donnée etc.
 - La _data platform metadata_ a 3 fonctions :
