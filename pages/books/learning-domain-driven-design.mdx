@@ -463,7 +463,7 @@ import { Orange, Rose, Blue, Yellow, Pink, Green, Purple } from "../../component
 - Le **Process Manager** se base sur le même principe que la saga, mais là où la saga associe juste un event à une commande, le process manager va implémenter une logique plus complexe liée à plusieurs events pour choisir les commandes à déclencher.
   - Il est implémenté sous forme de state-based ou event-sourced aggregate avec une persistance de son état en BDD.
   - Là où la saga est déclenchée implicitement quand un événement qu'elle doit écouter se produit, le process manager est instancié par l'application et s'occupe de mener à bien un flow en plusieurs étapes.
-  - Exemple : la réservation d'un voyage business commence par la sélection du trajet le plus optimal, puis la validation par l'employé. Dans le cas où l'employé préfère un autre trajet, le manager doit valider. Puis l'hôtel pré-approuvé doit être réservé. Et en cas d'absence d'hôtels disponibles, l'ensemble de la réservation est annulée.
+  - Exemple : la réservation d'un voyage business commence par la sélection du trajet le plus optimal, puis la validation par l'employé. Dans le cas où l'employé préfère un autre trajet, le manager doit valider. Puis l'hôtel pré-approuvé doit être réservé. Et en cas d'absence d'hôtels disponibles, l'ensemble de la réservation est annulé.
   - Là encore, vu qu'on a des commandes et un état, il vaut mieux implémenter l'outbox pattern pour jouer les commandes et mettre à jour l'état de manière sûre.
 
 ## Part III : Applying Domain-Driven Design in Practice
