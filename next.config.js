@@ -16,6 +16,7 @@ const nextConfig = {
   trailingSlash: true,
   assetPrefix,
   basePath: assetPrefix,
+  output: "export",
 };
 
 module.exports = {
