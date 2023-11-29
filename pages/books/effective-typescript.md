@@ -25,7 +25,7 @@
 - Les types disparaissent et n’ont **aucun impact au runtime**.
 
   - Pour faire du type-checking au runtime, il faut se baser sur des objets JavaScript : par exemple des classes.
-  - Les _tagged unions_ sont courants :
+  - Les _tagged unions_ sont aussi courants :
 
     ```typescript
     interface Square {
@@ -43,3 +43,17 @@
       if(shape.kind === "rectangle") {
     // [...]
     ```
+
+### Item 4 : Get Comfortable with Structural Typing
+
+- Le typage de TypeScript est **structurel**. Ca veut dire qu’une valeur avec un type structurellement compatible sera acceptée, même si le type n’est pas exactement le même.
+  - En pratique, ça veut surtout dire qu’un objet qui a des attributs supplémentaires pourra être passé là où on attendait un objet avec moins d’attributs.
+  - C’est pour cette raison par exemple qu’`Object.keys(v)` ne renvoie pas le type des keys de l’objet mais des strings : **on n’est pas sûr qu’il n’y ait pas des attributs en plus**.
+  - Ca s’applique aussi aux classes : attendre un type d’une classe ne garantit pas qu’on n’aura pas un objet custom ou une autre classe qui a au moins les mêmes attributs et éventuellement d’autres en plus.
+
+### Item 5 : Limit Use of the `any` Type
+
+- L’utilisation d’`any` ou d’`as any` permet de **désactiver le type-checking**, il faut l’éviter au maximum.
+  - Il permet de “casser les contrats”, par exemple une fonction attendant un type précis acceptera quand même un objet qu’on a typé `any`.
+  - Il empêche l’autocomplétion, et même le **renommage automatique d’attribut** (si une variable est marquée comme `any`, l’éditeur ne pourra pas savoir qu’il faut renommer un de ses attributs).
+  - Il sape la confiance dans le type system.
