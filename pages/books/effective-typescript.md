@@ -159,3 +159,89 @@
     }
     getPerson(new String("Alice")); // Erreur de type
     ```
+
+### Item 11 : Recognize the Limits of Excess Property Checking
+
+- Bien que TypeScript ait un typage structurel, il existe un mécanisme particulier qui s’appelle **excess property checking**, et qui permet d’avoir un comportement strict et non pas structurel.
+  - Ce mode s’active quand on passe **une valeur littérale** à une fonction, ou qu’on l’assigne à une variable.
+    - Et il est actif uniquement quand on est dans le cadre d’une _type declaration_, pas dans le cadre d’une _type assertion_.
+  - Exemple :
+    ```typescript
+    type Person = {
+      name: string;
+    }
+    const alice: Person = {
+      name: "Alice";
+      age: 20; // Erreur, age n'existe pas sur Person
+    }
+    ```
+  - Dans le cas où on veut que le type ait **systématiquement un comportement structurel**, même dans le cas de l’_excess property checking_, on peut l’indiquer :
+    ```typescript
+    type Person = {
+      name: string;
+      [other: string]: unknown;
+    };
+    ```
+- Il existe un autre mécanisme similaire : il s’agit des **weak types**, c’est-à-dire des types objets qui n’ont **que des attributs optionnels**.
+  - Ce mécanisme s’applique tout le temps, et non pas juste dans le cas d’assignation de valeur littérale.
+  - La règle c’est qu’on doit assigner une valeur qui a **au minimum un attribut en commun** avec le _weak type_.
+  - Exemple :
+    ```typescript
+    type Person = {
+      name?: string;
+      age?: number;
+    };
+    const alice = { firstName: "alice" };
+    const alicePerson: Person = alice; // Erreur : aucun attribut en commun
+    ```
+
+### Item 12 : Apply Types to Entire Function Expressions When Possible
+
+- On peut **typer une fonction entière** si elle est une _function expression_, c’est-à-dire si elle n’est pas une fonction déclarée classiquement, mais plutôt une valeur qu’on peut passer à une variable.
+- Typer une fonction entière est utile notamment si :
+  - On a **plusieurs fonctions qui ont la même signature**, et qu’on veut être plus concis.
+    ```typescript
+    type BinaryFn = (a: number, b: number) => number;
+    const add: BinaryFn = (a, b) => a + b;
+    const sub: BinaryFn = (a, b) => a - b;
+    ```
+  - On a une fonction qui **doit avoir la même signature qu’une fonction existante**. Dans ce cas on peut utiliser `typeof`.
+    ```typescript
+    const checkedFetch: typeof fetch = async (input, init) => {
+      const response = await fetch(input, init);
+      // [...]
+      return response;
+    };
+    ```
+
+### Item 13 : Know the differences Between type and interface
+
+- Selon l’auteur, la convention consistant à mettre un I à chaque interface en TypeScript est considéré aujourd’hui comme une mauvaise pratique (inutile, apporte peu de valeur etc.).
+- Une interface peut étendre un type, et un type peut étendre une interface :
+  `interface StateWithPop extends State {
+  population: number;
+}
+type StateWithPop = State & { population: number; };`
+- **Une classe peut implémenter un type** comme elle peut implémenter un interface.
+  ```typescript
+  class State implements TypeState {
+    // [...]
+  }
+  ```
+- De manière générale, **un type offre plus de possibilités qu’une interface**. Par exemple l'utilisation d’unions.
+  - Un exemple notable est le **declaration merging** qui permet d’augmenter une interface sans changer son nom.
+    ```typescript
+    interface State {
+      name: string;
+    }
+    interface State {
+      population: number;
+    }
+    const wyoming: State = {
+      name: "Wyoming",
+      population: 500_000,
+    };
+    ```
+- Pour le **choix entre type et interface**, l’auteur conseille de se baser sur :
+  - La consistance au sein de la codebase.
+  - Le fait qu’on ait besoin ou non que d’autres personnes puissent augmenter nos types.
