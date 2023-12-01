@@ -85,3 +85,77 @@
       - C’est le cas parce qu’on peut ajouter autant d’attributs en plus qu’on veut, vu que c’est du structural typing. Donc l’intersection se trouve être un objet avec les propriétés des deux obligatoirement (sinon ce ne serait pas une intersection), et d’autres propriétés non indiquées optionnellement.
 - Pour assigner une valeur à une variable, il faut que tous les éléments du set du type de la valeur soient contenus dans le type de la variable.
   - `extends` permet d’indiquer la même chose : tous les éléments du type qui était doivent être inclus dans le type qui est étendu.
+
+### Item 8 : Know How to Tell Whether a Symbol Is in the Type Space or Value Space
+
+- Il existe **deux espaces différents** dans lesquels des symboles peuvent se référer à des choses : le **Type space** et le **Value space**.
+  - Un même symbole peut être défini dans l’un et l’autre de ces espaces pour désigner différentes choses.
+  - Le fait d’être dans l’un ou l’autre de ces espaces dépend du contexte dans lequel on se trouve. Par exemple en assignation à un `type`, en assignation à une variable `let` ou `const`, après une variable suivie d’un `:` etc…
+  - Le TypeScript Playground permet facilement de se rendre compte de ce qui est dans le _Type space_ : ça disparaît à la transpiration.
+- Les classes et les enums créent en même temps un symbole dans le _Type space_, et un autre dans le _Value space_.
+  - Le type issu d’une classe représente sa structure d’attributs.
+- Le mot clé `typeof` agit différemment en fonction de l’espace où il est utilisé :
+  - Dans le _Value space_ il va renvoyer un string caractérisant la valeur, par exemple `"object"` ou `"function"`.
+  - Dans le _Type space_ il va renvoyer le type caractérisant la valeur.
+  - `typeof MaClasse` (si utilisé dans le _Type space_) retourne le type de la classe elle-même, alors que `MaClasse` (si utilisé dans le _Type space_) représente le type d’une instance de cette classe.
+  - `InstanceType<T>` permet de retrouver le type de l’instance à partir du type de la classe. Par exemple :
+    ```typescript
+    InstanceType<typeof MaClasse>; // donne le type MaClasse
+    ```
+- On peut accéder aux attributs d’un objet :
+  - Si c’est une valeur, avec `objet["nom"]` ou `objet.nom`.
+  - Si c’est un type, avec seulement `Type["nom"]`.
+
+### Item 9 : Prefer Type Declarations to Type Assertions
+
+- Il vaut mieux utiliser **les _type declarations_ plutôt que les _type assertions_**.
+  - Exemple :
+    ```typescript
+    type Person = { name: string };
+    // Type declaration, à préférer
+    const alice: Person = { name: "Alice" };
+    // Type assertion, déconseillé
+    const bob = { name: "Bob" } as Person;
+    ```
+  - La raison est que **le type declaration va vérifier le type** qu’on assigne, alors que **le type assertion ne vérifie pas**, et permet d’outrepasser TypeScript dans le cas où on en sait plus que lui sur le contexte d’un cas particulier.
+  - Pour autant, même avec le type type assertion, on ne peut pas assigner n’importe quoi, il faut au minimum que la valeur qu’on assigne soit d’un sous-type de la valeur à laquelle on l’assigne.
+    - Pour forcer un type complètement arbitraire, on peut passer par `unknown` ou `any`.
+      ```typescript
+      document.body as unknown as Person;
+      ```
+  - En plus du `as`, on a aussi le `!` placé en suffixe qui permet de faire une forme de type assertion, en indiquant qu’on est sûr que la valeur n’est pas `null`.
+    ```typescript
+    const el = document.getElementById("foo")!;
+    ```
+- Pour utiliser le type declaration dans la fonction passée à un `map`, on peut typer sa valeur de retour.
+  ```typescript
+  ["alice", "bob"].map((name): Person => ({ name }));
+  ```
+  - Ici on demande à TypeScript d’inférer la valeur de name, et on indique que la valeur de retour devra être Person.
+
+### Item 10 : Avoid Object Wrapper Types (String, Number, Boolean, Symbol, BigInt)
+
+- Les types primitifs (_string_, _number_, _boolean_, _symbol_ et _bigint_) ne possèdent pas d’attributs comme peuvent en posséder les objets.
+  - Quand on utilise un attribut connu sur l’un d’entre eux, JavaScript crée un un objet éphémère correspondant (respectivement _String_, _Number_, _Boolean_, _Symbol_ et _BigInt_) pour le wrapper et fournir l’attribut en question.
+    ```typescript
+    // l'attribut charAt vient de l'objet String
+    "blabla".charAt(3);
+    ```
+  - C’est pour ça que si on assigne une propriété à une valeur primitive, la propriété disparaît (avec l’objet associé créé pour l’occasion et détruit aussitôt).
+- Il vaut mieux **éviter d’instancier les objets correspondant aux types primitifs**, ça n’apporte rien à part de la confusion.
+  - Exemple :
+    ```typescript
+    const person = new String("Alice");
+    ```
+  - En revanche, utiliser ces objets sans le new est tout à fait OK, ça nous donne une valeur primitive comme résultat.
+    ```typescript
+    Boolean(3); // renvoie true
+    ```
+- Il vaut mieux **éviter d’utiliser les objets correspondant aux types primitifs dans le Type space**. Ça pose le problème que le type primitif est assignable au type objet wrapper, alors que l’inverse n’est pas vrai.
+  - Exemple :
+    ```typescript
+    function getPerson(person: string) {
+      // [...]
+    }
+    getPerson(new String("Alice")); // Erreur de type
+    ```
