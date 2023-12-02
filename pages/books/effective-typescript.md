@@ -58,6 +58,8 @@
   - Il empêche l’autocomplétion, et même le **renommage automatique d’attribut** (si une variable est marquée comme `any`, l’éditeur ne pourra pas savoir qu’il faut renommer un de ses attributs).
   - Il sape la confiance dans le type system.
 
+## 2 - TypeScript's Type System
+
 ### Item 6 : Use Your Editor to Interrogate and Explore the Type System
 
 - TypeScript fournit un compilateur (tsc), mais aussi un serveur standalone (tsserver) permettant notamment de faire de l’introspection de types. C’est ça qui est utilisé par l’éditeur.
@@ -245,3 +247,114 @@ type StateWithPop = State & { population: number; };`
 - Pour le **choix entre type et interface**, l’auteur conseille de se baser sur :
   - La consistance au sein de la codebase.
   - Le fait qu’on ait besoin ou non que d’autres personnes puissent augmenter nos types.
+
+### Item 14 : Use Type Operations and Generics to Avoid Repeating Yourself
+
+- Il existe de nombreuses techniques pour **éviter la duplication de type** :
+  - 1 - Extraire la duplication dans un sous-type.
+  - 2 - Dans le cas de deux fonctions qui ont la même signature, créer un type de fonction, et l’utiliser pour les typer sous forme de _function expressions_ (cf. Item 12).
+  - 3 - Dans le cas où on a un type objet qui reprend **une partie des propriétés d’un autre type**, et qu’on veut garder ce lien sans extraire un sous-type :
+    - Par exemple, on _State_, et _TopNavState_ qu’on veut dépendre d’une partie de _State_ :
+      ````typescript
+      type State = {
+        userId: string;
+        pageTitle: string;
+        recentFiles: string[];
+      }
+      type TopNavState = {
+        userId: string;
+        pageTitle: string;
+      }```
+      ````
+    - On va pouvoir utiliser un mapped type :
+      ```typescript
+      type TopNavState = {
+        [k in "userId" | "pageTitle"]: State[k];
+      };
+      ```
+    - Ou encore l’équivalent avec `Pick` :
+      ```typescript
+      type TopNavState = Pick<State, "userId" | "pageTitle">;
+      ```
+  - 4 - Dans le cas où on veut le même type objet qui existe mais avec **tous les attributs optionnels** :
+    - Par exemple pour le même type State, on peut utiliser un mapped type :
+      ```typescript
+      type OptionalState = {
+        [k in keyof State]?: State[k];
+      };
+      ```
+    - Ou encore l’équivalent avec `Partial` :
+      ```typescript
+      type OptionalState = Partial<State>;
+      ```
+  - 5 - Si on veut récupérer la **valeur de retour inférée d’une fonction** dans un type à réutiliser ailleurs, on peut le faire avec `ReturnType` :
+    ```typescript
+    type UserInfo = ReturnType<typeof getUserInfo>;
+    ```
+
+### Item 15 : Use Index Signatures for Dynamic Data
+
+- Les **index signatures** doivent être utilisées seulement dans le cas où la donnée est dynamique et **qu’on ne connaît pas les attributs d’un objet à la transpilation**.
+  - Exemple :
+    ```typescript
+    type State = {
+      [property: string]: string;
+    };
+    ```
+- Sinon, il faut utiliser des types plus précis.
+  - Typer intégralement l’objet.
+  - Ajouter undefined aux propriétés peut ajouter un peu de safety en obligeant à vérifier leur présence.
+    ```typescript
+    type State = {
+      [property: string]: string | undefined;
+    };
+    ```
+  - Utiliser `Record` peut permettre d’être plus précis sur les noms de clés.
+    ```typescript
+    type State = Record<"userId" | "pageTitle", string>;
+    ```
+- NDLR : l’auteur n’en parle pas, mais souvent on va vouloir parser la donnée…
+
+### Item 16 : Prefer Arrays, Tuples, and ArrayLike to number Index Signatures
+
+- Les **objets JavaScript** sont représentés par des collections de clés / valeurs, **avec les clés ne pouvant être que des strings** (ou des symbols depuis ES6), et les valeurs n’importe quoi.
+  - Dans le cas où on donne autre chose en clé, ce sera converti en string avec l’appel à `toString()`, y compris pour un `number` par exemple.
+  - Les **arrays** sont des objets aussi. On les indexe par des entiers, mais ils sont convertis **automatiquement en strings** par JavaScript.
+  - TypeScript type l’index des _arrays_ comme des `number` pour éviter au maximum les erreurs.
+- Pour toutes ces raisons :
+  - Il faut éviter les `for..in` pour les _arrays_.
+  - Il faut de manière générale **éviter les numbers en tant que clé d’objet**, puisque ce sera converti de toute façon en string par JavaScript. A la place on peut soit :
+    - Utiliser `string` ou `symbol`.
+    - Utiliser un type _array_, par exemple : `Array`, `MonType[]`.
+    - Utiliser un type _tuple_, par exemple : `[number, number]`.
+    - Ou encore utiliser `ArrayLike` qui permet de désigner seulement les caractéristiques basiques d’un array (pouvoir accéder aux attributs par un index numérique et l’attribut _length_), sans les autres attributs du prototype.
+
+### Item 17 : Use readonly to Avoid Errors Associated with Mutation
+
+- **readonly** permet d’indiquer qu’une variable ou un paramètre ne pourra pas être modifié. **L’auteur conseille de l’utiliser dès que possible**.
+  - Une valeur _readonly_ peut être passée à une valeur mutable, mais pas l’inverse.
+    - Ca a l’avantage d’être “contaminant” : si une de nos fonctions appelle une autre fonction en lui donnant une valeur qu’on n’a pas le droit de toucher, il faudra que l’autre fonction prenne aussi un paramètre _readonly_.
+    - Dans le cas où on appelle des librairies sur lesquelles on n’a pas la main, on pourra toujours faire des _type assertions_ avec `as`.
+- `readonly` est par nature “shallow”, c’est à dire qu’**il n’agit que sur un niveau**.
+  - Par exemple :
+    ```typescript
+    const dates = readonly Date[];
+    dates.push(new Date); // Error
+    dates[0].setFullYear(2037); // OK
+    ```
+  - Il n’y a pas de version récursive de `readonly` dans la librairie standard, mais on peut par exemple trouver `DeepReadonly` dans une librairie comme _ts-essentials_.
+
+### Item 18 : Use Mapped Types to Keep Values in Sync
+
+- On peut **obliger un objet à avoir les mêmes attributs qu’un autre type** en utilisant un **mapped type**.
+  ```typescript
+  type ScatterProps = {
+    x: number[];
+    y: number[];
+  };
+  const REQUIRES_UPDATE: {[k in keyof ScatterProps]: boolean} = {
+    x: true;
+    y: false;
+    // Si on ajoute 'y', on aura une erreur
+  }
+  ```
