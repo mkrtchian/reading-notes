@@ -358,3 +358,24 @@ type StateWithPop = State & { population: number; };`
     // Si on ajoute 'y', on aura une erreur
   }
   ```
+
+## 3 - Type Inference
+
+### Item 19 : Avoid Cluttering Your Code with Inferable Types
+
+- **Il ne faut pas ajouter des types partout**, mais plutôt en ajouter juste assez pour permettre à TypeScript de tout typer par inférence.
+  - Ça permet notamment de faciliter le refactoring.
+  - Du code TypeScript idéal va typer la signature des fonctions, mais pas les variables créés dans ces fonctions.
+  - Dans certains cas quand on donne une lambda fonction il n’y a même pas besoin de typer ses paramètres qui seront inférés.
+- Parmi les cas où il faut **typer quand même** :
+  - Dans certains cas, on voudra faire une _type declaration_ pour éviter les erreurs dès la définition de l’objet, grâce à l’_excess property checking_.
+  - Annoter le type de retour d’une fonction peut aussi être parfois utile :
+    - Ne pas faire fuiter les erreurs vers les appelants.
+    - Spécifier le contrat d’une fonction avant même de l’implémenter.
+    - Etre cohérent dans certains cas où la fonction va par exemple prendre un type en paramètre et retourner le même type.
+- Il existe une règle eslint qui s’appelle _no-inferrable-types_, et qui permet d’éviter les types qui pourraient être inférés..
+
+### Item 20 : Use Different Variables for Different Types
+
+- Il faut **éviter de réutiliser** une même variable pour porter une valeur d’un **autre type**.
+  - Au lieu de ça, on pourrait typer avec un type plus large, mais la meilleure solution est de créer deux variables.
