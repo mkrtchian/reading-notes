@@ -379,3 +379,45 @@ type StateWithPop = State & { population: number; };`
 
 - Il faut **éviter de réutiliser** une même variable pour porter une valeur d’un **autre type**.
   - Au lieu de ça, on pourrait typer avec un type plus large, mais la meilleure solution est de créer deux variables.
+
+### Item 21 : Understand Type Widening
+
+- Chaque variable doit avoir un seul type, et ce type est déterminé par typescript au mieux au moment de la déclaration : c’est le **type widening**.
+- Le _type widening_ peut **être contrôlé** par certaines techniques :
+  - Déclarer une variable comme **const** plutôt que **let** permet d’avoir un _type widening_ moins important.
+  - On peut utiliser une **type declaration** pour spécifier un type spécifique plus précis pour un objet ou un tableau.
+  - On peut utiliser la **type assertion** `as const` pour obtenir le type le plus précis possible (sans _type widening_ du tout).
+
+### Item 22 : Understand Type Narrowing
+
+- TypeScript rend les types plus précis, notamment avec des **type guards**.
+  - Ça marche avec la condition de vérité (pour évacuer `null` et `undefined`).
+  - Ça marche avec une condition sur `instanceof`.
+  - Ça marche avec le check l'attribut : `"attr" in object`.
+  - Ça marche avec `Array.isArray()`.
+  - Il faut faire attention avec les comportements qui seraient contre-intuitifs en JavaScript, TypeScript les suit aussi.
+    - Par exemple `if(!x) { ... }` pourrait mener à x ayant pour type `string | number | null | undefined`.
+- Un autre moyen de rendre le type plus précis est l’utilisation d’**objets avec tag**
+  ```typescript
+  switch (object.type) {
+    case "download":
+      object; // de type Download
+      break;
+    case "upload":
+      object; // de type Upload
+      break;
+  }
+  ```
+- On peut aussi définir des **custom type guards**.
+  ```typescript
+  function isInputElement(el: HTMLElement): el is HTMLInputElement {
+    return "value" in el;
+  }
+  ```
+- Si on veut que **filter donne le bon type**, on peut utiliser un custom type guard plutôt qu'une callback normale.
+  ```typescript
+  function isDefined<T>(x: T | undefined): x is T {
+    return x !== undefined;
+  }
+  const members = ["Janet", "Michael", undefined].filter(isDefined);
+  ```
