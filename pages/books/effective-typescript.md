@@ -421,3 +421,40 @@ type StateWithPop = State & { population: number; };`
   }
   const members = ["Janet", "Michael", undefined].filter(isDefined);
   ```
+
+### Item 23 : Create Objects All at Once
+
+- Il vaut mieux **créer les objets d’un coup** quand c’est possible.
+  - Créer un objet partiel assigne un type à la variable, et l’ajout de propriété plus tard devient plus compliqué.
+- Une des techniques pour aider à créer un objet d’un coup est le spread operator `...`
+  - On peut construire un objet à partir de plusieurs autres :
+    ```typescript
+    const namedPoint = { ...pt, ...id };
+    ```
+  - On peut construire des **variables intermédiaires avec un type partiel** de notre objet final :
+    ```typescript
+    const pt0 = {};
+    const pt1 = { ...pt0, x: 3 };
+    const pt: Point = { ...pt1, y: 4 };
+    ```
+  - Dans le cas où on veut des **propriétés conditionnelles**, on peut utiliser un petit utilitaire :
+    ```typescript
+    function addOptional&lt;T extends object, U extends object>(
+      a: T, b: U | null
+    ): T & Partial&lt;U> {
+      return {...a, ...b};
+    }
+    const president = addOptional(firstLast, hasMiddle ? {middle: 'S'} : null);
+    president.middle // string | undefined
+    ```
+
+### Item 24 : Be Consistent in Your Use of Aliases
+
+- Quand on crée une variable servant de référence à une autre valeur (aliasing), il faut s’assurer qu’on utilise les type guards sur cette valeur pour rester consistant avec la suite du code.
+  ```typescript
+  const { bbox } = polygon;
+  if (bbox) {
+    const { x, y } = bbox;
+  }
+  ```
+- Quand on utilise un type guard sur un objet, et qu’on appelle une fonction l’objet qu’on a vérifié, cette fonction pourrait altérer l’objet, mais TypeScript fait le choix de ne pas invalider le type guard à chaque appel de fonction.
