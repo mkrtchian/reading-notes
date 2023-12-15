@@ -458,3 +458,47 @@ type StateWithPop = State & { population: number; };`
   }
   ```
 - Quand on utilise un type guard sur un objet, et qu’on appelle une fonction l’objet qu’on a vérifié, cette fonction pourrait altérer l’objet, mais TypeScript fait le choix de ne pas invalider le type guard à chaque appel de fonction.
+
+### Item 25 : Use async Functions Instead of Callbacks for Asynchronous Code
+
+- Il vaut mieux utiliser les promesses avec `async` / `await` que les promesses à l’ancienne ou même les callbacks asynchrones.
+  - La syntaxe est plus concise et infère mieux les types.
+  - Ca force une fonction à être **soit synchrone soit asynchrone, mais pas l’une ou l’autre conditionnellement**. De cette manière on sait comment l’appeler.
+- On peut utiliser `Promise.race()` qui termine dès qu’une des promesses termine, pour mettre en place un timeout :
+  ```typescript
+  function timeout(millis: number): Promise&lt;never> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => reject('timeout'), millis);
+    });
+  }
+  await Promise.race([fetch(url), timeout(ms)]);
+  ```
+
+### Item 26 : Understand How Context Is Used in Type Inference
+
+- En général TypeScript va **inférer le type d’une valeur à sa création**. Si on l’utilise plus tard dans un autre contexte (par exemple après qu’on l'ait placée dans une variable intermédiaire), l’inférence peut être mauvaise vis-à-vis de l’utilisation finale.
+  - Le contexte est conservé par exemple pour :
+    - Les types **string littéraux**, qui sinon vont plutôt être inférés en string général dans le cas d’une déclaration dans une variable let.
+    - Les types **tuple**, qui sinon vont plutôt être inférés en tableau dans le cas d’une déclaration dans une variable let.
+    - Les **objets** contenant des strings littéraux ou des tuples.
+    - Les **callbacks** dont on n’a pas besoin de fournir le type des paramètres quand ils sont directement fournis à la fonction.
+- Pour corriger le type en cas de perte de contexte, on va en général :
+  - 1 - Utiliser une **_type declaration_** pour contraindre la valeur au type de notre choix.
+  - 2 - Utiliser la **_const assertion_** `as const` pour contraindre la valeur au plus précis.
+    - Attention par contre : ça va transformer la valeur en _deeply constant_. Une solution peut être de propager ce comportement dans les endroits où on passe la valeur.
+
+### Item 27 : Use Functional Constructs and Libraries to Help Types Flow
+
+- Il vaut mieux **utiliser les fonctions built-in et les librairies externes** (par exemple Lodash, Ramda etc.) **plutôt que de coder les choses à la main**. Ce sera plus lisible et mieux typé.
+  - JavaScript n’a pas vraiment de librairie standard, les librairies externes jouent en grande partie ce rôle, et TypeScript a été construit pour les supporter.
+- `.flat()` sur un tableau multidimensionnel permet de le transformer en tableau à une dimension.
+- Lodash permet de chaîner des appels à ses fonctions utilitaires en donnant la valeur à la fonction `_`, puis permet de réobtenir la valeur finale avec `.value()`.
+  - On aura `_(v).a().b().c().value()` :
+    ```typescript
+    _(vallPlayers)
+      .groupBy((player) => player.team)
+      .mapValues((players) => _.maxBy(players, (p) => p.salary))
+      .values();
+    ```
+
+## 4 - Type Design
