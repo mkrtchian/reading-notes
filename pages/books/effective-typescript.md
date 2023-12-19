@@ -502,3 +502,35 @@ type StateWithPop = State & { population: number; };`
     ```
 
 ## 4 - Type Design
+
+### Item 28 : Prefer Types That Always Represent Valid States
+
+- Il vaut mieux écrire un type plus long ou plus complexe, mais qui permet d’**interdire les états invalides**.
+- On peut par exemple utiliser les _tagged unions_ (ou _discriminated unions_), qui sont une union d’objets ayant un attribut commun qui permet de savoir dans quel cas on est, et des attributs spécifiques à chaque cas possible.
+  ```typescript
+  interface RequestError {
+    state: "error";
+    error: string;
+  }
+  interface RequestSuccess {
+    state: "ok";
+    pageText: string;
+  }
+  type RequestState = RequestError | RequestSuccess;
+  ```
+
+### Item 29 : Be Liberal in What You Accept and Strict in What You Produce
+
+- Il faut être **strict avec les types qu’on retourne** dans une fonction (éviter les attributs optionnels par exemple), et on peut au contraire être **lâche avec les types qu’on accepte** en paramètre (par exemple une union de types).
+- Une utilisation classique est de définir un type canonique pour l’output, et un type dérivé de celui-là et plus large pour l’input.
+  - C’est un peu la distinction entre `Array` et `ArrayLike`.
+  - Exemple :
+    ```typescript
+    interface Camera {
+      zoom: number;
+      pitch: number;
+    }
+    setCamera(camera: Partial&lt;Camera>): Camera {
+      // ...
+    }
+    ```
