@@ -530,7 +530,35 @@ type StateWithPop = State & { population: number; };`
       zoom: number;
       pitch: number;
     }
-    setCamera(camera: Partial&lt;Camera>): Camera {
+    setCamera(camera: Partial<Camera>): Camera {
       // ...
     }
     ```
+
+### Item 30 : Don’t Repeat Type Information in Documentation
+
+- Il faut éviter les informations de type dans les commentaires, docstrings etc. les types sont là pour ça.
+- On peut envisager de mettre les unités dans les noms de variable, par exemple `timeMs` ou `temperatureC`.
+
+### Item 31 : Push Null Values to the Perimeter of Your Types
+
+- Il faut éviter les types objets dont une partie des attributs peut être `null` ou `undefined` : **soit tout est défini, soit le tout est `null`**.
+  - Il faut éviter les relations de non-nullité **implicite** entre deux variables, si elles sont liées on les mets au sein d’un même objet où elles ne pourront être que définies toutes les deux, ou l’objet tout entier non défini.
+    ```typescript
+    type Bounds: [number, number] | null;
+    const bounds = [10, 20];
+    ```
+- Si possible, il vaut mieux **créer une classe avec des membres non nuls**, au besoin avec une méthode statique asynchrone sur la classe, qui va chercher de la donnée et renvoie ensuite une instance de la classe avec cette donnée.
+  ```typescript
+  class User {
+    user: UserInfo;
+    constructor(user: UserInfo) {
+      this.user = user;
+    }
+    static async init(userId: string): Promise<User> {
+      const [user] = await fetchUser(userId);
+      return new User(user);
+    }
+  }
+  ```
+- Attention aux méthodes asynchrones : elles sont pratiques pour aller chercher de la donnée asynchrone à l’extérieur, mais le sont moins si on les utilise pour attendre qu’une valeur `null` finisse par être définie.
