@@ -562,3 +562,35 @@ type StateWithPop = State & { population: number; };`
   }
   ```
 - Attention aux méthodes asynchrones : elles sont pratiques pour aller chercher de la donnée asynchrone à l’extérieur, mais le sont moins si on les utilise pour attendre qu’une valeur `null` finisse par être définie.
+
+### Item 32 : Prefer Unions of Interfaces to Interfaces of Unions
+
+- Quand on a **un type d’objet avec des attributs étant des unions**, il faut se demander si on ne peut pas **remplacer ça par une union de types d’objets**.
+  - Exemple :
+    ```typescript
+    // Il vaut mieux
+    interface FillLayer {
+      layout: FillLayout;
+      paint: FillPaint;
+    }
+    interface LineLayer {
+      layout: LineLayout;
+      paint: LinePaint;
+    }
+    // plutôt que
+    interface Layer {
+      layout: FillLayout | LineLayout;
+      paint: FillPaint | LinePaint;
+    }
+    ```
+  - Ca permet notamment d’interdire les valeurs incohérentes, faisant suite à l’Item 28.
+
+### Item 33 : Prefer More Precise Alternatives to String Types
+
+- Le fait d’avoir de nombreux attributs typés `string` dans un objet est un code smell.
+  - Le fait d’indiquer une précision de format pour un `string` en commentaire en est un autre.
+- Dans la mesure du possible, **`string` peut être remplacé** par :
+  - Une union de _string literals_.
+  - Un _value object_ qui porte le string.
+  - Un _type générique_ qui met au moins une contrainte sur le string.
+    - Dans le cas particulier où on veut la valeur des attributs d’un objet, ne pas oublier d’utiliser `keyof NotreObjet`.
