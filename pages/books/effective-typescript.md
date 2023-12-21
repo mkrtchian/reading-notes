@@ -594,3 +594,15 @@ type StateWithPop = State & { population: number; };`
   - Un _value object_ qui porte le string.
   - Un _type générique_ qui met au moins une contrainte sur le string.
     - Dans le cas particulier où on veut la valeur des attributs d’un objet, ne pas oublier d’utiliser `keyof NotreObjet`.
+
+### Item 34 : Prefer Incomplete Types to Inaccurate Types
+
+- **Il vaut mieux un type moins précis** qu’un type précis mais **incorrect**.
+- Il faut aussi prendre en compte la developer experience :
+  - Un type trop complexe risque d’être plus prompt aux erreurs quand il sera modifié.
+  - Un type produisant une erreur incompréhensible ne fera pas gagner de temps.
+
+### Item 35 : Generate Types from APIs and Specs, Not Data
+
+- Il vaut mieux obtenir des types officiels (de librairie par exemple), ou **générer les types à partir de spécifications, plutôt que de les générer à partir d’exemples de données**.
+- Par exemple, un schéma GraphQL peut facilement servir de spécification pour générer des types pour les entrées et sorties d’une API.
