@@ -674,3 +674,30 @@ type StateWithPop = State & { population: number; };`
 
 - Dans le cas où ça ne vaut pas le coup de faire une version type safe d’un bout de code, et où on se contente d’une _type assertion_, alors il faut **préférer la contenir à l’intérieur d’une fonction qui aura ses paramètres et valeurs de retour typés**.
   - De cette manière la _type assertion_ ne sera pas faite et refaite partout dans le code, mais seulement dans un endroit précis, idéalement à côté du code qui prouve qu’elle a du sens.
+
+### Item 41 : Understand Evolving any
+
+- Alors que les types sont en général évalués à la création des valeurs, et ne peuvent être qu’affinés plus tard (avec des type guards par exemple), **dans le cas d’une valeur any inférée, le type va pouvoir évoluer** dans le code de la fonction en fonction des écritures dans la variable.
+  - Ça peut être par exemple une valeur initiale de tableau évaluée à `any[]`, qui finit par évoluer vers `number[]` à la sortie de la fonction, parce qu’on aura poussé des nombres dans le tableau.
+    ```typescript
+    function range(start, limit) {
+      const out = [];
+      for (let i = start; i &lt; limit; i++) {
+        out.push(i);
+      }
+      return out;
+    }
+    ```
+  - Ça peut être aussi une variable qu’on crée comme `let` ou `var`, sans assignation initiale, ou en assignant `null`. Son type va alors évoluer au gré des assignations.
+    ```typescript
+    let val; // any
+    if (Math.random() &lt; 0.5) {
+      val = /hello/;
+      val // RegExp
+    } else {
+      val = 12;
+      val // number
+    }
+    val // number | RegExp
+    ```
+  - Ce comportement se produit seulement si `any` est inféré automatiquement, que _noImplicitAny_ est activé.
