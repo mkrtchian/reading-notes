@@ -636,3 +636,41 @@ type StateWithPop = State & { population: number; };`
       return path.startsWith("/");
     }
     ```
+
+## 5 - Working with any
+
+### Item 38 : Use the Narrowest Possible Scope for any Types
+
+- Il faut **restreindre l’utilisation de any au plus petit scope possible**.
+  - Préférer la _type assertion_ `as any` qui n’agira que sur une instruction, plutôt qu’une _type declaration_ de `any` qui va propager le any partout où la variable sera utilisée.
+    ```typescript
+    // On préfère la type assertion
+    const x = expressionReturningFoo();
+    processBar(x as any);
+    // Plutôt que la type declaration
+    const x: any = expressionReturningFoo();
+    processBar(x);
+    ```
+  - Éviter à tout prix de retourner any dans une fonction. Au besoin on peut typer son retour pour l’éviter.
+  - Si un objet ne match pas un type particulier à cause d’un seul attribut, mais qu’on sait qu’il devrait, il vaut mieux faire une type assertion sur l’attribut seulement, et pas sur l’objet entier.
+    ```typescript
+    const config: Config = {
+      a: 1,
+      b: {
+        key: value as any,
+      },
+    };
+    ```
+
+### Item 39 : Prefer More Precise Variants of any to Plain any
+
+- Dans un souci d’utiliser le type le plus restrictif possible, dans le **cas où on doit utiliser any**, il faut voir si on ne peut pas **utiliser un type un peu plus précis à la place**.
+- Exemples :
+  - `any[]` si on sait que le type sera un tableau.
+  - `{[id: string]: any}` si on sait que le type sera un objet.
+  - `() => any` si on sait que le type sera une fonction.
+
+### Item 40 : Hide Unsafe Type Assertions in Well-Typed Functions
+
+- Dans le cas où ça ne vaut pas le coup de faire une version type safe d’un bout de code, et où on se contente d’une _type assertion_, alors il faut **préférer la contenir à l’intérieur d’une fonction qui aura ses paramètres et valeurs de retour typés**.
+  - De cette manière la _type assertion_ ne sera pas faite et refaite partout dans le code, mais seulement dans un endroit précis, idéalement à côté du code qui prouve qu’elle a du sens.
