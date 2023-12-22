@@ -606,3 +606,33 @@ type StateWithPop = State & { population: number; };`
 
 - Il vaut mieux obtenir des types officiels (de librairie par exemple), ou **générer les types à partir de spécifications, plutôt que de les générer à partir d’exemples de données**.
 - Par exemple, un schéma GraphQL peut facilement servir de spécification pour générer des types pour les entrées et sorties d’une API.
+
+### Item 36 : Name Types Using the Language of Your Problem Domain
+
+- Il faut **utiliser le vocabulaire du domaine dans le code**.
+  - Si deux mots désignent la même chose, on n’en garde qu’un seul dans le code.
+  - Dans le cas où le domaine en question a des spécifications ou normes, ne pas hésiter à les adopter, y compris dans le typage, plutôt que de rester vague ou d’inventer sa propre spécification.
+    - Exemple : pour indiquer le climat de vie d’un animal, il existe une classification appelée Köppen Climage. On peut du coup créer une union des _string literals_ de climats possibles plutôt qu’un _string_.
+  - NDLR : le livre ne fait pas le lien explicite, mais il s’agit ici de l’_ubiquitous language_ du DDD.
+
+### Item 37 : Consider “Brands” for Nominal Typing
+
+- Si on veut forcer un _nominal type_ quelque part, c’est-à-dire **empêcher les valeurs qui conviennent structurellement mais ont des choses en plus**, on peut ajouter un attribut caché qu’on appellera **`_brand`**.
+  ```typescript
+  interface Vector2D {
+    _brand: "2d";
+    x: number;
+    y: number;
+  }
+  ```
+- Cette technique du _brand_ peut aussi servir à simuler le comportement d’un _Value Object_, c’est-à-dire **garantir qu’une valeur aura certaines caractéristiques vérifiées au runtime**.
+  - On peut par exemple demander un type `string & {_brand: 'quelque chose'}`, pour obliger le passage par un type guard custom.
+    ```typescript
+    type AbsolutePath = string & { _brand: "abs" };
+    function listAbsolutePath(path: AbsolutePath) {
+      //...
+    }
+    function isAbsolutePath(path: string): path is AbsolutePath {
+      return path.startsWith("/");
+    }
+    ```
