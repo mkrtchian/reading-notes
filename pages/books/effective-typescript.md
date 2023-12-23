@@ -742,3 +742,21 @@ type StateWithPop = State & { population: number; };`
   _ Même avec `noImplicitAny`, on peut encore avoir des `any` explicites, et des `any` venant de librairies.
   _ Ca peut valloir la peine passer en revue les `any`, explicites ou implicites, pour voir si ils ont toujours du sens. Par exemple avec la librairie type-coverage :
   `npx type-coverage --detail`
+
+## 6 - Types Declarations and @types
+
+### Item 45 : Put TypeScript and @types in devDependencies
+
+- \*\*Les dépendances liées à TypeScript doivent aller dans les `devDependencies` du `package.json`</strong>.
+  - Ca vaut pour la dépendance `"typescript"` elle-même, et aussi pour toutes les dépendances de type `"@types/*"`.
+
+### Item 46 : Understand the Three Versions Involved in Type Declarations
+
+- En général \*_la version du package et la version du type `"@types/_"` doivent correspondre vis-à-vis de la composante majeure et mineure</strong>. Le patch peut être différent parce que le package de types gère ses propres bugs.
+  - Par exemple `"react@16.8.6"` et `"@types/react@16.8.19"` est OK.
+- Il est possible que la version de TypeScript nécessaire pour une de nos dépendances `"@types/*"` et notre code soit incompatible. Dans ce cas il faut soit downgrade la lib de type, soit notre version de TypeScript, soit créer des types nous-mêmes pour remplacer ceux de la lib de types.
+- Il est possible qu’un de nos package `"@types/*"` dépende d’un autre de ces packages de type, mais dans une version incompatible avec celle dont on a nous-même besoin. NPM va essayer de les installer tous les deux, mais pour les types ça marche rarement.
+  - On peut jeter un œil aux packages dupliqués avec `npm ls @types/mon-package`.
+- L’auteur conseille aux développeurs de librairie JavaScript de créer un package de `"@types/*"` séparé et disponible via _DefinitelyTyped_, plutôt qu’intégré à la librairie qui a besoin d’être typée.
+  - Ces librairies de type sont exécutées contre chaque nouvelle version de TypeScript, et les erreurs sont reportées aux mainteneurs. La communauté _DefinitelyTyped_ peut aussi nous aider si on utilise ça.
+  - Ces librairies peuvent être disponibles pour plusieurs versions de TypeScript, et globalement régler les problèmes de type lié à des dépendances sera plus facile.
