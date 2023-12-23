@@ -701,3 +701,44 @@ type StateWithPop = State & { population: number; };`
     val // number | RegExp
     ```
   - Ce comportement se produit seulement si `any` est inféré automatiquement, que _noImplicitAny_ est activé.
+
+### Item 42 : Use unknown Instead of any for Values with an Unknown Type
+
+- Quand on **ne connaît pas le type d’une valeur** (par exemple si elle vient du réseau à l’exécution), **il faut la typer `unknown`**.
+  - Ca va forcer à typer la valeur pour y accéder :
+    - Soit avec une _type assertion_.
+    - Soit avec une vérification au runtime : par exemple `instanceof` ou un type guard custom.
+- A propos des caractéristiques des types :
+  - `any` peut être assigné à tout type, et toute valeur peut lui être assignée.
+  - `unknown` ne peut être assigné à aucun type sauf `any` et lui-même, mais toute valeur peut lui être assignée.
+  - `never` peut être assigné à tout type, mais aucune valeur ne peut lui être assignée.
+
+### Item 43 : Prefer Type-Safe Approaches to Monkey Patching
+
+- En JavaScript on peut faire du **monkey-patching**, c’est-à-dire ajouter des attributs à un objet à la volée. On le fait souvent côté client pour ajouter des choses à _document_, ou à des balises HTML.
+  - C’est une **mauvaise pratique** parce ça revient à ajouter des variables à un niveau global, accessibles depuis trop d’endroits.
+- Si on doit quand même faire ce _monkey-patching_ parce qu’on n’a pas le choix, plutôt que de typer la balise avec `any` à chaque fois, on peut :
+  - 1 - Utiliser l’augmentation d’interface, et augmenter par exemple `Document`.
+    ```typescript
+    declare global {
+      interface Document {
+        monkey: string;
+      }
+    }
+    document.monkey = "Tamarin";
+    ```
+  - 2 - Créer une interface dérivée, et faire une _type assertion_ vers celle-là (plutôt que vers `any`) dès que nécessaire.
+    ```typescript
+    interface MonkeyDocument extends Document {
+      monkey: string;
+    }
+    (document as MonkeyDocument).monkey = "Macaque";
+    ```
+  - La 2ème solution nécessite une type assertion, mais au moins l’attribut n’est pas disponible partout tout le temps, mais seulement dans le contexte où on sait qu’il est là.
+
+### Item 44 : Track Your Type Coverage to Prevent Regressions in Type Safety
+
+- Il existe des librairies qui font du **type coverage pour tracker les any** (explicites ou implicites) dans le code.
+  _ Même avec `noImplicitAny`, on peut encore avoir des `any` explicites, et des `any` venant de librairies.
+  _ Ca peut valloir la peine passer en revue les `any`, explicites ou implicites, pour voir si ils ont toujours du sens. Par exemple avec la librairie type-coverage :
+  `npx type-coverage --detail`
