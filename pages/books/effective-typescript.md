@@ -747,7 +747,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 45 : Put TypeScript and @types in devDependencies
 
-- \*\*Les dépendances liées à TypeScript doivent aller dans les `devDependencies` du `package.json`</strong>.
+- **Les dépendances liées à TypeScript doivent aller dans les `devDependencies` du `package.json`**.
   - Ca vaut pour la dépendance `"typescript"` elle-même, et aussi pour toutes les dépendances de type `"@types/*"`.
 
 ### Item 46 : Understand the Three Versions Involved in Type Declarations
