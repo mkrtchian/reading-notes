@@ -439,13 +439,17 @@ type StateWithPop = State & { population: number; };`
     ```
   - Dans le cas où on veut des **propriétés conditionnelles**, on peut utiliser un petit utilitaire :
     ```typescript
-    function addOptional&lt;T extends object, U extends object>(
-      a: T, b: U | null
-    ): T & Partial&lt;U> {
-      return {...a, ...b};
+    function addOptional<T extends object, U extends object>(
+      a: T,
+      b: U | null
+    ): T & Partial<U> {
+      return { ...a, ...b };
     }
-    const president = addOptional(firstLast, hasMiddle ? {middle: 'S'} : null);
-    president.middle // string | undefined
+    const president = addOptional(
+      firstLast,
+      hasMiddle ? { middle: "S" } : null
+    );
+    president.middle; // string | undefined
     ```
 
 ### Item 24 : Be Consistent in Your Use of Aliases
@@ -466,9 +470,9 @@ type StateWithPop = State & { population: number; };`
   - Ca force une fonction à être **soit synchrone soit asynchrone, mais pas l’une ou l’autre conditionnellement**. De cette manière on sait comment l’appeler.
 - On peut utiliser `Promise.race()` qui termine dès qu’une des promesses termine, pour mettre en place un timeout :
   ```typescript
-  function timeout(millis: number): Promise&lt;never> {
+  function timeout(millis: number): Promise<never> {
     return new Promise((resolve, reject) => {
-      setTimeout(() => reject('timeout'), millis);
+      setTimeout(() => reject("timeout"), millis);
     });
   }
   await Promise.race([fetch(url), timeout(ms)]);
@@ -752,7 +756,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 46 : Understand the Three Versions Involved in Type Declarations
 
-- En général \*_la version du package et la version du type `"@types/_"` doivent correspondre vis-à-vis de la composante majeure et mineure</strong>. Le patch peut être différent parce que le package de types gère ses propres bugs.
+- En général **_la version du package et la version du type `"@types/_"` doivent correspondre vis-à-vis de la composante majeure et mineure**. Le patch peut être différent parce que le package de types gère ses propres bugs.
   - Par exemple `"react@16.8.6"` et `"@types/react@16.8.19"` est OK.
 - Il est possible que la version de TypeScript nécessaire pour une de nos dépendances `"@types/*"` et notre code soit incompatible. Dans ce cas il faut soit downgrade la lib de type, soit notre version de TypeScript, soit créer des types nous-mêmes pour remplacer ceux de la lib de types.
 - Il est possible qu’un de nos package `"@types/*"` dépende d’un autre de ces packages de type, mais dans une version incompatible avec celle dont on a nous-même besoin. NPM va essayer de les installer tous les deux, mais pour les types ça marche rarement.
@@ -760,3 +764,54 @@ type StateWithPop = State & { population: number; };`
 - L’auteur conseille aux développeurs de librairie JavaScript de créer un package de `"@types/*"` séparé et disponible via _DefinitelyTyped_, plutôt qu’intégré à la librairie qui a besoin d’être typée.
   - Ces librairies de type sont exécutées contre chaque nouvelle version de TypeScript, et les erreurs sont reportées aux mainteneurs. La communauté _DefinitelyTyped_ peut aussi nous aider si on utilise ça.
   - Ces librairies peuvent être disponibles pour plusieurs versions de TypeScript, et globalement régler les problèmes de type lié à des dépendances sera plus facile.
+
+### Item 47 : Export All Types That Appear in Public APIs
+
+- Conseil aux développeurs de librairie : **si on exporte du code typé, autant exporter l’ensemble des types aussi**. De toute façon, de l'autre côté il sera possible de récupérer les types.
+  - Par exemple pour récupérer le type des paramètres ou de retour d’une fonction :
+    ```typescript
+    // Côté librairie
+    export function getGift(name: SecretName): SecretSanta {
+      //...
+    }
+    // Côté utilisateur
+    type SecretSanta = ReturnType&lt;typeof getGift>;
+    type SecretName = Parameters&lt;typeof getGift>[0];
+    ```
+
+### Item 48 : Use TSDoc for API Comments
+
+- Quand on veut **décrire une fonction**, classe, interface, type etc. avec du commentaire, il vaut mieux le faire **dans un style “JSDoc”** `/** */`. La raison est que les éditeurs vont le traiter comme documentation.
+  - Et on peut aussi penser à utiliser les `@param`, `@returns` etc. dans la JSDoc pour la même raison.
+  - Il est tout à fait conventionnel d’utiliser du markdown dans le JSDoc.
+
+### Item 49 : Provide a Type for this in Callbacks
+
+- En JavaScript, \*\*la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée</strong>.
+  - Si on donne une méthode de classe en tant que callback, et qu’on l’appelle telle quelle, le `this` à l’intérieur d’elle sera celui de l’environnement appelant.
+    - On peut obliger à utiliser le `this` de la classe avec `call()` :
+      ```typescript
+      maMethode.call();
+      ```
+    - Une autre méthode classique pour obliger à ce que la méthode ne soit exécutable que sur sa classe est de la bind dans le constructeur :
+      ```typescript
+      class MaClasse {
+        constructor() {
+          this.onClick = this.onClick.bind(this);
+        }
+        onClick() {
+          //...
+        }
+      }
+      ```
+  - Une _arrow function_ n’a pas de `this` à elle, mais utilise automatiquement le `this` du parent de là où elle a été définie.
+- On peut créer un **type de fonction qui indique le type du `this` contextuel avec lequel la fonction va être appelée**. C’est en particulier utile quand la fonction utilise `this`.
+  - Pour créer ce type il faut indiquer un paramètre _this_ à la fonction en question :
+    ```typescript
+    function addKeyListener(
+      el: HTMLElement,
+      fn: (this: HTMLElement, e: KeyboardEvent) => void
+    ) {
+      fn.call(el, e);
+    }
+    ```
