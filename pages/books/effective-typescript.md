@@ -686,7 +686,7 @@ type StateWithPop = State & { population: number; };`
     ```typescript
     function range(start, limit) {
       const out = [];
-      for (let i = start; i &lt; limit; i++) {
+      for (let i = start; i < limit; i++) {
         out.push(i);
       }
       return out;
@@ -695,14 +695,14 @@ type StateWithPop = State & { population: number; };`
   - Ça peut être aussi une variable qu’on crée comme `let` ou `var`, sans assignation initiale, ou en assignant `null`. Son type va alors évoluer au gré des assignations.
     ```typescript
     let val; // any
-    if (Math.random() &lt; 0.5) {
+    if (Math.random() < 0.5) {
       val = /hello/;
-      val // RegExp
+      val; // RegExp
     } else {
       val = 12;
-      val // number
+      val; // number
     }
-    val // number | RegExp
+    val; // number | RegExp
     ```
   - Ce comportement se produit seulement si `any` est inféré automatiquement, que _noImplicitAny_ est activé.
 
@@ -775,8 +775,8 @@ type StateWithPop = State & { population: number; };`
       //...
     }
     // Côté utilisateur
-    type SecretSanta = ReturnType&lt;typeof getGift>;
-    type SecretName = Parameters&lt;typeof getGift>[0];
+    type SecretSanta = ReturnType<typeof getGift>;
+    type SecretName = Parameters<typeof getGift>[0];
     ```
 
 ### Item 48 : Use TSDoc for API Comments
@@ -787,7 +787,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 49 : Provide a Type for this in Callbacks
 
-- En JavaScript, \*\*la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée</strong>.
+- En JavaScript,\*\*la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée</strong>.
   - Si on donne une méthode de classe en tant que callback, et qu’on l’appelle telle quelle, le `this` à l’intérieur d’elle sera celui de l’environnement appelant.
     - On peut obliger à utiliser le `this` de la classe avec `call()` :
       ```typescript
@@ -814,4 +814,57 @@ type StateWithPop = State & { population: number; };`
     ) {
       fn.call(el, e);
     }
+    ```
+
+### Item 50 : Prefer Conditional Types to Overloaded Declarations
+
+- Il vaut mieux **utiliser des types conditionnels plutôt que des surcharges de types pour typer une fonction**.
+  - C’est en particulier utile dans le cas d’unions de types : les surcharges de type vont être évaluées une par une sur le type qu’il soit une union ou non, alors que le type conditionnel sera évalué contre chaque élément de l’union de type indépendamment, pour former une union finale.
+  - Exemple avec une fonction qui double un string ou un nombre :
+    ```typescript
+    // Fonction initiale non typée.
+    function double(x) {
+      return x + x;
+    }
+    // Avec la surcharge on ne peut pas donner une
+    // valeur string | number à la fonction : aucune
+    // des surcharges ne le supporte.
+    function double(x: number): number;
+    function double(x: string): string;
+    // Avec le type conditionnel on obtient string | number
+    // en sortie (d'abord c'est string qui est évalué vis-à-vis
+    // de la condition, puis number pour former l'union finale).
+    function double<T extends number | string>(
+      x: T
+    ): T extends string ? string : number;
+    ```
+
+### Item 51 : Mirror Types to Server Dependencies
+
+- Conseil pour les développeurs de librairie : si on a une librairie utilisable côté client et serveur, et qu’on a besoin d’un **type qui n’est disponible que côté serveur**, alors **il vaut mieux créer une version réduite de ce type** et l’utiliser, pour éviter de forcer les utilisateur de la lib côté client d’installer les types de Node.js.
+  - Par exemple, si on a besoin du type `Buffer` de Node.js uniquement dans le cas où le code est appelé côté serveur, et qu’on fallback sur `string` sinon, on peut créer une interface `CustomBuffer` avec juste les méthodes qu’il nous faut au lieu du type `Buffer`.
+    ```typescript
+    // Faire ça
+    interface CSVBuffer {
+      toString(encoding: string): string;
+    }
+    function parseCSV(contents: string | CSVBuffer) {
+      if (typeof contents === "object") {
+        //...
+      }
+    }
+    // Plutôt que ça
+    function parseCSV(contents: string | Buffer) {
+      if (typeof contents === "object") {
+        //...
+      }
+    }
+    ```
+
+### Item 52 : Be Aware of the Pitfalls of Testing Types
+
+- Il est possible de **tester les types** TypeScript complexes avec des types, mais cette technique présente de nombreux problèmes. **Il vaut mieux utiliser un outil externe** à la place, par exemple _dtslint_.
+  - _dtslint_ lit les commentaires pour faire des vérifications, par exemple :
+    ```typescript
+    // $ExpectType string
     ```
