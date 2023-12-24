@@ -868,3 +868,89 @@ type StateWithPop = State & { population: number; };`
     ```typescript
     // $ExpectType string
     ```
+
+## 7 - Writing and Running Your Code
+
+### Item 53 : Prefer ECMAScript Features to TypeScript Features
+
+- Historiquement, TypeScript avait créé des fonctionnalités côté runtime pour palier au manque de JavaScript, mais comme ces fonctionnalités se sont ajoutées à JavaScript petit à petit d’une manière incompatible, l’équipe derrière TypeScript a choisi de ne se concentrer plus que sur le typage, et de laisser le runtime au TC39.
+- Il existe des **reliquats runtime** ajoutés par TypeScript, et **que l’auteur déconseille d’utiliser** :
+  - Les **enums**.
+    - Ils existent en plusieurs variantes :
+      - Les enums basés sur les nombres ne procurent pas assez de type safety puisqu’on peut assigner n’importe quel nombre à la place.
+      - Les enums basés sur les strings sont type safe, mais ont un comportement incohérent par rapport au reste du système de type : ils n’utilisent pas le structural typing. On ne peut pas passer un string à la place de l’élément d’enum.
+    - L’auteur conseille d’**utiliser les unions de strings à la place**.
+  - Les **parameter properties** sont la manière compacte de déclarer des variables membres et de leur assigner une valeur en paramètre du constructeur.
+    - L’auteur reconnaît qu’il y a un désaccord dans la communauté à leur sujet, mais il les déconseille personnellement parce qu’il trouve qu’ils ajoutent de la confusion en mélangeant les paramètres déclarés ou non, et ne sont pas en phase avec le reste des patterns de TypeScript.
+  - Les **namespaces** et les **triple-slash imports**.
+    - Exemple :
+      ```typescript
+      namespace foo {
+        function bar() {}
+      }
+      /// <reference path="other.ts"/>
+      foo.bar();
+      ```
+    - Depuis que ES6 a ajouté les modules, ils ne sont plus utiles que pour les types. Il ne faut pas les utiliser pour autre chose.
+
+### Item 54 : Know How to Iterate Over Objects
+
+- L’auteur propose deux manière d’**itérer sur les attributs d’un objet** :
+  - **for in** avec **keyof T** permet d’itérer sur un **objet dont on pense connaître raisonnablement le type d’attributs**.
+    - On va déclarer une variable avant la boucle, et faire une _type declaration_ dessus avec le type de la clé de l’objet, par exemple :
+      ```typescript
+      let key: keyof typeof myObject;
+      for (key in myObject) {
+        // ...
+      ```
+    - Il faut que cet objet soit bien connu parce qu’il pourrait très bien avoir d’autres attributs non exprimés par son type (du fait du structural typing), et donc y compris des attributs complètement inconnus et non prévus, qui pourraient causer une erreur au runtime.
+  - **Object.entries** permet d’itérer sur un **objet inconnu**, mais le typage sera moins précis : on va obtenir `string` pour la clé, et `any` pour la valeur.
+    - Exemple :
+      ```typescript
+      for (const [k, v] of Object.entries(myObject)) {
+        // ...
+      ```
+    - Au moins on a bien le `any` qui marque que la valeur peut être n’importe quoi, y compris des choses non prévus par le type de l’objet.
+
+### Item 55 : Understand the DOM hierarchy
+
+- Le **DOM** côté client a une hiérarchie d’objets pour exprimer son contenu :
+  - Voici la hiérarchie :
+    - **`EventTarget`** est le plus _high level_, il peut représenter n’importe quel élément émettant des events, y compris `window`, `XMLHttpRequest`.
+    - **`Node`** est un peu plus précis, et peut représenter par exemple `document`, `Text`, `Comment`.
+    - **`Element`** est plus précis, et peut représenter `HTMLElement`, `SVGElement`.
+    - **`HTMLElement`** est plus précis, et peut représenter des balises comme `<i>`, `<b>`.
+    - **`HTMLButtonElement`** est spécifique à la balise `<button>`.
+  - Sur un `HTMLParagraphElement` par exemple, `p.children` permet de récupérer les balises enfants, qui seront une collection d’`HTMLElement`, alors que `p.childNodes` permet de récupérer tous les éléments de type `Node`, y compris un commentaire, ou un bout de texte dans la balise.
+- Quand on récupère un élément par un moyen non safe, par exemple par son ID, TypeScript va le typer au mieux, c’est-à-dire du type des éléments qui peuvent porter des IDs.
+  - Dans le cas où on sait que l’élément est un paragraphe, on va pouvoir faire une type assertion dessus.
+    ```typescript
+    document.getElementById("my-paragraph") as HTMLParagraphElement;
+    ```
+  - Pareil si on sait que l’élément sera forcément là, on pourrait faire une type assertion de non nullité avec `!`
+    ```typescript
+    const div = document.getElementById("my-div")!;
+    ```
+- Pour ce qui est des events, il y a **`Event`** qui est le plus générique, et des events particuliers `MouseEvent`, `TouchEvent` etc.
+  - Il faut faire attention à bien typer les paramètres de nos callbacks prenant des events, en les typant avec le bon event, et au besoin en inlinant la fonction pour donner du contexte à TypeScript et ne pas avoir à typer le paramètre.
+
+### Item 56 : Don’t Rely on Private to Hide Information
+
+- Dans une classe, un membre déclaré private pourra être accédé sans trop de problèmes par un utilisateur qui le veut. Si on veut lui donner plus de mal :
+  - On peut utiliser les **membres privés JavaScript** avec `#`.
+    ```typescript
+    class PasswordChecker {
+      #passwordHash: number;
+      // ...
+    ```
+  - On peut utiliser la **closure**, en créant une fonction qui a accès à la valeur secrète dans le constructeur. On ne pourra plus accéder à la valeur sans passer par cette fonction membre.
+    ```typescript
+    class PasswordChecker {
+      checkPassword: (password: string) => boolean;
+      constructor(passwordHash: number) {
+        this.checkPassword = (password: string) => {
+          return hash(password) === passwordHash;
+        };
+      }
+    }
+    ```
