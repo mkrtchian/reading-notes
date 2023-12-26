@@ -954,3 +954,44 @@ type StateWithPop = State & { population: number; };`
       }
     }
     ```
+
+### Item 57 : Use Source Maps to Debug TypeScript
+
+- Vu que TypeScript transpile du code Vers JavaScript, si on veut débugger le code TypeScript il nous faut un moyen de mapper le code exécuté au code TypeScript.
+  - Ça se fait avec la génération de **source maps** qu’on peut activer avec l’option `"sourceMap": true` dans _tsconfig.json_.
+  - Les fichiers de _source map_ se terminent par _.js.map_.
+
+## 8 - Migrating to TypeScript
+
+### Item 58 : Write Modern JavaScript
+
+- TypeScript transpile vers JavaScript, donc on peut, et on devrait adopter les dernières fonctionnalités d’ECMAScript.
+  - Les modules ES6 à la place des require et autres manières de combiner du code.
+  - Les classes ES6 à la place de jouer avec les prototypes.
+  - `let` et `const` à la place de `var`.
+  - `for..of` ou `forEach` à la place de `for (let i = 0; i < ...`.
+  - Les _arrow functions_ à la place des _function expressions_, pour éviter le `this` dépendant du contexte, et avoir plutôt le `this` de là où la fonction a été déclarée.
+  - Utiliser les _compact object literals_ :
+    ```typescript
+    const x = 1,
+      y = 2,
+      z = 3;
+    const pt = { x, y, z };
+    ```
+  - Utiliser l’_object destructuring_ :
+    ```typescript
+    // Seuls a et b deviennent des variables
+    const {
+      props: { a, b },
+    } = obj;
+    // Si a n'existe pas, elle prend la valeur 'default'
+    const { a = "default" } = obj.props;
+    ```
+  - `async / await` plutôt que `.then(callback)`.
+- On peut en savoir plus sur les nouvelles (et prochaines) features dans JavaScript en jetant un coup d'œil au repo GitHub du TC39.
+
+### Item 59 : Use @ts-check and JSDoc to Experiment with TypeScript
+
+- **@ts-check permet d’activer TypeScript seulement dans certains fichiers**, pour voir des erreurs dans ces endroits avant de commencer à migrer.
+  - Il va en particulier indiquer les problèmes de variables globales non déclarées, librairies sans types, typage des éléments du DOM, incohérences dans la JSDoc.
+  - On peut utiliser ce procédé pour commencer à ajouter un peu typage dans la JSDoc en attendant de migrer vers TypeScript.
