@@ -4,25 +4,25 @@
 
 ### Item 1 : Understand the Relationship Between TypeScript and JavaScript
 
-- Tout programme JavaScript est un programme TypeScript, mais l’inverse n’est pas vrai.
+- Tout programme JavaScript est un programme TypeScript, mais l'inverse n'est pas vrai.
 - Le transpiler TypeScript indique des problèmes y compris sur du code JavaScript pur.
 - Il y a une **différence entre transpiler et type-checker** du code.
   - Le type-check est plus strict, et ne laisse pas passer certaines des bizarreries de JavaScript.
 
-### Item 2 : Know Which TypeScript Options You’re Using
+### Item 2 : Know Which TypeScript Options You're Using
 
-- On a la possibilité de choisir des options pour le type-checker. Parmi les plus importants que l’auteur conseille d’activer :
-  - **noImplicitAny** : on empêche l’inférence automatique de type `any`. Les `any` ne seront autorisés que s’ils sont explicitement écrits.
-  - **strictNullChecks** : on empêche l’assignation de `null` et d’`undefined` à n’importe quelle variable, sauf si on le définit explicitement.
-    - Par exemple, on n’aura plus le droit de faire `const x: number = null;`.
+- On a la possibilité de choisir des options pour le type-checker. Parmi les plus importants que l'auteur conseille d'activer :
+  - **noImplicitAny** : on empêche l'inférence automatique de type `any`. Les `any` ne seront autorisés que s'ils sont explicitement écrits.
+  - **strictNullChecks** : on empêche l'assignation de `null` et d'`undefined` à n'importe quelle variable, sauf si on le définit explicitement.
+    - Par exemple, on n'aura plus le droit de faire `const x: number = null;`.
     - Ca aide à repérer les cas où on va avoir une erreur _“Cannot read properties on undefined”_ au runtime.
   - **strict** : empêche la plupart des erreurs runtime que TypeScript peut éviter, et inclut les deux autres.
 
 ### Item 3 : Understand That Code Generation Is Independent of Types
 
 - Le type-checking et la transpilation sont **indépendants**. On peut tout à fait transpiler avec _tsc_ du code qui a des erreurs au type-checker.
-  - Un des avantages c’est qu’on peut exécuter le code avant même d’avoir fixé toutes les erreurs de type.
-- Les types disparaissent et n’ont **aucun impact au runtime**.
+  - Un des avantages c'est qu'on peut exécuter le code avant même d'avoir fixé toutes les erreurs de type.
+- Les types disparaissent et n'ont **aucun impact au runtime**.
 
   - Pour faire du type-checking au runtime, il faut se baser sur des objets JavaScript : par exemple des classes.
   - Les _tagged unions_ sont aussi courants :
@@ -46,33 +46,33 @@
 
 ### Item 4 : Get Comfortable with Structural Typing
 
-- Le typage de TypeScript est **structurel**. Ca veut dire qu’une valeur avec un type structurellement compatible sera acceptée, même si le type n’est pas exactement le même.
-  - En pratique, ça veut surtout dire qu’un objet qui a des attributs supplémentaires pourra être passé là où on attendait un objet avec moins d’attributs.
-  - C’est pour cette raison par exemple qu’`Object.keys(v)` ne renvoie pas le type des keys de l’objet mais des strings : **on n’est pas sûr qu’il n’y ait pas des attributs en plus**.
-  - Ca s’applique aussi aux classes : attendre un type d’une classe ne garantit pas qu’on n’aura pas un objet custom ou une autre classe qui a au moins les mêmes attributs et éventuellement d’autres en plus.
+- Le typage de TypeScript est **structurel**. Ca veut dire qu'une valeur avec un type structurellement compatible sera acceptée, même si le type n'est pas exactement le même.
+  - En pratique, ça veut surtout dire qu'un objet qui a des attributs supplémentaires pourra être passé là où on attendait un objet avec moins d'attributs.
+  - C'est pour cette raison par exemple qu'`Object.keys(v)` ne renvoie pas le type des keys de l'objet mais des strings : **on n'est pas sûr qu'il n'y ait pas des attributs en plus**.
+  - Ca s'applique aussi aux classes : attendre un type d'une classe ne garantit pas qu'on n'aura pas un objet custom ou une autre classe qui a au moins les mêmes attributs et éventuellement d'autres en plus.
 
 ### Item 5 : Limit Use of the `any` Type
 
-- L’utilisation d’`any` ou d’`as any` permet de **désactiver le type-checking**, il faut l’éviter au maximum.
-  - Il permet de “casser les contrats”, par exemple une fonction attendant un type précis acceptera quand même un objet qu’on a typé `any`.
-  - Il empêche l’autocomplétion, et même le **renommage automatique d’attribut** (si une variable est marquée comme `any`, l’éditeur ne pourra pas savoir qu’il faut renommer un de ses attributs).
+- L'utilisation d'`any` ou d'`as any` permet de **désactiver le type-checking**, il faut l'éviter au maximum.
+  - Il permet de “casser les contrats”, par exemple une fonction attendant un type précis acceptera quand même un objet qu'on a typé `any`.
+  - Il empêche l'autocomplétion, et même le **renommage automatique d'attribut** (si une variable est marquée comme `any`, l'éditeur ne pourra pas savoir qu'il faut renommer un de ses attributs).
   - Il sape la confiance dans le type system.
 
 ## 2 - TypeScript's Type System
 
 ### Item 6 : Use Your Editor to Interrogate and Explore the Type System
 
-- TypeScript fournit un compilateur (tsc), mais aussi un serveur standalone (tsserver) permettant notamment de faire de l’introspection de types. C’est ça qui est utilisé par l’éditeur.
-- Il ne faut pas hésiter à passer la souris sur un appel de fonction dans une chaîne d’appels pour connaître les types inférés à ce moment-là.
+- TypeScript fournit un compilateur (tsc), mais aussi un serveur standalone (tsserver) permettant notamment de faire de l'introspection de types. C'est ça qui est utilisé par l'éditeur.
+- Il ne faut pas hésiter à passer la souris sur un appel de fonction dans une chaîne d'appels pour connaître les types inférés à ce moment-là.
 
 ### Item 7 : Think of Types as Sets of Values
 
 - Le typage de TypeScript peut être **interprété comme un set de types**.
   - `never` est le set vide.
   - Un littéral contient une seule valeur dans le set.
-  - `A | B` réalise l’union entre A et B.
-  - `A & B` réalise l’intersection entre A et B.
-    - `&` entre deux objets permet d’obtenir le type d’un objet avec l’ensemble des attributs des deux.
+  - `A | B` réalise l'union entre A et B.
+  - `A & B` réalise l'intersection entre A et B.
+    - `&` entre deux objets permet d'obtenir le type d'un objet avec l'ensemble des attributs des deux.
       - Exemple :
         ```typescript
         interface Person {
@@ -84,29 +84,29 @@
         }
         type PersonSpan = Person & Lifespan;
         ```
-      - C’est le cas parce qu’on peut ajouter autant d’attributs en plus qu’on veut, vu que c’est du structural typing. Donc l’intersection se trouve être un objet avec les propriétés des deux obligatoirement (sinon ce ne serait pas une intersection), et d’autres propriétés non indiquées optionnellement.
+      - C'est le cas parce qu'on peut ajouter autant d'attributs en plus qu'on veut, vu que c'est du structural typing. Donc l'intersection se trouve être un objet avec les propriétés des deux obligatoirement (sinon ce ne serait pas une intersection), et d'autres propriétés non indiquées optionnellement.
 - Pour assigner une valeur à une variable, il faut que tous les éléments du set du type de la valeur soient contenus dans le type de la variable.
-  - `extends` permet d’indiquer la même chose : tous les éléments du type qui était doivent être inclus dans le type qui est étendu.
+  - `extends` permet d'indiquer la même chose : tous les éléments du type qui était doivent être inclus dans le type qui est étendu.
 
 ### Item 8 : Know How to Tell Whether a Symbol Is in the Type Space or Value Space
 
 - Il existe **deux espaces différents** dans lesquels des symboles peuvent se référer à des choses : le **Type space** et le **Value space**.
-  - Un même symbole peut être défini dans l’un et l’autre de ces espaces pour désigner différentes choses.
-  - Le fait d’être dans l’un ou l’autre de ces espaces dépend du contexte dans lequel on se trouve. Par exemple en assignation à un `type`, en assignation à une variable `let` ou `const`, après une variable suivie d’un `:` etc…
+  - Un même symbole peut être défini dans l'un et l'autre de ces espaces pour désigner différentes choses.
+  - Le fait d'être dans l'un ou l'autre de ces espaces dépend du contexte dans lequel on se trouve. Par exemple en assignation à un `type`, en assignation à une variable `let` ou `const`, après une variable suivie d'un `:` etc…
   - Le TypeScript Playground permet facilement de se rendre compte de ce qui est dans le _Type space_ : ça disparaît à la transpiration.
 - Les classes et les enums créent en même temps un symbole dans le _Type space_, et un autre dans le _Value space_.
-  - Le type issu d’une classe représente sa structure d’attributs.
-- Le mot clé `typeof` agit différemment en fonction de l’espace où il est utilisé :
+  - Le type issu d'une classe représente sa structure d'attributs.
+- Le mot clé `typeof` agit différemment en fonction de l'espace où il est utilisé :
   - Dans le _Value space_ il va renvoyer un string caractérisant la valeur, par exemple `"object"` ou `"function"`.
   - Dans le _Type space_ il va renvoyer le type caractérisant la valeur.
-  - `typeof MaClasse` (si utilisé dans le _Type space_) retourne le type de la classe elle-même, alors que `MaClasse` (si utilisé dans le _Type space_) représente le type d’une instance de cette classe.
-  - `InstanceType<T>` permet de retrouver le type de l’instance à partir du type de la classe. Par exemple :
+  - `typeof MaClasse` (si utilisé dans le _Type space_) retourne le type de la classe elle-même, alors que `MaClasse` (si utilisé dans le _Type space_) représente le type d'une instance de cette classe.
+  - `InstanceType<T>` permet de retrouver le type de l'instance à partir du type de la classe. Par exemple :
     ```typescript
     InstanceType<typeof MaClasse>; // donne le type MaClasse
     ```
-- On peut accéder aux attributs d’un objet :
-  - Si c’est une valeur, avec `objet["nom"]` ou `objet.nom`.
-  - Si c’est un type, avec seulement `Type["nom"]`.
+- On peut accéder aux attributs d'un objet :
+  - Si c'est une valeur, avec `objet["nom"]` ou `objet.nom`.
+  - Si c'est un type, avec seulement `Type["nom"]`.
 
 ### Item 9 : Prefer Type Declarations to Type Assertions
 
@@ -119,13 +119,13 @@
     // Type assertion, déconseillé
     const bob = { name: "Bob" } as Person;
     ```
-  - La raison est que **le type declaration va vérifier le type** qu’on assigne, alors que **le type assertion ne vérifie pas**, et permet d’outrepasser TypeScript dans le cas où on en sait plus que lui sur le contexte d’un cas particulier.
-  - Pour autant, même avec le type type assertion, on ne peut pas assigner n’importe quoi, il faut au minimum que la valeur qu’on assigne soit d’un sous-type de la valeur à laquelle on l’assigne.
+  - La raison est que **le type declaration va vérifier le type** qu'on assigne, alors que **le type assertion ne vérifie pas**, et permet d'outrepasser TypeScript dans le cas où on en sait plus que lui sur le contexte d'un cas particulier.
+  - Pour autant, même avec le type type assertion, on ne peut pas assigner n'importe quoi, il faut au minimum que la valeur qu'on assigne soit d'un sous-type de la valeur à laquelle on l'assigne.
     - Pour forcer un type complètement arbitraire, on peut passer par `unknown` ou `any`.
       ```typescript
       document.body as unknown as Person;
       ```
-  - En plus du `as`, on a aussi le `!` placé en suffixe qui permet de faire une forme de type assertion, en indiquant qu’on est sûr que la valeur n’est pas `null`.
+  - En plus du `as`, on a aussi le `!` placé en suffixe qui permet de faire une forme de type assertion, en indiquant qu'on est sûr que la valeur n'est pas `null`.
     ```typescript
     const el = document.getElementById("foo")!;
     ```
@@ -133,18 +133,18 @@
   ```typescript
   ["alice", "bob"].map((name): Person => ({ name }));
   ```
-  - Ici on demande à TypeScript d’inférer la valeur de name, et on indique que la valeur de retour devra être Person.
+  - Ici on demande à TypeScript d'inférer la valeur de name, et on indique que la valeur de retour devra être Person.
 
 ### Item 10 : Avoid Object Wrapper Types (String, Number, Boolean, Symbol, BigInt)
 
-- Les types primitifs (_string_, _number_, _boolean_, _symbol_ et _bigint_) ne possèdent pas d’attributs comme peuvent en posséder les objets.
-  - Quand on utilise un attribut connu sur l’un d’entre eux, JavaScript crée un un objet éphémère correspondant (respectivement _String_, _Number_, _Boolean_, _Symbol_ et _BigInt_) pour le wrapper et fournir l’attribut en question.
+- Les types primitifs (_string_, _number_, _boolean_, _symbol_ et _bigint_) ne possèdent pas d'attributs comme peuvent en posséder les objets.
+  - Quand on utilise un attribut connu sur l'un d'entre eux, JavaScript crée un un objet éphémère correspondant (respectivement _String_, _Number_, _Boolean_, _Symbol_ et _BigInt_) pour le wrapper et fournir l'attribut en question.
     ```typescript
     // l'attribut charAt vient de l'objet String
     "blabla".charAt(3);
     ```
-  - C’est pour ça que si on assigne une propriété à une valeur primitive, la propriété disparaît (avec l’objet associé créé pour l’occasion et détruit aussitôt).
-- Il vaut mieux **éviter d’instancier les objets correspondant aux types primitifs**, ça n’apporte rien à part de la confusion.
+  - C'est pour ça que si on assigne une propriété à une valeur primitive, la propriété disparaît (avec l'objet associé créé pour l'occasion et détruit aussitôt).
+- Il vaut mieux **éviter d'instancier les objets correspondant aux types primitifs**, ça n'apporte rien à part de la confusion.
   - Exemple :
     ```typescript
     const person = new String("Alice");
@@ -153,7 +153,7 @@
     ```typescript
     Boolean(3); // renvoie true
     ```
-- Il vaut mieux **éviter d’utiliser les objets correspondant aux types primitifs dans le Type space**. Ça pose le problème que le type primitif est assignable au type objet wrapper, alors que l’inverse n’est pas vrai.
+- Il vaut mieux **éviter d'utiliser les objets correspondant aux types primitifs dans le Type space**. Ça pose le problème que le type primitif est assignable au type objet wrapper, alors que l'inverse n'est pas vrai.
   - Exemple :
     ```typescript
     function getPerson(person: string) {
@@ -164,9 +164,9 @@
 
 ### Item 11 : Recognize the Limits of Excess Property Checking
 
-- Bien que TypeScript ait un typage structurel, il existe un mécanisme particulier qui s’appelle **excess property checking**, et qui permet d’avoir un comportement strict et non pas structurel.
-  - Ce mode s’active quand on passe **une valeur littérale** à une fonction, ou qu’on l’assigne à une variable.
-    - Et il est actif uniquement quand on est dans le cadre d’une _type declaration_, pas dans le cadre d’une _type assertion_.
+- Bien que TypeScript ait un typage structurel, il existe un mécanisme particulier qui s'appelle **excess property checking**, et qui permet d'avoir un comportement strict et non pas structurel.
+  - Ce mode s'active quand on passe **une valeur littérale** à une fonction, ou qu'on l'assigne à une variable.
+    - Et il est actif uniquement quand on est dans le cadre d'une _type declaration_, pas dans le cadre d'une _type assertion_.
   - Exemple :
     ```typescript
     type Person = {
@@ -177,16 +177,16 @@
       age: 20; // Erreur, age n'existe pas sur Person
     }
     ```
-  - Dans le cas où on veut que le type ait **systématiquement un comportement structurel**, même dans le cas de l’_excess property checking_, on peut l’indiquer :
+  - Dans le cas où on veut que le type ait **systématiquement un comportement structurel**, même dans le cas de l'_excess property checking_, on peut l'indiquer :
     ```typescript
     type Person = {
       name: string;
       [other: string]: unknown;
     };
     ```
-- Il existe un autre mécanisme similaire : il s’agit des **weak types**, c’est-à-dire des types objets qui n’ont **que des attributs optionnels**.
-  - Ce mécanisme s’applique tout le temps, et non pas juste dans le cas d’assignation de valeur littérale.
-  - La règle c’est qu’on doit assigner une valeur qui a **au minimum un attribut en commun** avec le _weak type_.
+- Il existe un autre mécanisme similaire : il s'agit des **weak types**, c'est-à-dire des types objets qui n'ont **que des attributs optionnels**.
+  - Ce mécanisme s'applique tout le temps, et non pas juste dans le cas d'assignation de valeur littérale.
+  - La règle c'est qu'on doit assigner une valeur qui a **au minimum un attribut en commun** avec le _weak type_.
   - Exemple :
     ```typescript
     type Person = {
@@ -199,15 +199,15 @@
 
 ### Item 12 : Apply Types to Entire Function Expressions When Possible
 
-- On peut **typer une fonction entière** si elle est une _function expression_, c’est-à-dire si elle n’est pas une fonction déclarée classiquement, mais plutôt une valeur qu’on peut passer à une variable.
+- On peut **typer une fonction entière** si elle est une _function expression_, c'est-à-dire si elle n'est pas une fonction déclarée classiquement, mais plutôt une valeur qu'on peut passer à une variable.
 - Typer une fonction entière est utile notamment si :
-  - On a **plusieurs fonctions qui ont la même signature**, et qu’on veut être plus concis.
+  - On a **plusieurs fonctions qui ont la même signature**, et qu'on veut être plus concis.
     ```typescript
     type BinaryFn = (a: number, b: number) => number;
     const add: BinaryFn = (a, b) => a + b;
     const sub: BinaryFn = (a, b) => a - b;
     ```
-  - On a une fonction qui **doit avoir la même signature qu’une fonction existante**. Dans ce cas on peut utiliser `typeof`.
+  - On a une fonction qui **doit avoir la même signature qu'une fonction existante**. Dans ce cas on peut utiliser `typeof`.
     ```typescript
     const checkedFetch: typeof fetch = async (input, init) => {
       const response = await fetch(input, init);
@@ -218,7 +218,7 @@
 
 ### Item 13 : Know the differences Between type and interface
 
-- Selon l’auteur, la convention consistant à mettre un I à chaque interface en TypeScript est considéré aujourd’hui comme une mauvaise pratique (inutile, apporte peu de valeur etc.).
+- Selon l'auteur, la convention consistant à mettre un I à chaque interface en TypeScript est considéré aujourd'hui comme une mauvaise pratique (inutile, apporte peu de valeur etc.).
 - Une interface peut étendre un type, et un type peut étendre une interface :
   `interface StateWithPop extends State {
   population: number;
@@ -230,8 +230,8 @@ type StateWithPop = State & { population: number; };`
     // [...]
   }
   ```
-- De manière générale, **un type offre plus de possibilités qu’une interface**. Par exemple l'utilisation d’unions.
-  - Un exemple notable est le **declaration merging** qui permet d’augmenter une interface sans changer son nom.
+- De manière générale, **un type offre plus de possibilités qu'une interface**. Par exemple l'utilisation d'unions.
+  - Un exemple notable est le **declaration merging** qui permet d'augmenter une interface sans changer son nom.
     ```typescript
     interface State {
       name: string;
@@ -244,17 +244,17 @@ type StateWithPop = State & { population: number; };`
       population: 500_000,
     };
     ```
-- Pour le **choix entre type et interface**, l’auteur conseille de se baser sur :
+- Pour le **choix entre type et interface**, l'auteur conseille de se baser sur :
   - La consistance au sein de la codebase.
-  - Le fait qu’on ait besoin ou non que d’autres personnes puissent augmenter nos types.
+  - Le fait qu'on ait besoin ou non que d'autres personnes puissent augmenter nos types.
 
 ### Item 14 : Use Type Operations and Generics to Avoid Repeating Yourself
 
 - Il existe de nombreuses techniques pour **éviter la duplication de type** :
   - 1 - Extraire la duplication dans un sous-type.
-  - 2 - Dans le cas de deux fonctions qui ont la même signature, créer un type de fonction, et l’utiliser pour les typer sous forme de _function expressions_ (cf. Item 12).
-  - 3 - Dans le cas où on a un type objet qui reprend **une partie des propriétés d’un autre type**, et qu’on veut garder ce lien sans extraire un sous-type :
-    - Par exemple, on _State_, et _TopNavState_ qu’on veut dépendre d’une partie de _State_ :
+  - 2 - Dans le cas de deux fonctions qui ont la même signature, créer un type de fonction, et l'utiliser pour les typer sous forme de _function expressions_ (cf. Item 12).
+  - 3 - Dans le cas où on a un type objet qui reprend **une partie des propriétés d'un autre type**, et qu'on veut garder ce lien sans extraire un sous-type :
+    - Par exemple, on _State_, et _TopNavState_ qu'on veut dépendre d'une partie de _State_ :
       ````typescript
       type State = {
         userId: string;
@@ -272,7 +272,7 @@ type StateWithPop = State & { population: number; };`
         [k in "userId" | "pageTitle"]: State[k];
       };
       ```
-    - Ou encore l’équivalent avec `Pick` :
+    - Ou encore l'équivalent avec `Pick` :
       ```typescript
       type TopNavState = Pick<State, "userId" | "pageTitle">;
       ```
@@ -283,18 +283,18 @@ type StateWithPop = State & { population: number; };`
         [k in keyof State]?: State[k];
       };
       ```
-    - Ou encore l’équivalent avec `Partial` :
+    - Ou encore l'équivalent avec `Partial` :
       ```typescript
       type OptionalState = Partial<State>;
       ```
-  - 5 - Si on veut récupérer la **valeur de retour inférée d’une fonction** dans un type à réutiliser ailleurs, on peut le faire avec `ReturnType` :
+  - 5 - Si on veut récupérer la **valeur de retour inférée d'une fonction** dans un type à réutiliser ailleurs, on peut le faire avec `ReturnType` :
     ```typescript
     type UserInfo = ReturnType<typeof getUserInfo>;
     ```
 
 ### Item 15 : Use Index Signatures for Dynamic Data
 
-- Les **index signatures** doivent être utilisées seulement dans le cas où la donnée est dynamique et **qu’on ne connaît pas les attributs d’un objet à la transpilation**.
+- Les **index signatures** doivent être utilisées seulement dans le cas où la donnée est dynamique et **qu'on ne connaît pas les attributs d'un objet à la transpilation**.
   - Exemple :
     ```typescript
     type State = {
@@ -302,51 +302,51 @@ type StateWithPop = State & { population: number; };`
     };
     ```
 - Sinon, il faut utiliser des types plus précis.
-  - Typer intégralement l’objet.
+  - Typer intégralement l'objet.
   - Ajouter undefined aux propriétés peut ajouter un peu de safety en obligeant à vérifier leur présence.
     ```typescript
     type State = {
       [property: string]: string | undefined;
     };
     ```
-  - Utiliser `Record` peut permettre d’être plus précis sur les noms de clés.
+  - Utiliser `Record` peut permettre d'être plus précis sur les noms de clés.
     ```typescript
     type State = Record<"userId" | "pageTitle", string>;
     ```
-- NDLR : l’auteur n’en parle pas, mais souvent on va vouloir parser la donnée…
+- NDLR : l'auteur n'en parle pas, mais souvent on va vouloir parser la donnée…
 
 ### Item 16 : Prefer Arrays, Tuples, and ArrayLike to number Index Signatures
 
-- Les **objets JavaScript** sont représentés par des collections de clés / valeurs, **avec les clés ne pouvant être que des strings** (ou des symbols depuis ES6), et les valeurs n’importe quoi.
-  - Dans le cas où on donne autre chose en clé, ce sera converti en string avec l’appel à `toString()`, y compris pour un `number` par exemple.
+- Les **objets JavaScript** sont représentés par des collections de clés / valeurs, **avec les clés ne pouvant être que des strings** (ou des symbols depuis ES6), et les valeurs n'importe quoi.
+  - Dans le cas où on donne autre chose en clé, ce sera converti en string avec l'appel à `toString()`, y compris pour un `number` par exemple.
   - Les **arrays** sont des objets aussi. On les indexe par des entiers, mais ils sont convertis **automatiquement en strings** par JavaScript.
-  - TypeScript type l’index des _arrays_ comme des `number` pour éviter au maximum les erreurs.
+  - TypeScript type l'index des _arrays_ comme des `number` pour éviter au maximum les erreurs.
 - Pour toutes ces raisons :
   - Il faut éviter les `for..in` pour les _arrays_.
-  - Il faut de manière générale **éviter les numbers en tant que clé d’objet**, puisque ce sera converti de toute façon en string par JavaScript. A la place on peut soit :
+  - Il faut de manière générale **éviter les numbers en tant que clé d'objet**, puisque ce sera converti de toute façon en string par JavaScript. A la place on peut soit :
     - Utiliser `string` ou `symbol`.
     - Utiliser un type _array_, par exemple : `Array`, `MonType[]`.
     - Utiliser un type _tuple_, par exemple : `[number, number]`.
-    - Ou encore utiliser `ArrayLike` qui permet de désigner seulement les caractéristiques basiques d’un array (pouvoir accéder aux attributs par un index numérique et l’attribut _length_), sans les autres attributs du prototype.
+    - Ou encore utiliser `ArrayLike` qui permet de désigner seulement les caractéristiques basiques d'un array (pouvoir accéder aux attributs par un index numérique et l'attribut _length_), sans les autres attributs du prototype.
 
 ### Item 17 : Use readonly to Avoid Errors Associated with Mutation
 
-- **readonly** permet d’indiquer qu’une variable ou un paramètre ne pourra pas être modifié. **L’auteur conseille de l’utiliser dès que possible**.
-  - Une valeur _readonly_ peut être passée à une valeur mutable, mais pas l’inverse.
-    - Ca a l’avantage d’être “contaminant” : si une de nos fonctions appelle une autre fonction en lui donnant une valeur qu’on n’a pas le droit de toucher, il faudra que l’autre fonction prenne aussi un paramètre _readonly_.
-    - Dans le cas où on appelle des librairies sur lesquelles on n’a pas la main, on pourra toujours faire des _type assertions_ avec `as`.
-- `readonly` est par nature “shallow”, c’est à dire qu’**il n’agit que sur un niveau**.
+- **readonly** permet d'indiquer qu'une variable ou un paramètre ne pourra pas être modifié. **L'auteur conseille de l'utiliser dès que possible**.
+  - Une valeur _readonly_ peut être passée à une valeur mutable, mais pas l'inverse.
+    - Ca a l'avantage d'être “contaminant” : si une de nos fonctions appelle une autre fonction en lui donnant une valeur qu'on n'a pas le droit de toucher, il faudra que l'autre fonction prenne aussi un paramètre _readonly_.
+    - Dans le cas où on appelle des librairies sur lesquelles on n'a pas la main, on pourra toujours faire des _type assertions_ avec `as`.
+- `readonly` est par nature “shallow”, c'est à dire qu'**il n'agit que sur un niveau**.
   - Par exemple :
     ```typescript
     const dates = readonly Date[];
     dates.push(new Date); // Error
     dates[0].setFullYear(2037); // OK
     ```
-  - Il n’y a pas de version récursive de `readonly` dans la librairie standard, mais on peut par exemple trouver `DeepReadonly` dans une librairie comme _ts-essentials_.
+  - Il n'y a pas de version récursive de `readonly` dans la librairie standard, mais on peut par exemple trouver `DeepReadonly` dans une librairie comme _ts-essentials_.
 
 ### Item 18 : Use Mapped Types to Keep Values in Sync
 
-- On peut **obliger un objet à avoir les mêmes attributs qu’un autre type** en utilisant un **mapped type**.
+- On peut **obliger un objet à avoir les mêmes attributs qu'un autre type** en utilisant un **mapped type**.
   ```typescript
   type ScatterProps = {
     x: number[];
@@ -366,25 +366,25 @@ type StateWithPop = State & { population: number; };`
 - **Il ne faut pas ajouter des types partout**, mais plutôt en ajouter juste assez pour permettre à TypeScript de tout typer par inférence.
   - Ça permet notamment de faciliter le refactoring.
   - Du code TypeScript idéal va typer la signature des fonctions, mais pas les variables créés dans ces fonctions.
-  - Dans certains cas quand on donne une lambda fonction il n’y a même pas besoin de typer ses paramètres qui seront inférés.
+  - Dans certains cas quand on donne une lambda fonction il n'y a même pas besoin de typer ses paramètres qui seront inférés.
 - Parmi les cas où il faut **typer quand même** :
-  - Dans certains cas, on voudra faire une _type declaration_ pour éviter les erreurs dès la définition de l’objet, grâce à l’_excess property checking_.
-  - Annoter le type de retour d’une fonction peut aussi être parfois utile :
+  - Dans certains cas, on voudra faire une _type declaration_ pour éviter les erreurs dès la définition de l'objet, grâce à l'_excess property checking_.
+  - Annoter le type de retour d'une fonction peut aussi être parfois utile :
     - Ne pas faire fuiter les erreurs vers les appelants.
-    - Spécifier le contrat d’une fonction avant même de l’implémenter.
+    - Spécifier le contrat d'une fonction avant même de l'implémenter.
     - Etre cohérent dans certains cas où la fonction va par exemple prendre un type en paramètre et retourner le même type.
-- Il existe une règle eslint qui s’appelle _no-inferrable-types_, et qui permet d’éviter les types qui pourraient être inférés..
+- Il existe une règle eslint qui s'appelle _no-inferrable-types_, et qui permet d'éviter les types qui pourraient être inférés..
 
 ### Item 20 : Use Different Variables for Different Types
 
-- Il faut **éviter de réutiliser** une même variable pour porter une valeur d’un **autre type**.
+- Il faut **éviter de réutiliser** une même variable pour porter une valeur d'un **autre type**.
   - Au lieu de ça, on pourrait typer avec un type plus large, mais la meilleure solution est de créer deux variables.
 
 ### Item 21 : Understand Type Widening
 
-- Chaque variable doit avoir un seul type, et ce type est déterminé par typescript au mieux au moment de la déclaration : c’est le **type widening**.
+- Chaque variable doit avoir un seul type, et ce type est déterminé par typescript au mieux au moment de la déclaration : c'est le **type widening**.
 - Le _type widening_ peut **être contrôlé** par certaines techniques :
-  - Déclarer une variable comme **const** plutôt que **let** permet d’avoir un _type widening_ moins important.
+  - Déclarer une variable comme **const** plutôt que **let** permet d'avoir un _type widening_ moins important.
   - On peut utiliser une **type declaration** pour spécifier un type spécifique plus précis pour un objet ou un tableau.
   - On peut utiliser la **type assertion** `as const` pour obtenir le type le plus précis possible (sans _type widening_ du tout).
 
@@ -397,7 +397,7 @@ type StateWithPop = State & { population: number; };`
   - Ça marche avec `Array.isArray()`.
   - Il faut faire attention avec les comportements qui seraient contre-intuitifs en JavaScript, TypeScript les suit aussi.
     - Par exemple `if(!x) { ... }` pourrait mener à x ayant pour type `string | number | null | undefined`.
-- Un autre moyen de rendre le type plus précis est l’utilisation d’**objets avec tag**
+- Un autre moyen de rendre le type plus précis est l'utilisation d'**objets avec tag**
   ```typescript
   switch (object.type) {
     case "download":
@@ -424,9 +424,9 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 23 : Create Objects All at Once
 
-- Il vaut mieux **créer les objets d’un coup** quand c’est possible.
-  - Créer un objet partiel assigne un type à la variable, et l’ajout de propriété plus tard devient plus compliqué.
-- Une des techniques pour aider à créer un objet d’un coup est le spread operator `...`
+- Il vaut mieux **créer les objets d'un coup** quand c'est possible.
+  - Créer un objet partiel assigne un type à la variable, et l'ajout de propriété plus tard devient plus compliqué.
+- Une des techniques pour aider à créer un objet d'un coup est le spread operator `...`
   - On peut construire un objet à partir de plusieurs autres :
     ```typescript
     const namedPoint = { ...pt, ...id };
@@ -454,21 +454,21 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 24 : Be Consistent in Your Use of Aliases
 
-- Quand on crée une variable servant de référence à une autre valeur (aliasing), il faut s’assurer qu’on utilise les type guards sur cette valeur pour rester consistant avec la suite du code.
+- Quand on crée une variable servant de référence à une autre valeur (aliasing), il faut s'assurer qu'on utilise les type guards sur cette valeur pour rester consistant avec la suite du code.
   ```typescript
   const { bbox } = polygon;
   if (bbox) {
     const { x, y } = bbox;
   }
   ```
-- Quand on utilise un type guard sur un objet, et qu’on appelle une fonction l’objet qu’on a vérifié, cette fonction pourrait altérer l’objet, mais TypeScript fait le choix de ne pas invalider le type guard à chaque appel de fonction.
+- Quand on utilise un type guard sur un objet, et qu'on appelle une fonction l'objet qu'on a vérifié, cette fonction pourrait altérer l'objet, mais TypeScript fait le choix de ne pas invalider le type guard à chaque appel de fonction.
 
 ### Item 25 : Use async Functions Instead of Callbacks for Asynchronous Code
 
-- Il vaut mieux utiliser les promesses avec `async` / `await` que les promesses à l’ancienne ou même les callbacks asynchrones.
+- Il vaut mieux utiliser les promesses avec `async` / `await` que les promesses à l'ancienne ou même les callbacks asynchrones.
   - La syntaxe est plus concise et infère mieux les types.
-  - Ca force une fonction à être **soit synchrone soit asynchrone, mais pas l’une ou l’autre conditionnellement**. De cette manière on sait comment l’appeler.
-- On peut utiliser `Promise.race()` qui termine dès qu’une des promesses termine, pour mettre en place un timeout :
+  - Ca force une fonction à être **soit synchrone soit asynchrone, mais pas l'une ou l'autre conditionnellement**. De cette manière on sait comment l'appeler.
+- On peut utiliser `Promise.race()` qui termine dès qu'une des promesses termine, pour mettre en place un timeout :
   ```typescript
   function timeout(millis: number): Promise<never> {
     return new Promise((resolve, reject) => {
@@ -480,12 +480,12 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 26 : Understand How Context Is Used in Type Inference
 
-- En général TypeScript va **inférer le type d’une valeur à sa création**. Si on l’utilise plus tard dans un autre contexte (par exemple après qu’on l'ait placée dans une variable intermédiaire), l’inférence peut être mauvaise vis-à-vis de l’utilisation finale.
+- En général TypeScript va **inférer le type d'une valeur à sa création**. Si on l'utilise plus tard dans un autre contexte (par exemple après qu'on l'ait placée dans une variable intermédiaire), l'inférence peut être mauvaise vis-à-vis de l'utilisation finale.
   - Le contexte est conservé par exemple pour :
-    - Les types **string littéraux**, qui sinon vont plutôt être inférés en string général dans le cas d’une déclaration dans une variable let.
-    - Les types **tuple**, qui sinon vont plutôt être inférés en tableau dans le cas d’une déclaration dans une variable let.
+    - Les types **string littéraux**, qui sinon vont plutôt être inférés en string général dans le cas d'une déclaration dans une variable let.
+    - Les types **tuple**, qui sinon vont plutôt être inférés en tableau dans le cas d'une déclaration dans une variable let.
     - Les **objets** contenant des strings littéraux ou des tuples.
-    - Les **callbacks** dont on n’a pas besoin de fournir le type des paramètres quand ils sont directement fournis à la fonction.
+    - Les **callbacks** dont on n'a pas besoin de fournir le type des paramètres quand ils sont directement fournis à la fonction.
 - Pour corriger le type en cas de perte de contexte, on va en général :
   - 1 - Utiliser une **_type declaration_** pour contraindre la valeur au type de notre choix.
   - 2 - Utiliser la **_const assertion_** `as const` pour contraindre la valeur au plus précis.
@@ -494,7 +494,7 @@ type StateWithPop = State & { population: number; };`
 ### Item 27 : Use Functional Constructs and Libraries to Help Types Flow
 
 - Il vaut mieux **utiliser les fonctions built-in et les librairies externes** (par exemple Lodash, Ramda etc.) **plutôt que de coder les choses à la main**. Ce sera plus lisible et mieux typé.
-  - JavaScript n’a pas vraiment de librairie standard, les librairies externes jouent en grande partie ce rôle, et TypeScript a été construit pour les supporter.
+  - JavaScript n'a pas vraiment de librairie standard, les librairies externes jouent en grande partie ce rôle, et TypeScript a été construit pour les supporter.
 - `.flat()` sur un tableau multidimensionnel permet de le transformer en tableau à une dimension.
 - Lodash permet de chaîner des appels à ses fonctions utilitaires en donnant la valeur à la fonction `_`, puis permet de réobtenir la valeur finale avec `.value()`.
   - On aura `_(v).a().b().c().value()` :
@@ -509,8 +509,8 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 28 : Prefer Types That Always Represent Valid States
 
-- Il vaut mieux écrire un type plus long ou plus complexe, mais qui permet d’**interdire les états invalides**.
-- On peut par exemple utiliser les _tagged unions_ (ou _discriminated unions_), qui sont une union d’objets ayant un attribut commun qui permet de savoir dans quel cas on est, et des attributs spécifiques à chaque cas possible.
+- Il vaut mieux écrire un type plus long ou plus complexe, mais qui permet d'**interdire les états invalides**.
+- On peut par exemple utiliser les _tagged unions_ (ou _discriminated unions_), qui sont une union d'objets ayant un attribut commun qui permet de savoir dans quel cas on est, et des attributs spécifiques à chaque cas possible.
   ```typescript
   interface RequestError {
     state: "error";
@@ -525,9 +525,9 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 29 : Be Liberal in What You Accept and Strict in What You Produce
 
-- Il faut être **strict avec les types qu’on retourne** dans une fonction (éviter les attributs optionnels par exemple), et on peut au contraire être **lâche avec les types qu’on accepte** en paramètre (par exemple une union de types).
-- Une utilisation classique est de définir un type canonique pour l’output, et un type dérivé de celui-là et plus large pour l’input.
-  - C’est un peu la distinction entre `Array` et `ArrayLike`.
+- Il faut être **strict avec les types qu'on retourne** dans une fonction (éviter les attributs optionnels par exemple), et on peut au contraire être **lâche avec les types qu'on accepte** en paramètre (par exemple une union de types).
+- Une utilisation classique est de définir un type canonique pour l'output, et un type dérivé de celui-là et plus large pour l'input.
+  - C'est un peu la distinction entre `Array` et `ArrayLike`.
   - Exemple :
     ```typescript
     interface Camera {
@@ -539,7 +539,7 @@ type StateWithPop = State & { population: number; };`
     }
     ```
 
-### Item 30 : Don’t Repeat Type Information in Documentation
+### Item 30 : Don't Repeat Type Information in Documentation
 
 - Il faut éviter les informations de type dans les commentaires, docstrings etc. les types sont là pour ça.
 - On peut envisager de mettre les unités dans les noms de variable, par exemple `timeMs` ou `temperatureC`.
@@ -547,7 +547,7 @@ type StateWithPop = State & { population: number; };`
 ### Item 31 : Push Null Values to the Perimeter of Your Types
 
 - Il faut éviter les types objets dont une partie des attributs peut être `null` ou `undefined` : **soit tout est défini, soit le tout est `null`**.
-  - Il faut éviter les relations de non-nullité **implicite** entre deux variables, si elles sont liées on les mets au sein d’un même objet où elles ne pourront être que définies toutes les deux, ou l’objet tout entier non défini.
+  - Il faut éviter les relations de non-nullité **implicite** entre deux variables, si elles sont liées on les mets au sein d'un même objet où elles ne pourront être que définies toutes les deux, ou l'objet tout entier non défini.
     ```typescript
     type Bounds: [number, number] | null;
     const bounds = [10, 20];
@@ -565,11 +565,11 @@ type StateWithPop = State & { population: number; };`
     }
   }
   ```
-- Attention aux méthodes asynchrones : elles sont pratiques pour aller chercher de la donnée asynchrone à l’extérieur, mais le sont moins si on les utilise pour attendre qu’une valeur `null` finisse par être définie.
+- Attention aux méthodes asynchrones : elles sont pratiques pour aller chercher de la donnée asynchrone à l'extérieur, mais le sont moins si on les utilise pour attendre qu'une valeur `null` finisse par être définie.
 
 ### Item 32 : Prefer Unions of Interfaces to Interfaces of Unions
 
-- Quand on a **un type d’objet avec des attributs étant des unions**, il faut se demander si on ne peut pas **remplacer ça par une union de types d’objets**.
+- Quand on a **un type d'objet avec des attributs étant des unions**, il faut se demander si on ne peut pas **remplacer ça par une union de types d'objets**.
   - Exemple :
     ```typescript
     // Il vaut mieux
@@ -587,41 +587,41 @@ type StateWithPop = State & { population: number; };`
       paint: FillPaint | LinePaint;
     }
     ```
-  - Ca permet notamment d’interdire les valeurs incohérentes, faisant suite à l’Item 28.
+  - Ca permet notamment d'interdire les valeurs incohérentes, faisant suite à l'Item 28.
 
 ### Item 33 : Prefer More Precise Alternatives to String Types
 
-- Le fait d’avoir de nombreux attributs typés `string` dans un objet est un code smell.
-  - Le fait d’indiquer une précision de format pour un `string` en commentaire en est un autre.
+- Le fait d'avoir de nombreux attributs typés `string` dans un objet est un code smell.
+  - Le fait d'indiquer une précision de format pour un `string` en commentaire en est un autre.
 - Dans la mesure du possible, **`string` peut être remplacé** par :
   - Une union de _string literals_.
   - Un _value object_ qui porte le string.
   - Un _type générique_ qui met au moins une contrainte sur le string.
-    - Dans le cas particulier où on veut la valeur des attributs d’un objet, ne pas oublier d’utiliser `keyof NotreObjet`.
+    - Dans le cas particulier où on veut la valeur des attributs d'un objet, ne pas oublier d'utiliser `keyof NotreObjet`.
 
 ### Item 34 : Prefer Incomplete Types to Inaccurate Types
 
-- **Il vaut mieux un type moins précis** qu’un type précis mais **incorrect**.
+- **Il vaut mieux un type moins précis** qu'un type précis mais **incorrect**.
 - Il faut aussi prendre en compte la developer experience :
-  - Un type trop complexe risque d’être plus prompt aux erreurs quand il sera modifié.
+  - Un type trop complexe risque d'être plus prompt aux erreurs quand il sera modifié.
   - Un type produisant une erreur incompréhensible ne fera pas gagner de temps.
 
 ### Item 35 : Generate Types from APIs and Specs, Not Data
 
-- Il vaut mieux obtenir des types officiels (de librairie par exemple), ou **générer les types à partir de spécifications, plutôt que de les générer à partir d’exemples de données**.
-- Par exemple, un schéma GraphQL peut facilement servir de spécification pour générer des types pour les entrées et sorties d’une API.
+- Il vaut mieux obtenir des types officiels (de librairie par exemple), ou **générer les types à partir de spécifications, plutôt que de les générer à partir d'exemples de données**.
+- Par exemple, un schéma GraphQL peut facilement servir de spécification pour générer des types pour les entrées et sorties d'une API.
 
 ### Item 36 : Name Types Using the Language of Your Problem Domain
 
 - Il faut **utiliser le vocabulaire du domaine dans le code**.
-  - Si deux mots désignent la même chose, on n’en garde qu’un seul dans le code.
-  - Dans le cas où le domaine en question a des spécifications ou normes, ne pas hésiter à les adopter, y compris dans le typage, plutôt que de rester vague ou d’inventer sa propre spécification.
-    - Exemple : pour indiquer le climat de vie d’un animal, il existe une classification appelée Köppen Climage. On peut du coup créer une union des _string literals_ de climats possibles plutôt qu’un _string_.
-  - NDLR : le livre ne fait pas le lien explicite, mais il s’agit ici de l’_ubiquitous language_ du DDD.
+  - Si deux mots désignent la même chose, on n'en garde qu'un seul dans le code.
+  - Dans le cas où le domaine en question a des spécifications ou normes, ne pas hésiter à les adopter, y compris dans le typage, plutôt que de rester vague ou d'inventer sa propre spécification.
+    - Exemple : pour indiquer le climat de vie d'un animal, il existe une classification appelée Köppen Climage. On peut du coup créer une union des _string literals_ de climats possibles plutôt qu'un _string_.
+  - NDLR : le livre ne fait pas le lien explicite, mais il s'agit ici de l'_ubiquitous language_ du DDD.
 
 ### Item 37 : Consider “Brands” for Nominal Typing
 
-- Si on veut forcer un _nominal type_ quelque part, c’est-à-dire **empêcher les valeurs qui conviennent structurellement mais ont des choses en plus**, on peut ajouter un attribut caché qu’on appellera **`_brand`**.
+- Si on veut forcer un _nominal type_ quelque part, c'est-à-dire **empêcher les valeurs qui conviennent structurellement mais ont des choses en plus**, on peut ajouter un attribut caché qu'on appellera **`_brand`**.
   ```typescript
   interface Vector2D {
     _brand: "2d";
@@ -629,7 +629,7 @@ type StateWithPop = State & { population: number; };`
     y: number;
   }
   ```
-- Cette technique du _brand_ peut aussi servir à simuler le comportement d’un _Value Object_, c’est-à-dire **garantir qu’une valeur aura certaines caractéristiques vérifiées au runtime**.
+- Cette technique du _brand_ peut aussi servir à simuler le comportement d'un _Value Object_, c'est-à-dire **garantir qu'une valeur aura certaines caractéristiques vérifiées au runtime**.
   - On peut par exemple demander un type `string & {_brand: 'quelque chose'}`, pour obliger le passage par un type guard custom.
     ```typescript
     type AbsolutePath = string & { _brand: "abs" };
@@ -645,8 +645,8 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 38 : Use the Narrowest Possible Scope for any Types
 
-- Il faut **restreindre l’utilisation de any au plus petit scope possible**.
-  - Préférer la _type assertion_ `as any` qui n’agira que sur une instruction, plutôt qu’une _type declaration_ de `any` qui va propager le any partout où la variable sera utilisée.
+- Il faut **restreindre l'utilisation de any au plus petit scope possible**.
+  - Préférer la _type assertion_ `as any` qui n'agira que sur une instruction, plutôt qu'une _type declaration_ de `any` qui va propager le any partout où la variable sera utilisée.
     ```typescript
     // On préfère la type assertion
     const x = expressionReturningFoo();
@@ -655,8 +655,8 @@ type StateWithPop = State & { population: number; };`
     const x: any = expressionReturningFoo();
     processBar(x);
     ```
-  - Éviter à tout prix de retourner any dans une fonction. Au besoin on peut typer son retour pour l’éviter.
-  - Si un objet ne match pas un type particulier à cause d’un seul attribut, mais qu’on sait qu’il devrait, il vaut mieux faire une type assertion sur l’attribut seulement, et pas sur l’objet entier.
+  - Éviter à tout prix de retourner any dans une fonction. Au besoin on peut typer son retour pour l'éviter.
+  - Si un objet ne match pas un type particulier à cause d'un seul attribut, mais qu'on sait qu'il devrait, il vaut mieux faire une type assertion sur l'attribut seulement, et pas sur l'objet entier.
     ```typescript
     const config: Config = {
       a: 1,
@@ -668,7 +668,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 39 : Prefer More Precise Variants of any to Plain any
 
-- Dans un souci d’utiliser le type le plus restrictif possible, dans le **cas où on doit utiliser any**, il faut voir si on ne peut pas **utiliser un type un peu plus précis à la place**.
+- Dans un souci d'utiliser le type le plus restrictif possible, dans le **cas où on doit utiliser any**, il faut voir si on ne peut pas **utiliser un type un peu plus précis à la place**.
 - Exemples :
   - `any[]` si on sait que le type sera un tableau.
   - `{[id: string]: any}` si on sait que le type sera un objet.
@@ -676,13 +676,13 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 40 : Hide Unsafe Type Assertions in Well-Typed Functions
 
-- Dans le cas où ça ne vaut pas le coup de faire une version type safe d’un bout de code, et où on se contente d’une _type assertion_, alors il faut **préférer la contenir à l’intérieur d’une fonction qui aura ses paramètres et valeurs de retour typés**.
-  - De cette manière la _type assertion_ ne sera pas faite et refaite partout dans le code, mais seulement dans un endroit précis, idéalement à côté du code qui prouve qu’elle a du sens.
+- Dans le cas où ça ne vaut pas le coup de faire une version type safe d'un bout de code, et où on se contente d'une _type assertion_, alors il faut **préférer la contenir à l'intérieur d'une fonction qui aura ses paramètres et valeurs de retour typés**.
+  - De cette manière la _type assertion_ ne sera pas faite et refaite partout dans le code, mais seulement dans un endroit précis, idéalement à côté du code qui prouve qu'elle a du sens.
 
 ### Item 41 : Understand Evolving any
 
-- Alors que les types sont en général évalués à la création des valeurs, et ne peuvent être qu’affinés plus tard (avec des type guards par exemple), **dans le cas d’une valeur any inférée, le type va pouvoir évoluer** dans le code de la fonction en fonction des écritures dans la variable.
-  - Ça peut être par exemple une valeur initiale de tableau évaluée à `any[]`, qui finit par évoluer vers `number[]` à la sortie de la fonction, parce qu’on aura poussé des nombres dans le tableau.
+- Alors que les types sont en général évalués à la création des valeurs, et ne peuvent être qu'affinés plus tard (avec des type guards par exemple), **dans le cas d'une valeur any inférée, le type va pouvoir évoluer** dans le code de la fonction en fonction des écritures dans la variable.
+  - Ça peut être par exemple une valeur initiale de tableau évaluée à `any[]`, qui finit par évoluer vers `number[]` à la sortie de la fonction, parce qu'on aura poussé des nombres dans le tableau.
     ```typescript
     function range(start, limit) {
       const out = [];
@@ -692,7 +692,7 @@ type StateWithPop = State & { population: number; };`
       return out;
     }
     ```
-  - Ça peut être aussi une variable qu’on crée comme `let` ou `var`, sans assignation initiale, ou en assignant `null`. Son type va alors évoluer au gré des assignations.
+  - Ça peut être aussi une variable qu'on crée comme `let` ou `var`, sans assignation initiale, ou en assignant `null`. Son type va alors évoluer au gré des assignations.
     ```typescript
     let val; // any
     if (Math.random() < 0.5) {
@@ -708,7 +708,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 42 : Use unknown Instead of any for Values with an Unknown Type
 
-- Quand on **ne connaît pas le type d’une valeur** (par exemple si elle vient du réseau à l’exécution), **il faut la typer `unknown`**.
+- Quand on **ne connaît pas le type d'une valeur** (par exemple si elle vient du réseau à l'exécution), **il faut la typer `unknown`**.
   - Ca va forcer à typer la valeur pour y accéder :
     - Soit avec une _type assertion_.
     - Soit avec une vérification au runtime : par exemple `instanceof` ou un type guard custom.
@@ -719,10 +719,10 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 43 : Prefer Type-Safe Approaches to Monkey Patching
 
-- En JavaScript on peut faire du **monkey-patching**, c’est-à-dire ajouter des attributs à un objet à la volée. On le fait souvent côté client pour ajouter des choses à _document_, ou à des balises HTML.
-  - C’est une **mauvaise pratique** parce ça revient à ajouter des variables à un niveau global, accessibles depuis trop d’endroits.
-- Si on doit quand même faire ce _monkey-patching_ parce qu’on n’a pas le choix, plutôt que de typer la balise avec `any` à chaque fois, on peut :
-  - 1 - Utiliser l’augmentation d’interface, et augmenter par exemple `Document`.
+- En JavaScript on peut faire du **monkey-patching**, c'est-à-dire ajouter des attributs à un objet à la volée. On le fait souvent côté client pour ajouter des choses à _document_, ou à des balises HTML.
+  - C'est une **mauvaise pratique** parce ça revient à ajouter des variables à un niveau global, accessibles depuis trop d'endroits.
+- Si on doit quand même faire ce _monkey-patching_ parce qu'on n'a pas le choix, plutôt que de typer la balise avec `any` à chaque fois, on peut :
+  - 1 - Utiliser l'augmentation d'interface, et augmenter par exemple `Document`.
     ```typescript
     declare global {
       interface Document {
@@ -738,7 +738,7 @@ type StateWithPop = State & { population: number; };`
     }
     (document as MonkeyDocument).monkey = "Macaque";
     ```
-  - La 2ème solution nécessite une type assertion, mais au moins l’attribut n’est pas disponible partout tout le temps, mais seulement dans le contexte où on sait qu’il est là.
+  - La 2ème solution nécessite une type assertion, mais au moins l'attribut n'est pas disponible partout tout le temps, mais seulement dans le contexte où on sait qu'il est là.
 
 ### Item 44 : Track Your Type Coverage to Prevent Regressions in Type Safety
 
@@ -759,16 +759,16 @@ type StateWithPop = State & { population: number; };`
 - En général **_la version du package et la version du type `"@types/_"` doivent correspondre vis-à-vis de la composante majeure et mineure**. Le patch peut être différent parce que le package de types gère ses propres bugs.
   - Par exemple `"react@16.8.6"` et `"@types/react@16.8.19"` est OK.
 - Il est possible que la version de TypeScript nécessaire pour une de nos dépendances `"@types/*"` et notre code soit incompatible. Dans ce cas il faut soit downgrade la lib de type, soit notre version de TypeScript, soit créer des types nous-mêmes pour remplacer ceux de la lib de types.
-- Il est possible qu’un de nos package `"@types/*"` dépende d’un autre de ces packages de type, mais dans une version incompatible avec celle dont on a nous-même besoin. NPM va essayer de les installer tous les deux, mais pour les types ça marche rarement.
+- Il est possible qu'un de nos package `"@types/*"` dépende d'un autre de ces packages de type, mais dans une version incompatible avec celle dont on a nous-même besoin. NPM va essayer de les installer tous les deux, mais pour les types ça marche rarement.
   - On peut jeter un œil aux packages dupliqués avec `npm ls @types/mon-package`.
-- L’auteur conseille aux développeurs de librairie JavaScript de créer un package de `"@types/*"` séparé et disponible via _DefinitelyTyped_, plutôt qu’intégré à la librairie qui a besoin d’être typée.
+- L'auteur conseille aux développeurs de librairie JavaScript de créer un package de `"@types/*"` séparé et disponible via _DefinitelyTyped_, plutôt qu'intégré à la librairie qui a besoin d'être typée.
   - Ces librairies de type sont exécutées contre chaque nouvelle version de TypeScript, et les erreurs sont reportées aux mainteneurs. La communauté _DefinitelyTyped_ peut aussi nous aider si on utilise ça.
   - Ces librairies peuvent être disponibles pour plusieurs versions de TypeScript, et globalement régler les problèmes de type lié à des dépendances sera plus facile.
 
 ### Item 47 : Export All Types That Appear in Public APIs
 
-- Conseil aux développeurs de librairie : **si on exporte du code typé, autant exporter l’ensemble des types aussi**. De toute façon, de l'autre côté il sera possible de récupérer les types.
-  - Par exemple pour récupérer le type des paramètres ou de retour d’une fonction :
+- Conseil aux développeurs de librairie : **si on exporte du code typé, autant exporter l'ensemble des types aussi**. De toute façon, de l'autre côté il sera possible de récupérer les types.
+  - Par exemple pour récupérer le type des paramètres ou de retour d'une fonction :
     ```typescript
     // Côté librairie
     export function getGift(name: SecretName): SecretSanta {
@@ -783,12 +783,12 @@ type StateWithPop = State & { population: number; };`
 
 - Quand on veut **décrire une fonction**, classe, interface, type etc. avec du commentaire, il vaut mieux le faire **dans un style “JSDoc”** `/** */`. La raison est que les éditeurs vont le traiter comme documentation.
   - Et on peut aussi penser à utiliser les `@param`, `@returns` etc. dans la JSDoc pour la même raison.
-  - Il est tout à fait conventionnel d’utiliser du markdown dans le JSDoc.
+  - Il est tout à fait conventionnel d'utiliser du markdown dans le JSDoc.
 
 ### Item 49 : Provide a Type for this in Callbacks
 
 - En JavaScript,\*\*la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée</strong>.
-  - Si on donne une méthode de classe en tant que callback, et qu’on l’appelle telle quelle, le `this` à l’intérieur d’elle sera celui de l’environnement appelant.
+  - Si on donne une méthode de classe en tant que callback, et qu'on l'appelle telle quelle, le `this` à l'intérieur d'elle sera celui de l'environnement appelant.
     - On peut obliger à utiliser le `this` de la classe avec `call()` :
       ```typescript
       maMethode.call();
@@ -804,8 +804,8 @@ type StateWithPop = State & { population: number; };`
         }
       }
       ```
-  - Une _arrow function_ n’a pas de `this` à elle, mais utilise automatiquement le `this` du parent de là où elle a été définie.
-- On peut créer un **type de fonction qui indique le type du `this` contextuel avec lequel la fonction va être appelée**. C’est en particulier utile quand la fonction utilise `this`.
+  - Une _arrow function_ n'a pas de `this` à elle, mais utilise automatiquement le `this` du parent de là où elle a été définie.
+- On peut créer un **type de fonction qui indique le type du `this` contextuel avec lequel la fonction va être appelée**. C'est en particulier utile quand la fonction utilise `this`.
   - Pour créer ce type il faut indiquer un paramètre _this_ à la fonction en question :
     ```typescript
     function addKeyListener(
@@ -819,7 +819,7 @@ type StateWithPop = State & { population: number; };`
 ### Item 50 : Prefer Conditional Types to Overloaded Declarations
 
 - Il vaut mieux **utiliser des types conditionnels plutôt que des surcharges de types pour typer une fonction**.
-  - C’est en particulier utile dans le cas d’unions de types : les surcharges de type vont être évaluées une par une sur le type qu’il soit une union ou non, alors que le type conditionnel sera évalué contre chaque élément de l’union de type indépendamment, pour former une union finale.
+  - C'est en particulier utile dans le cas d'unions de types : les surcharges de type vont être évaluées une par une sur le type qu'il soit une union ou non, alors que le type conditionnel sera évalué contre chaque élément de l'union de type indépendamment, pour former une union finale.
   - Exemple avec une fonction qui double un string ou un nombre :
     ```typescript
     // Fonction initiale non typée.
@@ -841,8 +841,8 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 51 : Mirror Types to Server Dependencies
 
-- Conseil pour les développeurs de librairie : si on a une librairie utilisable côté client et serveur, et qu’on a besoin d’un **type qui n’est disponible que côté serveur**, alors **il vaut mieux créer une version réduite de ce type** et l’utiliser, pour éviter de forcer les utilisateur de la lib côté client d’installer les types de Node.js.
-  - Par exemple, si on a besoin du type `Buffer` de Node.js uniquement dans le cas où le code est appelé côté serveur, et qu’on fallback sur `string` sinon, on peut créer une interface `CustomBuffer` avec juste les méthodes qu’il nous faut au lieu du type `Buffer`.
+- Conseil pour les développeurs de librairie : si on a une librairie utilisable côté client et serveur, et qu'on a besoin d'un **type qui n'est disponible que côté serveur**, alors **il vaut mieux créer une version réduite de ce type** et l'utiliser, pour éviter de forcer les utilisateur de la lib côté client d'installer les types de Node.js.
+  - Par exemple, si on a besoin du type `Buffer` de Node.js uniquement dans le cas où le code est appelé côté serveur, et qu'on fallback sur `string` sinon, on peut créer une interface `CustomBuffer` avec juste les méthodes qu'il nous faut au lieu du type `Buffer`.
     ```typescript
     // Faire ça
     interface CSVBuffer {
@@ -873,15 +873,15 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 53 : Prefer ECMAScript Features to TypeScript Features
 
-- Historiquement, TypeScript avait créé des fonctionnalités côté runtime pour palier au manque de JavaScript, mais comme ces fonctionnalités se sont ajoutées à JavaScript petit à petit d’une manière incompatible, l’équipe derrière TypeScript a choisi de ne se concentrer plus que sur le typage, et de laisser le runtime au TC39.
-- Il existe des **reliquats runtime** ajoutés par TypeScript, et **que l’auteur déconseille d’utiliser** :
+- Historiquement, TypeScript avait créé des fonctionnalités côté runtime pour palier au manque de JavaScript, mais comme ces fonctionnalités se sont ajoutées à JavaScript petit à petit d'une manière incompatible, l'équipe derrière TypeScript a choisi de ne se concentrer plus que sur le typage, et de laisser le runtime au TC39.
+- Il existe des **reliquats runtime** ajoutés par TypeScript, et **que l'auteur déconseille d'utiliser** :
   - Les **enums**.
     - Ils existent en plusieurs variantes :
-      - Les enums basés sur les nombres ne procurent pas assez de type safety puisqu’on peut assigner n’importe quel nombre à la place.
-      - Les enums basés sur les strings sont type safe, mais ont un comportement incohérent par rapport au reste du système de type : ils n’utilisent pas le structural typing. On ne peut pas passer un string à la place de l’élément d’enum.
-    - L’auteur conseille d’**utiliser les unions de strings à la place**.
+      - Les enums basés sur les nombres ne procurent pas assez de type safety puisqu'on peut assigner n'importe quel nombre à la place.
+      - Les enums basés sur les strings sont type safe, mais ont un comportement incohérent par rapport au reste du système de type : ils n'utilisent pas le structural typing. On ne peut pas passer un string à la place de l'élément d'enum.
+    - L'auteur conseille d'**utiliser les unions de strings à la place**.
   - Les **parameter properties** sont la manière compacte de déclarer des variables membres et de leur assigner une valeur en paramètre du constructeur.
-    - L’auteur reconnaît qu’il y a un désaccord dans la communauté à leur sujet, mais il les déconseille personnellement parce qu’il trouve qu’ils ajoutent de la confusion en mélangeant les paramètres déclarés ou non, et ne sont pas en phase avec le reste des patterns de TypeScript.
+    - L'auteur reconnaît qu'il y a un désaccord dans la communauté à leur sujet, mais il les déconseille personnellement parce qu'il trouve qu'ils ajoutent de la confusion en mélangeant les paramètres déclarés ou non, et ne sont pas en phase avec le reste des patterns de TypeScript.
   - Les **namespaces** et les **triple-slash imports**.
     - Exemple :
       ```typescript
@@ -895,46 +895,46 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 54 : Know How to Iterate Over Objects
 
-- L’auteur propose deux manière d’**itérer sur les attributs d’un objet** :
-  - **for in** avec **keyof T** permet d’itérer sur un **objet dont on pense connaître raisonnablement le type d’attributs**.
-    - On va déclarer une variable avant la boucle, et faire une _type declaration_ dessus avec le type de la clé de l’objet, par exemple :
+- L'auteur propose deux manière d'**itérer sur les attributs d'un objet** :
+  - **for in** avec **keyof T** permet d'itérer sur un **objet dont on pense connaître raisonnablement le type d'attributs**.
+    - On va déclarer une variable avant la boucle, et faire une _type declaration_ dessus avec le type de la clé de l'objet, par exemple :
       ```typescript
       let key: keyof typeof myObject;
       for (key in myObject) {
         // ...
       ```
-    - Il faut que cet objet soit bien connu parce qu’il pourrait très bien avoir d’autres attributs non exprimés par son type (du fait du structural typing), et donc y compris des attributs complètement inconnus et non prévus, qui pourraient causer une erreur au runtime.
-  - **Object.entries** permet d’itérer sur un **objet inconnu**, mais le typage sera moins précis : on va obtenir `string` pour la clé, et `any` pour la valeur.
+    - Il faut que cet objet soit bien connu parce qu'il pourrait très bien avoir d'autres attributs non exprimés par son type (du fait du structural typing), et donc y compris des attributs complètement inconnus et non prévus, qui pourraient causer une erreur au runtime.
+  - **Object.entries** permet d'itérer sur un **objet inconnu**, mais le typage sera moins précis : on va obtenir `string` pour la clé, et `any` pour la valeur.
     - Exemple :
       ```typescript
       for (const [k, v] of Object.entries(myObject)) {
         // ...
       ```
-    - Au moins on a bien le `any` qui marque que la valeur peut être n’importe quoi, y compris des choses non prévus par le type de l’objet.
+    - Au moins on a bien le `any` qui marque que la valeur peut être n'importe quoi, y compris des choses non prévus par le type de l'objet.
 
 ### Item 55 : Understand the DOM hierarchy
 
-- Le **DOM** côté client a une hiérarchie d’objets pour exprimer son contenu :
+- Le **DOM** côté client a une hiérarchie d'objets pour exprimer son contenu :
   - Voici la hiérarchie :
-    - **`EventTarget`** est le plus _high level_, il peut représenter n’importe quel élément émettant des events, y compris `window`, `XMLHttpRequest`.
+    - **`EventTarget`** est le plus _high level_, il peut représenter n'importe quel élément émettant des events, y compris `window`, `XMLHttpRequest`.
     - **`Node`** est un peu plus précis, et peut représenter par exemple `document`, `Text`, `Comment`.
     - **`Element`** est plus précis, et peut représenter `HTMLElement`, `SVGElement`.
     - **`HTMLElement`** est plus précis, et peut représenter des balises comme `<i>`, `<b>`.
     - **`HTMLButtonElement`** est spécifique à la balise `<button>`.
-  - Sur un `HTMLParagraphElement` par exemple, `p.children` permet de récupérer les balises enfants, qui seront une collection d’`HTMLElement`, alors que `p.childNodes` permet de récupérer tous les éléments de type `Node`, y compris un commentaire, ou un bout de texte dans la balise.
-- Quand on récupère un élément par un moyen non safe, par exemple par son ID, TypeScript va le typer au mieux, c’est-à-dire du type des éléments qui peuvent porter des IDs.
-  - Dans le cas où on sait que l’élément est un paragraphe, on va pouvoir faire une type assertion dessus.
+  - Sur un `HTMLParagraphElement` par exemple, `p.children` permet de récupérer les balises enfants, qui seront une collection d'`HTMLElement`, alors que `p.childNodes` permet de récupérer tous les éléments de type `Node`, y compris un commentaire, ou un bout de texte dans la balise.
+- Quand on récupère un élément par un moyen non safe, par exemple par son ID, TypeScript va le typer au mieux, c'est-à-dire du type des éléments qui peuvent porter des IDs.
+  - Dans le cas où on sait que l'élément est un paragraphe, on va pouvoir faire une type assertion dessus.
     ```typescript
     document.getElementById("my-paragraph") as HTMLParagraphElement;
     ```
-  - Pareil si on sait que l’élément sera forcément là, on pourrait faire une type assertion de non nullité avec `!`
+  - Pareil si on sait que l'élément sera forcément là, on pourrait faire une type assertion de non nullité avec `!`
     ```typescript
     const div = document.getElementById("my-div")!;
     ```
 - Pour ce qui est des events, il y a **`Event`** qui est le plus générique, et des events particuliers `MouseEvent`, `TouchEvent` etc.
   - Il faut faire attention à bien typer les paramètres de nos callbacks prenant des events, en les typant avec le bon event, et au besoin en inlinant la fonction pour donner du contexte à TypeScript et ne pas avoir à typer le paramètre.
 
-### Item 56 : Don’t Rely on Private to Hide Information
+### Item 56 : Don't Rely on Private to Hide Information
 
 - Dans une classe, un membre déclaré private pourra être accédé sans trop de problèmes par un utilisateur qui le veut. Si on veut lui donner plus de mal :
   - On peut utiliser les **membres privés JavaScript** avec `#`.
@@ -958,14 +958,14 @@ type StateWithPop = State & { population: number; };`
 ### Item 57 : Use Source Maps to Debug TypeScript
 
 - Vu que TypeScript transpile du code Vers JavaScript, si on veut débugger le code TypeScript il nous faut un moyen de mapper le code exécuté au code TypeScript.
-  - Ça se fait avec la génération de **source maps** qu’on peut activer avec l’option `"sourceMap": true` dans _tsconfig.json_.
+  - Ça se fait avec la génération de **source maps** qu'on peut activer avec l'option `"sourceMap": true` dans _tsconfig.json_.
   - Les fichiers de _source map_ se terminent par _.js.map_.
 
 ## 8 - Migrating to TypeScript
 
 ### Item 58 : Write Modern JavaScript
 
-- TypeScript transpile vers JavaScript, donc on peut, et on devrait adopter les dernières fonctionnalités d’ECMAScript.
+- TypeScript transpile vers JavaScript, donc on peut, et on devrait adopter les dernières fonctionnalités d'ECMAScript.
   - Les modules ES6 à la place des require et autres manières de combiner du code.
   - Les classes ES6 à la place de jouer avec les prototypes.
   - `let` et `const` à la place de `var`.
@@ -978,7 +978,7 @@ type StateWithPop = State & { population: number; };`
       z = 3;
     const pt = { x, y, z };
     ```
-  - Utiliser l’_object destructuring_ :
+  - Utiliser l'_object destructuring_ :
     ```typescript
     // Seuls a et b deviennent des variables
     const {
@@ -992,27 +992,27 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 59 : Use @ts-check and JSDoc to Experiment with TypeScript
 
-- **@ts-check permet d’activer TypeScript seulement dans certains fichiers**, pour voir des erreurs dans ces endroits avant de commencer à migrer.
+- **@ts-check permet d'activer TypeScript seulement dans certains fichiers**, pour voir des erreurs dans ces endroits avant de commencer à migrer.
   - Il va en particulier indiquer les problèmes de variables globales non déclarées, librairies sans types, typage des éléments du DOM, incohérences dans la JSDoc.
   - On peut utiliser ce procédé pour commencer à ajouter un peu typage dans la JSDoc en attendant de migrer vers TypeScript.
 
 ### Item 60 : Use allowJs to Mix TypeScript and JavaScript
 
-- Pour commencer à migrer petit à petit il vaut mieux permettre au **code TypeScript de cohabiter avec Javascript**, en utilisant l’**option allowJs** dans _tsconfig.json_.
+- Pour commencer à migrer petit à petit il vaut mieux permettre au **code TypeScript de cohabiter avec Javascript**, en utilisant l'**option allowJs** dans _tsconfig.json_.
 
 ### Item 61 : Convert Module by Module Up Your Dependency Graph
 
-- Une fois qu’on a introduit TypeScript dans la codebase, il faut migrer vers TypeScript module par module, **en commençant par les modules qui ne dépendent pas des autres modules du code**.
+- Une fois qu'on a introduit TypeScript dans la codebase, il faut migrer vers TypeScript module par module, **en commençant par les modules qui ne dépendent pas des autres modules du code**.
   - 1 - On ajoute les librairies `"@types/*"` pour nos dépendances.
-  - 2 - On type les données venant d’API externes.
-  - 3 - On peut visualiser le _dependency graph_ de nos modules (par exemple avec l’outil _madge_), et migrer d’abord ceux qui dépendent le moins possible des autres.
-- L’auteur recommande de **ne pas améliorer le design du code par des refactorings au moment de la migration**, au risque de ne pas avancer dans l’ajout de types.
-- Parmi les problèmes supplémentaires qu’on va rencontrer en ajoutant des types :
+  - 2 - On type les données venant d'API externes.
+  - 3 - On peut visualiser le _dependency graph_ de nos modules (par exemple avec l'outil _madge_), et migrer d'abord ceux qui dépendent le moins possible des autres.
+- L'auteur recommande de **ne pas améliorer le design du code par des refactorings au moment de la migration**, au risque de ne pas avancer dans l'ajout de types.
+- Parmi les problèmes supplémentaires qu'on va rencontrer en ajoutant des types :
   - Les variables membres non déclarées dans les classes. Heureusement, notre éditeur peut nous aider à déclarer tous les membres non déclarés automatiquement.
   - Les variables dont le type change au cours du temps, alors que TypeScript infère le type à la déclaration. On peut utiliser des _type assertions_ temporaires.
 
-### Item 62 : Don’t Consider Migration Complete Until You Enable noImplicitAny
+### Item 62 : Don't Consider Migration Complete Until You Enable noImplicitAny
 
-- Sans **noImplicitAny**, TypeScript est comme une passoire. Il faut **l’activer dès que possible**.
-  - Une stratégie possible est de l’activer localement, régler une partie des erreurs, et d'intégrer que le code sans le changement dans _tsconfig.json_.
-- On peut laisser peu de temps à l’équipe pour s’habiter à TypeScript avant d’aller vers des règles plus strictes comme `"strict": true` et `"strictNullChecks"`.
+- Sans **noImplicitAny**, TypeScript est comme une passoire. Il faut **l'activer dès que possible**.
+  - Une stratégie possible est de l'activer localement, régler une partie des erreurs, et d'intégrer que le code sans le changement dans _tsconfig.json_.
+- On peut laisser peu de temps à l'équipe pour s'habiter à TypeScript avant d'aller vers des règles plus strictes comme `"strict": true` et `"strictNullChecks"`.
