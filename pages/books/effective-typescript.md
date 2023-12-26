@@ -995,3 +995,24 @@ type StateWithPop = State & { population: number; };`
 - **@ts-check permet d’activer TypeScript seulement dans certains fichiers**, pour voir des erreurs dans ces endroits avant de commencer à migrer.
   - Il va en particulier indiquer les problèmes de variables globales non déclarées, librairies sans types, typage des éléments du DOM, incohérences dans la JSDoc.
   - On peut utiliser ce procédé pour commencer à ajouter un peu typage dans la JSDoc en attendant de migrer vers TypeScript.
+
+### Item 60 : Use allowJs to Mix TypeScript and JavaScript
+
+- Pour commencer à migrer petit à petit il vaut mieux permettre au **code TypeScript de cohabiter avec Javascript**, en utilisant l’**option allowJs** dans _tsconfig.json_.
+
+### Item 61 : Convert Module by Module Up Your Dependency Graph
+
+- Une fois qu’on a introduit TypeScript dans la codebase, il faut migrer vers TypeScript module par module, **en commençant par les modules qui ne dépendent pas des autres modules du code**.
+  - 1 - On ajoute les librairies `"@types/*"` pour nos dépendances.
+  - 2 - On type les données venant d’API externes.
+  - 3 - On peut visualiser le _dependency graph_ de nos modules (par exemple avec l’outil _madge_), et migrer d’abord ceux qui dépendent le moins possible des autres.
+- L’auteur recommande de **ne pas améliorer le design du code par des refactorings au moment de la migration**, au risque de ne pas avancer dans l’ajout de types.
+- Parmi les problèmes supplémentaires qu’on va rencontrer en ajoutant des types :
+  - Les variables membres non déclarées dans les classes. Heureusement, notre éditeur peut nous aider à déclarer tous les membres non déclarés automatiquement.
+  - Les variables dont le type change au cours du temps, alors que TypeScript infère le type à la déclaration. On peut utiliser des _type assertions_ temporaires.
+
+### Item 62 : Don’t Consider Migration Complete Until You Enable noImplicitAny
+
+- Sans **noImplicitAny**, TypeScript est comme une passoire. Il faut **l’activer dès que possible**.
+  - Une stratégie possible est de l’activer localement, régler une partie des erreurs, et d'intégrer que le code sans le changement dans _tsconfig.json_.
+- On peut laisser peu de temps à l’équipe pour s’habiter à TypeScript avant d’aller vers des règles plus strictes comme `"strict": true` et `"strictNullChecks"`.
