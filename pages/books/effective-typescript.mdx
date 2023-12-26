@@ -787,7 +787,7 @@ type StateWithPop = State & { population: number; };`
 
 ### Item 49 : Provide a Type for this in Callbacks
 
-- En JavaScript,\*\*la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée</strong>.
+- En JavaScript, **la valeur de `this` dépend de la manière dont la fonction dans laquelle il est utilisé est appelée**.
   - Si on donne une méthode de classe en tant que callback, et qu'on l'appelle telle quelle, le `this` à l'intérieur d'elle sera celui de l'environnement appelant.
     - On peut obliger à utiliser le `this` de la classe avec `call()` :
       ```typescript
