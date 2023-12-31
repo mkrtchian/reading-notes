@@ -17,3 +17,24 @@
   - 1 - **Laisser le contrôle** aux subordonnés, tout en gardant la responsabilité.
   - 2 - Augmenter la **compétence** des subordonnés.
   - 3 - Augmenter la **compréhension du but de l’organisation** chez les subordonnés.
+
+## I - Starting Over
+
+### 1 - Pain
+
+- L’auteur raconte son **échec sur le Will Rogers** en 1989. Le sous-marin était vieux et avait raté une certification récemment.
+  - L’officier que l’auteur remplaçait était très axé sur la direction minutieuse des opérations de maintenance, et était sollicité en permanence pour donner des directives.
+  - Le but de l’auteur était d’**adopter un leadership plus proche de celui qu’il avait connu sur le Sunfish**.
+    - Par exemple ne pas donner de consignes précises, poser des questions sur la manière dont l’équipage abordait les problèmes, mettre en relation directement les sous-chefs de département.
+  - Les subordonnés de l’auteur **ont fini par faire des erreurs**, et il s’est rendu compte juste avant une inspection qu’un refroidisseur était mal assemblé. Ça a causé le report de l’inspection et a donné une mauvaise image de son équipe et du bâteau.
+  - L’auteur est finalement **revenu à un leadership plus directif jusqu’à la fin de sa mission, à contre-cœur**.
+  - Très peu de membres du Will Rogers ont été promus à cause de la mauvaise performance globale pendant le séjour de l’auteur.
+- L’auteur a repensé à son expérience, et en a tiré des questionnements à propos du type de leadership dominant :
+  - L’idée d’**empowerment** est en soi **porteur de contradiction** : il s’agit d’un mécanisme infantilisant, venant du haut, alors que le but est que le pouvoir soit en bas.
+    - Selon l’auteur c’est à cause du fait que les gens ont été habitués à ne pas exercer de pouvoir.
+  - L’auteur ressent le côté **démotivant** du management top-down sur lui-même quand ça vient de ses supérieurs, et ne veut pas faire aux autres ce qu’il ne trouve pas épanouissant.
+  - Il note aussi l’**absence de résilience** de l’approche top-down : il suffit que la direction fasse un faux pas et le reste de l’équipage suit sans garde-fou, alors qu’ils auraient les capacités pour repérer les erreurs.
+- **Questions à se poser :**
+  - L’empowerment est-il nécessaire, et doit-il venir de quelqu’un d’autre ?
+  - Est-ce que toute l’organisation dépend des décisions de quelques personnes ?
+  - Dans quelle mesure la culture dominante influence l’image du leadership qu’on va adopter ?
