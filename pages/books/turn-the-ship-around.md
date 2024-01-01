@@ -38,3 +38,20 @@
   - L’empowerment est-il nécessaire, et doit-il venir de quelqu’un d’autre ?
   - Est-ce que toute l’organisation dépend des décisions de quelques personnes ?
   - Dans quelle mesure la culture dominante influence l’image du leadership qu’on va adopter ?
+
+### 2 - Business as Usual
+
+- En 1998, l’auteur devenu capitaine était censé diriger l’Olympia, un sous-marin d’attaque ayant connu beaucoup de succès récemment.
+  - Un mois avant de devenir responsable du sous-marin, il veut monter à bord pour assister à une inspection, mais l’autre capitaine refuse : la raison est qu’il n’a **aucun intérêt à faciliter la passation puisqu’il n’est jugé que sur le temps où il est en responsabilité**.
+    - Si les choses tournent mal après son départ, le leader sera vu comme étant quelqu’un de très fort dont la présence manque, plutôt que comme n’ayant pas bien entraîné ses subordonnés.
+  - Finalement il parle à l’équipage, et se rend compte qu’ils ont un fonctionnement très vertical. Il se dit qu’il aura du mal à changer ce mode de leadership étant donné les succès actuels qu’ils connaissent.
+  - Juste avant qu’il prenne le commandement du sous-marin, on lui annonce qu’il va plutôt prendre le commandement d’un autre sous-marin : le Santa Fe.
+- Le leadership vertical a tendance à mettre en place un **fonctionnement fragile, mais qui finit par arranger les gens**, en particulier sur le **court terme** :
+  - Le capitaine est content parce qu’il exerce un grand pouvoir.
+  - Les subordonnés **s’enlisent dans une forme de paresse et de facilité** à suivre les ordres, et deviennent de moins en moins compétents.
+    - Ils vont aussi avoir plus tendance à répéter le modèle en exerçant le pouvoir qu’ils ont sur leurs subordonnés.
+  - Le manque de compétence et l’incapacité à prendre des initiatives de la part des subordonnés finit par être visible par une **faible performance à long terme**.
+
+* **Questions à se poser :**
+  - Est-ce que les leaders sont récompensés pour le succès à long terme ? Le succès de leurs subordonnés ?
+  - Si l’organisation subit un échec après le départ du leader, est-ce qu’on pense que c’était un bon leader ou un mauvais ?
