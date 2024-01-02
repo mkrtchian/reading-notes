@@ -51,8 +51,7 @@
   - Les subordonnés **s’enlisent dans une forme de paresse et de facilité** à suivre les ordres, et deviennent de moins en moins compétents.
     - Ils vont aussi avoir plus tendance à répéter le modèle en exerçant le pouvoir qu’ils ont sur leurs subordonnés.
   - Le manque de compétence et l’incapacité à prendre des initiatives de la part des subordonnés finit par être visible par une **faible performance à long terme**.
-
-* **Questions à se poser :**
+- **Questions à se poser :**
   - Est-ce que les leaders sont récompensés pour le succès à long terme ? Le succès de leurs subordonnés ?
   - Si l’organisation subit un échec après le départ du leader, est-ce qu’on pense que c’était un bon leader ou un mauvais ?
 
@@ -67,3 +66,16 @@
 - **Questions à se poser :**
   - En tant que leader, est-ce qu’on est prêt à prendre des risques personnels pour faire réussir la mission et l’équipe en adoptant un type de management différent ? Est-ce qu’on est prêt à abandonner du pouvoir et du prestige pour le bien de l’organisation ?
   - En tant que leader, est-ce qu’on est prêt à confier des objectifs, en laissant les subordonnés choisir comment les réaliser ?
+
+## 4 - Frustration
+
+- L’auteur débarque sur le Santa Fe et trouve un équipage démoralisé, à qui on ne cesse de répéter qu’ils sont les plus mauvais.
+- Il **pose des questions à l’équipage** pour mieux comprendre le contexte, connaître leur point de vue sur ce qui devrait changer, les problèmes principaux, leurs objectifs personnels etc.
+  - Il obtient de nombreuses réponses parlant de problèmes de gestion et de désorganisation sur le Santa Fe. Pas mal de personnes qui se plaignent que leur carrière est au point mort.
+- L’auteur avait étudié en détail le fonctionnement de l’Olympia, mais **ne connaît pas le Santa Fe**. Il est donc **obligé d’être sincèrement curieux** en posant des questions à l’équipage pour obtenir des connaissances techniques.
+  - Il passe en revue les registres en étant toujours accompagné d’un membre de l’équipage.
+  - Il **se concentre davantage sur l’équipage**, et s’appuie sur leur expertise, ça lui permet de construire une relation avec eux qu’il n’aurait pas eu sinon.
+- **Questions à se poser :**
+  - Est-ce que le leader doit être le plus compétent techniquement ?
+  - Est-ce que la compétence technique est personnelle, ou est-ce qu’elle émerge du collectif ?
+  - Comment faire en tant que leader pour savoir ce qui se passe sur le terrain ?
