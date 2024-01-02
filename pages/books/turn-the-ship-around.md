@@ -67,7 +67,7 @@
   - En tant que leader, est-ce qu’on est prêt à prendre des risques personnels pour faire réussir la mission et l’équipe en adoptant un type de management différent ? Est-ce qu’on est prêt à abandonner du pouvoir et du prestige pour le bien de l’organisation ?
   - En tant que leader, est-ce qu’on est prêt à confier des objectifs, en laissant les subordonnés choisir comment les réaliser ?
 
-## 4 - Frustration
+### 4 - Frustration
 
 - L’auteur débarque sur le Santa Fe et trouve un équipage démoralisé, à qui on ne cesse de répéter qu’ils sont les plus mauvais.
 - Il **pose des questions à l’équipage** pour mieux comprendre le contexte, connaître leur point de vue sur ce qui devrait changer, les problèmes principaux, leurs objectifs personnels etc.
@@ -79,3 +79,19 @@
   - Est-ce que le leader doit être le plus compétent techniquement ?
   - Est-ce que la compétence technique est personnelle, ou est-ce qu’elle émerge du collectif ?
   - Comment faire en tant que leader pour savoir ce qui se passe sur le terrain ?
+
+### 5 - Call to Action
+
+- L’auteur observe l’équipage et remarque qu’une partie d’entre eux sont **résignés**.
+  - C’est le cas pour Dave, l’un des chefs de département qui semble particulièrement compétent, mais dont les idées ne sont jamais écoutées par la hiérarchie.
+  - L’un des juniors n’arrive pas à avoir sa permission pour Noël à cause du fait qu’elle doit être validée par 7 personnes plus haut dans la hiérarchie.
+  - Rick le responsable de la radio se plaint que le capitaine se réserve la lecture des informations qui arrivent, pour pouvoir les filtrer si besoin, et pour pouvoir remettre la faute sur les subordonnés au cas où quelque chose qui est demandé ne serait pas fait.
+- **Le capitaine en charge a mis en place un modèle leader follower** :
+  - A l’une des réunions où tout l’équipage est réuni, le capitaine arrive en dernier et avec du retard, et parle pour les plus hauts gradés, les autres étant considérés moins importants.
+  - A l’une des célébrations où des officiers sont décorés, le capitaine prononce quelques mots, mais on voit bien qu’il ne connaît pas ses hommes.
+- Le but principal de l’équipage est d’**éviter les problèmes** de tous genres, plutôt que d’accomplir quelque chose.
+  - Et pourtant l’auteur sent une **volonté de bien faire** qui ne demande qu’à être libérée. Il se donne l’objectif de répondre à cet élan.
+- **Questions à se poser :**
+  - Est-ce que les gens veulent se dépasser ou sont dans une zone de confort ?
+  - Est-ce qu’ils se protègent en évitant les problèmes, ou est-ce qu’ils cherchent à arriver à un meilleur résultat ?
+  - Est-ce que les leaders prennent le contrôle ou laissent le contrôle ?
