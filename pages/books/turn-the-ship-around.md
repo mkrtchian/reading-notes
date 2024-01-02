@@ -86,7 +86,7 @@
   - C’est le cas pour Dave, l’un des chefs de département qui semble particulièrement compétent, mais dont les idées ne sont jamais écoutées par la hiérarchie.
   - L’un des juniors n’arrive pas à avoir sa permission pour Noël à cause du fait qu’elle doit être validée par 7 personnes plus haut dans la hiérarchie.
   - Rick le responsable de la radio se plaint que le capitaine se réserve la lecture des informations qui arrivent, pour pouvoir les filtrer si besoin, et pour pouvoir remettre la faute sur les subordonnés au cas où quelque chose qui est demandé ne serait pas fait.
-- **Le capitaine en charge a mis en place un modèle leader follower** :
+- Le capitaine fait ce qu’il faut pour renforcer la posture de leader-follower qui cause cette résignation :
   - A l’une des réunions où tout l’équipage est réuni, le capitaine arrive en dernier et avec du retard, et parle pour les plus hauts gradés, les autres étant considérés moins importants.
   - A l’une des célébrations où des officiers sont décorés, le capitaine prononce quelques mots, mais on voit bien qu’il ne connaît pas ses hommes.
 - Le but principal de l’équipage est d’**éviter les problèmes** de tous genres, plutôt que d’accomplir quelque chose.
@@ -95,3 +95,17 @@
   - Est-ce que les gens veulent se dépasser ou sont dans une zone de confort ?
   - Est-ce qu’ils se protègent en évitant les problèmes, ou est-ce qu’ils cherchent à arriver à un meilleur résultat ?
   - Est-ce que les leaders prennent le contrôle ou laissent le contrôle ?
+
+### 6 - “Whatever They Tell Me to Do!”
+
+- Une photo montrant l’équipage manifestant peu de sérieux dans un endroit important du sous-marin a circulé sur internet.
+  - Quand l’auteur demande à l’un de ces officiers ce qu’il fait sur le sous-marin, il répond avec cynisme qu’il fait **“ce qu’on lui dit de faire”**.
+- L’officier en chef des départements demande à ce que chacun des chefs de département lui fasse un rapport, **pour qu’il puisse vérifier** qu’ils ont bien fait tout ce qu’il leur avait demandé, et donner d’éventuelles instructions.
+  - Selon l’auteur, faire le rapport est acceptable, mais il faudrait qu’il **ne soit qu’informatif, pour que la responsabilité reste de leur côté** et non pas du côté de leur chef. C’est à eux de prendre les décisions.
+  - L’auteur accepte en tant que futur capitaine de laisser les décisions aux chefs de départements, tout en étant responsable de l’ensemble de ce qu’ils décident.
+- De manière plus générale, l’auteur pense aussi au reste de l’équipage en dessous des chefs de département, dont l’intelligence devait être mise à contribution en leur donnant plus d’autonomie.
+  - Il se met en tête de **renverser le type de leadership** dès qu’il sera capitaine.
+- **Questions à se poser :**
+  - Est-ce que les gens sont vraiment contents d’obéir ? Pour ceux qui le seraient, pour quelle raison ils le sont ?
+  - Quel type de leadership est favorisé par les procédures mises en place ?
+  - Si le fonctionnement interne était révélé dans un journal, est-ce qu’on en serait contents ?
