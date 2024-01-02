@@ -55,3 +55,15 @@
 * **Questions à se poser :**
   - Est-ce que les leaders sont récompensés pour le succès à long terme ? Le succès de leurs subordonnés ?
   - Si l’organisation subit un échec après le départ du leader, est-ce qu’on pense que c’était un bon leader ou un mauvais ?
+
+### 3 - Change of Course
+
+- Contrairement à l’Olympia, la Santa Fe va d’échec en échec et est très mal vu.
+  - Non seulement **les performances sont mauvaises sur le Santa Fe**, mais la rétention est aussi catastrophique : seuls 3 membres de l’équipage ont reconduit leur présence.
+  - L’auteur a **6 mois pour préparer le sous-marin** et l’équipage pour une mission.
+  - Côté équipage, l’auteur a 5 officiers chefs de département et 12 chefs qui constituent le middle management, et le reste composé de juniors qui pour la plupart n’ont connu que le Santa Fe. La plupart sont plutôt démoralisés.
+- Le supérieur de l’auteur lui a confié le commandement du Santa Fe parce qu’il pense qu’il sera capable de le changer du tout au tout. C’est une situation avec une absence de leadership.
+  - Son supérieur ne le micro-manage pas, il lui laisse le champ libre pour agir. C’est une **occasion unique pour l’auteur d’implémenter un style de management non vertical**.
+- **Questions à se poser :**
+  - En tant que leader, est-ce qu’on est prêt à prendre des risques personnels pour faire réussir la mission et l’équipe en adoptant un type de management différent ? Est-ce qu’on est prêt à abandonner du pouvoir et du prestige pour le bien de l’organisation ?
+  - En tant que leader, est-ce qu’on est prêt à confier des objectifs, en laissant les subordonnés choisir comment les réaliser ?
