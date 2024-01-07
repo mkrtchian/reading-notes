@@ -109,3 +109,17 @@
   - Est-ce que les gens sont vraiment contents d’obéir ? Pour ceux qui le seraient, pour quelle raison ils le sont ?
   - Quel type de leadership est favorisé par les procédures mises en place ?
   - Si le fonctionnement interne était révélé dans un journal, est-ce qu’on en serait contents ?
+
+## 7 - “I Relieve You!”
+
+- Les règles de l’armée américaine poussent à un leadership leader-follower en donnant un pouvoir absolu au capitaine, et en indiquant la délégation comme optionnelle.
+- L’équipage du Santa Fe est centré sur le fait de **ne pas commettre d’erreurs**, parce que les sous-marins sont évalués sur ce critère.
+  - Le problème c’est que ça **pousse à l’inaction** et empêche l'initiative : moins on fait de choses, et moins ce sera une source d’erreurs.
+  - L’auteur compte remettre le **focus sur la réalisation de l’excellence**, en ramenant le focus sur les erreurs au second plan.
+  - Une partie de la réalisation de l’excellence sera d’obtenir une compréhension profonde des mécanismes sous-jacents qui mènent aux erreurs.
+  - La mise en avant de l’excellence plutôt que le fait d’éviter les problèmes est un mécanisme de _clarity_ (cf. **_Start with Why_** de Simon Sinek).
+- L’auteur devient enfin capitaine du sous-marin.
+- **Questions à se poser :**
+  - Est-ce que nos équipes prennent des risques et des initiatives, ou est-ce qu’ils en sont découragés à cause des problèmes qui pourraient en résulter ?
+  - Est-ce que le middle management a comme motivation principale d’éviter les problèmes ou d'accomplir de grandes choses ?
+  - Quand on analyse les décisions, quel type de critère les drive ?
