@@ -75,3 +75,33 @@
   - 1 - Nous pensons que si on fait <outcome>, on aura un meilleur <impact>.
   - 2 - Nous pensons que nous pourrons augmenter <outcome> avec <output>, <output> et <output>.
   - 3 - Nous testerons ces idées d’output pendant Q1 de l’année qui vient.
+
+## 4 - Organizing for outcomes
+
+- Les organisations sont généralement structurées autour des notions de **produit ou de canal**, ce qui les pousse à adopter une vision centrée autour des _outputs_.
+  - On pourrait plutôt les structurer autour de la notion de **comportements ou de parcours utilisateur** pour se concentrer naturellement sur les _outcomes_.
+- Exemple de l’entreprise HBR (Harvard Business Review), qui a adopté une **organisation en outcomes** en 2016 :
+  - HBR propose un site d’e-commerce pour vendre des articles, livres et autres contenus.
+  - L’équipe produit souffrait des problèmes habituels : une backlog qui ne se vidait pas, des difficultés négocier et prioriser, la sensation que **les résultats n’étaient pas là** par rapport à l’effort fourni.
+  - Ils ont commencé à s’intéresser au management par _outcome_ pour un projet consistant à réduire le _bounce rate_, c’est-à-dire le nombre de clients qui ne complètent pas leur achat.
+    - L’_impact_ (ou _outcome_ business) était d’augmenter les ventes, avec l’hypothèse que réduire le _bounce rate_ mènerait à l’augmentation des ventes.
+    - Ils ont **creusé les données et réalisé des interviews** pour comprendre le contexte dans lequel les _bounces_ survenaient, et pourquoi.
+      - Ils ont par exemple remarqué que le prix n’était pas clair dès le départ, ou mal adapté à la localisation géographique de l’utilisateur. Et ils ont fait des features pour y remédier.
+  - Côté **suivi du travail**, le management a dû passer d’une estimation d’_output_ à une estimation d’_outcome_ : ils définissent **en amont** de valeur à atteindre sur un _outcome_ à une date donnée, et font le point régulièrement sur l’évolution de la métrique.
+    - Les leaders étaient chargés de prioriser 3 outcomes pour un trimestre donné. Une des manières pour les faire se mettre d’accord était de leur poser la question : “quels sont vos sujets d’inquiétude ?”.
+  - Ils ont entamé des **changements côté workflow** :
+    - Au départ il y avait :
+      - Des PM responsables chacun d’une page ou d’un bout de page de l’application.
+      - Des designers travaillant en amont par projets.
+      - Des développeurs prenant le relai des designers, et travaillant aussi par projets.
+    - Parmi les changements mis en place :
+      - Les designers et les développeurs étaient appelés à collaborer dès le début du projet, pour être dans une démarche moins waterfall.
+      - En priorisant les _outcomes_, ils se sont rendu compte qu’ils tournaient principalement autour de deux _impacts_ : (1) faire en sorte que les utilisateurs consomment plus de choses sur leur site, et (2) faire en sorte qu’ils achètent plus de choses.
+        - Ils ont donc organisé les effectifs produit en 3 équipes :
+          - Une équipe pour augmenter la consommation.
+          - Une équipe pour augmenter la vente.
+          - Une équipe “Opérations” chargée de résoudre les problématiques qui survenaient au quotidien.
+        - La 3ème équipe avait un fonctionnement par _output_ (ce qui est OK d’après l’auteur, parce que leur travail n’est pas sujet à incertitude), contrairement aux deux autres qui fonctionnent par _outcome_.
+- Le fonctionnement par _outcome_ implique de **séparer les responsabilités** entre l’équipe produit qui choisit quoi faire, et les leaders qui sont responsables du succès de l’ensemble.
+  - Il s’agit donc pour les leaders d’**abandonner une partie du contrôle** sur ce qui est fait.
+  - Il est cependant nécessaire de compenser ça par une **collaboration plus étroite et plus fréquente entre leaders et équipe produit**. Les leaders ayant une vision plus large des problématiques de l’entreprise, ils sont à même d’apporter des choses dont l’équipe produit n’est pas au courant.
