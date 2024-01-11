@@ -105,3 +105,14 @@
 - Le fonctionnement par _outcome_ implique de **séparer les responsabilités** entre l’équipe produit qui choisit quoi faire, et les leaders qui sont responsables du succès de l’ensemble.
   - Il s’agit donc pour les leaders d’**abandonner une partie du contrôle** sur ce qui est fait.
   - Il est cependant nécessaire de compenser ça par une **collaboration plus étroite et plus fréquente entre leaders et équipe produit**. Les leaders ayant une vision plus large des problématiques de l’entreprise, ils sont à même d’apporter des choses dont l’équipe produit n’est pas au courant.
+
+## 5 - Outcomes for transformation
+
+- L’approche basée sur les _outcomes_ peut être aussi utilisée pour **entamer un changement organisationnel** : on va considérer le changement de comportement des employés comme objet de l’_outcome_, menant à un _impact_ business, et les personnes voulant mener la transformation comme ceux qui doivent faire avancer l’_outcome_.
+- L’auteur conseille :
+  - De considérer que **nos collègues sont nos clients**.
+    - On peut lister les activités de ces collègues, et se demander lesquelles sont utiles pour notre transformation, pour trouver l’_outcome_ à faire avancer.
+    - On va alors **nous intéresser à leurs besoins, problèmes**, et réfléchir à la manière dont on leur **communique la valeur** que le changement va leur apporter.
+  - D’adopter une** démarche incrémentale et expérimentale.**
+    - Les solutions pour faire avancer nos _outcomes_ sont incertaines. Il faut les tenter pour voir lesquelles marchent et avancer itérativement, de manière agile.
+    - Par exemple, si on se dit que mettre en place une formation permettrait d’améliorer les compétences de nos collègues, on peut envoyer un email pour demander qui est intéressé, et voir si notre hypothèse de fort intérêt se vérifie.
