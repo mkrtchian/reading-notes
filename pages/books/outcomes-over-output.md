@@ -2,117 +2,117 @@
 
 ## 1 - What are outcomes ?
 
-- L’auteur a travaillé dans une entreprise de trading qui avait besoin de diversifier son offre. Le CEO a proposé de travailler sur une nouvelle app, mais au bout de 2 ans le projet a été abandonné sans avoir apporté de valeur : c’était le mauvais output.
+- L'auteur a travaillé dans une entreprise de trading qui avait besoin de diversifier son offre. Le CEO a proposé de travailler sur une nouvelle app, mais au bout de 2 ans le projet a été abandonné sans avoir apporté de valeur : c'était le mauvais output.
   - Ils auraient pourtant pu changer de cap pour faire des choses qui apportaient de la valeur beaucoup plus vite, mais sont restés sur un more waterfall.
-- La raison pour laquelle on est obsédé par la réalisation de tâches est liée à l’ère industrielle où il fallait réaliser des objets qui étaient vendus une fois prêts.
-  - Cette approche ne marche pas avec le logiciel parce qu’**une feature peut très bien n’apporter aucune valeur**.
-  - Exemple : les popups qui invitent à s’inscrire à une newsletter fonctionnent techniquement, mais n’apportent pas de valeur parce que les gens s’en vont.
-  - Il faut donc se concentrer sur le fait d’apporter de la valeur, avec le moins de features possibles : c’est le principe des _outcomes_.
+- La raison pour laquelle on est obsédé par la réalisation de tâches est liée à l'ère industrielle où il fallait réaliser des objets qui étaient vendus une fois prêts.
+  - Cette approche ne marche pas avec le logiciel parce qu'**une feature peut très bien n'apporter aucune valeur**.
+  - Exemple : les popups qui invitent à s'inscrire à une newsletter fonctionnent techniquement, mais n'apportent pas de valeur parce que les gens s'en vont.
+  - Il faut donc se concentrer sur le fait d'apporter de la valeur, avec le moins de features possibles : c'est le principe des _outcomes_.
 - Définitions utilisées dans ce livre :
-  - **Un outcome est un changement dans le comportement d’un être humain qui amène des résultats business**.
-  - L’_impact_ caractérise les résultats business en question.
-  - L’_output_ représente les éléments concrets qui ont été mis en place pour provoquer l’_outcome_.
+  - **Un outcome est un changement dans le comportement d'un être humain qui amène des résultats business**.
+  - L'_impact_ caractérise les résultats business en question.
+  - L'_output_ représente les éléments concrets qui ont été mis en place pour provoquer l'_outcome_.
 - Du point de vue des managers :
-  - Si on demande à une équipe de réaliser un _impact_, ce sera trop abstrait, et le résultat de trop de facteurs pour qu’ils puissent suivre leur avancement.
-  - Si on leur demande de se concentrer sur un _output_, ils seront limités dans leur créativité et l’output risque de ne pas apporter de valeur.
-  - C’est pour ça qu’il faut leur proposer de travailler sur un _outcome_ : ils pourront trouver des solutions et mesurer la valeur qu’ils apportent.
-- L’auteur propose d’étendre le premier principe agile qui dit qu’il faut délivrer un logiciel de valeur en continu en parlant de _délivrer de la valeur en continu_.
-  - Il propose l’_outcome_ comme définition de la valeur : il faut donc **faire avancer nos outcomes en continu**.
-- L’autre outil complémentaire de l’_outcome_ c’est **l’expérimentation**. En réalisant de petites expérimentations pour essayer de faire avancer l’_outcome_, on réalise un projet agile.
-  - Pour l’auteur, le MVP n’est rien d’autre qu’une expérimentation.
+  - Si on demande à une équipe de réaliser un _impact_, ce sera trop abstrait, et le résultat de trop de facteurs pour qu'ils puissent suivre leur avancement.
+  - Si on leur demande de se concentrer sur un _output_, ils seront limités dans leur créativité et l'output risque de ne pas apporter de valeur.
+  - C'est pour ça qu'il faut leur proposer de travailler sur un _outcome_ : ils pourront trouver des solutions et mesurer la valeur qu'ils apportent.
+- L'auteur propose d'étendre le premier principe agile qui dit qu'il faut délivrer un logiciel de valeur en continu en parlant de _délivrer de la valeur en continu_.
+  - Il propose l'_outcome_ comme définition de la valeur : il faut donc **faire avancer nos outcomes en continu**.
+- L'autre outil complémentaire de l'_outcome_ c'est **l'expérimentation**. En réalisant de petites expérimentations pour essayer de faire avancer l'_outcome_, on réalise un projet agile.
+  - Pour l'auteur, le MVP n'est rien d'autre qu'une expérimentation.
 
 ## 2 - Using outcomes
 
-- Les êtres humains dont le comportement vise à être modifié par un _outcome_ peuvent être **les clients externes, tout comme des employés internes à l’entreprise**. Tant qu’on a une modification de comportement qui amène un impact business on est bon.
-- Les _impacts_ sont constitués de la somme d’un grand nombre d’_outcomes_.
-- Exemple de recherche d’outcome : on a un _impact_ qui est de passer d’une visite des clients sur le site web d’une fois par mois à deux fois par mois. On va chercher quel **comportement plus spécifique** peut les **faire venir** plus souvent.
-  - Si on sait qu’ils visitent le site après avoir ouvert la newsletter, on peut choisir comme _outcome_ de les faire ouvrir la newsletter plus souvent.
-  - Si on sait qu’ils visitent le site après un partage d’un élément de notre entreprise de la part d’un de leurs amis sur un réseau social, on peut choisir comme _outcome_ de faire en sorte que nos contenus soient plus partagés sur les réseaux sociaux.
+- Les êtres humains dont le comportement vise à être modifié par un _outcome_ peuvent être **les clients externes, tout comme des employés internes à l'entreprise**. Tant qu'on a une modification de comportement qui amène un impact business on est bon.
+- Les _impacts_ sont constitués de la somme d'un grand nombre d'_outcomes_.
+- Exemple de recherche d'outcome : on a un _impact_ qui est de passer d'une visite des clients sur le site web d'une fois par mois à deux fois par mois. On va chercher quel **comportement plus spécifique** peut les **faire venir** plus souvent.
+  - Si on sait qu'ils visitent le site après avoir ouvert la newsletter, on peut choisir comme _outcome_ de les faire ouvrir la newsletter plus souvent.
+  - Si on sait qu'ils visitent le site après un partage d'un élément de notre entreprise de la part d'un de leurs amis sur un réseau social, on peut choisir comme _outcome_ de faire en sorte que nos contenus soient plus partagés sur les réseaux sociaux.
 - Vu que les _outcomes_ sont des comportements humains, ils sont **mesurables** facilement.
-- L’outcome doit idéalement être un **leading indicator**, c’est-à-dire que l’action mesurée va déclencher un _impact_ plus important. Elle vient avant, et donc permet de **prédire** l’_impact_.
-- En général on n’est pas sûr qu’un _outcome_ donné permet de driver un _impact_. Il faut alors poser les **hypothèses** pour que ce soit vrai.
-  - Le mouvement **_Lean Startup_** propose un cadre pour formuler ces hypothèses. Il s’agit de **(1) poser ce qu’on croit**, et **(2) les preuves qu’on cherche** pour être sûr que c’est vrai.
+- L'outcome doit idéalement être un **leading indicator**, c'est-à-dire que l'action mesurée va déclencher un _impact_ plus important. Elle vient avant, et donc permet de **prédire** l'_impact_.
+- En général on n'est pas sûr qu'un _outcome_ donné permet de driver un _impact_. Il faut alors poser les **hypothèses** pour que ce soit vrai.
+  - Le mouvement **_Lean Startup_** propose un cadre pour formuler ces hypothèses. Il s'agit de **(1) poser ce qu'on croit**, et **(2) les preuves qu'on cherche** pour être sûr que c'est vrai.
   - Exemple :
-    - 1 - On pense que partager des contenus de l’entreprise sur des réseaux sociaux provoque un afflux plus important de nos clients sur notre site.
-    - 2 - Nous saurons que c’est vrai quand nous constaterons une corrélation entre les partages sur les réseaux et l’afflux sur le site.
-  - Pour vérifier notre hypothèse, on va mener des expérimentations. L’une des manières de le faire est de réaliser un MVP, c’est-à-dire **la plus petite feature pouvant prouver que notre hypothèse est vraie**.
+    - 1 - On pense que partager des contenus de l'entreprise sur des réseaux sociaux provoque un afflux plus important de nos clients sur notre site.
+    - 2 - Nous saurons que c'est vrai quand nous constaterons une corrélation entre les partages sur les réseaux et l'afflux sur le site.
+  - Pour vérifier notre hypothèse, on va mener des expérimentations. L'une des manières de le faire est de réaliser un MVP, c'est-à-dire **la plus petite feature pouvant prouver que notre hypothèse est vraie**.
 - Il y a **3 magic questions** à se poser pour traiter les _outcomes_ :
   - 1 - Quels sont les comportements utilisateurs qui drivent des résultats business ?
-    - Il s’agit de chercher l’_outcome_.
-    - On va naturellement se concentrer sur l’utilisateur, et chercher à comprendre ce qui le motive, ses besoins, ses problèmes.
-    - On va donc dès le départ partir de l’utilisateur plutôt que de partir des features qu’on avait en tête : il s’agit d’un shift sur l’approche.
+    - Il s'agit de chercher l'_outcome_.
+    - On va naturellement se concentrer sur l'utilisateur, et chercher à comprendre ce qui le motive, ses besoins, ses problèmes.
+    - On va donc dès le départ partir de l'utilisateur plutôt que de partir des features qu'on avait en tête : il s'agit d'un shift sur l'approche.
   - 2 - Comment faire en sorte que ces utilisateurs aient plus de ces comportements ?
-    - Il s’agit de faire avancer l’_outcome_ choisi.
-    - Vu qu’on se concentre sur l’utilisateur tout au long, on peut imaginer diverses features, et même des actions qui ne sont pas des features : notre pricing, notre positionnement, notre manière d’interagir avec eux etc.
+    - Il s'agit de faire avancer l'_outcome_ choisi.
+    - Vu qu'on se concentre sur l'utilisateur tout au long, on peut imaginer diverses features, et même des actions qui ne sont pas des features : notre pricing, notre positionnement, notre manière d'interagir avec eux etc.
   - 3 - Comment savoir si on a raison ?
-    - Il s’agit de faire le lien entre _outcome_ et _impact_.
-    - Il faut lister ce qu’on sait et ce qui nous manque, et trouver des moyens de tester ce qui nous manque.
-- Les leaders et les subordonnés n’arrivent en général pas à se comprendre parce qu’ils pensent à différents niveaux d’abstraction : les _impacts_ pour les leaders et les _outputs_ pour les subordonnés.
-  - Le solution est d’introduire la notion intermédiaire d’_outcome_, qui permet à la fois aux leaders de comprendre le lien avec l’_impact_, et aux subordonnés d’en dériver des _outputs_.
-  - Les _outcomes_ permettent de faciliter le suivi de l’avancement des deux côtés.
+    - Il s'agit de faire le lien entre _outcome_ et _impact_.
+    - Il faut lister ce qu'on sait et ce qui nous manque, et trouver des moyens de tester ce qui nous manque.
+- Les leaders et les subordonnés n'arrivent en général pas à se comprendre parce qu'ils pensent à différents niveaux d'abstraction : les _impacts_ pour les leaders et les _outputs_ pour les subordonnés.
+  - Le solution est d'introduire la notion intermédiaire d'_outcome_, qui permet à la fois aux leaders de comprendre le lien avec l'_impact_, et aux subordonnés d'en dériver des _outputs_.
+  - Les _outcomes_ permettent de faciliter le suivi de l'avancement des deux côtés.
 - Pour commencer à utiliser les _outcomes_ dans un système où on mesure les outputs, on peut chercher les comportements utilisateur modifiés par ces features, et se concentrer sur leur mesure.
-  - Ça va pousser les développeurs à délivrer de la valeur de manière plus incrémentale, pour faire avancer l’_outcome_.
-  - C’est en particulier vrai pour les initiatives de refonte internes qui ont tendance à être suivies par l’empilement des _outputs_ plutôt que par la recherche de valeur incrémentale.
-- Les OKR sont souvent mal utilisés, parce qu’on part des _outputs_ qu’on a déjà en tête, et qu’on essaye de les exprimer dans le langage OKR, alors que **leur but est de laisser les outputs ouverts** pour pouvoir expérimenter et itérer.
-  - La bonne manière d’être sûr d’obtenir de bons OKR est d’**exprimer les KR sous forme d’_outcome_**.
+  - Ça va pousser les développeurs à délivrer de la valeur de manière plus incrémentale, pour faire avancer l'_outcome_.
+  - C'est en particulier vrai pour les initiatives de refonte internes qui ont tendance à être suivies par l'empilement des _outputs_ plutôt que par la recherche de valeur incrémentale.
+- Les OKR sont souvent mal utilisés, parce qu'on part des _outputs_ qu'on a déjà en tête, et qu'on essaye de les exprimer dans le langage OKR, alors que **leur but est de laisser les outputs ouverts** pour pouvoir expérimenter et itérer.
+  - La bonne manière d'être sûr d'obtenir de bons OKR est d'**exprimer les KR sous forme d'_outcome_**.
 
 ## 3 - Outcome-based planning
 
-- On a en général plusieurs outcomes au sein d’une équipe, et un grand nombre si on a la responsabilité de plusieurs équipes. Ça nous amène à penser en termes de** systèmes d’outcomes**.
+- On a en général plusieurs outcomes au sein d'une équipe, et un grand nombre si on a la responsabilité de plusieurs équipes. Ça nous amène à penser en termes de **systèmes d'outcomes**.
 - Les **roadmaps basées sur les outputs** posent problème parce qu'elles amènent à promettre de délivrer des choses concrètes, mais ne correspondent en général à aucune réalité.
-  - C’est un peu comme promettre qu’on traversera un désert de taille inconnue en un temps précis.
-- L’auteur propose plutôt les **roadmaps basées sur les outcomes**, où il s’agit d’identifier un ensemble d’_outcomes_ qui permettent d’arriver à l’_impact_ business.
+  - C'est un peu comme promettre qu'on traversera un désert de taille inconnue en un temps précis.
+- L'auteur propose plutôt les **roadmaps basées sur les outcomes**, où il s'agit d'identifier un ensemble d'_outcomes_ qui permettent d'arriver à l'_impact_ business.
 - Il existe plusieurs méthodes pour faire une telle roadmap :
   - Le **customer journey** qui est détaillée dans ce livre.
-    - Il s’agit de créer un schéma représentant chaque acteur sur une ligne horizontale, avec la liste des activités qu’il est susceptible de faire.
-      - Par exemple, un client qui va sur notre boutique, trouve un produit, demande de l’aide, paye etc.
-    - Ce schéma permet de visualiser la **liste des comportements de nos utilisateurs**, et donc de réfléchir à ceux qu’on veut favoriser ou inhiber pour se les choisir en tant qu’_outcome_.
-      - On va identifier les activités _boosters_ qui favorisent l’impact qu’on a en tête, et des activités _blockers_ qui le défavorisent.
+    - Il s'agit de créer un schéma représentant chaque acteur sur une ligne horizontale, avec la liste des activités qu'il est susceptible de faire.
+      - Par exemple, un client qui va sur notre boutique, trouve un produit, demande de l'aide, paye etc.
+    - Ce schéma permet de visualiser la **liste des comportements de nos utilisateurs**, et donc de réfléchir à ceux qu'on veut favoriser ou inhiber pour se les choisir en tant qu'_outcome_.
+      - On va identifier les activités _boosters_ qui favorisent l'impact qu'on a en tête, et des activités _blockers_ qui le défavorisent.
       - On peut par exemple faire ça avec des post-its, dans une activité collaborative.
-  - L’_Impact Mapping_.
-  - L’_Outcome Mapping_.
-- Une fois qu’on a les outcomes qui nous intéressent, on peut chercher des idées d’output qui permettent d’y répondre. Et on va typiquement formuler notre roadmap de cette manière :
+  - L'_Impact Mapping_.
+  - L'_Outcome Mapping_.
+- Une fois qu'on a les outcomes qui nous intéressent, on peut chercher des idées d'output qui permettent d'y répondre. Et on va typiquement formuler notre roadmap de cette manière :
   - 1 - Nous pensons que si on fait <outcome>, on aura un meilleur <impact>.
   - 2 - Nous pensons que nous pourrons augmenter <outcome> avec <output>, <output> et <output>.
-  - 3 - Nous testerons ces idées d’output pendant Q1 de l’année qui vient.
+  - 3 - Nous testerons ces idées d'output pendant Q1 de l'année qui vient.
 
 ## 4 - Organizing for outcomes
 
 - Les organisations sont généralement structurées autour des notions de **produit ou de canal**, ce qui les pousse à adopter une vision centrée autour des _outputs_.
   - On pourrait plutôt les structurer autour de la notion de **comportements ou de parcours utilisateur** pour se concentrer naturellement sur les _outcomes_.
-- Exemple de l’entreprise HBR (Harvard Business Review), qui a adopté une **organisation en outcomes** en 2016 :
-  - HBR propose un site d’e-commerce pour vendre des articles, livres et autres contenus.
-  - L’équipe produit souffrait des problèmes habituels : une backlog qui ne se vidait pas, des difficultés négocier et prioriser, la sensation que **les résultats n’étaient pas là** par rapport à l’effort fourni.
-  - Ils ont commencé à s’intéresser au management par _outcome_ pour un projet consistant à réduire le _bounce rate_, c’est-à-dire le nombre de clients qui ne complètent pas leur achat.
-    - L’_impact_ (ou _outcome_ business) était d’augmenter les ventes, avec l’hypothèse que réduire le _bounce rate_ mènerait à l’augmentation des ventes.
+- Exemple de l'entreprise HBR (Harvard Business Review), qui a adopté une **organisation en outcomes** en 2016 :
+  - HBR propose un site d'e-commerce pour vendre des articles, livres et autres contenus.
+  - L'équipe produit souffrait des problèmes habituels : une backlog qui ne se vidait pas, des difficultés négocier et prioriser, la sensation que **les résultats n'étaient pas là** par rapport à l'effort fourni.
+  - Ils ont commencé à s'intéresser au management par _outcome_ pour un projet consistant à réduire le _bounce rate_, c'est-à-dire le nombre de clients qui ne complètent pas leur achat.
+    - L'_impact_ (ou _outcome_ business) était d'augmenter les ventes, avec l'hypothèse que réduire le _bounce rate_ mènerait à l'augmentation des ventes.
     - Ils ont **creusé les données et réalisé des interviews** pour comprendre le contexte dans lequel les _bounces_ survenaient, et pourquoi.
-      - Ils ont par exemple remarqué que le prix n’était pas clair dès le départ, ou mal adapté à la localisation géographique de l’utilisateur. Et ils ont fait des features pour y remédier.
-  - Côté **suivi du travail**, le management a dû passer d’une estimation d’_output_ à une estimation d’_outcome_ : ils définissent **en amont** de valeur à atteindre sur un _outcome_ à une date donnée, et font le point régulièrement sur l’évolution de la métrique.
-    - Les leaders étaient chargés de prioriser 3 outcomes pour un trimestre donné. Une des manières pour les faire se mettre d’accord était de leur poser la question : “quels sont vos sujets d’inquiétude ?”.
+      - Ils ont par exemple remarqué que le prix n'était pas clair dès le départ, ou mal adapté à la localisation géographique de l'utilisateur. Et ils ont fait des features pour y remédier.
+  - Côté **suivi du travail**, le management a dû passer d'une estimation d'_output_ à une estimation d'_outcome_ : ils définissent **en amont** de valeur à atteindre sur un _outcome_ à une date donnée, et font le point régulièrement sur l'évolution de la métrique.
+    - Les leaders étaient chargés de prioriser 3 outcomes pour un trimestre donné. Une des manières pour les faire se mettre d'accord était de leur poser la question : “quels sont vos sujets d'inquiétude ?”.
   - Ils ont entamé des **changements côté workflow** :
     - Au départ il y avait :
-      - Des PM responsables chacun d’une page ou d’un bout de page de l’application.
+      - Des PM responsables chacun d'une page ou d'un bout de page de l'application.
       - Des designers travaillant en amont par projets.
       - Des développeurs prenant le relai des designers, et travaillant aussi par projets.
     - Parmi les changements mis en place :
       - Les designers et les développeurs étaient appelés à collaborer dès le début du projet, pour être dans une démarche moins waterfall.
-      - En priorisant les _outcomes_, ils se sont rendu compte qu’ils tournaient principalement autour de deux _impacts_ : (1) faire en sorte que les utilisateurs consomment plus de choses sur leur site, et (2) faire en sorte qu’ils achètent plus de choses.
+      - En priorisant les _outcomes_, ils se sont rendu compte qu'ils tournaient principalement autour de deux _impacts_ : (1) faire en sorte que les utilisateurs consomment plus de choses sur leur site, et (2) faire en sorte qu'ils achètent plus de choses.
         - Ils ont donc organisé les effectifs produit en 3 équipes :
           - Une équipe pour augmenter la consommation.
           - Une équipe pour augmenter la vente.
           - Une équipe “Opérations” chargée de résoudre les problématiques qui survenaient au quotidien.
-        - La 3ème équipe avait un fonctionnement par _output_ (ce qui est OK d’après l’auteur, parce que leur travail n’est pas sujet à incertitude), contrairement aux deux autres qui fonctionnent par _outcome_.
-- Le fonctionnement par _outcome_ implique de **séparer les responsabilités** entre l’équipe produit qui choisit quoi faire, et les leaders qui sont responsables du succès de l’ensemble.
-  - Il s’agit donc pour les leaders d’**abandonner une partie du contrôle** sur ce qui est fait.
-  - Il est cependant nécessaire de compenser ça par une **collaboration plus étroite et plus fréquente entre leaders et équipe produit**. Les leaders ayant une vision plus large des problématiques de l’entreprise, ils sont à même d’apporter des choses dont l’équipe produit n’est pas au courant.
+        - La 3ème équipe avait un fonctionnement par _output_ (ce qui est OK d'après l'auteur, parce que leur travail n'est pas sujet à incertitude), contrairement aux deux autres qui fonctionnent par _outcome_.
+- Le fonctionnement par _outcome_ implique de **séparer les responsabilités** entre l'équipe produit qui choisit quoi faire, et les leaders qui sont responsables du succès de l'ensemble.
+  - Il s'agit donc pour les leaders d'**abandonner une partie du contrôle** sur ce qui est fait.
+  - Il est cependant nécessaire de compenser ça par une **collaboration plus étroite et plus fréquente entre leaders et équipe produit**. Les leaders ayant une vision plus large des problématiques de l'entreprise, ils sont à même d'apporter des choses dont l'équipe produit n'est pas au courant.
 
 ## 5 - Outcomes for transformation
 
-- L’approche basée sur les _outcomes_ peut être aussi utilisée pour **entamer un changement organisationnel** : on va considérer le changement de comportement des employés comme objet de l’_outcome_, menant à un _impact_ business, et les personnes voulant mener la transformation comme ceux qui doivent faire avancer l’_outcome_.
-- L’auteur conseille :
+- L'approche basée sur les _outcomes_ peut être aussi utilisée pour **entamer un changement organisationnel** : on va considérer le changement de comportement des employés comme objet de l'_outcome_, menant à un _impact_ business, et les personnes voulant mener la transformation comme ceux qui doivent faire avancer l'_outcome_.
+- L'auteur conseille :
   - De considérer que **nos collègues sont nos clients**.
-    - On peut lister les activités de ces collègues, et se demander lesquelles sont utiles pour notre transformation, pour trouver l’_outcome_ à faire avancer.
+    - On peut lister les activités de ces collègues, et se demander lesquelles sont utiles pour notre transformation, pour trouver l'_outcome_ à faire avancer.
     - On va alors **nous intéresser à leurs besoins, problèmes**, et réfléchir à la manière dont on leur **communique la valeur** que le changement va leur apporter.
-  - D’adopter une** démarche incrémentale et expérimentale.**
+  - D'adopter une **démarche incrémentale et expérimentale.**
     - Les solutions pour faire avancer nos _outcomes_ sont incertaines. Il faut les tenter pour voir lesquelles marchent et avancer itérativement, de manière agile.
-    - Par exemple, si on se dit que mettre en place une formation permettrait d’améliorer les compétences de nos collègues, on peut envoyer un email pour demander qui est intéressé, et voir si notre hypothèse de fort intérêt se vérifie.
+    - Par exemple, si on se dit que mettre en place une formation permettrait d'améliorer les compétences de nos collègues, on peut envoyer un email pour demander qui est intéressé, et voir si notre hypothèse de fort intérêt se vérifie.
