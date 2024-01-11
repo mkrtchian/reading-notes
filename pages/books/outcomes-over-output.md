@@ -55,3 +55,23 @@
   - C’est en particulier vrai pour les initiatives de refonte internes qui ont tendance à être suivies par l’empilement des _outputs_ plutôt que par la recherche de valeur incrémentale.
 - Les OKR sont souvent mal utilisés, parce qu’on part des _outputs_ qu’on a déjà en tête, et qu’on essaye de les exprimer dans le langage OKR, alors que **leur but est de laisser les outputs ouverts** pour pouvoir expérimenter et itérer.
   - La bonne manière d’être sûr d’obtenir de bons OKR est d’**exprimer les KR sous forme d’_outcome_**.
+
+## 3 - Outcome-based planning
+
+- On a en général plusieurs outcomes au sein d’une équipe, et un grand nombre si on a la responsabilité de plusieurs équipes. Ça nous amène à penser en termes de** systèmes d’outcomes**.
+- Les **roadmaps basées sur les outputs** posent problème parce qu'elles amènent à promettre de délivrer des choses concrètes, mais ne correspondent en général à aucune réalité.
+  - C’est un peu comme promettre qu’on traversera un désert de taille inconnue en un temps précis.
+- L’auteur propose plutôt les **roadmaps basées sur les outcomes**, où il s’agit d’identifier un ensemble d’_outcomes_ qui permettent d’arriver à l’_impact_ business.
+- Il existe plusieurs méthodes pour faire une telle roadmap :
+  - Le **customer journey** qui est détaillée dans ce livre.
+    - Il s’agit de créer un schéma représentant chaque acteur sur une ligne horizontale, avec la liste des activités qu’il est susceptible de faire.
+      - Par exemple, un client qui va sur notre boutique, trouve un produit, demande de l’aide, paye etc.
+    - Ce schéma permet de visualiser la **liste des comportements de nos utilisateurs**, et donc de réfléchir à ceux qu’on veut favoriser ou inhiber pour se les choisir en tant qu’_outcome_.
+      - On va identifier les activités _boosters_ qui favorisent l’impact qu’on a en tête, et des activités _blockers_ qui le défavorisent.
+      - On peut par exemple faire ça avec des post-its, dans une activité collaborative.
+  - L’_Impact Mapping_.
+  - L’_Outcome Mapping_.
+- Une fois qu’on a les outcomes qui nous intéressent, on peut chercher des idées d’output qui permettent d’y répondre. Et on va typiquement formuler notre roadmap de cette manière :
+  - 1 - Nous pensons que si on fait <outcome>, on aura un meilleur <impact>.
+  - 2 - Nous pensons que nous pourrons augmenter <outcome> avec <output>, <output> et <output>.
+  - 3 - Nous testerons ces idées d’output pendant Q1 de l’année qui vient.
