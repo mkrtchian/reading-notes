@@ -123,3 +123,35 @@
   - Est-ce que nos équipes prennent des risques et des initiatives, ou est-ce qu’ils en sont découragés à cause des problèmes qui pourraient en résulter ?
   - Est-ce que le middle management a comme motivation principale d’éviter les problèmes ou d'accomplir de grandes choses ?
   - Quand on analyse les décisions, quel type de critère les drive ?
+
+## II - Control
+
+## 8 - Change, in a Word
+
+- Plutôt que de changer le mindset pour espérer un changement de comportement, il **commence par changer les actions, et le mindset suivra**.
+- L’auteur décide de **commencer par les chefs** qui sont juste au-dessus des officiers de base. Sa justification est d’éviter une approche trop top-down, mais en même temps en pouvant s’appuyer sur des personnes qui ont des notions de leadership.
+  - Le leadership des chefs est très faible
+    - D’une part parce que le haut de la hiérarchie décide de trop de choses directement.
+    - D’autre part parce qu’une partie d’entre ont été formés au leadership centré sur le respect des procédures, nécessaire pour gérer un réacteur nucléaire. Mais coller aux procédures n’est pas efficace pour manoeuvrer un sous-marin contre un ennemi.
+  - L’auteur leur demande s’ils veulent avoir un rôle important sur le sous-marin, **il faut que la volonté vienne d’eux, sinon ce serait une transformation leader-follower**.
+  - Parmi les problèmes principaux des chefs, il y avait la mauvaise évaluation du sous-marin, le faible taux de promotion, et des problèmes liés au manque de contrôle sur l’emploi du temps des chefs et de leurs équipes.
+  - L’idée c’est de **changer le “code génétique” de l’organisation** juste ce qu’il faut pour qu’il y ait le résultat voulu.
+    - L’auteur évoque le livre **_Build to Last_** de Jerry Porras qui parle des institutions qui restent, alors que les personnalités qui vont et viennent.
+    - La première mesure mise en place, et proposée par les chefs, c’est de **rendre les chefs responsables de la validation des permissions de sortie de leurs équipes**, alors que jusque-là la validation devait aller jusqu’en haut de la hiérarchie.
+      - Le changement en question va même plus loin, puisqu’ils seront aussi en charge des rotations et de tous les aspects administratifs.
+      - Pour compenser le pouvoir enlevé aux officiers plus haut dans la hiérarchie, l’auteur s'ampute lui-même d’une partie de son pouvoir de validation pour le leur laisser à ses subordonnés directs.
+  - Dans les itérations suivantes, **un chef était nommé responsable de chaque évolution** se passant sur le Santa Fe.
+- L’auteur propose l’exercice suivant pour **changer le code génétique de notre organisation**, et laisser plus de contrôle au bas de la hiérarchie :
+  - 1 - Identifier les documents ou procédures qui spécifient qui a l’autorité pour prendre les décisions.
+  - 2 - Identifier les types de décisions qui pourraient être poussées plus bas dans la hiérarchie.
+  - 3 - Réunir le groupe de décideurs, et leur demander de compléter : “Quand je pense à déléguer cette décision, je m’inquiète de …”.
+  - 4 - Faire une longue pause et laisser le groupe réfléchir à la question.
+  - 5 - Reprendre en attaquant les objections une par une.
+  - En général elles seront en deux catégories : des inquiétudes sur la compétence, et des inquiétudes sur la clarté des objectifs de l’organisation pour les subordonnés.
+- Principes à retenir :
+  - Si on ne s’attaque pas au “code génétique” en **donnant vraiment du pouvoir aux subordonnés**, mais qu’on fait plutôt des programmes d’empowerment avec des changements à la marge, ça ne fonctionnera pas.
+  - Si le changement est **entièrement piloté par le haut**, ça ne marchera pas : il faut qu’il soit voulu par les subordonnés.
+- **Questions à se poser :**
+  - Comment pousser les mid level managers à passer d’une position privilégiée où ils ne font rien parce que tout le pouvoir est concentré en haut, à une position où ils prennent des responsabilités ?
+  - Quand on veut déléguer du pouvoir, de quoi est-ce qu’on a peur ?
+  - Quel changement peut-on faire qui donnerait un pouvoir de décision supplémentaire aux managers mid level, et qui ne serait constitué que d’un mot à changer dans un document clé ?
