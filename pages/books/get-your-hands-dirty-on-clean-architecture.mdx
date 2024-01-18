@@ -1,6 +1,21 @@
 # Get Your Hands Dirty on Clean Architecture
 
-## 1 - What's Wrong With Layers?
+## 1 - Maintainability
+
+- L'**architecture** représente la **structure** du système logiciel.
+- La **maintenabilité** (dans le contexte de ce livre la capacité** à changer le logiciel** facilement) est plus importante que toutes les autres caractéristiques, y compris fonctionnelles.
+  - Si on peut facilement changer le logiciel, alors on peut le faire **aller dans n’importe quelle direction** : plus scalable, plus sécurisé etc. et on peut ajouter des fonctionnalités.
+  - Elle est vectrice de **pacification** : quand le logiciel est difficile à changer, le business se retourne contre les devs et on tombe sur un manque de confiance et des conflits.
+  - Elle rend les **développeurs heureux**, et donc plus productifs et moins prompts à changer d’entreprise.
+  - Elle permet de se reposer sur la possibilité de faire des **choix de design faciles** : il suffit de choisir l’option qui offre la meilleure maintenabilité.
+- Les entreprises qui ont un logiciel qui marche, et qui n’est pas maintenable ont :
+  - Soit un logiciel en fin de vie avec peu de changements.
+  - Soit elles jettent énormément d’argent par la fenêtre et peuvent se le permettre.
+- Comment être sûr qu’on conserve la maintenabilité ? Au moins en s’assurant qu’on choisit et conserve une architecture qui la permet.
+  - La clean archi en est une possibilité.
+
+
+## 2 - What's Wrong With Layers?
 
 - La **layered architecture** est tout à fait classique : 3 couches successives (web -> domain -> persistance).
   - Elle peut même permettre une bonne architecture qui laisse les options ouvertes (par exemple remplacer la persistance en ne touchant que cette couche-là).
@@ -19,7 +34,7 @@
     - Comme on fait du database-driven design, on doit toujours commencer par la couche de persistance, et on ne peut pas être plusieurs à la toucher.
     - Si en plus les services du domaine sont gros, on peut être en difficulté pour être plusieurs à modifier un gros service pour plusieurs raisons.
 
-## 2 - Inverting dependencies
+## 3 - Inverting dependencies
 
 - Le **Single Responsibility Principle** (SRP) dit qu'un composant doit avoir une seule **raison de changer**.
   - Ça veut dire que si on change le logiciel pour n'importe quelle autre raison, il ne devrait pas changer.
@@ -43,7 +58,7 @@
     - C'est pour ça qu'on parle de Ports & Adapters.
 - Quel que soit leur nom, tout l'intérêt de ces architectures c'est de permettre d'avoir un **domaine isolé**, dont on pourra gérer la complexité sans qu'il ait d'autres raisons de changer que lui-même.
 
-## 3 - Organizing Code
+## 4 - Organizing Code
 
 - On peut organiser le code **par couches** : le classique web, domain et persistance, mais avec une inversion de la persistance vers le domain.
   ```yaml
@@ -108,7 +123,7 @@
   - Il faut donc un **composant tiers neutre** qui instancie les adapters sortants pour les donner à l'hexagone, et instancie l'hexagone pour le donner aux adapters entrants.
     - Il s'agit de l'**injection de dépendance**.
 
-## 4 - Implementing a Use Case
+## 5 - Implementing a Use Case
 
 - Comme on a une forte séparation hexagone/adapters, on peut implémenter l'hexagone de la manière dont on veut, y compris avec les patterns tactiques du DDD, mais pas forcément.
 - Dans ce chapitre on implémente un use-case dans l'hexagone de l'exemple _buckpal_ qui est une application de gestion de paiement.
@@ -149,7 +164,7 @@
   - Pour ça on peut les faire implémenter un autre port entrant que les use-cases d'écriture, par exemple le port `GetAccountBalanceQuery`.
   - On pourra à partir de là faire du CQS ou du CQRS.
 
-## 5 - Implementing a Web Adapter
+## 6 - Implementing a Web Adapter
 
 - Tous les appels extérieurs passent par des **adapters entrants**.
 - Comme le flow d'appel est déjà dirigé de l'adapter vers l'hexagone, on pourrait enlever le port, et laisser l'adapter appeler directement les use-cases.
@@ -174,7 +189,7 @@
   - On peut nommer les classes de web adapter avec des noms plus précis que `UpdateX`, `CreateX` etc. Par exemple `RegisterAccount`.
   - Les petits controllers permettent aussi de travailler plus facilement sur le code en parallèle.
 
-## 6 - Implementing a Persistence Adapter
+## 7 - Implementing a Persistence Adapter
 
 - Avec l'adapter de persistance, on a une vraie inversion des dépendances qui fait que malgré le sens des appels de l'hexagone vers l'adapter, grâce au port c'est l'adapter qui dépend de l'hexagone.
   - On va donc pouvoir faire des modifications dans l'adapter de persistance sans que ça n'affecte la logique business.
@@ -203,7 +218,7 @@
 - Concernant les **transactions**, elles ne peuvent pas être dans l'adapter de persistance. Elles doivent être dans la fonction qui orchestre les appels à la persistance, c'est-à-dire les use-cases applicatifs.
   - Si on veut garder nos use-cases purs, on peut recourir à l'**aspect-oriented programming**, par exemple avec AspectJ.
 
-## 7 - Testing Architecture Elements
+## 8 - Testing Architecture Elements
 
 - Il y a 3 types de tests dans la pyramide :
   - Plus on monte dans la pyramide, et plus les tests sont lents et fragiles, donc plus on monte et moins nombreux doivent être les tests.
@@ -235,7 +250,7 @@
     - Pour chaque bug en production, il faut se demander ce qu'on aurait pu faire pour qu'un test trouve le bug, et l'ajouter.
     - Le fait de documenter les bugs comme ça permet d'avoir une mesure de la fiabilité des tests dans le temps.
 
-## 8. Mapping Between Boundaries
+## 9 - Mapping Between Boundaries
 
 - Les 3 composants principaux (driving adapter, hexagone et driven adapter) doivent avoir un modèle qui leur permet d'appréhender le système et ses entités. On peut choisir différentes **stratégies de mapping** entre ces modèles en fonction de leur unicité ou de leur différence.
 - **1- La no-mapping strategy** consiste à avoir le même modèle dans l'adapter web, l'hexagone, et l'adapter de persistance.
@@ -269,7 +284,7 @@
   - L'équipe doit se mettre d'accord sur des stratégies à choisir pour chaque partie de la codebase, et surtout **noter pourquoi elle fait ce choix** pour pouvoir réévaluer plus tard si le choix doit être modifié ou non.
     - Il peut être intéressant aussi de noter dans quel cas elle prévoit de changer de stratégie.
 
-## 9 - Assembling the Application
+## 10 - Assembling the Application
 
 - Nous voulons garder l'inversion de dépendance entre les composants externes et l'hexagone.
   - Donc nous devons instancier les adapters pour les donner au constructeur des objets de l'hexagone par le mécanisme qui s'appelle l'**injection de dépendance**.
@@ -309,7 +324,7 @@
     - L'autre méthode c'est d'écrire des classes de configuration qui vont indiquer quelles classes doivent être instanciées et injectées.
       - On va écrire plus de code pour obtenir plus de découplage et de transparence sur ce qui est fait.
 
-## 10 - Enforcing Architecture Boundaries
+## 11 - Enforcing Architecture Boundaries
 
 - Ce chapitre traite de la manière d'éviter que l'architecture choisie s'érode au fil du temps, causant un manque de clarté et une lenteur à faire des changements.
 - La principale chose à faire respecter est le **sens des dépendances** parmi les couches (`domaine -> application -> adapters -> configuration`).
@@ -349,7 +364,7 @@
 - L'idée c'est de combiner les trois méthodes pour avoir une architecture solide dans le temps.
 - A noter que plus on découpe finement, plus on devra faire de mappings.
 
-## 11 - Taking Shortcuts Consciously
+## 12 - Taking Shortcuts Consciously
 
 - Les raccourcis doivent être connus et compris pour être évités dans le but de garantir l'intégrité de l'architecture, et dans certains cas acceptés en toute conscience.
 - La **théorie des vitres cassées** vient d'un psychologue (Philip Zimbardo) qui a conduit une expérience en laissant une voiture dans un quartier chaud, et une autre dans un quartier chic.
@@ -381,7 +396,7 @@
     - Le **danger c'est que si la fonctionnalité se complexifie**, la logique métier sera ajoutée dans l'adapter de persistance. Il faut dans ce cas absolument créer un application service.
 - La plupart des raccourcis sont adaptés aux fonctionnalités simples de type CRUD. On commence en général comme ça, et on réévalue les raccourcis si l'application se complexifie. Si elle reste simple on pourra garder les raccourcis.
 
-## 12 - Deciding on an Architecture Style
+## 13 - Deciding on an Architecture Style
 
 - La question dans ce chapitre est : quand est-ce qu'il faut utiliser l'architecture hexagonale ?
   - La première chose c'est que **cette architecture met le domaine au centre** et l'isole du reste, pour pouvoir travailler dessus.
