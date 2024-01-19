@@ -396,7 +396,28 @@
     - Le **danger c'est que si la fonctionnalité se complexifie**, la logique métier sera ajoutée dans l'adapter de persistance. Il faut dans ce cas absolument créer un application service.
 - La plupart des raccourcis sont adaptés aux fonctionnalités simples de type CRUD. On commence en général comme ça, et on réévalue les raccourcis si l'application se complexifie. Si elle reste simple on pourra garder les raccourcis.
 
-## 13 - Deciding on an Architecture Style
+## 13 - Managing Multiple Bounded Contexts
+
+- On finit en général par créer des **Bounded Contexts** (BC) pour séparer certaines parties de la codebase des autres,. C’est utile entre autres pour leur permettre d’évoluer indépendamment, et pour garder des morceaux de code indépendants qui peuvent rentrer dans la mémoire immédiate d’un être humain.
+- La solution la plus immédiate pour gérer plusieurs BCs en clean architecture est de faire les choses de manière **bien découplée** :
+  - On crée :
+    - Un _output port_ sur le core du BC appelant.
+    - Un _input port_ sur le core du BC appelé.
+    - Un _output adapter_ (qu’on pourrait appeler _Domain Adapter_) qui implémente l’_output port_, et appelle l’_input port_.
+  - Le problème est qu’avec un grand nombre de BCs, **le nombre de ces ports et adapters** à créer va être potentiellement **de plus en plus grand**.
+- Dans l’article original d’Alistair Cockburn sur l’hexagonal architecture, il n’y a pas de mention de _Bounded Context_ mais seulement d’_Application_ pour ce qui est du core d’un hexagone.
+  - L’auteur en déduit qu’on peut considérer que **les BCs peuvent exister à l’intérieur d’un même hexagone**.
+  - On se retrouve avec un _input adapter_ web, plusieurs _use-cases_ à l’intérieur du core, et un _output adapter_ de persistance.
+    - L’auteur dit qu’on peut avoir un ou plusieurs _input ports_ pour chaque BC selon les cas.
+    - Pour les _output ports_ de persistance, il dit qu’il est préférable de ne pas les partager entre BCs, parce qu’on ne veut pas que les BCs partagent la DB et aient le même data model. Ils doivent au moins avoir des schémas différents, ou au minimum des tables différentes.
+    - Il ne dit rien sur les adapters en eux-mêmes, il s’agit bien des ports dont il faut éventuellement en faire plusieurs.
+  - Pour faire communiquer les BCs entre eux, l’auteur propose deux solutions tirées du DDD, et nous propose de **lire la littérature DDD** pour en savoir plus.
+    - 1 - Un _use-case_ qui a besoin d’une info venant d’un _use-case_ d’un autre BC peut consommer des **domain events** que l’autre émet, les stocker en base chez lui, et les réutiliser ensuite.
+    - 2 - On peut avoir un **application service** à l’intérieur de l’hexagone qui coordonne les appels aux _use-cases_ de chaque BC (qui sont appelés _Domain Service_).
+      - Dans ce cas précis, on peut utiliser l'_application service_ extérieur aux BCs pour porter une transaction DB, qui pourrait être utile pour l’ensemble des BCs mis en jeu.
+      - NDLR : déjà que c’est chaud d’envisager une transaction pour plusieurs aggregates, comment on fait pour envisager une transaction pour plusieurs use-cases dans plusieurs BCs différents ?
+
+## 14 - Deciding on an Architecture Style
 
 - La question dans ce chapitre est : quand est-ce qu'il faut utiliser l'architecture hexagonale ?
   - La première chose c'est que **cette architecture met le domaine au centre** et l'isole du reste, pour pouvoir travailler dessus.
