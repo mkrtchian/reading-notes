@@ -417,7 +417,28 @@
       - Dans ce cas précis, on peut utiliser l'_application service_ extérieur aux BCs pour porter une transaction DB, qui pourrait être utile pour l’ensemble des BCs mis en jeu.
       - NDLR : déjà que c’est chaud d’envisager une transaction pour plusieurs aggregates, comment on fait pour envisager une transaction pour plusieurs use-cases dans plusieurs BCs différents ?
 
-## 14 - Deciding on an Architecture Style
+## 14 - A Component-Based Approach to Software Architecture
+
+- La **component-based architecture** peut être utile :
+  - **En complément de l’hexagonal architecture** dans le cas où on choisit d’avoir un hexagone pour plusieurs _bounded contexts_, mais qu’on veut faire apparaître les limites entre chaque _bounded context_ à l’intérieur du _core_.
+  - **A la place de l’hexagonal architecture** si celle-ci s’avère trop complexe pour notre projet, ou si les compétences dans l’équipe sont insuffisantes et qu’on veut se rabattre sur une architecture plus simple.
+- La modularité permet de construire des systèmes complexes.
+  - Elle nécessite d’avoir des modules (l’auteur préfère le terme _component_) qui :
+    - **1 - Encapsulent des détails d’implémentation.**
+    - **2 - Exposent une interface.**
+  - Un _component_ peut contenir des _sub-components_ qui encapsulent eux-aussi de la logique et exposent une API. Leur API ne sera accessible qu’à l’intérieur du composant qui les contient.
+  - Ces quelques règles simples permettent de définir une architecture modulaire.
+- L’auteur présente un exemple de projet utilisant cette architecture : il s’agit d’un logiciel faisant du scraping de pages web, de l’analyse sur ce qui a été récolté, et stocke ensuite ça dans une DB.
+  - Le logiciel est un _component_ en lui-même puisqu’il présente une API publique et cache le reste.
+  - Il contient 3 sub-components :
+    - Un _component_ servant d’_input adapter_ consommant une queue.
+    - Un _component_ contenant la logique business pour analyser les données des pages et sortir les résultats à stocker.
+    - Un _component_ servant d’_output adapter_ de persistance, pour stocker le résultat en DB.
+- Il ne faut pas oublier d’ajouter des contraintes pour garantir l’architecture (avec des outils comme ArchUnit). Les règles sont très simples :
+  - Aucun code extérieur à un _component_ ne doit accéder au code à l’intérieur de celui-ci. Il ne peut accéder qu’à son API publique.
+  - Quand un _component_ est à l’intérieur d’un autre _component_, il fait partie des détails d’implémentation de celui-ci.
+
+## 15 - Deciding on an Architecture Style
 
 - La question dans ce chapitre est : quand est-ce qu'il faut utiliser l'architecture hexagonale ?
   - La première chose c'est que **cette architecture met le domaine au centre** et l'isole du reste, pour pouvoir travailler dessus.
