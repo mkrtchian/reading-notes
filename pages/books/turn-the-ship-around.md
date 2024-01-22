@@ -172,3 +172,24 @@
 - **Questions à se poser :**
   - Comment faire quand les employés ne veulent pas changer leur manière de fonctionner ?
   - Dans le cadre d’une transformation organisationnelle, est-ce qu’il faut agir d’abord et réfléchir ensuite, ou faire l’inverse ?
+
+### 10 - Underway on Nuclear Power
+
+- Malgré des progrès, l’équipage avait encore quelques difficultés à œuvrer à l’excellence, **plutôt qu’à suivre les procédures et éviter les erreurs**.
+- L’équipage devait réaliser une carte précise des fonds sous-marins pour un des trajets du Santa Fe.
+  - Un grand nombre de personnes étaient impliquées dans la réalisation et la revue de la carte, pour qu’elle contienne le moins d’erreurs possibles.
+  - La carte était finalement **parfaitement réalisée**, en respectant les bonnes procédures, mais était **inutilisable** parce qu’elle faisait passer par le mauvais chemin.
+  - En plus du suivi des procédures, ce qui a contribué à l’échec de la carte était aussi la tendance à vouloir délivrer un **produit parfaitement fini du premier coup**.
+  - L’auteur a décidé de s’impliquer plus régulièrement dans le processus le temps que l’équipage soit plus dans l’idée de rechercher l’excellence.
+- Un autre problème avec les cartes c’est que **les couleurs n’étaient pas cohérentes** entre plusieurs cartes, certaines choses étaient représentées en rouge dans l’une et en jaune dans l’autre, avec la légende correspondante.
+  - L’auteur a décidé de **réunir l’ensemble des personnes impliquées** dans la réalisation des cartes et d’en parler.
+  - L’équipage avait en fait **mal compris ce qu’on essayait de faire exactement** avec ces couleurs, et utilisait celles à disposition.
+  - Après discussion, et suggestions de diverses personnes, le groupe est arrivé à un accord sur des couleurs en fonction de la nature des eaux : bleu pour l’eau sous le contrôle du Santa Fe, jaune pour les eaux dont il faut rester en dehors, et vert pour celles où il faut rester en profondeur.
+    - A propos de la représentation des informations et des couleurs, l’auteur conseille **_The Visual Display of Quantitative Information_** de Edward Tufte.
+- **Les conversations fréquentes et tôt dans le processus** sont un mécanisme qui permet de laisser le **contrôle** aux mains des subordonnés : ils reçoivent du feedback et peuvent décider de la manière dont ils font avancer les choses.
+  - C’est aussi un mécanisme qui permet la **clarté** puisqu’on guide dans le sens dans lequel va l’organisation.
+- La **confiance** consiste à penser que ce que la personne est de bonne foi et pense ce qu’elle dit, c’est de l’ordre du relationnel. Ca ne consiste pas à acquiescer avec la position qu’elle tient, qui est plus un élément technique.
+- **Questions à se poser :**
+  - Est-ce que nos équipes passent leur temps à réaliser des documents inutiles ?
+  - Comment rendre les informations importantes accessibles aux employés ?
+  - Comment convaincre les employés à avoir des conversations fréquentes avec les supérieurs hiérarchiques ?
