@@ -110,7 +110,7 @@
   - Quel type de leadership est favorisé par les procédures mises en place ?
   - Si le fonctionnement interne était révélé dans un journal, est-ce qu’on en serait contents ?
 
-## 7 - “I Relieve You!”
+### 7 - “I Relieve You!”
 
 - Les règles de l’armée américaine poussent à un leadership leader-follower en donnant un pouvoir absolu au capitaine, et en indiquant la délégation comme optionnelle.
 - L’équipage du Santa Fe est centré sur le fait de **ne pas commettre d’erreurs**, parce que les sous-marins sont évalués sur ce critère.
@@ -126,7 +126,7 @@
 
 ## II - Control
 
-## 8 - Change, in a Word
+### 8 - Change, in a Word
 
 - Plutôt que de changer le mindset pour espérer un changement de comportement, il **commence par changer les actions, et le mindset suivra**.
 - L’auteur décide de **commencer par les chefs** qui sont juste au-dessus des officiers de base. Sa justification est d’éviter une approche trop top-down, mais en même temps en pouvant s’appuyer sur des personnes qui ont des notions de leadership.
@@ -156,7 +156,7 @@
   - Quand on veut déléguer du pouvoir, de quoi est-ce qu’on a peur ?
   - Quel changement peut-on faire qui donnerait un pouvoir de décision supplémentaire aux managers mid level, et qui ne serait constitué que d’un mot à changer dans un document clé ?
 
-## 9 - “Welcome Aboard Santa Fe!”
+### 9 - “Welcome Aboard Santa Fe!”
 
 - Une inspection se tiendrait dans une semaine, pour vérifier que l’équipage sait ce qu’il fait, et que la maintenance est correcte. Mais les compétences n’étaient pas là.
 - Une partie de l’équipage était **sceptique** à l’idée de la nouvelle manière leader-leader de faire. Mais une masse critique supportait l’auteur.
