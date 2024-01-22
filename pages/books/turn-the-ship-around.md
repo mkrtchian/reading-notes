@@ -155,3 +155,20 @@
   - Comment pousser les mid level managers à passer d’une position privilégiée où ils ne font rien parce que tout le pouvoir est concentré en haut, à une position où ils prennent des responsabilités ?
   - Quand on veut déléguer du pouvoir, de quoi est-ce qu’on a peur ?
   - Quel changement peut-on faire qui donnerait un pouvoir de décision supplémentaire aux managers mid level, et qui ne serait constitué que d’un mot à changer dans un document clé ?
+
+## 9 - “Welcome Aboard Santa Fe!”
+
+- Une inspection se tiendrait dans une semaine, pour vérifier que l’équipage sait ce qu’il fait, et que la maintenance est correcte. Mais les compétences n’étaient pas là.
+- Une partie de l’équipage était **sceptique** à l’idée de la nouvelle manière leader-leader de faire. Mais une masse critique supportait l’auteur.
+- Au moment de parler à l’ensemble de l’équipage, l’auteur décide de faire se rapprocher les subordonnés, et mettre les chefs à l’arrière.
+- L’auteur demande aux officiers ce qui serait nécessaire pour que l’équipage soit davantage **fier de leur sous-marin**, récupère les réponses, et décide **qu’il faudra se comporter comme s'ils l’étaient** : dès qu’un visiteur venait, il faudrait le saluer de son nom, donner son propre nom, et donner le nom du sous-marin.
+  - Il propose l’exercice suivant pour **créer un changement culturel dans une organisation** :
+    - 1 - Donner des cartes à remplir aux employés, et leur demander de remplir la phrase : “Je saurai que nous avons réussi tel changement culturel, si je vois les employés faire …”.
+    - 2 - On colle les cartes sur le mur, et on prend une pause.
+    - 3 - Chacun regarde les cartes, et on refait éventuellement un deuxième tour pour laisser l’opportunité à ceux qui n’avaient pas rempli les cartes d’en remplir.
+    - 4 - On classe les cartes, et on s’attèle à la manière d’écrire le comportement culturel dans les pratiques de l’entreprise.
+    - 5 - On met à jour les procédures nécessaires pour l’officialiser.
+  - Dans le choix entre changer le comportement pour changer le mindset, et changer le mindset pour changer le comportement, l’auteur propose de **commencer par changer le comportement**.
+- **Questions à se poser :**
+  - Comment faire quand les employés ne veulent pas changer leur manière de fonctionner ?
+  - Dans le cadre d’une transformation organisationnelle, est-ce qu’il faut agir d’abord et réfléchir ensuite, ou faire l’inverse ?
