@@ -1,5 +1,7 @@
 # The Five Dysfunctions of a Team
 
+# I
+
 ## II - The Model
 
 ### 1 - An Overview of the Model
@@ -22,3 +24,30 @@
   - 3 - S’engagent à mettre en œuvre leurs décisions.
   - 4 - Se tiennent mutuellement responsables de la réalisation de leurs plans.
   - 5 - Se concentrent sur l’atteinte de résultats collectifs.
+
+### 2 - Team Assessment
+
+- Ce chapitre présente un **questionnaire pour évaluer à quel point une équipe souffre de chacun des 5 dysfonctionnements**.
+- Il faut attribuer 1, 2 ou 3 points à chaque question, selon si on pense que c’est rarement, parfois ou souvent.
+- Les questions :
+  - (4, 6, 12) concernent la dysfonction 1
+  - (1, 7, 10) concernent la dysfonction 2
+  - (3, 8, 13) concernent la dysfonction 3
+  - (2, 11, 14) concernent la dysfonction 4
+  - (5, 9, 15) concernent la dysfonction 5
+- **Questions** :
+  - 1 - Les membres de l’équipe sont passionnés et ouverts quand ils discutent d’un problème.
+  - 2 - Les membres de l’équipe font remarquer les uns aux autres leurs comportements improductifs et points faibles.
+  - 3 - Les membres de l’équipe savent sur quoi les autres travaillent, et en quoi ça apporte de la valeur à l’équipe.
+  - 4 - Les membres de l’équipe s’excusent rapidement et sincèrement les uns envers les autres, quand ils ont dit ou fait quelque chose d’inapproprié ou qui nuit à l’équipe.
+  - 5 - Les membres de l’équipe font des sacrifices dans leur sphère d’influence ou d’expertise dans l’intérêt de l’équipe (dans le cas d’une équipe dirigeante ça peut être sur le budget du département par exemple).
+  - 6 - Les membres de l’équipe admettent ouvertement leurs faiblesses et erreurs.
+  - 7 - Les meetings d’équipe sont intéressants et non pas ennuyeux.
+  - 8 - Les membres de l’équipe quittent les meetings en étant sûrs que les autres sont pleinement engagés sur les décisions prises, même en cas de désaccord.
+  - 9 - Le moral des membres est significativement affecté par l’échec à atteindre les objectifs.
+  - 10 - Pendant les meetings d’équipe, les problèmes les plus importants et difficiles sont mis sur la table pour être résolus.
+  - 11 - Les membres de l’équipe sont sincèrement préoccupés par l’idée de décevoir les autres.
+  - 12 - Les membres de l’équipe connaissent la vie personnelle les uns des autres, et sont à l’aise d’en discuter.
+  - 13 - Les membres de l’équipe terminent leurs discussions avec des résolutions claires, et des actions spécifiques.
+  - 14 - Les membres de l’équipe se challengent mutuellement sur leurs approches et plans.
+  - 15 - Les membres de l’équipe ont plus tendance à pointer la réussite sur la contribution des autres, plutôt que de rechercher du crédit sur le leur.
