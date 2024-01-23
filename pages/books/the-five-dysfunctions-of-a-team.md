@@ -51,3 +51,30 @@
   - 13 - Les membres de l’équipe terminent leurs discussions avec des résolutions claires, et des actions spécifiques.
   - 14 - Les membres de l’équipe se challengent mutuellement sur leurs approches et plans.
   - 15 - Les membres de l’équipe ont plus tendance à pointer la réussite sur la contribution des autres, plutôt que de rechercher du crédit sur le leur.
+
+### 3 - Understandingand Uncovering the Five Dysfunctions
+
+#### Dysfunction 1: Absence of Trust
+
+- Dans le cadre d’une équipe, la **confiance** désigne le fait que** les intentions des autres sont bonnes**, et qu’on peut donc se montrer vulnérables sans avoir peur que ce soit exploité contre nous.
+  - La **vulnérabilité** désigne les faiblesses, le manque de compétence, les erreurs, les demandes d’aide etc.
+- En général, ceux qui réussissent en entreprise sont dans la compétition avec les autres, et protègent leur réputation.
+  - Ils ont donc du mal à se montrer vulnérables, même si c’est ce qui rend une équipe efficace.
+- **Outils pour améliorer les choses :**
+  - **Exercice d’histoires personnelles** (30 mn à 1h) : les membres de l’équipe répondent à des questions personnelles simples face aux autres pour mieux se connaître mutuellement.
+    - Ca peut être par exemple : nombre de frères et soeurs, lieu de naissance, défis relevés pendant l’enfance, passe-temps favoris, premier job, pire job.
+    - Ca contribue à augmenter l’empathie mutuelle, et diminue la tendance à attribuer de mauvaises intentions aux autres.
+  - **Exercice d’efficacité d’équipe** (minimum 1h) : chaque membre de l’équipe identifie la contribution la plus importante de chaque collègue, ainsi qu’un domaine où il doit progresser.
+    - Le groupe se concentre sur une personne à la fois, en commençant en général par le leader.
+    - Cet exercice est un peu plus délicat que le premier et nécessite au moins un peu de confiance, mais permet d’avoir aussi plus de résultat.
+  - **Styles de personnalité et profiles comportementaux** (minimum 4h) : chaque membre réalise un test et obtient une catégorisation. Le fait de se rendre compte des différents types de personnalité permet à chacun une meilleure empathie.
+    - Un des plus connus est MBTI (Meyers-Briggs Type Indicator).
+  - **Feedback à 360 degrés** : chaque membre de l’équipe identifie les forces et faiblesses de ses collègues.
+    - C’est un exercice encore plus délicat que les autres, mais offre encore plus de résultats.
+    - L’auteur déconseille fortement de le corréler à une quelconque évaluation de performance avec des conséquences financières.
+  - **Exercice d’équipe “expérientiels” du genre team building **: l’équipe pratique une activité concrète et gagne en confiance par l’expérience et la pratique.
+    - Ces activités sont devenues moins populaires parce que moins efficaces que d’autres.
+    - Elles peuvent quand même avoir une certaine efficacité, à condition d’être bien pensées.
+- **Le leader** :
+  - Il doit montrer l’exemple en se montrant vulnérable face aux autres, pour que les autres puissent prendre ce risque aussi. Sa démarche de vulnérabilité doit être sincère et non pas feinte.
+  - Il doit instaurer un climat où la vulnérabilité n’est pas punie, où on ne reproche pas à quelqu’un ses faiblesses et ses échecs.
