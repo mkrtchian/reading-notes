@@ -78,3 +78,21 @@
 - **Le leader** :
   - Il doit montrer l’exemple en se montrant vulnérable face aux autres, pour que les autres puissent prendre ce risque aussi. Sa démarche de vulnérabilité doit être sincère et non pas feinte.
   - Il doit instaurer un climat où la vulnérabilité n’est pas punie, où on ne reproche pas à quelqu’un ses faiblesses et ses échecs.
+
+#### Dysfunction 2: Fear of Conflict
+
+- Il faut faire la différence entre la **confrontation d’idées**, et les **conflits interpersonnels** :
+  - Dans la confrontation d’idées on n’attaque pas l’autre sur sa personne, on reste sur le terrain du problème discuté.
+  - Par contre les deux sont tout aussi passionnés, plein d’émotions, de frustrations.
+- En n’ayant pas de discussions animées sur les idées, on a un grand risque de **favoriser les tensions**, les attaques personnelles sous forme de piques passive-agressive et autres mauvaises relations.
+- Concernant l’argument de l’**efficacité** : c’est au contraire les équipes qui n’ont pas de confrontations d’idées animées qui reviennent en permanence sur la même discussion qu’ils reportent à chaque fois.
+- **Outils pour améliorer les choses :**
+  - **Mining** : il faut parfois qu’un des membres de l’équipe ait le rôle de “mineur de conflit”, qui va creuser les désaccords de sujets sensibles enfouis par les autres.
+    - On peut parfois assigner ce rôle à une personne pendant un meeting donné.
+  - **Permission en temps réel** : pendant une confrontation, les autres membres doivent s’encourager les uns les autres à rester dans le débat productif.
+    - Quand on voit que l’un des membres montre de l’inconfort vis-à-vis du niveau de désaccord, on l’interrompt, et on lui rappelle que le débat qui a lieu est important pour l’équipe.
+    - On peut aussi le rappeler à la fin, en faisant comprendre que ce n’est pas un comportement à en plus reproduire.
+  - **Autres** : il y a divers autres outils non détaillés dans le livre, l’un d’entre eux est le _Conflict Mode Instrument_ (TKI) de Thomas-Killmann, qui permet de mieux comprendre le penchant naturel pour les conflits et faire les bons choix en la matière.
+- **Le leader** :
+  - Il doit laisser se dérouler la confrontation, sinon il laissera les membres de l’équipe avec un sentiment de non résolution.
+  - Il doit lui aussi participer à la confrontation quand l’occasion se présente, et non pas chercher à l’éviter.
