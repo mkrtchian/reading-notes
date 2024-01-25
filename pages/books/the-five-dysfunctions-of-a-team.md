@@ -56,7 +56,7 @@
 
 #### Dysfunction 1: Absence of Trust
 
-- Dans le cadre d’une équipe, la **confiance** désigne le fait que** les intentions des autres sont bonnes**, et qu’on peut donc se montrer vulnérables sans avoir peur que ce soit exploité contre nous.
+- Dans le cadre d’une équipe, la **confiance** désigne le fait que **les intentions des autres sont bonnes**, et qu’on peut donc se montrer vulnérables sans avoir peur que ce soit exploité contre nous.
   - La **vulnérabilité** désigne les faiblesses, le manque de compétence, les erreurs, les demandes d’aide etc.
 - En général, ceux qui réussissent en entreprise sont dans la compétition avec les autres, et protègent leur réputation.
   - Ils ont donc du mal à se montrer vulnérables, même si c’est ce qui rend une équipe efficace.
@@ -72,7 +72,7 @@
   - **Feedback à 360 degrés** : chaque membre de l’équipe identifie les forces et faiblesses de ses collègues.
     - C’est un exercice encore plus délicat que les autres, mais offre encore plus de résultats.
     - L’auteur déconseille fortement de le corréler à une quelconque évaluation de performance avec des conséquences financières.
-  - **Exercice d’équipe “expérientiels” du genre team building **: l’équipe pratique une activité concrète et gagne en confiance par l’expérience et la pratique.
+  - **Exercice d’équipe “expérientiels” du genre team building** : l’équipe pratique une activité concrète et gagne en confiance par l’expérience et la pratique.
     - Ces activités sont devenues moins populaires parce que moins efficaces que d’autres.
     - Elles peuvent quand même avoir une certaine efficacité, à condition d’être bien pensées.
 - **Le leader** :
@@ -96,3 +96,21 @@
 - **Le leader** :
   - Il doit laisser se dérouler la confrontation, sinon il laissera les membres de l’équipe avec un sentiment de non résolution.
   - Il doit lui aussi participer à la confrontation quand l’occasion se présente, et non pas chercher à l’éviter.
+
+#### Dysfunction 3: Lack of Commitment
+
+- L’engagement dépend de la clarté des décisions et de l’acceptation des décisions par les membres.
+- Le manque d’engagement peut venir de **deux problèmes** :
+  - La **recherche de consensus unanime** est souvent impossible. Au lieu de ça, ce qu’il faut c’est plutôt que le point de vue de chacun soit entendu, et pour que chacun se rallie à la décision que le groupe prendra.
+    - Si le groupe se retrouve dans une impasse, le leader est autorisé à trancher.
+  - La **recherche de certitude** paralyse la prise de décision. Il vaut mieux décider malgré le manque d’information et changer de décision par la suite que de ne rien faire.
+    - Les débats animés permettent justement de faire ressortir les informations précieuses de la pensée de chacun, pour prendre les meilleures décisions possibles sur le moment.
+- **Outils pour améliorer les choses** :
+  - **Messages en cascade** : on prend au moins 10 minutes à la fin d’un meeting pour récapituler les décisions prises, au besoin les clarifier, et décider de ce qui doit être communiqué à l’extérieur.
+  - **Deadlines** : on définit un temps limite pour qu’une décision soit prise sur un sujet particulier.
+    - Ca évite de remettre le sujet à plus tard, et force à décider pour s’engager.
+  - **Analyse du pire cas possible** : on essaye d’envisager ce qui pourrait arriver de pire si on prend une décision. Ca permet d’être plus confiant en relativisant les conséquences, et de prendre la décision plus facilement.
+  - **Thérapie par l’exposition au faible risque** : on prend des cas où les conséquences des décisions ne sont pas très importantes, et on essaye de les prendre plus rapidement.
+    - En analysant la situation, les équipes qui ont un problème d’engagement vont se rendre compte qu’en prenant des décisions après un débat animé et peu de recherche, elle sera à peu près aussi pertinente qu’en faisant beaucoup de recherche (parce qu’ils ont tendance à trop décaler la prise de décision).
+- **Le leader** :
+  - Il doit lui aussi pousser à prendre des décisions rapidement, et à ne pas chercher à être sûr ou que tout le monde soit pour une proposition avant d’avancer.
