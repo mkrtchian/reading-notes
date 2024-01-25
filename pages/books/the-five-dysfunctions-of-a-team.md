@@ -114,3 +114,16 @@
     - En analysant la situation, les équipes qui ont un problème d’engagement vont se rendre compte qu’en prenant des décisions après un débat animé et peu de recherche, elle sera à peu près aussi pertinente qu’en faisant beaucoup de recherche (parce qu’ils ont tendance à trop décaler la prise de décision).
 - **Le leader** :
   - Il doit lui aussi pousser à prendre des décisions rapidement, et à ne pas chercher à être sûr ou que tout le monde soit pour une proposition avant d’avancer.
+
+#### Dysfunction 4: Avoidance of Accountability
+
+- L’**accountability** veut dire que les membres de l’équipe tiennent leurs pairs pour responsables vis-à-vis de **leur manque de performance ou de leur comportement qui nuirait au groupe**.
+- L’idée que ne rien dire permettrait de préserver les relations est une erreur : les membres de l’équipe vont se reprocher de ne rien dire et de laisser la situation se dégrader.
+- La pression exercée par les pairs permet de ne pas avoir besoin de bureaucratie, et d’être quand même dans l’excellence et la performance.
+- **Outils pour améliorer les choses** :
+  - **La publication des objectifs et des standards** : en clarifiant et rendant public les objectifs et les standards de comportement, on rend plus facile le fait que les membres se tiennent responsables vis-à-vis de ceux-ci.
+  - **Des évaluations simples et régulières** : en mettant en place un cadre léger pour que les membres se fassent des évaluations (orales ou écrites) régulières, on les pousse à se tenir responsables mutuellement.
+  - **Les récompenses d’équipe** : si les récompenses sont collectives, les autres vont avoir tendance à plus difficilement accepter qu’un des membres contribue peu, vu que leur récompense dépend de son action aussi.
+- **Le leader** :
+  - La difficulté pour le leader c’est de **ne pas s’imposer comme la source d’autorité principale**, au risque que le reste des membres considèrent qu’il n’est pas de leur responsabilité de tenir les autres responsables.
+  - Pour autant, le leader doit être prêt à servir de “filet de sécurité” en termes d’autorité dans l’éventualité où l’équipe n’a pas fait son travail sur le fait de se tenir mutuellement responsables.
