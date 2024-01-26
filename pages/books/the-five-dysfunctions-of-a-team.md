@@ -127,3 +127,19 @@
 - **Le leader** :
   - La difficulté pour le leader c’est de **ne pas s’imposer comme la source d’autorité principale**, au risque que le reste des membres considèrent qu’il n’est pas de leur responsabilité de tenir les autres responsables.
   - Pour autant, le leader doit être prêt à servir de “filet de sécurité” en termes d’autorité dans l’éventualité où l’équipe n’a pas fait son travail sur le fait de se tenir mutuellement responsables.
+
+#### Dysfunction 5: Inattention to Results
+
+- En parlant de résultats on parle ici des objectifs principaux qu’une équipe se fixe (par exemple OKR).
+- Les membres d’une équipe qui a cette dysfonction peuvent être concentrés sur deux autres choses :
+  - Le **statut de l’équipe** : pour certains membres, le simple fait de faire partie de l’équipe est suffisant, et l’atteinte des résultats devient secondaire.
+    - C’est souvent le cas chez les organisations à but non lucratif, ou les entreprises prestigieuses.
+  - Le **statut individuel** : certains membres de l’équipe mettent en avant plus leur propre intérêt personnel (par exemple de carrière) plutôt que la réalisation des résultats collectifs.
+    - NDLR : par exemple le CV Driven Development.
+- **Outils pour améliorer les choses** :
+  - **La déclaration publique des résultats** : en s’engageant publiquement, les membres de l’équipe s'engagent en quelque sorte, et vont avoir plus tendance à essayer de réussir.
+  - **Récompense basée sur les résultats** : une récompense, par exemple financière, peut venir récompenser la réalisation des objectifs d’équipe.
+    - Attention par contre à ce que ce ne soit pas le seul moteur de motivation.
+- **Le leader** :
+  - Il doit faire office de modèle en s’intéressant aux résultats. S’il ne le fait pas, les autres vont s’en désintéresser d’autant plus.
+  - Il doit réserver la reconnaissance et les récompenses pour l'atteinte des résultats.
