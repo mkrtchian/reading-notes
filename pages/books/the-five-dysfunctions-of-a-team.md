@@ -1,6 +1,8 @@
 # The Five Dysfunctions of a Team
 
-# I
+## I - The Fable
+
+- L’histoire raconte comment une personne corrige les dysfonctionnements d’une équipe de direction.
 
 ## II - The Model
 
