@@ -188,8 +188,22 @@
     - A propos de la représentation des informations et des couleurs, l’auteur conseille **_The Visual Display of Quantitative Information_** de Edward Tufte.
 - **Les conversations fréquentes et tôt dans le processus** sont un mécanisme qui permet de laisser le **contrôle** aux mains des subordonnés : ils reçoivent du feedback et peuvent décider de la manière dont ils font avancer les choses.
   - C’est aussi un mécanisme qui permet la **clarté** puisqu’on guide dans le sens dans lequel va l’organisation.
-- La **confiance** consiste à penser que ce que la personne est de bonne foi et pense ce qu’elle dit, c’est de l’ordre du relationnel. Ca ne consiste pas à acquiescer avec la position qu’elle tient, qui est plus un élément technique.
+- La **confiance** consiste à penser que la personne est de bonne foi et pense ce qu’elle dit, c’est de l’ordre du relationnel. Ca ne consiste pas à acquiescer avec la position qu’elle tient, qui est plus un élément technique.
 - **Questions à se poser :**
   - Est-ce que nos équipes passent leur temps à réaliser des documents inutiles ?
   - Comment rendre les informations importantes accessibles aux employés ?
-  - Comment convaincre les employés à avoir des conversations fréquentes avec les supérieurs hiérarchiques ?
+  - Comment convaincre les employés d'avoir des conversations fréquentes avec les supérieurs hiérarchiques ?
+
+## 11 - “I Intend To…”
+
+- Dans les quelque jours avant une importante inspection, l’équipage se prépare en réalisant un exercice où le moteur est désactivé, et la panne doit être réparée rapidement.
+  - L’auteur, voulant mettre un peu plus de pression à l’équipage, demande à l’un des subordonnés d’augmenter le rythme d’un élément technique spécifique à la valeur ⅔.
+  - Le subordonné fait passer l’ordre, mais il n’est pas exécuté. **En fait le cran ⅔ n’existait pas sur ce modèle de sous-marin**.
+  - L’auteur demande si le subordonné le savait, celui-ci répond oui, et dit qu’il a fait passer l’ordre parce qu’il a obéi, il pensait que l’auteur avait des informations auxquelles seuls les dirigeants ont accès.
+  - L’auteur décide alors de **ne plus donner d’ordres**, et demande aux subordonnés de **dire “J’ai l’intention de …”** à chaque fois qu’ils veulent faire quelque chose.
+  - Le comportement est adopté par les chefs, mais aussi par l’ensemble de l’équipage. C’est l’une des mécaniques qui aura le plus d’impact sur l’adoption d’un leadership leader-leader.
+- L’auteur cite **_The 7 Habits of Highly Effective People_** de Stephen Covey, dont de nombreuses idées ont été implémentées sur le Santa Fe.
+- Changer le langage pour que les subordonnés **indiquent ce qu’ils vont faire plutôt que de demander la permission** est un mécanisme qui permet de leur laisser plus de contrôle.
+- **Questions à se poser :**
+  - Qu’est-ce qui fait qu’en tant que leader, on prend du contrôle au lieu d’en donner ?
+  - Qu'est- ce qu’il faudrait surmonter pour que l’ensemble des personnes utilisent “J’ai l’intention de …” dans notre organisation ?
