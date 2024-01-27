@@ -207,3 +207,19 @@
 - **Questions à se poser :**
   - Qu’est-ce qui fait qu’en tant que leader, on prend du contrôle au lieu d’en donner ?
   - Qu'est- ce qu’il faudrait surmonter pour que l’ensemble des personnes utilisent “J’ai l’intention de …” dans notre organisation ?
+
+## 12 - Up Scope!
+
+- En pleine simulation d’attaque, l’auteur, fatigué, donne une directive de déplacement du sous-marin et va se coucher.
+  - En se réveillant, il se rend compte que la directive a été suivie, mais que les choses ne se sont pas passées comme prévu, parce que la situation avait changé depuis.
+  - N’ayant donné que la directive et pas le raisonnement derrière, **l’équipage ne pouvait que le suivre aveuglément et non pas faire preuve d’intelligence**.
+- Plus tard, une autre question se pose au sujet de déployer l’antenne radio pour recevoir les messages, au risque de se faire repérer par le sous-marin ennemi à proximité.
+  - L’auteur **veut donner une directive mais se retient**, et laisse du temps pour que les autres puissent intervenir.
+  - L’un des membres fait alors remarquer qu’ils pourront toujours récupérer les messages juste après avoir coulé le sous-marin ennemi, ce qui est une bonne idée. Ils le mettent en place et tout se passe comme prévu.
+- **Résister à l’urgence de donner une solution** est un mécanisme qui permet de redonner du contrôle aux subordonnés.
+  - Si la décision est vraiment urgente, on peut la prendre, mais il faudra revenir dessus avec l’équipe.
+  - Si la décision peut attendre un peu, on prend l’avis de l’équipe d’abord, même brièvement.
+  - L’idée n’est pas d’arriver à une unanimité, mais de faire ressortir les divergences pour prendre la meilleure décision possible.
+- **Questions à se poser :**
+  - Quand un problème survient, en tant que leader est-ce qu’on pense immédiatement qu’on doit tout gérer avec plus d’attention, ou est-ce qu’on se dit qu’on doit lâcher du contrôle ?
+  - Comment faire pour qu’à notre prochaine réunion d’équipe, on laisse de la place pour l’ensemble du groupe, pour qu’une décision soit prise par l’équipe toute entière ?
