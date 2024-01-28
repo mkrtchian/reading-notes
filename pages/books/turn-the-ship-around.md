@@ -223,3 +223,18 @@
 - **Questions à se poser :**
   - Quand un problème survient, en tant que leader est-ce qu’on pense immédiatement qu’on doit tout gérer avec plus d’attention, ou est-ce qu’on se dit qu’on doit lâcher du contrôle ?
   - Comment faire pour qu’à notre prochaine réunion d’équipe, on laisse de la place pour l’ensemble du groupe, pour qu’une décision soit prise par l’équipe toute entière ?
+
+## 13 - Who’s Responsible?
+
+- L’inspection a aussi remarqué que le Santa Fe n’avait **pas répondu à un certain nombre de messages importants** adressés par le haut commandement.
+  - Les messages étaient en fait catégorisés et ceux en attente listés. Il y avait ensuite un **meeting régulier pour faire le point** ce qui a été fait ou est en retard.
+  - Pour l’auteur, ce meeting représente un overhead, et surtout envoie le message que **la responsabilité est top-down** : le management surveille les subordonnés.
+  - L’auteur prend alors la décision d’éliminer le monitoring top-down centralisé, et de déléguer entièrement la responsabilité de répondre aux messages et d’en faire le suivi aux chefs de département.
+- **Éliminer le monitoring top-down** est un mécanisme qui permet de redonner du contrôle, en mettant la responsabilité du travail fait entièrement aux mains des subordonnés.
+  - On parle ici d’éliminer le monitoring qui consiste à surveiller pour ensuite aller dire que ça ne va pas, pas de la simple collecte de données qui permet d’avoir de la visibilité.
+- Quand on veut que les employés soient _empowered_, se comportent comme ayant de l’_ownership_, il ne faut pas juste le décréter, mais faire les changements de process qui vont le permettre, comme par exemple l’élimination du monitoring top-down.
+  - Les leaders qui se plaignent du manque de motivation mais gardent des process top-down sont décrédibilisés.
+- L’auteur conseille **_Out of the Crisis_** d’Edwards Deming, à propos du TQL (Total Quality Leadership), qui parle spécifiquement de changer les process pour donner de l’ownership aux employés.
+- **Questions à se poser :**
+  - Combien de systèmes de monitoring top-down est-ce qu’il y a dans notre organisation ? Comment les éliminer ?
+  - Est-ce qu’on verrait un équivalent au meeting des messages qu’on pourrait éliminer pour donner plus de responsabilité au middle management ?
