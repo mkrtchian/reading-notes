@@ -186,7 +186,7 @@
   - L’équipage avait en fait **mal compris ce qu’on essayait de faire exactement** avec ces couleurs, et utilisait celles à disposition.
   - Après discussion, et suggestions de diverses personnes, le groupe est arrivé à un accord sur des couleurs en fonction de la nature des eaux : bleu pour l’eau sous le contrôle du Santa Fe, jaune pour les eaux dont il faut rester en dehors, et vert pour celles où il faut rester en profondeur.
     - A propos de la représentation des informations et des couleurs, l’auteur conseille **_The Visual Display of Quantitative Information_** de Edward Tufte.
-- **Les conversations fréquentes et tôt dans le processus** sont un mécanisme qui permet de laisser le **contrôle** aux mains des subordonnés : ils reçoivent du feedback et peuvent décider de la manière dont ils font avancer les choses.
+- **Les conversations fréquentes et tôt dans le processus sont un mécanisme qui permet de laisser le contrôle** aux mains des subordonnés : ils reçoivent du feedback et peuvent décider de la manière dont ils font avancer les choses.
   - C’est aussi un mécanisme qui permet la **clarté** puisqu’on guide dans le sens dans lequel va l’organisation.
 - La **confiance** consiste à penser que la personne est de bonne foi et pense ce qu’elle dit, c’est de l’ordre du relationnel. Ca ne consiste pas à acquiescer avec la position qu’elle tient, qui est plus un élément technique.
 - **Questions à se poser :**
@@ -203,7 +203,7 @@
   - L’auteur décide alors de **ne plus donner d’ordres**, et demande aux subordonnés de **dire “J’ai l’intention de …”** à chaque fois qu’ils veulent faire quelque chose.
   - Le comportement est adopté par les chefs, mais aussi par l’ensemble de l’équipage. C’est l’une des mécaniques qui aura le plus d’impact sur l’adoption d’un leadership leader-leader.
 - L’auteur cite **_The 7 Habits of Highly Effective People_** de Stephen Covey, dont de nombreuses idées ont été implémentées sur le Santa Fe.
-- Changer le langage pour que les subordonnés **indiquent ce qu’ils vont faire plutôt que de demander la permission** est un mécanisme qui permet de leur laisser plus de contrôle.
+- Changer le langage pour que les subordonnés **indiquent ce qu’ils vont faire plutôt que de demander la permission est un mécanisme qui permet de leur laisser plus de contrôle**.
 - **Questions à se poser :**
   - Qu’est-ce qui fait qu’en tant que leader, on prend du contrôle au lieu d’en donner ?
   - Qu'est- ce qu’il faudrait surmonter pour que l’ensemble des personnes utilisent “J’ai l’intention de …” dans notre organisation ?
@@ -216,7 +216,7 @@
 - Plus tard, une autre question se pose au sujet de déployer l’antenne radio pour recevoir les messages, au risque de se faire repérer par le sous-marin ennemi à proximité.
   - L’auteur **veut donner une directive mais se retient**, et laisse du temps pour que les autres puissent intervenir.
   - L’un des membres fait alors remarquer qu’ils pourront toujours récupérer les messages juste après avoir coulé le sous-marin ennemi, ce qui est une bonne idée. Ils le mettent en place et tout se passe comme prévu.
-- **Résister à l’urgence de donner une solution** est un mécanisme qui permet de redonner du contrôle aux subordonnés.
+- **Résister à l’urgence de donner une solution est un mécanisme qui permet de redonner du contrôle** aux subordonnés.
   - Si la décision est vraiment urgente, on peut la prendre, mais il faudra revenir dessus avec l’équipe.
   - Si la décision peut attendre un peu, on prend l’avis de l’équipe d’abord, même brièvement.
   - L’idée n’est pas d’arriver à une unanimité, mais de faire ressortir les divergences pour prendre la meilleure décision possible.
@@ -230,7 +230,7 @@
   - Les messages étaient en fait catégorisés et ceux en attente listés. Il y avait ensuite un **meeting régulier pour faire le point** ce qui a été fait ou est en retard.
   - Pour l’auteur, ce meeting représente un overhead, et surtout envoie le message que **la responsabilité est top-down** : le management surveille les subordonnés.
   - L’auteur prend alors la décision d’éliminer le monitoring top-down centralisé, et de déléguer entièrement la responsabilité de répondre aux messages et d’en faire le suivi aux chefs de département.
-- **Éliminer le monitoring top-down** est un mécanisme qui permet de redonner du contrôle, en mettant la responsabilité du travail fait entièrement aux mains des subordonnés.
+- **Éliminer le monitoring top-down est un mécanisme qui permet de redonner du contrôle**, en mettant la responsabilité du travail fait entièrement aux mains des subordonnés.
   - On parle ici d’éliminer le monitoring qui consiste à surveiller pour ensuite aller dire que ça ne va pas, pas de la simple collecte de données qui permet d’avoir de la visibilité.
 - Quand on veut que les employés soient _empowered_, se comportent comme ayant de l’_ownership_, il ne faut pas juste le décréter, mais faire les changements de process qui vont le permettre, comme par exemple l’élimination du monitoring top-down.
   - Les leaders qui se plaignent du manque de motivation mais gardent des process top-down sont décrédibilisés.
@@ -238,3 +238,19 @@
 - **Questions à se poser :**
   - Combien de systèmes de monitoring top-down est-ce qu’il y a dans notre organisation ? Comment les éliminer ?
   - Est-ce qu’on verrait un équivalent au meeting des messages qu’on pourrait éliminer pour donner plus de responsabilité au middle management ?
+
+## 14 - “A New Ship”
+
+- Pendant une manoeuvre, alors qu'un des subordonnés contrôlait la direction du sous-marin, il a mis du temps à dire de tourner, et l’auteur lui a mis un coup de pression en lui demandant s’il comptait le faire : il comptait bien le faire, mais le fait que l’auteur lui donne l’instruction a fait qu’il n’était plus vraiment aux commandes.
+- De manière plus générale, l’auteur se pose des questions sur la raison pour laquelle il doit encore **aussi souvent intervenir pour résoudre les problèmes**, plutôt que les subordonnés soient autonomes. Il en parle avec les chefs de département :
+  - Les objectifs organisationnels ne sont pas suffisamment au centre de l’attention (problème de _clarity_).
+  - **La communication est trop formelle** : ils utilisent un langage militaire où chaque mot a une signification précise, mais en contrepartie ils ont tendance à éviter la nuance. Des choses comme “Je pense que”, “Il me semble que” etc.
+- L’auteur demande à l’équipage de faire un travail sur la communication, et d’**augmenter les communications informelles** en disant à haute voix ce qu’on pense.
+  - Il pense que si la personne qui comptait tourner dans quelques instants s’exprimait régulièrement, il n’aurait pas eu à lui mettre un coup de pression, et elle aurait moralement gardé le contrôle du sous-marin.
+- **Penser à haute voix est un mécanisme qui permet de donner du contrôle** aux subordonnés : les supérieurs hiérarchiques n’ont pas besoin d’intervenir parce qu’ils sont rassurés, et peuvent plus facilement laisser les subordonnés exécuter leurs plans en autonomie.
+  - Le fait que les supérieurs hiérarchiques eux aussi pensent à haute voix permet de donner des informations de contexte aux subordonnés.
+- L’inspection se passe bien, et le commandant félicite l’auteur, qui à son tour peut féliciter l’équipage.
+- **Questions à se poser :**
+  - A quel point les employés sont à l’aise avec l’idée de parler de leurs intuitions ?
+  - Comment créer un environnement où les employés expriment leurs incertitudes, idées et espoirs ?
+  - A quel point la confiance est liée à ces éléments ?
