@@ -239,7 +239,7 @@
   - Combien de systèmes de monitoring top-down est-ce qu’il y a dans notre organisation ? Comment les éliminer ?
   - Est-ce qu’on verrait un équivalent au meeting des messages qu’on pourrait éliminer pour donner plus de responsabilité au middle management ?
 
-## 14 - “A New Ship”
+### 14 - “A New Ship”
 
 - Pendant une manoeuvre, alors qu'un des subordonnés contrôlait la direction du sous-marin, il a mis du temps à dire de tourner, et l’auteur lui a mis un coup de pression en lui demandant s’il comptait le faire : il comptait bien le faire, mais le fait que l’auteur lui donne l’instruction a fait qu’il n’était plus vraiment aux commandes.
 - De manière plus générale, l’auteur se pose des questions sur la raison pour laquelle il doit encore **aussi souvent intervenir pour résoudre les problèmes**, plutôt que les subordonnés soient autonomes. Il en parle avec les chefs de département :
@@ -254,3 +254,15 @@
   - A quel point les employés sont à l’aise avec l’idée de parler de leurs intuitions ?
   - Comment créer un environnement où les employés expriment leurs incertitudes, idées et espoirs ?
   - A quel point la confiance est liée à ces éléments ?
+
+### 15 - “We Have a Problem”
+
+- L’un des membres de l’équipage a **oublié d’enlever un balisage indiquant que l’électricité n’était pas allumée** sur des câbles, alors qu’il l’a allumé. Il n’y a pas eu de blessés mais ça aurait pu.
+  - Ça donne une image particulièrement mauvaise pour le Santa Fe étant donné qu’il y a déjà eu des problèmes du même type récemment.
+  - Le membre en question a préféré **reporter l’incident aux inspecteurs** pour respecter les règles et rester dans une forme d’intégrité.
+  - Malgré les potentiels problèmes, l’auteur pense que ce membre avait raison de reporter l’incident : les inspecteurs indépendants forment un corps indispensable pour la bonne santé de l’organisation.
+- **Coopérer avec les inspecteurs est un mécanisme permettant de donner du contrôle à l’ensemble de l’équipe** vis-à-vis de leur propre destin.
+  - Les inspecteurs étant indépendants, ils offrent une garantie de pousser l’équipe à apprendre et s’améliorer, et tendre vers l’excellence technique.
+  - Sur les aspects où l’équipe faisait quelque chose d’innovant, les inspecteurs pouvaient répandre ces pratiques ailleurs. Et sur les aspects où l’équipe faisait mal les choses, c’était une occasion de s’améliorer.
+- **Questions à se poser :**
+  - Comment utiliser des groupes extérieurs d’audit, des commentaires de réseaux sociaux etc. pour améliorer notre organisation ?
