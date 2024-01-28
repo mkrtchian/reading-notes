@@ -194,7 +194,7 @@
   - Comment rendre les informations importantes accessibles aux employés ?
   - Comment convaincre les employés d'avoir des conversations fréquentes avec les supérieurs hiérarchiques ?
 
-## 11 - “I Intend To…”
+### 11 - “I Intend To…”
 
 - Dans les quelque jours avant une importante inspection, l’équipage se prépare en réalisant un exercice où le moteur est désactivé, et la panne doit être réparée rapidement.
   - L’auteur, voulant mettre un peu plus de pression à l’équipage, demande à l’un des subordonnés d’augmenter le rythme d’un élément technique spécifique à la valeur ⅔.
@@ -208,7 +208,7 @@
   - Qu’est-ce qui fait qu’en tant que leader, on prend du contrôle au lieu d’en donner ?
   - Qu'est- ce qu’il faudrait surmonter pour que l’ensemble des personnes utilisent “J’ai l’intention de …” dans notre organisation ?
 
-## 12 - Up Scope!
+### 12 - Up Scope!
 
 - En pleine simulation d’attaque, l’auteur, fatigué, donne une directive de déplacement du sous-marin et va se coucher.
   - En se réveillant, il se rend compte que la directive a été suivie, mais que les choses ne se sont pas passées comme prévu, parce que la situation avait changé depuis.
@@ -224,7 +224,7 @@
   - Quand un problème survient, en tant que leader est-ce qu’on pense immédiatement qu’on doit tout gérer avec plus d’attention, ou est-ce qu’on se dit qu’on doit lâcher du contrôle ?
   - Comment faire pour qu’à notre prochaine réunion d’équipe, on laisse de la place pour l’ensemble du groupe, pour qu’une décision soit prise par l’équipe toute entière ?
 
-## 13 - Who’s Responsible?
+### 13 - Who’s Responsible?
 
 - L’inspection a aussi remarqué que le Santa Fe n’avait **pas répondu à un certain nombre de messages importants** adressés par le haut commandement.
   - Les messages étaient en fait catégorisés et ceux en attente listés. Il y avait ensuite un **meeting régulier pour faire le point** ce qui a été fait ou est en retard.
