@@ -266,3 +266,25 @@
   - Sur les aspects où l’équipe faisait quelque chose d’innovant, les inspecteurs pouvaient répandre ces pratiques ailleurs. Et sur les aspects où l’équipe faisait mal les choses, c’était une occasion de s’améliorer.
 - **Questions à se poser :**
   - Comment utiliser des groupes extérieurs d’audit, des commentaires de réseaux sociaux etc. pour améliorer notre organisation ?
+
+## 17 - “We Learn”
+
+- Un nouvel incident est survenu avec une torpille mal fixée. Les officiers qui avaient fait la manœuvre **manquaient en fait de compétence technique**.
+  - Malgré l’incident, le commandant a assuré son soutien à l’auteur, ce qui lui a donné du courage pour continuer.
+  - L’auteur s’est fait la réflexion qu’avec l’habitude d’obéir en mode leader-follower, les personnes du bas de l’échelle avaient vu leurs compétences s’atrophier. Il fallait les revigorer.
+- L’auteur a réuni l’équipage, et ils ont décidé d’un **manifeste qui caractérise leur action**.
+  - L’élément central de leur manifeste a été **“we learn”**, en toutes circonstances et dans chaque situation.
+  - Leur apprentissage se fait quotidiennement, et représente une posture active que chacun adopte.
+  - **L’apprentissage se fait en faisant le travail** : il s’agit de changer de perspective sur le travail qui est fait, et d’en apprendre le plus possible d’un point de vue technique, ou même apprendre à le déléguer.
+  - L’objectif est d’obtenir des employés plus qualifiés, qui pourront être plus autonomes pour décider, et donc plus motivés et épanouis par leur travail.
+    - Communiquer cet objectif permet de largement les motiver à s’engager dans le processus.
+- Exercice à faire en meeting avec le leadership :
+  - On donne des papiers, et on balance la phrase : “Notre entreprise serait plus efficace si _tel_ niveau de management avait la main sur _telles_ décisions”.
+  - Les gens écrivent, puis vont en pause et réfléchissent.
+  - On sélectionne ensuite certains sujets parmi ceux proposés, et on demande “Qu'est-ce que les personnes de _ce_ niveau de management auraient besoin de savoir faire pour pouvoir prendre _ces_ décisions ?”.
+  - On laisse les gens répondre et on va en pause pour réfléchir.
+  - On a alors des choses concrètes à mettre en place pour augmenter la compétence, pour pouvoir augmenter l’autonomie de décision des subordonnés.
+- **Nous apprenons, partout, tout le temps est un mécanisme qui permet la compétence**.
+- **Questions à se poser :**
+  - Quelles domaines de notre entreprise sont en échec à cause de la faible compétence des employés ?
+  - Comment mettre en place une politique d’apprentissage permanent dans notre entreprise ? Est-ce qu’écrire un manifeste serait envisageable ?
