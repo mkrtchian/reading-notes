@@ -267,7 +267,7 @@
 - **Questions à se poser :**
   - Comment utiliser des groupes extérieurs d’audit, des commentaires de réseaux sociaux etc. pour améliorer notre organisation ?
 
-## 17 - “We Learn”
+### 17 - “We Learn”
 
 - Un nouvel incident est survenu avec une torpille mal fixée. Les officiers qui avaient fait la manœuvre **manquaient en fait de compétence technique**.
   - Malgré l’incident, le commandant a assuré son soutien à l’auteur, ce qui lui a donné du courage pour continuer.
@@ -288,3 +288,20 @@
 - **Questions à se poser :**
   - Quelles domaines de notre entreprise sont en échec à cause de la faible compétence des employés ?
   - Comment mettre en place une politique d’apprentissage permanent dans notre entreprise ? Est-ce qu’écrire un manifeste serait envisageable ?
+
+### 18 - Under Way for San Diego
+
+- L’auteur a l’idée de donner un objectif de temps sur la réduction de la submersion du sous-marin, ce qui permet à l’équipage de le prendre comme un défi, et de voir le processus comme un tout et non pas une somme d’étapes pour gagner du temps.
+- Pendant un exercice, l’auteur fait en sorte que **certains composants tombent en panne** pour voir comment l’équipage gère la situation, alors qu’il a été briefé.
+  - L’équipage a beaucoup de mal, et met du temps à régler le problème.
+  - En fait l’équipage **assiste passivement aux briefings** et n’écoute pas vraiment.
+  - Ils décident alors de **ne plus faire de briefings, et de les remplacer par des certifications **:
+    - On pose des questions auxquelles l’équipage doit répondre pour vérifier s’il est prêt.
+    - Il s’agit aussi d’un **moment de décision** : si l’équipage n’est pas prêt, on décide de reporter l’activité.
+  - Ça a l’effet bénéfique de pousser l’équipage à étudier ce qu’il est censé savoir à l’avance, pour passer la certification. Il est donc bien plus actif que pendant un briefing.
+- **“Ne pas briefer, mais plutôt certifier” est un mécanisme qui augmente la compétence** des employés.
+  - Les employés étudient par eux-mêmes, et deviennent chacun compétent, plutôt qu’une personne compétente fasse des piqûres de rappel de temps en temps aux autres.
+- La quantité de temps que les employés passent à apprendre par eux-mêmes est une métrique qu’une organisation en bonne santé voudra augmenter.
+- **Questions à se poser :**
+  - A quel point est-ce que les gens se préparent avant un événement ?
+  - Qu'est-ce qu’il faudrait pour certifier nos équipes à propos du fait qu’il connaissent les objectifs collectifs et comment y contribuer ?
