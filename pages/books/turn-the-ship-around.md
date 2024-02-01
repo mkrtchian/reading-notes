@@ -323,3 +323,16 @@
 - **Questions à se poser :**
   - A quel point est-ce que les gens se préparent avant un événement ?
   - Qu'est-ce qu’il faudrait pour certifier nos équipes à propos du fait qu’il connaissent les objectifs collectifs et comment y contribuer ?
+
+## 19 - All Present and Accounted For
+
+- Un officier prévient l’auteur qu’un des officiers junior en charge de faire le guet est porté **absent sans permission**.
+  - Le top management se réunit pour discuter de son cas. Une partie d’entre eux pensent qu’il faut une punition exemplaire, alors que l’autre partie pense qu’il fait du bon travail, et qu’il a été trop surmené récemment et a eu besoin de dormir.
+  - En creusant un peu plus, le junior qui n’avait pas pu suffisamment dormir devait faire le guet trop souvent parce que **le chef ne voulait pas participer aux tours**.
+  - L’auteur décide de ne pas punir le junior, mais met en place une règle : **aucun chef ne pourra avoir un travail quotidien plus favorable** que le plus difficile donné à ses subordonnés.
+  - En y réfléchissant, l’auteur se dit que ce qu’il faut c’est répéter le message, encore et encore. Il a beau l’avoir déjà dit des centaines de fois, les chefs ne l’ont manifestement pas encore intégré.
+- **Répéter le message en continu encore et encore est un mécanisme qui permet d’augmenter la compétence** des employés, pour les faire basculer petit à petit dans le système leader-leader.
+  - Il faut se dire qu’ils n’ont pas forcément connu le système leader-leader, et donc n’arrivent pas à se faire une image mentale de ce que ça peut bien représenter. En répétant, ça finit par rentrer.
+- **Questions à se poser :**
+  - Quel message faut-il répéter au middle management pour qu’il intègre qu’il faut d’abord qu’ils prennent soin de leurs subordonnés, avant de penser à eux-mêmes ?
+  - Quand est-ce qu’un leader peut outrepasser un protocole pour aider un subordonné en difficulté ?
