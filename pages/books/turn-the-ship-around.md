@@ -267,6 +267,24 @@
 - **Questions à se poser :**
   - Comment utiliser des groupes extérieurs d’audit, des commentaires de réseaux sociaux etc. pour améliorer notre organisation ?
 
+## III - Competence
+
+### 16 - “Mistakes Just Happen!”
+
+- Le management, la personne qui avait oublié d’enlever le balisage, et les inspecteurs se réunissent pour parler de la faute et de ce qu’il faut faire.
+  - Le membre qui avait commis la faute s’en explique avec honnêteté, et l’auteur décide de ne pas le punir.
+  - Le meeting se concentre sur le plus important : **comment faire en sorte que ça ne se reproduise pas**.
+  - La solution trouvée est d’éviter les erreurs habituelles issues d’une inattention pendant des moments délicats : il s’agit de **faire des actions délibérées**, c’est-à-dire faire une pause, faire des gestes et utiliser la voix pour signifier ce qu’on va faire, et enfin le faire.
+- L’équipage faisait deux erreurs à propos des actions délibérées :
+  - Penser qu’il s’agit de le faire pour que les supérieurs hiérarchiques le voient plutôt que simplement pour faire moins d’erreurs.
+  - Penser que c’est pour l’entraînement seulement, et qu’en situation réelle il faut agir plus vite.
+- **Faire des actions délibérées est un mécanisme qui permet la compétence**, en permettant de faire significativement moins d’erreurs pendant les moments les plus importants.
+- Les actions délibérées permettaient aussi à une personne à proximité de corriger la personne qui faisait l'action délibérée après qu’elle ait vocalisé qu’elle allait faire une action qui représentait une erreur.
+  - Il s’agit donc aussi d’un mécanisme permettant le travail d’équipe.
+- **Questions à se poser :**
+  - Que ferait-on si un employé admettait une erreur faite en mode “pilote automatique” ?
+  - Est-ce qu’en mettant en place le mécanisme des actions délibérées dans notre organisation, on baisserait significativement le nombre d’erreurs ?
+
 ### 17 - “We Learn”
 
 - Un nouvel incident est survenu avec une torpille mal fixée. Les officiers qui avaient fait la manœuvre **manquaient en fait de compétence technique**.
