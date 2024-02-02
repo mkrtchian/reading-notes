@@ -336,3 +336,18 @@
 - **Questions à se poser :**
   - Quel message faut-il répéter au middle management pour qu’il intègre qu’il faut d’abord qu’ils prennent soin de leurs subordonnés, avant de penser à eux-mêmes ?
   - Quand est-ce qu’un leader peut outrepasser un protocole pour aider un subordonné en difficulté ?
+
+## 20 - Final Preparations
+
+- Les chefs de département préparent un **exercice de déclenchement de feu**, sachant qu’il faut en théorie l’arrêter en 2mn pour qu’il soit contenu.
+  - L’équipage **échoue lamentablement** en mettant beaucoup trop de temps, parce que les plus proches de l’extincteur ne sont pas ceux habilités à le manipuler. La procédure joue contre l’efficacité.
+  - Un autre problème est que le feu d’entraînement ne s’éteint que très difficilement, ce qui ne pousse pas l’équipage à s’organiser pour l’éteindre au plus vite.
+  - La solution mise en place est de demander à l’équipage de **faire au plus efficace** pour que la personne la plus proche de l’extincteur l’utilise. On indique l’objectif, et ensuite l’équipage se débrouille pour faire au plus efficace.
+- Le sous-marin doit rester **le plus silencieux possible**. Il y a donc un capteur qui vérifie qu’il n’y ait pas de bruit trop puissant, et prévient. **Le chef doit alors appeler** tous les membres pour savoir qui est à l’origine du bruit.
+  - L’un des officiers suggère de changer cette pratique, pour que ce soit les membres de l’équipage qui **préviennent d’eux-mêmes** à chaque fois qu’ils font un bruit trop important.
+  - Finalement, l’efficacité est bien plus grande puisque de nombreux bruits non captés par le capteur sont aussi rapportés, et l’équipage fait bien plus attention.
+- **Spécifier des objectifs plutôt que des méthodes est un mécanisme qui permet la compétence** des subordonnés, et leur **apporte de la clarté**.
+  - Ils vont alors se démener pour trouver de bonnes solutions et donc monter en compétence, et iront dans le bon sens puisque l’objectif est là.
+- **Questions à se poser :**
+  - Les procédures dans notre entreprise vont-elles à l’encontre de l’efficacité et de l’excellence technique ?
+  - Est-ce que nos employés s’occupent de suivre les procédures au détriment des objectifs collectifs.
