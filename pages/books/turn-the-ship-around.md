@@ -372,7 +372,7 @@
   - Est-ce qu’en tant que leader on met tous les outils à disposition des subordonnés pour qu’ils réussissent leurs objectifs professionnels et personnels ?
   - Est-ce qu’on protège les subordonnés des conséquences de leurs actes ?
 
-## 22 - A Remembrance of War
+### 22 - A Remembrance of War
 
 - En passant près d’un endroit où **un ancien sous-marin a été coulé** pendant la 2ème guerre mondiale, l’équipage commémore le moment.
   - En plus de ce genre d’action, ils lisaient aussi des citations de bataille, de médaille d’honneur etc. à chaque fois qu’un membre était promu.
@@ -383,3 +383,15 @@
 - **Questions à se poser :**
   - Quel est l’héritage de notre organisation, et qu’est-ce qu’il révèle sur sa raison d’être ?
   - Comment raviver cet héritage aujourd’hui ?
+
+### 23 - Leadership at Every Level
+
+- L’auteur demande à l’équipage de se réunir et de chercher **les principes qui devraient guider les décisions**, pour rédiger un cadre directeur de valeurs.
+  - Le critère pour savoir si un principe est bon ou pas c’est de se demander si ce principe peut aider à prendre une décision.
+  - Pour que ces principes soient vraiment incarnés, ils étaient par exemple utilisés pour les félicitations et évaluations, en disant que telle personne a fait preuve de telle et telle qualité issue des principes directeurs.
+- **Utiliser des principes directeurs pour prendre les décisions est un mécanisme de clarté** pour les subordonnés.
+  - Attention par contre à ce que les principes soient alignés avec ce que l’organisation fait vraiment, sinon les décisions ne seront pas alignées, ou les principes ne seront pas utilisés.
+  - Un moyen simple de savoir si les principes sont alignés avec ce que l’organisation fait vraiment est de demander aux employés quels sont les principes selon lesquels ils fonctionnent.
+- **Questions à se poser :**
+  - A quelles occasions est-ce qu’on met nos principes directeurs en avant ?
+  - Comment faire pour que les employés les connaissent, et les utilisent vraiment pour prendre des décisions ?
