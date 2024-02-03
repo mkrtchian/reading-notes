@@ -371,3 +371,15 @@
 - **Questions à se poser :**
   - Est-ce qu’en tant que leader on met tous les outils à disposition des subordonnés pour qu’ils réussissent leurs objectifs professionnels et personnels ?
   - Est-ce qu’on protège les subordonnés des conséquences de leurs actes ?
+
+## 22 - A Remembrance of War
+
+- En passant près d’un endroit où **un ancien sous-marin a été coulé** pendant la 2ème guerre mondiale, l’équipage commémore le moment.
+  - En plus de ce genre d’action, ils lisaient aussi des citations de bataille, de médaille d’honneur etc. à chaque fois qu’un membre était promu.
+  - Ils ont aussi visité un musée consacré aux sous-marins à Pearl Harbor.
+- **Utiliser l’héritage de l’organisation comme inspiration est un mécanisme qui permet la clarté**.
+  - Il s’agit de se rappeler des moments fondateurs, par exemple des crises qui ont été surmontées, et de les utiliser comme sources d’inspiration.
+  - On peut en parler de temps en temps, les inclure dans notre manifeste, dans des rapports etc.
+- **Questions à se poser :**
+  - Quel est l’héritage de notre organisation, et qu’est-ce qu’il révèle sur sa raison d’être ?
+  - Comment raviver cet héritage aujourd’hui ?
