@@ -324,7 +324,7 @@
   - A quel point est-ce que les gens se préparent avant un événement ?
   - Qu'est-ce qu’il faudrait pour certifier nos équipes à propos du fait qu’il connaissent les objectifs collectifs et comment y contribuer ?
 
-## 19 - All Present and Accounted For
+### 19 - All Present and Accounted For
 
 - Un officier prévient l’auteur qu’un des officiers junior en charge de faire le guet est porté **absent sans permission**.
   - Le top management se réunit pour discuter de son cas. Une partie d’entre eux pensent qu’il faut une punition exemplaire, alors que l’autre partie pense qu’il fait du bon travail, et qu’il a été trop surmené récemment et a eu besoin de dormir.
@@ -337,7 +337,7 @@
   - Quel message faut-il répéter au middle management pour qu’il intègre qu’il faut d’abord qu’ils prennent soin de leurs subordonnés, avant de penser à eux-mêmes ?
   - Quand est-ce qu’un leader peut outrepasser un protocole pour aider un subordonné en difficulté ?
 
-## 20 - Final Preparations
+### 20 - Final Preparations
 
 - Les chefs de département préparent un **exercice de déclenchement de feu**, sachant qu’il faut en théorie l’arrêter en 2mn pour qu’il soit contenu.
   - L’équipage **échoue lamentablement** en mettant beaucoup trop de temps, parce que les plus proches de l’extincteur ne sont pas ceux habilités à le manipuler. La procédure joue contre l’efficacité.
@@ -351,3 +351,23 @@
 - **Questions à se poser :**
   - Les procédures dans notre entreprise vont-elles à l’encontre de l’efficacité et de l’excellence technique ?
   - Est-ce que nos employés s’occupent de suivre les procédures au détriment des objectifs collectifs.
+
+## IV - Clarity
+
+### 21 - Under Way for Deployment
+
+- Le moment arrive enfin où le Santa Fe est prêt pour partir en mission, après presque 6 mois de préparation.
+- Le management se réunit, et décide de définir des **objectifs globaux** autour de thèmes : _empowerment, efficiency, and tactical excellence_.
+  - L’auteur décide de répandre cette information de manière la plus large possible.
+  - Ils décident aussi d’encourager les subordonnés à se définir des **objectifs d’amélioration personnels**.
+- Les **promotions se sont mal passées** pour l’équipage du Santa Fe : il y en a eu très peu.
+  - L’auteur remarque que les subordonnés ne connaissent pas bien le fonctionnement du système de promotions. En fait, c'est l’examen qui fait la différence.
+  - Ils décident donc d’aider les subordonnés par des formations, avec des **examens internes d’entraînement**, plus difficiles que les examens de promotion.
+  - Des mois plus tard, les résultats se révèlent bien meilleurs. Et ça continue les années suivantes.
+- L’officier de plus haut rang après l’auteur avait besoin d’aller voir son père malade, et l’ingénieur avait besoin d’aller voir sa femme qui allait accoucher. L’auteur tenait absolument à ce que ces **permissions soient accordées**.
+  - Les permissions ont pu être accordées, parce que les compétences de l’ensemble de l’équipage avaient été améliorées grâce au système leader-leader.
+- **Créer de la confiance et prendre soin des subordonnés est un mécanisme qui améliore la clarté**.
+  - Il ne s’agit pas de les protéger de leur propre comportement, ce qui mènerait à l’irresponsabilité, mais plutôt à leur donner les meilleurs outils et avantages possibles, y compris en dehors de leur travail.
+- **Questions à se poser :**
+  - Est-ce qu’en tant que leader on met tous les outils à disposition des subordonnés pour qu’ils réussissent leurs objectifs professionnels et personnels ?
+  - Est-ce qu’on protège les subordonnés des conséquences de leurs actes ?
