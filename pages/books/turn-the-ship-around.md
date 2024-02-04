@@ -475,3 +475,10 @@
 - **Questions à se poser :**
   - Est-ce qu’on s’arrête à l’étape de l’empowerment ou est-ce qu’on va plus loin ?
   - Est-ce qu’on a mis en place les mécanismes de compétence et de clarté pour que l’empowerment finisse par être permanent ?
+
+### 29 - Ripples
+
+- 10 ans plus tard, l’auteur constate que **le Santa Fe est toujours sur un modèle leader-leader**, et que de nombreux anciens officiers ont été promus.
+- Si le modèle leader-leader peut marcher pour des militaires, il peut bien marcher n’importe où. Mais l’auteur a constaté, en faisant du consulting auprès d’entreprises, que **le modèle qu’il propose doit quand même être adapté** :
+  - Par exemple, déléguer la validation des congés aux chefs peut se retranscrire par le fait de déléguer la dépense d’argent par les employés.
+- L’auteur pense que le plus difficile pour un leader qui veut adopter la posture leader-leader, c’est de **ne pas céder à la tentation de prendre le contrôle pour soi**.
