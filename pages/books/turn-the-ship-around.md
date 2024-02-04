@@ -395,3 +395,15 @@
 - **Questions à se poser :**
   - A quelles occasions est-ce qu’on met nos principes directeurs en avant ?
   - Comment faire pour que les employés les connaissent, et les utilisent vraiment pour prendre des décisions ?
+
+## 24 - A Dangerous Passage
+
+- Le sous-marin devait traverser une zone étroite et peu profonde, où traversent des centaines de bateaux. Ils suivaient un grand bateau de près, quand **ils ont failli percuter un autre bateau**.
+  - Un des officiers a donné l’alerte courageusement, et a permis de faire éviter la collision.
+  - L’auteur a alors **félicité l’officier immédiatement** devant les autres, et a laissé la récompense formelle pour un peu plus tard.
+- **La reconnaissance immédiate pour renforcer le comportement désiré est un mécanisme de clarté** envers les subordonnés.
+  - Il faut par contre que l’objet de la reconnaissance soit **par rapport à des objectifs vis-à-vis de l’extérieur plutôt que par rapport à une compétition avec les autres**.
+    - Si la reconnaissance se fait par rapport à une compétition, il y a le risque qu’il y ait moins d’esprit d’équipe, et que les employés passent plus de temps que nécessaire sur une tâche particulière.
+    - Par exemple : féliciter les employés qui éteignent le feu en moins de 2 minutes, plutôt que féliciter les 10% des employés les plus rapides à éteindre le feu.
+- **Questions à se poser :**
+  - Est-ce qu’on a dans notre organisation un système pour féliciter immédiatement un employé ?
