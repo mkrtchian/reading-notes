@@ -430,7 +430,7 @@
   - Est-ce qu’on saura si on a atteint nos objectifs personnels et celle de l’organisation ?
   - Comment trouver du temps pour que les subordonnés et le chef puissent se mentorer mutuellement ?
 
-## 26 - Combat Effectiveness
+### 26 - Combat Effectiveness
 
 - L’équipage participait à un exercice, après la mission de 6 mois, où il s’agissait de permettre à un commando d’exécuter une mission à l’extérieur, puis de les récupérer dans le sous-marin.
   - L’ensemble de la préparation s’est faite en mode leader-leader, l’auteur n’a pas eu besoin de donner de directives pour que chacun s’organise pour préparer de quoi prendre en charge d’éventuels membres du commando blessés.
@@ -442,7 +442,7 @@
   - Est-ce que nos employés nous suivraient dans nos erreurs en tant que leader ?
   - Comment faire pour que ces erreurs ne soient pas propagées mais plutôt arrêtées, d’où qu’elles viennent ?
 
-## 27 - Homecoming
+### 27 - Homecoming
 
 - Au retour de la mission, l’auteur est fier de faire le constat de nombreux succès :
   - Ils ont passé avec succès l’ensemble des exercices et inspections.
@@ -461,3 +461,17 @@
       - De la responsabilité vis-à-vis des conséquences de ces décisions.
 - **Questions à se poser :**
   - Est-ce qu’on est prêt à entamer la transition leader-leader pour notre organisation ?
+
+### Resupplying
+
+- Un an et demi après la mission précédente, ils partent pour une autre mission.
+- Ils ont malheureusement une **petite fuite de carburant**, qui va les forcer à écourter la mission s’ils ne font rien.
+  - Ils naviguent dans un endroit fréquenté, et l’une des jeunes recrues a une idée en reconnaissant un bâteau ravitailleur militaire : il suffit de lui demander du carburant.
+  - L’auteur est d’accord, et en deux temps trois mouvements **l’ensemble de l’équipage se met en marche de lui-même** pour organiser l’action, en contactant le bâteau qui accepte, puis en s'approchant, récupérant le carburant et d’autres ressources.
+  - L’auteur admet qu’il n’aurait pas pu organiser une telle action aussi vite, et que c’est grâce au mode leader-leader où chaque personne agit d’elle-même que ça peut marcher.
+- Pour aller au bout de la transformation leader-leader, il faut **dépasser l’empowerment, et aller vers l’émancipation**.
+  - L’_empowerment_ est nécessaire au début parce que les gens sont habitués au modèle leader-follower, mais une fois qu’il s’habituent à l’autonomie, et se voient renforcés par les mécanismes de compétence et de clarté, ils n’ont plus besoin d’être _empowered_.
+  - Une fois émancipés, ils ne tirent plus leur source de pouvoir du chef qui aurait besoin de les _empower_ en continu. Ils sont complètement autonomes, émancipés.
+- **Questions à se poser :**
+  - Est-ce qu’on s’arrête à l’étape de l’empowerment ou est-ce qu’on va plus loin ?
+  - Est-ce qu’on a mis en place les mécanismes de compétence et de clarté pour que l’empowerment finisse par être permanent ?
