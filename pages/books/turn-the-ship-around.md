@@ -429,3 +429,15 @@
   - A quel point est-ce qu’on pense loin dans le temps ?
   - Est-ce qu’on saura si on a atteint nos objectifs personnels et celle de l’organisation ?
   - Comment trouver du temps pour que les subordonnés et le chef puissent se mentorer mutuellement ?
+
+## 26 - Combat Effectiveness
+
+- L’équipage participait à un exercice, après la mission de 6 mois, où il s’agissait de permettre à un commando d’exécuter une mission à l’extérieur, puis de les récupérer dans le sous-marin.
+  - L’ensemble de la préparation s’est faite en mode leader-leader, l’auteur n’a pas eu besoin de donner de directives pour que chacun s’organise pour préparer de quoi prendre en charge d’éventuels membres du commando blessés.
+  - L’auteur pense qu’il faut reculer pour se positionner correctement, et en donne l’ordre d’un air un peu paniqué. **Mais l’un des jeunes officiers lui dit qu’il a tort**.
+  - S’ils avaient suivi l’ordre de l’auteur, ils auraient potentiellement raté le commando.
+- L’auteur soupçonne qu’un tragique accident d’un autre sous-marin ait eu lieu parce que l’équipage n’avait pas osé aller contre les ordres du capitaine.
+- **Avoir une attitude de questionnement plutôt que d’obéissance aveugle est un mécanisme de clarté** pour les subordonnés.
+- **Questions à se poser :**
+  - Est-ce que nos employés nous suivraient dans nos erreurs en tant que leader ?
+  - Comment faire pour que ces erreurs ne soient pas propagées mais plutôt arrêtées, d’où qu’elles viennent ?
