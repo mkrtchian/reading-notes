@@ -396,7 +396,7 @@
   - A quelles occasions est-ce qu’on met nos principes directeurs en avant ?
   - Comment faire pour que les employés les connaissent, et les utilisent vraiment pour prendre des décisions ?
 
-## 24 - A Dangerous Passage
+### 24 - A Dangerous Passage
 
 - Le sous-marin devait traverser une zone étroite et peu profonde, où traversent des centaines de bateaux. Ils suivaient un grand bateau de près, quand **ils ont failli percuter un autre bateau**.
   - Un des officiers a donné l’alerte courageusement, et a permis de faire éviter la collision.
@@ -407,3 +407,25 @@
     - Par exemple : féliciter les employés qui éteignent le feu en moins de 2 minutes, plutôt que féliciter les 10% des employés les plus rapides à éteindre le feu.
 - **Questions à se poser :**
   - Est-ce qu’on a dans notre organisation un système pour féliciter immédiatement un employé ?
+
+### 25 - Looking Ahead
+
+- Le Santa Fe avait fini par être prêt à partir en mission 2 semaines avant la date prévue, parce que l’auteur et le top management avaient **planifié la chose bien en amont** pour laisser 2 semaines de repos à l’équipage avant la mission de 6 mois.
+  - Finalement ils ont dû partir plus tôt, et ont vu leurs repos écourtés, mais ils étaient bien prêts 2 semaines avant.
+  - Le secret de leur réussite a été de **commencer en ayant le but final en tête** (finir 2 semaines plus tôt), et planifier le reste en fonction de ça.
+- Pour continuer sur la lancée de voir loin, l’auteur a mis en place une heure par jour de **mentoring avec à chaque fois un des membres du top management**, pour l’aider à établir ses objectifs personnels.
+  - L’auteur apprenant autant que la personne qu’il mentorait, donc il considère que c’était des sessions leader-leader.
+  - Il insiste sur le fait que les objectifs doivent être sur le temps long : une ou plusieurs années.
+  - Il a mis un accent particulier à **rendre les objectifs mesurables** :
+    - En posant la question : comment sauras-tu que tu as atteint cet objectif ?
+    - En mettant les outils en place pour collecter les données qui permettent de mesurer les progrès.
+- **Commencer en ayant le but final en tête est un mécanisme de clarté** pour les subordonnés, parce qu’il permet de ne pas perdre l’objectif de vue.
+- Pour le faire, on peut :
+  - Relire ce chapitre, et le chapitre 2 de **_The 7 Habits of Highly Effective People_**.
+  - Créer des objectifs organisationnels pour les 3 à 5 ans avec les autres leaders.
+  - Demander à chaque fois “Comment est-ce qu’on le saura ?”, et ajouter les systèmes de mesure.
+  - Demander aux employés de se trouver des objectifs mesurables, en accord avec les objectifs de l’organisation.
+- **Questions à se poser :**
+  - A quel point est-ce qu’on pense loin dans le temps ?
+  - Est-ce qu’on saura si on a atteint nos objectifs personnels et celle de l’organisation ?
+  - Comment trouver du temps pour que les subordonnés et le chef puissent se mentorer mutuellement ?
