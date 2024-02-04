@@ -441,3 +441,23 @@
 - **Questions à se poser :**
   - Est-ce que nos employés nous suivraient dans nos erreurs en tant que leader ?
   - Comment faire pour que ces erreurs ne soient pas propagées mais plutôt arrêtées, d’où qu’elles viennent ?
+
+## 27 - Homecoming
+
+- Au retour de la mission, l’auteur est fier de faire le constat de nombreux succès :
+  - Ils ont passé avec succès l’ensemble des exercices et inspections.
+  - Ils ont maintenu et développé un fonctionnement leader-leader.
+    - Stephen Covey est même venu sur le sous-marin et a félicité l’équipage pour l’empowerment.
+  - Ils ont permis à un grand nombre de membres de l’équipage d’avoir des promotions, et ont eu un taux de réenrolements très élevé.
+- L’une des pratiques majeures qui a permis de minimiser les erreurs a été l’utilisation de **l’action délibérée** de la part de l’équipage.
+- Pour **adopter le modèle leader-leader**, l’auteur conseille :
+  - 1 - Il faut trouver où l’excellence est créée dans notre organisation. En général il s’agit de l’interface avec le monde physique, et de l’interface avec les clients.
+  - 2 - Trouver les décisions que les personnes à l’interface doivent prendre pour réaliser l’excellence technique.
+  - 3 - Trouver ce qu’il faudrait pour que ces employés puissent prendre ces décisions.
+    - Il leur faut en général :
+      - De la connaissance technique.
+      - Une bonne compréhension des objectifs de l’entreprise.
+      - De l’autorité pour prendre les décisions.
+      - De la responsabilité vis-à-vis des conséquences de ces décisions.
+- **Questions à se poser :**
+  - Est-ce qu’on est prêt à entamer la transition leader-leader pour notre organisation ?
