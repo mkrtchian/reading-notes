@@ -20,3 +20,15 @@
     - Ils ont plus particulièrement exploré les pratiques techniques et leur impact, et la partie project management (l’impact des pratiques lean notamment).
   - 2017 :
     - Ils ont creusé le rôle de l’architecture, du leadership de transformation, et ont inclus les organisations à but non lucratif.
+
+## Part I: What We Found
+
+### 1 - Accelerate
+
+- Le logiciel représente un des leviers majeurs de croissance pour tous types d’entreprises.
+- Les pratiques décrites dans ce livre peuvent être considérées comme issues du mouvement DevOps.
+- Il y a un écart important entre les diverses entreprises qui existent en termes de maturité sur les pratiques logicielles, et l'écart entre les meilleures et les moins bonnes organisations se creuse.
+- Les leaders ont tendance à surestimer la maturité de leur organisation par rapport aux subordonnés.
+- Pour la transformation de l'organisation, les auteurs conseillent d’**utiliser un _capability model_ plutôt qu’un _maturity model_** : il s’agit d’être dans une amélioration continue et de se baser sur des outcomes pour suivre l’évolution.
+- Il y a souvent un désaccord sur quels aspects se concentrer dans une transformation. Les auteurs ont trouvé 24 éléments qui peuvent être suivis facilement, et dont ils ont montré qu’ils permettent la performance de la delivery et de l’organisation.
+- Vu que l’étude inclut tout type d’organisations (toute tailles, greenfield comme brownfield, tous types de stacks techniques etc.), **le contenu du livre s’appliquera aussi à notre organisation**.
