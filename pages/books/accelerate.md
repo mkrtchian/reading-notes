@@ -32,3 +32,36 @@
 - Pour la transformation de l'organisation, les auteurs conseillent d’**utiliser un _capability model_ plutôt qu’un _maturity model_** : il s’agit d’être dans une amélioration continue et de se baser sur des outcomes pour suivre l’évolution.
 - Il y a souvent un désaccord sur quels aspects se concentrer dans une transformation. Les auteurs ont trouvé 24 éléments qui peuvent être suivis facilement, et dont ils ont montré qu’ils permettent la performance de la delivery et de l’organisation.
 - Vu que l’étude inclut tout type d’organisations (toute tailles, greenfield comme brownfield, tous types de stacks techniques etc.), **le contenu du livre s’appliquera aussi à notre organisation**.
+
+### 2 - Measuring Performance
+
+- La performance de la production logicielle est **compliquée à mesurer**. Les méthodes qui le font se concentrent en général sur les outputs plutôt que les outcomes, et sur le local plutôt que le global.
+  - Par exemple, certaines entreprises mesurent le nombre de lignes de code, ce qui donne du logiciel difficile à maintenir..
+  - Les entreprises utilisant les méthodes agiles utilisent parfois la notion de vélocité pour mesurer la productivité. Ça conduit les équipes à surestimer les tâches et moins collaborer avec les autres équipes.
+  - Certaines entreprises tentent de maximiser l’utilisation des développeurs, mais ça mène à des équipes incapables de réaliser les tâches à cause du travail non planifié qui n’a pas de place.
+- Pour mesurer efficacement, il faut :
+  - Se concentrer sur le **global plutôt que le local**, pour éviter par exemple un conflit entre objectifs des devs et des ops.
+  - Considérer les **outcomes plutôt que les outputs**, pour éviter de favoriser le travail inutile.
+- Les auteurs ont considéré **4 critères** de mesure efficace de la performance :
+  - 1 - Le** delivery lead time**.
+    - Dans le lean il s’agit du temps entre une demande du client, et la livraison.
+    - Dans le développement logiciel, il s’agit du temps pour réaliser un changement et l’amener en production. On compte ici seulement la partie delivery parce qu’elle est plus stable que la partie discovery.
+    - Les auteurs le mesurent comme étant le **temps entre le code commité et le code qui tourne en production**.
+    - Avoir un lead time court permet d’avoir un cycle de feedback plus rapide.
+  - 2 - La **fréquence de déploiement**.
+    - C’est un proxy pour le _batch size_ dans le lean. L’idée c’est de réduire le _batch size_ pour baisser la variabilité et le risque de défaut.
+    - Les auteurs le mesurent comme étant le **nombre de déploiements en production** faits par unité de temps.
+  - 3 - Le **temps moyen pour restaurer le système**.
+    - Il s’agit d’une métrique de stabilité.
+    - Les auteurs le mesurent comme étant **la durée pour rétablir le service dans le cas où il a été interrompu ou dégradé**.
+  - 4 - Le **pourcentage d’échec suite à un changement**.
+    - Il s’agit d’une métrique de qualité.
+    - Les auteurs le mesurent comme étant **le pourcentage de changements qui ont mené à une interruption ou une dégradation du système**.
+- Les auteurs ont utilisé la technique statistique du _cluster analysis_ pour regrouper les organisations par paquets.
+  - Ils ont constaté que les organisations performaient en général à peu près de la même manière sur les 4 critères. Ca veut dire qu’**il n’y a pas de compromis entre la vitesse et la stabilité ou la qualité**, puisque certains critères mesurent la vitesse, et d’autres la stabilité ou la qualité.
+- Pour démontrer que les critères choisis sont pertinents vis-à-vis de l’organisation, les auteurs ont aussi demandé aux sondés comment leur organisation performait d’un point de vue **profitabilité et parts de marché**.
+  - Les données montrent que les organisations qui performant bien sur les 4 critères sont deux fois plus performantes en termes de profitabilité que les mauvais performers sur les 4 critères.
+  - Le même résultat a été trouvé en utilisant des **critères de performance organisationnelle non commerciaux** : quantité et qualité de services et de biens, satisfaction des clients etc.
+- Etant donné que la delivery logicielle a un impact sur l’organisation, les auteurs conseillent de **garder les logiciels stratégiques dans l’entreprise**, et de sous-traiter ou utiliser des logiciels-as-a-service pour les logiciels non stratégiques.
+  - Il s’agit du cœur du _Wardley Mapping_.
+- Attention par contre à s’assurer d’abord d’avoir une culture d’amélioration continue et d’apprentissage avant d’essayer d’avancer sur ces métriques dans notre organisation. Si l’organisation est pathologique, les employés cacheront des choses et falsifieront les chiffres.
