@@ -7,19 +7,16 @@
 - Entre 2014 et 2017, les 3 auteurs ont mené une recherche sur l’efficacité des organisations qui font du logiciel, en publiant chaque année le _State of DevOps Report_. Ce livre résume leurs découvertes.
 - Ils ont principalement **utilisé des sondages** pour collecter leur donnée, et renvoient à la partie II de ce livre pour montrer en quoi leur méthode **permet une recherche scientifique**.
 - Ce qu’ils ont fait chaque année :
-  - 2014 :
+  - **2014** :
     - Ils ont eu une approche plutôt exploratoire, en essayant de savoir quelles étaient les caractéristiques de la delivery logicielle dans les organisations, et ce qui l’impactait.
     - Ils ont découvert que :
       - Le _throughput_ et la stabilité allaient ensemble.
       - La capacité à faire de la bonne delivery avait un impact sur la profitabilité de l’entreprise.
       - La culture et les pratiques techniques avaient un impact.
     - Ils ont fait évoluer la méthode de collecte de résultats pour avoir des éléments plus précis.
-  - 2015 :
-    - Ils ont confirmé les résultats de 2014, et les ont poussés plus loin.
-  - 2016 :
-    - Ils ont plus particulièrement exploré les pratiques techniques et leur impact, et la partie project management (l’impact des pratiques lean notamment).
-  - 2017 :
-    - Ils ont creusé le rôle de l’architecture, du leadership de transformation, et ont inclus les organisations à but non lucratif.
+  - **2015** : Ils ont confirmé les résultats de 2014, et les ont poussés plus loin.
+  - **2016** : Ils ont plus particulièrement exploré les pratiques techniques et leur impact, et la partie project management (l’impact des pratiques lean notamment).
+  - **2017** : Ils ont creusé le rôle de l’architecture, du leadership de transformation, et ont inclus les organisations à but non lucratif.
 
 ## Part I: What We Found
 
@@ -43,7 +40,7 @@
   - Se concentrer sur le **global plutôt que le local**, pour éviter par exemple un conflit entre objectifs des devs et des ops.
   - Considérer les **outcomes plutôt que les outputs**, pour éviter de favoriser le travail inutile.
 - Les auteurs ont considéré **4 critères** de mesure efficace de la performance :
-  - 1 - Le** delivery lead time**.
+  - 1 - Le **delivery lead time**.
     - Dans le lean il s’agit du temps entre une demande du client, et la livraison.
     - Dans le développement logiciel, il s’agit du temps pour réaliser un changement et l’amener en production. On compte ici seulement la partie delivery parce qu’elle est plus stable que la partie discovery.
     - Les auteurs le mesurent comme étant le **temps entre le code commité et le code qui tourne en production**.
