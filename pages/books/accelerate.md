@@ -65,3 +65,28 @@
 - Etant donné que la delivery logicielle a un impact sur l’organisation, les auteurs conseillent de **garder les logiciels stratégiques dans l’entreprise**, et de sous-traiter ou utiliser des logiciels-as-a-service pour les logiciels non stratégiques.
   - Il s’agit du cœur du _Wardley Mapping_.
 - Attention par contre à s’assurer d’abord d’avoir une culture d’amélioration continue et d’apprentissage avant d’essayer d’avancer sur ces métriques dans notre organisation. Si l’organisation est pathologique, les employés cacheront des choses et falsifieront les chiffres.
+
+### 3 - Measuring and Changing Culture
+
+- La culture d’une organisation est en général divisée dans le milieu académique en 3 niveaux :
+  - 1 - Les _basic asumptions_ qui représentent les comportements ancrés et difficiles à conceptualiser par les acteurs eux-mêmes.
+  - 2 - Les _values_ qui peuvent être discutées par les acteurs, et qui sont ce qu’on appelle habituellement “culture” pour une organisation ou une équipe.
+  - 3 - Les _artifacts_ qui sont les plus visibles, et sont constitués par des documents écrits, des procédures, des rituels etc.
+- Les auteurs de ce livre ont choisi de se concentrer sur le 2ème niveau, et ont en particulier choisi le **modèle de Westrum**.
+  - Ils s‘agit de classifier les organisations en 3 catégories :
+    - **Pathological** : le management se fait par la peur et la menace. Les employés font souvent de la rétention ou de la distorsion de l’information pour des raisons politiques.
+    - **Bureaucratic** : chaque département établit ses règles et procédures, et insiste sur leur strict respect. Suivre les règles est plus important que la mission.
+    - **Generative** : ce qui est mis en avant c’est la performance et l’accomplissement de l’objectif de l’organisation. Tout découle de ça.
+  - Pour Westrum, le type d’organisation influence grandement la manière dont l’information circule à l’intérieur de celle-ci.
+  - Le modèle de Westrum indique que les organisations génératives ont 3 avantages :
+    - Les employés collaborent mieux et ont un plus grand niveau de confiance.
+    - La mission étant mise en avant, les querelles personnelles ou de département passent au second plan.
+    - La hiérarchie joue un rôle mineur comparé aux autres types.
+  - Les auteurs ont pu démontrer que **le type génératif d’organisation mène à une meilleure performance de delivery et organisationnelle**.
+  - Ils ont aussi pu montrer que les pratiques comme la _continuous delivery_ et les pratiques de _lean management_ permettent d’aller vers le type génératif.
+- Pour **mesurer le type de culture d’organisation**, les auteurs utilisent des questions de type _Likert_, c’est-à-dire la possibilité de mettre entre “Strongly disagree” et “Strongly agree” avec 7 niveaux de granularité.
+  - Une fois les mesures obtenues, les auteurs font une analyse de cohérence des données avant de les utiliser pour des interprétations : il s’agit d’analyser un _construct_.
+    - Est-ce que les choses qui doivent aller ensemble ont été effectivement répondues ensemble, est-ce que les éléments qui ne sont pas liés ne le sont effectivement pas etc.
+    - Leur analyse démontre que le _construct_ basé sur le modèle de Westrum est fiable.
+- Un autre _construct_ a été fait avec les 4 métriques de la delivery performance, mais seules 3 des métriques ont passé l’analyse pour former un _construct_ cohérent : le delivery lead time, la fréquence de déploiement et le temps pour restaurer le système.
+  - Le pourcentage d’échec après changement ne fait pas partie du _construct_, bien qu’il soit aussi corrélé aux autres.
