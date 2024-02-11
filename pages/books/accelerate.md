@@ -87,3 +87,39 @@
     - Leur analyse démontre que le _construct_ basé sur le modèle de Westrum est fiable.
 - Un autre _construct_ a été fait avec les 4 métriques de la delivery performance, mais seules 3 des métriques ont passé l’analyse pour former un _construct_ cohérent : le delivery lead time, la fréquence de déploiement et le temps pour restaurer le système.
   - Le pourcentage d’échec après changement ne fait pas partie du _construct_, bien qu’il soit aussi corrélé aux autres.
+
+## 4 - Technical Practices
+
+- La **continuous delivery** consiste à pouvoir livrer en continu. Elle a les caractéristiques suivantes :
+  - La qualité est intégrée au processus de développement.
+  - Les changements sont de petite taille.
+  - Les tests sont automatisés.
+  - L’équipe est dans une démarche d'amélioration permanente.
+  - Chacun est responsable d’atteindre les objectifs organisationnels.
+  - Côté technique :
+    - La configuration est versionnée, et appliquée automatiquement dans les étapes de build, test et déploiement.
+    - Les changements sont intégrés en continu.
+    - Les tests sont écrits en même temps que le code.
+- Les auteurs ont mesuré, et montré que les caractéristiques suivantes participaient à améliorer la performance de la delivery (en réalisant des _constructs_ pour la plupart):
+  - L’utilisation d’un **système de versionning**, non seulement pour le code, mais aussi pour la configuration système et la configuration de l’application.
+    - Le fait que la configuration système et la configuration de l’application soit versionnée a une corrélation particulièrement forte avec la performance de la delivery.
+  - L’utilisation d’une **suite de tests automatisés** joués régulièrement.
+    - Le fait que ces tests soient fiables (pas de faux positifs ou négatifs) joue aussi dans la corrélation avec la performance de la delivery.
+    - Les tests écrits par les développeurs, plutôt que par des QA ou des sous-traitants, est aussi corrélé à la performance.
+  - Le **déploiement automatisé**.
+  - L’intégration continue, aussi appelé **trunk-based development**, où une branche ne dure pas plus d’un jour avant d’être intégrée à la branche principale.
+  - Le **_shift left_ sur la sécurité**, c’est-à-dire qu’elle soit intégrée au processus de développement.
+  - La **disponibilité de données pour réaliser des tests** : les équipes de développement peuvent disposer de telles données pour jouer les tests au besoin.
+- Les auteurs ont trouvé que les pratiques associées à la _continuous delivery_ avaient :
+  - Un impact positif sur la **performance de delivery** :
+    - Un meilleur résultat sur les 4 métriques de performance de delivery.
+  - Un impact positif sur la **performance organisationnelle** :
+    - Une tendance vers la culture générative au sens de Westrum.
+    - Le fait que les employés s’identifient fortement à l’organisation.
+  - Un impact positif sur le **bien-être des employés** :
+    - Un taux de burnout plus faible chez les employés.
+    - Un plus faible ressenti de “douleur” lié au déploiement de la part des employés.
+  - Un impact positif sur la **qualité** :
+    - Un plus faible pourcentage d’échec suite à un changement, qui est une métrique de qualité en plus de faire partie des 4 métriques de performance de la delivery.
+    - Une meilleure qualité du produit perçue par les employés.
+    - Un plus faible pourcentage de temps passé sur du travail non prévu, et à résoudre les bugs remontés par les clients.
