@@ -123,3 +123,21 @@
     - Un plus faible pourcentage d’échec suite à un changement, qui est une métrique de qualité en plus de faire partie des 4 métriques de performance de la delivery.
     - Une meilleure qualité du produit perçue par les employés.
     - Un plus faible pourcentage de temps passé sur du travail non prévu, et à résoudre les bugs remontés par les clients.
+
+## 5 - Architecture
+
+- La continuous delivery permet d'améliorer la performance sous plusieurs aspects, mais elle est parfois difficile à mettre en place quand l’architecture des systèmes existants n’est pas adaptée.
+- Les auteurs ont récupéré des données de **différents types de systèmes**, mais ont trouvé que seuls les cas où le logiciel est sous-traité, et le cas où c’est un système mainframe avaient une performance de delivery moindre.
+  - Le fait que les systèmes soient greenfield, anciens, auto-hébergés ou non, service oriented ou non, incluant du logiciel embarqué ou non etc. n’a pas de corrélation avec la performance.
+- Les auteurs ont trouvé que la caractéristique importante était **que les systèmes soient faiblement couplés**.
+  - Ceux qui performent le mieux répondent à ces caractéristiques :
+    - Ils n’ont pas besoin d’un environnement intégré type staging / pré-production pour la plupart de leur tests.
+    - Ils déploient leur application/service indépendamment des autres équipes.
+    - Ils peuvent faire des changements majeurs dans leur application sans l’accord d’une personne extérieure à l’équipe, et sans coordination avec d’autres équipes.
+  - Ca implique que les équipes soient pluridisciplinaires pour pouvoir réaliser leurs tâches sans avoir à communiquer des détails de ces tâches avec d’autres équipes.
+- Ils ont trouvé que pour les high-performers, **plus l’organisation est grande et plus le nombre de déploiements par développeur est grand**.
+  - A l’inverse, pour les low performers, la fréquence de déploiement par développeur baisse quand l’organisation est plus grande.
+- Les auteurs ont trouvé que globalement, bien que la standardisation amène certains bénéfices, **laisser les équipes choisir leurs outils** et frameworks augmentait la performance de delivery et de l’organisation.
+  - Ça n'empêche que la standardisation dans des domaines particuliers est plus efficace, comme par exemple l’architecture et la configuration de l’infrastructure, ou encore les librairies liées à la sécurité.
+  - Il s’agit en fait de laisser les équipes choisir leurs outils, y compris des outils standards dans le cas où ils le trouvent pertinent et où ça leur facilite la vie.
+  - Ils ont aussi trouvé que le plus efficace pour **les architectes** était qu’ils se concentrent sur le fait d’aider les développeurs à atteindre leurs outcomes, en aidant à une architecture découplée par exemple, et non pas qu’ils se concentrent sur le choix des outils.
