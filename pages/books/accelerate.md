@@ -168,3 +168,19 @@
   - Une culture de type générative.
   - Une meilleure performance de la delivery.
   - Moins de burnout chez les employés.
+
+## 8 - Product Development
+
+- Ce qu’on appelle agile n’en est souvent pas vraiment : on passe de longs mois à attribuer le budget, faire de l’analyse, créer des requirements, qui donnent lieu à de gros projets de delivery, avec le feedback client laissé pour la fin.
+  - Le lean et le mouvement _lean startup_ prônent au contraire la **product discovery auprès des clients, depuis le début et tout au long** du développement des fonctionnalités.
+  - Les auteurs citent **_The Lean Startup_** d’Eric Ries, qui s’est inspiré du lean, du _design thinking_, et du travail de Steve Blank.
+- Les auteurs ont mesuré les pratiques produit suivantes issues du lean :
+  - Le fait de **découper les fonctionnalités** en use-cases réalisables en moins d’une semaine.
+  - Le fait que l’équipe ait la visibilité et la compréhension de **l’ensemble de la chaîne du business à la delivery**.
+  - Le fait que les organisations fassent de la **discovery régulière**, et utilisent le résultat de cette discovery comme feedback pour concevoir leurs produits.
+  - Le fait que les équipes aient **l’autorité pour modifier les spécifications** pendant le développement, sans demander la permission.
+- Les auteurs ont trouvé que ces pratiques prédisaient :
+  - La performance de la delivery.
+  - La performance organisationnelle.
+  - Une culture générative.
+  - Un taux de burnout plus faible des employés.
