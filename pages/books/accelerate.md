@@ -150,3 +150,21 @@
   - Former les développeurs aux pratiques de sécurité.
   - Que les experts en sécurité fournissent des outils et librairies de sécurité pour les développeurs.
   - Que les experts en sécurité interviennent auprès des développeurs pendant le développement des features, plutôt qu’à une phase séparée et ultérieure.
+
+## 7 - Management Practices for Software
+
+- Historiquement les logiciels étaient principalement gérés par un management de projet. Après les années 2000, la méthodologie agile et le lean se sont peu à peu imposés. Le lean a initialement été adapté pour le logiciel par les livres de Mary et Tom Poppendieck.
+- La recherche menée par les auteurs s’intéresse en particulier à l’impact des pratiques issues du lean sur la performance de la delivery. Ils ont spécifiquement étudié 4 pratiques :
+  - 1 - Le fait de **limiter le nombre de tâches en parallèle**, et d’utiliser cette limitation pour améliorer le process et l’efficacité.
+    - Les auteurs posent spécifiquement la question de savoir si la limitation permet aux sondés l’amélioration du process et du throughput.
+  - 2 - Le fait d’**afficher graphiquement les métriques de productivité et l’état actuel du travail**, y compris les défauts, à la fois pour les leaders et les employés.
+    - Les auteurs demandent à quel point ces visuels sont disponibles facilement pour tout le monde.
+  - 3 - Le fait d’**utiliser les données de monitoring et de performance pour prendre des décisions** business au quotidien.
+  - 4 - Le fait d’**avoir un process review du code “light”**.
+    - Les auteurs ont mesuré l’impact d’un organisme externe à l’équipe qui doit valider les changements de code, le peer reviewing à l’intérieur de l’équipe (pair programming ou asynchrone), et le fait de n’avoir aucun mécanisme de review.
+    - Le résultat est que **les équipes qui utilisent le peer review et celles qui n’ont pas de mécanisme de review du tout** ont une meilleure performance de la delivery que les autres.
+    - Les reviews par un organisme externe à l’équipe ralentissent la delivery, mais n’apportent pas plus de stabilité.
+- Les auteurs ont trouvé que les pratiques de lean management mesurées menaient à :
+  - Une culture de type générative.
+  - Une meilleure performance de la delivery.
+  - Moins de burnout chez les employés.
