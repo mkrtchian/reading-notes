@@ -151,7 +151,7 @@
   - Que les experts en sécurité fournissent des outils et librairies de sécurité pour les développeurs.
   - Que les experts en sécurité interviennent auprès des développeurs pendant le développement des features, plutôt qu’à une phase séparée et ultérieure.
 
-## 7 - Management Practices for Software
+### 7 - Management Practices for Software
 
 - Historiquement les logiciels étaient principalement gérés par un management de projet. Après les années 2000, la méthodologie agile et le lean se sont peu à peu imposés. Le lean a initialement été adapté pour le logiciel par les livres de Mary et Tom Poppendieck.
 - La recherche menée par les auteurs s’intéresse en particulier à l’impact des pratiques issues du lean sur la performance de la delivery. Ils ont spécifiquement étudié 4 pratiques :
@@ -169,7 +169,7 @@
   - Une meilleure performance de la delivery.
   - Moins de burnout chez les employés.
 
-## 8 - Product Development
+### 8 - Product Development
 
 - Ce qu’on appelle agile n’en est souvent pas vraiment : on passe de longs mois à attribuer le budget, faire de l’analyse, créer des requirements, qui donnent lieu à de gros projets de delivery, avec le feedback client laissé pour la fin.
   - Le lean et le mouvement _lean startup_ prônent au contraire la **product discovery auprès des clients, depuis le début et tout au long** du développement des fonctionnalités.
@@ -184,3 +184,39 @@
   - La performance organisationnelle.
   - Une culture générative.
   - Un taux de burnout plus faible des employés.
+
+### 9 - Making Work Sustainable
+
+- Les auteurs ont mesuré deux éléments qui sont le signe que le travail n’est pas soutenable par les employés.
+- **La “douleur” liée au déploiement**.
+  - Il s’agit d’un bon indicateur pour mesurer le **degré d’anxiété des employés**, à quel point le déploiement est un sujet de stress pour eux.
+  - Les auteurs ont trouvé que la faible douleur liée du déploiement était corrélée avec :
+    - Les pratiques liées à la _continuous delivery_.
+    - L’architecture découplée.
+    - La performance organisationnelle.
+    - Le type de culture générative au sens de Westrum.
+  - Les raisons pour lesquelles il y a de la douleur liée au déploiement peuvent être quand :
+    - Le logiciel est déployé selon une procédure complexe parce qu’il n’a **pas été pensé pour la déployabilité**. Les échecs sont nombreux et difficiles à investiguer.
+    - Il faut faire des **changements manuels** au moment du déploiement.
+    - Dans des organisations silotées techniquement, le déploiement **implique plusieurs équipes**.
+- **Le burnout**.
+  - Le burnout est une maladie qui fait que le malade se sent insignifiant, désespéré, épuisé, inefficace et cynique. Il peut mener à des dépressions et même au suicide.
+  - Christina Maslach a fait une étude en 2008, et a retenu les 6 facteurs suivants **prédisant le burnout** :
+    - 1 - Trop de travail.
+    - 2 - Impossibilité pour l’employé d’influer sur ce qui le concerne au quotidien.
+    - 3 - Récompenses insuffisantes.
+    - 4 - Environnement où les personnes ne s’entraident pas.
+    - 5 - Manque d’équité dans le processus de prise de décision.
+    - 6 - Différence entre les valeurs de l’employé et celles de l’entreprise.
+  - Pour **mesurer le burnout**, les auteurs ont mesuré :
+    - Si les répondants se sentaient épuisés.
+    - S’ils se sentaient indifférents ou cyniques, ou encore inefficaces.
+    - Si leur travail avait un impact négatif sur leur vie.
+  - Globalement, les auteurs ont montré que les pratiques de continuous delivery et de lean management réduisaient le burnout.
+  - Parmi les **facteurs contribuant au burnout**, les auteurs ont trouvé :
+    - La culture organisationnelle pathologique. Au lieu de ça, il faut traiter les erreurs comme une opportunité d’apprendre.
+    - La douleur liée au déploiement.
+    - Les leaders inefficaces à supporter l’équipe.
+    - Le faible investissement de l’organisation dans le DevOps.
+    - Le manque de temps accordé aux employés pour expérimenter, apprendre.
+    - Une discordance entre les valeurs de l’employé et celles de l’entreprise, sachant que ce qui compte c’est les valeurs réelles de l’entreprise vécues par les employés.
