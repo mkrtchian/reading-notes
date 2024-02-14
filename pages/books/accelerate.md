@@ -253,3 +253,30 @@
 - Concernant la **diversité** dans les équipes, de nombreuses études montrent de manière constante qu’elle impacte positivement la performance.
   - Les auteurs ont trouvé que seules **peu d’équipes avaient de la diversité** de genre et en termes d’inclusion de minorités.
   - Pour que la diversité fonctionne vraiment, il faut qu’il y ait aussi de l’**inclusion**, c’est-à-dire que toutes les personnes se sentent intégrées, et reconnues pour ce qu’elles apportent.
+
+### 11 - Leaders and Managers
+
+- Les auteurs pensent que le leadership est fondamental pour mettre en place les pratiques qui permettent aux organisations d’être performantes.
+  - Le _leadership transformationnel_ consiste à inspirer les équipes par la vision, les valeurs. Il s’agit de faire en sorte que les employés s’identifient à l’entreprise et servent ses objectifs, là où le _servant leadership_ consiste à aider les employés à se développer.
+- Les auteurs ont choisi de se concentrer sur le **leadership transformationnel**.
+  - Pour l’appréhender et construire un questionnaire, ils se sont basés sur le modèle de Rafferty et Griffin où le leader a :
+    - Une vision d’où l’organisation doit aller dans les années qui viennent.
+    - Une communication inspirante et motivante.
+    - Stimule et challenge les subordonnés.
+    - Montre de la considération pour les subordonnés et leur situation personnelle.
+    - Félicite les réussites des subordonnés.
+  - Les auteurs ont trouvé que les organisations où les leaders avaient ces caractéristiques étaient beaucoup plus souvent dans les **high performers** en termes de performance de la delivery et organisationnelle.
+    - C’est aussi corrélé avec la satisfaction et la loyauté des employés.
+- Les auteurs ont trouvé que les trois **pratiques de management** suivantes sont corrélées avec la performance de la delivery :
+  - La **collaboration cross-fonctionnelle** passe par :
+    - Créer une relation de confiance avec les autres équipes, en ayant un comportement prévisible et en tenant ses promesses.
+    - Favoriser les mouvements de développeurs entre équipes.
+    - Encourager les travail qui facilite la collaboration.
+  - Le **climat d’apprentissage** passe par :
+    - Mettre en place un budget de formation et encourager à l’utiliser.
+    - Libérer du temps pour que les employés apprennent et explorent des idées, par exemple 15 ou 20%.
+    - Faire en sorte que l’échec soit une opportunité d’apprentissage.
+    - Mettre en place des moments de partage de savoir.
+  - Le fait d’**utiliser efficacement les Outils** passe par :
+    - Laisser les équipes choisir leurs outils.
+    - Faire du monitoring une priorité.
