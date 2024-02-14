@@ -220,3 +220,36 @@
     - Le faible investissement de l’organisation dans le DevOps.
     - Le manque de temps accordé aux employés pour expérimenter, apprendre.
     - Une discordance entre les valeurs de l’employé et celles de l’entreprise, sachant que ce qui compte c’est les valeurs réelles de l’entreprise vécues par les employés.
+
+### 10 - Employee Satisfaction, Identity, and Engagement
+
+- Les auteurs ont trouvé que la **satisfaction et l’engagement des employés** prédisent :
+  - La réduction du burnout.
+  - La performance organisationnelle, à travers la profitabilité et les parts de marché.
+- L’engagement et la **loyauté des employés** a été mesurée par le NPS (Net Promoter Score), où on demande aux employés s’ils recommanderaient leur entreprise à un ami pour venir y travailler, puis s’ils recommanderaient leur équipe.
+  - Les bon performers recommandent leur entreprise 2.2 fois plus que les mauvais performers.
+  - Cette métrique s’est révélée corrélée à :
+    - La collecte et la prise en compte des feedbacks utilisateurs pour construire le produit.
+    - La capacité des équipes produit à avoir une visibilité sur l’ensemble du flow business, discovery et delivery.
+    - L’identification des employés aux valeurs de leur entreprise, et leur effort pour qu’elle réussisse.
+- Les auteurs ont étudié l’**identification des employés à leur entreprise**.
+  - Ils ont trouvé que la _continuous delivery_ et les pratiques de management lean impactent l’identification des employés à leur entreprise, et qui à son tour impacte positivement la performance organisationnelle.
+  - Pour mesurer l’identification, ils ont posé des questions issues d’une autre étude, en mode Likert :
+    - Je suis heureux de travailler dans cette entreprise en particulier.
+    - Je parle de mon entreprise dans mon entourage.
+    - Je suis prêt à faire un effort au-delà de ce qui est attendu pour mon entreprise.
+    - Mes valeurs correspondent à celles de mon entreprise.
+    - Mes collègues et moi travaillons vers le même objectif.
+    - Je sens que mon entreprise se soucie de moi.
+  - Étant donné que l'identification inclut l'identification aux valeurs de l’entreprise, on a une réduction du burnout quand l’identification est forte.
+  - La plupart des entreprises confient des requirements sous forme de gros batch à des équipes de delivery : ça a pour conséquence que les équipes se sentent déconnectées de leur travail puisqu’elles n’ont pas de prise dessus, et en particulier **déconnectés des éventuels mauvais outcomes**.
+    - Ce que les auteurs conseillent c’est de mettre en place plutôt une culture de l’expérimentation et de l’apprentissage, à travers des pratiques techniques et managériales.
+- Les auteurs ont trouvé que la continuous delivery et les pratiques de management issues du lean favorisent la **satisfaction au travail**, qui elle-même prédit la performance organisationnelle.
+  - Pour mesurer la satisfaction, ils ont regardé si les employés étaient satisfaits de leur travail, s’ils avaient les bons outils et ressources, et si leurs compétences étaient mises à profit.
+  - Les pratiques DevOps qui sont les plus corrélées avec la satisfaction au travail sont :
+    - Le monitoring proactif.
+    - L’automatisation des tests et du déploiement.
+    - Le fait que les employés prennent des décisions basées sur les boucles de feedbacks.
+- Concernant la **diversité** dans les équipes, de nombreuses études montrent de manière constante qu’elle impacte positivement la performance.
+  - Les auteurs ont trouvé que seules **peu d’équipes avaient de la diversité** de genre et en termes d’inclusion de minorités.
+  - Pour que la diversité fonctionne vraiment, il faut qu’il y ait aussi de l’**inclusion**, c’est-à-dire que toutes les personnes se sentent intégrées, et reconnues pour ce qu’elles apportent.
