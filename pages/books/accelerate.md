@@ -280,3 +280,30 @@
   - Le fait d’**utiliser efficacement les Outils** passe par :
     - Laisser les équipes choisir leurs outils.
     - Faire du monitoring une priorité.
+
+## Part II - The Research
+
+### 12 - The Science Behind the Book
+
+- La **recherche primaire** consiste à ce que l’équipe qui fait l’étude collecte elle-même la donnée. Elle a donc un certain contrôle sur le type de données dont elle a besoin. La **recherche secondaire** consiste à ce que l’équipe qui fait l’étude récupère les données récoltées par d’autres personnes. Elle est limitée à ce qui existe déjà.
+- La **recherche qualitative** consiste à récolter des données non chiffrées, et à l’analyser dans sa diversité. La recherche quantitative consiste à récolter des données chiffrées, et baser l’analyse sur ça. Ça a l’avantage de pouvoir être traité par ordinateur, et par des méthodes statistiques.
+- Jeffrey Leek a proposé un modèle pour classifier les analyses statistiques des données, du plus simple au plus complexe :
+  - 1 - **Descriptive** : il s’agit de décrire la donnée, et de permettre de la comprendre.
+    - Par exemple, le rapport de recensement de la population est une analyse descriptive.
+    - Dans ce livre, les auteurs utilisent ce type d’analyse pour présenter la population sur laquelle les études ont été menées.
+  - 2 - **Exploratory** : il s’agit de trouver des relations entre les données, notamment des **corrélations**, qui ne sont pas des causalités.
+    - De nombreux exemples dans ce livre utilisent des corrélations de Pearson, qui sont les plus classiques dans les analyses de contexte business.
+  - 3 - **Inferential predictive** : il s’agit de partir de théories, et de les tester contre les faits, de la même manière que la méthode scientifique où on établit une hypothèse puis on la teste.
+    - Si on ne partait pas de théories pour les tester, on prendrait le risque de trouver des corrélations aléatoires et sans aucun sens.
+    - Dans ce livre, ce type d’analyse est utilisé pour vérifier que la continuous delivery l’architecture découplée,e t la culture générative impactent la performance de la delivery et la performance de l’organisation.
+  - 4 - **Predictive** : Il s’agit de prédire des événements futurs grâce à des données historiques.
+  - 5 - **Causal** : Il s’agit du gold standard pour le contexte business, où on mène une étude randomisée.
+    - Un exemple d’analyse causale peut être l’A/B testing dans le cadre de la product discovery.
+  - 6 - **Mechanistic** : ce type d’analyse est plutôt adapté au monde de la physique. Il s’agit de prévoir des changements exacts, dans des conditions précises, et de faire l’expérience qui prouve que notre compréhension des phénomènes est la bonne.
+- La **classification analysis** (ou _clustering analysis_) est un autre type d’analyse, classé généralement en tant qu’exploratory, predictive ou causal.
+  - Il s’agit d’entrer des variables dans l’algorithme de clustering, et de constater des groupes se former.
+  - Les auteurs l’ont utilisé pour identifier les différences entre les _high performers_ et les _low performers_ dans les 4 métriques de performance de la delivery.
+- Les études derrière ce livre :
+  - Se basent sur une recherche primaire.
+  - Se base sur de la recherche quantitative, en particulier via l’utilisation des réponses type Likert qui sont chiffrées.
+  - Utilise les analyses de type _descriptive_, _exploratory_, _inferential predictive_ et _classification_.
