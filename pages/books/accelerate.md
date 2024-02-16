@@ -343,3 +343,21 @@
     - Le fait que la donnée vienne de nombreux sondés la rend d’autant plus résiliente aux acteurs malveillants, qui devraient alors se coordonner en grand nombre.
   - **4 - Certaines choses ne peuvent être mesurées que par des sondages.**
     - Quand on veut par exemple connaître la manière dont les employés se sentent, par exemple comme proxy pour la culture organisationnelle, on est obligé de leur demander.
+
+## 15 - The Data for the Project
+
+- Pour collecter leurs données, les auteurs ont visé des personnes qui étaient déjà **familières avec le terme DevOps**.
+  - Les personnes visées étaient forcément des professionnels du développement logiciel.
+  - Elles avaient plus de chances de terminer le sondage parce qu’elles comprenaient les concepts demandés dans les questions.
+  - En revanche, ça veut aussi dire qu’une part non négligeable des entreprises dont les employés ne sont pas du tout familiers avec le DevOps, la continuous integration et ce genre de concepts, ont été de fait mises de côté. Les auteurs le justifient par le fait qu’il faut toujours faire des choix, et que ça a permis de creuser davantage sur la population répondante.
+- Les auteurs sont conscients que **certains répondants pourraient vouloir donner une bonne image** de leur entreprise en disant par exemple qu’ils font de la _continuous integration_ parce que ça fait “bien” d’en faire.
+  - Pour éviter ce biais, ils ont par exemple posé des questions qui décrivent chaque caractéristique de la _continuous integration_, par exemple tests automatisés, trunk-based development etc. et non pas si les personnes pratiquaient la _continuous integration_ directement.
+- Concernant le **choix de l’échantillon**, les auteurs ont dû se rabattre sur un échantillon non basé sur les probabilités, pour des considérations pratiques (il n’existe pas de liste de pratiquants du DevOps dans le monde, et ils n’ont pas les moyens de piocher dedans).
+  - Ils ont utilisé les canaux de chacun des auteurs pour toucher un maximum de monde intéressés par le concept de DevOps.
+  - Ils ont utilisé les réseaux sociaux pour étendre encore plus.
+  - Ils ont utilisé certains canaux spécialisés pour toucher des minorités.
+  - Ils ont aussi demandé aux répondants d’inviter des personnes à leur tour, ce qui a l’avantage de convaincre les personnes réticentes parce qu’elles pensent qu’il s’agit d’un piège.
+- Les auteurs sont conscients que leur étude **pourrait ne pas être représentative de l’industrie**. Pour l’éviter ils :
+  - Ils se tiennent au courant de ce qui se passe dans l’industrie, en demandant des feedbacks à la communauté et à d’autres collègues.
+  - Ils demandent chaque année à des experts externes à l’étude et à la communauté, de donner des feedbacks sur leurs hypothèses, et les utilisent pour améliorer l’étude de l’année suivante.
+  - Ils explorent la littérature pour voir si des patterns n’émergent pas dans d’autres domaines, et qui pourraient être applicables dans le développement logiciel.
