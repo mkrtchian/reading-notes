@@ -307,3 +307,22 @@
   - Se basent sur une recherche primaire.
   - Se base sur de la recherche quantitative, en particulier via l’utilisation des réponses type Likert qui sont chiffrées.
   - Utilise les analyses de type _descriptive_, _exploratory_, _inferential predictive_ et _classification_.
+
+### 13 - Introduction to Psychometrics
+
+- Les gens pensent en général que les données issues de sondages ne sont pas fiables, mais c’est parce qu’ils ont une expérience des sondages dégradée par les **mauvais sondages**.
+  - On peut en particulier penser aux sondages politiques dont les questions sont souvent l’objet de manipulations ou d’incompétence des sondeurs.
+- Parmi les **mauvaises pratiques** liées aux sondages, il y a :
+  - Les questions orientées, où la formulation va biaiser le sondé. Par exemple : “Est-ce que Napoléon était petit ?” plutôt que “Comment décririez-vous la taille de Napoléon ?”.
+  - Les questions chargées, où le sondé ne peut pas répondre sans mentir, par exemple “Où avez-vous passé vos examens ?” si les sondés n’en ont pas forcément passé.
+  - Plusieurs questions en une, où on ne peut pas dire si le sondé répondait à la première partie de la question ou la deuxième.
+  - Un langage peu clair, ou avec lequel le sondé n’est pas familier.
+- Les auteurs utilisent le **latent construct** pour avoir des données issues de sondages plus fiables. Ils vont mesurer plusieurs aspects d’un concept transformé en _construct_, à travers des questions pour chaque aspect.
+  - C’est le cas par exemple pour le _construct_ de la culture organisationnelle, inspirée du modèle de Westrum.
+  - La technique permet de **bien réfléchir à ce qu’on mesure**. Elle force notamment à définir les termes, et ce que les réponses veulent dire et impliquent.
+  - Elle permet de **voir les résultats sous plusieurs angles**, et d’éliminer plus facilement les mauvaises données.
+    - On collecte la donnée, puis on fait des tests d’intégrité pour vérifier qu’elle est cohérente : s’assurer que les choses qui ne devraient pas être liées entre-elles ne le sont pas, et qu’à l’inverse celles qui devraient être liées entre-elles le sont.
+  - **Une mauvaise donnée a moins de chances de corrompre les résultats** étant donné que les auteurs réalisent régulièrement des tests d’intégrité statistiques pour vérifier la nature du _construct_ vis-à-vis des données.
+    - Il est possible que les données ne soient pas cohérentes entre elles, mais que plusieurs groupes, plusieurs _constructs_ se dégagent.
+    - Une fois qu’on choisit les constructs à tester, des données individuelles qui ne respectent pas l’intégrité vis-à-vis de ce _construct_ peuvent plus facilement être identifiées et éventuellement écartées.
+  - Toutes ces considérations sur les _latent constructs_ peuvent aussi être appliquées à des mesures techniques du système, par exemple mesurer la performance d’un système sous plusieurs aspects, et pouvoir identifier des données individuelles incohérentes.
