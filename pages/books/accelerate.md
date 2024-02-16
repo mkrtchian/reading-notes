@@ -326,3 +326,20 @@
     - Il est possible que les données ne soient pas cohérentes entre elles, mais que plusieurs groupes, plusieurs _constructs_ se dégagent.
     - Une fois qu’on choisit les constructs à tester, des données individuelles qui ne respectent pas l’intégrité vis-à-vis de ce _construct_ peuvent plus facilement être identifiées et éventuellement écartées.
   - Toutes ces considérations sur les _latent constructs_ peuvent aussi être appliquées à des mesures techniques du système, par exemple mesurer la performance d’un système sous plusieurs aspects, et pouvoir identifier des données individuelles incohérentes.
+
+### 14 - Why Use a Survey
+
+- Les auteurs **utilisent les sondages pour plusieurs raisons** :
+  - **1 - La collecte est rapide**.
+    - Collecter des données système venant de milliers d’équipes en quelques semaines serait impossible.
+    - L’analyse de la donnée leur prenait à chaque fois quelques semaines aussi, et si il s’agissait de données système, il faudrait les traiter et normaliser individuellement, ce qui prendrait là aussi bien plus que quelques semaines.
+    - Il y aurait aussi des biais dans les résultats puisque les concepts que chaque équipe utilise en interne sont différents. Les sondages, au contraire, permettent de clarifier au maximum en donnant une définition de ce qu’on demande, plutôt que d’utiliser les concepts que chaque organisation a en interne.
+  - **2 - Il est difficile de mesurer le système de bout en bout.**
+    - Les mesures système mesurent des choses précises, mais il est fréquent que certains aspects ne soient pas pris en compte.
+    - Les sondages au contraire font appel aux êtres humains, qui ont une expérience globale du système avec lequel ils travaillent, et peuvent en rendre compte.
+  - **3 - La donnée des sondages est fiable.**
+    - On peut la comparer à la donnée de logs venant d’un système : dans les deux cas il peut y avoir des acteurs malveillants qui la modifient, ou des personnes qui ont fait des erreurs qui la rendent fausse.
+    - Il semblerait que les développeurs fassent plus confiance à la donnée de logs système parce qu’ils pensent pouvoir appréhender les erreurs, mais il en est de même pour les données de sondages avec les techniques de _latent construct_, vérifications d’intégrité statistiques, utilisation de termes neutres dans les questions etc.
+    - Le fait que la donnée vienne de nombreux sondés la rend d’autant plus résiliente aux acteurs malveillants, qui devraient alors se coordonner en grand nombre.
+  - **4 - Certaines choses ne peuvent être mesurées que par des sondages.**
+    - Quand on veut par exemple connaître la manière dont les employés se sentent, par exemple comme proxy pour la culture organisationnelle, on est obligé de leur demander.
