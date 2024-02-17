@@ -344,7 +344,7 @@
   - **4 - Certaines choses ne peuvent être mesurées que par des sondages.**
     - Quand on veut par exemple connaître la manière dont les employés se sentent, par exemple comme proxy pour la culture organisationnelle, on est obligé de leur demander.
 
-## 15 - The Data for the Project
+### 15 - The Data for the Project
 
 - Pour collecter leurs données, les auteurs ont visé des personnes qui étaient déjà **familières avec le terme DevOps**.
   - Les personnes visées étaient forcément des professionnels du développement logiciel.
@@ -361,3 +361,38 @@
   - Ils se tiennent au courant de ce qui se passe dans l’industrie, en demandant des feedbacks à la communauté et à d’autres collègues.
   - Ils demandent chaque année à des experts externes à l’étude et à la communauté, de donner des feedbacks sur leurs hypothèses, et les utilisent pour améliorer l’étude de l’année suivante.
   - Ils explorent la littérature pour voir si des patterns n’émergent pas dans d’autres domaines, et qui pourraient être applicables dans le développement logiciel.
+
+## Part III - Transformation
+
+### 16 - High-Performance Leadership and Management
+
+- Steve et Karen Bell pensent que le leadership dans le monde de la technologie n’est clairement pas au niveau. On fait des progrès techniques, mais on n’est pas suffisamment au clair sur le rôle des leaders.
+- Ils proposent d’explorer des pratiques de management efficaces au travers l’exemple d’**ING Netherlands**.
+  - La partie tech/produit a été mise dans le même bâtiment que les C-levels, parce qu’ils sont considérés maintenant comme importants.
+  - Ils ont une salle _Obeya_, où les leaders se réunissent pour discuter de la stratégie, et visualiser les différents éléments sur les murs.
+    - La salle contient une zone pour :
+      - Les améliorations stratégiques.
+      - Le monitoring de performance.
+      - La roadmap produit.
+      - Les actions des leaders.
+    - Elle suit un code couleur pour distinguer les problèmes par exemple.
+  - La **topologie d’équipe** est composée de tribes le long de chaque verticale business, chacune composée d’équipes autonomes, avec la règle des 2 pizzas (américaines) pour la taille de l’équipe.
+    - La plupart des équipes contiennent un PM, des **ingénieurs** et des personnes du **marketing**, et travaillent autour de la valeur pour le client : on appelle cette composition le **BizDevOps**.
+    - La squad est marquée sur le schéma comme étant **démantelée une fois la mission accomplie**, mission qui semble être un objectif client, et non pas une verticale produit..
+    - Il y a un axe secondaire regroupant les employés par horizontale technique, il s’agit des _chapters_.
+    - Et enfin des groupements d’expertise, par exemple autour de l’architecture.
+    - Les chapters ont leur lead, de même qu’il y a un lead pour al tribe, alors que le PM est au même niveau que le reste de la squad.
+  - Le changement de culture dans toute l’entreprise se fait par du coaching : les top leaders accompagnés d’experts en lean coachent les autres leaders, qui à leur tour coachent le reste des employés.
+  - Chaque squad a sa salle, avec des visuels qui concernent son travail sur les murs : objectifs, résultats, travail en cours etc.
+  - Les équipes pratiquent le stand-up :
+    - Il s’agit de réunions de 15 mn où chacun fait un statut sur ce qu’il fait et des problèmes qu’il rencontre. Les problèmes sont ensuite discutés et traités après le meeting, et surtout ils sont mis sur un visuel.
+    - Les leaders de tribe font leur stand-up après celle de la squad, et le senior leadership encore après, ce qui permet d’avoir un système de _Catchball_ où les problèmes qui doivent être escaladés peuvent remonter dans la journée.
+  - Les leaders pratiquent le _Gemba walk_ chez les squads, en posant des questions : “Expliquez-moi votre problème, qu’est-ce que je peux faire pour vous ? Expliquez-moi ce que vous apprenez.”.
+    - Les leaders sont dans une démarche de coaching, où un des objectifs est de développer les employés, plutôt que dans une démarche command and control.
+  - Pour choisir leurs pratiques, les équipes expérimentent, puis “standardisent” la pratique, et partagent le standard avec les autres équipes, qui pourront expérimenter le standard pour en faire un standard à eux ou non.
+- Pour **changer la culture** d’une organisation, les auteurs proposent de partir sur la piste de **l’apprentissage** : d’abord apprendre à apprendre, en commençant par le top management, puis aider les autres à apprendre à apprendre.
+  - A ING Netherlands, les leaders ont commencé par eux, en engageant des coachs pour les accompagner dans cette démarche, puis ils ont aidé les subordonnés.
+  - Vu qu’il s’agit d’apprentissage, il n’est pas possible de simplement copier les pratiques d’une autre entreprise. On peut s’en inspirer, mais il va falloir **les expérimenter et les valider**.
+  - Il ne faut pas non plus employer une entreprise pour faire la transformation, elle doit être faite par les employés eux-mêmes. Les consultants externes peuvent au mieux servir de coachs en apprentissage.
+  - Pour faire la transformation, il faut de la discipline et de la patience pour construire de nouvelles habitudes.
+  - [Un résumé des pratiques habituelles des équipes qui performant selon Steve et Karen se trouve ici](https://itrevolution.com/wp-content/uploads/2022/06/transformation_practices.pdf).
