@@ -24,3 +24,132 @@
 - Au final, le TDD permet à une équipe de développeurs moyens de faire la même chose. Il suffit de suivre deux règles avec discipline :
   - **Écrire un test qui échoue avant d’écrire du code**.
   - **Enlever la duplication**.
+
+## Part I - The Money Example
+
+- Les étapes fondamentales du TDD sont :
+  - 1 - Ajouter un test rapidement.
+  - 2 - Jouer tous les tests, et voir un seul en erreur.
+  - 3 - Faire un petit changement.
+  - 4 - Jouer tous les tests et les voir en succès.
+  - 5 - Refactorer pour enlever la duplication.
+- Parmi les choses qui seront surprenantes :
+  - A quel point chaque test couvre peu de fonctionnalités.
+  - A quel point les changements initiaux sont petits et sales.
+  - A quel point on joue souvent les tests.
+  - Le nombre important d’étapes pour le refactoring.
+
+### 1 - Multi-Currency Money
+
+- Le logiciel gère des actions d’entreprises, et permet à un client de calculer le montant total de ses actions en dollars, en fonction du prix de chaque action.
+  - La nouvelle fonctionnalité “multi-currency” consiste à ce que le montant des actions puisse être renseigné dans d’autres devises, sachant qu’à la fin on voudra quand même calculer le total de l’ensemble des actions en dollars.
+  - On a l’information du taux de conversion entre devises dans une table.
+- La première chose à faire en TDD est de se poser la question des** fonctionnalités qu’on veut, exprimées sous forme de tests**, qui s’ils passent prouveront que le code fait ce qu’on veut.
+- On va créer une** todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter on l’ajoute, et dès qu’on en a fini une on la coche ou barre.
+  - Dans l’état actuel, on a deux idées :
+    ```
+    $5 + 10CHF = $10 si le taux est de 2:1
+    $5 * 2 = $10
+    ```
+- On commence par **écrire un test** pour la fonctionnalité de multiplication :
+  ```typescript
+  it("multiplies money value with given value", () => {
+    const five = new Dollar(5);
+    five.times(2);
+    expect(five.amount).toBe(10);
+  });
+  ```
+  - Des problèmes nous viennent en tête à propos de notre test :
+    - Quid des side-effects dans la classe Dollar ?
+    - La variable membre _amount_ devrait être privée.
+    - Est-ce qu’on veut vraiment utiliser des entiers pour les valeurs ?
+    - **On les met dans notre todo list, et on garde notre objectif de faire passer le test au vert rapidement**.
+    ```
+    $5 + 10CHF = $10 si le taux est de 2:1
+    $5 * 2 = $10
+    Mettre "amount" en privé
+    Quid des side-effects de Dollar ?
+    ```
+- Il nous faut déjà **régler les erreurs de compilation**.
+  - On va les régler une par une :
+    - Créer la classe _Dollar_.
+    - Lui ajouter une méthode _times_ qui ne fait rien.
+    - Lui ajouter une variable membre _amount_.
+    ```typescript
+    class Dollar {
+      public amount: number = 0;
+      times(multiplier: number) {}
+    }
+    ```
+- On peut enfin **jouer le test et le voir échouer**.
+- On fait **passer le test de la manière la plus rapide** :
+  ```typescript
+  class Dollar {
+    public amount: number = 10;
+    times(multiplier: number) {}
+  }
+  ```
+- On va maintenant **enlever la duplication** :
+
+  - Elle se situe ici entre le code et le test.
+  - On peut commencer par remplacer `10` par `5 * 2`.
+    ```typescript
+    class Dollar {
+      public amount: number = 5 * 2;
+      times(multiplier: number) {}
+    }
+    ```
+  - On peut ensuite déplacer le `5 * 2` dans la méthode _times_.
+
+    ```typescript
+    class Dollar {
+      public amount: number;
+
+      constructor() {
+        this.mount = 0;
+      }
+
+      times(multiplier: number) {
+        return 5 * 2;
+      }
+    }
+    ```
+
+  - Puis on peut remplacer le 5 qui est en fait la variable member _amount_.
+
+    ```typescript
+    class Dollar {
+      public amount: number;
+
+      constructor() {
+        this.mount = 0;
+      }
+
+      times(multiplier: number) {
+        return this.amount * 2;
+      }
+    }
+    ```
+
+  - Et enfin on peut remplacer le 2 qui est le paramètre _multiplier_.
+
+    ```typescript
+    class Dollar {
+      public amount: number;
+
+      constructor() {
+        this.mount = 0;
+      }
+
+      times(multiplier: number) {
+        return this.amount * multiplier;
+      }
+    }
+    ```
+
+  - Le test passe toujours.
+
+- La raison pour laquelle on enlève la duplication est pour enlever des dépendances, parce que **la duplication est le symptôme de la dépendance**.
+  - L’idée est de faire en sorte que le prochain test puisse être passé au vert en un seul changement, et non pas en ayant à changer le code en plusieurs endroits.
+- Les étapes au moment du refactoring sont **extrêmement petites**. Kent **ne code pas toujours comme ça, mais il _peut_ coder comme ça**.
+  - Il faut s’exercer à le faire : si on sait coder par étapes extrêmement petites, alors on saura doser jusqu'à la bonne étape, alors que si on ne sait coder que par grandes étapes, on ne saura pas si on descend suffisamment petit.
