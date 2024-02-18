@@ -48,7 +48,7 @@
 - On va créer une** todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter on l’ajoute, et dès qu’on en a fini une on la coche ou barre.
   - Dans l’état actuel, on a deux idées :
     - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-    - [ ] $5 \* 2 = $10
+    - [ ] $5\* 2 = $10
 - On commence par **écrire un test** pour la fonctionnalité de multiplication :
   ```typescript
   it("multiplies money value with given value", () => {
@@ -63,7 +63,7 @@
     - Est-ce qu’on veut vraiment utiliser des entiers pour les valeurs ?
     - **On les met dans notre todo list, et on garde notre objectif de faire passer le test au vert rapidement**.
       - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-      - [ ] $5 \* 2 = $10
+      - [ ] $5\* 2 = $10
       - [ ] Mettre "amount" en privé
       - [ ] Quid des side-effects de Dollar ?
 - Il nous faut déjà **régler les erreurs de compilation**.
@@ -150,13 +150,13 @@
 - Les étapes au moment du refactoring sont **extrêmement petites**. Kent **ne code pas toujours comme ça, mais il _peut_ coder comme ça**.
   - Il faut s’exercer à le faire : si on sait coder par étapes extrêmement petites, alors on saura doser jusqu'à la bonne étape, alors que si on ne sait coder que par grandes étapes, on ne saura pas si on descend suffisamment petit.
 
-## 2 - Degenerate Objects
+### 2 - Degenerate Objects
 
 - Le TDD consiste vraiment à **privilégier le fait que ça marche en premier**, avant de faire en sorte d’avoir du clean code.
   - Si on a une solution évidente en tête, on peut toujours l’écrire, mais si la solution “évidente” met une minute, il vaut mieux commencer par une solution qui marche en quelques secondes.
 - On en est à cet état de la todo list :
   - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-  - [x] $5 \* 2 = $10
+  - [x] $5\* 2 = $10
   - [ ] Mettre "amount" en privé
   - [ ] Quid des side-effects de Dollar ?
 - Avec la version actuelle, on a un problème de side-effect : si on appelle plusieurs fois _times()_ sur un objet _Dollar_, la valeur du dollar sera modifiée plusieurs fois.
@@ -182,7 +182,7 @@
       }
     }
     ```
-  - Et enfin on fait passer le test en changeant l’implémentation de <em>times</em> de la bonne manière.
+  - Et enfin on fait passer le test en changeant l’implémentation de times de la bonne manière.
     ```typescript
     class Dollar {
       // ...
@@ -193,7 +193,7 @@
     ```
 - Et voilà un item de plus fait sur notre todo list :
   - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-  - [x] $5 \* 2 = $10
+  - [x] $5\* 2 = $10
   - [ ] Mettre "amount" en privé
   - [x] Quid des side-effects de Dollar ?
 - Ca fait deux techniques pour faire passer le test :
@@ -201,3 +201,55 @@
   - 2 - **Écrire directement l’implémentation évidente** comme dans ce chapitre.
   - Kent utilise la 2 tant que tout va bien, et dès qu’il tombe sur des tests qui restent rouges, il repasse sur la 1 et reprend une approche plus incrémentale pour faire passer le test au vert. Puis il repasse à la 2 dès qu’il reprend confiance.
   - Il y a une 3ème technique exposée dans le chapitre d’après.
+
+### 3 - Equality for All
+
+- _Dollar_ est en fait un **Value Object**.
+  - Ça a l’avantage qu’il ne posera pas de problèmes d’_aliasing_, c’est-à-dire qu’une instance quelque part n’affectera pas une autre instance ailleurs dans le code.
+  - Il lui manque une méthode _equals()_ parce que deux _value objects_ qui ont les mêmes attributs sont censés être égaux, et une méthode _hashCode()_ pour qu’il puisse être la clé d’une hashMap.
+  - On ajoute ces éléments à notre todo list :
+    - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+    - [x] $5\* 2 = $10
+    - [ ] Mettre "amount" en privé
+    - [x] Quid des side-effects de Dollar ?
+    - [ ] equals()
+    - [ ] hashCode()
+- On va implémenter _equals()_, pour ça on commence par un test.
+  ```typescript
+  it("equals to object with the same attributes", () => {
+    expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
+  });
+  ```
+- On fait ensuite une implémentation minimale.
+  ```typescript
+  class Dollar {
+    // ...
+    equals(object: Dollar) {
+      return true;
+    }
+  }
+  ```
+- On va alors ajouter un deuxième cas dans le test, pour créer une **triangulation**.
+  ```typescript
+  it("equals to object with the same attributes", () => {
+    expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
+    expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
+  });
+  ```
+- On va donc **généraliser le code** pour qu’il réponde aux deux exemples.
+  ```typescript
+  class Dollar {
+    // ...
+    equals(object: Dollar) {
+      return this.amount === object.amount;
+    }
+  }
+  ```
+- On peut cocher equals :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5\* 2 = $10
+  - [ ] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+- La **technique de la triangulation** est à utiliser quand on n’arrive pas à trouver la solution, elle permet de réfléchir d’un autre point de vue.
