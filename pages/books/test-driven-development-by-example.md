@@ -48,7 +48,7 @@
 - On va créer une** todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter on l’ajoute, et dès qu’on en a fini une on la coche ou barre.
   - Dans l’état actuel, on a deux idées :
     - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-    - [ ] $5\* 2 = $10
+    - [ ] $5 2 = $10
 - On commence par **écrire un test** pour la fonctionnalité de multiplication :
   ```typescript
   it("multiplies money value with given value", () => {
@@ -63,7 +63,7 @@
     - Est-ce qu’on veut vraiment utiliser des entiers pour les valeurs ?
     - **On les met dans notre todo list, et on garde notre objectif de faire passer le test au vert rapidement**.
       - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-      - [ ] $5\* 2 = $10
+      - [ ] $5 2 = $10
       - [ ] Mettre "amount" en privé
       - [ ] Quid des side-effects de Dollar ?
 - Il nous faut déjà **régler les erreurs de compilation**.
@@ -247,9 +247,58 @@
   ```
 - On peut cocher equals :
   - [ ] $5 + 10CHF = $10 si le taux est de 2:1
-  - [x] $5\* 2 = $10
+  - [x] $5 2 = $10
   - [ ] Mettre "amount" en privé
   - [x] Quid des side-effects de Dollar ?
   - [x] equals()
   - [ ] hashCode()
 - La **technique de la triangulation** est à utiliser quand on n’arrive pas à trouver la solution, elle permet de réfléchir d’un autre point de vue.
+
+## 4 - Privacy
+
+- Si on regarde notre premier test, on peut maintenant **le refactorer en utilisant la méthode _equals_ qu’on vient d’implémenter**.
+  - On va commencer par modifier la première assertion :
+    ```typescript
+    it("multiplies money value with given value", () => {
+      const five = new Dollar(5);
+      let product = five.times(2);
+      expect(product.equals(new Dollar(10))).toBe(true);
+      product = five.times(3);
+      expect(product.amount).toBe(15);
+    });
+    ```
+  - Puis on peut modifier la 2ème assertion :
+    ```typescript
+    it("multiplies money value with given value", () => {
+      const five = new Dollar(5);
+      let product = five.times(2);
+      expect(product.equals(new Dollar(10))).toBe(true);
+      product = five.times(3);
+      expect(product.equals(new Dollar(15))).toBe(true);
+    });
+    ```
+  - Et enfin on peut inliner la variable product qui n’est plus utile :
+    ```typescript
+    it("multiplies money value with given value", () => {
+      const five = new Dollar(5);
+      expect(five.times(2).equals(new Dollar(10))).toBe(true);
+      expect(five.times(3).equals(new Dollar(15))).toBe(true);
+    });
+    ```
+- L’attribut amount dans Dollar n’étant plus utilisé nulle part en dehors de sa classe, on peut le rendre privé.
+  ```typescript
+  class Dollar {
+    private amount: number;
+    // ...
+  }
+  ```
+- On peut alors cocher l’élément dans la todo list :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+- On vient d’**utiliser dans le test une fonctionnalité qu’on a développée dans le code**, pour réduire le couplage entre le test et le code.
+  - Cet usage nous expose au potentiel échec de notre test si la fonctionnalité equals se met à ne plus marcher.
+  - On va le faire malgré ce risque, parce qu’on estime que l’avantage est plus important que l’inconvénient.
