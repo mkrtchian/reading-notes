@@ -47,10 +47,8 @@
 - La première chose à faire en TDD est de se poser la question des** fonctionnalités qu’on veut, exprimées sous forme de tests**, qui s’ils passent prouveront que le code fait ce qu’on veut.
 - On va créer une** todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter on l’ajoute, et dès qu’on en a fini une on la coche ou barre.
   - Dans l’état actuel, on a deux idées :
-    ```
-    $5 + 10CHF = $10 si le taux est de 2:1
-    $5 * 2 = $10
-    ```
+    - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+    - [ ] $5 \* 2 = $10
 - On commence par **écrire un test** pour la fonctionnalité de multiplication :
   ```typescript
   it("multiplies money value with given value", () => {
@@ -64,12 +62,10 @@
     - La variable membre _amount_ devrait être privée.
     - Est-ce qu’on veut vraiment utiliser des entiers pour les valeurs ?
     - **On les met dans notre todo list, et on garde notre objectif de faire passer le test au vert rapidement**.
-    ```
-    $5 + 10CHF = $10 si le taux est de 2:1
-    $5 * 2 = $10
-    Mettre "amount" en privé
-    Quid des side-effects de Dollar ?
-    ```
+      - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+      - [ ] $5 \* 2 = $10
+      - [ ] Mettre "amount" en privé
+      - [ ] Quid des side-effects de Dollar ?
 - Il nous faut déjà **régler les erreurs de compilation**.
   - On va les régler une par une :
     - Créer la classe _Dollar_.
@@ -126,7 +122,7 @@
       }
 
       times(multiplier: number) {
-        return this.amount * 2;
+        this.amount *= 2;
       }
     }
     ```
@@ -142,7 +138,7 @@
       }
 
       times(multiplier: number) {
-        return this.amount * multiplier;
+        this.amount *= multiplier;
       }
     }
     ```
@@ -153,3 +149,55 @@
   - L’idée est de faire en sorte que le prochain test puisse être passé au vert en un seul changement, et non pas en ayant à changer le code en plusieurs endroits.
 - Les étapes au moment du refactoring sont **extrêmement petites**. Kent **ne code pas toujours comme ça, mais il _peut_ coder comme ça**.
   - Il faut s’exercer à le faire : si on sait coder par étapes extrêmement petites, alors on saura doser jusqu'à la bonne étape, alors que si on ne sait coder que par grandes étapes, on ne saura pas si on descend suffisamment petit.
+
+## 2 - Degenerate Objects
+
+- Le TDD consiste vraiment à **privilégier le fait que ça marche en premier**, avant de faire en sorte d’avoir du clean code.
+  - Si on a une solution évidente en tête, on peut toujours l’écrire, mais si la solution “évidente” met une minute, il vaut mieux commencer par une solution qui marche en quelques secondes.
+- On en est à cet état de la todo list :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 \* 2 = $10
+  - [ ] Mettre "amount" en privé
+  - [ ] Quid des side-effects de Dollar ?
+- Avec la version actuelle, on a un problème de side-effect : si on appelle plusieurs fois _times()_ sur un objet _Dollar_, la valeur du dollar sera modifiée plusieurs fois.
+  - Une idée qui nous vient immédiatement est de faire en sorte que _times()_ retourne une nouvelle instance de _Dollar_ au lieu de modifier celle sur laquelle il est appelé.
+  - On va donc changer le test pour qu’il vérifie que ce side-effect ne se produise plus.
+    ```typescript
+    it("multiplies money value with given value", () => {
+      const five = new Dollar(5);
+      let product = five.times(2);
+      expect(product.amount).toBe(10);
+      product = five.times(3);
+      expect(product.amount).toBe(15);
+    });
+    ```
+    - Le fait d’avoir un sentiment de code smell, et de pouvoir le retranscrire facilement sous forme de test est un skill qui arrive avec l’expérience.
+  - Puis on change la déclaration de Dollar pour que le code compile.
+    ```typescript
+    class Dollar {
+      // ...
+      times(multiplier: number) {
+        this.amount *= multiplier;
+        return new Dollar();
+      }
+    }
+    ```
+  - Et enfin on fait passer le test en changeant l’implémentation de <em>times</em> de la bonne manière.
+    ```typescript
+    class Dollar {
+      // ...
+      times(multiplier: number) {
+        return new Dollar(this.amount * multiplier);
+      }
+    }
+    ```
+- Et voilà un item de plus fait sur notre todo list :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 \* 2 = $10
+  - [ ] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+- Ca fait deux techniques pour faire passer le test :
+  - 1 - **Utiliser d’abord des valeurs en dur**, puis remplacer graduellement par des variables et du vrai code comme dans le chapitre 1.
+  - 2 - **Écrire directement l’implémentation évidente** comme dans ce chapitre.
+  - Kent utilise la 2 tant que tout va bien, et dès qu’il tombe sur des tests qui restent rouges, il repasse sur la 1 et reprend une approche plus incrémentale pour faire passer le test au vert. Puis il repasse à la 2 dès qu’il reprend confiance.
+  - Il y a une 3ème technique exposée dans le chapitre d’après.
