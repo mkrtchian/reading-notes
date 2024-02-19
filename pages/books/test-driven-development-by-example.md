@@ -254,7 +254,7 @@
   - [ ] hashCode()
 - La **technique de la triangulation** est à utiliser quand on n’arrive pas à trouver la solution, elle permet de réfléchir d’un autre point de vue.
 
-## 4 - Privacy
+### 4 - Privacy
 
 - Si on regarde notre premier test, on peut maintenant **le refactorer en utilisant la méthode _equals_ qu’on vient d’implémenter**.
   - On va commencer par modifier la première assertion :
@@ -302,3 +302,53 @@
 - On vient d’**utiliser dans le test une fonctionnalité qu’on a développée dans le code**, pour réduire le couplage entre le test et le code.
   - Cet usage nous expose au potentiel échec de notre test si la fonctionnalité equals se met à ne plus marcher.
   - On va le faire malgré ce risque, parce qu’on estime que l’avantage est plus important que l’inconvénient.
+
+### 5 - Franc-ly Speaking
+
+- Le 1er item de la todo list est **trop complexe pour l’implémenter d’un coup**. On va donc ajouter un autre item qui consiste à faire la même chose que ce qu’on a fait avec des dollars, mais cette fois avec des francs suisses.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [ ] 5 CHF \* 2 = 10 CHF
+- On peut copier notre test de multiplication de dollars, et l’adapter pour les francs :
+  ```typescript
+  it("multiplies francs value with given value", () => {
+    const five = new Franc(5);
+    expect(five.times(2).equals(new Franc(10))).toBe(true);
+    expect(five.times(3).equals(new Franc(15))).toBe(true);
+  });
+  ```
+- Ensuite on va faire passer le test le plus vite possible. Pour ça, on duplique la classe _Dollar_ :
+
+  ```typescript
+  class Franc {
+    private amount: number;
+
+    constructor() {
+      this.mount = 0;
+    }
+
+    times(multiplier: number) {
+      return new Franc(this.amount * multiplier);
+    }
+
+    equals(object: Franc) {
+      return this.amount === object.amount;
+    }
+  }
+  ```
+
+- On peut cocher l’item de multiplication avec des francs, mais on doit ajouter d’autres problèmes à régler à propos de la duplication entre _Franc_ et _Dollar_.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [ ] equals à mettre en commun
+  - [ ] times à mettre en commun`
