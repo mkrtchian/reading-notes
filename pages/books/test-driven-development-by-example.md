@@ -351,4 +351,75 @@
   - [x] 5 CHF \* 2 = 10 CHF
   - [ ] Duplication entre Dollar et Franc
   - [ ] equals à mettre en commun
-  - [ ] times à mettre en commun`
+  - [ ] times à mettre en commun
+
+### 6 - Equality for All, Redux
+
+- On va s’attaquer à la **duplication entre les deux classes**, et mettre en commun le _equals_. On **joue les tests** après chaque étape de refactoring.
+- On va créer une classe mère _Money_.
+  ```typescript
+  class Money {}
+  ```
+- On peut alors faire hériter _Dollar_ de _Money_ :
+  ```typescript
+  class Dollar extends Money {
+    // …
+  }
+  ```
+- On peut maintenant déplacer la variable _amount_ vers Money.
+
+  ```typescript
+  class Money {
+    protected amount: number;
+
+    constructor() {
+      this.amount = 0;
+    }
+  }
+  ```
+
+- On va passer à equals, en changeant le type de ce qu’il prend en paramètre.
+  ```typescript
+  class Dollar extends Money {
+    // …
+    equals(object: Money) {
+      return this.amount === object.amount;
+    }
+  }
+  ```
+- On peut alors déplacer _equals_ vers _Money_.
+  ```typescript
+  class Money {
+    // …
+    equals(object: Money) {
+      return this.amount === object.amount;
+    }
+  }
+  ```
+- On peut maintenant s’occuper du _equals_ dans _Franc_. Mais on se rend compte qu’il n’est **pas couvert par des tests**. On va alors **ajouter ces tests** avant de faire le refactoring.
+  ```typescript
+  it("equals to object with the same attributes", () => {
+    expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
+    expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
+    expect(new Franc(5).equals(new Franc(5))).toBe(true);
+    expect(new Franc(5).equals(new Franc(6))).toBe(false);
+  });
+  ```
+- On peut faire hériter Franc de Money, supprimer la variable membre _amount_ dans _Franc_.
+  ```typescript
+  class Franc extends Money {
+    // …
+  }
+  ```
+- On peut alors refactorer _equals_ suffisamment pour **qu’il soit le même que le parent**, auquel cas on pourra le supprimer.
+- Voilà, on peut cocher la mise en commun d’_equals_.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [ ] times à mettre en commun
