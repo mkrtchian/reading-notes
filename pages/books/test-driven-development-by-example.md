@@ -351,7 +351,7 @@
   - [x] 5 CHF \* 2 = 10 CHF
   - [ ] Duplication entre Dollar et Franc
   - [ ] equals à mettre en commun
-  - [ ] times à mettre en commun
+  - [ ] times à mettre en commun
 
 ### 6 - Equality for All, Redux
 
@@ -422,4 +422,42 @@
   - [x] 5 CHF \* 2 = 10 CHF
   - [ ] Duplication entre Dollar et Franc
   - [x] equals à mettre en commun
-  - [ ] times à mettre en commun
+  - [ ] times à mettre en commun
+  - [ ] Comparer les Francs et les Dollars
+
+### 7 - Apples and Oranges
+
+- On va traiter la comparaison entre les Francs et les Dollars. Pour ça on ajoute un cas dans le test d’égalité, disant que les Dollars ne sont pas égaux aux Francs.
+  ```typescript
+  it("equals to object with the same attributes", () => {
+    expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
+    expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
+    expect(new Franc(5).equals(new Franc(5))).toBe(true);
+    expect(new Franc(5).equals(new Franc(6))).toBe(false);
+    expect(new Franc(5).equals(new Dollar(5))).toBe(false);
+  });
+  ```
+- Le test échoue. On peut le faire passer en vérifiant la classe au moment de l’égalité.
+  ```typescript
+  class Money {
+    // …
+    equals(object: Money) {
+      return (
+        this.amount === object.amount && this.constructor === object.constructor
+      );
+    }
+  }
+  ```
+- Il y a un code smell à utiliser un élément technique de TypeScript pour la vérification d’égalité, on aurait sans doute besoin du concept de devise, mais on met de côté cette idée pour l’instant en l’ajoutant à notre todo list.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [ ] times à mettre en commun
+  - [ ] Ajouter le concept devise
+  - [x] Comparer les Francs et les Dollars
