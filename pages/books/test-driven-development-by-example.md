@@ -461,3 +461,57 @@
   - [ ] times à mettre en commun
   - [ ] Ajouter le concept devise
   - [x] Comparer les Francs et les Dollars
+
+### 8 - Makin’ Objects
+
+- On aimerait aller vers la mise en commun de _times_, pour aboutir à **l’élimination des classes Dollar et Franc qui ne sont pas suffisamment différentes pour justifier leur existence**, mais c’est un peu complexe.
+- On peut déjà typer la méthode _equals_ dans les deux classes, pour dire qu’elle retourne un _Money_.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    times(multiplier: number): Money {
+      return new Dollar(this.amount * multiplier);
+    }
+  }
+  ```
+- On peut ensuite faire en sorte de ne plus utiliser les classes _Dollar_ et _Franc_ dans les tests. Pour ça on va remplacer l’instanciation des classes par des **méthodes factory sur la classe Money**.
+  ```typescript
+  it("multiplies dollars value with given value", () => {
+    const five = new Money.dollar(5);
+    expect(five.times(2).equals(Money.dollar(10))).toBe(true);
+    expect(five.times(3).equals(Money.dollar(15))).toBe(true);
+  });
+  ```
+- Le compilateur indique que _Money_ n’a pas de méthode _times_. On va l’ajouter en mode _abstract_, et en profiter pour faire de _Money_ une classe _abstract_ aussi.
+  ```typescript
+  abstract class Money {
+    // ...
+    abstract times(multiplier: number): Money;
+  }
+  ```
+- Puis on crée la méthode factory.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    static dollar(amount: number) {
+      return new Dollar(amount);
+    }
+  }
+  ```
+- On peut maintenant remplacer toutes les instanciations de _Dollar_ dans les tests par la méthode factory.
+- On fait le même changement pour _Franc_, en changeant un test, ajoutant la méthode factory dans Money, puis enlevant toutes les instanciations dans les tests.
+- On remarque au passage que **le test de multiplication du Franc sera redondant** avec celui de Dollar dès que la méthode times sera mise en commun.
+- On l’ajoute à notre todo list :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [ ] times à mettre en commun
+  - [ ] Ajouter le concept devise
+  - [x] Comparer les Francs et les Dollars
+  - [ ] Supprimer le test de multiplication du Franc
