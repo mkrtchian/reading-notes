@@ -99,11 +99,7 @@
 
     ```typescript
     class Dollar {
-      public amount: number;
-
-      constructor() {
-        this.mount = 0;
-      }
+      constructor(public amount: number) {}
 
       times(multiplier: number) {
         return 5 * 2;
@@ -115,11 +111,7 @@
 
     ```typescript
     class Dollar {
-      public amount: number;
-
-      constructor() {
-        this.mount = 0;
-      }
+      constructor(public amount: number) {}
 
       times(multiplier: number) {
         this.amount *= 2;
@@ -131,11 +123,7 @@
 
     ```typescript
     class Dollar {
-      public amount: number;
-
-      constructor() {
-        this.mount = 0;
-      }
+      constructor(public amount: number) {}
 
       times(multiplier: number) {
         this.amount *= multiplier;
@@ -325,11 +313,7 @@
 
   ```typescript
   class Franc {
-    private amount: number;
-
-    constructor() {
-      this.mount = 0;
-    }
+    constructor(private amount: number) {}
 
     times(multiplier: number) {
       return new Franc(this.amount * multiplier);
@@ -370,11 +354,7 @@
 
   ```typescript
   class Money {
-    protected amount: number;
-
-    constructor() {
-      this.amount = 0;
-    }
+    constructor(protected amount: number) {}
   }
   ```
 
@@ -491,7 +471,7 @@
   ```
 - Puis on crée la méthode factory.
   ```typescript
-  class Dollar extends Money {
+  class Money {
     // ...
     static dollar(amount: number) {
       return new Dollar(amount);
@@ -513,5 +493,133 @@
   - [x] equals à mettre en commun
   - [ ] times à mettre en commun
   - [ ] Ajouter le concept devise
+  - [x] Comparer les Francs et les Dollars
+  - [ ] Supprimer le test de multiplication du Franc
+
+### 9 - Times We’re Livin’ In
+
+- On va s’attaquer au concept de **devise**, en commençant par un test.
+  ```typescript
+  it("returns the currency", () => {
+    expect(Money.dollar(1).currency()).toBe("USD");
+    expect(Money.franc(1).currency()).toBe("CHF");
+  });
+  ```
+- On ajoute currency dans _Money_ en tant que méthode abstraite.
+  ```typescript
+  class Money {
+    abstract currency(): string;
+    // ...
+  }
+  ```
+- Puis on l’implémente dans les classes filles.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    currency() {
+      return "USD";
+    }
+  }
+  ```
+- On peut **refactorer** pour avoir la devise dans une variable membre, sur Dollar et Franc.
+
+  ```typescript
+  class Dollar extends Money {
+    private _currency: string;
+
+    constructor(protected amount: number) {
+      this._currency = currency;
+    }
+    // ...
+    currency() {
+      return this._currency;
+    }
+  }
+  ```
+
+- On peut alors faire remonter la déclaration de la variable \__currency_ et de la méthode _currency_ dans la classe parente.
+  ```typescript
+  class Money {
+    protected _currency: string;
+    // ...
+    currency() {
+      return this._currency;
+    }
+  }
+  ```
+- On remarque qu’on instancie les classes _Franc_ et _Dollar_ dans leurs méthodes _times_. On peut les remplacer par l’appel à la méthode factory du parent.
+  - Il s’agit d’une digression, mais tant qu’elle est rapide c’est OK.
+  - Jim Coplien a dit à Kent la règle qu’**une digression ne doit pas être elle-même interrompue par une autre digression**.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    times(multiplier: number) {
+      return Money.dollar(this.amount * multiplier);
+    }
+  }
+  ```
+- On remarque que le constructeur des deux classes _Dollar_ et _Franc_ est presque identique, il n’y a que \__currency_ qu’il faut extraire pour le déplacer dans _Money_. On va l’extraire dans la méthode factory.
+  - D’abord on ajoute currency au constructeur de _Dollar_ et _Franc_.
+    ```typescript
+    class Dollar extends Money {
+      // ...
+      constructor(
+        protected amount: number,
+        currency: string
+      ) {
+        this._currency = "USD";
+      }
+    }
+    ```
+  - Puis on peut mettre la valeur de la _currency_ en dur dans les méthodes factory.
+    ```typescript
+    class Money {
+      dollar(amount: number) {
+        return new Dollar(amount, "USD");
+      }
+    }
+    ```
+  - Et enfin on peut assigner le paramètre currency du constructeur à la variable membre.
+    ```typescript
+    class Dollar extends Money {
+      // ...
+      constructor(
+        protected amount: number,
+        protected _currency: string
+      ) {}
+    }
+    ```
+- On va ensuite faire la même chose pour _Franc_, cette fois avec une grande étape plutôt que 3 petites, parce qu’on se sent à l’aise.
+- Les deux constructeurs sont identiques. On peut pousser l’implémentation dans la classe mère.
+
+  ```typescript
+  class Money {
+    // ...
+    constructor(
+      protected amount: number,
+      protected _currency: string
+    ) {}
+  }
+
+  class Dollar extends Money {
+    // ...
+    constructor(amount: number, currency: string) {
+      super(amount, currency);
+    }
+  }
+  ```
+
+- On peut cocher l'histoire des devises :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [ ] times à mettre en commun
+  - [x] Ajouter le concept devise
   - [x] Comparer les Francs et les Dollars
   - [ ] Supprimer le test de multiplication du Franc
