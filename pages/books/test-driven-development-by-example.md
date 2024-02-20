@@ -623,3 +623,103 @@
   - [x] Ajouter le concept devise
   - [x] Comparer les Francs et les Dollars
   - [ ] Supprimer le test de multiplication du Franc
+
+### 10 - Interesting Times
+
+- On va maintenant essayer de rendre les deux méthodes _times_ identiques pour pouvoir le **remonter dans la classe parente**.
+- On va défaire ce qu’on a fait au chapitre précédent : on va inliner l’appel à la méthode factory dans les deux méthodes _times_.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    times(multiplier: number) {
+      return new Dollar(this.amount * multiplier, "USD");
+    }
+  }
+  ```
+- On peut alors remplacer la valeur de la devise en dur par la variable membre _\_currency_.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    times(multiplier: number) {
+      return new Dollar(this.amount * multiplier, this._currency);
+    }
+  }
+  ```
+- On se demande maintenant si on peut remplacer l’instanciation de _Dollar_ par celle de _Money_ pour que les méthodes _times_ soient identiques. Kent propose qu’**au lieu d’y réfléchir, on essaye, et on laisse les tests nous dire si ça marche**.
+  - On fait le remplacement dans les méthodes _times_.
+    ```typescript
+    class Dollar extends Money {
+      // ...
+      times(multiplier: number) {
+        return new Money(this.amount * multiplier, this._currency);
+      }
+    }
+    ```
+  - Pour pouvoir compiler, il faut que la classe _Money_ ne soit plus abstraite.
+    ```typescript
+    class Money {
+      // ...
+      times(amount: number) {
+        return null;
+      }
+    }
+    ```
+  - On obtient une erreur de l’un des tests, il semblerait que la méthode equals ne passe pas parce qu’elle vérifie que la classe est exactement la bonne en vérifiant l’égalité par rapport au constructeur de _Franc_ et _Dollar_.
+  - On pourrait écrire un nouveau test et modifier _equals_, mais on a déjà un test rouge, et **il ne faut pas écrire de test sur un test rouge**. On va donc **revenir en arrière** sur notre changement de _Dollar_ par _Money_, le temps de corriger _equals_.
+    ```typescript
+    class Dollar extends Money {
+      // ...
+      times(multiplier: number) {
+        return new Dollar(this.amount * multiplier, this._currency);
+      }
+    }
+    ```
+- On va ensuite ajouter un test pour vérifier l’égalité d’un _Money_ et d’un _Dollar_ avec la même valeur et la même devise.
+  ```typescript
+  it("money and dollar with same parameters are equal", () => {
+    expect(new Money(10).equals(new Dollar(10))).toBe(true);
+  });
+  ```
+- Le test échoue, et on peut le faire passer.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    equals(object: Money) {
+      return (
+        this.amount === object.amount && this.currency() === object.currency()
+      );
+    }
+  }
+  ```
+- On peut maintenant retourner à nouveau un _Money_ dans les deux implémentations de _times_, et les tests passent.
+  ```typescript
+  class Dollar extends Money {
+    // ...
+    times(multiplier: number) {
+      return new Money(this.amount * multiplier, this._currency);
+    }
+  }
+  ```
+- Les deux implémentations de times étant identiques, on peut le remonter.
+  ```typescript
+  class Money {
+    // ...
+    times(multiplier: number) {
+      return new Money(this.amount * multiplier, this._currency);
+    }
+  }
+  ```
+- Et on peut cocher la méthode times à mettre en commun :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [ ] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [x] times à mettre en commun
+  - [x] Ajouter le concept devise
+  - [x] Comparer les Francs et les Dollars
+  - [ ] Supprimer le test de multiplication du Franc
