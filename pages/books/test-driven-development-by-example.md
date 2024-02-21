@@ -723,3 +723,41 @@
   - [x] Ajouter le concept devise
   - [x] Comparer les Francs et les Dollars
   - [ ] Supprimer le test de multiplication du Franc
+
+### 11 - The Root of All Evil
+
+- On va supprimer l’utilisation des classes _Dollar_ et _Franc_ pour pouvoir les supprimer.
+  - D’abord on remplace par _Money_ dans les méthodes factory.
+    ```typescript
+    class Money {
+      // ...
+      dollar(amount: number) {
+        return new Money(amount, "USD");
+      }
+    }
+    ```
+  - On venait juste de faire un test pour vérifier l’égalité entre instances de _Money_ et _Dollar_, **ce test peut être supprimé**.
+  - On en profite pour revoir l’autre test qui porte sur l’égalité pour enlever des assertions qui ont l’air redondantes avec les autres.
+    ```typescript
+    it("equals to object with the same attributes", () => {
+      expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
+      expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
+      expect(new Franc(5).equals(new Franc(5))).toBe(true);
+    });
+    ```
+  - On remarque que maintenant que _Franc_ et _Dollar_ disparaissent, le test de multiplication utilisant des francs n’est plus vraiment nécessaire, celui qui teste en utilisant des dollars est suffisant . On le supprime.
+- On peut alors supprimer **effectivement les classes _Dollar_ et _Franc_** qui ne sont plus utilisées nulle part.
+- Notre todo list :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 2 = $10
+  - [x] Mettre "amount" en privé
+  - [x] Quid des side-effects de Dollar ?
+  - [x] equals()
+  - [ ] hashCode()
+  - [x] 5 CHF \* 2 = 10 CHF
+  - [x] Duplication entre Dollar et Franc
+  - [x] equals à mettre en commun
+  - [x] times à mettre en commun
+  - [x] Ajouter le concept devise
+  - [x] Comparer les Francs et les Dollars
+  - [x] Supprimer le test de multiplication du Franc
