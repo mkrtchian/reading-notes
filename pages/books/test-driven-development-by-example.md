@@ -761,3 +761,89 @@
   - [x] Ajouter le concept devise
   - [x] Comparer les Francs et les Dollars
   - [x] Supprimer le test de multiplication du Franc
+
+### 12 - Addition, Finally
+
+- On va réécrire notre todo list, en enlevant ce qui n’est pas pertinent :
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+- L’addition avec des devises différentes est trop complexe pour être implémentée d’un coup, on va donc **ajouter un cas plus simple d’addition**.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [ ] $5 + $5 = $10
+- On va ajouter un test pour ce cas simple.
+  ```typescript
+  it("adds two money values in the resulting one", () => {
+    const sum = Money.dollar(5).plus(Money.dollar(5));
+    expect(sum).toBe(10);
+  });
+  ```
+- Et on va écrire le code du premier coup.
+  ```typescript
+  class Money {
+    // ...
+    plus(addend: Money) {
+      return new Money(this.amount + addend.amount, this._currency);
+    }
+  }
+  ```
+- On se pose un peu et **on réfléchit à notre test** : on aimerait que l’essentiel du code ne soit pas au courant qu’il y a plusieurs devises.
+  - On pourrait convertir immédiatement une valeur monétaire en une monnaie de référence, mais ça ne permet pas de faire varier facilement les taux de change.
+  - On peut créer un **objet imposteur**, qui va avoir la même interface, mais se comporter différemment. Il va s’agir d’une **expression**, pouvant prendre la forme la plus simple qui est la valeur monétaire, mais aussi des formes plus complexes comme une somme de plusieurs valeurs monétaires.
+    - Il s’agit ici d’une idée de design qui nous est venue.
+    - Le TDD ne garantit pas qu’on en aura, mais il permet de faire en sorte que le code soit dans un état qui permet facilement d’appliquer les idées de design qui nous viennent.
+    - Et il nous fait réfléchir au design en réfléchissant d’abord à la manière d’utiliser notre code.
+- On va donc **réécrire notre test**, on a déjà l’assertion finale en tête.
+  ```typescript
+  it("adds two money values in the resulting one", () => {
+    // ...
+    expect(Money.dollar(10).equals(reduced)).toBe(true);
+  });
+  ```
+- On va introduire un élément qui fait la réduction vers la valeur monétaire à partir de la somme obtenue. Ça peut être une banque.
+  ```typescript
+  it("adds two money values in the resulting one", () => {
+    // ...
+    const reduced = bank.reduce(sum, "USD");
+    expect(Money.dollar(10).equals(reduced)).toBe(true);
+  });
+  ```
+  - On aurait pu tout autant choisir de mettre la logique de réduction dans l’objet _sum_ lui-même, mais on fait ce choix dans un premier temps parce que :
+    - 1 - Les expressions semblent être un élément central, et donc on préfère les laisser simples et indépendants, pour qu’ils soient facilement testables et réutilisables.
+    - 2 - Il risque d’y avoir beaucoup d’opérations du même genre, et les mettre dans le concept d’expression risque de le faire trop grossir.
+- On peut alors introduire la banque, la somme qui est une expression, et la monnaie initiale.
+  ```typescript
+  it("adds two money values in the resulting one", () => {
+    const five = Money.dollar(5);
+    const sum = five.plus(five);
+    const bank = new Bank();
+    const reduced = bank.reduce(sum, "USD");
+    expect(Money.dollar(10).equals(reduced)).toBe(true);
+  });
+  ```
+- On va maintenant faire l’implémentation.
+  - D’abord on fait compiler :
+    ```typescript
+    interface Expression {}
+    ```
+    ```typescript
+    class Money implements Expression {
+      // ...
+      plus(addend: number): Expression {
+        return new Money(this.amount + addend.amount, this._currency);
+      }
+    }
+    ```
+    ```typescript
+    class Bank {
+      reduce(source: Expression, to: string) {
+        return null;
+      }
+    }
+    ```
+  - Ensuite on peut faire une fausse implémentation pour faire passer le test.
+    ```typescript
+    class Bank {
+      reduce(source: Expression, to: string) {
+        return Money.dollar(10);
+      }
+    }
+    ```
