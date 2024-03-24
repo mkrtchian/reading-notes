@@ -1,0 +1,50 @@
+# No Rules Rules
+
+Les 4 piliers de la culture chez Netflix :
+
+## 1 - Liberté et responsabilité
+
+- **Congés illimités** : Netflix a été un des premiers à l'expérimenter, il y a eu des problèmes (dans un sens comme dans l'autre) et ils les racontent en détail, mais au final ça s'est équilibré autour d'une situation où les employés prennent en moyenne autant de congés qu'avant, mais se sentent mieux parce qu'on leur fait confiance.
+- **Pas d'approbation pour les frais professionnels**, avec pour règle "dépensez au mieux pour l'intérêt de Netflix". Si on pense qu'on serait mal à l'aise pour justifier la dépense, on ne la fait pas ou on demande, sinon on n'a pas de permission à demander.
+  - Il y a parfois des excès de la part de certains employés, et en gros le service financier vérifie un petit pourcentage des dépenses, et en cas d'abus constaté vire l'employé pour en faire un exemple. Globalement pour Netflix ces quelques excès sont largement compensés par la fluidité au quotidien, et l'empowerment que ça apporte à l'ensemble des employés.
+- **Les leaders prennent le moins de décisions possibles**. Les décisions sont prises individuellement par les employés au plus près du sujet concerné, qui font des "paris" comme s'ils étaient des entrepreneurs, et en assument les conséquences. Même si le leader (quel que soit son rang) est en désaccord sur le fond, il doit laisser l'employé qui est sur le coup avoir le dernier mot. C'est pour Netflix la meilleure manière d'avoir de l'innovation dans les métiers intellectuels et créatifs.
+  - Les employés doivent informer des sujets qu'ils portent, et surtout prendre des avis contradictoires et du contexte de la part de personnes qui sont susceptibles d'en avoir (**les leaders auront typiquement du contexte à donner**). Je pense qu'on peut rapprocher ce fonctionnement de l'advice process qu'on retrouve dans **_Reinventing Organizations_**.
+  - Les "paris" qui réussissent sont célébrés, et pour ceux qui échouent, les employés en parlent publiquement pour en tirer un apprentissage. L'employé qui a raté son pari n'est pas blâmé, ça fait partie du principe même des paris. Ce qui serait problématique pour lui ce serait de ne pas prendre de paris (ne pas décider), de ne pas tirer d'apprentissage d'un pari raté, ou à la limite vraiment rater trop de paris...
+
+## 2 - Culture du feedback
+
+- Les employés **reçoivent une formation sur comment donner et recevoir des feedbacks**,
+  - Il y a 4 règles :
+    - Celui qui donne le feedback :
+      - 1 - Doit indiquer en quoi le feedback aide la personne ou l'entreprise.
+      - 2 - Doit donner quelque chose d'applicable : si quelque chose ne va pas, indiquer comment faire mieux.
+    - Celui qui reçoit le feedback :
+      - 3 - Doit accueillir le feedback plutôt que de se braquer.
+      - 4 - Décide de ce qu'il en fait : il peut suivre la recommandation ou ne pas la suivre.
+  - Dans le cas où le feedback ne serait pas désintéressé avec pour seul but d'aider, mais servirait par exemple à rabaisser, la personne qui le donne aurait alors une attitude toxique : chez Netflix on met ces personnes à la porte.
+  - On a une certaine proximité avec le système de feedbacks proposé dans **_Radical Candor_** :
+    - L'aspect "care perfonnally" est retranscrit chez Netflix par le fait qu'on essaye de manifester des signes d'appartenance à la personne à qui on fait un feedback négatif pour bien montrer qu'il ne s'agit en aucun cas de l'exclure.
+    - On n'a pas le droit de parler dans le dos de quelqu'un de quelque chose qu'on ne lui aurait pas dit en face.
+    - Le feedback doit être donné le plus vite et le plus souvent possible.
+    - Par contre là où dans **_Radical Candor_** il faut faire les feedbacks négatifs en privés, chez Netflix ils peuvent les faire n'importe quand et n'importe où, y compris en public si c'est pertinent.
+- **Le feedback 360° écrit** : chaque année chaque employé donne des feedbacks signés (la personne sait qui lui a fait le feedback et peut donc venir la voir pour en parler) à une dizaine de personnes ou même plus (pair, supérieur hiérarchique, subordonné etc).
+  - Ils ne s'attribuent pas de notes les uns aux autres parce que ces feedbacks ne servent qu'à aider à s'améliorer, et pas à déterminer l'augmentation salariale (le salaire n'étant déterminé que par le marché, cf. point 4 plus bas).
+- **Le feedback 360° en direct** : chaque année chaque équipe se réunit autour d'un repas (il faut compter au moins 3 heures pour 8 personnes), et les membres se donnent des feedbacks à tour de rôle.
+  - Leur conseil : 25% de positif et 75% d'améliorable, et surtout que de l'actionnable, on évite les "tu es un super collègue" par exemple.
+- **Coup de pouce pour que ça prenne** : quand ils se sont internationalisés, les gens de Netflix ont remarqué que dans certaines cultures le fait de donner du feedback spontanément a du mal à se mettre en place parce que c'est contre-intuitif. Leur solution qui a marché jusqu'ici (par exemple au Japon) c'est de rajouter un peu plus de cadre et de formalismes sur ces aspects-là pour aider à ce que ça se fasse.
+
+## 3 - Culture de la transparence
+
+- Toutes les **informations les plus sensibles** de l'entreprise sont disponibles pour les employés. Par exemple : informations financières, potentielles future réorganisation ou suppressions de postes. Parfois ça fait des remous, mais la confiance que ça génère en retour en vaut la peine pour Netflix.
+- L'entreprise parle clairement et ne fait **pas de langue de bois**. Par exemple si un employé est licencié ou un autre rétrogradé, les raisons sont clairement énoncées aux autres.
+- Ils placent la limite au niveau des sujets personnels. Par exemple si une personne part en cure de désintoxication pour alcoolémie, il ne s'agit pas d'un problème d'ordre professionnel, et donc elle peut choisir de ne pas le dévoiler à ses collègues.
+
+## 4 - Travailler avec "les meilleurs"
+
+- **Payer au dessus du marché** pour avoir et garder les meilleurs.
+  - Ils cherchent activement et régulièrement à évaluer la valeur de chaque profil et poste sur le marché, et payent un peu au dessus. Et ils encouragent leurs employés à faire des entretiens ailleurs en toute transparence, et les augmentent s'ils sont en dessous.
+  - S'ils n'ont pas assez d'argent pour augmenter tout le monde en suivant le marché, ils préfèrent se séparer d'une partie de leurs employés, plutôt que de décrocher du marché et risquer que les meilleurs partent.
+- **Le keeper test** : Netflix ne garde pas les personnes qui ont une performance "convenable" mais seulement ceux qui ont une performance "exceptionnelle".
+  - Chaque manager doit donc se demander pour chaque personne qu'il manage : si la personne posait sa démission maintenant, est-ce qu'il se battrait pour la garder ? Si la réponse est non, alors elle n'a rien à faire chez Netflix dès maintenant, il faut la mettre à la porte avec une généreuse compensation.
+  - Les employés peuvent aussi poser la question à leur manager pour savoir s'il se battrait pour les garder à ce stade, ça permet d'initier des feedbacks et éventuellement de se rassurer.
+  - La métaphore de la famille utilisée dans de nombreuses entreprises est remplacée chez Netflix par celle de l'équipe de sport de haut niveau : il y a un esprit d'équipe, mais chacun doit mériter sa place.
