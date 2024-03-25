@@ -45,7 +45,7 @@
   - La nouvelle fonctionnalité “multi-currency” consiste à ce que le montant des actions puisse être renseigné dans d’autres devises, sachant qu’à la fin on voudra quand même calculer le total de l’ensemble des actions en dollars.
   - On a l’information du taux de conversion entre devises dans une table.
 - La première chose à faire en TDD est de se poser la question des** fonctionnalités qu’on veut, exprimées sous forme de tests**, qui s’ils passent prouveront que le code fait ce qu’on veut.
-- On va créer une** todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter on l’ajoute, et dès qu’on en a fini une on la coche ou barre.
+- On va créer une **todo list, qu’on va maintenir tout au long** de nos changements : dès qu’on a une nouvelle idée de chose qu’il faudra implémenter, on l’ajoute, et dès qu’on en a fini une on la coche ou la barre.
   - Dans l’état actuel, on a deux idées :
     - [ ] $5 + 10CHF = $10 si le taux est de 2:1
     - [ ] $5 2 = $10
@@ -60,7 +60,6 @@
   - Des problèmes nous viennent en tête à propos de notre test :
     - Quid des side-effects dans la classe Dollar ?
     - La variable membre _amount_ devrait être privée.
-    - Est-ce qu’on veut vraiment utiliser des entiers pour les valeurs ?
     - **On les met dans notre todo list, et on garde notre objectif de faire passer le test au vert rapidement**.
       - [ ] $5 + 10CHF = $10 si le taux est de 2:1
       - [ ] $5 2 = $10
