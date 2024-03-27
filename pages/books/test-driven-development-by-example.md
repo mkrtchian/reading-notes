@@ -676,7 +676,7 @@
 - On va ensuite ajouter un test pour vérifier l’égalité d’un _Money_ et d’un _Dollar_ avec la même valeur et la même devise.
   ```typescript
   it("money and dollar with same parameters are equal", () => {
-    expect(new Money(10).equals(new Dollar(10))).toBe(true);
+    expect(new Money(10, "USD").equals(new Dollar(10, "USD"))).toBe(true);
   });
   ```
 - Le test échoue, et on peut le faire passer.
