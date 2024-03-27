@@ -739,9 +739,9 @@
   - On en profite pour revoir l’autre test qui porte sur l’égalité pour enlever des assertions qui ont l’air redondantes avec les autres.
     ```typescript
     it("equals to object with the same attributes", () => {
-      expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
-      expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
-      expect(new Franc(5).equals(new Franc(5))).toBe(true);
+      expect(Money.dollar(5).equals(Money.dollar(5))).toBe(true);
+      expect(Money.dollar(5).equals(Money.dollar(6))).toBe(false);
+      expect(Money.franc(5).equals(Money.dollar(5))).toBe(false);
     });
     ```
   - On remarque que maintenant que _Franc_ et _Dollar_ disparaissent, le test de multiplication utilisant des francs n’est plus vraiment nécessaire, celui qui teste en utilisant des dollars est suffisant . On le supprime.
