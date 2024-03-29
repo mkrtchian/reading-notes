@@ -846,3 +846,142 @@
       }
     }
     ```
+
+### 13 - Make It
+
+- Notre addition a une valeur en dur pour l’implémentation. Il faut enlever la duplication avec la valeur 10 dans les tests.
+- Ici Kent trouve que le cas est plus difficile que quand il s’agissait de juste ajouter une variable au lieu de la valeur en dur, et donc **on va plutôt avancer** en ajoutant un point plus précis dans notre todo list, pour obtenir un objet Money à partir de la somme.
+  - Et on ne coche pas l’addition dans notre todo list parce qu’il reste de la duplication et qu’on va l’enlever.
+    - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+    - [ ] $5 + $5 = $10
+    - [ ] Retourner Money à partir de $5 + $5
+- On va écrire un **test plus précis** pour nous guider sur ce qu’est la somme. Ce test sera probablement **supprimé plus tard** parce qu’il va trop dans le bas niveau, mais là il nous aide à avancer.
+  ```typescript
+  it("returns a sum when using plus", () => {
+    const five = Money.dollar(5);
+    const sum = five.plus(five);
+    expect(sum.augend.equals(five)).toBe(true);
+    expect(sum.addend.equals(five)).toBe(true);
+  });
+  ```
+- Puis on crée le code pour faire passer le test au vert.
+
+  ```typescript
+  class Sum implements Expression {
+    constructor(
+      public augend: Money,
+      public addend: Money
+    ) {}
+  }
+
+  class Money implements Expression {
+    // ...
+    plus(addend: Money): Expression {
+      return new Sum(this, addend);
+    }
+  }
+  ```
+
+- Puis on écrit un autre test précis sur le cas de la réduction de l’objet _sum_.
+  ```typescript
+  it("reduces a sum of dollars to a dollar", () => {
+    const sum = new Sum(Money.dollar(3), Money.dollar(4));
+    const bank = new Bank();
+    const result = bank.reduce(sum, "USD");
+    expect(Money.dollar(7).equals(result)).toBe(true);
+  });
+  ```
+- Puis on écrit l’implémentation de _Bank.reduce_ pour passer le test :
+  ```typescript
+  class Bank {
+    reduce(source: Expression, to: string) {
+      const sum = source;
+      const amount = sum.augend.amount + sum.addend.amount;
+      return new Money(amount, to);
+    }
+  }
+  ```
+  - On passe le test, mais on aimerait que **la méthode soit utilisable avec n’importe quelle _Expression_** et pas juste les _Sum_. Et on aimerait que les champs publics _amount_ soient encapsulés.
+- On va donc déplacer une partie du code dans la classe _Sum_ pour que la **responsabilité de l’addition** soit au bon endroit.
+
+  ```typescript
+  class Bank {
+    reduce(source: Expression, to: string) {
+      const sum = source;
+      return sum.reduce(to);
+    }
+  }
+
+  class Sum implements Expression {
+    // ...
+    reduce(to: string) {
+      const amount = this.augend.amount + this.addend.amount;
+      return new Money(amount, to);
+    }
+  }
+  ```
+
+- Il nous vient aussi à l’idée que _Bank.reduce_ doit marcher quand il s’agit de traiter une expression qui est un objet _Money_. On l’ajoute à la todo list.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [ ] $5 + $5 = $10
+  - [ ] Retourner Money à partir de $5 + $5
+  - [ ] Bank.reduce(Money)
+- Et on va écrire un test pour ça.
+  ```typescript
+  it("reduces a dollar to a dollar", () => {
+    const bank = new Bank();
+    const result = bank.reduce(Money.dollar(1), "USD");
+    expect(Money.dollar(1).equals(result)).toBe(true);
+  });
+  ```
+- Puis on fait passer le test rapidement.
+  ```typescript
+  class Bank {
+    reduce(source: Expression, to: string) {
+      if (source instanceof Money) return source;
+      const sum = source;
+      return sum.reduce(to);
+    }
+  }
+  ```
+- Le test passe, mais c’est très moche. On voudrait en réalité que ça marche quelle que soit la classe, et idéalement avec **une interface uniforme**. On va donc utiliser le polymorphisme.
+- La première étape est d’ajouter _reduce()_ sur _Money_ aussi.
+
+  ```typescript
+  class Bank {
+    reduce(source: Expression, to: string) {
+      if (source instanceof Money) return source.reduce(to);
+      const sum = source;
+      return sum.reduce(to);
+    }
+  }
+
+  class Money implements Expression {
+    // ...
+    reduce(to: string) {
+      return this;
+    }
+  }
+  ```
+
+- On peut alors ajouter _reduce()_ à _Expression_, et rendre _Bank.reduce_ plus agréable.
+
+  ```typescript
+  interface Expression {
+    reduce(to: string);
+  }
+
+  class Bank {
+    reduce(source: Expression, to: string) {
+      return source.reduce(to);
+    }
+  }
+  ```
+
+- On peut cocher _Bank.reduce_ dans notre todo list, et en même temps il nous vient en tête la possibilité d’utiliser _Bank.reduce_ avec une conversion de devise, et la possibilité de donner l’objet _bank_ à _reduce_.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [ ] $5 + $5 = $10
+  - [ ] Retourner Money à partir de $5 + $5
+  - [x] Bank.reduce(Money)
+  - [ ] Reduce avec une conversion
+  - [ ] Reduce(Bank, string)
