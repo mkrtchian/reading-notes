@@ -985,3 +985,125 @@
   - [x] Bank.reduce(Money)
   - [ ] Reduce avec une conversion
   - [ ] Reduce(Bank, string)
+
+### 14 - Change
+
+- On va s’intéresser au cas de la **réduction avec conversion**.
+  ```typescript
+  it("reduces money from different currencies", () => {
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(Money.franc(2), "USD");
+    expect(Money.dollar(1).equals(result)).toBe(true);
+  });
+  ```
+- On fait passer le test rapidement.
+  ```typescript
+  class Money implements Expression {
+    // ...
+    reduce(to: string) {
+      const rate = this.currency === "CHF" && to === "USD";
+      return new Money(this.amount / rate, to);
+    }
+  }
+  ```
+- On préférerait que **la logique concernant les taux ne soit que dans la banque** et pas dans les expressions. On va donc passer la banque en paramètre à _Expression.reduce()_, comme on l’avait déjà pressenti en le mettant dans notre todo list.
+
+  ```typescript
+  interface Expression {
+    reduce(bank: Bank, to: string);
+  }
+
+  class Sum implements Expression {
+    // ...
+    reduce(bank: Bank, to: string) {
+      const amount = this.augend.amount + this.addend.amount;
+      return new Money(amount, to);
+    }
+  }
+
+  class Money implements Expression {
+    // ...
+    reduce(bank: Bank, to: string) {
+      const rate = this.currency === "CHF" && to === "USD";
+      return new Money(this.amount / rate, to);
+    }
+  }
+  ```
+
+- On peut maintenant déplacer la logique concernant le taux dans la banque.
+
+  ```typescript
+  class Bank {
+    // ...
+    rate(from: string, to: string) {
+      return from === "CHF" && to === "USD" ? 2 : 1;
+    }
+  }
+
+  class Money implements Expression {
+    // ...
+    reduce(bank: Bank, to: string) {
+      const rate = bank.rate(this.currency, to);
+      return new Money(this.amount / rate, to);
+    }
+  }
+  ```
+
+- Il reste encore de la duplication entre le test et le code du taux dans la banque qu’il faut généraliser. On va créer un objet _Pair_ pour porter les deux devises, et l’utiliser comme clé dans une hashmap, avec les taux comme valeur.
+
+  - L’objet en question a besoin d’être un value object et donc avoir _equals_ et _hashCode_., mais on n’a pas besoin de le tester directement parce qu’il est déjà testé via la banque.
+  - Pour le _hashCode_ on va mettre une valeur en dur pour l’instant.
+
+  ```typescript
+  class Pair {
+    constructor(private from: string, private to: string) {}
+
+    equals(other: Pair) {
+      return this.from === other.from && this.to === other.to;
+    }
+
+    hashCode() {
+      return 0;
+    }
+  }
+
+  class Bank {
+    constructor(private rates: Map&lt;number, number>) {}
+
+    addRate(from: string, to: string, rate: number) {
+      rates.set(new Pair(from, to).hashCode(), rate);
+    }
+
+    rate(from: string, to: string) {
+      return this.rates.get(new Pair(from, to).hashCode());
+    }
+  }
+  ```
+
+- On tombe sur un test rouge, et en fait il se trouve que le cas où on demande le taux entre deux mêmes devises n’est pas par défaut traité comme un taux de conversion de 1.
+
+  - On va donc écrire un test pour expliciter ce cas-là, et faire repasser les tests au vert.
+
+  ```typescript
+  it("uses a rate of 1 for the same currencies", () => {
+    const bank = new Bank();
+    expect(bank.rate("USD", "USD")).toBe(1);
+  });
+
+  class Bank {
+    // ...
+    rate(from: string, to: string) {
+      if (from === to) return 1;
+      return this.rates.get(new Pair(from, to).hashCode());
+    }
+  }
+  ```
+
+- On a donc réglé le cas du _reduce_ avec conversion, le fait que _reduce_ prenne la banque en paramètre, et plus généralement le cas de l’addition avec la même devise.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 + $5 = $10
+  - [ ] Retourner Money à partir de $5 + $5
+  - [x] Bank.reduce(Money)
+  - [x] Reduce avec une conversion
+  - [x] Reduce(Bank, string)
