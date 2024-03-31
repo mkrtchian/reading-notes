@@ -1107,3 +1107,77 @@
   - [x] Bank.reduce(Money)
   - [x] Reduce avec une conversion
   - [x] Reduce(Bank, string)
+
+### 15 - Mixed Currencies
+
+- On va traiter la fameuse **addition multi-devise**. On écrit d’abord un test.
+  ```typescript
+  it("adds two expressions with different currencies", () => {
+    const fiveBucks = Money.dollar(5);
+    const tenFrancs = Money.francs(10);
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+    expect(result.equals(Money.dollar(10))).toBe(true);
+  });
+  ```
+- On obtient quelques erreurs de typage, et le test échoue, on obtient 15 au lieu de 10. On va corriger le code de _Sum_ et appliquer le reduce sur les deux éléments de l’addition.
+  ```typescript
+  class Sum implements Expression {
+    // ...
+    reduce(bank: Bank, to: string) {
+      const amount =
+        this.augend.reduce(bank, to).amount +
+        this.addend.reduce(bank, to).amount;
+      return new Money(amount, to);
+    }
+  }
+  ```
+- On va généraliser les objets de type _Money_, en acceptant dans la plupart des cas des _Expression_.
+
+  ```typescript
+  class Sum implements Expression {
+    constructor(
+      public augend: Expression,
+      public addend: Expression
+    ) {}
+    // ...
+  }
+
+  class Money implements Expression {
+    // ...
+    plus(addend: Expression) {
+      return new Sum(this, addend);
+    }
+
+    times(multiplier: number): Expression {
+      return new Money(this.amount * multiplier, this.currency);
+    }
+  }
+  ```
+
+- On va devoir ajouter _plus()_ et _times()_ dans _Expression_. On commence par _plus()_ qui est nécessaire pour le test qu’on a écrit.
+  ```typescript
+  interface Expression {
+    // ...
+    plus(addend: Expression): Expression;
+  }
+  ```
+- On doit alors avoir le plus dans tous les objets qui implémentent l’interface, y compris dans _Sum_, dans lequel on peut pour l’instant mettre une fausse implémentation.
+  ```typescript
+  class Sum implements Expression {
+    // ...
+    plus(addend: Expression) {
+      return null;
+    }
+  }
+  ```
+- On a donc notre addition avec différentes devises qui marche, et on ajoute dans la todo list l’implémentation de _Sum.plus_, et le fait de mettre _times_ dans _Expression_ aussi.
+  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 + $5 = $10
+  - [ ] Retourner Money à partir de $5 + $5
+  - [x] Bank.reduce(Money)
+  - [x] Reduce avec une conversion
+  - [x] Reduce(Bank, string)
+  - [ ] Implémentation de Sum.plus
+  - [ ] Mettre times dans Expression
