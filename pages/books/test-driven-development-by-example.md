@@ -1271,3 +1271,21 @@
   - [x] Reduce(Bank, string)
   - [x] Implémentation de Sum.plus
   - [x] Mettre times dans Expression
+
+### 17 - Money Retrospective
+
+- Pour aller plus loin, on pourrait transformer _Expression_ en classe, pour porter la logique commune entre classes filles, comme par exemple la méthode _plus_.
+- Kent considère que le code n’est jamais vraiment fini. Il conseille de manière générale de **faire en sorte que le code qu’on touche souvent soit super solide**, à la fois d’un point de vue du code et des tests, **alors que le code qui est plus périphérique peut être un peu plus négligé**.
+  - L’important c’est d’être en permanence dans une situation où on a **confiance** dans le code qu’on maintient.
+- Quand on a traité sa todo list, c’est le bon moment pour prendre un peu de recul et se demander si le design est cohérent, et s’il y a de la duplication de fond qui persiste.
+- Kent est lui-même surpris par le fait que le choix des mots et les métaphores qu’on prend pour désigner les objets influencent grandement la manière dont on voit le problème, et donc le design du code qui en résulte.
+- Quelques stats sur le Money example :
+  - Pour coder cet exemple, Kent a joué les tests 125 fois, avec une minute entre les jeux en moyenne.
+  - On se retrouve bien avec environ autant de code de test que de code de production, même si ici on pourrait factoriser le code des tests.
+  - En moyenne, il a fallu changer un à deux endroits (faire passer le test, enlever la duplication) pour répondre à un test qui a été écrit.
+- Quand les développeurs adoptent une technique comme le TDD, **le rôle des testeurs se rapproche de facilitateur entre les personnes qui ont les idées et ceux qui développent le code**.
+- Parmi les métriques qu’on peut surveiller à propos des tests, il y a le **coverage**, et le _defect insertion_ (connu plus récemment comme **mutation testing**). Le TDD devrait amener à avoir un score très élevé sur les deux.
+- Parmi les choses notables dans cette partie, on peut retenir :
+  - Les **3 techniques** pour faire passer un test rapidement : la valeur en dur, la triangulation et l’implémentation évidente.
+  - Le fait qu’**enlever la duplication** entre le code et le test aide à faire **avancer le design**.
+  - Le fait de pouvoir **passer à du plus bas niveau sur les tests** quand on est face à une difficulté, et à l’inverse passer sur du plus haut niveau quand ça devient plus facile.
