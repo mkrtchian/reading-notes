@@ -1173,7 +1173,7 @@
   }
   ```
 - On a donc notre addition avec différentes devises qui marche, et on ajoute dans la todo list l’implémentation de _Sum.plus_, et le fait de mettre _times_ dans _Expression_ aussi.
-  - [ ] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 + 10CHF = $10 si le taux est de 2:1
   - [x] $5 + $5 = $10
   - [ ] Retourner Money à partir de $5 + $5
   - [x] Bank.reduce(Money)
@@ -1181,3 +1181,93 @@
   - [x] Reduce(Bank, string)
   - [ ] Implémentation de Sum.plus
   - [ ] Mettre times dans Expression
+
+### 16 - Abstraction, Finally
+
+- On va traiter l’implémentation de _Sum.plus_.
+  ```typescript
+  it("adds a sum and a money", () => {
+    const fiveBucks = Money.dollar(5);
+    const tenFrancs = Money.francs(10);
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+    const result = bank.reduce(sum, "USD");
+    expect(result.equals(Money.dollar(15))).toBe(true);
+  });
+  ```
+- Et ensuite le code.
+  ```typescript
+  class Sum implements Expression {
+    // ...
+    plus(addend: Expression) {
+      return new Sum(this, addend);
+    }
+  }
+  ```
+- Pour Kent Beck, le TDD va en moyenne amener à produire **autant de code de test que de code de production**.
+- On passe maintenant à _times_ qu’on veut remonter dans l’interface _Expression_. Il s’agit d'abord de le faire marcher sur _Sum_.
+  ```typescript
+  it("multiplies a sum with a value", () => {
+    const fiveBucks = Money.dollar(5);
+    const tenFrancs = Money.francs(10);
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const sum = new Sum(fiveBucks, tenFrancs).times(2);
+    const result = bank.reduce(sum, "USD");
+    expect(result.equals(Money.dollar(20))).toBe(true);
+  });
+  ```
+- Et le code.
+  ```typescript
+  class Sum implements Expression {
+    // ...
+    times(multiplier: number) {
+      return new Sum(
+        this.augend.times(multiplier),
+        this.addend.times(multiplier)
+      );
+    }
+  }
+  ```
+- Et on peut ajouter _times_ à _Expression_.
+  ```typescript
+  interface Expression {
+    // ...
+    times(multiplier: number): Expression;
+  }
+  ```
+- On peut donc cocher nos deux derniers items.
+  - [x] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 + $5 = $10
+  - [ ] Retourner Money à partir de $5 + $5
+  - [x] Bank.reduce(Money)
+  - [x] Reduce avec une conversion
+  - [x] Reduce(Bank, string)
+  - [x] Implémentation de Sum.plus
+  - [x] Mettre times dans Expression
+- Il reste un élément dans notre todo list : le fait de retourner un objet Money à partir d’une addition dans l'objet Money. On va d’abord écrire le test, qui n’est pas tip top vu qu’il doit tester l’instance de classe renvoyée.
+  ```typescript
+  it("returns a money from the plus operation", () => {
+    const sum = Money.dollar(1).plus(Money.dollar(1));
+    expect(sum instanceof Money).toBe(true);
+  });
+  ```
+- En regardant le code, on voit mal comment on ferait ça de manière à peu près propre.
+  ```typescript
+  class Money implements Expression {
+    // ...
+    plus(addend: Expression) {
+      return new Sum(this, addend);
+    }
+  }
+  ```
+- On décide d’abandonner ce point et de supprimer ce test.
+  - [x] $5 + 10CHF = $10 si le taux est de 2:1
+  - [x] $5 + $5 = $10
+  - [x] Retourner Money à partir de $5 + $5
+  - [x] Bank.reduce(Money)
+  - [x] Reduce avec une conversion
+  - [x] Reduce(Bank, string)
+  - [x] Implémentation de Sum.plus
+  - [x] Mettre times dans Expression
