@@ -1289,3 +1289,147 @@
   - Les **3 techniques** pour faire passer un test rapidement : la valeur en dur, la triangulation et l’implémentation évidente.
   - Le fait qu’**enlever la duplication** entre le code et le test aide à faire **avancer le design**.
   - Le fait de pouvoir **passer à du plus bas niveau sur les tests** quand on est face à une difficulté, et à l’inverse passer sur du plus haut niveau quand ça devient plus facile.
+
+## II - The xUnit Example
+
+### 18 - First Steps to xUnit
+
+- Il s’agit d’**implémenter un framework de test**, donc on part du principe qu’on n’en a pas. C’est un exemple un peu plus compliqué que le premier.
+- En réfléchissant un peu aux premières fonctionnalités, on a cette todo list en tête.
+  - [ ] Exécuter la méthode à tester
+  - [ ] Exécuter setUp en premier
+  - [ ] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [ ] Montrer les résultats
+- Pour vérifier qu’on exécute la méthode à tester, on peut choisir une méthode qui ne fait que mettre une variable à _true_. Le framework va initialiser la variable à _false_ au début, va exécuter la méthode, et vérifier qu’elle est passée à _true_.
+  - Puisqu’on n’a pas de framework de test, **on écrit notre test directement dans un module qu’on va exécuter à la main**, et on observe le résultat dans la sortie standard.
+  ```typescript
+  const test = WasRun("testMethod");
+  console.log(test.wasRun);
+  test.testMethod();
+  console.log(test.wasRun);
+  ```
+- On va écrire du code pour faire passer le test. D’abord la classe de test qui contient aussi la méthode à tester.
+
+  ```typescript
+  class WasRun {
+    public wasRun: boolean;
+    constructor() {
+      this.wasRun = false;
+    }
+
+    testMethod() {}
+  }
+  ```
+
+- On n’a plus d’erreurs à l’exécution, mais on obtient deux fois _false_. Il faut le corps de la méthode testée.
+  ```typescript
+  class WasRun {
+    // ...
+    testMethod() {
+      this.wasRun = true;
+    }
+  }
+  ```
+- Maintenant qu’on a notre test au “vert”, on va faire des refactorings.
+  - On va commencer par appeler une méthode plus générique dans le test pour lancer l’exécution du test, et utiliser le nom de la méthode donnée dans le constructeur de _WasRun_ pour la méthode qui sera appelée.
+  ```typescript
+  const test = WasRun("testMethod");
+  console.log(test.wasRun);
+  test.run();
+  console.log(test.wasRun);
+  ```
+- Côté implémentation, il faut créer la méthode _run()_ pour faire passer rapidement le test au vert.
+  ```typescript
+  class WasRun {
+    // ...
+    run() {
+      this.testMethod();
+    }
+  }
+  ```
+- On peut ensuite appeler la méthode à tester dynamiquement, depuis le nom donné au constructeur.
+
+  ```typescript
+  class WasRun {
+    public wasRun: boolean;
+    constructor(private name: string) {
+      this.wasRun = false;
+    }
+
+    run() {
+      const method = (this as any)[this.name];
+      method && method();
+    }
+  }
+  ```
+
+- Comme notre classe _WasRun_ fait maintenant deux choses (savoir si la méthode a été appelée, et appeler la méthode dynamiquement), on peut créer une classe mère pour porter la 2ème fonctionnalité.
+
+  - D’abord on la crée et on lui donne la variable _name_.
+
+  ```typescript
+  class TestCase {
+    constructor(private name: string) {}
+  }
+
+  class WasRun extends TestCase {
+    public wasRun: boolean;
+    constructor(name: string) {
+      super(name);
+      this.wasRun = false;
+    }
+
+    run() {
+      const method = (this as any)[this.name];
+      method && method();
+    }
+    // ...
+  }
+  ```
+
+  - Puis on y déplace la méthode _run()_.
+
+  ```typescript
+  class TestCase {
+    constructor(private name: string) {}
+
+    run() {
+      const method = (this as any)[this.name];
+      method && method();
+    }
+  }
+
+  class WasRun extends TestCase {
+    public wasRun: boolean;
+    constructor(name: string) {
+      super(name);
+      this.wasRun = false;
+    }
+    // ...
+  }
+  ```
+
+- On peut maintenant **utiliser notre classe _TestCase_ dans le test lui-même**, et en profiter pour **remplacer les affichages par des assertions**.
+
+  ```typescript
+  class TestCaseTest extends TestCase {
+    testRunning() {
+      const test = WasRun("testMethod");
+      assert.strictEqual(test.wasRun, false);
+      test.run();
+      assert.strictEqual(test.wasRun, true);
+    }
+  }
+
+  new TestCaseTest("testRunning").run();
+  ```
+
+- On a donc complété la 1ère étape de notre todo list.
+  - [x] Exécuter la méthode à tester
+  - [ ] Exécuter setUp en premier
+  - [ ] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [ ] Montrer les résultats
