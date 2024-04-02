@@ -1528,12 +1528,12 @@
       }
 
       testRunning() {
-        test.run();
+        this.test.run();
         assert.strictEqual(test.wasRun, true);
       }
 
       testSetUp() {
-        test.run();
+        this.test.run();
         assert.strictEqual(test.wasSetUp, true);
       }
     }
@@ -1546,3 +1546,137 @@
   - [ ] Exécuter tearDown même si la méthode à tester échoue
   - [ ] Exécuter plusieurs tests
   - [ ] Montrer les résultats
+
+### 20 - Cleaning Up After
+
+- On réfléchit à la fonctionnalité _tearDown_, et il nous vient l’idée de vouloir tester correctement l’ordre d’exécution entre _setUp_, la méthode testée, et _tearDown_, on se dit qu’on peut le faire avec un log plutôt que des flags.
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [ ] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [ ] Montrer les résultats
+  - [ ] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+- On va refactorer _WasRun_ pour qu’il utilise un log en interne.
+  ```typescript
+  class WasRun extends TestCase {
+    // ...
+    setUp() {
+      this.wasRun = false;
+      this.wasSetUp = true;
+      this.log = "setUp ";
+    }
+  }
+  ```
+- Puis on peut changer le test de _setUp_ pour se baser sur le log.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testSetUp() {
+      this.test.run();
+      assert.strictEqual(this.test.log, "setUp ");
+    }
+  }
+  ```
+- On peut alors supprimer le flag _wasSetUp_ sur _WasRun_, et ajouter le log dans la méthode de test.
+  ```typescript
+  class WasRun extends TestCase {
+    // ...
+    testMethod() {
+      this.wasRun = false;
+      this.log = `${this.log}testMethod `;
+    }
+  }
+  ```
+- On peut alors mettre à jour le contenu du test de _setUp_ qui joue l’ensemble du code et donc contient l’ensemble du log.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testSetUp() {
+      this.test.run();
+      assert.strictEqual(this.test.log, "setUp testMethod");
+    }
+  }
+  ```
+  - On va en profiter pour supprimer le test de la méthode principale qui fait maintenant doublon, et renommer celui de _setUp_ en _testTemplateMethod_.
+    ```typescript
+    class TestCaseTest extends TestCase {
+      // ...
+      testTemplateMethod() {
+        this.test.run();
+        assert.strictEqual(this.test.log, "setUp testMethod");
+      }
+    }
+    ```
+  - Vu que la méthode _setUp_ dans _TestCaseTest_ n’est plus utile qu’à un seul test, on peut rapatrier son contenu dans le test (on défait le refactoring qu’on avait fait).
+    ```typescript
+    class TestCaseTest extends TestCase {
+      // ...
+      testTemplateMethod() {
+        const test = WasRun("testMethod");
+        test.run();
+        assert.strictEqual(test.log, "setUp testMethod");
+      }
+    }
+    ```
+- On a donc terminé l’ajout de log dans _WasRun_ pour vérifier l’ordre d’exécution.
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [ ] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [ ] Montrer les résultats
+  - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+- On peut maintenant ajouter le cas de _tearDown_ dans le seul test qui teste déjà l’ordre d’exécution des deux autres méthodes.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testTemplateMethod() {
+      const test = WasRun("testMethod");
+      test.run();
+      assert.strictEqual(test.log, "setUp testMethod tearDown ");
+    }
+  }
+  ```
+- Et on peut modifier le code directement pour faire passer le test.
+
+  ```typescript
+  class TestCase {
+    // ...
+    run() {
+      this.setUp();
+      const method = (this as any)[this.name];
+      method && method();
+      this.tearDown();
+    }
+
+    setUp() {}
+
+    tearDown() {}
+  }
+
+  class WasRun extends TestCase {
+    // ...
+    setUp {
+      this.log = "setUp ";
+    }
+
+    testMethod() {
+      this.wasRun = false;
+      this.log = `${this.log}testMethod `;
+    }
+
+    tearDown {
+      this.log = `${this.log}tearDown `;
+    }
+  }
+  ```
+
+- On a donc implémenté _tearDown_.
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [x] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [ ] Montrer les résultats
+  - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
