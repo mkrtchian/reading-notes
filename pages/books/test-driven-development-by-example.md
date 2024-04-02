@@ -1434,7 +1434,7 @@
   - [ ] Exécuter plusieurs tests
   - [ ] Montrer les résultats
 
-## 19 - Set the Table
+### 19 - Set the Table
 
 - Il arrive souvent que la partie arrange des tests se répète, pour autant, Kent déconseille de ne la jouer qu’une fois pour gagner en performance, parce que **le couplage entre les tests est très problématique**.
 - On va créer un test pour notre fonctionnalité suivante : la méthode _setUp_.
