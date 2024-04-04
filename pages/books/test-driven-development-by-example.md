@@ -1852,3 +1852,143 @@
   - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
   - [x] Montrer les tests échoués
   - [ ] Gérer et montrer les erreurs au setUp
+
+### 23 - How Suite It Is
+
+- On va traiter le cas de l’**exécution de plusieurs tests** par un même objet, de manière à obtenir l’affichage des **résultats des tests cumulés**.
+- On va créer un test pour ça.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testSuite() {
+      const suite = TestSuite();
+      suite.add(new WasRun("testMethod"));
+      suite.add(new WasRun("testBrokenMethod"));
+      const result = suite.run();
+      assert.strictEqual(result.summary(), "2 run, 1 failed");
+    }
+  }
+  ```
+- On va utiliser le **pattern Composite**, qui implique de traiter un ensemble d’opérations comme une opération qui existe déjà. La classe _TestSuite_ va se comporter comme la classe _TestCase_ mais avec plusieurs tests joués.
+
+  ```typescript
+  class TestSuite {
+    private tests: TestCase[];
+
+    constructor() {
+      this.tests = [];
+    }
+
+    add(test: TestCase) {
+      this.tests.push(test);
+    }
+
+    run() {
+      const result = new TestResult();
+      for (test of this.tests) {
+        test.run(result);
+      }
+      return result;
+    }
+  }
+  ```
+
+- Pour respecter le pattern Composite, il faut que _TestSuite.run()_ soit appelé exactement comme _TestCase.run()_, et donc il va falloir que _TestCase.run_ prenne _result_ en paramètre.
+
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testSuite() {
+      const suite = TestSuite();
+      suite.add(new WasRun("testMethod"));
+      suite.add(new WasRun("testBrokenMethod"));
+      const result = TestResult();
+      suite.run(result);
+      assert.strictEqual(
+        result.summary(),
+        "2 run, 1 failed"
+      );
+    }
+  }
+
+  class TestSuite {
+    // ...
+    run(result: TestResult) {
+      for (test of this.tests) {
+        test.run(result);
+      }
+    }
+  }
+
+  class TestCase {
+    // ...
+    run(result: TestResult) {
+      result.testStarted();
+      this.setUp();
+      try {
+        const method = (this as any)[this.name];
+        method && method();
+      }
+      catch() {
+        result.testFailed();
+      }
+      this.tearDown();
+    }
+  }
+  ```
+
+- On peut donc utiliser TestSuite pour déclarer les tests et les jouer tous en même temps.
+  ```typescript
+  const suite = new TestSuite();
+  suite.add(new TestCaseTest("testTemplateMethod"));
+  suite.add(new TestCaseTest("testResult"));
+  suite.add(new TestCaseTest("testFailedResultFormatting"));
+  suite.add(new TestCaseTest("testFailedResult"));
+  suite.add(new TestCaseTest("testSuite"));
+  const result = TestResult();
+  suite.run(result);
+  console.log(result.summary());
+  ```
+- On peut ensuite corriger les tests qui échouent.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testTemplateMethod() {
+      const test = new WasRun("testMethod");
+      const result = new TestResult();
+      test.run(result);
+      assert.strictEqual(test.log(), "setUp testMethod tearDown ");
+    }
+    // ...
+  }
+  ```
+- On peut ensuite mettre en commun la création de l’objet result dans _setUp_.
+
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    setUp() {
+      this.result = new TestResult();
+    }
+
+    testTemplateMethod() {
+      const test = new WasRun("testMethod");
+      test.run(this.result);
+      assert.strictEqual(test.log(), "setUp testMethod tearDown ");
+    }
+    // ...
+  }
+  ```
+
+- Remarque de Kent : on est ici (Python ou JavaScript) en présence d’un langage de script, plutôt que d’un langage objet, c’est pour ça qu’on doit préfixer les variables membres par `this` ou `self`, alors que les variables globales sont accessibles par défaut. Dans un langage objet ce serait le contraire.
+- On a implémenté le fait de jouer plusieurs tests, mais on a l’idée de construire une suite automatiquement à partir d’une classe _TestCase_. On va laisser le reste des éléments de la liste pour une autre fois.
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [x] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [x] Exécuter plusieurs tests
+  - [x] Montrer les résultats
+  - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+  - [x] Montrer les tests échoués
+  - [ ] Gérer et montrer les erreurs au setUp
+  - [ ] Créer TestSuite à partir d'une classe TestCase
