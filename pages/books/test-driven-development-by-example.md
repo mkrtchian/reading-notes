@@ -1992,3 +1992,10 @@
   - [x] Montrer les tests échoués
   - [ ] Gérer et montrer les erreurs au setUp
   - [ ] Créer TestSuite à partir d'une classe TestCase
+
+### 24 - xUnit Retrospective
+
+- xUnit a déjà été implémenté dans la plupart des langages, mais **Kent conseille de le réimplémenter soi-même**.
+  - xUnit est un des exemples les plus emblématiques, et contient énormément de choses en peu de lignes. Le refaire permet d’aller vers l’excellence technique en améliorant sa maîtrise du code.
+  - Kent aime bien explorer un nouveau langage en réimplémentant xUnit, ça lui permet d’en comprendre la plupart des caractéristiques en peu de temps.
+- Si on l’implémente, il faudra penser à différencier les échecs dues aux assertions qui échouent, et les autres échecs.
