@@ -1785,3 +1785,70 @@
   - [x] Montrer les résultats
   - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
   - [ ] Montrer les tests échoués
+
+### 22 - Dealing with Failure
+
+- Vu qu’on a un peu de mal, on va partir sur **un test de plus bas niveau** pour guider l’implémentation des résultats de tests échoués. Le test va directement instancier _TestResult_ et utiliser son interface.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testFailedResultFormatting() {
+      const result = TestResult();
+      result.testStarted();
+      result.testFailed();
+      assert.strictEqual(result.summary(), "1 run, 1 failed");
+    }
+  }
+  ```
+- Côté implémentation, on peut ajouter _testFailed()_ et le compteur associé.
+
+  ```typescript
+  class TestResult {
+    private runCount: number;
+    private errorCount: number;
+
+    constructor() {
+      this.runCount = 0;
+      this.errorCOunt = 0;
+    }
+    // ...
+    testFailed() {
+      this.errorCount++;
+    }
+
+    summary() {
+      return `${this.runCount} run, ${this.errorCount} failed`;
+    }
+  }
+  ```
+
+- Et on doit appeler la méthode dans _TestCase_ dans le cas où une exception arrive à l’exécution.
+  ```typescript
+  class TestCase {
+    // ...
+    run() {
+      const result = new TestResult();
+      result.testStarted();
+      this.setUp();
+      try {
+        const method = (this as any)[this.name];
+        method && method();
+      }
+      catch() {
+        result.testFailed();
+      }
+      this.tearDown();
+      return result;
+    }
+  }
+  ```
+- On a bien le nombre d’erreurs qui sont montrées, mais il nous vient aussi l’idée que les erreurs dans le _setUp_ devraient aussi être gérées et affichées (Kent ne le montrera pas).
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [x] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [x] Montrer les résultats
+  - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+  - [x] Montrer les tests échoués
+  - [ ] Gérer et montrer les erreurs au setUp
