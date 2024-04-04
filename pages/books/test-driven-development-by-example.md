@@ -1680,3 +1680,108 @@
   - [ ] Exécuter plusieurs tests
   - [ ] Montrer les résultats
   - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+
+### 21 - Counting
+
+- On veut que notre framework montre le nombre de tests qui ont été joués, et le nombre d’échecs, pour qu’on puisse aussi se rendre compte si des tests arrêtent d’être joués.
+- On va écrire un test pour matérialiser le comportement qu’on veut.
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testResult() {
+      const test = WasRun("testMethod");
+      const result = test.run();
+      assert.strictEqual(result.summary(), "1 run, 0 failed");
+    }
+  }
+  ```
+- On fait passer le test rapidement par une implémentation en dur.
+
+  ```typescript
+  class TestResult {
+    summary() {
+      return "1 run, 0 failed";
+    }
+  }
+
+  class TestCase {
+    // ...
+    run() {
+      this.setUp();
+      const method = (this as any)[this.name];
+      method && method();
+      this.tearDown();
+      return new TestResult();
+    }
+  }
+  ```
+
+- On peut maintenant enlever la duplication petit à petit. D’abord pour le nombre de tests joués qu’on met dans une variable.
+
+  ```typescript
+  class TestResult {
+    private runCount: number;
+
+    constructor() {
+      this.runCount = 0;
+    }
+
+    summary() {
+      return `${this.runCount} run, 0 failed`;
+    }
+  }
+  ```
+
+- On peut ensuite faire s’incrémenter la nouvelle variable avec une méthode appelée à chaque test exécuté.
+
+  ```typescript
+  class TestResult {
+    // ...
+    testStarted() {
+      this.runCount++;
+    }
+  }
+
+  class TestCase {
+    // ...
+    run() {
+      const result = new TestResult();
+      result.testStarted();
+      this.setUp();
+      const method = (this as any)[this.name];
+      method && method();
+      this.tearDown();
+      return result;
+    }
+  }
+  ```
+
+- Notre test teste seulement le cas de test réussi et pas le cas de test échoué. Donc on va écrire un autre test pour ça avant de transformer le “0 failed” en variable aussi.
+
+  ```typescript
+  class TestCaseTest extends TestCase {
+    // ...
+    testFailedResult() {
+      const test = WasRun("testBrokenMethod");
+      const result = test.run();
+      assert.strictEqual(result.summary(), "1 run, 1 failed");
+    }
+  }
+
+  class WasRun extends TestCase {
+    // ...
+    testBrokenMethod() {
+      throw new Error("");
+    }
+  }
+  ```
+
+- On a donc terminé l’affichage de résultats, mais on ajoute un élément supplémentaire dans notre todo list à propos de l’affichage de tests échoués, qui est matérialisé pour notre test rouge.
+  - [x] Exécuter la méthode à tester
+  - [x] Exécuter setUp en premier
+  - [x] Exécuter tearDown à la fin
+  - [ ] Exécuter tearDown même si la méthode à tester échoue
+  - [ ] Exécuter plusieurs tests
+  - [x] Montrer les résultats
+  - [x] Logger un string dans WasRun pour vérifier l'ordre d'exécution
+  - [ ] Montrer les tests échoués
