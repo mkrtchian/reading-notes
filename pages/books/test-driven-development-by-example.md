@@ -1999,3 +1999,24 @@
   - xUnit est un des exemples les plus emblématiques, et contient énormément de choses en peu de lignes. Le refaire permet d’aller vers l’excellence technique en améliorant sa maîtrise du code.
   - Kent aime bien explorer un nouveau langage en réimplémentant xUnit, ça lui permet d’en comprendre la plupart des caractéristiques en peu de temps.
 - Si on l’implémente, il faudra penser à différencier les échecs dues aux assertions qui échouent, et les autres échecs.
+
+## III - Patterns for Test-Driven Development
+
+### 25 - Test-Driven Development Patterns
+
+- Les tests permettent de **diminuer le niveau de stress** en permettant d’être plus confiant sur le logiciel, et en obtenant moins d’erreurs en production. Donc dès que le niveau de stress monte, il faut jouer les tests encore plus souvent.
+- Les tests doivent être **complètement isolés**, c’est-à-dire qu’on puisse par exemple les jouer dans le désordre, ou en jouer une partie.
+  - L’un des avantages d’avoir des tests isolés c’est que ça pousse à avoir du code hautement cohésif et faiblement couplé.
+- Kent fait **une liste des prochaines actions** sur un bout de papier, ça lui permet de gérer son stress quant à la suite de ce qu’il a à faire, d’être sûr qu’il n’oublie rien, tout en **ne se concentrant que sur un élément à la fois**.
+  - Il fait la même chose avec des listes s’étalant sur la semaine et plusieurs mois.
+  - Dans le cadre du TDD les prochaines actions à noter sont d’abord les tests ciblant les cas d’usage, puis les différents refactorings.
+  - Si on s’arrête avec des éléments qui restent dans la liste, il faut décider si on ne les veut plus. Si on les veut toujours, il faut reprendre la liste la prochaine fois qu’on travaille sur la fonctionnalité.
+- Écrire les tests d’abord permet de guider le design et de gérer le périmètre de ce qu’on développe, mais ça permet aussi de réduire le stress quand il est modéré. Quand le stress est vraiment important, le risque de se remettre à ne pas tester est grand lui aussi.
+- Pour Kent, **le test doit être écrit en commençant par la partie assert**. On remonte ensuite petit à petit vers le haut en introduisant les lignes manquantes.
+  - L’intérêt est que ça permet de diviser l'écriture de tests elle-même en plus petites étapes qu’on peut faire une à une.
+- **Les données utilisées dans les tests doivent être le plus simples possibles**. Si 1 fait l’affaire, il n’y a pas besoin d’aller chercher la valeur 2, et si une liste de 3 éléments fait l’affaire pour mener au même design, il n’y a pas besoin d’en faire une liste de 10 éléments.
+  - Dans certains cas, on peut avoir besoin de _données réalistes_ plutôt que de _données de tests_. Par exemple si on fait un refactoring d’un système dont on a besoin de s’assurer qu’il fonctionne exactement comme avant, si on teste notre système en parallèle d’un autre, si on récupère des événements externes etc.
+- Dans la mesure du possible, **la relation entre les données de test doit être évidente**.
+  - On va chercher à faire apparaître les valeurs en dur dans le test, plutôt que de les mettre dans des constantes à importer.
+  - Si un résultat est censé être obtenu à partir des données initiales, on peut faire apparaître le calcul pour montrer la relation explicitement. Par exemple reprendre les valeurs `100 / 2 * (1 - 0.015)` dans l’assert, plutôt que la valeur finale `49.25`.
+    - NDLR : ce point en particulier va à l’encontre du conseil de Vladimir Khorikov dans **_Unit Testing_**, où il dit préférer ne pas reproduire le code de production dans les tests pour avoir deux versions différentes du calcul, celle des tests étant complètement en dur.
