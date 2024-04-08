@@ -2020,3 +2020,18 @@
   - On va chercher à faire apparaître les valeurs en dur dans le test, plutôt que de les mettre dans des constantes à importer.
   - Si un résultat est censé être obtenu à partir des données initiales, on peut faire apparaître le calcul pour montrer la relation explicitement. Par exemple reprendre les valeurs `100 / 2 * (1 - 0.015)` dans l’assert, plutôt que la valeur finale `49.25`.
     - NDLR : ce point en particulier va à l’encontre du conseil de Vladimir Khorikov dans **_Unit Testing_**, où il dit préférer ne pas reproduire le code de production dans les tests pour avoir deux versions différentes du calcul, celle des tests étant complètement en dur.
+
+### 26 - Red Bar Patterns
+
+- On traite **un test à la fois**.
+- Pour **choisir le prochain test** à traiter :
+  - On s’assure qu’il nous apprendra quelque chose.
+  - On s’assure qu’on est confiant de pouvoir implémenter.
+- Le **1er test qu’on traite doit être simple** pour qu’on le traite rapidement. Typiquement, on peut choisir des inputs qui font que le système ne fait rien, ou renvoie l’output le plus simple possible.
+- Pour faire en sorte que les personnes de son équipe se mettent au TDD, Kent propose de leur demander de reformuler la fonctionnalité sous forme de tests, c’est-à-dire d’inputs, d’exécution et d’outputs obtenus dans ce cas.
+- Le seul moment où on écrit des tests après le code, c’est dans le cas des **learning tests**, où il s’agit de **tester le fonctionnement d’une librairie déjà existante**. On s’assure qu’on comprend comment elle marche pour la partie qui nous intéresse, et que ce fonctionnement ne changera pas à l’avenir et ne cassera pas notre logiciel.
+- Quand on a un **bug**, la première chose à faire est d’**écrire le plus petit test possible qui le reproduit**, pour ensuite le faire passer.
+  - Il faut aussi se demander comment on aurait pu faire pour que ce test soit écrit dès le départ dans le cadre du développement en TDD.
+- Kent conseille de **prendre souvent des pauses**, parce que la bonne idée viendra souvent à ce moment-là. Et si elle ne vient pas, c’est un bon moment pour revoir ses objectifs.
+- Parfois, quand on s’embourbe dans un code bordélique, il est préférable de jeter le travail qu’on vient de faire et de le refaire en repartant de zéro.
+  - Dans la même idée, changer de partenaire de pair programming peut permettre d’avoir un œil nouveau sur ce qui a été fait, et peut amener à recommencer autrement.
