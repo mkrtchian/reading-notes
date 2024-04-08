@@ -2035,3 +2035,43 @@
 - Kent conseille de **prendre souvent des pauses**, parce que la bonne idée viendra souvent à ce moment-là. Et si elle ne vient pas, c’est un bon moment pour revoir ses objectifs.
 - Parfois, quand on s’embourbe dans un code bordélique, il est préférable de jeter le travail qu’on vient de faire et de le refaire en repartant de zéro.
   - Dans la même idée, changer de partenaire de pair programming peut permettre d’avoir un œil nouveau sur ce qui a été fait, et peut amener à recommencer autrement.
+
+### 27 - Testing Patterns
+
+- Quand un test prend trop de temps pour être passé au vert, il vaut mieux **le supprimer et écrire un test plus bas niveau à la place**. On peut par exemple décomposer le problème en deux ou trois morceaux qu’on va faire passer à part avant de repartir sur le plus gros test qui les fait marcher ensemble.
+  - L’effort supplémentaire pour maintenir le cycle court en vaut la peine.
+  - Un test qui prend 10 minutes à passer au vert c’est déjà trop pour Kent.
+- Quand on est en présence d’éléments lourds à tester (comme une base de données), on peut créer un **mock**, un objet qui se comporte de manière similaire à l’objet réel mais qui fait tout in-memory.
+
+  - Les avantages sont la fiabilité des tests, la lisibilité du code et la rapidité d’exécution, et le désavantage principal est la possibilité que le comportement diverge par rapport au vrai objet. Pour être rassuré, on peut prévoir quelques tests qui utilisent le vrai objet.
+  - Parfois, on peut **utiliser la classe de test elle-même comme objet de mock**, ça s’appelle un _test shunt_, et ça a l’avantage d’être plus évident et lisible.
+
+    - Exemple où le test a un compteur, et suit l’interface d’un objet qu’on donne déjà au _system under test_, avec une méthode qui incrémente le compteur quand elle est appelée.
+
+      ```typescript
+      class Test {
+        private count: number;
+        constructor() {
+          this.count = 0;
+        }
+
+        testNotification() {
+          this.count = 0;
+          const result = new TestResult();
+          result.addlistener(this);
+          new WasRun("testMethod").run(result);
+          expect(this.count).toBe(1);
+        }
+
+        startTest() {
+          this.count++;
+        }
+      }
+      ```
+
+    - Le _test shunt_ marche bien avec le log de string quand on a des notifications sous forme d’appel de méthode qu’on veut tester dans l’ordre (cf. ce qui a été fait dans l’exemple xUnit).
+
+  - On a parfois besoin de faire un **crash test dummy** à la place d’un mock normal, pour simuler un cas d’erreur qui arrive rarement : on part d’un objet complexe (par héritage ou par une autre méthode) et on change une méthode spécifique par quelque chose de fake qui peut par exemple lever une exception.
+
+- Une des techniques de Kent pour redémarrer rapidement quand il travaille sur un projet seul c’est de **laisser le dernier test au rouge**.
+  - Par contre, quand il travaille au sein d’une équipe, il conseille de **toujours laisser la suite de tests au vert**, et d’intégrer son travail le plus souvent possible. Dans le cas où en intégrant son travail on casse d’autres tests, il vaut sans doute mieux supprimer ce qu'on vient de faire et le refaire.
