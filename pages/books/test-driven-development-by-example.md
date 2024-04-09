@@ -2075,3 +2075,15 @@
 
 - Une des techniques de Kent pour redémarrer rapidement quand il travaille sur un projet seul c’est de **laisser le dernier test au rouge**.
   - Par contre, quand il travaille au sein d’une équipe, il conseille de **toujours laisser la suite de tests au vert**, et d’intégrer son travail le plus souvent possible. Dans le cas où en intégrant son travail on casse d’autres tests, il vaut sans doute mieux supprimer ce qu'on vient de faire et le refaire.
+
+### 28 - Green Bar Patterns
+
+- Quand on a un test rouge, il faut le faire passer au vert le plus vite possible.
+  - **Fake it ‘til you make it** : on utilise des valeurs en dur pour faire passer le test, puis on va les remplacer progressivement par des variables pour généraliser le code.
+    - Le coût additionnel de passer par des étapes en plus en vaut la peine parce qu’en échange on a un test vert très rapidement. Ça a un effet psychologique sur la confiance, et ça permet de rester concentré sur le cas qu’on traite.
+  - **Triangulate** : on écrit une première assertion avec des valeurs en dur, puis une deuxième. L’implémentation en dur n’est plus vraiment possible, donc on est forcé de faire une implémentation qui marche pour les deux cas.
+    - Kent préfère utiliser _fake it_ et _obvious implementation_, parce que _triangulate_ est plus lourd à utiliser.
+  - **Obvious implementation** : on écrit directement l’implémentation parce qu’elle nous paraît évidente.
+    - Il n’y a aucun souci à le faire si c’est vraiment évident, par contre si on tombe sur un test rouge, il faut accepter de revenir un cran en arrière et repasser par du _fake it_ par exemple.
+- Quand on a **une opération sur une collection**, on peut **d’abord implémenter la version sur un élément** : on écrit un test avec un élément qu’on fait passer au vert, puis on introduit un paramètre qui est une collection,on implémente la version avec la collection, et enfin on supprime le paramètre initial qui n’est plus utilisé.
+  - L’idée c’est d’isoler les changements. On a un changement qui permet de faire passer un test simple, puis un changement pour complexifier le test et le code en construisant sur ce qui marchait déjà.
