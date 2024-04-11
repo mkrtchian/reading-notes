@@ -2087,3 +2087,16 @@
     - Il n’y a aucun souci à le faire si c’est vraiment évident, par contre si on tombe sur un test rouge, il faut accepter de revenir un cran en arrière et repasser par du _fake it_ par exemple.
 - Quand on a **une opération sur une collection**, on peut **d’abord implémenter la version sur un élément** : on écrit un test avec un élément qu’on fait passer au vert, puis on introduit un paramètre qui est une collection,on implémente la version avec la collection, et enfin on supprime le paramètre initial qui n’est plus utilisé.
   - L’idée c’est d’isoler les changements. On a un changement qui permet de faire passer un test simple, puis un changement pour complexifier le test et le code en construisant sur ce qui marchait déjà.
+
+### 29 - xUnit Patterns
+
+- Pour que la suite de test soit automatisée, la totalité des tests doivent mener à un résultat binaire : soit ils passent, soit non.
+- Il vaut mieux considérer le code comme **une boîte noire**, en utilisant son interface publique. Ça permet notamment d’avoir l’opportunité d’**améliorer le design**.
+- On se retrouve souvent avec le **code de setup** qui est répété entre plusieurs tests, il s’agit d’un code qu’on pourrait mettre en commun sous forme de **fixture**.
+  - L’avantage de le faire c’est que ça élimine la duplication, et le désavantage c’est que ça oblige à regarder à deux endroits pour lire un test.
+  - Dans le cas des frameworks xUnit, chaque fixture est présente dans une classe à elle, et donc si on a besoin de plusieurs fixtures on crée plusieurs classes de test.
+- Dans le cas où on utilise un framework comme xUnit qui garantit qu’une méthode _tearDown_ sera exécutée dans tous les cas, on peut utiliser _setUp_ et _tearDown_ pour initialiser et nettoyer des ressources externes nécessaires au test.
+- Si le code d’un test devient **long et difficile à lire**, c’est le signe qu’il faut revenir à un **niveau de granularité plus petit**.
+- Kent est intéressé par une idée déjà proposée par plusieurs personnes : utiliser des commentaires, éventuellement imbriqués, pour décrire et organiser les tests.
+  - NDLR : c’est ce qui a été formalisé avec le _describe()_ de jest par exemple.
+- Pour tester les exceptions, on peut simplement exécuter le code dans un bloc try/catch, récupérer l’exception attendue, et faire échouer le test si on ne l’a pas eue.
