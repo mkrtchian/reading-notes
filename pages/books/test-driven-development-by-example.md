@@ -2100,3 +2100,35 @@
 - Kent est intéressé par une idée déjà proposée par plusieurs personnes : utiliser des commentaires, éventuellement imbriqués, pour décrire et organiser les tests.
   - NDLR : c’est ce qui a été formalisé avec le _describe()_ de jest par exemple.
 - Pour tester les exceptions, on peut simplement exécuter le code dans un bloc try/catch, récupérer l’exception attendue, et faire échouer le test si on ne l’a pas eue.
+
+### 30 - Design Patterns
+
+- La raison pour laquelle les patterns fonctionnent dans des contextes très différents c’est que la plupart des problèmes qu’on a sont causés par nos outils, et non pas par le domaine qu’on adresse.
+- Dans le cadre du TDD, les design patterns sont appliqués soit au moment de l'écriture des tests, soit pendant le refactoring. **Il n’y a pas de phase propre au design**.
+- Liste de quelques patterns pour le paradigme objet utilisés dans les exemples de ce livre :
+  - **Command** : il s’agit de créer un objet pour déclencher l’invocation d’un calcul.
+    - L’objet est envoyé comme un message, mais il a une méthode _run()_, et permet de déclencher le calcul de la bonne manière.
+  - **Value Object** : on crée un objet dont la valeur ne change jamais, et donc le code peut compter sur elle.
+    - Chaque opération sur l’objet renvoie une nouvelle instance avec les nouvelles valeurs.
+    - L’objet doit implémenter l’opérateur d’égalité qui compare les valeurs internes, et en général un opérateur de hash.
+    - Kent utilise ce pattern dès qu’il a l’impression que ça pourrait faire un peu sens.
+  - **Null Object** : dans le cas où on est dans un cas spécial, par exemple si on n’a pas de résultat, au lieu de renvoyer _null_ on envoie un objet de résultat habituel qui se comporte de manière à ne rien faire.
+    - L’objet de résultat peut par exemple avoir une fonction pour écrire dans un fichier, qui pour ce cas-ci peut être appelée normalement mais ne fait rien.
+  - **Template Method** : une classe mère contient une séquence de méthodes, et les classes filles peuvent choisir l’implémentation de ces méthodes.
+    - La classe _TestCase_ en est un exemple : elle choisit de la manière dont les méthodes _runTest_, _setUp_ et _tearDown_ seront exécutées, et les classes de test en héritent et implémentent ces méthodes.
+    - Il faut faire attention à ne pas abstraire trop tôt, au risque de refaire l’abstraction en remettant plus de choses invariantes dans la classe mère.
+  - **Pluggable Object** : dans le cas où on se retrouve avec une condition qui se répète à plusieurs endroits pour effectuer des actions, on va créer plusieurs objets qui obéissent à la même interface, qu’on va instancier une fois en fonction de cette condition. Les autres fois il suffira d’appeler les méthodes sur l’objet sans condition, ce sera déjà le bon objet.
+  - **Pluggable Selector** : on a une structure conditionnelle pour appeler des variations d’une méthode. On ne veut pas choisir le polymorphisme parce qu’il y a trop peu de choses à mettre en commun, mais on veut éliminer le switch : il suffit que notre méthode appelle la bonne méthode de la classe en indiquant son nom dynamiquement par une variable.
+    - Attention à ne pas en abuser, il s’agit de l’utiliser seulement si la situation est simple et qu'il n'y a qu’une méthode à appeler.
+  - **Factory Method** : on instancie un objet en appelant une méthode plutôt qu’en appelant directement son constructeur.
+    - Ca permet une certaine flexibilité, par exemple sur le type d’objet retourné.
+    - Le désavantage c’est que ça ressemble à un simple appel de méthode et pas à une instanciation d’objet.
+  - **Imposter** : quand on a déjà un objet qui encapsule des choses, et qu’on veut en faire une variation qui ajouterait des conditions dans plusieurs méthodes, on va créer un autre objet suivant la même interface.
+    - _Null Object_ est un _Imposter_ : il s’utilise de la même manière que l’objet résultat de base.
+    - _Composite_ est un _Imposter_ : l’objet de collection est traité de la même manière qu’un seul objet.
+    - On peut avoir une idée d’_Imposter_ pendant l’écriture d’un test, ou pendant un refactoring.
+  - **Composite** : on traite un objet représentant une collection de choses avec la même interface que l’objet qui représente cette chose.
+    - Ça permet de simplifier le code, mais d’un autre côté ça associe souvent des notions qui n’ont pas de sens dans le monde réel : des dossiers qui contiennent des dossiers, des dessins qui contiennent des dessins etc. Il faut voir si la simplification en vaut le coup.
+  - **Collecting Parameter** : on ajoute un objet en paramètre de méthodes de plusieurs autres objets pour récupérer des résultats calculés dans ces méthodes.
+    - On en a souvent besoin quand on utilise _Composite_.
+  - **Singleton** : Kent conseille de ne pas fournir de variables globales, et de réfléchir plutôt au design de notre code.
