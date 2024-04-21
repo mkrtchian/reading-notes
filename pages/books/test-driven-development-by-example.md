@@ -2132,3 +2132,29 @@
   - **Collecting Parameter** : on ajoute un objet en paramètre de méthodes de plusieurs autres objets pour récupérer des résultats calculés dans ces méthodes.
     - On en a souvent besoin quand on utilise _Composite_.
   - **Singleton** : Kent conseille de ne pas fournir de variables globales, et de réfléchir plutôt au design de notre code.
+
+## 31 - Refactoring
+
+- Dans le cadre du TDD, le refactoring consiste à modifier le code sans que les tests existants ne cassent.
+- L’une des manières de refactorer pas à pas est de faire en sorte que **deux choses deviennent identiques pour pouvoir en supprimer une**. Par exemple, pour supprimer les classes filles, on peut faire en sorte que leurs méthodes deviennent identiques pour les remonter dans la classe mère unes à unes.
+- Quand on veut faire un changement, une des techniques qui permet de le faciliter est d’**isoler la partie qu’on veut changer**.
+  - On peut par exemple utiliser les techniques _Extract Method_, _Extract Object_ et _Method Object_.
+  - Quand on a extrait la partie qu’on voulait changer et qu’on a fait le changement, on peut ré-inliner la méthode, mais on peut aussi la laisser : il faut mettre en balance le coût de la méthode supplémentaire par rapport à la structuration que ça peut apporter.
+- Dans le cas où on **change le format de la donnée**, on peut procéder par petites étapes : créer une variable d’instance pour le nouveau format, l’assigner partout où on assigne l’ancienne, l’utiliser à la place de l’ancienne, et finir par supprimer l’ancienne. Et finir par modifier l’interface externe pour refléter le nouveau format.
+- **Extract Method** est utilisé notamment pour mieux comprendre un code long, mais aussi pour mettre en commun des morceaux présents dans plusieurs endroits.
+- **Inline Method** permet à l’inverse de réobtenir un code plus gros, pour par exemple réabstraire mieux par la suite avec d’autres extractions.
+- **Extract Interface** permet de créer une 2ème implémentation pour une classe existante : on crée une interface qui reprend les méthodes publiques de la classe, et les deux classes vont l’implémenter.
+- **Move Method** permet de déplacer une méthode d’un objet à un autre, pour mieux aligner les responsabilités.
+  - On copie la méthode à l'endroit cible, on ajoute au besoin l’instance de l’objet original ou des variables de l’objet original si besoin. Dans le cas où des variables de l’objet original étaient modifiées, on abandonne ce refactoring. Et enfin on appelle la nouvelle méthode depuis l’ancienne.
+  - Cette technique est souvent utilisée quand on remarque que plusieurs messages sont donnés à un autre objet, elle permet de diminuer ce nombre à un.
+- **Method Object** permet de créer un objet à partir d’une méthode longue et compliquée qui a besoin de plusieurs paramètres et utilise plusieurs variables locales.
+  - Procédure :
+    - On crée l’objet en prenant les paramètres de la méthode initiale au constructeur.
+    - On crée des variables d’instance pour les variables locales de la méthode initiale.
+    - On crée une méthode _run()_ sur le nouvel objet, et on l’appelle depuis l’ancienne méthode dont le corps est absorbé dans le nouvel objet.
+  - L’une des utilisations peut être quand on veut ajouter une nouvelle logique. On extrait l’ancienne dans un objet qu’on teste à part, puis on ajoute la nouvelle testée aussi, et on ajoute la nouvelle facilement à côté de l’ancienne.
+  - L’autre cas peut être quand on n’arrive pas à diviser une grande méthode parce que l’extraction mène à **trimballer trop de variables d’une méthode à l’autre**. Avec _Extract Object_ les variables locales sont des variables d’instance.
+- **Add Parameter** permet d'ajouter un paramètre à une méthode. On ajoute le paramètre, puis on laisse le compilateur nous dire ce qu’il faut changer.
+  - Parfois on veut remplacer un paramètre, dans ce cas on ajoute le nouveau et on l’utilise, puis on supprimera l’ancien qui n’est plus utilisé.
+- **Method Parameter to Constructor Parameter** permet de déplacer un paramètre de plusieurs méthodes au constructeur : on ajoute d’abord le paramètre au constructeur et on l’assigne à une variable d’instance, on utilise la variable dans les méthodes, puis on supprime le paramètre des méthodes.
+  - Ça peut permettre de ne passer le paramètre qu’une fois quand il est utilisé dans plusieurs méthodes.
