@@ -2184,3 +2184,96 @@
   - Choisir une partie sur laquelle travailler, et laisser le reste.
   - Commencer à faire du refactoring en travaillant en pair, et avec quelques tests _system level_.
   - Ajouter des tests à mesure qu’on avance.
+
+## Appendix II - Fibonacci
+
+- Il s’agit d’un exemple très court, montrant comment Kent driverait un simple fibonacci à partir des tests.
+- Vu qu’il s’agit d’une fonction unique qui prend un paramètre unique et retourne une valeur unique, Kent choisit de **partir sur un seul test**.
+  ```typescript
+  test("fibonacci", () => {
+    expect(fib(0)).toBe(0);
+  });
+  ```
+- On peut faire passer le test très vite.
+  ```typescript
+  function fib(n: number) {
+    return 0;
+  }
+  ```
+- On ajoute ensuite une assertion avec la valeur 1.
+  ```typescript
+  test("fibonacci", () => {
+    expect(fib(0)).toBe(0);
+    expect(fib(1)).toBe(1);
+  });
+  ```
+- On peut là encore faire passer le test rapidement en traitant le 0 comme étant un cas spécial.
+  ```typescript
+  function fib(n: number) {
+    if (n === 0) return 0;
+    return 1;
+  }
+  ```
+- Vu que les assertions du test se répètent et vont continuer à se répéter, on peut refactorer le test.
+  ```typescript
+  test([
+    [0, 0],
+    [1, 1],
+  ])("fibonacci", ([input, expected]) => {
+    expect(fib(input)).toBe(expected);
+  });
+  ```
+- On peut alors ajouter la valeur d’input suivante.
+  ```typescript
+  test([
+    [0, 0],
+    [1, 1],
+    [2, 1],
+  ])("fibonacci", ([input, expected]) => {
+    expect(fib(input)).toBe(expected);
+  });
+  ```
+- Le test passe avec le code actuel, donc on ajoute la valeur d’après.
+  ```typescript
+  test([
+    [0, 0],
+    [1, 1],
+    [2, 1],
+    [3, 2],
+  ])("fibonacci", ([input, expected]) => {
+    expect(fib(input)).toBe(expected);
+  });
+  ```
+- Le test échoue pour cette valeur. On peut encore une fois traiter les premiers cas comme des valeurs spéciales.
+  ```typescript
+  function fib(n: number) {
+    if(n === 0) return 0;
+    if(n &lt;= 2) return 1;
+    return 2;
+  }
+  ```
+- On vient de faire passer le test, on peut réfléchir un peu, et essayer de **généraliser le code** : en fait le dernier 2 retourné est un 1 + 1.
+  ```typescript
+  function fib(n: number) {
+    if(n === 0) return 0;
+    if(n &lt;= 2) return 1;
+    return 1 + 1;
+  }
+  ```
+- Le premier 1 est fib(n - 1), et le deuxième fib(n - 2) :
+  ```typescript
+  function fib(n: number) {
+    if(n === 0) return 0;
+    if(n &lt;= 2) return 1;
+    return fib(n - 1) + fib(n - 2);
+  }
+  ```
+- On peut alors limiter la deuxième condition au cas spécial 1.
+  ```typescript
+  function fib(n: number) {
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+  }
+  ```
+- A chaque petite modification, on a joué l’ensemble des tests, et on a pu avoir l’esprit tranquille, pour se concentrer sur le moment crucial où il fallait généraliser pour faire émerger l’algorithme.
