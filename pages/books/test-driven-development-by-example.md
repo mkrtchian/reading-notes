@@ -2133,7 +2133,7 @@
     - On en a souvent besoin quand on utilise _Composite_.
   - **Singleton** : Kent conseille de ne pas fournir de variables globales, et de réfléchir plutôt au design de notre code.
 
-## 31 - Refactoring
+### 31 - Refactoring
 
 - Dans le cadre du TDD, le refactoring consiste à modifier le code sans que les tests existants ne cassent.
 - L’une des manières de refactorer pas à pas est de faire en sorte que **deux choses deviennent identiques pour pouvoir en supprimer une**. Par exemple, pour supprimer les classes filles, on peut faire en sorte que leurs méthodes deviennent identiques pour les remonter dans la classe mère unes à unes.
@@ -2158,3 +2158,29 @@
   - Parfois on veut remplacer un paramètre, dans ce cas on ajoute le nouveau et on l’utilise, puis on supprimera l’ancien qui n’est plus utilisé.
 - **Method Parameter to Constructor Parameter** permet de déplacer un paramètre de plusieurs méthodes au constructeur : on ajoute d’abord le paramètre au constructeur et on l’assigne à une variable d’instance, on utilise la variable dans les méthodes, puis on supprime le paramètre des méthodes.
   - Ça peut permettre de ne passer le paramètre qu’une fois quand il est utilisé dans plusieurs méthodes.
+
+### 32 - Mastering TDD
+
+- A propos de la **taille des _steps_** :
+  - Un test peut couvrir l’ajout d’une seule ligne de logique et quelques refactorings, tout comme il peut couvrir l’ajout de centaines de lignes de logique et d’heures de refactorings.
+  - Ceci dit, les développeurs qui font du TDD ont tendance à privilégier les **petites étapes**.
+- Les outils de refactoring automatisés permettent un saut qualitatif en permettant des refactorings beaucoup plus agressifs.
+- A propos de la **quantité de tests** :
+  - Il faut suffisamment de tests pour arriver à **ne plus avoir peur**.
+  - Kent réfléchit en termes de _Mean Time Between Failures_ (MTBF), c'est-à-dire qu’il écrit des tests pour des cas qui ont une chance raisonnable de se produire pendant le temps que le code est censé durer.
+  - Sauf bonne raison, on ne teste en général pas le code écrit par d’autres.
+  - On **supprime un test** si :
+    - On ne perd pas de confiance en l’enlevant.
+    - On ne perd pas l’expression de l’un de nos scénarios par le test.
+- Parmi les caractéristiques des tests qui révèlent un problème de design :
+  - Avoir un setup trop complexe ou difficile à mettre en commun.
+  - Des tests trop longs à jouer, notamment si la suite prend plus de 10 mn.
+  - Des tests fragiles.
+- Le TDD amène à faire **le design pour le logiciel tel qu’il fonctionne aujourd’hui**, et permet de le modifier à mesure que les besoins arrivent.
+- Kent a une approche aux patterns qui lui permet de les appliquer sans réfléchir pour gagner du temps et ne pas avoir à réfléchir, et garder son énergie pour les cas qui le nécessitent.
+- TDD peut être utilisé sur de grandes codebases, Kent a expérimenté jusqu’à plusieurs dizaines de personnes codant plusieurs années.
+- Le TDD au niveau applicatif écrit par le produit (ATDD) peut permettre d’être plus précis sur les fonctionnalités, mais le TDD est une pratique complémentaire, parce qu’elle amène le feedback sur une échelle de temps plus petite.
+- Quand on veut **introduire du TDD sur une codebase classique**, on ne peut pas tester et refactorer le tout d’abord parce que ce serait trop long, il faut plutôt :
+  - Choisir une partie sur laquelle travailler, et laisser le reste.
+  - Commencer à faire du refactoring en travaillant en pair, et avec quelques tests _system level_.
+  - Ajouter des tests à mesure qu’on avance.
