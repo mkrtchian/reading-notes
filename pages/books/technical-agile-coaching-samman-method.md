@@ -48,3 +48,13 @@
 - Il y a régulièrement des phases de discussion, auquel cas les rôles sont suspendus, et l’ensemble des participants peuvent exprimer leurs idées sur un tableau.
 - Les rôles tournent régulièrement, souvent avec l’aide d’un outil automatisé qui indique quand tourner.
   - En général la bonne idée c’est que le _navigator_ courant devienne le _typist_.
+
+## 4 - Let the Ensemble give you Superpowers
+
+- Parmi les avantages de l’_ensemble programming_ :
+  - L’équipe entière est responsable du code, et **s’aligne sur les pratiques** de code.
+  - **La connaissance se diffuse** à une vitesse incroyable : si un des membre sait faire quelque chose, très peu de temps après tous sauront le faire.
+    - Exemple : si une configuration Kubernetes doit être faite et qu’une personne a des connaissances sur ça, elle dit quoi faire au _typist_, les autres posent des questions, et la prochaine fois ils sauront aussi le faire.
+  - L’**onboarding** est hyper rapide : l’équipe ne fait que parler de ce qu’elle fait en expliquant en permanence les détails, donc un nouveau développeur peut rentrer dans le bain en très peu de temps.
+- Le coach se comporte comme un visiteur quand il rejoint une équipe qui fonctionne en _ensemble programming_ de manière fluide : il s’insère rapidement et commence à contribuer comme les autres, en suggérant des opportunités de refactoring, de patterns de design etc.
+  - **La 1ère étape est donc d’aider l’équipe à fonctionner en tant qu’_ensemble_** de manière fluide. C’est là que le coach pourra contribuer le mieux sur l’aspect technique.
