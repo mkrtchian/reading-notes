@@ -58,3 +58,21 @@
   - L’**onboarding** est hyper rapide : l’équipe ne fait que parler de ce qu’elle fait en expliquant en permanence les détails, donc un nouveau développeur peut rentrer dans le bain en très peu de temps.
 - Le coach se comporte comme un visiteur quand il rejoint une équipe qui fonctionne en _ensemble programming_ de manière fluide : il s’insère rapidement et commence à contribuer comme les autres, en suggérant des opportunités de refactoring, de patterns de design etc.
   - **La 1ère étape est donc d’aider l’équipe à fonctionner en tant qu’_ensemble_** de manière fluide. C’est là que le coach pourra contribuer le mieux sur l’aspect technique.
+
+## 5 - Coaching Behaviors in an Ensemble
+
+- Pendant les moments d’_ensemble programming_, le coach va alterner entre différents comportements.
+  - **Enseigner** : à certains moments, quand l’équipe est confrontée à une technique qu’elle ne connaît pas, le coach peut prendre quelques minutes pour expliquer le concept, avant de retourner au code avec l’équipe.
+    - Ca peut être par exemple un cas où _extract method object_ serait adapté, mais l’équipe ne connaît qu’_extract method_. On va alors sur le site de Fowler pour expliquer la technique en question, on en fait une petite démonstration sous forme de kata, puis on l’applique dans le code de production en guidant tant que _navigator_.
+  - **Mentorer** : pour les techniques où l’équipe a déjà une première expérience, mais où elle n’est pas encore complètement à l’aise, le coach va proposer un guidage.
+    - A mesure que l’équipe devient à l’aise, le coach va intervenir de moins en moins en tant que _navigator_, et ne donner que des petites indications.
+    - Tant que l’équipe progresse, le coach les laisse faire.
+  - **Faciliter** : dans certains cas le coach adopte un rôle neutre pour aider une solution à aboutir.
+    - Par exemple, si deux solutions de design sont proposées par l’équipe, il les aide à essayer la première, puis la deuxième, et enfin à faire un choix.
+  - **Coacher** : dans le cas où l’équipe a déjà la connaissance théorique et pratique sur un sujet, mais a besoin d’un petit coup de pouce pour embrayer sur une technique, le coach peut utiliser une **question de coaching** pour aiguiller.
+    - Ca peut par exemple être quand un _navigator_ est coincé parce qu’il ne sait pas quel test écrire, en lui demandant quel serait le prochain scénario.
+    - Si ces petites questions ne marchent pas, le coach revient sur du mentoring, voire même une petite session d’enseignement.
+  - **Observer** : si l’équipe avance bien, le coach peut se mettre en retrait et noter des choses, qu’il pourra communiquer à l’équipe par la suite.
+  - **Prendre des pauses** : le coach peut, comme les autres membres, prendre des pauses à tout moment et laisser les autres continuer.
+    - Emily conseille aussi au moins une pause collective pour couper la session de 2 heures en deux, et une pause à la fin si elle enchaîne avec une autre équipe.
+- La session doit se terminer par 15 à 25 minutes de **rétrospective**, où l’équipe et le coach parlent de la session pour essayer de prendre conscience de ce qu’ils ont fait, ce qu’ils ont appris, les points d’amélioration etc.
