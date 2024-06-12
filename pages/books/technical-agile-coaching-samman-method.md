@@ -1,6 +1,6 @@
 # Technical Agile Coaching with the Samman Method
 
-## 1 - Introduction
+### 1 - Introduction
 
 - La méthode **Samman** consiste, pour un coach technique, à améliorer le niveau technique de plusieurs équipes en même temps, en divisant son temps en :
   - 1 - **Learning hours**, où l’équipe apprend des techniques par des exercices pratiques sous forme de katas.
@@ -13,7 +13,7 @@
   - Le reste est partagé entre de la préparation et de la communication.
 - D’une certaine manière, le coach technique qui pratique la méthode Samman a le privilège de faire du mob programming pour l’essentiel de son temps.
 
-## 2 - The purpose of Samman Coaching
+### 2 - The purpose of Samman Coaching
 
 - Parmi les éléments techniques qu’Emily apprend aux équipes, il y a :
   - Les **tests unitaires**, et la manière d’en écrire de bons.
@@ -35,7 +35,7 @@
   - **ensemble programming** au lieu de _mob_ pour insister sur l’aspect collaboratif.
   - **Typist** au lieu de _driver_ pour bien insister sur l’aspect non décisionnaire de la personne qui a le clavier.
 
-## 3 - Ensemble Primer
+### 3 - Ensemble Primer
 
 - L’_ensemble programming_ utilisé dans la méthode Samman a les rôles suivants :
   - Le **typist** est la seule personne qui écrit au clavier.
@@ -49,7 +49,7 @@
 - Les rôles tournent régulièrement, souvent avec l’aide d’un outil automatisé qui indique quand tourner.
   - En général la bonne idée c’est que le _navigator_ courant devienne le _typist_.
 
-## 4 - Let the Ensemble give you Superpowers
+### 4 - Let the Ensemble give you Superpowers
 
 - Parmi les avantages de l’_ensemble programming_ :
   - L’équipe entière est responsable du code, et **s’aligne sur les pratiques** de code.
@@ -59,7 +59,7 @@
 - Le coach se comporte comme un visiteur quand il rejoint une équipe qui fonctionne en _ensemble programming_ de manière fluide : il s’insère rapidement et commence à contribuer comme les autres, en suggérant des opportunités de refactoring, de patterns de design etc.
   - **La 1ère étape est donc d’aider l’équipe à fonctionner en tant qu’_ensemble_** de manière fluide. C’est là que le coach pourra contribuer le mieux sur l’aspect technique.
 
-## 5 - Coaching Behaviors in an Ensemble
+### 5 - Coaching Behaviors in an Ensemble
 
 - Pendant les moments d’_ensemble programming_, le coach va alterner entre différents comportements.
   - **Enseigner** : à certains moments, quand l’équipe est confrontée à une technique qu’elle ne connaît pas, le coach peut prendre quelques minutes pour expliquer le concept, avant de retourner au code avec l’équipe.
@@ -76,3 +76,17 @@
   - **Prendre des pauses** : le coach peut, comme les autres membres, prendre des pauses à tout moment et laisser les autres continuer.
     - Emily conseille aussi au moins une pause collective pour couper la session de 2 heures en deux, et une pause à la fin si elle enchaîne avec une autre équipe.
 - La session doit se terminer par 15 à 25 minutes de **rétrospective**, où l’équipe et le coach parlent de la session pour essayer de prendre conscience de ce qu’ils ont fait, ce qu’ils ont appris, les points d’amélioration etc.
+
+### 6 - Kindness, Consideration and Respect
+
+- Le rôle du coach est de veiller à ce que les membres de l’_ensemble_ soient respectueux les uns envers les autres.
+  - D’ailleurs la recherche montre que traiter les autres avec gentillesse fait qu’on les aime par la suite davantage, plutôt que dans le sens inverse.
+- Plutôt que de **critiquer le code** legacy qu’on améliore, il vaut mieux partir du principe que la personne qui l’a écrit a fait de son mieux, en particulier si elle est présente, pour ne pas la rabaisser.
+- Une règle générale est de **construire par dessus** ce que les autres navigateurs ont fait plutôt que de refaire. On dit “Oui, et …”.
+- Quand les relations s’enveniment, il faut marquer une pause, laisser chacun aller se calmer avant de reprendre.
+  - Au besoin, il pourra être nécessaire de traiter le sujet en dehors, avec des 1&1.
+- **Le typist doit écouter les instructions qu’on lui donne**, sinon il n’y aura pas d’ownership collectif de ce qui est fait de la part de l’équipe. Il faut donc s’assurer que ce soit le cas, et au besoin rappeler au _typist_ qu’il doit être à l’écoute et non pas à l’initiative.
+- Ne pas hésiter à pointer ce qu’un des contributeurs un peu timide dit de pertinent, pour marquer que ce que dit chacun est important.
+- Quand certains membres se distraient et commencent à faire autre chose, le mieux est d’**augmenter la vitesse de rotation** pour qu’ils soient _navigator_ plus souvent.
+- Dans le cas où une personne dit ou fait quelque chose d’inacceptable qui ne peut pas attendre la rétrospective, il faut le recadrer : “nous ne faisons pas ça ici”.
+  - Dans le cas où il dirait que c’était une blague, on peut rétorquer : “Oui j’en suis sûr, mais nous ne faisons pas ça ici”.
