@@ -90,3 +90,31 @@
 - Quand certains membres se distraient et commencent à faire autre chose, le mieux est d’**augmenter la vitesse de rotation** pour qu’ils soient _navigator_ plus souvent.
 - Dans le cas où une personne dit ou fait quelque chose d’inacceptable qui ne peut pas attendre la rétrospective, il faut le recadrer : “nous ne faisons pas ça ici”.
   - Dans le cas où il dirait que c’était une blague, on peut rétorquer : “Oui j’en suis sûr, mais nous ne faisons pas ça ici”.
+
+### 7 - Coaching Situations Illustrated with Stories
+
+- Quelques exemples de **situations où un coach Samman peut intervenir** :
+  - Un _navigator_ est hésitant et n’arrive pas à avancer, le coach lui pose la question “**Que devrions-nous faire maintenant ?**”
+    - Si le _navigator_ ne sait toujours pas, le coach essaye de poser des questions pour l'aiguiller, par exemple “A quelle étape du TDD sommes-nous ?”, “Quel scénario nous reste-t-il ?”.
+  - Un _navigator_ est hésitant et n’arrive pas à avancer, le coach **fait appel à l’équipe**.
+    - Si le _navigator_ n’y arrive pas du tout, le coach peut donner le rôle de _navigator_ à une autre personne, puis le redonner à la personne qui n’y arrivait pas au tour d’après.
+  - L’équipe est bloquée suite à un désaccord, le coach propose à l’équipe de **réaliser des expérimentations** pour trancher collectivement.
+    - Il s’agit d’être orienté vers l’action, avec du code écrit tout s’éclaircit.
+    - Laisser l’équipe mener des expérimentations est une meilleure option que de trancher la question du haut de sa stature de coach.
+  - L’équipe commence l’écriture de code, mais a besoin de créer des scénarios pour commencer, le coach **facilite la découverte des scénarios** en posant des questions et laissant les membres de l’équipe donner leurs idées.
+    - Une telle session peut typiquement prendre 5 à 15 minutes, avant l’écriture du code en TDD, et permet de garder un cap pour savoir quel test écrire ensuite.
+    - Ça peut être pas mal qu’un membre de l’équipe note les scénarios, ou les prenne en photo pour que l’équipe ne les perde pas.
+  - Le _typist_ ne **comprend pas les instructions** du _navigator_, le coach aide le _navigator_ à être plus explicite.
+    - Dans l’ordre, le navigator doit exprimer :
+      - Son intention.
+      - Puis si le typist ne comprend pas, indiquer la position sur l’écran où intervenir.
+      - Et enfin si il ne voit toujours pas, indiquer des détails jusqu’à quoi taper caractère par caractère.
+  - Le _navigator_ saute sur l’écriture du code sans test qui échoue, le coach lui **rappelle qu’il faut un test** en posant des questions.
+  - Le _typist_ oublie d’**utiliser un raccourci clavier** pour aller plus vite, le coach l’aide en le lui rappelant, ou en le lui apprenant.
+  - Le _navigator_ demande à déclarer une nouvelle fonction mais au changement, le _navigator_ suivant **ne sait plus à quoi elle servait**, le coach lui demande de revenir à l’endroit où elle doit être utilisée plutôt que là où elle est déclarée.
+    - Cette technique s’appelle le **consume-first design**, et permet de mieux communiquer l’intention derrière le nouveau code, en partant du contexte d’utilisation.
+  - Le _navigator_ demande à écrire du code et des tests en chaîne, le coach lui demande de compiler et jouer les tests pour **avoir du feedback plus souvent**.
+  - Le _navigator_ enchaîne sur un autre test, du code ou un refactoring, le coach lui rappelle de **demander un commit** vu qu’un étape a été complétée.
+  - Le _typist_ est **la seule personne de l’équipe qui connaît un sujet** et les autres n’arrivent pas à le guider, le coach demande à **quelqu’un d’autre de prendre le rôle de _typist_**, pour que l’information circule à travers plusieurs personnes.
+  - L’équipe entière **ne connaît pas une partie du code**, le coach demande qui connait cette partie, et demande à cette personne si elle peut venir temporairement les aider.
+    - Si ça arrive trop souvent, le coach en parle avec le manager pour trouver une solution plus pérenne.
