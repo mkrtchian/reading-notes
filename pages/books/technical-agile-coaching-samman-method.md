@@ -118,3 +118,20 @@
   - Le _typist_ est **la seule personne de l’équipe qui connaît un sujet** et les autres n’arrivent pas à le guider, le coach demande à **quelqu’un d’autre de prendre le rôle de _typist_**, pour que l’information circule à travers plusieurs personnes.
   - L’équipe entière **ne connaît pas une partie du code**, le coach demande qui connait cette partie, et demande à cette personne si elle peut venir temporairement les aider.
     - Si ça arrive trop souvent, le coach en parle avec le manager pour trouver une solution plus pérenne.
+
+### 8 - Retrospectives
+
+- Chaque session de 2 heures doit contenir une **rétrospective de 15 minutes à la fin**, c’est l’occasion de réfléchir à comment améliorer les sessions suivantes.
+- En tant que coach, il vaut mieux avoir des stylos, ou un template de rétro (pour le remote) déjà prêt.
+- Il vaut mieux **varier les types de rétrospectives**, voilà des exemples :
+  - On donne 5/10 minutes pour que chacun écrive des observations sur des post-its, puis on lit les observations à haute voix.
+    - On peut marquer notre accord avec certains post-its.
+    - Si un post-it donne lieu à une discussion trop longue, on la décale à plus tard.
+  - On donne du temps pour que chacun écrive des post-its à propos de 3 catégories : “Ce que j’ai aimé”, “Ce que j’ai appris”, “Ce qui a manqué”.
+    - Chacun lit ses post-its, ce qui peut donner lieu à de courtes discussions.
+  - On demande à chacun de dire une chose qu’il a trouvé bonne pendant cette session, l’idée étant de favoriser les bons comportements.
+- Le coach doit aussi faire une sorte de **rétrospective pour lui-même**, en écrivant de petites notes privées après chaque séance :
+  - Noter où en étant l’équipe à la fin de la séance pour s'en rappeler la prochaine fois.
+  - Noter des choses pour pouvoir faire un rapport au management à la fin.
+  - Noter des décisions de design qui ont été prises, telle ou telle personne qu’on devrait encourager à parler, des éléments spécifiques qu’il faudrait travailler la prochaine fois.
+- La rétrospective est une **compétence qui s’apprend**, à force de pratiquer, l’équipe va être de plus en plus attentive à ce qui se passe pour pointer ce qui va ou ne va pas.
