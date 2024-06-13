@@ -135,3 +135,18 @@
   - Noter des choses pour pouvoir faire un rapport au management à la fin.
   - Noter des décisions de design qui ont été prises, telle ou telle personne qu’on devrait encourager à parler, des éléments spécifiques qu’il faudrait travailler la prochaine fois.
 - La rétrospective est une **compétence qui s’apprend**, à force de pratiquer, l’équipe va être de plus en plus attentive à ce qui se passe pour pointer ce qui va ou ne va pas.
+
+### 9 - Remote Ensembles
+
+- Il est important de **voir les visages** des membres de l’équipe, ça permet de véhiculer les émotions.
+  - Si on en a la possibilité, ça peut être pas mal d’avoir le code sur un écran, et les visages sur un autre écran pour pouvoir alterner entre les deux souvent.
+- La **prise de parole doit être régulée** consciencieusement.
+  - Il faut faire attention à ce que les gens ne se parlent pas l’un par dessus l’autre, et modérer leurs interventions en particulier s’ils ne sont ni _navigator_ ni _typist_.
+  - On peut demander à lever la main si le besoin s’en fait ressentir.
+  - Si un sous-groupe veut avoir une discussion à côté, ils peuvent soit le faire dans le chat, soit le partager avec tout le groupe.
+- Il faut absolument **faire les pauses**, elles sont d’autant plus nécessaires en remote.
+- Dans le cas où on ne dispose pas d’outil collaboratif en direct comme VSCode LiveShare, on peut utiliser une branche commune où chaque _typist_ commit et push, puis le suivant pull et commit par dessus avant de push etc.
+  - Dans le cas où le processus de changement de typist deviendrait trop lent, il vaut mieux **garder un rythme de changement de _navigator_ élevé**, et diminuer seulement le rythme de changement de _typist_.
+- Dans le cas où on aurait des problèmes de réseau, le bon compromis est de faire en sorte que **le _typist_ n’ait pas de lag vis-à-vis de l’éditeur**, et que le lag soit plutôt entre l’éditeur et les non-_typists_.
+- Pendant les phases de discussions de design, l’équipe a besoin d’un outil graphique pour représenter des schémas. Ça peut être une personne qui dessine en local, ou encore un outil collaboratif si ça marche par rapport au réseau.
+  - Même chose pour les rétrospectives : il y a les outils collaboratifs qui peuvent poser des problèmes de réseau, et sinon il y a soit le chat, soit les outils locaux.
