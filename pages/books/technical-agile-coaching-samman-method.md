@@ -167,3 +167,40 @@
   - Le fait d’avoir un groupe et un coach, et de s'entraîner d’abord sur des katas avant de passer au code de production, permet d’avancer pas à pas et d’avoir moins de risques d’abandonner.
 - Emily fait en général les _learning hours_ avec les équipes qu’elle coach, et les donne parfois à plusieurs équipes en même temps quand elles partagent les mêmes problématiques techniques.
   - Elle conseille de laisser l’invitation ouverte pour des personnes extérieures à l’équipe, ou ayant des rôles non codeurs, et aussi aux futurs coachs qui veulent voir comment ça se passe.
+
+### 11 - The Theory and Practice of Teaching and Learning
+
+- L’objectif le plus important des sessions d’apprentissage est **dans quelle mesure les apprenants pourront mettre en pratique leur apprentissage**.
+- Le coach doit d’abord parler aux membres de l’équipe, et jeter un œil à leur code, pour avoir une idée de leurs connaissances, et adapter les _learning hours_ en conséquence.
+- Emily met en avant le **bloom model** pour l’apprentissage, créé par Benjamin Bloom dans les années 50.
+  - Il met en avant 6 catégories d’apprentissages :
+    - 1 - Se rappeler
+    - 2 - Comprendre
+    - 3 - Appliquer
+    - 4 - Analyser
+    - 5 - Evaluer
+    - 6 - Créer
+  - Chaque catégorie est **associée à un verbe**, par exemple si on veut avancer sur l’apprentissage de l’_approval testing_, on peut demander de :
+    - Se rappeler : **Décrire** les caractéristiques de l’approval testing.
+    - Comprendre : **Comparer** l’_approval testing_ et l’_assertion-based testing_.
+    - Appliquer : **Utiliser** le framework d’approval testing pour écrire des tests.
+  - On peut utiliser les catégories du _bloom model_ pour classer les objectifs d’apprentissage, en commençant par les 3 premiers, puis en passant aux 3 derniers une fois que les 3 premiers sont au point.
+- Un autre modèle dont Emily s’inspire est le **4C model** de Sharon Bowman, qui met en avant que chaque personne vient avec son background et ses motivations, et que l’apprentissage doit l’utiliser pour s’y greffer.
+  - Elle conseille le livre de l’auteur **_Training from the back of the Room_**.
+  - Le modèle implique de diviser le cours en 4 parties :
+    - **Connect** : rassembler les apprenants et les faire collaborer.
+    - **Concept** : donner de nouvelles informations au groupe.
+    - **Concrete** : pratiquer dans des exercices concrets.
+    - **Conclusions** : laisser les apprenants consolider leurs connaissances.
+- Shanon Bowman a aussi écrit le livre **_Using Brain Science to Make Training Stick_**, qui explique comment créer des cours efficaces pour l’apprentissage selon la science.
+  - **Bouger est plus efficace que de rester assis**. Il faut idéalement faire en sorte que les élèves bougent toutes les 10/15 minutes, par exemple en faisant en sorte que le _typist_ doive s’asseoir sur une chaise particulière à chaque rotation.
+    - En cas de session remote c’est plus compliqué de les faire bouger, il faut essayer de prendre au moins des pauses régulières.
+  - **Parler est plus efficace qu’écouter**. Parler renforce la mémoire, et permet d’avoir du feedback. C’est typiquement ce qu’on fait en pair ou ensemble programming.
+  - **Les images sont plus efficaces que les mots**. Il vaut mieux démontrer visuellement quelque chose que de l’expliquer.
+    - Si on ajoute en plus des **émotions** aux images, la mémorisation sera d’autant plus efficace.
+  - **Écrire est plus efficace que lire**. On se concentre beaucoup plus et on s’investit alors physiquement. On peut demander aux apprenants d’écrire des notes, des conclusions etc.
+  - **Court est plus efficace que long**. Il vaut mieux diviser la _learning hour_ en morceaux de 10 à 20 minutes, ponctués de pauses de 1 à 2 minutes où le groupe fait autre chose, par exemple discuter ce qu’on vient de voir, poser des questions, noter des observations etc.
+  - **Varié est plus efficace que constant**. Il faut varier les situations et les activités pour générer des émotions et créer de la surprise. Par exemple, en plein TDD en pair, on demande à tout le monde de passer au vert dans la minute, puis de s’échanger le code entre pairs.
+- On peut **diviser les techniques en micro-compétences**, comme le fait de diviser le TDD en l’identification du prochain test, l'écriture d’un test, le refactoring etc. Et on peut alors **les travailler isolément**. On appelle ça la **deliberate practice**.
+  - On va par exemple travailler la capacité à identifier de la duplication comme sous-compétence du refactoring, pour être ensuite plus efficace sur le TDD.
+  - L’idée c’est d’identifier les micro-compétences sur lesquelles les élèves ont du mal, et les cibler spécifiquement.
