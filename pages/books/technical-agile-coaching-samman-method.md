@@ -150,3 +150,20 @@
 - Dans le cas où on aurait des problèmes de réseau, le bon compromis est de faire en sorte que **le _typist_ n’ait pas de lag vis-à-vis de l’éditeur**, et que le lag soit plutôt entre l’éditeur et les non-_typists_.
 - Pendant les phases de discussions de design, l’équipe a besoin d’un outil graphique pour représenter des schémas. Ça peut être une personne qui dessine en local, ou encore un outil collaboratif si ça marche par rapport au réseau.
   - Même chose pour les rétrospectives : il y a les outils collaboratifs qui peuvent poser des problèmes de réseau, et sinon il y a soit le chat, soit les outils locaux.
+
+## Part II - Learning Hours
+
+- Emily conseille de créer ses propres supports d’apprentissage. Et même si on s’inspire de supports existants, il faut se les personnaliser pour se les approprier.
+
+### 10 - Explaining Why you should hold a Learning Hour
+
+- L’idée que **l’apprentissage doit se faire au travail** plutôt que sur son temps libre n’est pas forcément partagée par tous. Emily donne quelques arguments pour défendre le fait qu’il faille passer 1 heure par jour de son temps de travail en apprentissage.
+  - Les développeurs doivent apprendre tout au long de leur carrière, sinon ils vont rester peu efficaces malgré l’expérience, et même finir par avoir des connaissances datées.
+  - **Faire une heure d’apprentissage par jour permet de normaliser la pratique** sous forme d’habitude, et d’être sûr de globalement ne pas la louper en cas d’absence.
+  - Le fait que le temps d’apprentissage soit très régulier permet de mettre en pratique sur le code de production entre chaque petite session d’apprentissage.
+- Quand on sait programmer mais qu’on ne connaît pas le TDD, **apprendre le TDD va faire perdre du temps au début** le temps de le maîtriser, **puis permettra d’aller bien plus vite**.
+  - C’est comme apprendre une nouvelle technique de ski : on connaît le chasse neige qui nous permet d’avancer mais qui n’est pas très performant, mais quand on apprend la nouvelle technique plus performante, au début on est plus lent qu’avec le chasse neige, et c’est seulement après plusieurs essais qu’on accélère.
+  - Il ne faut surtout pas abandonner dès le début, sinon on restera avec la technique initiale qui est peu performante même si on la maîtrise déjà.
+  - Le fait d’avoir un groupe et un coach, et de s'entraîner d’abord sur des katas avant de passer au code de production, permet d’avancer pas à pas et d’avoir moins de risques d’abandonner.
+- Emily fait en général les _learning hours_ avec les équipes qu’elle coach, et les donne parfois à plusieurs équipes en même temps quand elles partagent les mêmes problématiques techniques.
+  - Elle conseille de laisser l’invitation ouverte pour des personnes extérieures à l’équipe, ou ayant des rôles non codeurs, et aussi aux futurs coachs qui veulent voir comment ça se passe.
