@@ -204,3 +204,91 @@
 - On peut **diviser les techniques en micro-compétences**, comme le fait de diviser le TDD en l’identification du prochain test, l'écriture d’un test, le refactoring etc. Et on peut alors **les travailler isolément**. On appelle ça la **deliberate practice**.
   - On va par exemple travailler la capacité à identifier de la duplication comme sous-compétence du refactoring, pour être ensuite plus efficace sur le TDD.
   - L’idée c’est d’identifier les micro-compétences sur lesquelles les élèves ont du mal, et les cibler spécifiquement.
+
+### 12 - Sample Learning Hours
+
+- Dans ce chapitre Emily propose des plans pour 10 _learning hours_ successifs autour de la thématique du TDD. Elle propose de les imprimer pour s’en inspirer.
+- **1 - Travail incrémental en petites étapes**
+  - Vu qu’il s’agit de la 1ère session, la partie _connect_ et le travail en pair sont importants.
+  - On va expliquer le cycle du TDD, expliquer pourquoi on écrit les tests avant, et travailler sur une fondation pure toute simple.
+  - Etapes :
+    - Connect (10 mn) : on divise l’équipe en pairs, et on leur demande de discuter entre eux des avantages du TDD. Après 3 minutes chaque paire donne un avantage.
+    - Concept (15 mn) : le coach prend la main, et montre comment coder un exemple simple en TDD (ici le kata Leap Years).
+    - Concrete (20 mn) : on organise le groupe en paires ou en ensemble, et on leur demande de coder le même kata à leur tour en TDD.
+    - Conclusions (10 mn) : on demande à l’équipe de synthétiser ce qu’ils ont compris du TDD en une phrase ou deux sur un post-it (ou dans un document partagé en ligne).
+- **2 - Sélectionner et ordonner les tests**
+  - On part du kata FizzBuzz, sans avoir la liste complète des tests à écrire.
+  - On va expliquer pourquoi faire un cas d’usage “todo list”, le coder en TDD, et décrire la technique de triangulation.
+  - Etapes :
+    - Connect (5 mn) : on donne une liste d’étapes du TDD aux élèves, et on leur demande de mettre dans l’ordre. Après une minute, on leur demande d’échanger avec le voisin, et de comparer. Puis une minute de plus et on leur demande s’ils ont des questions.
+    - Concrete (10 mn) : on explique le kata FizzBuzz, et on demande au groupe de donner une liste de tests à écrire.
+      - Dans le cas où ils proposent une fonction impure qui affiche du texte, on leur dit qu’il vaut mieux une fonction pure qui retourne le texte et qui sera testable, puis dont le résultat sera affiché.
+      - On leur demande dans quel ordre il faudrait implémenter ces tests.
+    - Concept (10 mn) : on prend la main, et on montre comment implémenter quelques tests en TDD, en montrant la technique de la triangulation.
+    - Conclusions (2 mn) : on demande au groupe de décrire ce qu’est la triangulation dans un document.
+    - Concrete (30 mn) : on demande au groupe de se mettre en pairs, et de recoder le kata FizzBuzz, en alternant de navigator toutes les 4 minutes.
+      - Si certains ont fini avant, on leur donne des règles plus complexes à implémenter.
+    - Conclusions (5 mn) : les élèves se mettent en pairs, et discutent de ce qui a été facile ou difficile dans l’exercice, et ce qu’ils ont trouvé utile ou ont appris.
+- **3 - La règle d’or du TDD**
+  - Il s’agit dans cette séance d’essayer d’ancrer qu’il ne faut écrire du code de production que s’il vient faire fonctionner un test déjà existant, et donc ne designer que le code nécessaire et pas plus.
+  - Etapes :
+    - Connect (5 mn) : on demande au groupe de donner 5 choses à se souvenir à propos du TDD. L’une des personnes devrait parler de driver le code à partir des tests. On va s’appuyer sur ça pour la suite.
+    - Concept (10 mn) : on introduit la règle d’or du TDD, on l’écrit quelque part et on l’encadre : **do not write any production code until you agave a failing test that requires it**.
+    - Concrete (30 mn) : on met les gens en pairs, et on leur demande de faire le _Shopping Basket kata_. Ils doivent au moins constituer une todo list de tests, écrire un premier test, et du code. On leur demandera de le finir à la maison.
+    - Conclusions (5 mn) : on demande au groupe de discuter de ce qu’il pense de cette règle en groupe ou en pairs.
+- **4 - Le nommage des refactorings**
+  - On va introduire le sujet du refactoring, avec pour but d’introduire la notion, parler de la liste des refactorings, et utiliser _extract function_.
+  - Etapes :
+    - Connect (5 mn) : on demande à chacun d’écrire le nom des refactorings qu’il connaît pour ensuite mettre en commun. Il est possible qu’ils n’en connaissent aucun, dans ce cas on va en donner certains qu’ils utilisent sans en connaître le nom, comme _rename variable_, _extract interface_.
+    - Concept (5 mn) : on donne la définition du refactoring de Martin Fowler, en expliquant certains points.
+    - Concrete (10 mn) : on demande au groupe de regarder le code du kata Tennis1, et de donner des idées de refactoring, en leur disant le nom de ces refactorings dans la dénomination de Fowler.
+    - Concept (10 mn) : le coach démontre l’application d’_extract function_ sur le code de Tennis1.
+    - Concrete (25 mn) : on demande au groupe de refaire ces extractions, et de continuer à améliorer le code s’ils ont du temps.
+    - Conclusions (5 mn) : on demande au groupe de définir le refactoring, et d’écrire ce qu’ils en retiennent.
+- **5 - Malentendus sur le refactoring**
+  - Le but est de mieux comprendre le but du refactoring, et de voir le refactoring _rename variable_.
+  - Etapes :
+    - Connect (15 mn) : on prépare des propos controversés ou faux sur le refactoring, et on les présente au groupe. On leur demande de les discuter et de dire s’ils sont vrais ou faux.
+    - Concept (5 mn) : on explique le but du refactoring qui est de faire en sorte que le code soit plus facile à comprendre et modifier. C’est aussi une technique centrale pour permettre le design incrémental.
+    - Concrete (30 mn) : on demande au groupe de refactorer le code du kata Tennis3. On leur parlera de rename variable qu’ils vont sans doute utiliser.
+    - Conclusions (5 mn) : on demande au groupe de répondre par écrit à la question “Quand devez-vous refactorer ?”.
+- **6 - Faire une liste de tests**
+  - Il s’agit d’apprendre à constituer une liste de tests initiale pour débuter une démarche en TDD.
+  - Etapes :
+    - Connect (5 mn) : Emily propose un jeu du type “Le livre dont vous êtes le héros”, où il s’agit de faire un choix et voir ensuite les conséquences. On prépare un tel jeu à un seul choix à propos du comportement initial en TDD, et avec les conséquences de chaque choix de l’autre côté, et on propose au groupe d’y jouer.
+    - Concept (10 mn) : on va chercher les katas étudiés dans les séances précédentes, et regarde la liste des tests qu’on avait constituée. On demande ensuite au groupe quelles caractéristiques ont ces listes en commun. On les écrit ensuite pour tout le monde.
+    - Concrete et Conclusions (40 mn) : on demande au groupe de se mettre en pairs, et on leur donne les spécifications du kata MarsRover pour qu’ils constituent une liste de tests initiale.
+      - On répond à leurs questions en tant qu’expert métier.
+      - Ils écrivent d’abord 4 à 6 idées de tests en 10 minutes.
+      - Ensuite, ils montrent leurs idées à un autre groupe et en discutent, en essayant d’avoir des améliorations.
+      - S’il reste du temps, ils peuvent faire la même chose sur d’autres katas.
+- **7 - Arrange, Act, Assert**
+  - On va cette fois travailler sur la manière d’écrire un test, dans sa structure et sa lisibilité.
+  - Etapes :
+    - Connect (15 mn) : on prend les tests du kata Mars Rover, et on demande au groupe lesquels sont le plus susceptibles de contenir des bugs.
+    - Concept (5 mn) : on explique que le code de test doit être le plus simple possible pour permettre de valider le code de production, sinon on devrait écrire des tests pour le code de test.
+      - Pour faire un parallèle, on peut citer Brian Kernighan qui dit “Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.”
+      - On parle aussi de la structure _Arrange, Act, Assert_ qui aide à avoir des tests simples et clairs.
+    - Concrete (30 mn) : on demande au groupe de reprendre les tests du kata MarsRover qu’ils ont travaillé à la séance précédente, et de les améliorer sous forme _Arrange, Act, Assert_.
+    - Conclusions (5 mn) : on demande au groupe de former des pairs, et de discuter la question : pourquoi le code de test devrait-il être plus simple que le code de production ?
+- **8 - Commencer par l’assertion**
+  - Le but est de voir pourquoi en TDD il est préférable d’écrire un test en commençant par le bas, par la partie assert. Par exemple, la partie arrange n’aura alors que ce qu’il faut.
+  - Etapes :
+    - Connect (10 mn) : on prépare des post-its avec des concepts que le groupe a déjà vus, puis on demande à une personne différente à chaque fois de choisir un concept et de l’expliquer, en le guidant avec des questions si besoin.
+    - Concept (5 mn) : on choisit un kata où il y a besoin de pas mal d’_arrange_, par exemple MarsRover, et on écrit un test en commençant par l’_assert_, puis _act_, et enfin _arrange_.
+    - Concrete (30 mn) : on demande au groupe de s’exercer à écrire des tests en commençant par la fin, par exemple sur le kata MarsRover.
+    - Conclusions (10 mn) : on remet les post-its de la partie Connect, et on demande au groupe en pairs d’écrire quel effet a le fait de commencer par l’assert, par rapport à ces thématiques.
+- **9 - Une fonction à la fois**
+  - On va driver le code vers des fonctions chacune testables.
+  - Etapes :
+    - Connect (5 mn) : on présente une liste de phrases au groupe, et on leur demande de trouver lesquelles ont un rapport avec la thématique “overdesign“.
+    - Concept (10 mn) : on prend le kata Yatzy qu’on explique, puis on demande au groupe s’ils voient une manière de faire une liste de tests. En général ils vont proposer de regrouper les exemples par catégories.
+    - Concept (10 mn) : on prend le rôle de _navigator_ en ensemble, en faisant tourner seulement le _typist_, et on drive le code en TDD jusqu’à arriver à ce que le code principal appelle des fonctions annexes pour chaque catégorie, qu’on va tester à part.
+    - Concrete (30 mn) : on fait tourner le _navigator_, pour que le groupe s’approprie la suite du code et termine l’exercice.
+    - Conclusions (5 mn) : on se met en pairs, et on discute de la manière dont on a divisé le problème en plusieurs morceaux, si ces morceaux sont testables, et s’il y a overdesign.
+- **10 - Démo inspirante**
+  - Le but ici va être de démontrer ce que donne le TDD appliqué par une personne expérimentée.
+  - Etapes :
+    - Concept (45 mn) : c’est le coach qui va faire la démonstration. On choisit un kata qui ressemble à leur code et contient des problématiques qu’ils ont (ou encore mieux : du code extrait de leur codebase), et on code en TDD à partir de ça.
+      - Il faut s'entraîner à l’avance pour que ce soit fluide, ou encore s’enregistrer pour commenter sa propre vidéo.
+    - Conclusions (10 mn) : on demande au groupe d’écrire des observations sur des post-its, puis de les lire.
