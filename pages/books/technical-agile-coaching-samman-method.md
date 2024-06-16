@@ -292,3 +292,43 @@
     - Concept (45 mn) : c’est le coach qui va faire la démonstration. On choisit un kata qui ressemble à leur code et contient des problématiques qu’ils ont (ou encore mieux : du code extrait de leur codebase), et on code en TDD à partir de ça.
       - Il faut s'entraîner à l’avance pour que ce soit fluide, ou encore s’enregistrer pour commenter sa propre vidéo.
     - Conclusions (10 mn) : on demande au groupe d’écrire des observations sur des post-its, puis de les lire.
+
+## 12 - Learning Topics
+
+- Emily regroupe ses learning hours autour de thématiques majeures, et elle fait en général 2 ou 3 séances avant de changer de thématique.
+- Elle donne la liste de ses thématiques, avec des exemples de séances :
+  - **Small steps** : on travaille l’aspect itératif du TDD.
+    - Les étapes du TDD : red, green, refactor.
+    - Faire souvent des commits.
+    - Revert sur un test rouge imprévu.
+    - Designer incrémentalement une fonction.
+    - Designer incrémentalement une classe.
+  - **Refactoring safely** : on travaille les techniques citées dans le livre **_Refactoring_** de Martin Fowler.
+    - Détecter les code smells.
+    - Enlever la duplication.
+    - Améliorer le nommage.
+    - Combiner des refactorings pour un changement plus grand.
+  - **Legacy code** : on travaille le code legacy pour le rendre testable et pouvoir travailler avec.
+    - Le code coverage pour aider à créer les tests.
+    - L’approval testing.
+    - Le mutation testing.
+  - **Testable design** : on travaille le design qui permet d’obtenir du code testable et refactorable.
+    - Les fonctions sont faciles à tester.
+    - L’inversion de dépendance.
+    - Les heuristiques de design.
+    - Avoir des niveaux d’abstraction cohérents.
+  - **Designing tests** : on travaille les bonnes pratiques d’écriture de tests.
+    - Arrange, act, assert
+    - Styles d’assertion.
+    - Stubs.
+    - Fakes.
+    - Mocks et spies.
+    - Données de test.
+    - Avoir des niveaux d’abstraction cohérents.
+  - **Double-loop TDD** : il s’agit d’avoir un niveau de tests en relation avec les experts métier, qu’on peut appeler BDD, qui donnent ensuite lieu à une boucle de feedback plus rapide qui consiste à coder le détail en TDD, avec des tests à destination des développeurs.
+    - Au moment de la pratique, une partie de l’équipe joue le rôle des experts métier, et l’autre des développeurs. Emily conseille de prendre des exemples du code de production de l’équipe.
+  - **Agile** : on travaille la notion d’agilité et de DevOps, au travers de jeux.
+    - Emily a réalisé le jeu [pipeline game](https://www.eficode.com/blog/pipeline-card-game), qui permet de choisir la liste d’étapes de sa pipeline de continuous delivery.
+    - Elle cite [Kanban dot game](https://livebook.manning.com/book/kanban-in-action/chapter-13/), tiré du livre **_Kanban in Action_** de Marcus Hammarberg et Joakim Sunden. Ca permet de comprendre l’intérêt de limiter les tâches en parallèle.
+    - Elle propose d’autres exemples sur le site [Tasty Cupcakes](https://tastycupcakes.org/).
+- On peut bien sûr s’inspirer des thématiques d’Emily, mais on doit aussi faire les nôtres, qui pourront être basés sur nos préférences et compétences spécifiques.
