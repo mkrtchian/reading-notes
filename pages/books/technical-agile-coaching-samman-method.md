@@ -400,3 +400,54 @@
 - Il faut identifier le (ou les) **sponsor(s)**, c'est-à-dire la personne qui approuve le budget ou décide de nous faire venir. Il faudra le contacter assez rapidement pour valider certains points, et initier une bonne relation :
   - Les jours où le coaching aura lieu, les équipes qui vont être coachées, le moyen de contacter les équipes.
   - Il peut aussi nous aider à organiser les kick off meetings avec les équipes.
+
+### 16 - Beginning Coaching with a New Organization
+
+- Emily présente des conseils sur la manière d’organiser les kick off meetings pour faire connaissance avec l’équipe.
+- Il faut trouver une occasion de **se présenter** : soit à un all-hands où on aurait 10 à 20 mn, soit à une réunion de guilde etc. en général le sponsor nous aidera à trouver l’occasion.
+  - On peut expliquer notre parcours, notre méthode, et en quoi ce sera utile pour les équipes.
+  - Il faut aussi laisser de la place pour des questions.
+  - L’important est qu’on fasse bonne impression, pour que les équipes aient envie d’être coachées.
+- Ensuite, Emily prévoit 2 heures de **kick-off meeting** avec chaque équipe qui sera coachée. Elle donne l’agenda du meeting à l’avance et demande un peu de préparation à l’équipe.
+  - **Team introduction** (10 mn) : les membres de l’équipe se présentent à tour de rôle, en parlant d’eux, et en particulier de leur expérience dans le développement. On peut noter des informations pour avoir une idée du public.
+  - **Architecture overview** (15 mn) : le but est d’avoir une petite idée de l’architecture globale et comment le produit de l’équipe s’inscrit dedans. On peut typiquement leur demander de préparer quelque chose à l’avance.
+    - On peut leur parler du modèle C4 de Simon Brown, et leur demander un diagramme de _context_ et de _container_.
+    - On veut aussi savoir s’il y a un mécanisme de build de CI et de CD, un mécanisme review ou d’autres procédures. S’il n’y a pas de build de CI, on le mettra en place avec eux parce que c’est indispensable pour pouvoir profiter des feedbacks rapides.
+  - **Issues in the codebase** (45 mn) : on leur demande de préparer ou de montrer sur le moment quelques exemples de code. On s’en servira pour avoir une idée de ce qu’il y aura à travailler, et s’il nous faut creuser des outils spécifiques.
+    - Un test unitaire typique, un test d’intégration typique.
+    - Du code qu’ils estiment bien designé.
+    - Du code qui n’a pas de tests, et pour lequel ils en aimeraient.
+    - Du code connu pour être buggué.
+    - Du code récent représentant leur manière actuelle d’en écrire.
+  - **Structured discussion** (30/40 mn) : le but ici est d’avoir l’avis de l’équipe sur les problèmes les plus importants qu’ils ont, et d’adapter le coaching en fonction de ça.
+    - Pour les faire parler, y compris des sujets vraiment problématiques, on peut mener la discussion sous forme de [Lean Coffee](https://leancoffee.org/), en utilisant le jeu [Speedboat](https://gamestorming.com/speedboat/), ou encore la Liberating Structure [TRIZ](https://www.liberatingstructures.com/6-making-space-with-triz/).
+    - Emily fait une version modifiée du _Lean Coffee_ où chacun écrit des points qui ne vont pas sur un document local, puis tout le monde copie le contenu dans un document partagé en même temps.
+      - Emily y ajoute une liste de problèmes qu’elle rencontre habituellement (qu’elle donne).
+      - Ensuite on lit les possibilités, on en regroupe éventuellement certaines, et chacun va voter parmi toutes les possibilités, pour les 5 problèmes principaux.
+      - On va alors prendre les 3 ou 4 problèmes les plus votés, et les discuter pendant 5 à 10 minutes chacun.
+  - **Takeaways** (5 mn) : on conclut, et une fois le meeting terminé, on reprend nos notes, et on y met de l’ordre selon ce qui est frais dans notre tête.
+    - Emily conseille d’organiser les notes avec un cahier, ou un document virtuel par équipe, sur lequel on reviendra tout au long du coaching.
+- Quelque temps après le kick off meeting (quelques jours ou semaines après, et quelques jours ou semaines avant le début du coaching), Emily tient un **chartering workshop**, où il va s'agir de délimiter les contours du coaching avec l’équipe.
+  - **Résumé des problèmes principaux** : on rappelle les problèmes principaux sélectionnés à la fin du kick off meeting, et on présente des thématiques de coaching que nous pouvons mettre en place pour y répondre.
+    - Dans le cas où on n’a pas de réponse à certains problèmes, on le leur dit clairement.
+  - **Discussion structurée** : on prend 90 à 120 minutes, structuré en morceaux de 20 minutes, pour aborder les thématiques de coaching qu’on propose à l’équipe. On présente d’abord avec des slides et une démo, et ensuite on s’arrête de parler pour recueillir l’impression de chaque membre de l’équipe.
+  - Parmi les thématiques possibles de cette discussion :
+    - **Le travail collaboratif en équipe** : on présente l’intérêt que peut avoir le travail en pair ou en ensemble, et la manière dont ça marche. Puis on demande à l’équipe si elle a déjà essayé, et si elle serait intéressée.
+    - **Développement incrémental** : le TDD permet de développer itérativement, avec des feedbacks rapides. On demande à l’équipe ce qu’elle en connaît, on montre une démo, et on demande si ça les intéresserait.
+    - **Refactoring** : on demande s’ils souffrent de dette technique et de code difficile à appréhender. Puis on fait une démo de refactoring , et on leur demande s’ils pensent que ça les aiderait.
+    - **Design des tests** : on peut montrer l’un de leurs tests, et le restructurer dans une version plus lisible, en expliquant que le but est d’avoir un test simple, où les bugs ne peuvent pas se cacher. Puis on leur demande si leurs tests posent problème au moment du refactoring, et s’ils sont faciles à maintenir.
+    - **Design de code testable** : on montre du code ayant une dépendance le rendant non testable, et on montre comment le rendre testable. Puis on leur demande s’ils aimeraient apprendre ce genre de technique.
+    - **Ajouter des tests à du code existant** : on peut demander si l’équipe a peur de casser son code en le changeant, puis montrer comment ajouter des tests à du code existant, par exemple en utilisant l’_approval testing_. On peut aussi montrer l’utilisation du _mutation testing_. Et enfin on peut demander si ce genre de technique les intéresserait.
+  - A la fin de la session, on fait comprendre qu’**ils ont le choix** : on choisit avec eux les thématiques de coaching qui vont leur être utiles, et on attend d’eux qu’ils soient investis pendant plusieurs semaines.
+    - On écrit un résumé de l’accord mutuel entre l’équipe et le coach.
+  - Dans certains cas, on tombe sur **des équipes qui n’ont pas envie d’être coachées**. On peut le savoir en amont grâce au management qui nous en a parlé, mais il peut aussi arriver qu’on le remarque pendant les kick-off meetings. Emily donne des exemples de situations et ce qu’elle fait pour y remédier.
+    - **Les seniors trop occupés** : une fois Emily est tombée sur une équipe où seule une moitié s’est présentée aux meetings de kick off, puis aux sessions de coaching. Cette moitié c’était les juniors qui étaient délaissés, avec des seniors trop occupés à coder seuls pour tenir les deadlines.
+      - Elle a décidé, avec le sponsor, de décaler le coaching à un moment où il y aurait moins de pression. Un des buts du Samman coaching est d’aider toute l’équipe à collaborer, et on ne peut pas le faire avec seulement une partie de l’équipe.
+    - **L’équipe trop avancée** : dans l’une de ses missions, Emily a eu affaire à une équipe de développeurs connaissant déjà le TDD et l’utilisant au quotidien. Par contre ils n’avaient jamais travaillé en pair ou en _ensemble_.
+      - Elle leur a alors proposé de les former sur l’_ensemble programming_, et des techniques avancées comme l’_approval testing_, le _property-based testing_, l’utilisation du code coverage, et les techniques de travail du code legacy.
+      - L’équipe a accepté, et elle a réussi à négocier du temps payé pour préparer des cours spécifiques pour ce niveau avancé.
+    - **L’équipe ne fait que de la config** : Emily a eu affaire à une équipe qui déclarait ne pas écrire de code. Elle a pu être en contact avec un des membres de l’équipe porté sur le TDD, avec qui elle a pu explorer un cas d’usage possible pour travailler sur du code, mais l’activité principale de l’équipe était effectivement de configurer des clusters Kubernetes.
+      - Elle a donc décidé de reporter le coaching de cette équipe à plus tard, quand ils auront plus de code à faire.
+    - **L’équipe gère un code trop legacy** : l’une des équipes était sur la migration d’un code de C de 30 ans vers un autre compilateur. Le TDD ne leur servirait pas vraiment puisqu'ils n’écrivaient pas de nouveau code.
+      - Emily leur a proposé de travailler plutôt sur des techniques de refactoring et de design de test. Elle a pu leur montrer des techniques pour travailler avec le code legacy, et l’ensemble programming a permis du partage de connaissance.
+    - Parfois, il est arrivé à Emily de ne pas trouver d’angle pour convaincre l’équipe, ou d’intérêt à le faire. Dans ce cas, elle laisse tomber la mission et passe à autre chose.
