@@ -340,3 +340,63 @@
   - **VNC** pour se connecter à une machine Amazon EC2 ayant un gestionnaire de fenêtre graphique. Tous les participants peuvent alors contrôler la machine à distance.
   - Les participants peuvent utiliser leur **machine locale**, auquel cas il faut penser au temps de setup à faire de préférence avant la session, et le switch qui peut être fait par des commit/push successifs.
 - Pour ce qui est des **rétrospectives**, Emily a du mal à faire écrire des notes virtuelles aux participants. On peut au moins **leur faire dire les choses à haute voix, et l’écrire nous-mêmes**.
+
+## Part III - Samman Coaching Engagements
+
+- La plupart des coachs qu’Emily connaît sont des freelances qui travaillent avec plusieurs organisations pendant des mois ou années.
+- Il faut travailler sur la prospection, l’aspect commercial, marketing etc. pour trouver des missions.
+
+### 15 - Finding an Organization and Teams to Engage with
+
+- Parmi les différents types entreprises clientes, il peut y avoir :
+  - **L’entreprise qui recherche l’excellence technique** : si le responsable est sensible à l’amélioration continue, au fait d’avoir un haut niveau de qualité qui permette une efficacité et une rétention des développeurs, alors il pourra être sensible au coaching technique.
+  - **L’entreprise qui croule sous les bugs** : plutôt que de simplement aider à redéfinir la stratégie de tests, il s’agit d’expliquer que l’important est que les développeurs utilisent les bonnes techniques et pratiques pour qu’il y ait moins de bugs introduits dans le code changé.
+    - Pour convaincre des responsables non techniques, on peut notamment parler leur langage en parlant du pourcentage du temps passé par les développeurs sur les bugs, et en proposant de le diminuer pour diminuer les coûts perdus.
+  - **L’entreprise avec une codebase vieille de 20 ans** : le code est complètement sclérosé, ils essayent de diviser la codebase en microservices pour pouvoir y refaire des modifications.
+    - On peut leur proposer de reprendre le contrôle du code en repartant par de plus petites étapes : en ajoutant du test incrémentalement, refactorant le code petit à petit, et construisant une compréhension collective avec l’_ensemble programming_.
+  - **L’entreprise sous l’eau** : entreprise qui voulait améliorer l’efficacité de ses équipes, et leur redonner du moral, mais qui n'arrivait pas à trouver une demi journée dans le planning de l’équipe qui était overbookée. Dans ce cas il vaut peut être mieux annuler : s’ils n’arrivent pas à libérer une demi journée, ils ne pourront pas libérer de quoi faire un coaching correct.
+- Globalement dans les exemples qu’elle donne, Emily a trouvé ses missions via des gens qu’elles connaissait déjà, ou qui l’ont remarquée à des événements publics comme des conférences, ce qui souligne **l’importance du réseau**.
+- Il faut laisser une bonne impression auprès des clients, pour être ensuite recommandé.
+- Il faut **adapter son sales pitch** au type de public qu’on a en face : par exemple une personne technique ne sera pas sensible à la même chose qu’un CEO.
+  - On peut décrire la méthode Samman en disant qu’il s’agit d’aider l’équipe à augmenter en compétence en pratiquant ensemble et avec le coach.
+  - On peut mettre en avant les effets attendus : réduction de la dette technique, meilleurs tests, meilleure communication et alignement au sein de l’équipe.
+- Emily donne sa **proposition de coaching** habituelle, qu’elle envoie sous forme de document, de slides, ou même de vidéo où elle s’enregistre en train de parler (ce qui marche assez bien).
+  - Elle propose de coacher 2 équipes sur une période de 3 semaines, à hauteur de 10 jours sur les 15 jours ouvrés. Ensuite elle laisse les équipes cogiter sur ce qu'elles ont appris pendant 3 semaines seuls, puis elle revient pour une autre session de 3 semaines. Et elle peut alterner comme ça jusqu’à ce que les équipes se sentent suffisamment compétentes.
+  - Chaque jour de coaching contient 2 heures d’_ensemble working_ avec chaque équipe, et une heure de _learning hour_ avec chaque équipe ou les deux réunies.
+  - Avant de commencer les 3 semaines de coaching (au moins une semaine avant), elle fait quelques meetings de kick off, pour déterminer les problématiques de l’équipe et apprendre à les connaître. Elle s’en servira pour planifier le coaching.
+  - Pendant les semaines de coaching, les équipes doivent prévoir de réduire le nombre de tâches à un tiers de ce qu'elles produisent habituellement.
+- **Questions qui seront posées par les clients** :
+  - Pourquoi ne pas faire plus d’_ensemble working_ par jour avec chaque équipe ?
+    - Les équipes n’ont généralement pas d’expérience de l’_ensemble programming_, elles vont donc être déconcertées et fatiguées au début.
+  - Et si l’entreprise n’a qu’une équipe de développement ?
+    - Il vaut mieux éviter de dépasser 2 heures d’_ensemble working_ avec une équipe qui ne sait pas travailler comme ça.
+    - On peut proposer des demi-journées de coaching, et faire soit autre chose pendant le reste du temps, ou alors faire du pair-programming avec les membres de l’équipe le reste du temps.
+  - Et si l’entreprise a 10 équipes, lesquelles on coach ?
+    - On pourrait faire venir un autre coach en même temps.
+    - Ou alors on priorise les équipes :
+      - qui sont les plus enthousiastes au coaching.
+      - qui ont été constituées depuis peu, et auraient bien besoin d’activités de groupe pour se constituer en tant qu’équipe.
+      - qui ont spécifiquement besoin d’aide pour faire face à leurs problèmes.
+  - Pourquoi l’équipe produirait moins pendant la durée du coaching ?
+    - Même si une bonne partie du temps est consacrée à travailler sur les tâches de production de l’équipe, le focus reste l’apprentissage et donc la productivité en elle-même sera moins élevée.
+    - L’idée est de progresser dans l’utilisation de techniques plus efficaces,e t donc de ralentir la production, pour être plus rapide dans la production par la suite.
+  - Et si l’équipe travaille avec plusieurs langages de programmation ?
+    - A priori ça ne pose pas de problèmes puisqu’on va travailler en _ensemble_, et donc avec les compétences de l’ensemble de l’équipe.
+    - Si ça pose problème, on peut tenter de diviser l’équipe en plusieurs groupes, un pour chaque langage.
+  - Quelle est la différence entre un coach Samman et un Tech Lead ou un Architecte ?
+    - Un Tech Lead fait partie d'une équipe, délivre du code comme les autres, mais a un rôle de responsabilité plus important où il s’assure que les parties les plus difficiles sont gérées, que les juniors montent en compétence etc.
+    - Un architecte va en général aider plusieurs équipes à gérer leur architecture.
+    - Un coach Samman est là pour aider l’équipe à gagner en compétences techniques. Par contre, il ne contribue pas au code de production ni aux décisions d’architecture.
+- Quand on est face à des organisations ayant **des centaines d’équipes** :
+  - Soit il s’agit d’organisations “élite” au sens d’**_Accelerate_**, c'est-à-dire que chaque équipe est responsable d’un module indépendant, avec un accès à leurs utilisateurs. Dans ce cas on peut les aider à s’améliorer équipe par équipe, en utilisant les métriques de feedback qu’ils ont déjà pour constater les progrès.
+  - Soit il s’agit d’une organisation qui est à la traîne en termes de maturité technique et organisationnelle, auquel cas chaque équipe sera responsable de morceaux de code avec une forte interdépendance avec les autres. On peut toujours les aider à gagner en niveau, et améliorer leur code, mais ce ne sera pas significatif par rapport à ce dont aurait besoin l’organisation.
+  - Dans les deux cas, Emily propose de commencer par quelques équipes, et de constater les résultats pour agir plus conséquemment ensuite :
+    - Coacher 2 équipes pendant 3 semaines, puis 2 autres équipes pendant 3 semaines, et encore 2 autres pendant 3 semaines.
+    - On refait ensuite une session de 3 semaines avec chaque paire d'équipes. Et on arrive à 5/6 mois de coaching.
+    - On fait le point et on constate les progrès, puis on fait venir d’autres coachs, à la fois des apprentis, et des coachs pour prendre d’autres équipes.
+- Une fois qu’on a convaincu l’organisation, il faut **discuter du prix** et finaliser le contrat.
+  - Il y a une part de négociation pour le prix de la prestation. Emily conseille de déléguer la négociation à une autre personne qui négocie mieux.
+  - Elle conseille le livre **_Secrets of Consulting_** de Gerry Weinberg, dont elle tient le conseil sur la délégation de la négociation.
+- Il faut identifier le (ou les) **sponsor(s)**, c'est-à-dire la personne qui approuve le budget ou décide de nous faire venir. Il faudra le contacter assez rapidement pour valider certains points, et initier une bonne relation :
+  - Les jours où le coaching aura lieu, les équipes qui vont être coachées, le moyen de contacter les équipes.
+  - Il peut aussi nous aider à organiser les kick off meetings avec les équipes.
