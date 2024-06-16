@@ -293,7 +293,7 @@
       - Il faut s'entraîner à l’avance pour que ce soit fluide, ou encore s’enregistrer pour commenter sa propre vidéo.
     - Conclusions (10 mn) : on demande au groupe d’écrire des observations sur des post-its, puis de les lire.
 
-## 12 - Learning Topics
+### 13 - Learning Topics
 
 - Emily regroupe ses learning hours autour de thématiques majeures, et elle fait en général 2 ou 3 séances avant de changer de thématique.
 - Elle donne la liste de ses thématiques, avec des exemples de séances :
@@ -332,3 +332,11 @@
     - Elle cite [Kanban dot game](https://livebook.manning.com/book/kanban-in-action/chapter-13/), tiré du livre **_Kanban in Action_** de Marcus Hammarberg et Joakim Sunden. Ca permet de comprendre l’intérêt de limiter les tâches en parallèle.
     - Elle propose d’autres exemples sur le site [Tasty Cupcakes](https://tastycupcakes.org/).
 - On peut bien sûr s’inspirer des thématiques d’Emily, mais on doit aussi faire les nôtres, qui pourront être basés sur nos préférences et compétences spécifiques.
+
+### 14 - Remote Learning Hours
+
+- Emily présente quelques outils pour les séances de _learning hours_ en remote.
+  - **Cyber-dojo** permet d’éditer du code collaborativement, et au coach de voir ce que font les élèves. On peut héberger son propre serveur.
+  - **VNC** pour se connecter à une machine Amazon EC2 ayant un gestionnaire de fenêtre graphique. Tous les participants peuvent alors contrôler la machine à distance.
+  - Les participants peuvent utiliser leur **machine locale**, auquel cas il faut penser au temps de setup à faire de préférence avant la session, et le switch qui peut être fait par des commit/push successifs.
+- Pour ce qui est des **rétrospectives**, Emily a du mal à faire écrire des notes virtuelles aux participants. On peut au moins **leur faire dire les choses à haute voix, et l’écrire nous-mêmes**.
