@@ -504,3 +504,32 @@
     - Il existe de nombreux **_ensembles_ en remote**, auxquels on peut participer gratuitement ou parfois avec quelques frais.
   - Une possibilité peut aussi être d’approcher un coach et de demander à **participer en shadow**, c’est-à-dire juste regarder la session, sans être payé.
 - Emily elle-même a été initiée au coaching Samman par Llewellyn Falco, qui l’a invitée à faire du pair coaching en 2018. Elle a alors cherché des clients, et s’est petit à petit lancée.
+
+## 20 - Final Thoughts
+
+- Le plus important est : **que nos clients nous aiment bien**. Il faut nouer des relations pour mener une bonne carrière de freelance.
+- L’autre chose à faire c’est de se remettre en question, de parler de ce qu’on fait, et écouter les autres coachs qui parlent de ce qu’ils font.
+- Emily conseille d’avoir une ou deux **personnes de confiance** à qui on parle régulièrement de notre carrière de coach.
+- Le Samman coaching va peut être finir par devenir un mouvement notable, l’URL de rassemblement est [https://sammancoaching.org](https://sammancoaching.org).
+
+## 21 - Rerefences
+
+- Développement incrémental :
+  - **_Test-Driven Development: By Example_** de Kent Beck.
+  - **_TDD_** de Jason Gorman.
+- Refactoring :
+  - **_Refactoring_** de Martin Fowler.
+  - **_Refactoring to Patterns_** de Joshua Kerievsky.
+- Code legacy :
+  - **_Working Effectively with Legacy Code_** de Michael Feathers.
+- Design testable :
+  - **_Agile Software Development Principles, Patterns and Practices_** de Robert C Martin.
+- Design de tests :
+  - **_Growing Object Oriented Software Guided by Tests_** de Nat Pryce and Steve Freeman.
+- Behavior-Driven Development
+  - **_The BDD Books_** de Seb Rose et Gaspar Nagy.
+- Enseignement :
+  - **_Training from the Back of the Room_** de Sharon Bowman.
+- Autre :
+  - **_Accelerate_** de Nicole Forsgren.
+  - **_The Phoenix Project_** de Gene Kim.
