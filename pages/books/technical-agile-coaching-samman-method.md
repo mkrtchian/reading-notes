@@ -451,3 +451,11 @@
     - **L’équipe gère un code trop legacy** : l’une des équipes était sur la migration d’un code de C de 30 ans vers un autre compilateur. Le TDD ne leur servirait pas vraiment puisqu'ils n’écrivaient pas de nouveau code.
       - Emily leur a proposé de travailler plutôt sur des techniques de refactoring et de design de test. Elle a pu leur montrer des techniques pour travailler avec le code legacy, et l’ensemble programming a permis du partage de connaissance.
     - Parfois, il est arrivé à Emily de ne pas trouver d’angle pour convaincre l’équipe, ou d’intérêt à le faire. Dans ce cas, elle laisse tomber la mission et passe à autre chose.
+
+### 17 - Practicalities Before Coaching Begins
+
+- Une fois que l’équipe accepte le coaching, il faut leur demander **leurs horaires**, leurs meetings importants, pour voir où il est le plus judicieux de placer l’_ensemble working_ et les _learning hours_.
+  - On leur demande de réserver une tâche dans leur prochain sprint planning pour l’_ensemble working_. Il faudrait quelque chose impliquant du code, et sans deadlines associées.
+  - La tâche peut être une tâche courante qu’ils devaient déjà faire, ou encore une tâche spécifique pour améliorer un endroit du code qu’ils vont devoir bientôt toucher, ou qui est buggué.
+- Dans le cas où on est en présentiel, il faut s’assurer d’avoir une grande salle, avec des tables qu’on peut placer côte à côte.
+- On commence par utiliser la stratégie habituelle de l’équipe pour intégrer du code, et on essaye d'aller petit à petit vers du trunk based development si possible.
