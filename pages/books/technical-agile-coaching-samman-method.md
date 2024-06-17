@@ -482,3 +482,25 @@
     - Parler à un meeting régulier où il est là (type daily) pour faire un petit point d’avancement, et célébrer ce qui se passe bien.
   - **Contacter les autres coachs** de l’entreprise s’il y en a, pour s’aligner.
 - Vu qu’on coach pendant 10 jours, répartis sur 3 semaines, on a quelques jours de battement dont on peut profiter pour peaufiner ses compétences, améliorer ses cours etc. C’est aussi l’occasion de laisser l’équipe seule, et voir si elle continue à appliquer ce qu’elle apprend.
+
+### 19 - A Career as a Samman Technical Coach
+
+- Le **pair coaching** dans une grande organisation est un excellent moyen de gagner en expérience en tant que coach.
+  - On peut notamment préparer et co-présenter les _learning hours_, et participer tous les deux à l’_ensemble working_, l’un en tant que facilitateur, l’autre en tant que membre de l’équipe.
+  - On peut faire une variante quand le nouveau coach est à l’aise est de se séparer juste pour l’_ensemble working_. Et après les 3 semaines, on peut réévaluer si on continue en pair ou séparément.
+  - Ça se passe souvent quand un coach est déjà installé dans une entreprise, et fait venir ses connaissances. En général, l'entreprise paye les deux au même prix.
+  - Il faut absolument penser à faire des **feedbacks** privés l’un envers l’autre pour progresser.
+- Pour pouvoir être coach technique Samman, il faut avoir certaines **compétences** :
+  - La connaissance et l’expérience du TDD, du refactoring, du software design, de la continuous integration, de la conception de tests.
+  - La connaissance et l’expérience du pair et ensemble programming.
+  - La capacité à faciliter des réunions, et présenter et expliquer des concepts en public.
+- Pour **progresser dans ces compétences**, l’idéal est d’apprendre d’un coach en personne. Mais on peut aussi :
+  - Créer un **dojo de code avec son équipe**.
+  - **Lire des livres** et regarder des vidéos techniques.
+  - **Assister à des conférences**.
+    - Ne pas hésiter à parler aux présentateurs ou facilitateurs, leur poser des questions.
+    - On peut aussi se proposer pour faciliter une session d’_ensemble_, et proposer à des coachs d’y participer pour nous donner des conseils.
+  - Rejoindre des communautés de pratique ou des meetups internes ou externes.
+    - Il existe de nombreux **_ensembles_ en remote**, auxquels on peut participer gratuitement ou parfois avec quelques frais.
+  - Une possibilité peut aussi être d’approcher un coach et de demander à **participer en shadow**, c’est-à-dire juste regarder la session, sans être payé.
+- Emily elle-même a été initiée au coaching Samman par Llewellyn Falco, qui l’a invitée à faire du pair coaching en 2018. Elle a alors cherché des clients, et s’est petit à petit lancée.
