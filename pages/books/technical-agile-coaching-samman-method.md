@@ -459,3 +459,26 @@
   - La tâche peut être une tâche courante qu’ils devaient déjà faire, ou encore une tâche spécifique pour améliorer un endroit du code qu’ils vont devoir bientôt toucher, ou qui est buggué.
 - Dans le cas où on est en présentiel, il faut s’assurer d’avoir une grande salle, avec des tables qu’on peut placer côte à côte.
 - On commence par utiliser la stratégie habituelle de l’équipe pour intégrer du code, et on essaye d'aller petit à petit vers du trunk based development si possible.
+
+### 18 - Turn Up the Good
+
+- Après les 10 jours de coaching, Emily conseille de **demander du feedback à l’équipe**.
+  - On peut le faire sous forme de sondage.
+  - Et il vaut mieux aussi le faire sous forme de rétrospective, soit en demandant à rejoindre une des leurs, soit en en organisant une pour parler du coaching.
+  - Il faut aussi faire le point avec le sponsor.
+- Idéalement on avait négocié deux fois 10 jours de coaching initiaux, et c’est après ça qu’on va discuter avec le sponsor la possibilité de continuer.
+- Une fois qu’on a mené un coaching avec succès, on peut demander à l’organisation de faire venir un ou deux **“coachs visiteurs”**, qui pourront apprendre et aussi apporter leur feedback.
+- Le **réseautage** est un pilier du coach freelance, il faut faire en sorte de parler aux gens, se faire des contacts, les aider etc.
+  - **Déjeuner avec diverses personnes** de l’entreprise cliente est un bon moyen de construire son réseau.
+    - On peut par exemple être mis en relation avec des managers, des personnes portées sur la qualité de code etc. via notre sponsor.
+    - Il vaut mieux déjeuner en 1&1 avec la personne plutôt qu’en groupe, ça permet à la personne de parler plus librement, et donc de construire une meilleure relation.
+  - **Appeler des personnes de pouvoir** au sein de l’entreprise cliente permet d’étendre son réseau.
+    - On peut en particulier demander à son sponsor de nous cartographier les personnes importantes de la hiérarchie.
+    - On peut les appeler pour se présenter, demander leur avis sur quelque chose, ou leur parler de notre travail.
+  - **Reporter au sponsor** permet d’avoir une bonne relation avec lui, lui montrer qu’on est là et qu’il a bien fait de nous prendre. On peut par exemple :
+    - Lui envoyer quelques phrases récapitulatives de chaque jour de coaching.
+    - Lui envoyer un email plus long chaque semaine.
+    - Caler un meeting de 30 minutes après 3 semaines de coaching.
+    - Parler à un meeting régulier où il est là (type daily) pour faire un petit point d’avancement, et célébrer ce qui se passe bien.
+  - **Contacter les autres coachs** de l’entreprise s’il y en a, pour s’aligner.
+- Vu qu’on coach pendant 10 jours, répartis sur 3 semaines, on a quelques jours de battement dont on peut profiter pour peaufiner ses compétences, améliorer ses cours etc. C’est aussi l’occasion de laisser l’équipe seule, et voir si elle continue à appliquer ce qu’elle apprend.
