@@ -1,3 +1,5 @@
+import { Book } from "../../components/markers/Book";
+
 # Technical Agile Coaching with the Samman Method
 
 ### 1 - Introduction
@@ -6,7 +8,7 @@
   - 1 - **Learning hours**, où l’équipe apprend des techniques par des exercices pratiques sous forme de katas.
   - 2 - **Ensemble working**, où l’équipe applique ce qui a été appris sur le code de production, accompagnée par le coach.
 - Emily cite notamment **le TDD et le refactoring** comme deux piliers de son coaching technique.
-- Le fait que les compétences techniques de l’équipe permettent une performance de l’organisation est appuyé par exemple par la recherche expliquée dans **_Accelerate_**.
+- Le fait que les compétences techniques de l’équipe permettent une performance de l’organisation est appuyé par exemple par la recherche expliquée dans <Book>Accelerate</Book>.
 - Une **journée classique** pour un coach technique comme emily consiste en :
   - 1 heure de _learning hour_ avec deux équipes en même temps.
   - 2 heures d’_ensemble working_ avec chaque équipe (donc 4 heures).
@@ -57,7 +59,7 @@
     - Exemple : si une configuration Kubernetes doit être faite et qu’une personne a des connaissances sur ça, elle dit quoi faire au _typist_, les autres posent des questions, et la prochaine fois ils sauront aussi le faire.
   - L’**onboarding** est hyper rapide : l’équipe ne fait que parler de ce qu’elle fait en expliquant en permanence les détails, donc un nouveau développeur peut rentrer dans le bain en très peu de temps.
 - Le coach se comporte comme un visiteur quand il rejoint une équipe qui fonctionne en _ensemble programming_ de manière fluide : il s’insère rapidement et commence à contribuer comme les autres, en suggérant des opportunités de refactoring, de patterns de design etc.
-  - **La 1ère étape est donc d’aider l’équipe à fonctionner en tant qu’_ensemble_** de manière fluide. C’est là que le coach pourra contribuer le mieux sur l’aspect technique.
+  - **La 1ère étape est donc d’aider l’équipe à fonctionner en tant qu’_ensemble</Book> de manière fluide. C’est là que le coach pourra contribuer le mieux sur l’aspect technique.
 
 ### 5 - Coaching Behaviors in an Ensemble
 
@@ -115,7 +117,7 @@
     - Cette technique s’appelle le **consume-first design**, et permet de mieux communiquer l’intention derrière le nouveau code, en partant du contexte d’utilisation.
   - Le _navigator_ demande à écrire du code et des tests en chaîne, le coach lui demande de compiler et jouer les tests pour **avoir du feedback plus souvent**.
   - Le _navigator_ enchaîne sur un autre test, du code ou un refactoring, le coach lui rappelle de **demander un commit** vu qu’un étape a été complétée.
-  - Le _typist_ est **la seule personne de l’équipe qui connaît un sujet** et les autres n’arrivent pas à le guider, le coach demande à **quelqu’un d’autre de prendre le rôle de _typist_**, pour que l’information circule à travers plusieurs personnes.
+  - Le _typist_ est **la seule personne de l’équipe qui connaît un sujet** et les autres n’arrivent pas à le guider, le coach demande à **quelqu’un d’autre de prendre le rôle de _typist</Book>, pour que l’information circule à travers plusieurs personnes.
   - L’équipe entière **ne connaît pas une partie du code**, le coach demande qui connait cette partie, et demande à cette personne si elle peut venir temporairement les aider.
     - Si ça arrive trop souvent, le coach en parle avec le manager pour trouver une solution plus pérenne.
 
@@ -186,13 +188,13 @@
     - Appliquer : **Utiliser** le framework d’approval testing pour écrire des tests.
   - On peut utiliser les catégories du _bloom model_ pour classer les objectifs d’apprentissage, en commençant par les 3 premiers, puis en passant aux 3 derniers une fois que les 3 premiers sont au point.
 - Un autre modèle dont Emily s’inspire est le **4C model** de Sharon Bowman, qui met en avant que chaque personne vient avec son background et ses motivations, et que l’apprentissage doit l’utiliser pour s’y greffer.
-  - Elle conseille le livre de l’auteur **_Training from the back of the Room_**.
+  - Elle conseille le livre de l’auteur <Book>Training from the back of the Room</Book>.
   - Le modèle implique de diviser le cours en 4 parties :
     - **Connect** : rassembler les apprenants et les faire collaborer.
     - **Concept** : donner de nouvelles informations au groupe.
     - **Concrete** : pratiquer dans des exercices concrets.
     - **Conclusions** : laisser les apprenants consolider leurs connaissances.
-- Shanon Bowman a aussi écrit le livre **_Using Brain Science to Make Training Stick_**, qui explique comment créer des cours efficaces pour l’apprentissage selon la science.
+- Shanon Bowman a aussi écrit le livre <Book>Using Brain Science to Make Training Stick</Book>, qui explique comment créer des cours efficaces pour l’apprentissage selon la science.
   - **Bouger est plus efficace que de rester assis**. Il faut idéalement faire en sorte que les élèves bougent toutes les 10/15 minutes, par exemple en faisant en sorte que le _typist_ doive s’asseoir sur une chaise particulière à chaque rotation.
     - En cas de session remote c’est plus compliqué de les faire bouger, il faut essayer de prendre au moins des pauses régulières.
   - **Parler est plus efficace qu’écouter**. Parler renforce la mémoire, et permet d’avoir du feedback. C’est typiquement ce qu’on fait en pair ou ensemble programming.
@@ -303,7 +305,7 @@
     - Revert sur un test rouge imprévu.
     - Designer incrémentalement une fonction.
     - Designer incrémentalement une classe.
-  - **Refactoring safely** : on travaille les techniques citées dans le livre **_Refactoring_** de Martin Fowler.
+  - **Refactoring safely** : on travaille les techniques citées dans le livre <Book>Refactoring</Book> de Martin Fowler.
     - Détecter les code smells.
     - Enlever la duplication.
     - Améliorer le nommage.
@@ -329,7 +331,7 @@
     - Au moment de la pratique, une partie de l’équipe joue le rôle des experts métier, et l’autre des développeurs. Emily conseille de prendre des exemples du code de production de l’équipe.
   - **Agile** : on travaille la notion d’agilité et de DevOps, au travers de jeux.
     - Emily a réalisé le jeu [pipeline game](https://www.eficode.com/blog/pipeline-card-game), qui permet de choisir la liste d’étapes de sa pipeline de continuous delivery.
-    - Elle cite [Kanban dot game](https://livebook.manning.com/book/kanban-in-action/chapter-13/), tiré du livre **_Kanban in Action_** de Marcus Hammarberg et Joakim Sunden. Ca permet de comprendre l’intérêt de limiter les tâches en parallèle.
+    - Elle cite [Kanban dot game](https://livebook.manning.com/book/kanban-in-action/chapter-13/), tiré du livre <Book>Kanban in Action</Book> de Marcus Hammarberg et Joakim Sunden. Ca permet de comprendre l’intérêt de limiter les tâches en parallèle.
     - Elle propose d’autres exemples sur le site [Tasty Cupcakes](https://tastycupcakes.org/).
 - On peut bien sûr s’inspirer des thématiques d’Emily, mais on doit aussi faire les nôtres, qui pourront être basés sur nos préférences et compétences spécifiques.
 
@@ -388,7 +390,7 @@
     - Un architecte va en général aider plusieurs équipes à gérer leur architecture.
     - Un coach Samman est là pour aider l’équipe à gagner en compétences techniques. Par contre, il ne contribue pas au code de production ni aux décisions d’architecture.
 - Quand on est face à des organisations ayant **des centaines d’équipes** :
-  - Soit il s’agit d’organisations “élite” au sens d’**_Accelerate_**, c'est-à-dire que chaque équipe est responsable d’un module indépendant, avec un accès à leurs utilisateurs. Dans ce cas on peut les aider à s’améliorer équipe par équipe, en utilisant les métriques de feedback qu’ils ont déjà pour constater les progrès.
+  - Soit il s’agit d’organisations “élite” au sens d’<Book>Accelerate</Book>, c'est-à-dire que chaque équipe est responsable d’un module indépendant, avec un accès à leurs utilisateurs. Dans ce cas on peut les aider à s’améliorer équipe par équipe, en utilisant les métriques de feedback qu’ils ont déjà pour constater les progrès.
   - Soit il s’agit d’une organisation qui est à la traîne en termes de maturité technique et organisationnelle, auquel cas chaque équipe sera responsable de morceaux de code avec une forte interdépendance avec les autres. On peut toujours les aider à gagner en niveau, et améliorer leur code, mais ce ne sera pas significatif par rapport à ce dont aurait besoin l’organisation.
   - Dans les deux cas, Emily propose de commencer par quelques équipes, et de constater les résultats pour agir plus conséquemment ensuite :
     - Coacher 2 équipes pendant 3 semaines, puis 2 autres équipes pendant 3 semaines, et encore 2 autres pendant 3 semaines.
@@ -396,7 +398,7 @@
     - On fait le point et on constate les progrès, puis on fait venir d’autres coachs, à la fois des apprentis, et des coachs pour prendre d’autres équipes.
 - Une fois qu’on a convaincu l’organisation, il faut **discuter du prix** et finaliser le contrat.
   - Il y a une part de négociation pour le prix de la prestation. Emily conseille de déléguer la négociation à une autre personne qui négocie mieux.
-  - Elle conseille le livre **_Secrets of Consulting_** de Gerry Weinberg, dont elle tient le conseil sur la délégation de la négociation.
+  - Elle conseille le livre <Book>Secrets of Consulting</Book> de Gerry Weinberg, dont elle tient le conseil sur la délégation de la négociation.
 - Il faut identifier le (ou les) **sponsor(s)**, c'est-à-dire la personne qui approuve le budget ou décide de nous faire venir. Il faudra le contacter assez rapidement pour valider certains points, et initier une bonne relation :
   - Les jours où le coaching aura lieu, les équipes qui vont être coachées, le moyen de contacter les équipes.
   - Il peut aussi nous aider à organiser les kick off meetings avec les équipes.
@@ -505,31 +507,31 @@
   - Une possibilité peut aussi être d’approcher un coach et de demander à **participer en shadow**, c’est-à-dire juste regarder la session, sans être payé.
 - Emily elle-même a été initiée au coaching Samman par Llewellyn Falco, qui l’a invitée à faire du pair coaching en 2018. Elle a alors cherché des clients, et s’est petit à petit lancée.
 
-## 20 - Final Thoughts
+### 20 - Final Thoughts
 
 - Le plus important est : **que nos clients nous aiment bien**. Il faut nouer des relations pour mener une bonne carrière de freelance.
 - L’autre chose à faire c’est de se remettre en question, de parler de ce qu’on fait, et écouter les autres coachs qui parlent de ce qu’ils font.
 - Emily conseille d’avoir une ou deux **personnes de confiance** à qui on parle régulièrement de notre carrière de coach.
 - Le Samman coaching va peut être finir par devenir un mouvement notable, l’URL de rassemblement est [https://sammancoaching.org](https://sammancoaching.org).
 
-## 21 - Rerefences
+### 21 - Rerefences
 
 - Développement incrémental :
-  - **_Test-Driven Development: By Example_** de Kent Beck.
-  - **_TDD_** de Jason Gorman.
+  - <Book>Test-Driven Development: By Example</Book> de Kent Beck.
+  - <Book>TDD</Book> de Jason Gorman.
 - Refactoring :
-  - **_Refactoring_** de Martin Fowler.
-  - **_Refactoring to Patterns_** de Joshua Kerievsky.
+  - <Book>Refactoring</Book> de Martin Fowler.
+  - <Book>Refactoring to Patterns</Book> de Joshua Kerievsky.
 - Code legacy :
-  - **_Working Effectively with Legacy Code_** de Michael Feathers.
+  - <Book>Working Effectively with Legacy Code</Book> de Michael Feathers.
 - Design testable :
-  - **_Agile Software Development Principles, Patterns and Practices_** de Robert C Martin.
+  - <Book>Agile Software Development Principles, Patterns and Practices</Book> de Robert C Martin.
 - Design de tests :
-  - **_Growing Object Oriented Software Guided by Tests_** de Nat Pryce and Steve Freeman.
+  - <Book>Growing Object Oriented Software Guided by Tests</Book> de Nat Pryce and Steve Freeman.
 - Behavior-Driven Development
-  - **_The BDD Books_** de Seb Rose et Gaspar Nagy.
+  - <Book>The BDD Books</Book> de Seb Rose et Gaspar Nagy.
 - Enseignement :
-  - **_Training from the Back of the Room_** de Sharon Bowman.
+  - <Book>Training from the Back of the Room</Book> de Sharon Bowman.
 - Autre :
-  - **_Accelerate_** de Nicole Forsgren.
-  - **_The Phoenix Project_** de Gene Kim.
+  - <Book>Accelerate</Book> de Nicole Forsgren.
+  - <Book>The Phoenix Project</Book> de Gene Kim.
