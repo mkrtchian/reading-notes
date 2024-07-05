@@ -784,7 +784,7 @@
   ```typescript
   it("adds two money values in the resulting one", () => {
     const sum = Money.dollar(5).plus(Money.dollar(5));
-    expect(sum).toBe(10);
+    expect(sum.equals(Money.dollar(10))).toBe(true);
   });
   ```
 - Et on va écrire le code du premier coup.
