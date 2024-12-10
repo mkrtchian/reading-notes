@@ -32,7 +32,7 @@
   - Ils veulent mettre en place le fait d’indiquer des produits disponibles avec un plus long délai de livraison, dès qu’ils sont commandés par l’équipe d’achat. De cette manière, la plupart des produits seront marqués comme disponibles.
   - Les auteurs parlent avec les **domain experts**, pour mettre au clair des règles business. Ils les écrivent **accompagnés d’exemples** pour enlever l’ambiguïté.
     - Exemple : “On ne peut pas allouer la même _line_ deux fois”
-      - Si on a un _batch_ de 10 BLUE*VASE, et qu’on alloue une \_line* de 2 BLUE*VASE, si on réalloue la même \_line*, le _batch_ ne changera pas, et restera à 8 BLUE_VASE.
+      - Si on a un _batch_ de 10 BLUE*VASE, et qu’on alloue une_line* de 2 BLUE*VASE, si on réalloue la même_line*, le _batch_ ne changera pas, et restera à 8 BLUE_VASE.
 - L’étape après la discussion est la construction du **domain model** à l’aide de tests.
 
   - Exemple de test :
@@ -145,3 +145,126 @@
     ```
 
 - Les exceptions font aussi partie du _domain model_ et sont test drivées.
+
+### 2 - Repository Pattern
+
+- On veut avoir un _domain model_ **ne dépendant d’aucune considération d’infrastructure**. Il peut dépendre de librairies utilitaires, mais **pas de choses stateful** comme un ORM ou un framework web.
+- D’une certaine manière, l’ORM est déjà une forme d’inversion de dépendance : le code dépend de l’abstraction de l’ORM et ne se préoccupe pas du détail des considérations d’infrastructure spécifiques à la DB.
+  - Malgré tout, l’ORM est une abstraction spécifique à la DB. On passe par lui dès qu’il faut personnaliser quelque chose sur une requête particulière. On veut que **notre _domain model_ soit couplé à une abstraction encore plus abstraite**.
+- Les auteurs utilisent **_SQLAlchemy_** même dans les projets où il n’y a pas besoin d’ORM, ne serait-ce que pour créer des data models, gérer les migrations et les connexions.
+- **_SQLAlchemy_** permet de **mapper automatiquement** un _domain model_ fait avec du pur code et un _data model_ fait avec SQLAlchemy.
+
+  - Ca se fait avec la fonction sqlalchemy.orm.mapper :
+
+    ```python
+    from sqlalchemy.orm import mapper
+    Import model
+
+    order_lines = Table(...)
+
+    def start_mapper():
+      lines_mapper = mapper(model.orderLine, order_lines)
+    ```
+
+  - Une fois le mapping fait, on peut facilement faire des insertions ou des recherches en donnant et recevant des objets de notre _domain model_.
+    ```python
+    # trouver tous les order lines à partir du domain model
+    session.query(model.OrderLine).all()
+    # insérer des order lines à partir d'objets du domain model
+    session.add(model.OrderLine("order1", ...))
+    session.commit()
+    ```
+
+- Pour faire **une classe abstraite** en Python, on peut étendre _abc.ABC_, et marquer les méthodes à implémenter par les enfants avec **@abc.abstractmethod**.
+  Exemple :
+  ```python
+  class AbstractRepository(abc.ABC):
+    @abc.abstractmethod
+    def add(self, batch: model.Batch):
+      raise NotImplementedError
+  ```
+      * L’autre possibilité est d’utiliser **typing.Protocol** : on crée un type qu’on peut utiliser comme outil de static type checking structurel.
+          * Exemple :
+            ```python
+            class AbstractRepository(typing.Protocol):
+              @abc.abstractmethod
+              def add(self, batch: model.Batch):
+                raise NotImplementedError
+            ```
+      * Les auteurs comptent souvent sur le duck typing lui-même et n’hésitent pas à **se passer d’interfaces**.
+- Le _repository pattern_ consiste essentiellement à avoir une interface qui permet d’ajouter et consulter des objets, en cachant la manière dont le stockage est fait.
+- On va écrire des tests pour notre repository.
+
+  - Les auteurs conseillent de garder ces tests, en particulier pour les repositories non triviaux.
+
+    ```python
+    def test_repository_can_save_a_batch(session):
+      batch = model.Batch("batch1", "RUSTY-SOAPDISH", 100, eta=None)
+      repo = repository.SqlAlchemyRepository(session)
+
+      repo.add(batch)
+      session.commit()
+
+      repo = list(session.execute(
+        'SELECT reference, sku, _purchased_quantity, eta FROM "batches"'
+      ))
+      assert rows == [("batch1", "RUSTY-SOAPDISH", 100, None)]
+    ```
+
+    ```python
+    def test_repository_can_retrieve_a_batch_with_allocations(session):
+      orderline_id = insert_order_line(session)
+      batch1_id = insert_batch(session, "batch1")
+      insert_batch(session, "batch2")
+      insert_allocation(session, orderline_id, batch1_id)
+      repo = repository.SqlAlchemyRepository(session)
+
+      retrieved = repo.get("batch1")
+
+      expected = model.Batch("batch1", "GENERIC-SOFA", 100, eta=None)
+      assert retrieved = expected
+      assert retrieved.sku == expected.sku
+      assert retrieved._purchased_quantity == expected._purchased_quantity
+      assert retrieved._allocations == {
+        model.orderLine("order1", "GENERIC-SOFA, 12")
+      }
+    ```
+
+- Et le code :
+
+  ```python
+  class SqlAlchemyRepository(AbstractRepository):
+    def __init__(self, session):
+      self.session = session
+
+    def add(self, batch):
+      self.session.add(batch)
+
+    def get(self, reference):
+      return self.session.query(model.Batch)
+        .filter_by(reference=reference).one()
+
+    def list(self):
+      return self.session.query(model.Batch).all()
+  ```
+
+- Le fake repository va être similaire au repository **_SQLAlchemy_**, mais il va tout contenir en mémoire.
+
+  ```python
+  class FakeRepository(AbstractRepository):
+    def __init__(self, batches):
+      self._batches = set(batches)
+
+    def add(self, batch):
+      self._batches.add(batch)
+
+    def get(self, reference):
+      return next(
+        b for b in self._batches if b.reference == reference
+      )
+
+    def list(self):
+      return list(self._batches)
+  ```
+
+  - Le stockage en mémoire peut être fait avec un set pour simuler ce que fait la DB
