@@ -163,7 +163,7 @@
     order_lines = Table(...)
 
     def start_mapper():
-      lines_mapper = mapper(model.orderLine, order_lines)
+      lines_mapper = mapper(model.OrderLine, order_lines)
     ```
 
   - Une fois le mapping fait, on peut facilement faire des insertions ou des recherches en donnant et recevant des objets de notre _domain model_.
