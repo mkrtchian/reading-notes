@@ -269,7 +269,7 @@
 
   - Le stockage en mémoire peut être fait avec un set pour simuler ce que fait la DB
 
-## 3 - A Brief Interlude: on Coupling and Abstractions
+### 3 - A Brief Interlude: on Coupling and Abstractions
 
 - Le **couplage** consiste à devoir changer un composant quand un autre composant est changé. La **cohésion** c’est quand deux composants couplés sont proches.
 - La création d’**abstractions** est un des moyens de **diminuer le couplage** : en dépendant de l’abstraction, l’autre composant a moins de raisons de changer si le premier a des changements.
