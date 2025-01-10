@@ -268,3 +268,27 @@
   ```
 
   - Le stockage en mémoire peut être fait avec un set pour simuler ce que fait la DB
+
+## 3 - A Brief Interlude: on Coupling and Abstractions
+
+- Le **couplage** consiste à devoir changer un composant quand un autre composant est changé. La **cohésion** c’est quand deux composants couplés sont proches.
+- La création d’**abstractions** est un des moyens de **diminuer le couplage** : en dépendant de l’abstraction, l’autre composant a moins de raisons de changer si le premier a des changements.
+- On peut **isoler la logique métier des side effects** en choisissant de lui donner des abstractions en entrée, et en faisant en sorte qu’elle retourne d’autres abstractions en sortie. Les side effects seront alors ajoutés derrière ces abstractions.
+  - La testabilité s’en retrouve grandement facilitée, parce qu’on peut abondamment tester la logique métier avec des tests unitaires.
+  - Le fait d’avoir du code métier pur, qui ne fait que retourner des valeurs, et les side effects qui sont en dehors s’appelle le **Functional Code, Imperative Shell**, formalisé par Gary Bernhardt.
+  - L’exemple classique est celui du programme qui copie des fichiers : on isole la logique de copie / déplacement / suppression derrière des abstractions comme `('MOVE', '/path/in', '/path/out')` (_functional core_), et on utilise le résultat de cette logique pour l’appliquer sur un vrai filesystem, avec du code qui ne fait qu’appliquer les décisions de la logique métier (_imperative shell_).
+- En plus des tests unitaires et d’intégration (ou end to end), les auteurs proposent l’**edge to edge testing** : on va tester unitairement l’_imperative shell_ et le functional core en même temps, en injectant juste des **objets minimaux** dans l’_imperative shell_, pour que les side effects n’en soient pas.
+  - Par exemple, on va injecter un _FakeFileSystem_ in-memory, qui va avoir le comportement des `os` et `shutil` natifs de Python, avec un port qui permet de ne lister que ce dont on a besoin.
+  - Ce genre d’injection est appelée **Spy** par les auteurs.
+    - Ils renvoient à [un article de Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html) pour la terminologie.
+- DHH parle de _test-induced design damage_ pour qualifier l’injection de dépendance nécessaire aux unit tests de manière générale. Les auteurs quant à eux préfèrent **injecter explicitement, plutôt que monkey-patcher**.
+  - 1 - Monkey-patcher n’améliore pas le design du code, contrairement à l'injection qui oblige à faire un meilleur design.
+  - 2 - En injectant explicitement des dépendances, on crée des interfaces publiques explicites, et on évite de se coupler aux détails d’implémentation, chose qu’on fait facilement si on peut patcher ce qu’on veut pour vérifier des appels.
+  - 3 - Les tests utilisant des mocks / patchs sont difficiles à lire.
+- Dans ce livre, les auteurs utilisent le domain layer comme un _functional core_ (bien qu’il ne soit pas composé que de fonctions pures), et l'application service layer comme un _imperative shell_ qu’ils vont pouvoir unit tester _edge to edge_.
+- Pour **trouver les bonnes abstractions**, les auteurs proposent les heuristiques suivantes :
+  - Peut-on trouver une structure native qui peut contenir l’état de ce qu’on calcule, pour le renvoyer dans une fonction ?
+  - Où est-ce qu’on peut tracer la ligne de séparation entre nos systèmes, et introduire un **seam**.
+    - _Seam_ fait référence à **_Working Effectively with Legacy Code_** de Michael Feathers. Il s’agit de trouver un moyen d’isoler du code de ses dépendances sans toucher aux dépendances, et sans enlever explicitement la dépendance. Par exemple en ajoutant du code qui va masquer l’utilisation de la dépendance.
+  - Comment expliciter les différentes responsabilités ?
+  - Quelle est la logique business et quelles sont les dépendances ?
