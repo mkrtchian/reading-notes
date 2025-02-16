@@ -376,3 +376,72 @@
 - Il y a encore deux problèmes qu’il va s’agir de résoudre dans la suite:
   - Le _service layer_ est couplé au _domain layer_ au travers de la notion d’_OrderLine_.
   - Le service layer est couplé à l’objet _session_.
+
+### 5 - TDD in High Gear and Low Gear
+
+- Si on analyse le nombre de tests de chaque type qu’on a :
+  - 12 tests unitaires du _domain layer_
+  - 3 unit tests du _service layer_
+  - 6 integration tests des _output adapters_
+  - 2 integration tests d’input adapter (e2e tests)
+- On va s’intéresser maintenant à ce qui se passe si **on traduit les tests du domain layer vers le service layer**.
+
+  - C’est assez facile à faire : puisque le _service layer_ utilise le _domain layer_, il suffit de l’instancier avec le fake repository, et de le run, puis de vérifier le contenu du fake repository.
+
+    ```typescript
+    def test_prefers_current_stock_batches_to_shipments():
+      in_stock_batch = Batch("in-stock-batch", "RETRO-CLOCK", 100, eta=None)
+      shipment_batch = Batch("shipment-batch", "RETRO-CLOCK", 100, eta=tomorrow)
+      line = OrderLine("oref", "RETRO-CLOCK", 10)
+
+      allocate(line, [in_stock_batch, shipment_batch])
+
+      assert in_stock_batch.available_quantity == 90
+      assert shipment_batch.available_quantity == 100
+    ```
+
+  - L’avantage qu’on va avoir c’est qu’on peut **refactorer notre domain layer beaucoup plus facilement** vu qu’il n’y a pas de tests qui le figent.
+  - Le désavantage c’est qu’écrire des tests de service layer nous donne un **feedback moins rapide** que des tests de domain layer. Avec moins de feedback on profite moins de l’avantage du TDD où les tests nous permettent de réfléchir au design de notre code.
+    - Un autre désavantage est que dans certains cas, on peut avoir une **explosion combinatoire** du nombre de tests nécessaires pour tester tous les cas à travers plusieurs use-cases, plutôt qu’une seule fois la fonctionnalité directement dans le _domain layer_.
+
+- Les auteurs utilisent souvent **les tests du _domain layer_ au départ** pour aider à l'écrire au départ, ou dès qu’ils font face à un problème métier compliqué, **puis les bougent au niveau du _service layer_ et effacent les tests de _domain layer_** pour avoir une meilleure maintenabilité.
+  - Ils prennent la métaphore du changement de vitesse sur un vélo : au départ on a une vitesse faible pour commencer à rouler, puis on augmente la vitesse pour aller plus vite, et en cas de pente on réduit la vitesse.
+- Pour permettre de refactorer plus facilement le code du domain layer, on peut **découpler le service layer du domain layer**.
+  - On peut **ne plus prendre des objets du _domain layer_ en entrée des fonctions du _service layer_**, en prenant des types primitifs à la place.
+    - On passe de :
+      ```typescript
+      def allocate(line: OrderLine, repo: AbstractRepository, session) -> str:
+      ```
+    - à :
+      ```typescript
+      def allocate(
+        orderid: str, sku: str, qty: int, repo: AbstractRepository, session
+      ) -> str:
+      ```
+  - Pour aller un cran plus loin encore, on peut **créer des fonctions factory** sur notre fake repository pour ne plus utiliser les objets du _domain layer_ directement dans les tests du _service layer_.
+    - Fonction factory :
+      ```typescript
+      class FakeRepository(set):
+        @staticmethod
+        def for_batch(ref, sku, qty, eta=None):
+          return FakeRepository([
+            model.Batch(ref, sku, qty, eta),
+          ])
+      ```
+    - Exemple de test :
+      ```typescript
+      def test_allocation_returns_allocation():
+        repo = FakeRepository.for_batch("batch1", "COMPLICATED-LAMP", 100, eta=None)
+        result = services.allocate("o1", "COMPLICATED-LAMP", 10, repo, FakeSession())
+        assert result == "batch1"
+      ```
+  - Et enfin, pour un découplage ultime, on peut **remplacer les fonctions factory par des use-cases**, déjà existants ou supplémentaires, du _service layer_.
+    - Attention cependant à ne pas écrire du code qui ne servira qu’au test, il vaut mieux ne les écrire que si ils vont être nécessaires au code aussi.
+      ```typescript
+      def test_allocate_returns_allocation():
+        repo, session = FakeRepository([]), FakeSession()
+        services.add_batch("batch1", "COMPLICATED-LAMP", 100, None, repo, session)
+        result = services.allocate("o1", "COMPLICATED-LAMP", 10, repo, session)
+        assert result == "batch1"
+      ```
+    - Le **même raisonnement peut s’appliquer pour les tests d’intégration** e2e : au lieu de setup la DB avec du code SQL couplé à la structure des tables, on peut faire appel à un API endpoint qui fait déjà ce qu’on veut pour le setup.
