@@ -316,7 +316,7 @@
     return jsonify({'batchref': batchref}), 201
   ```
   - Les auteurs sont **réticents à vérifier le contenu de la base dans le test d’intégration**, et donc préfèrent ajouter un deuxième test qui va consommer le contenu d’un batch, puis vérifier que c’est le batch suivant qui est alloué par une autre requête POST.
-- Les auteurs continuent avec des vérifications d’erreurs liées au SKU qui peut être invalide ou ne pas exister. Il s’agit de logique du domaine, mais plutôt de sanity checks.
+- Les auteurs continuent avec des vérifications d’erreurs liées au SKU qui peut être invalide ou ne pas exister. Il ne s’agit pas de logique du domaine, mais plutôt de sanity checks.
   - On va donc créer des **tests d’intégration supplémentaires** pour ça, en vérifiant le statut 400 et les messages d’erreurs, et implémenter la logique dans l’endpoint Flask.
 - Pour éviter de multiplier les tests d’intégration et la logique dans l’input adapter, on va introduire un _application service layer_, qui va récupérer la **logique d’orchestration** : récupérer des objets du domaine à partir de repositories, appeler des méthodes dessus, valider les données et gérer les erreurs.
   - Les tests vont être unitaires, et utiliser un fake repository.
