@@ -278,7 +278,7 @@
   - Le fait d’avoir du code métier pur, qui ne fait que retourner des valeurs, et les side effects qui sont en dehors s’appelle le **Functional Code, Imperative Shell**, formalisé par Gary Bernhardt.
   - L’exemple classique est celui du programme qui copie des fichiers : on isole la logique de copie / déplacement / suppression derrière des abstractions comme `('MOVE', '/path/in', '/path/out')` (_functional core_), et on utilise le résultat de cette logique pour l’appliquer sur un vrai filesystem, avec du code qui ne fait qu’appliquer les décisions de la logique métier (_imperative shell_).
 - En plus des tests unitaires et d’intégration (ou end to end), les auteurs proposent l’**edge to edge testing** : on va tester unitairement l’_imperative shell_ et le functional core en même temps, en injectant juste des **objets minimaux** dans l’_imperative shell_, pour que les side effects n’en soient pas.
-  - Par exemple, on va injecter un _FakeFileSystem_ in-memory, qui va avoir le comportement des `os` et `shutil` natifs de Python, avec un port qui permet de ne lister que ce dont on a besoin.
+  - Par exemple, on va injecter un _FakeFileSystem_ in-memory, qui va avoir le comportement des `os` et `shutil` natifs de Python, avec un port qui permet de ne garder que ce dont on a besoin.
   - Ce genre d’injection est appelée **Spy** par les auteurs.
     - Ils renvoient à [un article de Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html) pour la terminologie.
 - DHH parle de _test-induced design damage_ pour qualifier l’injection de dépendance nécessaire aux unit tests de manière générale. Les auteurs quant à eux préfèrent **injecter explicitement, plutôt que monkey-patcher**.
@@ -292,3 +292,87 @@
     - _Seam_ fait référence à **_Working Effectively with Legacy Code_** de Michael Feathers. Il s’agit de trouver un moyen d’isoler du code de ses dépendances sans toucher aux dépendances, et sans enlever explicitement la dépendance. Par exemple en ajoutant du code qui va masquer l’utilisation de la dépendance.
   - Comment expliciter les différentes responsabilités ?
   - Quelle est la logique business et quelles sont les dépendances ?
+
+### 4 - Our First Use Case: Flask API and Service Layer
+
+- L’objectif dans ce chapitre est :
+  - D’exposer le _domain service_ allocate via un API endpoint Flask, en le testant end-to-end.
+  - Ajouter un _(application) service layer_ entre le _domain layer_ et l’API endpoint, en le testant unitairement (edge to edge).
+  - Améliorer les tests du _service layer_ pour les rendre indépendants de la business logic.
+- On commence par un test d’intégration (ou end to end), qui crée les objets _Order_, _OrderLine_, _Batch_ etc. en base via du SQL, puis envoie une requête POST sur notre endpoint REST _/allocate_, et vérifie la réponse.
+  - Les auteurs utilisent les données random pour créer leurs objets en DB, pour éviter que les tests ne se gênent entre eux.
+- L’implémentation de l’input adapter REST ressemble à ça :
+  ```typescript
+  @app.route("/allocate", methods=['POST'])
+  def allocate_endpoint():
+    session = get_session()
+    batches = repository.SqlAlchemyRepository(session).list()
+    line = model.OrderLine(
+      request.json['orderid'],
+      request.json['sku'],
+      request.json['quantity'],
+    )
+    batchref = model.allocate(line, batches)
+    return jsonify({'batchref': batchref}), 201
+  ```
+  - Les auteurs sont **réticents à vérifier le contenu de la base dans le test d’intégration**, et donc préfèrent ajouter un deuxième test qui va consommer le contenu d’un batch, puis vérifier que c’est le batch suivant qui est alloué par une autre requête POST.
+- Les auteurs continuent avec des vérifications d’erreurs liées au SKU qui peut être invalide ou ne pas exister. Il s’agit de logique du domaine, mais plutôt de sanity checks.
+  - On va donc créer des **tests d’intégration supplémentaires** pour ça, en vérifiant le statut 400 et les messages d’erreurs, et implémenter la logique dans l’endpoint Flask.
+- Pour éviter de multiplier les tests d’intégration et la logique dans l’input adapter, on va introduire un _application service layer_, qui va récupérer la **logique d’orchestration** : récupérer des objets du domaine à partir de repositories, appeler des méthodes dessus, valider les données et gérer les erreurs.
+  - Les tests vont être unitaires, et utiliser un fake repository.
+  - Exemple :
+    ```typescript
+    def test_returns_allocation():
+      line = model.OrderLine("o1", "COMPLICATED-LAMP", 10)
+      batch = model.Batch("b1", "COMPLICATED-LAMP", 100, eta=None)
+      repo = FakeRepository([batch])
+      result = services.allocate(line, repo, FakeSession())
+      assert result == "b1"
+    ```
+  - L’implémentation de l'_application service_ :
+    ```typescript
+    def allocate(line: OrderLine, repo: AbstractRepository, session) -> str:
+      batches = repo.list()
+      if not is_valid_sku(line.sku, batches):
+        raise InvalidSku(f'Invalid sku {line.sku}')
+      batchref = model.allocate(line, batches)
+      session.commit()
+      return batchref
+    ```
+  - Et l’API endpoint Flask :
+    ```typescript
+    @app.route("/allocate", methods=['POST'])
+    def allocate_endpoint():
+      session = get_session()
+      repo = repository.SqlAlchemyRepository(session)
+      line = model.OrderLine(
+        request.json['orderid'],
+        request.json['sku'],
+        request.json['qty'],
+      )
+      try:
+        batchref = services.allocate(line, repo, session)
+      except (model.OutOfStock, services.InvalidSku) as e:
+        return jsonify({'message': str(e)}), 400
+      return jsonify({'batchref': batchref}), 201
+    ```
+  - Et ils proposent de ne garder que deux tests d’intégration : un pour le happy path et un pour un des unhappy paths (par exemple erreur 400).
+- Côté organisation des fichiers, on peut avoir :
+  - Un dossier pour le code du _domain layer_
+  - Un dossier pour le code de l’_application service layer_
+  - Un dossier pour les _entrypoints_ (_input adapters_, aussi appelés _primary_, _driving_ ou encore _inward-facing_ adapters)
+  - Un dossier pour les _output adapters_ (aussi appelés _secondary_, _driven_ ou encore _outward-facing_ adapters)
+  - Les tests séparés en :
+    - Unit : tests partant de l’application service layer
+    - Integration : tests d’intégration pour un output adapter par exemple
+    - e2e : tests d’intégration partant d’un input adapter
+- L’introduction de l’_application service layer_ :
+  - A les **avantages** suivants :
+    - On sépare clairement ce qui concerne la techno (ici HTTP) de la logique métier.
+    - On peut écrire des tests unitaires pour la logique métier.
+  - A les **désavantages** suivants :
+    - Plus de boilerplate avec un layer en plus.
+    - Si on cède sur la testabilité, on peut très bien mettre la logique d’orchestration du domaine dans l’input adapter.
+- Il y a encore deux problèmes qu’il va s’agir de résoudre dans la suite:
+  - Le _service layer_ est couplé au _domain layer_ au travers de la notion d’_OrderLine_.
+  - Le service layer est couplé à l’objet _session_.
