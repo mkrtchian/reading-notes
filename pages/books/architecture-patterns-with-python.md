@@ -445,3 +445,146 @@
         assert result == "batch1"
       ```
     - Le **même raisonnement peut s’appliquer pour les tests d’intégration** e2e : au lieu de setup la DB avec du code SQL couplé à la structure des tables, on peut faire appel à un API endpoint qui fait déjà ce qu’on veut pour le setup.
+
+### 6 - Unit of Work Pattern
+
+- Le **unit of work** permet de prendre en charge la notion **d’opérations atomiques**.
+- Pour les auteurs, il fait partie de l’_application service_ layer, et est le point d’entrée pour accéder aux repositories.
+- En python, on va implémenter le unit of work comme un **context manager** (il crée un bloc avec le mot clé `with` dans l'_application service_).
+  ```python
+  def allocate(
+    orderid: str, sku: str, qty: int,
+    uow: unit_of_work.AbstractUnitOfWork
+  ) -> str:
+    line = OrderLine(orderid, sku, qty)
+    with uow:
+      batches = uow.batches.list()
+      # ...
+      batchref = model.allocate(line, batches)
+      uow.commit()
+  ```
+- Une classe abstraite servant d’interface pourrait être celle-là :
+
+  ```python
+  class AbstractUnitOfWork(abc.ABC):
+    batches: repository.AbstractRepository
+
+    def __exit__(self, *args):
+      self.rollback
+
+    @abc.abstractmethod
+    def commit(self):
+      raise NotImplementedError
+
+    @abc.abstractmethod
+    def rollback(self):
+      raise NotImplementedError
+  ```
+
+  - Le _unit of work_ **contient les repositories** en tant que variables membres.
+  - Il fournit deux méthodes _commit()_ et _rollback()_ explicites.
+    - Le _rollback()_ n’a aucun effet si _commit()_ a déjà été appelé.
+    - **Le _rollback()_ sera appelé dans tous les cas à la sortie du context manager** pour éviter que la transaction reste ouverte en cas d’erreur.
+
+- L’implémentation concrète utilise la session SQLAlchemy.
+
+  ```python
+  DEFAULT_SESSION_FACTORY = sessionmaker(bind=create_engine(
+    config.get_postgres_uri(),
+  ))
+
+  class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
+    def __init__(self, session_factory=DEFAULT_SESSION_FACTORY):
+      self.session_factory = session_factory
+
+    def __enter__(self, *args):
+      self.session = self.session_factory()
+      self.batches = repository.SqlAlchemyRepository(self.session)
+      return super().__enter__()
+
+    def __exit__(self, *args):
+      super().__exit__(*args)
+      self.session.close()
+
+    def commit(self):
+      self.session.commit()
+
+    def rollback(self):
+      self.session.commit()
+  ```
+
+- On peut maintenant écrire des tests unitaires pour le _service layer_, **en instanciant seulement un fake unit of work** au lieu d’instancier directement des fake repositories et fake session.
+
+  ```python
+  class AbstractUnitOfWork(abc.ABC):
+
+    def __exit__(self, *args):
+      self.batches = FakeRepository([])
+      self.committed = False
+
+    def commit(self):
+      self.committed = True
+
+    def rollback(self):
+      pass
+
+  def test_add_batch():
+    uow = FakeUnitOfWork()
+    services.add_batch("b1", "CRUNCHY-ARMCHAIR", 100, None, uow)
+    assert uow.batches.get(b1) is not None
+    assert uow.committed
+  ```
+
+  - En remplaçant le fake session qui était un objet externe par un fake unit of work qui mock un concept qu’on maintient nous-mêmes, on adhère à la pratique _“Don’t mock what you don’t own”_.
+    - La raison est que si on mock quelque chose qu’on ne maintient pas, on se retrouve avec un objet complexe dont l’interface entière n’est pas bien connue et délimitée, et qui peut évoluer sans qu’on le sache.
+
+- L’_application service_ se retrouve à ne prendre que le _unit of work_ comme output adapter.
+  ```python
+  def add_batch(
+    ref: str, sku, str, qty: int, eta: Optional[date],
+    uow: AbstractUnitOfWork
+  ):
+    with uow:
+      uow.batches.add(model.Batch(ref, sku, qty, eta))
+      uow.commit()
+  ```
+- Quelques tests d’intégration supplémentaires pour vérifier le comportement de rollback de notre _unit of work_ :
+
+  ```python
+  def test_rolls_back_uncommitted_work_by_default(session_factory):
+    uow = unit_of_work.SqlAlchemyUnitOfWork(session_factory)
+    with uow:
+      insert_batch(
+        uow.session, 'batch1', 'MEDIUM-PLINTH', 100, None
+      )
+    new_session = session_factory()
+    rows = list(new_session.execute('SELECT * FROM "batches"'))
+    assert rows == []
+
+  def test_rolls_back_on_error(session_factory):
+    class MyException(Exception):
+      pass
+    uow = unit_of_work.SqlAlchemyUnitOfWork(session_factory)
+    with pytest.raises(MyException):
+      with uow:
+        insert_batch(
+          uow.session, 'batch1', 'LARGE-FORK', 100, None
+        )
+        raise MyException()
+    new_session = session_factory()
+    rows = list(new_session.execute('SELECT * FROM "batches"'))
+    assert rows == []
+  ```
+
+- Une alternative au comportement de commit explicite et rollback implicite pourrait être le commit et le rollback implicites.
+  - Il s’agirait de faire un `commit()` dans la méthode `__exit__()` dans le cas normal, et un rollback() dans le cas où on a eu une erreur.
+    ```python
+    def __exit__(self, exn_type, exn_value, traceback):
+      if exn_type is None:
+        self.commit()
+      else:
+        self.rollback()
+    ```
+  - Les auteurs conseillent de garder le commit explicite pour n’avoir qu’un chemin happy path clair, et le rollback implicite pour éviter de persister tout résultat non voulu.
+- On peut se poser la question des tests d’intégration d’_output adapter_ à garder ou non : il faut les garder si on pense qu’ils apportent une valeur sur le long terme.
+  - Pour les auteurs, les tests des objets d’ORM peuvent être supprimés, et ceux des repositories et du unit of work gardés.
