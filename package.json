@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "next": "15.2.4",
+    "next": "15.3.0",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "18.3.1",
@@ -21,17 +21,17 @@
     "next-seo": "^6.6.0"
   },
   "devDependencies": {
-    "@types/node": "22.14.0",
+    "@types/node": "22.14.1",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "8.57.1",
-    "eslint-config-next": "15.2.4",
-    "eslint-config-prettier": "^10.1.1",
+    "eslint-config-next": "15.3.0",
+    "eslint-config-prettier": "^10.1.2",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "typescript": "5.8.3"
   },
