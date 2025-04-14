@@ -516,7 +516,7 @@
 - On peut maintenant écrire des tests unitaires pour le _service layer_, **en instanciant seulement un fake unit of work** au lieu d’instancier directement des fake repositories et fake session.
 
   ```python
-  class AbstractUnitOfWork(abc.ABC):
+  class FakeUnitOfWork(AbstractUnitOfWork):
 
     def __exit__(self, *args):
       self.batches = FakeRepository([])
