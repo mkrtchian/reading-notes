@@ -1,1 +1,36 @@
 # Facilitating Software Architecture
+
+## 1 - Centralized Architecture Practices in a Decentralized World
+
+- La **software architecture** est :
+  - Selon Grady Booch : “the set of significant design decisions that shape the form and function of the system”.
+  - Selon Martin Fowler : “those decisions that are both important and hard to change”.
+- Pour l’auteur, l’architecture a deux composantes bien mises en valeur par ces deux définitions : (1) le **résultat final du système en lui-même** d’une part, et (2) la **pratique consistant à prendre les décisions d’architecture** d’autre part.
+  - Le point (1) a été largement étayé et formalisé sous forme de patterns . Le point (2) beaucoup moins, et c’est l’objet de ce livre.
+  - Une bonne architecture implique :
+    - Des parties cohérentes, cohésives, et alignées avec le domaine.
+    - Des parties découplées permettant à des équipes de travailler en parallèle.
+    - Une architecture suffisamment qu’on peut changer facilement.
+  - La pratique doit donc permettre d’obtenir ce genre de résultat.
+- La pratique de l’architecture sous sa forme **traditionnelle** ne permet pas de répondre aux enjeux d’architecture moderne.
+  - Il y a deux formes de pratique traditionnelle (en réalité c’est toujours un mix des deux) :
+    - **1 - Ivory tower architects** : les architectes prennent les décisions d’architecture globales, mais aussi locales à chaque produit.
+      - On constate en général une homogénéisation de l’architecture pour la rendre plus intelligible et contrôlable par l’architecte, au détriment des spécificités locales de chaque produit.
+      - L’architecte est d’autant plus vu comme au-dessus des autres.
+    - **2 - Hands on architects** : les architectes vont voir les équipes et co-designent et codent le système avec eux, en passant d'équipe en équipe.
+      - Ils n’ont pas le temps de rester assez avec chaque équipe pour répondre à toutes les problématiques, ni le temps de se consacrer suffisamment à la vision globale du système.
+  - Le problème principal avec les deux approches, c’est que l’architecte est **responsable des décisions d’architecture à la place des équipes**.
+    - Il n’arrive pas à suivre les détails de chaque partie locale que les équipes connaissent mieux, et il manque de temps pour traiter toutes les demandes correctement.
+    - Il en résulte qu’il devient un bottleneck pour les équipes, et finit par prendre des décisions de moins bonne qualité.
+- Selon l’auteur, le monde du logiciel a connu **5 révolutions** techniques et socio-techniques :
+  - **1 - Agile manifesto** : focus sur un code testé qui marche, livré régulièrement, et en faisant confiance aux développeurs pour faire le travail.
+  - **2 - Cloud computing** : on a pu déployer des systèmes très rapidement, sans avoir à mettre en place une infrastructure physique pendant des semaines.
+  - **3 - DevOps** : on a pu mettre la fonctionnalité dans les main de l’utilisateur en quelques instants, grâce au fait que les équipes de delivery avaient maintenant la main sur le déploiement et la gestion de leur application.
+  - **4 - Product thinking** : on a cherché à obtenir du feedback des utilisateurs le plus vite et le plus souvent possible, pour s’assurer de construire la solution qui apporte le plus de valeur.
+  - **5 - Stream-aligned teams** : on a privilégié les équipes autonomes responsables des changements de bout en bout, travaillant sur des produits sur lesquels elles ont l’ownership.
+    - Cette dernière a eu une période de gestation très longue :
+      - Elle était déjà mise en avant dans le livre **_Domain Driven Design_** d’Eric Evans et **_The Principles of Product Development Flow_** de Donald Reinertsen.
+      - Elle a été facilitée par le concept de microservices de James Lewis.
+      - Puis elle a été popularisée par **_Accelerate_** de la team DORA, **_Inspired_** de Marty Cagan et **_Team Topologies_** de Matthiew Skelton et Samuel Pais.
+  - Lorsque ces révolutions sont combinées, on obtient des systèmes très efficaces, capables de mettre chaque incrément de feature dans les mains de l’utilisateur très vite, et de maximiser la valeur.
+- L’approche traditionnelle de l’architecture logicielle est basée sur le contrôle, et ne permet pas d’adhérer aux 5 révolutions : il y a **trop de complexité** dans le système, et **trop de choses qui changent** pour qu’une poignée d’architectes puissent être responsables des décisions d’architecture.
