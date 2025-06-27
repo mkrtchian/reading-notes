@@ -588,3 +588,163 @@
   - Les auteurs conseillent de garder le commit explicite pour n’avoir qu’un chemin happy path clair, et le rollback implicite pour éviter de persister tout résultat non voulu.
 - On peut se poser la question des tests d’intégration d’_output adapter_ à garder ou non : il faut les garder si on pense qu’ils apportent une valeur sur le long terme.
   - Pour les auteurs, les tests des objets d’ORM peuvent être supprimés, et ceux des repositories et du unit of work gardés.
+
+### 7 - Aggregates and Consistency Boundaries
+
+- On veut regrouper la logique métier dans des _aggregates_ pour obtenir une délimitation au sein de laquelle des **contraintes et invariants** métier vont être garantis.
+  - Un exemple d’invariant ici peut être qu’un _order line_ ne doit être alloué qu’au plus à un _batch_ à la fois.
+  - Autre exemple : on ne peut allouer un _order line_ à un _batch_ si la quantité de l’_order line_ est plus grande que la quantité restante dans le _batch_.
+- L’**aggregate** permet d’apporter de la **clarté en regroupant les règles de manière cohérente**.
+  - Mais il apporte aussi d’autres avantages, par exemple sur la question d’**unité transactionnelle** pour les problématiques de **concurrence** : comment garantir que nos règles métier sont respectées entre les différents objets ?
+    - Si on exécute les requêtes en parallèle, elles ne seront pas respectées. Par exemple, un _order line_ pourrait être alloué à plusieurs _batchs_.
+    - On pourrait lock les différentes tables concernées à chaque requête pour s’en assurer, mais d’un point de vue performance ça ne peut pas tenir.
+    - La solution que propose l’_aggregate_, c’est de lock seulement certains rows des tables concernées, choisis de manière à ce que **leur blocage suffise à garantir les règles métier qui les concernent**.
+    - On peut prendre l’exemple du panier dans le cadre des sites d’e-commerce : le panier d’un même client est une unité transactionnelle, et on n’aura à priori pas de règles métier à faire respecter entre les paniers des différents clients. Donc le panier est un bon candidat pour un aggregate.
+    - Citation du blue book : _An AGGREGATE is a cluster of associated objects that we treat as a unit for the purpose of data changes_.
+  - Un _aggregate_ va **cacher la complexité** qu’il représente derrière une interface représentée par l’_entity_ principale : l’**aggregate root**. Les autres _entities_ sont inaccessibles à l’extérieur de _l’aggregate_.
+- Pour le **choix de notre aggregate**, on aimerait qu’il contienne plusieurs _batches_ pour garantir des invariants autour de l’allocation. Mais lesquels ?
+  - Idéalement on aimerait qu’il soit **le plus petit possible** pour des raisons de performance, tout en nous permettant de faire respecter tous nos invariants en son sein.
+  - On pourrait par exemple choisir de prendre tous les batchs d’un _Shipment_, ou encore tous les batchs d’un _Warehouse_. Mais en réalité nos règles métier portent surtout sur les objets d’un même _sku_ : par exemple l’allocation des DEADLY-SPOON peut se faire en parallèle de l’allocation des FLIMSY-DESK sans que ça ne casse de règle métier.
+  - On pourrait alors choisir par exemple _GlobalSkuStock_, _SkuStock_, _Stock_, _ProductStock_. Mais on va se rabattre sur _Product_.
+    - On est ici dans le _bounded context_ _Allocations_. Il ne s’agit pas du tout du même _Product_ que celui du bounded context _ECommerce_. Il n’y aura ici aucun prix, description etc.
+- On va ajouter un nouvel objet _Product_ dans le _domain layer_, pour encapsuler notre domain service _allocate()_.
+
+  ```python
+  class Product:
+    def __init__(self, sku: str, batches: List[Batch]):
+      self.sku = sku
+      self.batches = batches
+
+    def allocate(self, line: OrderLine) -> str:
+      try:
+        batch = next(
+          b for b in sorted(self.batches) if b.can_allocate(line)
+        )
+        batch.allocate(line)
+        return batch.reference
+      except StopIteration:
+        raise OutOfStock(f'Out of stock for sku {line.sku}')
+  ```
+
+  - Notre _aggregate_ est aussi un _entity_ avec l’identifiant _sku_.
+  - Il a **à tout moment la liste complète des _batches_** qui le concernent.
+
+- Un _aggregate_ ne peut avoir qu’**un seul _repository_** qui permet de le manipuler depuis son _aggregate root_.
+
+  - On va transformer notre _BatchRepository_ en _ProductRepository_.
+  - Dans un premier temps, on peut ne transformer que le repository in memory pour faire marcher notre application service avec ses tests unitaires.
+
+    ```python
+    class AbstractUnitOfWork(abc.ABC):
+      products: repository.AbstractProductRepository
+      # ...
+
+    class AbstractProductRepository(abc.ABC):
+      @abc.abstractmethod
+      def add(self, product):
+        # ...
+
+      @abc.abstractmethod
+      def get(self, sku) -> model.Product:
+        # …
+    ```
+
+- On écrit adapte les application services :
+
+  ```python
+  def add_batch(
+    ref: str, sku: str, qty: int, eta: Optional[date],
+    uow: unit_of_work.AbstractUnitOfWork
+  ):
+    with uow:
+      product = uow.products.get(sku=sku)
+      if product is None:
+        product = model.Product(sku, batches=[])
+        uow.products.add(product)
+      product.batches.append(model.Batch(ref, sku, qty, eta))
+      uow.commit()
+
+  def allocate(
+    orderid: str, sku: str, qty: int,
+    uow: unit_of_work.AbstractUnitOfWork
+  ) -> str:
+    line = OrderLine(orderid, sku, qty)
+    with uow:
+      product = uow.products.get(sku=line.sku)
+      if product is None:
+        raise InvalidSku(f'Invalid sku {line.sku}')
+      batchref = product.allocate(line)
+      uow.commit()
+    return batchref
+  ```
+
+- Le fait que notre _aggregate_ manipule de nombreux objets à chaque fois peut poser la question de la **performance**.
+  - On a fait en sorte que notre aggregate nous permette de charger en **une seule transaction** l’ensemble des objets dont on peut avoir besoin, et écrire en une seule transaction l’ensemble des objets qui peuvent changer. On évite les nombreux allers retours habituels avec la base.
+  - On sait que l’ordre de grandeur de nos batchs pour un même sku est de quelques dizaines. Ça reste très raisonnable.
+  - Si l’ordre de grandeur était de plusieurs milliers ou plus et que la perte de performance était inacceptable, on aurait pu :
+    - Faire du lazy loading pour les batchs d’un même aggregate. SQLAlchemy peut nous aider à faire ça.
+    - Choisir une autre délimitation pour notre _aggregate_. Après tout, le choix de la délimitation est **un trade off entre performance et capacité à faire respecter des invariants**.
+- Maintenant qu’on a notre _aggregate_, on va réfléchir à la manière de répondre aux **problèmes de concurrence**.
+
+  - On a le choix entre l’**optimistic concurrency** où on exécute toutes les transactions et laisse échouer celles qui ont un conflit et se terminent en dernier, et la **pessimistic concurrency** où une transaction va bloquer tous les objets dont elle a besoin jusqu’à ce qu’elle ait fini.
+    - L’avantage de l’_optimistic concurrency_ est la performance, et le désavantage c’est que si’il y a des conflits, il faudra un mécanisme de retry pour les requêtes qui finissent en erreur à cause des problèmes de concurrence.
+  - Une première manière de faire l’_optimistic concurrency_ est d’**utiliser un compteur** au sein de notre _aggregate_ : de cette manière on s’assure que deux transactions qui touchent quoi que ce soit dans un même aggregate toucheront forcément un champ commun et seront donc en concurrence pour de l’écriture.
+
+    - On doit d’abord se poser la question de l'endroit où se trouvera le compteur.
+      - Le plus logique serait qu’il soit dans le _unit of work_ puisqu’il s’agit d’un sujet lié à la notion d’atomicité des transactions. Ceci dit, dans notre cas on se retrouve avec un souci technique qui est qu’on ne sait pas comment savoir quel _product_ a changé, et donc lequel doit voir son compteur incrémenté. Il faudrait que le _unit of work_ ou le repository se souvienne de l’état du _product_ avant et puisse comparer avec après le passage dans l’application service.
+      - Une autre solution est que ce soit fait dans l’_application service_. C’est vrai que le compteur n’est pas vraiment un sujet lié au domaine, mais d’un autre côté avoir l’application service faire des modifications est étrange aussi.
+      - La troisième solution est de le faire dans le _domain layer_, au sein même de l’_aggregate_. Bien que ce soit plutôt un sujet d’infrastructure, on décide de faire le trade off de ce choix là.
+    - On implémente :
+
+      ```python
+      class Product:
+
+        def __init__(self, sku: str, batches: List[Batch], version_number: int = 0):
+          self.sku = sku
+          self.batches = batches
+          self.version_number = version_number
+
+        def allocate(self, line: OrderLine) -> str:
+          try:
+            # ...
+            self.version_number += 1
+            return batch.reference
+          except StopIteration:
+            # …
+      ```
+
+    - On va faire un petit test pour vérifier que notre mécanisme fonctionne vraiment.
+      - On va d’abord rendre notre service lent :
+        ```python
+        def try_to_allocate(orderid, sku, exceptions):
+          line = model.OrderLine(orderid, sku, 10)
+          try:
+            with unit_of_work.SqlAlchemyUnitOfWork() as uow:
+              product = uow.products.get(sku=sku)
+              product.allocate(line)
+              time.sleep(0.2)
+              uow.commit()
+            except Exception as e:
+              # ...
+        ```
+      - Puis on écrit un test pour vérifier qu’une seule des deux requêtes concurrentes pourra faire son commit : on crée deux threads qui vont exécuter immédiatement le use case d’allocation, et on vérifie à la fin qu’une seule allocation a été créée en base.
+
+  - Une autre manière d’implémenter l’_optimistic concurrency_ serait d’utiliser un **isolation level** plus fort que celui par défaut _read commited_.
+    - Par exemple _serializable_ qui garantit que les transactions exécutées en parallèle seront équivalentes aux mêmes transactions exécutées l’une après l’autre.
+    - Le défaut c’est que la transaction peut être significativement plus lente.
+      ```python
+      DEFAULT_SESSION_FACTORY = sessionmaker(bind=create_engine(
+        config.get_postgres_uri(),
+        isolation_level="REPEATABLE READ",
+      ))
+      ```
+  - Une autre option est d’implémenter une _pessimistic concurrency_, en utilisant **select for update**.
+    ```python
+    def get(self, sku):
+      return self.session.query(model.Product)
+        .filter_by(sku=sku)
+        .with_for_update()
+        .first()
+    ```
+
+- Les auteurs recommandent [les articles de Vaughn Vernon sur les aggregates](https://dddcommunity.org/library/vernon_2011).
