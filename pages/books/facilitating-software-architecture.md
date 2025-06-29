@@ -1,6 +1,6 @@
 # Facilitating Software Architecture
 
-## 1 - Centralized Architecture Practices in a Decentralized World
+# 1 - Centralized Architecture Practices in a Decentralized World
 
 - La **software architecture** est :
   - Selon Grady Booch : “the set of significant design decisions that shape the form and function of the system”.
@@ -33,4 +33,16 @@
       - Elle a été facilitée par le concept de microservices de James Lewis.
       - Puis elle a été popularisée par **_Accelerate_** de la team DORA, **_Inspired_** de Marty Cagan et **_Team Topologies_** de Matthiew Skelton et Samuel Pais.
   - Lorsque ces révolutions sont combinées, on obtient des systèmes très efficaces, capables de mettre chaque incrément de feature dans les mains de l’utilisateur très vite, et de maximiser la valeur.
-- L’approche traditionnelle de l’architecture logicielle est basée sur le contrôle, et ne permet pas d’adhérer aux 5 révolutions : il y a **trop de complexité** dans le système, et **trop de choses qui changent** pour qu’une poignée d’architectes puissent être responsables des décisions d’architecture.
+  - L’approche traditionnelle de l’architecture logicielle est basée sur le contrôle, et ne permet pas d’adhérer aux 5 révolutions : il y a **trop de complexité** dans le système, et **trop de choses qui changent** pour qu’une poignée d’architectes puissent être responsables des décisions d’architecture.
+- Les révolutions ont mené à une **décentralisation** de plus en plus grande.
+  - Quelques caractéristiques de ce qu’est la décentralisation :
+    - La décentralisation n’est **pas la distribution** : il s’agit d’avoir des parties autonomes plutôt qu’un tout séparé en morceaux interdépendants (par exemple monolithe distribué).
+    - Décentraliser veut dire **abandonner le contrôle** central et laisser l’indépendance aux parties.
+    - La décentralisation **augmente la complexité**. On externalise l’infrastructure, l’envoi de SMS et d’autres choses pour pouvoir avoir plus de parties dans notre système.
+  - Les **équipes décentralisées** fonctionnent mieux.
+    - Les équipes ont parfois des problèmes de couplage avec d’autres équipes : en général soit du _work coupling_ (attendre que l’autre équipe ait fini sa partie), soit du _permission coupling_ (je dois demander avant d’agir).
+    - Réduire ces couplages permet d’obtenir de meilleurs résultats mais aussi des développeurs plus heureux (cf. **_Accelerate_**).
+    - L’idée est de laisser les équipes travailler en **autonomie**, en réduisant leur cycle de livraison pour qu’ils se préoccupent eux-mêmes de la valeur de ce qu’ils apportent aux clients.
+  - Le **logiciel décentralisé** fonctionne mieux. Il n’y a qu’à voir la quantité de briques qu’on externalise chez des providers payants.
+  - Pour que ça marche, il faut **aligner les deux**. Très souvent on essaye de décentraliser le logiciel alors qu’on a une structure d’équipe centralisée, et ça fonctionne mal.
+    - L’auteur recommande fortement [l'étude célèbre de Conway de 1968](https://www.melconway.com/Home/pdf/committees.pdf) qui ne fait que 4 pages.
