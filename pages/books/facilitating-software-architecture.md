@@ -38,7 +38,7 @@
   - Quelques caractéristiques de ce qu’est la décentralisation :
     - La décentralisation n’est **pas la distribution** : il s’agit d’avoir des parties autonomes plutôt qu’un tout séparé en morceaux interdépendants (par exemple monolithe distribué).
     - Décentraliser veut dire **abandonner le contrôle** central et laisser l’indépendance aux parties.
-    - La décentralisation **augmente la complexité**. On externalise l’infrastructure, l’envoi de SMS et d’autres choses pour pouvoir avoir plus de parties dans notre système.
+    - La décentralisation **augmente la complexité**. On externalise l’infrastructure, l’envoi de SMS, le paiement et d’autres choses pour pouvoir avoir plus de parties dans notre système.
   - Les **équipes décentralisées** fonctionnent mieux.
     - Les équipes ont parfois des problèmes de couplage avec d’autres équipes : en général soit du _work coupling_ (attendre que l’autre équipe ait fini sa partie), soit du _permission coupling_ (je dois demander avant d’agir).
     - Réduire ces couplages permet d’obtenir de meilleurs résultats mais aussi des développeurs plus heureux (cf. **_Accelerate_**).
@@ -46,3 +46,22 @@
   - Le **logiciel décentralisé** fonctionne mieux. Il n’y a qu’à voir la quantité de briques qu’on externalise chez des providers payants.
   - Pour que ça marche, il faut **aligner les deux**. Très souvent on essaye de décentraliser le logiciel alors qu’on a une structure d’équipe centralisée, et ça fonctionne mal.
     - L’auteur recommande fortement [l'étude célèbre de Conway de 1968](https://www.melconway.com/Home/pdf/committees.pdf) qui ne fait que 4 pages.
+- Les pratiques d'architecture et les architectures **centralisées** sont inefficaces.
+  - L’idée de centralisation mène souvent à celle de blocage : que ce soit un thread qui en attend un autre, une requête en DB qui attend qu’un row se libère, ou une équipe qui attend de pouvoir déployer .
+  - Les pratiques traditionnelles **bloquent le flow de delivery**. Les équipes doivent attendre les décisions des architectes, qui constituent un bottleneck.
+    - La raison pour laquelle ce blocage est plus gênant maintenant est que les 5 révolutions du monde du logiciel ont mené à une vitesse de changement bien plus importante qu’avant.
+  - Les pratiques traditionnelles **ne permettent pas de récupérer suffisamment de feedback** pour affecter les décisions d’architecture.
+    - Les architectes de type “ivory tower” ne récupèrent pas de feedback de leurs décisions et donc finissent par prendre des décisions bonnes sur le papier, mais mauvaises en pratique.
+    - Les architectes “hands on” one moins ce problème, puisqu’ils éprouvent dans une certaine mesure les conséquences de l’implémentation de leur propres décisions d’architecture, mais ils sont alors d’autant plus débordés.
+- La **nouvelle pratique** doit permettre de répondre aux 3 buts de l’architecture : cohérente et cohésive, découplée, et adaptable. Pour ça, elle doit :
+  - **Être décentralisée** pour permettre aux équipes de travailler en parallèle et de réaliser de nombreuses itérations rapides.
+  - **Mettre le feedback au cœur de son fonctionnement**, que ce soit pour les architectes ou les équipes.
+- Les pratiques d’architecture **ne peuvent jamais protéger du chaos**, c'est-à-dire des comportements complexes, imprédictibles et sensibles aux moindres changements propres aux architectures.
+- L’architecture est fondamentalement **incertaine**, parce qu’incorporant de la **variabilité** à tous les niveaux.
+  - Il faut bien prendre l’architecture comme un tout, incluant les systèmes, mais aussi les équipes et leurs interactions, formant un **système sociotechnique**. Cette notion reconnaît la relation entre aspects techniques et aspects sociaux.
+  - Il suffit par exemple de prendre ne serait-ce qu’un bout, même simple ou peu important d’un système, et d’en augmenter la latence, pour voir apparaître une complexité qu’on n’imaginait pas.
+- L’architecture a des caractéristiques fondamentalement **émergentes**, c’est-à-dire qu’elles sont absentes dans les parties, et apparaissent quand les parties forment un tout.
+  - Il existe deux types d’émergence :
+    - L’**émergence forte** concerne le fait que des parties forment un tout. Par exemple, les voitures composées de leurs parties.
+    - L’**émergence faible** n'apparaît évidente qu’après avoir dû la chercher. On peut la corriger sans difficulté, mais elle apparaîtra quand on pensera avoir pensé à tout.
+      - Exemple : L’auteur raconte qu’il avait mis en place un système d’assignation de tracking number dans le cadre d’un outil autour d’ebay. Ces tracking number augmentaient tous les week ends, parce qu’avec du scaling automatique, et l’augmentation de l’activité des utilisateurs le week end, des requêtes étaient en timeout. Le retry provoquait une demande de nouveau tracking number, laissant l’ancien comme réservé mais non terminé. Malgré le fait que l’équipe ait pensé à tout, ils n’avaient pas envisagé la propriété émergente entre leur système de scaling et le comportement des utilisateurs.
