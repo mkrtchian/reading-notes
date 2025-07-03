@@ -1,6 +1,6 @@
 # Facilitating Software Architecture
 
-# 1 - Centralized Architecture Practices in a Decentralized World
+### 1 - Centralized Architecture Practices in a Decentralized World
 
 - La **software architecture** est :
   - Selon Grady Booch : “the set of significant design decisions that shape the form and function of the system”.
@@ -65,3 +65,25 @@
     - L’**émergence forte** concerne le fait que des parties forment un tout. Par exemple, les voitures composées de leurs parties.
     - L’**émergence faible** n'apparaît évidente qu’après avoir dû la chercher. On peut la corriger sans difficulté, mais elle apparaîtra quand on pensera avoir pensé à tout.
       - Exemple : L’auteur raconte qu’il avait mis en place un système d’assignation de tracking number dans le cadre d’un outil autour d’ebay. Ces tracking number augmentaient tous les week ends, parce qu’avec du scaling automatique, et l’augmentation de l’activité des utilisateurs le week end, des requêtes étaient en timeout. Le retry provoquait une demande de nouveau tracking number, laissant l’ancien comme réservé mais non terminé. Malgré le fait que l’équipe ait pensé à tout, ils n’avaient pas envisagé la propriété émergente entre leur système de scaling et le comportement des utilisateurs.
+
+## Part I - First Principles
+
+### 2 - To Practice Architecture is to Decide
+
+- Expérience : fermez les yeux et imaginez une décision d’architecture qui est prise.
+  - Est-ce que c’était vous ou quelqu’un d’autre qui a pris la décision ?
+  - La personne qui a pris la décision était hiérarchiquement au-dessus de vous, en dessous de vous, au même niveau ?
+  - Quel âge avait-elle par rapport à vous ?
+  - Quelles compétences avait-elle par rapport aux vôtres ?
+- L’architecture est fondamentalement composée de **décisions**.
+  - Les architectures évolutionnaires font que ces décisions sont nombreuses et arrivent en permanence. cf. **_Building Evolutionary Architectures_**.
+  - Toutes les décisions d’architecture sont des décisions techniques, mais toutes les décisions techniques ne sont pas forcément des décisions d’architecture.
+  - Pour définir une **décision d’architecture**, l’auteur met en avant la définition de Michael Nygard dans le blog post [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), qui dit : “_'architecturally significant' decisions: those that affect the structure, non-functional characteristics, dependencies, interfaces, or construction technique_”.
+    - **Structure** : si on change la structure, on change la manière dont les parties sont agencées entre-elles. Ces parties peuvent communiquer via le réseau ou via des appels de fonction.
+    - **Cross-functional characteristics (CFRs)** : les requirements qui ne rentrent pas dans l’aspect fonctionnel tel que décrit dans une user story ou un use-case, par exemple les sujets de sécurité, de performance, de scalabilité, de réglementation, de coûts etc.
+      - L’auteur conseille le chapitre 6 de **_User Story Mapping_** de Jeff Patton, pour une introduction à la notion de user story.
+      - Il préfère _cross-functional_ plutôt que _non-functional_ pour éviter de définir par la négation, et aussi parce que ça représente mieux le fait que ces caractéristiques traversent le système.
+    - **Dependencies** : il s’agit des éléments avec lesquels notre système interagit et qu’on **ne contrôle pas**. On doit donc faire attention à la manière dont on interagit avec ces éléments. Exemple : librairies ou services externes, plateforme qui fait tourner notre code, service fourni par une autre équipe etc.
+    - **Interfaces** : il s’agit des interfaces qu’on expose aux autres. On en a le contrôle, mais chaque modification à ces interfaces aura des conséquences importantes.
+    - **Construction techniques** : les techniques avec lesquelles on construit notre système affectent le système lui-même. Par exemple l’utilisation d’un outil comme LaunchDarkly pour avoir des feature toggles et mettre en prod très vite des features pour certains clients. Autre exemple : l’intégration continue nécessite une grenade testabilité, le TDD nécessite d’isoler la logique métier etc.
+  -
