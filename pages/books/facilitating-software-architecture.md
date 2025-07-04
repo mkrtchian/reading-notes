@@ -75,15 +75,59 @@
   - La personne qui a pris la décision était hiérarchiquement au-dessus de vous, en dessous de vous, au même niveau ?
   - Quel âge avait-elle par rapport à vous ?
   - Quelles compétences avait-elle par rapport aux vôtres ?
+  - Est-ce que c’était une personne seule ou un groupe ?
 - L’architecture est fondamentalement composée de **décisions**.
   - Les architectures évolutionnaires font que ces décisions sont nombreuses et arrivent en permanence. cf. **_Building Evolutionary Architectures_**.
   - Toutes les décisions d’architecture sont des décisions techniques, mais toutes les décisions techniques ne sont pas forcément des décisions d’architecture.
   - Pour définir une **décision d’architecture**, l’auteur met en avant la définition de Michael Nygard dans le blog post [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), qui dit : “_'architecturally significant' decisions: those that affect the structure, non-functional characteristics, dependencies, interfaces, or construction technique_”.
     - **Structure** : si on change la structure, on change la manière dont les parties sont agencées entre-elles. Ces parties peuvent communiquer via le réseau ou via des appels de fonction.
+      - Exemples : comment séparer un module en plusieurs parties et quelles équipes vont être responsables de chaque partie
     - **Cross-functional characteristics (CFRs)** : les requirements qui ne rentrent pas dans l’aspect fonctionnel tel que décrit dans une user story ou un use-case, par exemple les sujets de sécurité, de performance, de scalabilité, de réglementation, de coûts etc.
       - L’auteur conseille le chapitre 6 de **_User Story Mapping_** de Jeff Patton, pour une introduction à la notion de user story.
       - Il préfère _cross-functional_ plutôt que _non-functional_ pour éviter de définir par la négation, et aussi parce que ça représente mieux le fait que ces caractéristiques traversent le système.
+      - Exemples :
+        - Le format des logs et les outils qui vont les collecter.
+        - La manière dont on va scaler horizontalement notre système.
+      - Mauvais exemples :
+        - Le fait de scaler des déploiements à 3 ou 5 pods.
+        - Les paramètres à passer au garbage collector de notre virtual machine.
     - **Dependencies** : il s’agit des éléments avec lesquels notre système interagit et qu’on **ne contrôle pas**. On doit donc faire attention à la manière dont on interagit avec ces éléments. Exemple : librairies ou services externes, plateforme qui fait tourner notre code, service fourni par une autre équipe etc.
+      - Mauvais exemple : quel framework de unit testing ou outils de performance testing on va utiliser (ça n’impactera pas la manière dont on conçoit le système).
     - **Interfaces** : il s’agit des interfaces qu’on expose aux autres. On en a le contrôle, mais chaque modification à ces interfaces aura des conséquences importantes.
-    - **Construction techniques** : les techniques avec lesquelles on construit notre système affectent le système lui-même. Par exemple l’utilisation d’un outil comme LaunchDarkly pour avoir des feature toggles et mettre en prod très vite des features pour certains clients. Autre exemple : l’intégration continue nécessite une grenade testabilité, le TDD nécessite d’isoler la logique métier etc.
-  -
+    - **Construction techniques** : les techniques avec lesquelles on construit notre système affectent le système lui-même.
+      - Exemples :
+        - L’utilisation d’un outil comme LaunchDarkly pour avoir des feature toggles et mettre en prod très vite des features pour certains clients.
+        - L’intégration continue nécessite une grenade testabilité.
+        - Le TDD nécessite d’isoler la logique métier.
+      - Mauvais exemples :
+        - Quel IDE les développeurs utilisent.
+        - Le fait que les développeurs fassent du pair programming.
+- On peut classer les décisions d’architecture en **décisions significatives** et non significatives.
+  - Concernant les 3 critères _dependencies_, _interfaces_ et _construction techniques_, les changements significatifs sont en général évidents.
+    - Exemple :
+      - Une nouvelle dépendance, ou un upgrade majeur pour une dépendance existante.
+      - Une nouvelle API qu’on expose, ou un breaking change dans une API exposée existante.
+      - Une nouvelle technique de déploiement, comme le canary release, ou le blue-green deployment.
+    - Mauvais exemples :
+      - Un développeur enlève des dépendances inutilisées.
+      - Un architecte enlève un paramètre d’une API dont ils ont vérifié auprès des utilisateurs qu’elle n’était pas du tout utilisée.
+      - Un ops déploie une plateforme qui permet aux équipes de partager leurs APIs.
+  - Concernant la _structure_ et les _cross-functional characteristics_, c’est plus compliqué de définir s’ils sont significatifs.
+    - Concernant les changements de structure, il s’agira soit de changement d’**endroit où on place une logique clé**, soit du fait de **commencer ou arrêter d’utiliser un design pattern**.
+      - Exemple : des développeurs qui refactorent leur code pour extraire un micro-frontend (nouveau design pattern).
+      - Mauvais exemple : des développeurs refactorent leur code pour extraire une méthode privée dans une classe.
+    - Concernant les changements de CFRs, il faut d’abord les **définir clairement** avant de pouvoir savoir si elles sont significatives.
+      - 1 - Pour la valeur : “As a [ROLE]…I want to [ACTION]…so that [VALUE].”
+      - 2 - Pour le critère d’acceptance : “Given [CIRCUMSTANCES]…when [EVENT]…then [OUTCOME].”
+      - Exemple :
+        - 1 - As a customer, I want my search results within 500 milliseconds, So that I can find what I want quickly.
+        - 2 - Given the site is experiencing normal levels of search requests, When a customer submits a search request, Then the system responds 99% of the time with valid search results within 500 ms.
+      - Notre décision sera significative si elle **met en danger le fait de respecter les critères d’acceptation** d’un ou plusieurs autres CFRs.
+      - Exemple : un développeur ajoute une API Gateway publique, sans authentification, rate limiting ou autre, juste un pass-through.
+      - Mauvais exemple : un développeur refactore du code, enlevant un bottleneck, permettant de doubler le throughput. Aucun critère d’acceptance de CFR n’est en danger, donc ce n’est pas significatif.
+  - Des décisions d’architecture peuvent être significatives :
+    - Peu importe qu’elles aient été prises **par des architectes ou développeurs**.
+    - Peu importe qu’elles aient **pris du temps** ou non.
+    - Peu importe qu’elles aient même été **délibérées** ou non.
+    - Exemple : une développeur qui met à jour une librairie, et met à jour aussi sans faire exprès des dépendances dont une passe en licence GPL contaminante => c’est un simple développeur, qui a mis peu de temps à décider, et qui ne s’est même pas rendu compte de la décision significative qu’il avait prise.
+  - Les décisions ne peuvent être significatives que si elles sont liées à un **système en production**, ou à la partie du système qui permet de mettre le système en production (pipeline CI/CD & co). Tant que la décision n’atteint pas la production, elle ne peut pas être significative.
