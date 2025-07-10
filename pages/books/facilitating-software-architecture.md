@@ -131,3 +131,20 @@
     - Peu importe qu’elles aient même été **délibérées** ou non.
     - Exemple : une développeur qui met à jour une librairie, et met à jour aussi sans faire exprès des dépendances dont une passe en licence GPL contaminante => c’est un simple développeur, qui a mis peu de temps à décider, et qui ne s’est même pas rendu compte de la décision significative qu’il avait prise.
   - Les décisions ne peuvent être significatives que si elles sont liées à un **système en production**, ou à la partie du système qui permet de mettre le système en production (pipeline CI/CD & co). Tant que la décision n’atteint pas la production, elle ne peut pas être significative.
+
+### 3 - Decisions at Scale
+
+- De manière générale, on peut **décomposer le processus de décision** en plusieurs étapes :
+  - 1 - **On a besoin de prendre une décision**.
+  - 2 - **La décision**
+    - 2.a - **On liste les options possibles**. Cette étape est particulièrement importante.
+      - C’est dans cette étape qu’il faut connaître un maximum de patterns d’architecture.
+      - C’est aussi à cette étape qu’il faut bien comprendre le problème et le contexte :
+        - Quelle est la situation ?
+        - Qu’est-ce qui a déjà été essayé ?
+        - Quelles sont les contraintes ? Est-ce que certaines sont en tension avec d’autres ?
+        - Est-ce que ne rien faire est une possibilité ?
+    - 2.b - **On décide**.
+    - 2.c - (facultatif) **on communique** sur la décision prise.
+      - Cette étape est souvent oubliée, résultant dans le fait que les personnes qui implémentent ne sont **pas au courant, ou pas d’accord** avec la décision.
+  - 3 - **La décision est implémentée**.
