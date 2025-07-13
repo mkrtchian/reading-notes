@@ -136,8 +136,8 @@
 
 - De manière générale, on peut **décomposer le processus de décision** en plusieurs étapes :
   - 1 - **On a besoin de prendre une décision**.
-  - 2 - **La décision**
-    - 2.a - **On liste les options possibles**. Cette étape est particulièrement importante.
+  - 2 - **On prend la décision**
+    - 2.a - **On crée la liste des options possibles**. Cette étape est particulièrement importante.
       - C’est dans cette étape qu’il faut connaître un maximum de patterns d’architecture.
       - C’est aussi à cette étape qu’il faut bien comprendre le problème et le contexte :
         - Quelle est la situation ?
@@ -148,3 +148,46 @@
     - 2.c - (facultatif) **on communique** sur la décision prise.
       - Cette étape est souvent oubliée, résultant dans le fait que les personnes qui implémentent ne sont **pas au courant, ou pas d’accord** avec la décision.
   - 3 - **La décision est implémentée**.
+- L’étape de **création des options possibles** peut être plus ou moins soignée ou bâclée.
+  - Il y a 3 manières de la faire :
+    - **1 - Le cas nécessitant de l’exploration** : l’étape nécessite de l’effort, on ne peut pas simplement s’appuyer sur des patterns connus et évidents.
+    - **2 - La cas où plusieurs options connues existent** : même si les options sont connues, il faut quand même de l’effort pour les expliciter et les mettre en relation les unes avec les autres.
+    - **3 - Le cas où on ne considère qu’une option** : parfois parce que la décision n’est pas significative, parfois parce qu’on ne voit pas l’aspect significatif, ou qu’on la prend inconsciemment.
+  - Le fait de choisir la manière 1, 2 ou 3 dépend de la décision et de son importance, mais l’auteur remarque que bien souvent on ne consacre pas suffisamment d’importance à la phase de création des options possibles.
+  - C’est bien pire pour les équipes de développeurs : bien souvent, ils ne sont pas du tout exposés à cette étape, et ne voient que l’architecte qui prend la décision.
+- Les décisions sont difficiles quand elles concernent **un grand nombre de personnes**. C’est là qu’on doit avoir des **processus de décision** solides.
+  - Les deux critères importants pour l’auteur sont :
+    - 1 - Est-ce que le pouvoir d’initier la décision est centralisé ou décentralisé ?
+    - 2 - Quelle est la vitesse à laquelle la procédure permet de définir des options et prendre des décisions ?
+  - L’auteur en distingue 6 (elle sont aussi décrites sur [thedecider.app](https://thedecider.app/)) :
+    - **Les procédures centralisées** : une seule personne a le pouvoir de décision, et peut l’utiliser de différentes manières.
+      - 1 - **Autocratic** decision process : une seule personne crée la liste des options et prend la décision. Les autres ne font qu’implémenter.
+        - La prise de décision peut être très rapide, mais la personne peut aussi se retrouver à être un bottleneck si les décisions à prendre s’empilent.
+        - Exemple : un chief architect rejoint une entreprise et prend la décision de passer d’AWS à Azure sans avoir consulté personne.
+      - 2 - **Delegation** decision process : la personne qui a le pouvoir délègue la décision à une personne, qui va donc lister les options et prendre la décision.
+        - Ça ressemble beaucoup à l’_autocratic decision process_, à la différence que la décision peut être plus pertinente si on délègue aux personnes les mieux placées.
+        - Exemple : le chief architect rejoint l’entreprise, mais ne connaît pas suffisamment AWS et donc délègue la décision au lead infrastructure architect.
+      - 3 - **Consultative** decision process : la personne qui a le pouvoir consulte d’abord les personnes de son choix, avant de faire la liste des options et prendre la décision.
+        - Ça peut être un peu plus lent que les deux précédentes méthodes, mais on recueille plus de points de vue. Par contre, vu que la personne choisit de consulter qui elle veut, on peut se retrouver avec des experts du sujet qui ne sont pas du tout consultés.
+        - Exemple : le chief architect consulte le lead infrastructure, et quelques autres personnes, avant de lister les options et prendre la décision.
+    - **Les décisions décentralisées** : le pouvoir de décision est distribué.
+      - 4 - **Consent** decision process : C’est toujours la même personne qui liste les options et prend la décision, mais un groupe large de personnes peuvent bloquer la décision en mettant un véto. S’il y a véto, la personne doit soit faire un autre choix, soit changer la liste des choix possibles.
+        - Les personnes non-décisionnaires peuvent parfois abuser du véto, en le mettant jusqu’à ce que la décision soit celle qu’elles veulent. Donc la décision risque d’être lente.
+        - Exemple : le chief architect propose de coder les nouveaux microservices en Java 8 parce que c’est ce qu’il connaît. Sa décision est bloquée par un véto d’une ou plusieurs personnes.
+      - 5 - **Democratic** decision process : une personne crée la liste des options, mais ensuite le groupe entier vote pour l’option qu’il préfère.
+        - La décision va vite, mais le risque c’est que la minorité qui perd se retrouve désengagée parce qu’elle pense qu’elle a de bonnes raisons d’être pour une autre option, même si elle est minoritaire.
+        - Exemple : le chief architect propose la liste “Java 8, Cobol, Lisp, Rust”, et le groupe choisit. Il reste quand même la question de savoir qui va avoir un droit de vote : juste les tech leads ? l’ensemble des développeurs ? etc.
+      - 6 - **Consensus** decision process : l’ensemble du groupe participe à l’étape de création des options, et aussi à l’étape de la prise de décision, où on s’assure que tout le monde consent avant de décider.
+        - On a une bien plus grande implication de chacun, mais la décision risque de prendre beaucoup de temps. Un autre problème peut être le fait d’aller systématiquement vers le choix du plus petit dénominateur commun de compromis : ce n’est pas toujours une bonne chose pour une architecture.
+        - Exemple : le chief architect lance le sujet, et les développeurs arrivent à une liste “Kotlin, C#, TypeScript, Rust”, puis discutent jusqu'à arriver à un accord sur un langage.
+  - Quand on classe les procédures selon les deux axes (décentralisation et vitesse de prise de décision), on voit qu’on a soit des procédures décentralisées, soit des procédures rapides.
+    - On pourrait imaginer le cas “centralisé et lent” avec un autocrate hésitant qui décide seul mais met beaucoup de temps à décider, mais ça n’a aucun intérêt pour nous.
+    - L’autre case est par contre beaucoup plus intéressante : est-ce qu’on peut avoir une procédure qui soit **à la fois rapide et décentralisée** ?
+      - Si on examine les procédures listées :
+        - Sur l’aspect rapidité, **plus la personne qui décide est autonome dans la décision, et plus la décision est rapide**. Consulter les autres prend peu de temps, mais s’ils ont une voix dans la décision elle-même, ça va la ralentir.
+        - Sur l’aspect décentralisation, ce qui compte c’est **le nombre de personnes qui peuvent participer** à la décision, mais aussi **le nombre de personnes qui peuvent l’initier**.
+      - Et donc, une procédure qui serait à la fois rapide et décentralisée devrait :
+        - 1 - Impliquer les bonnes personnes.
+        - 2 - Laisser un grand nombre de personnes initier une décision et décider.
+        - 3 - Mettre en avant la confiance pour que chacun s’implique dans les décisions où il a quelque chose à apporter.
+        - 4 - Minimiser le besoin de communiquer la décision.
