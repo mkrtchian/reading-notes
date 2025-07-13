@@ -191,3 +191,30 @@
         - 2 - Laisser un grand nombre de personnes initier une décision et décider.
         - 3 - Mettre en avant la confiance pour que chacun s’implique dans les décisions où il a quelque chose à apporter.
         - 4 - Minimiser le besoin de communiquer la décision.
+
+### 4 - The Architecture Advice Process
+
+- En tant qu’**architecte traditionnel**, l’auteur a été principalement confronté à 3 problèmes (que ce soit en mode hands on ou ivory tower) :
+  - 1 - Étant donné sa responsabilité sur les décisions, il était sur le chemin critique des équipes, et donc finissait par les bloquer d’une manière ou d’une autre.
+  - 2 - Il ne pouvait pas être au courant des détails et nuances de l’ensemble des systèmes en place, et finissait par faire des erreurs à cause de ça.
+  - 3 - Il n’arrivait pas à communiquer efficacement ses décisions, et donc pouvait ne pas les voir implémentées correctement.
+- La notion d’advice process vient initialement du livre **_The Decision Maker_** de Dennis Bakke, puis a été popularisé par **_Reinventing Organizations_** de Frédéric Laloux.
+- L**’architecture advice process** peut être décrit comme suit : n’importe qui (membre d’une équipe ou personne avec un rôle cross-team) peut prendre une décision (choisir une des options), à condition d’avoir consulté les personnes suivantes durant la phase de création des options :
+  - 1 - Des personnes affectées par la décision
+  - 2 - Des personnes qui ont une expertise dans le domaine dans lequel la décision est prise.
+- L’_advice process_ peut être vu comme un **contrat social** : on a **confiance** dans le fait que les autres, quand ils prendront des décisions, écouteront les perspectives des bonnes personnes. Et on promet nous-mêmes de faire de même.
+  - Cette confiance s’établit entre celui qui décide (une personne, ou une équipe représentée par un membre de l’équipe), et ceux qui subissent la décision, avec dans l’idée que les rôles vont s’inverser régulièrement.
+- L’advice process est **à la fois rapide et décentralisé**.
+  - Il est **rapide** :
+    - Le nombre de personnes qui participent à l’étape de prise de décision est de 1. Le nombre de personnes qui peuvent mettre un véto est de 0.
+    - Il se retrouve légèrement plus rapide que le _consultative process_ parce que la décision va être prise par ceux qui en ont le besoin direct, et donc ils seront pressés de la prendre pour avancer.
+    - Concernant les personnes consultées :
+      - Les équipes vont naturellement chercher à minimiser leur nombre, ce qui va les forcer à construire des systèmes bien délimités.
+      - Le rapport aux experts est aussi différent : puisqu’il n’y a plus besoin de les convaincre, on est purement sur du partage de connaissances.
+      - Puisque les personnes concernées sont déjà mises au courant du sujet au moment de la consultation, il n’y a plus besoin de faire de grands efforts pour la phase de partage de la décision.
+  - Il est **décentralisé**. Si on reprend la définition qu’on se donne de décentralisé : plus il y a de personnes qui peuvent initier et participer aux décisions, plus la procédure est décentralisée.
+    - Il offre une **décentralisation maximale sur la question de qui peut prendre une décision** : n’importe qui qui en ressent le besoin.
+    - En revanche, il est moins décentralisé que le _consensus process_ parce qu’il n’implique pas tout le monde tout le temps.
+      - Il gagne donc sur la rapidité, mais aussi sur la responsabilisation, puisqu’il y a une personne qui porte la décision, là où avec le _consensus process_ la responsabilité diluée entre tous.
+- **Histoire 1** : une équipe de développeurs décide d’utiliser les release toggles.
+  -
