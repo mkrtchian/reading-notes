@@ -216,5 +216,24 @@
     - Il offre une **décentralisation maximale sur la question de qui peut prendre une décision** : n’importe qui qui en ressent le besoin.
     - En revanche, il est moins décentralisé que le _consensus process_ parce qu’il n’implique pas tout le monde tout le temps.
       - Il gagne donc sur la rapidité, mais aussi sur la responsabilisation, puisqu’il y a une personne qui porte la décision, là où avec le _consensus process_ la responsabilité diluée entre tous.
-- **Histoire 1** : une équipe de développeurs décide d’utiliser les release toggles.
-  -
+- **Story 1** : une équipe de développeurs décide d’utiliser les release toggles.
+  - On a une équipe dont le PM pousse à livrer les features par des incréments de plus en plus petits dans les mains du client, et certains membres ayant lu **_Accelerate_**, veulent expérimenter le trunk based development.
+    - L’équipe constate qu’il lui faut une manière de cacher les fonctionnalités non terminées : une forme de release toggles.
+    - Connaissant bien les tenants et aboutissants de son système, de son contexte, ses compétences etc. l’équipe réfléchit et tombe sur une première solution : **implémenter des checks booléens dans le code** pour cacher les features non terminées.
+  - Ils décident alors d’aller demander des conseils, **d’abord aux autres équipes qui pourraient être affectées par cette décision**. Pour les trouver ils se sont posé des questions du genre : quelles équipes devront faire du travail supplémentaire du fait de notre décision ?
+    - Le retour principal des équipes concernées est une inquiétude sur leur capacité à tester contre un service qui leur est caché, mais qu’ils auraient besoin de de pouvoir requêter.
+    - L’équipe initiale n’a pas pu y penser parce qu’il n’est pas si facile que ça de se mettre à la place des autres pour prendre leur perspective. C’est pour ça qu’on leur demande directement.
+  - Ils décident ensuite de demander des conseils aux personnes ayant **une expertise sur le sujet**. Il s’agit de personnes qui ont de l’expérience sur le sujet, ou une vision plus large du système ou dans le temps.
+    - Ils vont en parler à Fiona la systems architect, à JB le lead QA, et à Monira, une autre PM dont ils savent qu’elle a eu une expérience avec les release toggles.
+    - Fiona un article sur les feature toggles, et leur parle de sa propre expérience, et mentionne notamment le fait qu’il faut que chaque feature toggle soit conçue comme temporaire, avec des mécanismes qui rappelleront de l’enlever pour éviter qu’elle traîne. Elle leur conseille aussi d’en parler avec Yinka, le lead infrastructure pour les histoires d’environnements, de permissions.
+    - JB leur parle de la testabilité qui devient un peu plus lourde : par exemple il faut bien penser à tester les features avec le toggle désactivé, et activé.
+    - Yinka leur conseille de plutôt passer par des variables d’environnement pour éviter de devoir repasser par la CI et redéployer tout le code juste pour activer/désactiver des toggles.
+    - Monira leur dit qu’elle est plutôt d’accord avec les conseils précédents, et ajoute que les variables d’environnement pourraient permettre de faire des démos rapides à un PM ou à un client, sans prendre trop de temps à l’équipe.
+  - **L’équipe décide** de suivre le conseil de Yinka pour utiliser les environment variables (qui va aussi arranger les équipes affectées pour leurs tests qui seront plus faciles), et celui de Fiona de tracker les feature toggles, qu’ils choisissent de faire dans Jira pour donner de la visibilité aussi à leur PM (conseil de Monira).
+  - Finalement ils reviennent vers les différentes parties prenantes pour leur **annoncer leur décision** : c’est plutôt facile puisque ces personnes ont globalement déjà en tête le contexte.
+  - Dans cet exemple, le décision taker et l’option maker est le même : l’équipe qui a ressenti le besoin de ce changement d’architecture.
+  - Cette expérience a non seulement permis d’**avoir une solution meilleure** que si l’équipe avait décidé sans advice process, mais aussi a permis à l’équipe :
+    - D’en apprendre beaucoup sur le sujet des feature toggles.
+    - De mieux comprendre le point de vue des personnes avec des rôles spécifiques (architecte, QA, spécialiste infra etc.).
+    - De **tisser un réseau au sein de l’entreprise**, qu’elle renforcera d’autant plus à chaque fois qu’elle aura des décisions à prendre en advice process.
+- **Story 2** : un architecte décide de démêler un problème de workflow.
