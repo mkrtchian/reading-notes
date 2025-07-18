@@ -237,3 +237,36 @@
     - De mieux comprendre le point de vue des personnes avec des rôles spécifiques (architecte, QA, spécialiste infra etc.).
     - De **tisser un réseau au sein de l’entreprise**, qu’elle renforcera d’autant plus à chaque fois qu’elle aura des décisions à prendre en advice process.
 - **Story 2** : un architecte décide de démêler un problème de workflow.
+  - La majorité des décisions d’architecture se traitent plutôt comme la Story 1, mais certaines décisions portent sur une problématique qui impacte un **système comprenant plusieurs équipes**. Les personnes les mieux placées pour repérer et traiter ce genre de problématiques sont les personnes qui ont un rôle plus large, comme les architectes.
+  - Dans le cadre d’un produit mature, il y a un microservice qui devient petit à petit un bottleneck de delivery et de performance.
+    - Initialement, il servait à externaliser la logique de workflow du parcours utilisateur d’une équipe pour pouvoir y faire des changements sans mettre à jour l’app mobile. Puis comme il fonctionnait bien, d’autres équipes y ont ajouté leur logique, et ainsi de suite.
+    - Depuis quelque temps, les architectes ont repéré que ce microservice était l’objet de nombreux problèmes. A la fois des bugs difficiles à reproduire, et aussi du **work coupling** : certaines équipes attendent que l’équipe owner du microservice de workflow fasse des modifications pour eux.
+  - Un architecte système décide de sonder les **équipes concernées** utilisant le service de workflow pour comprendre ce qu’il fait, et quels sont les besoins de ces équipes.
+    - Il remarque que le code est plutôt de bonne qualité, bien testé etc. mais que le microservice fait beaucoup de choses, principalement 3 patterns :
+      - 1 - En tant que service de workflow, dirigeant les utilisateurs vers des étapes dont le code était ailleurs.
+      - 2 - Le code de certaines étapes devenait dupliqué entre Swift et Kotlin, et donc ces équipes ont décidé de le migrer vers le service de workflow commun, tout en respectant le fait qu’il reste stateless, c’est-à-dire qu’on lui passe l’état et qu’il ne persiste rien. Ils l’ont fait pour éviter la duplication, ce qui est louable.
+      - 3 - Certaines équipes avaient construit un système de persistance par dessus le service de workflow pour le rendre indirectement stateful. Ils l’ont fait essentiellement pour des raisons de performance.
+  - Il va ensuite parler aux **personnes expertes de ce sujet**.
+    - D’abord à Cassie, qui est experte mobile. Elle lui dit que ce genre de problème est régulier dans le monde mobile étant donné la nature des déploiements. Elle conseille :
+      - De prendre en compte l’ensemble des besoins des équipes.
+      - De les adresser individuellement.
+      - De laisser certains problèmes de côté, en demandant aux équipes de simplifier leur implémentation et chercher une solution tierce ou open source de remplacement.
+    - Ensuite il parle à Patricia, dev mobile senior récemment embauchée, et venant d’une entreprise qui avait notoirement le même genre de problèmes. Elle raconte les solutions qu’ils avaient mis en place et discute des avantages et inconvénients de certains outils, notamment Kotlin Multiplatform qui permet de mettre en commun du code Android & IOS.
+    - Enfin, il parle à des personnes connaissant des systèmes de workflow similaires : Gayathri, un ancien dev qui se souvient de l’enterprise service bus qui existait autrefois, et Isha, un QA qui a travaillé sur un système de workflow à base d’Apache Camel. Les deux donnent des pistes.
+  - L’architecte va alors prendre sa décision :
+    - 1 - Des refactorings pour encourager les utilisations stateless et rendre plus difficiles les autres utilisations, et le fait d’adopter un fonctionnement _inner source_ pour le microservice, c’est-à-dire comme de l’open source mais en interne.
+    - 2 - Identifier un élément de logique partagé entre Android et IOS, et qui s’est retrouvé dans le service de workflow, et le réimplémenter en Kotlin Multiplatform pour le garder côté code mobile plutôt que dans le backend.
+    - 3 - Refactorer les utilisations stateful pour les rendre stateless. Chercher des solutions pour régler les problèmes de performance, notamment autour de real time databases for mobile, et backends for frontends.
+  - Avant de prendre sa décision, l’architecte invite l’ensemble des équipes concernées et leur présente un draft de la décision, pour prendre des feedbacks, notamment sur la manière d’implémenter les choses.
+    - Et finalement l’implémentation se fait petit à petit par les équipes concernées qui ont bien compris l’intérêt du changement.
+  - Cette story montre que même pour les décisions avec un large impact, les personnes qui les prennent doivent **au minimum écouter les parties prenantes** et s’appuyer sur elles.
+- Pour l’auteur, les notions d’**opinion** et d’**advice** sont des _near ennemies_.
+  - _near ennemies_ veut dire que l’un est en quelque sorte la contrefaçon de l’autre. Par exemple :
+    - Une équipe DevOps est un _near ennemy_ du mindset DevOps : avoir une équipe distincte est contraire à l’idée fondamentale du DevOps qui est de casser le silo entre Dev et Ops.
+    - Une transformation agile imposée par le haut est un _near ennemy_ des équipes agiles : le manifeste parle de laisser les équipes s’auto-organiser en les soutenant, ce qui est le contraire d’imposer une transformation.
+    - L’auteur a fait [une présentation d’une liste de near ennemies du DDD](https://www.youtube.com/watch?v=4yr130f-1FE).
+  - L’opinion donne une direction mais c’est tout, là où l’advice va donner la direction, mais aussi **expliquer les raisons sous-jacentes de pourquoi** cette direction, et l’**étayer avec des faits, de l’expérience**.
+    - Exemple d’advice : _I would use this build because not only does it have licensing terms appropriate to our company’s standards but also because their releases always keep up with the upstream OpenJDK from Oracle, and they have a great wiki as well as an active community who responded rapidly to us when we asked them for help on a weird issue we had_.
+    - Exemple d’opinion : _I would use this OpenJDK build because it works better. It’s faster, cheaper, and higher quality._
+    - Quand on a une opinion en face de nous, on peut tenter d’en tirer un advice en posant des questions du type “Pourquoi ?”, “Comment ?”.
+    - L’architecture consiste souvent en un **it depends on**, et l’advice donne justement la suite du “on”.
