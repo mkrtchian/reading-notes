@@ -270,3 +270,8 @@
     - Exemple d’opinion : _I would use this OpenJDK build because it works better. It’s faster, cheaper, and higher quality._
     - Quand on a une opinion en face de nous, on peut tenter d’en tirer un advice en posant des questions du type “Pourquoi ?”, “Comment ?”.
     - L’architecture consiste souvent en un **it depends on**, et l’advice donne justement la suite du “on”.
+  - Certains architectes qui avaient l’habitude de tout décider, risquent dans un premier temps (consciemment ou non) de donner plus souvent des opinions que des advices.
+    - C’est une dynamique qui ne devraient pas durer parce que le fait que la personne qui pose la question est celle qui sera accountable, fait qu’à la fois elle a tout intérêt à aller chercher les advices, et à la fois les autres ont tout intérêt à les donner pour que la décision soit la bonne.
+- L’advice process se base sur les **conversations**, et notamment que les conversations qui sont nécessaires aient lieu.
+  - Le fait de se concentrer sur les conversations dans le cadre de décisions décentralisées fait qu’on se rapproche de la notion d'**anarchie**.
+  - Pour que ça fonctionne, il faut que chaque partie se fasse **confiance**. Même si dans les systèmes traditionnels on constate généralement une confiance diminue dès qu’on dépasse le cercle de l’équipe, selon l’auteur, l’advice process permet de maintenir une confiance à plus large échelle.
