@@ -275,3 +275,23 @@
 - L’advice process se base sur les **conversations**, et notamment que les conversations qui sont nécessaires aient lieu.
   - Le fait de se concentrer sur les conversations dans le cadre de décisions décentralisées fait qu’on se rapproche de la notion d'**anarchie**.
   - Pour que ça fonctionne, il faut que chaque partie se fasse **confiance**. Même si dans les systèmes traditionnels on constate généralement une confiance diminue dès qu’on dépasse le cercle de l’équipe, selon l’auteur, l’advice process permet de maintenir une confiance à plus large échelle.
+
+### 5 - Rolling Out the Architecture Advice Process
+
+- Pour mettre en place l’advice process, la procédure dépend des pouvoirs de prise de décision qu’on a :
+  - **Si on a déjà des pouvoirs de prise de décision** (par exemple si on est architecte), on peut directement appliquer l’advice process soi-même. A chaque fois qu’il faut prendre une décision, on interroge les personnes concernées et expertes, **en leur disant bien qu’on le fait dans le cadre d’un advice process**. Ensuite on prend la décision, et on retourne voir les parties prenantes pour la leur communiquer.
+  - **Si on manque de pouvoir de prise de décision** (par exemple membre d’une équipe de développement), on peut quand même commencer à appliquer l’advice process, en **indiquant bien à toutes les parties prenantes ce qu’on fait**. La différence c’est qu’on prend **une pseudo-décision**, qu’on donne au vrai décisionnaire à la fin. Le but est de le convaincre que notre équipe est capable de prendre de bonnes décisions de cette manière.
+  - **Si on a la capacité à décider de la manière dont on décide** (CTO ou assimilé), on peut mettre en place une **expérimentation à petite échelle** : on prend quelques équipes (pas plus de 3) volontaires et un architecte, et on leur explique l’advice process à expérimenter pendant 3 mois. Une fois que c’est fait, on fait une rétrospective, et on voit ce qu’il faut corriger, et si on peut étendre à plus d’équipes.
+- L’auteur identifie **4 problèmes principaux** qu’on rencontre en mettant en place l’advice process :
+  - **1 - Une mauvaise compréhension de l’advice process**.
+    - Il faut expliquer dès le départ l’advice process aux personnes qui participent à l’expérimentation, par exemple avec une présentation suivie de questions.
+    - Il faut insister sur les points principaux, notamment les étapes de la procédure, les rôles des personnes, et le **shift d’accountability**.
+  - **2 - Les bonnes personnes ne sont pas consultées pour donner l’advice**
+    - Ce problème concerne en général les développeurs qui ne savent pas vraiment à qui parler, plutôt que les architectes qui ont déjà l’habitude d’aller consulter les bonnes personnes.
+    - La première chose à faire pour les équipes de développeurs est de demander un advice à l’architecte, notamment pour lui demander ensuite qui d’autre serait pertinent pour donner un advice sur ce sujet.
+    - Une bonne pratique est de construire petit à petit une liste indiquant les personnes compétentes sur des sujets spécifiques. Par exemple pour “information security”, pour “personally identifiable information”, pour “user onboarding flow” etc.
+    - Parfois la liste de personnes à consulter est énorme : c’est pas grave, il faut les consulter quand même. Ça peut pousser à diviser la grande décision en plus petites, ou reconsidérer l’intérêt de prendre une décision sur ce sujet.
+  - **3 - On oublie de demander “Pourquoi ?” lors de l’advice et on passe à côté d’informations essentielles**.
+    - Attention aux supérieurs hiérarchiques à qui on demande un advice : ils risquent de se cantonner à l’opinion, ou à une direction à suivre. Il faut alors leur demander le pourquoi de leur opinion, et leur rappeler que c’est nous qui sommes accountable.
+    - Il faut aussi chercher des advice auprès des personnes avec des points de vues différents du nôtre. Ca ne pourra qu’enrichir notre perspective, et rendre notre décision plus solide.
+  - **4 - Un manque de clarté sur le shift d’accountability.**
