@@ -295,3 +295,20 @@
     - Attention aux supérieurs hiérarchiques à qui on demande un advice : ils risquent de se cantonner à l’opinion, ou à une direction à suivre. Il faut alors leur demander le pourquoi de leur opinion, et leur rappeler que c’est nous qui sommes accountable.
     - Il faut aussi chercher des advice auprès des personnes avec des points de vues différents du nôtre. Ca ne pourra qu’enrichir notre perspective, et rendre notre décision plus solide.
   - **4 - Un manque de clarté sur le shift d’accountability.**
+    - Généralement la crainte qui vient en tête des personnes à qui on parle d’advice process c’est qu’une personne prenne une décision qui ne l’arrange qu’elle, contre tous les advices. Ça révèle que le shift d’accountability n’a pas clairement été compris.
+      - Le décideur a l’accountability de la décision (il en subira les conséquences), et donc il a tout intérêt à aller chercher les advices et bien les comprendre pour prendre la meilleure décision possible.
+    - On peut imaginer 3 cas où la personne va contre l’ensemble des advices :
+      - 1 - Un manque de compréhension du décideur : dans ce cas l’advice process l’aide puisqu’il est poussé à aller chercher les advices.
+      - 2 - Un insight unique que seule le décideur a : dans ce cas l’advice process lui permet de le communiquer à ceux à qui il va parler.
+      - 3 - De mauvaises intentions : l’auteur n’a jamais vu ce cas, mais si ça arrive il s’agit d’un problème de management, et en dernier ressort la personne n’est peut être pas à sa place dans l’organisation.
+    - Dans le cas où une personne n’est pas prête à assumer l’accountability d’une décision, elle peut toujours proposer à quelqu’un d’autre s’il est prêt à porter la décision. La personne initiale pourra peut être apprendre en voyant l’autre faire, et porter une autre décision la prochaine fois.
+- Les personnes exposées à l’idée d’advice process ont souvent un **manque de confiance** lié à plusieurs points :
+  - Manque de confiance dans sa **capacité à décider**, ou la capacité à décider des autres.
+    - C’est normal, les personnes qui n’ont pas l’habitude de prendre des décisions d’architecture vont devoir l’apprendre. C’est une compétence qui s’améliore par la pratique.
+    - Un élément qui peut aider est un endroit où chacun recevrait de l’aide pour pratiquer l’advice process, en voyant les autres respecter les étapes, et en le faisant soi-même.
+  - Manque de confiance sur **les advices réellement demandés et donnés**.
+    - Pour aider à construire sur ce point, on peut mettre en place un mécanisme de **transparence** qui liste les advices donnés et les personnes consultées.
+  - Manque de confiance lié au fait de **ne pas savoir tout ce qui se passe**.
+    - Il n’y a pas de centre de la décision, et donc on ne peut parler à personne qui ne sache tout ce qui est en cours d’un point de vue architecture.
+    - Malgré tout, il serait bon de pouvoir facilement trouver tout ce qu’il faut à propos d’une décision donnée.
+  - Ces trois manques de confiance peuvent être **mitigés par la mise en place des ADRs**.
