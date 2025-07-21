@@ -312,3 +312,39 @@
     - Il n’y a pas de centre de la décision, et donc on ne peut parler à personne qui ne sache tout ce qui est en cours d’un point de vue architecture.
     - Malgré tout, il serait bon de pouvoir facilement trouver tout ce qu’il faut à propos d’une décision donnée.
   - Ces trois manques de confiance peuvent être **mitigés par la mise en place des ADRs**.
+
+### 6 - Architectural Decision Records
+
+- L’auteur considère l’ADR comme outil minimal pour accompagner l’introduction de l’architecture advice process.
+- L’ADR va cadrer **l’ensemble des 3 étapes du processus de décision** : _option making_, _decision taking_ et _decision sharing_.
+- Historiquement, l’ADR :
+  - Date de 2005 dans un papier de Jeff Tyree.
+  - A été popularisé par [un blog post](https://oreil.ly/YKQ7r) de Michael Nygard.
+  - Est détaillé [sur un site de référence](https://adr.github.io).
+  - A un chapitre consacré dans **_Fundamentals of Software Architecture_**.
+- Les ADRs ont en général un contenu texte d’environ **2 pages**, et sont **immutables**, c’est-à-dire que si on veut changer une décision, il faut refaire un ADR.
+  - Ils sont écrits **de manière à en faciliter la lecture, au détriment de l’écriture**.
+- Structure :
+  - **Le titre** doit être suffisamment descriptif pour comprendre la décision sans ouvrir l’ADR. Il doit donc être changé une fois la décision prise pour **inclure la décision**.
+    - Exemple : _ADR002—Shorten Inventory IDs with Nano ID_
+  - Les metadata :
+    - **L’identifiant** permet de se référer à l’ADR sans aucune ambiguïté.
+    - **Le statut** permet de savoir où en est l’ADR.
+    - **La date** permet de savoir quand est-ce que le statut a évolué pour la dernière fois (sachant qu’une fois _Accepted_, il ne peut plus changer).
+    - L’auteur est la personne (ou l’équipe si une équipe entière s’en charge) qui est responsable de prendre la décision.
+  - **La décision** indique l’option choisie, et la décrit brièvement. Elle n’indique pas le contexte, les avantages et inconvénients ou les autres options possibles.
+  - **Le contexte** permet de savoir pourquoi la décision est importante, et les aspects principaux qu’avait l’auteur en tête au moment de l’ADR.
+    - Il est en dessous de la décision parce que pour le lecteur la décision est plus importante à connaître immédiatement.
+  - **Les options** représentent les possibilités considérées.
+    - On met **en premier celle qui est sélectionnée** par le décideur pour faciliter la vie des lecteurs.
+    - Les options **sont juste listées** pour pouvoir facilement les avoir sous les yeux, les conséquences sont détaillées en dessous. On peut aussi faire la version où les conséquences sont détaillées pour chaque option, mais l’auteur préfère les séparer.
+    - Exemple :
+      - 1. (SELECTED) A4VHAOFG: Random generated letters and numbers with Nano ID
+      - 2. 123456: Automatically generated sequence ID
+      - 3. Canvas: Manually generated ID
+  - **Les conséquences** indiquent pourquoi chaque option a été choisie ou rejetée.
+    - Pour l’option sélectionnée, on va laisser les avantages “Selected because…” et les inconvénients “Selected despite…”.
+    - Pour les autres options, on peut se restreindre aux désavantages pour lesquels on ne les a pas sélectionnés. Parfois, on peut vouloir mettre aussi les avantages.
+  - **Les advices** contiennent chaque advice récolté par le décideur, **avec le nom** de la personne qui a donné l’advice, et **la date** de l’advice.
+    - Cette section est un ajout à la structure habituelle des ADRs, pour qu’ils servent de socle à l’advice process.
+-
