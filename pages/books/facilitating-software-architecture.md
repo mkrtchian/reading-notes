@@ -324,10 +324,10 @@
   - A un chapitre consacré dans **_Fundamentals of Software Architecture_**.
 - Les ADRs ont en général un contenu texte d’environ **2 pages**, et sont **immutables**, c’est-à-dire que si on veut changer une décision, il faut refaire un ADR.
   - Ils sont écrits **de manière à en faciliter la lecture, au détriment de l’écriture**.
-- Structure :
+- Un ADR complet est **structuré de cette manière** :
   - **Le titre** doit être suffisamment descriptif pour comprendre la décision sans ouvrir l’ADR. Il doit donc être changé une fois la décision prise pour **inclure la décision**.
     - Exemple : _ADR002—Shorten Inventory IDs with Nano ID_
-  - Les metadata :
+  - **Les metadata** :
     - **L’identifiant** permet de se référer à l’ADR sans aucune ambiguïté.
     - **Le statut** permet de savoir où en est l’ADR.
     - **La date** permet de savoir quand est-ce que le statut a évolué pour la dernière fois (sachant qu’une fois _Accepted_, il ne peut plus changer).
@@ -337,7 +337,7 @@
     - Il est en dessous de la décision parce que pour le lecteur la décision est plus importante à connaître immédiatement.
   - **Les options** représentent les possibilités considérées.
     - On met **en premier celle qui est sélectionnée** par le décideur pour faciliter la vie des lecteurs.
-    - Les options **sont juste listées** pour pouvoir facilement les avoir sous les yeux, les conséquences sont détaillées en dessous. On peut aussi faire la version où les conséquences sont détaillées pour chaque option, mais l’auteur préfère les séparer.
+    - Les options **sont juste listées** pour pouvoir les avoir sous les yeux toutes en même temps, les conséquences sont détaillées en dessous. On peut aussi faire la version où les conséquences sont détaillées pour chaque option, mais l’auteur préfère les séparer pour aider le lecteur de l’ADR.
     - Exemple :
       - 1. (SELECTED) A4VHAOFG: Random generated letters and numbers with Nano ID
       - 2. 123456: Automatically generated sequence ID
@@ -347,4 +347,73 @@
     - Pour les autres options, on peut se restreindre aux désavantages pour lesquels on ne les a pas sélectionnés. Parfois, on peut vouloir mettre aussi les avantages.
   - **Les advices** contiennent chaque advice récolté par le décideur, **avec le nom** de la personne qui a donné l’advice, et **la date** de l’advice.
     - Cette section est un ajout à la structure habituelle des ADRs, pour qu’ils servent de socle à l’advice process.
--
+- L’ADR sert aussi de **support pour aider dans le processus de décision** :
+  - **Étape 1 : on crée l’ADR vide, et on remplit les metadata.**
+    - [Un template fait par l’auteur est dispo ici](https://github.com/andrewharmellaw/facilitating-software-architecture/blob/main/adr/adr-template.md).
+    - Le titre n’a pas beaucoup d’importance à ce stade, il sera de toute façon changé très bientôt.
+  - **Étape 2 : on remplit le contexte.**
+    - On cherche les choses à mettre **après le “on” de “it depends on”**. Le but est de comprendre l’espace du problème.
+    - Pour l’auteur, les sections _Contexte_ et _Consequences_ sont les deux plus importantes pour aider à la prise de décision.
+    - On écrit ce qui nous passe par la tête, puis on met en forme en ayant en tête les potentiels advisers comme cible.
+      - D’ailleurs si des advisers nous viennent en tête, il faut noter leur noms pour ne pas oublier de leur parler.
+    - On peut aussi ajouter un schéma pour expliciter le contexte, sans passer trop de temps dessus à ce stade.
+  - **Étape 3 : on liste les options et leurs conséquences.**
+    - On commence par la partie conséquences : on écrit les conséquences pour les options qu’on a déjà en tête, sans oublier d’envisager l’option “ne rien faire”. Le but est de d’éclairer les raisons d’envisager chacune des options dans notre contexte.
+    - Idéalement il faudrait se retrouver avec 3 à 5 options, 2 étant un minimum.
+    - On continue à raffiner les conséquences de nos options tout au long du processus de décision. On peut aussi ajouter des schémas pour les représenter plus clairement.
+  - **Étape 4 (optionnel) : pré-sélectionner une option**
+    - Si on pense qu’une des options est préférable à ce stade, on peut la pré-sélectionner, et changer le statut de l’ADR de “Draft” à “Proposed”.
+    - Cette étape est **optionnelle.**
+      - Pré-sélectionner une option avant d’aller demander des advices a l’avantage de leur **indiquer dans quelle direction on s'apprête à aller**, pour qu’ils concentrent plus d’attention à éventuellement critiquer cette option.
+      - Mais ça peut aussi avoir **l’inconvénient de les influencer, en particulier si on a une position d’autorité**.
+  - La suite est d’aller voir les personnes qui vont donner des advices.
+- **Étape 5 : on va chercher les advices, et on met à jour l’ADR.**
+  - Conseils généraux :
+    - On peut solliciter des advices **tôt dans le processus de décision**, dès qu’on a un début de draft de la section _Contexte_. Dans ce cas, on demande de l’aide pour construire le contexte et les options.
+      - C’est ce qu’avait fait l’architecte dans la Story 2 : il était allé voir les équipes concernées pour voir l’usage de chacune du module de workflow.
+    - On peut solliciter des advices **tardivement**, une fois qu’on a affiné nos options et conséquences, et qu’on en a pré-sélectionné une.
+      - C’est ce qu’avait fait l’équipe dans la Story 1 : ils avaient pré-sélectionné l’option des toggles dans le code, avant d’aller voir les autres équipes qui leur ont dit qu’en fait ça avait un impact sur eux.
+    - Les advices doivent porter sur **l’ensemble des parties de la décision**.
+      - Il faut bien le **préciser explicitement aux personnes à qui on demande des advices**, en particulier si on leur demande tardivement sur un ADR déjà bien rempli.
+      - Les advices peuvent :
+        - Ajouter des options.
+        - Améliorer la section _Context._
+        - Donner des insights supplémentaires sur les conséquences positives et négatives des options.
+        - Amener à scinder la décision en plusieurs décisions.
+    - Si nécessaire, on peut retourner voir une personne qui nous a déjà donné un advice pour creuser quelque chose qu’on n’avait pas en tête à ce moment-là.
+  - Avant d’aller chercher les advices, on **établit une liste de personnes** qu’on pense être celles impactées par la décision, et celles qui sont expertes du domaine. On met cette liste dans la section _Advices_ de l’ADR.
+  - On peut ensuite **mettre en place des meetings** avec chaque personne.
+    - Avant le meeting, on lui met à disposition l’ADR tel qu’il est actuellement, pour que la conversation puisse être plus efficace.
+    - Pendant le meeting, on prend des notes sur les advices que la personne donne, dans la section _Advices_ de l’ADR.
+    - Après le meeting, on met en forme les notes, et on demande à la personne de les relire après coup, pour être sûr qu’il s’agit bien de **son advice clair et complet**, et d’ajouter ce qu’il faut sinon.
+  - A chaque fois qu’on a fait un meeting avec une personne, on repasse sur l’ADR pour mettre le **mettre à jour si nécessaire** au regard des advices données.
+    - On ajoute les éléments supplémentaires, comme par exemple des options nouvelles, **même si on est en désaccord avec celles-ci**, ou des avantages ou inconvénients supplémentaires pour certaines options.
+    - On peut clarifier certaines parties si elles avaient été mal comprises par la personne donnant l’advice.
+    - On peut indiquer dans le texte de l’ADR quand il y a des advices qui vont à l’encontre de notre avis et qu’on choisit de ne pas suivre.
+      - TODO : technique montrée plus tard ?
+- **Étape 6 : on prend la décision, et on complète l’ADR.**
+  - On met à jour les options et les conséquences en fonction de l’option choisie :
+    - On rédige la section _Options_ qui liste les options, avec l’option sélectionnée en 1er.
+    - On déplace les conséquences de l’option sélectionnée en haut de la section _Consequences_, en l’indiquant comme sélectionnée.
+    - On reformule les upsides et downsides pour l’option sélectionnée en “Selected because…” et “Selected despite…”, et pareil pour les options non sélectionnées “Rejected because…” et “Rejected despite…”.
+  - On remplit la section _Decision_, et on change le titre pour refléter l’option choisie.
+  - On change le statut à “Accepted” et on met à jour la date.
+- **Étape 7 : on partage la décision**, en partageant l’ADR avec tous ceux qui sont concernés ou qui ont contribué.
+- Concernant les statuts des ADRs :
+  - Il y a les statuts classiques : _Draft_, _Proposed_, _Accepted_, _Superseded_.
+    - Superseded est utile quand une décision est en partie invalidée par une décision ultérieure.
+  - On peut aussi ajouter des statuts non standards qui peuvent parfois être utiles :
+    - _Expired_ : pour faire un ADR explicitement timeboxé, et qu’il faut revisiter à un certain moment parce qu’il expire.
+    - _Retired_ : dans le cas où un produit est retiré de la circulation, l’ADR le concernant peut être considéré comme retiré de la circulation aussi.
+    - _Rejected_ : pour l’auteur n’est pas utile. Soit c’est _Accepted_ avec la décision de ne rien faire, soit Superseded par un autre ADR si on change la décision.
+- Les ADRs doivent être dans **un même endroit** (d’où l’intérêt d’un ID unique).
+  - Il vaut mieux éviter les outils spécifiques aux architectes pour faire en sorte que l’ensemble des développeurs l’utilisent aussi.
+  - Une des solutions est le wiki (ou assimilé) qui contient déjà la documentation des produits existants.
+  - Une autre possibilité est d’utiliser le gestionnaire de version, créer une pull request par ADR (qu’on merge quand le statut est _Accepted_), et rédiger l’ADR dans un fichier markdown.
+  - Enfin, la solution préférée de l’auteur est d’utiliser un outil de ticketing. Ça a l’avantage de pouvoir mettre en avant certains champs (Auteur, Statut, Date), être alerté par exemple quand le statut d’un ADR change, ou encore pouvoir afficher les ADRs selon des critères particuliers (recherche par auteur, par date etc.).
+- Les ADRs doivent **raconter l'histoire du système**. Il faut donc qu’une personne avec un rôle cross-équipe s’occupe de :
+  - S’assurer régulièrement que les ADRs ont un identifiant unique et un titre clair.
+  - Créer et maintenir **une page de changelog qui montre les ADRs acceptés** en partant du plus récent.
+  - Créer et maintenir **une page donnant un résumé ou une liste des ADRs les plus importants**.
+    - La page peut être enrichie avec des diagrammes, des liens vers des endroits importants de la codebase, ou une _domain-driven design vision_ (cf. chapitre 15 de **_Domain-Driven Design_** d’Eric Evans).
+    - Les ADRs les plus importants sont notamment ceux qui ont l’impact le plus large, mais également par exemple des ADRs avec un impact large et où il a été choisi de ne rien faire.
