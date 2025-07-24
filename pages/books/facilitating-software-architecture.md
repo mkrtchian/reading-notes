@@ -417,3 +417,12 @@
   - Créer et maintenir **une page donnant un résumé ou une liste des ADRs les plus importants**.
     - La page peut être enrichie avec des diagrammes, des liens vers des endroits importants de la codebase, ou une _domain-driven design vision_ (cf. chapitre 15 de **_Domain-Driven Design_** d’Eric Evans).
     - Les ADRs les plus importants sont notamment ceux qui ont l’impact le plus large, mais également par exemple des ADRs avec un impact large et où il a été choisi de ne rien faire.
+
+## Part II - Nurturing and Evolving Your Culture of Decentralized Trust
+
+### 7 - Replacing Hierarchy with Decentralized Trust
+
+- Les frameworks “enterprise” d’architecture comme The Open Group Architecture Framework (TOGAF) ou Open Agile Architecture (O-AA) sont compatibles avec l’advice process, notamment parce qu’ils ont dû s'adapter aux 5 révolutions, et acceptent le shift de responsabilité et d’accountability.
+- L’accountability revient au décideur : soit l’architecte pour les décisions cross-équipes, soit l’équipe entière (ou le team lead si l’équipe choisit de faire comme ça) pour les décisions où une équipe est principalement concernée.
+- Personne n’est obligé de décider, mais ceux qui le font doivent utiliser l’advice process en toute transparence, et ceux qui veulent se lancer sont encouragés.
+- Pour que l’advice process marche et que la confiance s’installe et perdure, il faut trouver **juste assez de d'accords formels** (contrat social, ADR), et **juste assez de pratiques standard** (tout ce qui vient dans les quelques chapitres suivants).
