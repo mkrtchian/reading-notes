@@ -442,3 +442,32 @@
     - L’exemple de Netflix permet de voir les choses du point de vue de la réduction de structuration : ils ont décidé d’enlever de la structure, jusqu’à obtenir le minimum nécessaire pour que ça fonctionne. Le résultat a été la responsabilisation de chacun.
     - Il faut à chaque fois se demander si l’ajout d’un élément de structuration ne répond pas juste à un besoin de rendre les choses plus prédictibles. Cette pente est glissante.
   - La solution est d’expérimenter les éléments régulièrement, un à la fois, et de voir s’ils améliorent le flow et la confiance dans l’organisation, ou non.
+
+### 8 - An Architecture Advice Forum
+
+- L’architecture Advice Forum est un meeting régulier qui permet à la fois de **donner de l’espace pour l’advice process** qu’on utilise déjà par ailleurs, et de le **mettre en scène aux yeux de tous**.
+  - Il **augmente la confiance** en rendant transparent en live une partie de l’application du process.
+- Il ne s’agit pas de donner un nouveau nom aux meetings traditionnels d’architecture (Architecture Decision Forums ou Architecture Review Boards).
+  - Il n’y a **pas de prise de décision ou de validation** dans le meeting. L’advice process s’applique et les décisions reviennent à ceux qui les portent.
+  - On y trouve :
+    - **1 - Au moins un représentant par équipe** jouant le rôle de partie affectée par les décisions.
+    - **2 - Les personnes avec de la connaissance domaine spécifique** jouant le rôle d’experts à qui on demande souvent des advices. Par exemple des spécialistes UX, QA, InfoSec etc.
+  - Il met en scène des conversations qui ont généralement lieu en 1&1.
+    - Il permet à tous ceux qui regardent d’**apprendre comment donner et demander des advices**, mais aussi d’en apprendre plus sur thématiques spécifiques liées à l’architecture. C’est donc typiquement un meeting dont on tire bénéfice, même sans intervenir.
+    - Il **encourage les désaccords sans avoir le côté “chercher à l’emporter”** parce qu’il n’y a aucun enjeu de prise de décision dans le meeting.
+- Les advices peuvent être donnés pendant ce meeting, mais aussi en dehors. **Le meeting ne remplace pas l’advice process en 1&1**, il vient lui donner un espace supplémentaire particulier, où le process a lieu sous les yeux de tous.
+- **Déroulé d’un Architecture Advice Forum :**
+  - **1 - On établit un agenda** pour le meeting, et on met ça dans une page de wiki. Chaque session a 3 catégories de sujets :
+    - Les ADRs qui ont besoin d’advices.
+    - Un suivi des ADRs des sessions précédentes dont le statut n’a pas bougé.
+    - “Any other business” : attention à ce que les sujets qui arrivent ici soient bien dans la thématique de l’advice process, il ne s’agit pas de dévier le meeting vers autre chose.
+  - **2 - On partage l’agenda**. On fait appel à ceux qui veulent mettre leur ADR pour recevoir des advices, ou d’autres sujets. Des sujets seront probablement ajoutés y compris au dernier moment quand le meeting commence.
+  - **3 - Démarrer la session**.
+    - On commence par passer en revue qui n’a pas pu être là. C’est important pour ne pas donner l’impression que présenter son ADR au forum est suffisant : il faut quand même aller chercher les advices de ceux concernés ou experts même s’ils n’ont pas pu être là.
+    - Ensuite on aborde la partie 1 avec ADRs qui ont besoin d’advices.
+  - **4 - La personne introduit son ADR**.
+    - Elle présente les aspects les plus importants : le contexte, ce qui en fait une décision significative, ce qu’il a découvert d’intéressant, et ce sur quoi il aimerait des advices.
+  - **5 - Les personnes qui le veulent donnent des advices**.
+    - C’est à la fois à la personne qui porte l’ADR de s’assurer qu’elle obtient bien des advices des personnes présentes qui seraient affectées par la décision ou expertes sur le sujet, et à la fois aux personnes en question d’intervenir pour donner l’advice.
+    - Le meeting n'exonère pas d’**enregistrer l’advice dans l’ADR** dans la section _Advices_. La personne qui porte l’ADR doit donc prendre des notes pour le faire plus tard.
+    - **Tous les advices donnés doivent tous être enregistrés**, que le porteur de l’ADR soit en accord avec l’advice ou non, et qu’il veuille l’incorporer au sein de l’ADR (en dehors de la section _Advices_) ou non.
