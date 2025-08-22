@@ -471,3 +471,21 @@
     - C’est à la fois à la personne qui porte l’ADR de s’assurer qu’elle obtient bien des advices des personnes présentes qui seraient affectées par la décision ou expertes sur le sujet, et à la fois aux personnes en question d’intervenir pour donner l’advice.
     - Le meeting n'exonère pas d’**enregistrer l’advice dans l’ADR** dans la section _Advices_. La personne qui porte l’ADR doit donc prendre des notes pour le faire plus tard.
     - **Tous les advices donnés doivent tous être enregistrés**, que le porteur de l’ADR soit en accord avec l’advice ou non, et qu’il veuille l’incorporer au sein de l’ADR (en dehors de la section _Advices_) ou non.
+- L’_architecture advice forum_ peut favoriser des conversations d’égal à égal, où on se concentre sur les arguments en en faisant profiter un auditoire. Mais il peut aussi devenir **le lieu de confrontation et de lutte de pouvoir**.
+  - Les développeurs sont habitués à aborder l’architecture sur un mode de confrontation : deux parties s’opposent frontalement, jusqu’à ce qu’une autorité hiérarchique vienne les départager en prenant la décision. Ils vont probablement le reproduire pendant l’architecture advice forum puisque c’est ce qu’ils connaissent par défaut.
+    - Exemple : l’auteur raconte qu’un architecte concluait chaque discussion d’ADR avec “So, do we all agree?”, même si l’auteur lui avait dit de nombreuses fois que c’était une mauvaise approche.
+  - Il existe une approche de la discussion qui n’est pas confrontationnelle : la **coalescent argumentation**.
+    - C’est tiré du livre **_Coalescent Argumentation_** d’A. Gilbert.
+    - La méthode consiste à se concentrer sur la recherche du but commun plutôt que sur la recherche d’informations pour mettre l’autre en défaut.
+      - **On se demande d’abord : avec quoi je dois être d’accord ?** pour faire émerger ensuite les éléments de désaccord comme des chemins qui divergent de la base commune.
+      - Dans la manière confrontationnelle on va plutôt se demander : avec quoi je pourrais être en désaccord ? Et tâcher ensuite de combattre ces idées.
+    - Les ADRs avec advice process sont par nature faits pour permettre un mode coalescent :
+      - L’auteur de l’ADR place d’abord son point de vue dans la section _Context_ et éventuellement _Consequences_.
+        - Par exemple dans la _Story 1_, l’équipe de développeurs avait envisagé une solution centrée autour du code, puisqu’ils avaient le contrôle sur ça.
+      - La section _Advice_ permet ensuite de valider ce qui se trouve dans la vision partagée et qui rejoindra la section _Context_, et ce qui diverge et donnera potentiellement des options alternatives dans la section Consequences.
+        - Dans la _Story 1_, chaque partie concernée apporte sa pierre pour affiner la compréhension du problème. Certains n’hésitent pas à donner un feedback honnête, comme le QA qui dit que ça lui fera plus de travail.
+    - La _[coalescent argumentation](http://www.extremeprogramming.org/stories/pair.html)_ peut se rapprocher de ce qui est fait en pair programming, notamment avec les XP Pair Programming idioms.
+- L’architecture advice forum permet des avantages pour l’ensemble des participants.
+  - Les _advice offerers_ peuvent entendre les advices des autres _advice offerers_ et rebondir dessus pour clarifier ou ajouter des choses. Ça apporte de la rapidité et de la transparence. Il faut par contre que la psychological safety soit élevée.
+  - Les _advice seekers_ peuvent vraiment se concentrer sur les advices tout en gardant le pouvoir de décision. Ils auront plus de mal à ignorer un point appuyé en public par plusieurs personnes, et il y a un risque que certaines personnes influentes en jouent pour forcer la décision. La solution est pour les _advice seekers_ de se concentrer sur le raisonnement qui sous tend l’advice.
+  - Les observateurs peuvent assister à des échanges constructifs où les arguments de fond ne sont pas masqués par des jeux de pouvoir du fait de l’absence d’enjeu du meeting. Ils peuvent apprendre sur l’architecture, et aussi voir le processus de décision à l'œuvre et finir par se sentir prêts à ouvrir un ADR eux-mêmes.
