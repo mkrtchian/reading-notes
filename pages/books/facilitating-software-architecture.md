@@ -452,8 +452,9 @@
   - On y trouve :
     - **1 - Au moins un représentant par équipe** jouant le rôle de partie affectée par les décisions.
     - **2 - Les personnes avec de la connaissance domaine spécifique** jouant le rôle d’experts à qui on demande souvent des advices. Par exemple des spécialistes UX, QA, InfoSec etc.
+    - **L’event est ouvert à qui veut** dans l’organisation.
   - Il met en scène des conversations qui ont généralement lieu en 1&1.
-    - Il permet à tous ceux qui regardent d’**apprendre comment donner et demander des advices**, mais aussi d’en apprendre plus sur thématiques spécifiques liées à l’architecture. C’est donc typiquement un meeting dont on tire bénéfice, même sans intervenir.
+    - Il permet à tous ceux qui regardent d’**apprendre comment donner et demander des advices**, mais aussi d’en apprendre plus sur les thématiques spécifiques liées à l’architecture. C’est donc typiquement un meeting dont on tire bénéfice, même sans intervenir.
     - Il **encourage les désaccords sans avoir le côté “chercher à l’emporter”** parce qu’il n’y a aucun enjeu de prise de décision dans le meeting.
 - Les advices peuvent être donnés pendant ce meeting, mais aussi en dehors. **Le meeting ne remplace pas l’advice process en 1&1**, il vient lui donner un espace supplémentaire particulier, où le process a lieu sous les yeux de tous.
 - **Déroulé d’un Architecture Advice Forum :**
@@ -475,7 +476,7 @@
   - Les développeurs sont habitués à aborder l’architecture sur un mode de confrontation : deux parties s’opposent frontalement, jusqu’à ce qu’une autorité hiérarchique vienne les départager en prenant la décision. Ils vont probablement le reproduire pendant l’architecture advice forum puisque c’est ce qu’ils connaissent par défaut.
     - Exemple : l’auteur raconte qu’un architecte concluait chaque discussion d’ADR avec “So, do we all agree?”, même si l’auteur lui avait dit de nombreuses fois que c’était une mauvaise approche.
   - Il existe une approche de la discussion qui n’est pas confrontationnelle : la **coalescent argumentation**.
-    - C’est tiré du livre **_Coalescent Argumentation_** d’A. Gilbert.
+    - C’est tiré du livre **_Coalescent Argumentation_** de Michael Gilbert.
     - La méthode consiste à se concentrer sur la recherche du but commun plutôt que sur la recherche d’informations pour mettre l’autre en défaut.
       - **On se demande d’abord : avec quoi je dois être d’accord ?** pour faire émerger ensuite les éléments de désaccord comme des chemins qui divergent de la base commune.
       - Dans la manière confrontationnelle on va plutôt se demander : avec quoi je pourrais être en désaccord ? Et tâcher ensuite de combattre ces idées.
@@ -484,8 +485,18 @@
         - Par exemple dans la _Story 1_, l’équipe de développeurs avait envisagé une solution centrée autour du code, puisqu’ils avaient le contrôle sur ça.
       - La section _Advice_ permet ensuite de valider ce qui se trouve dans la vision partagée et qui rejoindra la section _Context_, et ce qui diverge et donnera potentiellement des options alternatives dans la section Consequences.
         - Dans la _Story 1_, chaque partie concernée apporte sa pierre pour affiner la compréhension du problème. Certains n’hésitent pas à donner un feedback honnête, comme le QA qui dit que ça lui fera plus de travail.
-    - La _[coalescent argumentation](http://www.extremeprogramming.org/stories/pair.html)_ peut se rapprocher de ce qui est fait en pair programming, notamment avec les XP Pair Programming idioms.
+    - La _[coalescent argumentation](http://www.extremeprogramming.org/stories/pair.html)_ peut se rapprocher de ce qui est fait en pair programming, notamment avec les [XP Pair Programming idioms](http://www.extremeprogramming.org/stories/pair.html).
 - L’architecture advice forum permet des avantages pour l’ensemble des participants.
   - Les _advice offerers_ peuvent entendre les advices des autres _advice offerers_ et rebondir dessus pour clarifier ou ajouter des choses. Ça apporte de la rapidité et de la transparence. Il faut par contre que la psychological safety soit élevée.
-  - Les _advice seekers_ peuvent vraiment se concentrer sur les advices tout en gardant le pouvoir de décision. Ils auront plus de mal à ignorer un point appuyé en public par plusieurs personnes, et il y a un risque que certaines personnes influentes en jouent pour forcer la décision. La solution est pour les _advice seekers_ de se concentrer sur le raisonnement qui sous tend l’advice.
+  - Les _advice seekers_ peuvent vraiment se concentrer sur les advices tout en gardant le pouvoir de décision. Ils auront plus de mal à ignorer un point appuyé en public par plusieurs personnes, mais il y a un risque que certaines personnes influentes en jouent pour forcer la décision. La solution est pour les _advice seekers_ de se concentrer sur le raisonnement qui sous tend l’advice.
   - Les observateurs peuvent assister à des échanges constructifs où les arguments de fond ne sont pas masqués par des jeux de pouvoir du fait de l’absence d’enjeu du meeting. Ils peuvent apprendre sur l’architecture, et aussi voir le processus de décision à l'œuvre et finir par se sentir prêts à ouvrir un ADR eux-mêmes.
+- L’architecture advice forum permet aussi de **rassembler des équipes** qui généralement travaillent indépendamment pour obtenir une **cohésion sociale**, et de **rassembler des systèmes** qui évoluent indépendamment pour obtenir une **intégrité conceptuelle**.
+  - L’auteur se base notamment sur les principes expliqués dans The**_ principles of Product Development Flow_** de Donald Reinertsen, qui décrit une approche lean du product development.
+  - L’advice forum permet de faire émerger une vision partagée de l’architecture, et donc aussi **les points où il y a un décalage**.
+    - Par exemple, le problème décrit dans la story 2 aurait sans doute pu être détecté plus tôt si les décisions d’architectures étaient régulièrement discutées en groupe.
+    - Vu que les parties prenantes sont rassemblées, quand le besoin d’une équipe éphémère pour résoudre un problème important se fait sentir, ils peuvent naturellement la mettre en place, en y mettant les bonnes personnes. C’est beaucoup plus efficace et motivant qu’une telle décision venant de la hiérarchie.
+  - Pour les personnes disposant d’une expertise très spécialisée (sécurité, légal etc.), c’est l’endroit idéal pour apporter leur angle à chacune des décisions prises.
+  - Ca permet d’améliorer la cohésion sociale grâce à la **transparence**.
+    - Les petites influences proposées par chacun permettent au système de ne pas dévier dans la mauvaise direction petit à petit.
+    - Tout le monde peut avoir une idée de la manière dont les décisions se forment puis donnent lieu à une coordination, et agir en conséquence en ayant les enjeux importants du moment en tête.
+    - En voyant les décisions prises, l’ensemble des participants a confiance dans les capacités de chacun à prendre des décisions.
