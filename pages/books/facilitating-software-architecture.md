@@ -492,11 +492,27 @@
   - Les observateurs peuvent assister à des échanges constructifs où les arguments de fond ne sont pas masqués par des jeux de pouvoir du fait de l’absence d’enjeu du meeting. Ils peuvent apprendre sur l’architecture, et aussi voir le processus de décision à l'œuvre et finir par se sentir prêts à ouvrir un ADR eux-mêmes.
 - L’architecture advice forum permet aussi de **rassembler des équipes** qui généralement travaillent indépendamment pour obtenir une **cohésion sociale**, et de **rassembler des systèmes** qui évoluent indépendamment pour obtenir une **intégrité conceptuelle**.
   - L’auteur se base notamment sur les principes expliqués dans The**_ principles of Product Development Flow_** de Donald Reinertsen, qui décrit une approche lean du product development.
-  - L’advice forum permet de faire émerger une vision partagée de l’architecture, et donc aussi **les points où il y a un décalage**.
+  - L’advice forum permet de faire émerger une vision partagée de l’architecture, et donc aussi **les points où il y a un décalage de vision architecturale**.
     - Par exemple, le problème décrit dans la story 2 aurait sans doute pu être détecté plus tôt si les décisions d’architectures étaient régulièrement discutées en groupe.
-    - Vu que les parties prenantes sont rassemblées, quand le besoin d’une équipe éphémère pour résoudre un problème important se fait sentir, ils peuvent naturellement la mettre en place, en y mettant les bonnes personnes. C’est beaucoup plus efficace et motivant qu’une telle décision venant de la hiérarchie.
+    - Vu que les parties prenantes sont rassemblées, quand le besoin d’une équipe éphémère pour résoudre un problème important se fait sentir, ils peuvent naturellement la mettre en place, en y mettant les bonnes personnes. C’est beaucoup plus efficace et motivant qu’une décision venant de la hiérarchie.
   - Pour les personnes disposant d’une expertise très spécialisée (sécurité, légal etc.), c’est l’endroit idéal pour apporter leur angle à chacune des décisions prises.
   - Ca permet d’améliorer la cohésion sociale grâce à la **transparence**.
     - Les petites influences proposées par chacun permettent au système de ne pas dévier dans la mauvaise direction petit à petit.
-    - Tout le monde peut avoir une idée de la manière dont les décisions se forment puis donnent lieu à une coordination, et agir en conséquence en ayant les enjeux importants du moment en tête.
+    - Tout le monde peut obtenir une idée de la manière dont les décisions se forment puis donnent lieu à une coordination, et agir en conséquence en ayant les enjeux importants du moment en tête.
     - En voyant les décisions prises, l’ensemble des participants a confiance dans les capacités de chacun à prendre des décisions.
+  - Un autre élément qui permet de profondément soutenir la cohésion sociale est la forme **régulière et collective** des meetings d’architecture advice forum, qui sont comme des rituels.
+    - Ils permettent de **réduire l’anxiété** issue de la nature non prédictible des systèmes que nous construisons.
+    - Ils regroupent des personnes séparées par la nature de leur rôle, et les placent **côte à côte en tant que pairs**, pour affronter l’incertitude collectivement.
+- **Comment le mettre en place ?**
+  - Le **Terms of Reference** : on peut écrire un document d’une page pour décrire en quoi consiste le meeting et comment il se déroule.
+    - L’auteur en a mis [un exemple sur github](https://github.com/andrewharmellaw/facilitating-software-architecture/blob/main/adviceforum/terms-of-reference.md).
+  - Dans le cas où on met en place l’architecture advice process en même temps que l’advice process lui-même, il faut bien penser à **commencer avec un petit groupe**. L’idée est d’expérimenter, établir de la confiance entre les participants, pour pouvoir le grossir et garder l’esprit d’advice process.
+  - Qui inviter au départ ?
+    - Idéalement déjà le lecteur du livre.
+    - Et ensuite les personnes que le lecteur peut affecter : si on est dans une équipe on invite l’équipe, si on est architecte on invite les équipes avec lesquelles on travaille etc.
+    - Les autres personnes éventuellement invitées ne peuvent être que des _advice offerers_.
+  - Le 1er advice forum nécessitera un peu plus de **préparation** :
+    - Créer un template d’ADR qui va bien.
+    - Créer un endroit pour mettre les ADRs.
+    - On doit préparer une explication du process pour ceux qui participeront, y compris en quoi ça déplace l’accountability etc.
+      - Il nous faut aussi timeboxer l’expérience et mettre décider de la manière de mesurer son succès.
