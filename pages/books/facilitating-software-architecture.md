@@ -516,3 +516,26 @@
     - Créer un endroit pour mettre les ADRs.
     - On doit préparer une explication du process pour ceux qui participeront, y compris en quoi ça déplace l’accountability etc.
       - Il nous faut aussi timeboxer l’expérience et mettre décider de la manière de mesurer son succès.
+
+### 9 - Testable CFRs and Technology Strategy
+
+- Les ADR et l’advice process permettent d’obtenir une intégrité conceptuelle de l’architecture, et une cohésion sociale des équipes, et donc ils permettent un **alignement technique**. Mais ils ne sont pas suffisants pour garantir l’**alignement organisationnel**.
+  - La question à se poser pour savoir si on est aligné au niveau de l’organisation entière c’est : est-ce que nos systèmes permettent de **délivrer de l’impact pour l’organisation** ?
+  - En réalité, le fait que la technique soit alignée avec l’organisation est encore plus important que le fait que les équipes techniques soient alignées entre-elles.
+  - C’est en s’alignant sur les objectifs de l’organisation qu’on peut répondre aux questions comme :
+    - Est-ce que cette prise de risque est raisonnable ?
+    - Est-ce que le coût de cette infrastructure est raisonnable ?
+  - Le **manque d’alignement organisationnel** peut être détecté par des signaux :
+    - 1 - Quand des décisions amènent à de la duplication d’effort sans qu’il n’y ait d’intérêt. Par exemple, si tous les services sont chez un cloud provider, et qu'une équipe décide de déployer un service chez un autre cloud provider sans que ça n’apporte d’avantage différenciant.
+    - 2 - Quand des débats sur des points fondamentaux reviennent sans cesse, par exemple sur l’intérêt d’utiliser le CQRS sur les nouveaux microservices.
+    - 3 - Quand les décisions d’ADR portent en majorité sur de la pure technique. Par exemple les langages, les détails d’infra etc. sans prendre en compte les besoins fonctionnels.
+  - L’Open Group Agile Architecture décrit l’alignement organisationnel des équipes autonomes en **4 mécanismes** : les équipes alignées doivent avoir une conscience partagée, des feedback loops, un cadre (forcing functions), et un but partagé. L’advice process permet les deux premiers, mais il manque les deux autres.
+    - Le **but partagé** est adressé par la **stratégie technologique actionnable**.
+    - Le **cadre** est accompli par :
+      - Les **engagements** sont adressés par les **principes architecturaux partagés**.
+      - Les **guidelines** sont adressés par le **technology radar**.
+      - Les **restrictions et requirements** sont adressés par les **CFRs testables**.
+  - Une des manières de voir qu’on manque d’alignement organisationnel est le **principe de la moindre surprise** : si nos collègues agissent d’une manière à nous amener à être surpris, c’est peut être qu’on manque d’alignement.
+    - C’est particulièrement facile à voir sur les CFRs parce qu’il sont très spécifiques. Par exemple si on a le CFR de max 500ms pour le chargement d’une page pour l’utilisateur, alors on s’attend à ce que tout le monde l’ait en tête, et au moins que personne n’ait en tête un autre chiffre, ou le fait qu’il n’y a pas vraiment de limite. Sinon on va être surpris.
+    - Autre exemple sur la stratégie technique : toutes les équipes peuvent choisir leur langage mais déploient sur AWS, avec une équipe plateform qui met en commun l’outillage nécessaire pour ça. Une nouvelle équipe arrive pour créer une data platform et la déploie sur GCP. C’est peut être une décision stratégique pertinente liée à une spécificité de GCP et du fait que ce produit est clé, mais si on ne met pas à jour la stratégie technique pour le dire, on va petit à petit avoir d’autres équipes qui vont commencer à utiliser GCP à leur tour.
+    - Toutes les organisations n’ont pas besoin des mêmes choses sur lesquelles il y a des accords, elles ont chacune besoin d’**établir des accords sur les sujets qu’elles estiment importants pour elles**. Ces accords peuvent être écrits ou non, mais ils doivent être dans la tête de tout le monde, pour que personne ne soit surpris à leur sujet.
