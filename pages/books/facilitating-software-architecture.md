@@ -539,3 +539,37 @@
     - C’est particulièrement facile à voir sur les CFRs parce qu’il sont très spécifiques. Par exemple si on a le CFR de max 500ms pour le chargement d’une page pour l’utilisateur, alors on s’attend à ce que tout le monde l’ait en tête, et au moins que personne n’ait en tête un autre chiffre, ou le fait qu’il n’y a pas vraiment de limite. Sinon on va être surpris.
     - Autre exemple sur la stratégie technique : toutes les équipes peuvent choisir leur langage mais déploient sur AWS, avec une équipe plateform qui met en commun l’outillage nécessaire pour ça. Une nouvelle équipe arrive pour créer une data platform et la déploie sur GCP. C’est peut être une décision stratégique pertinente liée à une spécificité de GCP et du fait que ce produit est clé, mais si on ne met pas à jour la stratégie technique pour le dire, on va petit à petit avoir d’autres équipes qui vont commencer à utiliser GCP à leur tour.
     - Toutes les organisations n’ont pas besoin des mêmes choses sur lesquelles il y a des accords, elles ont chacune besoin d’**établir des accords sur les sujets qu’elles estiment importants pour elles**. Ces accords peuvent être écrits ou non, mais ils doivent être dans la tête de tout le monde, pour que personne ne soit surpris à leur sujet.
+- Le **minimum viable agreement** consiste à avoir juste ce qu’il faut pour aligner les équipes avec les objectifs de l’organisation. Les CFRs et la technology strategy font partie des techniques qui permettent d’établir ce minimum viable agreement.
+- Les **Cross-Functional Requirements** (CFRs) sont la technique la plus spécifique, et la moins directive contribuant à établir un minimum viable agreement.
+  - Parmi les types de CFRs, on trouve de manière non-exhaustive : la performance, la scalabilité, l’availability, la sécurité, l’accessibilité, l’observabilité etc.
+  - Ce qui compte, ce n’est pas d’être exhaustif, mais d’**établir les CFRs qui sont importants dans notre domaine**. Par exemple, un programme de voyage spatial la maintenabilité peut être moins importante que l’availability.
+  - Les CFRs doivent être associés à des **tests d’acceptation**, **exécutables automatiquement ou à la main**, pour pouvoir valider que le CFR a été implémenté.
+  - Les CFRs suivent un formalisme, par exemple :
+    - CFR :
+      - **As a** DEVELOPMENT TEAM MEMBER
+      - **I want** to read access to and the ability to search ACCESS LOGS in standard LOG FORMAT, using the STANDARD OBSERVABILITY TOOLSET
+      - **So that** I can monitor the operation of my systems and debug problems.
+    - Acceptance tests associés :
+      - Test 1 :
+        - **Given** the system is running
+        - **When** the system is accessed
+        - **Then** a single log entry is written to STDOUT in the STANDARD LOG FORMAT.
+      - Test 2 :
+        - **Given** the system has been accessed
+        - **When** the access log entry is written
+        - **Then** that log entry is visible in the STANDARD OBSERVABILITY TOOLSET and displays the correct access information.
+      - etc.
+    - Le CFR et les tests contiennent les expressions en majuscules pour faire **référence à un glossaire** spécifique à l’entreprise.
+    - Un des avantages du formalisme c’est qu’on peut difficilement justifier de passer plus de temps à implémenter le CFR que ce qui est nécessaire pour remplir les critères d’acceptation.
+  - Les CFRs peuvent se cumuler, on peut notamment en écrire un autre pour adresser un cas particulier non couvert par le CFR plus général.
+- La **technology strategy** est une formulation de la manière dont le département tech peut contribuer à la mission de l’organisation. A l’opposé des CFRs, elle est très générale mais directive.
+  - L’idée est qu’on va poser des paris qui, s’ils sont suivis, vont (on l’espère) mener à l’outcome souhaité pour l’organisation. On va donc prioriser en se basant sur la stratégie.
+  - Pour permettre de faire des choix, il est crucial que la stratégie indique ce qu’on privilégie, et donc aussi **ce qu’on choisit de ne pas privilégier**.
+    - Petit tip : si l’opposé de notre stratégie paraît absurde, c’est qu’on n’a pas de stratégie.
+  - La stratégie peut **aller plus ou moins loin dans ce qu’elle prescrit**, en se basant sur les besoins de son contexte. Par exemple, choisir le langage de programmation peut être un choix stratégique dans une entreprise, et plutôt secondaire dans une autre qui a un business où elle peut se le permettre.
+  - La stratégie peut se complexifier et **donner des réponses en fonction de situations** : par exemple une entreprise qui choisit AWS comme cloud vendor pour ses microservices, et qui découvre que GCP vaut bien plus le coup pour la partie data, peut enrichir la stratégie avec ces deux choix en fonction du type de service à implémenter.
+  - La technology strategy peut se manifester par une page de texte, mais aussi par des des choses mises en place :
+    - Level 0 : juste du texte pour exprimer la stratégie à suivre.
+    - Level 1 : on redirige l’équipe qui en a besoin vers un expert qui peut aider à implémenter un élément particulier de la stratégie.
+    - Level 2 : on request : on met à disposition une personne ou un groupe de personnes au besoin. Ils ont éventuellement mis en place de l’automatisation, mais leur intervention est nécessaire.
+    - Level 3 : self-service : une équipe platform maintient des ressources (job à faire tourner, API à appeler, librairie à utiliser etc.) qu’une équipe peut utiliser en autonomie pour qu’elle puisse mettre en œuvre l’élément stratégique.
