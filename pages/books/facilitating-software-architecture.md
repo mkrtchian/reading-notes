@@ -52,7 +52,7 @@
     - La raison pour laquelle ce blocage est plus gênant maintenant est que les 5 révolutions du monde du logiciel ont mené à une vitesse de changement bien plus importante qu’avant.
   - Les pratiques traditionnelles **ne permettent pas de récupérer suffisamment de feedback** pour affecter les décisions d’architecture.
     - Les architectes de type “ivory tower” ne récupèrent pas de feedback de leurs décisions et donc finissent par prendre des décisions bonnes sur le papier, mais mauvaises en pratique.
-    - Les architectes “hands on” one moins ce problème, puisqu’ils éprouvent dans une certaine mesure les conséquences de l’implémentation de leur propres décisions d’architecture, mais ils sont alors d’autant plus débordés.
+    - Les architectes “hands on” ont moins ce problème, puisqu’ils éprouvent dans une certaine mesure les conséquences de l’implémentation de leur propres décisions d’architecture, mais ils sont alors d’autant plus débordés.
 - La **nouvelle pratique** doit permettre de répondre aux 3 buts de l’architecture : cohérente et cohésive, découplée, et adaptable. Pour ça, elle doit :
   - **Être décentralisée** pour permettre aux équipes de travailler en parallèle et de réaliser de nombreuses itérations rapides.
   - **Mettre le feedback au cœur de son fonctionnement**, que ce soit pour les architectes ou les équipes.
