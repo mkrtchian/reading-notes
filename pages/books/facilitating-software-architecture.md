@@ -10,7 +10,7 @@
   - Une bonne architecture implique :
     - Des parties cohérentes, cohésives, et alignées avec le domaine.
     - Des parties découplées permettant à des équipes de travailler en parallèle.
-    - Une architecture suffisamment qu’on peut changer facilement.
+    - Une architecture qu’on peut changer suffisamment facilement.
   - La pratique doit donc permettre d’obtenir ce genre de résultat.
 - La pratique de l’architecture sous sa forme **traditionnelle** ne permet pas de répondre aux enjeux d’architecture moderne.
   - Il y a deux formes de pratique traditionnelle (en réalité c’est toujours un mix des deux) :
