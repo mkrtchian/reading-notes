@@ -578,3 +578,4 @@
     - Level 1 : on redirige l’équipe qui en a besoin vers un expert qui peut aider à implémenter un élément particulier de la stratégie.
     - Level 2 : on request : on met à disposition une personne ou un groupe de personnes au besoin. Ils ont éventuellement mis en place de l’automatisation, mais leur intervention est nécessaire.
     - Level 3 : self-service : une équipe platform maintient des ressources (job à faire tourner, API à appeler, librairie à utiliser etc.) qu’une équipe peut utiliser en autonomie pour qu’elle puisse mettre en œuvre l’élément stratégique.
+  - L’auteur conseille **_Enterprise Architecture as Strategy_** de Jeanne W. Ross, Peter Weill, David Robertson.
