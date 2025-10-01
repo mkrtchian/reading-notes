@@ -525,22 +525,26 @@
   - C’est en s’alignant sur les objectifs de l’organisation qu’on peut répondre aux questions comme :
     - Est-ce que cette prise de risque est raisonnable ?
     - Est-ce que le coût de cette infrastructure est raisonnable ?
+    - etc.
   - Le **manque d’alignement organisationnel** peut être détecté par des signaux :
     - 1 - Quand des décisions amènent à de la duplication d’effort sans qu’il n’y ait d’intérêt. Par exemple, si tous les services sont chez un cloud provider, et qu'une équipe décide de déployer un service chez un autre cloud provider sans que ça n’apporte d’avantage différenciant.
     - 2 - Quand des débats sur des points fondamentaux reviennent sans cesse, par exemple sur l’intérêt d’utiliser le CQRS sur les nouveaux microservices.
     - 3 - Quand les décisions d’ADR portent en majorité sur de la pure technique. Par exemple les langages, les détails d’infra etc. sans prendre en compte les besoins fonctionnels.
-  - L’Open Group Agile Architecture décrit l’alignement organisationnel des équipes autonomes en **4 mécanismes** : les équipes alignées doivent avoir une conscience partagée, des feedback loops, un cadre (forcing functions), et un but partagé. L’advice process permet les deux premiers, mais il manque les deux autres.
+  - L’Open Group Agile Architecture décrit l’alignement organisationnel des équipes autonomes en **4 mécanismes** : les équipes alignées doivent avoir une conscience partagée, des feedback loops, un cadre (forcing functions), et un but partagé.
+    - La **conscience partagée** et les **feedback loops**. sont adressés par l’**advice process**.
     - Le **but partagé** est adressé par la **stratégie technologique actionnable**.
     - Le **cadre** est accompli par :
-      - Les **engagements** sont adressés par les **principes architecturaux partagés**.
-      - Les **guidelines** sont adressés par le **technology radar**.
-      - Les **restrictions et requirements** sont adressés par les **CFRs testables**.
+      - Les **engagements** qui sont adressés par les **principes architecturaux partagés**.
+      - Les **guidelines** qui sont adressés par le **technology radar**.
+      - Les **restrictions et requirements** qui sont adressés par les **CFRs testables**.
   - Une des manières de voir qu’on manque d’alignement organisationnel est le **principe de la moindre surprise** : si nos collègues agissent d’une manière à nous amener à être surpris, c’est peut être qu’on manque d’alignement.
     - C’est particulièrement facile à voir sur les CFRs parce qu’il sont très spécifiques. Par exemple si on a le CFR de max 500ms pour le chargement d’une page pour l’utilisateur, alors on s’attend à ce que tout le monde l’ait en tête, et au moins que personne n’ait en tête un autre chiffre, ou le fait qu’il n’y a pas vraiment de limite. Sinon on va être surpris.
     - Autre exemple sur la stratégie technique : toutes les équipes peuvent choisir leur langage mais déploient sur AWS, avec une équipe plateform qui met en commun l’outillage nécessaire pour ça. Une nouvelle équipe arrive pour créer une data platform et la déploie sur GCP. C’est peut être une décision stratégique pertinente liée à une spécificité de GCP et du fait que ce produit est clé, mais si on ne met pas à jour la stratégie technique pour le dire, on va petit à petit avoir d’autres équipes qui vont commencer à utiliser GCP à leur tour.
     - Toutes les organisations n’ont pas besoin des mêmes choses sur lesquelles il y a des accords, elles ont chacune besoin d’**établir des accords sur les sujets qu’elles estiment importants pour elles**. Ces accords peuvent être écrits ou non, mais ils doivent être dans la tête de tout le monde, pour que personne ne soit surpris à leur sujet.
-- Le **minimum viable agreement** consiste à avoir juste ce qu’il faut pour aligner les équipes avec les objectifs de l’organisation. Les CFRs et la technology strategy font partie des techniques qui permettent d’établir ce minimum viable agreement.
-- Les **Cross-Functional Requirements** (CFRs) sont la technique la plus spécifique, et la moins directive contribuant à établir un minimum viable agreement.
+- Le **minimum viable agreement** consiste à avoir juste ce qu’il faut pour aligner les équipes avec les objectifs de l’organisation.
+  - On a besoin de cet alignement, et d’un autre côté on veut éviter la formalisation pour ne pas étouffer l’initiative des équipes, d’où le côté _minimum viable_.
+  - Les CFRs et la technology strategy font partie des techniques qui permettent d’établir ce minimum viable agreement.
+- Les **Cross-Functional Requirements** (CFRs) sont la technique la plus spécifique, et la moins directive contribuant à établir un minimum viable agreement. C’est le “What”.
   - Parmi les types de CFRs, on trouve de manière non-exhaustive : la performance, la scalabilité, l’availability, la sécurité, l’accessibilité, l’observabilité etc.
   - Ce qui compte, ce n’est pas d’être exhaustif, mais d’**établir les CFRs qui sont importants dans notre domaine**. Par exemple, un programme de voyage spatial la maintenabilité peut être moins importante que l’availability.
   - Les CFRs doivent être associés à des **tests d’acceptation**, **exécutables automatiquement ou à la main**, pour pouvoir valider que le CFR a été implémenté.
@@ -562,10 +566,11 @@
     - Le CFR et les tests contiennent les expressions en majuscules pour faire **référence à un glossaire** spécifique à l’entreprise.
     - Un des avantages du formalisme c’est qu’on peut difficilement justifier de passer plus de temps à implémenter le CFR que ce qui est nécessaire pour remplir les critères d’acceptation.
   - Les CFRs peuvent se cumuler, on peut notamment en écrire un autre pour adresser un cas particulier non couvert par le CFR plus général.
-- La **technology strategy** est une formulation de la manière dont le département tech peut contribuer à la mission de l’organisation. A l’opposé des CFRs, elle est très générale mais directive.
+- La **technology strategy** est une formulation de la manière dont le département tech peut contribuer à la mission de l’organisation. A l’opposé des CFRs, elle est très générale mais directive. C’est le “How”.
   - L’idée est qu’on va poser des paris qui, s’ils sont suivis, vont (on l’espère) mener à l’outcome souhaité pour l’organisation. On va donc prioriser en se basant sur la stratégie.
   - Pour permettre de faire des choix, il est crucial que la stratégie indique ce qu’on privilégie, et donc aussi **ce qu’on choisit de ne pas privilégier**.
     - Petit tip : si l’opposé de notre stratégie paraît absurde, c’est qu’on n’a pas de stratégie.
+    - La formulation peut par exemple être : _we emphasize X, even at the expense of Y_.
   - La stratégie peut **aller plus ou moins loin dans ce qu’elle prescrit**, en se basant sur les besoins de son contexte. Par exemple, choisir le langage de programmation peut être un choix stratégique dans une entreprise, et plutôt secondaire dans une autre qui a un business où elle peut se le permettre.
   - La stratégie peut se complexifier et **donner des réponses en fonction de situations** : par exemple une entreprise qui choisit AWS comme cloud vendor pour ses microservices, et qui découvre que GCP vaut bien plus le coup pour la partie data, peut enrichir la stratégie avec ces deux choix en fonction du type de service à implémenter.
   - La technology strategy peut se manifester par une page de texte, mais aussi par des des choses mises en place :
