@@ -4359,10 +4359,15 @@ next-mdx-remote@^4.2.1:
     vfile "^5.3.0"
     vfile-matter "^3.0.1"
 
-next-seo@^6.0.0, next-seo@^6.8.0:
+next-seo@^6.0.0:
   version "6.8.0"
   resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-6.8.0.tgz#0265ec75ad5ddca3d2a11dd86534a15065043651"
   integrity sha512-zcxaV67PFXCSf8e6SXxbxPaOTgc8St/esxfsYXfQXMM24UESUVSXFm7f2A9HMkAwa0Gqn4s64HxYZAGfdF4Vhg==
+
+next-seo@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-7.0.1.tgz#913cbf53ed883928e156b75bcd6c1dee5103a9c9"
+  integrity sha512-NxcnWaT7dLZdPjWOD6JZm1pUpJ1zxoDBOuXBR72fTTMqqO/bchcjkBJpx27MDACDJrIVwxfKPq5qGcv17qZiBQ==
 
 next-themes@^0.2.1:
   version "0.2.1"
