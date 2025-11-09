@@ -422,6 +422,8 @@
 
 ### 7 - Replacing Hierarchy with Decentralized Trust
 
+- Dans les entreprises traditionnelles, les personnes qui décident de l’architecture gardent l’accountability au sujet des conséquences, même quand elles délèguent la prise de décision à quelqu’un d’autre.
+  - Il y a un vrai shift dans l’architecture advice process : la personne qui prend l’initiative et porte une décision est accountable elle-même des conséquences de sa décision.
 - Les frameworks “enterprise” d’architecture comme The Open Group Architecture Framework (TOGAF) ou Open Agile Architecture (O-AA) sont compatibles avec l’advice process, notamment parce qu’ils ont dû s'adapter aux 5 révolutions, et acceptent le shift de responsabilité et d’accountability.
 - L’accountability revient au décideur : soit l’architecte pour les décisions cross-équipes, soit l’équipe entière (ou le team lead si l’équipe choisit de faire comme ça) pour les décisions où une équipe est principalement concernée.
 - Personne n’est obligé de décider, mais ceux qui le font doivent utiliser l’advice process en toute transparence, et ceux qui veulent se lancer sont encouragés.
