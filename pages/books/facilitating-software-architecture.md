@@ -484,8 +484,8 @@
   - Il existe une approche de la discussion qui n’est pas confrontationnelle : la **coalescent argumentation**.
     - C’est tiré du livre **_Coalescent Argumentation_** de Michael Gilbert.
     - La méthode consiste à se concentrer sur la recherche du but commun plutôt que sur la recherche d’informations pour mettre l’autre en défaut.
-      - **On se demande d’abord : avec quoi je dois être d’accord ?** pour faire émerger ensuite les éléments de désaccord comme des chemins qui divergent de la base commune.
-      - Dans la manière confrontationnelle on va plutôt se demander : avec quoi je pourrais être en désaccord ? Et tâcher ensuite de combattre ces idées.
+      - **On se demande d’abord : avec quoi je suis d’accord ?** pour faire émerger ensuite les éléments de désaccord comme des chemins qui divergent de la base commune en se demandant : **avec quoi je _dois_ être en désaccord ?**
+      - Dans la manière confrontationnelle on va plutôt se demander : **avec quoi je _pourrais_ être en désaccord ?** Et tâcher ensuite de combattre ces idées.
     - Les ADRs avec advice process sont par nature faits pour permettre un mode coalescent :
       - L’auteur de l’ADR place d’abord son point de vue dans la section _Context_ et éventuellement _Consequences_.
         - Par exemple dans la _Story 1_, l’équipe de développeurs avait envisagé une solution centrée autour du code, puisqu’ils avaient le contrôle sur ça.
