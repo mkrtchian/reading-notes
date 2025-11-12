@@ -585,3 +585,43 @@
     - Level 2 : on request : on met à disposition une personne ou un groupe de personnes au besoin. Ils ont éventuellement mis en place de l’automatisation, mais leur intervention est nécessaire.
     - Level 3 : self-service : une équipe platform maintient des ressources (job à faire tourner, API à appeler, librairie à utiliser etc.) qu’une équipe peut utiliser en autonomie pour qu’elle puisse mettre en œuvre l’élément stratégique.
   - L’auteur conseille **_Enterprise Architecture as Strategy_** de Jeanne W. Ross, Peter Weill, David Robertson.
+
+### 10 - Collectively Sourced Architectural Principles
+
+- Les **collectively sourced architectural principles** permettent de compléter la technical strategy par **des éléments plus précis**.
+  - De même que la technology strategy, ils vont permettre de donner un cadre pour prendre des décisions décentralisées.
+- Il est important que ces _architectural principles_ soient construites en récoltant des **inputs d’un grand nombre de personnes** représentant l’ensemble des équipes et des rôles.
+  - Ca permet à la fois d’éviter qu’on pense que ces principes sont imposés d’en haut, et à la fois d’obtenir de meilleurs principes.
+- Leur contenu :
+  - Les principes doivent contenir :
+    - **Principle** : description du principe.
+      - Ex : _Value independence of teams most highly_
+    - **Subtitle** : indique l’action principale sous-tendue par le principe.
+      - Ex : _Split solutions along team lines_
+    - **Rationale** : en quoi ça consiste et en quoi ça va dans le sens de la stratégie technique.
+    - **Implications** : des points importants, positifs ou négatifs, dont on assume les conséquences explicitement.
+  - Il en faut **entre 8 et 15**, pour à la fois couvrir l’ensemble des objectifs stratégiques, et à la fois tenir dans la tête de chacun.
+  - Les différents principes ne doivent pas être contradictoires, mais il est normal qu’il y ait **une certaine tension** entre eux. Cette tension représente à la fois la marge de manœuvre des équipes, et en même temps les pousse à **prendre la responsabilité** s’ils veulent l’assumer.
+    - Par exemple, _Value independence of teams most highly_ et _Cloud native means our cloud_ comportent une certaine tension pour une équipe qui veut déployer son propre cluster Kafka plutôt qu’utiliser celui proposé par leur plateforme. Elle peut le faire si elle a de bonnes raisons, en assumant la responsabilité que ça comporte.
+  - Les bons principes :
+    - Sont **liés explicitement aux objectifs stratégiques** d'entreprise.
+    - Disent **comment** faire ce qui est décrit.
+    - Donnent des critères clairs pour **choisir entre plusieurs options dans une décision d’architecture**, et donc ils sont :
+      - Specific
+      - Mesurable
+      - Achievable
+      - Realistic
+      - Testable
+  - Les mauvais principes :
+    - Il ne faut **pas choisir des pratiques** plutôt que des principes.
+      - Par exemple le TDD, le trunk based development, le pair programming. Les pratiques ne permettent d’aider à choisir entre deux approches d’implémentation de micro-frontends ou entre self-hoster un Lucene versus utiliser une version managée sur AWS.
+    - Il ne faut **pas choisir des CFRs **plutôt que des principes.
+      - Les CFRs sont très spécifiques et non négociables, là où les principes sont plus lâches et indiquent **comment on fait les choses d’habitude**.
+- Les principes aident à prendre les décisions d’architecture.
+  - A chaque fois qu’on a une décision à prendre, on peut faire le tour des principes pour vérifier lesquels s’appliquent à notre cas.
+    - Si tous s’appliquent, c’est qu’on est en train de prendre une décision trop grande, et qu’il faudrait sans doute la découper en plus petites.
+  - Les principes permettent de restreindre les options, mais aussi de potentiellement les étendre, en rappelant les objectifs communs qu’on n’avait peut-être plus en tête au moment de lister les options.
+  - Les implications des principes peuvent aider à compléter les implications des options.
+  - Une fois qu’on adopte les architecture principles, on peut ajouter **une section à notre template d’ADR pour indiquer les principes qui s’appliquent** à la décision.
+- Un **workshop** pour créer les architectural principles :
+  - Les architectural principles doivent être créées en impliquant l’ensemble des personnes qui seront amenées à prendre des décisions d’architecture.
