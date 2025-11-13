@@ -624,4 +624,39 @@
   - Les implications des principes peuvent aider à compléter les implications des options.
   - Une fois qu’on adopte les architecture principles, on peut ajouter **une section à notre template d’ADR pour indiquer les principes qui s’appliquent** à la décision.
 - Un **workshop** pour créer les architectural principles :
-  - Les architectural principles doivent être créées en impliquant l’ensemble des personnes qui seront amenées à prendre des décisions d’architecture.
+  - Les _architectural principles_ doivent être créées en impliquant l’ensemble des personnes qui seront amenées à prendre des décisions d’architecture.
+    - L’auteur conseille de s’inspirer de **_Art of Scalability_** de Martin Abbott et Michael Fisher : les équipes qui devront appliquer les principes doivent avoir une impression d’ownership sur eux.
+  - Concernant les ressources pour faciliter une série de workshops, l’auteur conseille :
+    - L’article Workshop Wisdom
+    - Le livre **_Collaborative Software Design_**
+  - **Étape 1 : on prépare les inputs.**
+    - On va d’abord chercher les **objectifs et la vision de l’organisation**.
+      - Si on a de la chance, ça peut être sous forme de document, sous forme d’objectifs d’outcome / impact.
+      - Si on a moins de chance, il va falloir chercher sur le site de l’organisation, dans les annonces publiques etc.
+        - On peut ensuite aller voir des executives (CTO, CPO, Chief scientist) pour leur demander les objectifs d’entreprise.
+        - Et enfin on peut aller voir les personnes en dessous (par exemple chief architect) pour confirmer et affiner les objectifs.
+    - On va ensuite les **classer en 3 thèmes**.
+      - Ces thèmes doivent, à eux trois, recouvrir l’ensemble des objectifs de l’organisation, et ils doivent être mutuellement exclusifs (ne pas recouvrir les mêmes aspects).
+      - Exemple : Operational excellence, Customer responsiveness et Product leadership.
+      - Si on n’arrive pas à facilement tirer ces 3 thèmes, l’auteur propose des thèmes génériques qui décrivent les objectifs que les organisations poursuivent généralement, répartis en 2 catégories :
+        - Grow our impact
+          - Expand to complementary products
+          - Expand to new markets/regions
+          - Expand customer segments
+          - Inorganic growth
+        - Grow our impact
+          - Expand to complementary products
+          - Expand to new markets/regions
+          - Expand customer segments
+          - Inorganic growth
+  - **Étape 2 : on organise le workshop.**
+    - On va être le facilitateur du workshop.
+    - 1 - On invite les participants.
+      - On doit inviter les développeurs, infra, ops, architectes, ux, PMs etc. Il faut **au moins une personne de chaque équipe**, et au moins un représentant pour chaque rôle.
+      - Il faut faire attention à ne pas sur ou sous-représenter un rôle en particulier.
+      - L’auteur a déjà fait un tel workshop avec plus de 100 personnes, mais il vaut mieux en inviter autant qu’on pense pouvoir en gérer.
+    - 2 - on book le meet.
+      - On peut soit faire un workshop de 3 heures, soit 2 de 1.5 heures (ce qui est préférable).
+      - Une fois confirmé, on peut envoyer un email avec l’ordre du jour.
+    - 3 - on prépare la place.
+      -
