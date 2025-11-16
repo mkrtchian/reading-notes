@@ -652,11 +652,45 @@
   - **Étape 2 : on organise le workshop.**
     - On va être le facilitateur du workshop.
     - 1 - On invite les participants.
-      - On doit inviter les développeurs, infra, ops, architectes, ux, PMs etc. Il faut **au moins une personne de chaque équipe**, et au moins un représentant pour chaque rôle.
+      - On doit inviter les développeurs, infra, ops, architectes, ux, PMs etc. Il faut **au moins une personne de chaque équipe**, et au moins **un représentant pour chaque rôle**.
       - Il faut faire attention à ne pas sur ou sous-représenter un rôle en particulier.
       - L’auteur a déjà fait un tel workshop avec plus de 100 personnes, mais il vaut mieux en inviter autant qu’on pense pouvoir en gérer.
-    - 2 - on book le meet.
+    - 2 - On book le meet.
       - On peut soit faire un workshop de 3 heures, soit 2 de 1.5 heures (ce qui est préférable).
       - Une fois confirmé, on peut envoyer un email avec l’ordre du jour.
-    - 3 - on prépare la place.
-      -
+    - 3 - On prépare l’espace de travail.
+      - Il nous faut 5 espaces :
+        - _Welcome area_ : on y affiche l’ordre du jour et l’objectif.
+        - _Definitions and criteria area_ : on y affiche la définition d’un principe d’architecture, et les caractéristiques qu’il doit avoir (Specific, Measurable, Achievable, Realistic, Testable).
+        - _Collaborative working area_ : on y met un graphique avec 3 cercles pour les 3 thèmes de principes d'architecture, sur lequel on va venir coller des post-its.
+          - Les 3 cercles se débordent les uns sur les autres parce qu’un principe peut appartenir à 1, 2 ou 3 thèmes, même si les thèmes sont en eux-mêmes mutuellement exclusifs dans leur signification.
+        - _Working group breakout areas_ : on les place autour de la _collaborative working area_. Il faut y avoir des post-its, pour que les personnes qui y travaillent en petits groupes puissent les déplacer vers la _collaborative working area_.
+        - _Parking lot_ : on va y mettre les post-its hors sujet pour des discussions futures.
+  - **Étape 3 : on lance le workshop.**
+    - **1 - Kickoff** (10mn) :
+      - On explique le but du workshop, les critères des bons principes d’architecture, le but de chaque espace de travail.
+      - On rappelle les objectifs de l’organisation, et les 3 thèmes qui en sont issus, et dans lesquels devront rentrer les principes.
+      - On finit par organiser les participants en groupes, avec l’idée que chaque groupe devra avoir une représentation variée. On peut demander aux participants de se regrouper (ou regrouper leurs noms si c’est en virtuel) par rôle, pour ensuite faire des groupes mélangés.
+        - On peut aussi simplement expliquer ce qu’on veut, et laisser le groupe se diviser de lui-même.
+    - **2 - Split** (30 mn) : les groupes vont écrire le plus de principes possibles.
+      - Chacun écrit individuellement ce qui lui passe par la tête, puis revient dans son groupe pour dédupliquer.
+      - Il faut bien leur rappeler que les principes doivent être SMART, et donc des principes comme KISS ou DRY ne vont pas.
+    - **3 - Reconvene** (20 mn) : chaque groupe va désigner quelqu’un pour présenter leurs principes, d’une manière suffisamment détaillée pour qu’ils puissent les récupérer pour eux s’ils le veulent.
+    - **4 - Split** (30 mn) : chaque groupe met à jour ses principes, à la lumière de ce qu’il a entendu des autres.
+      - C’est tout à fait OK de copier des principes des autres groupes. Chaque groupe doit avoir au moins 8 principes.
+      - C’est aussi à cette étape que les groupes vont essayer de classer leurs principes dans les 3 thèmes : chaque principe peut être dans 1, 2 ou 3 thèmes. Il faut faire attention à ce que **l’ensemble des principes soit équilibré vis-à-vis des thèmes**.
+    - Si on fait le workshop sur 2 jours différents, c’est ici qu’on fait la coupure.
+    - **5 - Reconvene** (20 minutes) : chaque groupe présente à nouveau ses principes aux autres, et les place sur le graphique à 3 cercles pour indiquer dans quels thèmes il rentre.
+      - Si des principes ont été récupérés d’autres groupes, les groupes expliquent pourquoi, et on regroupe les post-its.
+    - **6 - Dot-voting** (5 minutes) : chaque participant va voter pour 8 tickets avec des points de la même couleur.
+      - Avant le vote, on rappelle les objectifs de l’organisation, et ce à quoi vont servir les principes d’architecture.
+      - A la fin du vote, on écrit le résultat de chaque ticket, et on sélectionne les 15 tickets avec le plus de votes.
+    - **7 - Consider implications** (20 minutes) : chacun va enfiler son chapeau “cautious”, pour examiner les points négatifs des principes sélectionnés, et les écrire avec des post-its d’une autre couleur.
+      - Si un principe n’a aucun point négatif, alors il est soit trop général pour servir ensuite à prendre des décisions, ou alors on l’idéalise collectivement et c’est problématique.
+      - On les encourage à mettre toutes les raisons négatives qu’ils ont en tête.
+      - Une fois les post-its placés, on les lit et on s’assure qu’ils sont clairs pour tout le monde, mais on n’en discute pas.
+    - **8 - Dot-voting** (5 mn) : on vote à nouveau avec 8 points chacun, d’une couleur différente.
+      - C’est ce vote qui sera le vrai vote, le 1er vote était là surtout pour mettre la lumière sur les principes les plus en vus, avant de prendre du recul et de faire un choix final collectif.
+      - Une fois le vote fait, on compte les points, et on met en avant les 8 à 15 post-its avec le plus de votes.
+    - **9 - Commit to adoption** (10 minutes) : on demande au groupe de faire un commitment sur ces principes.
+      - On demande si certaines personnes ont encore des soucis avec certains des principes sélectionnés, si oui ils les mettent sous forme de post-its : on leur dit que leurs remarques seront intégrées malgré le fait que le principe sera adopté. Il s‘agit d’une forme de “disagree and commit”.
