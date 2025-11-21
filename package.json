@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && touch out/.nojekyll",
-    "lint": "next lint --max-warnings=0",
+    "lint": "eslint . --max-warnings=0",
     "type-check": "tsc",
     "deploy": "gh-pages -d out -t",
     "prepare": "husky install"
