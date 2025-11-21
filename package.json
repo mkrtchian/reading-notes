@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build",
-    "start": "next start",
-    "export": "next build && touch out/.nojekyll",
+    "build": "next build --webpack",
+    "start": "npx serve@latest out -s -l 3000",
+    "export": "next build --webpack && touch out/.nojekyll",
     "lint": "eslint . --max-warnings=0",
     "type-check": "tsc",
     "deploy": "gh-pages -d out -t",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "next": "16.0.1",
-    "next-seo": "^7.0.1",
+    "next-seo": "6",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "18.3.1",
@@ -36,10 +36,8 @@
     "typescript": "5.9.3"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,md}": [
-      "eslint --fix --max-warnings=0",
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": "eslint --fix --max-warnings=0",
+    "*.{js,jsx,ts,tsx,json,md,css,yml,yaml}": "prettier --write"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
