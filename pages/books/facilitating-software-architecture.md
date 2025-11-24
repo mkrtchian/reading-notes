@@ -694,3 +694,28 @@
       - Une fois le vote fait, on compte les points, et on met en avant les 8 à 15 post-its avec le plus de votes.
     - **9 - Commit to adoption** (10 minutes) : on demande au groupe de faire un commitment sur ces principes.
       - On demande si certaines personnes ont encore des soucis avec certains des principes sélectionnés, si oui ils les mettent sous forme de post-its : on leur dit que leurs remarques seront intégrées malgré le fait que le principe sera adopté. Il s‘agit d’une forme de “disagree and commit”.
+  - **Étape 4 : on présente les principes à l’ensemble du département.**
+    - L’auteur conseille de les mettre dans un wiki, une page pour servir de hub, et une page par principe.
+      - La page de hub :
+        - Contient des liens vers les pages de principes.
+        - Puis contient du contexte, avec les 3 thèmes stratégiques décrits succinctement, la définition d’un principe d’architecture, et ses caractéristiques (SMART etc.).
+        - La photo du diagramme en camembert du workshop, où sont listés les principes avec leur appartenance à chacun des 3 thèmes, montrant bien que chaque thème est bien représenté.
+        - Enfin, une section pour comprendre comment les principes ont été obtenus, avec les participants au meeting, les principes non choisis par le dot-voting, et les post-its de réserve.
+          - Cette partie est utile pour **transformer la page en hub “culturel”**, alimentant le minimum viable agreement comme élément partagé.
+      - Chaque page de principe :
+        - Contient les éléments du principe : le titre, le sous-titre, le _rationale_, et les implications.
+        - On y ajoute le ou les thèmes auxquels le principe appartient. Le _rationale_ indique justement les avantages du principe par rapport aux thèmes.
+        - On y ajoute une section _background_ pour indiquer dans quelles conditions le principe a été adopté, et quelles réserves ont été soulevées le concernant.
+    - Une fois les principes rédigés dans le wiki, on les partage avec les participants de l’atelier qui a servi à les construire pour recueillir des feedbacks pendant un temps limité. Une fois le temps écoulé, on fait les éventuelles corrections suite aux feedbacks, et **les principes deviennent officiels, on les partage alors avec tout le département**.
+    - On peut créer un petit ADR pour signaler l’adoption de l’ensemble des principes. On utilisera par la suite aussi les ADRs en cas de modifications.
+- Les principes doivent rester à jour, que ce soit **vis-à-vis de la technical strategy**, ou **vis-à-vis des feedbacks venant des décisions d’architecture** qu’elles aident à cadrer.
+  - Il est tout à fait possible, et même normal qu’**une décision d’architecture aille contre un principe**, par exemple utiliser un autre cloud provider pour une feature qui n’est pas sur Heroku, alors que le principe dit d’utiliser Heroku. Dans ce cas, il faut bien le mettre en avant dans l’ADR, et l’indiquer aux advisors.
+  - Quand des décisions vont contre un même principe **de manière répétée**, il est probablement temps de le modifier, **soit à la marge** en précisant des choses, ajoutant ou des implications etc. **soit en remplaçant le principe** par un plus adapté.
+  - Parfois, **un principe manque** : quand des ADRs ne font régulièrement référence à aucun principe, ou quand on a un même sujet de fond qui refait surface régulièrement au gré des ADRs, c’est qu’il faut ajouter le principe manquant.
+  - **Certains principes sont de trop** : si on se rend compte au bout d’un moment que certains principes ne sont jamais référencés par les ADRs, il vaut mieux les enlever.
+- **La modification, l’ajout ou la suppression d’un principe se fait via un ADR**.
+  - L’auteur conseille d’y appliquer une procédure plus rigoureuse que pour les autres décisions, en utilisant soit la procédure démocratique, soit la procédure _consent_ où chacun peut poser son véto. Le but est de garder intact le commitment vis-à-vis des principes.
+  - N’importe qui peut proposer une modification des principes, pas seulement les architectes.
+- Vu que les ADRs sont des documents immutables et qu’ils pointent vers des principes qui peuvent changer, il faut **garder une version legacy des principes** pour garder les ADRs compréhensibles.
+  - On peut faire ça en créant une copie de chaque principe qui est supprimé ou modifié, en ajoutant par exemple [RETIRED] et [OUT-OF-DATE] au titre de la page du principe déprécié pour faciliter leur mise de côté. Les ADRs peuvent alors continuer de pointer vers ces pages de principe legacy.
+- Bien qu’hors de la portée de ce livre, l’auteur signale que les décisions répétées allant dans le même sens devraient aussi pouvoir mener à d’éventuelles modifications de la _technical strategy_, voire même des objectifs d’organisation.
