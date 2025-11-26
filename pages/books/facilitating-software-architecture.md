@@ -719,3 +719,31 @@
 - Vu que les ADRs sont des documents immutables et qu’ils pointent vers des principes qui peuvent changer, il faut **garder une version legacy des principes** pour garder les ADRs compréhensibles.
   - On peut faire ça en créant une copie de chaque principe qui est supprimé ou modifié, en ajoutant par exemple [RETIRED] et [OUT-OF-DATE] au titre de la page du principe déprécié pour faciliter leur mise de côté. Les ADRs peuvent alors continuer de pointer vers ces pages de principe legacy.
 - Bien qu’hors de la portée de ce livre, l’auteur signale que les décisions répétées allant dans le même sens devraient aussi pouvoir mener à d’éventuelles modifications de la _technical strategy_, voire même des objectifs d’organisation.
+
+### 11 - Using a Technology Radar
+
+- L’objectif du _technology radar_ est de créer une **représentation actuelle de ce que l’organisation pense des technologies et techniques existantes**, en se basant sur les expériences de l’ensemble des membres.
+  - Le radar ressemble à un radar de tour d’observation d’avions, et montre le mouvement des technologies, pouvant passer de “conseillées” à “à éviter”.
+- **Chez Thoughtworks** :
+  - Le _technology radar_ est mis à jour tous les 6 mois.
+  - Pour qu’une technologie ou une technique soit ajoutée au radar, il faut qu’au moins une équipe y ait été exposée via un projet client.
+  - Chaque point est placé :
+    - 1 - En fonction de la proximité au centre : plus c’est proche, plus la techno est recommandée :
+      - _Hold_ : on fait attention si on veut l’utiliser.
+      - _Assess_ : vaut la peine d’être exploré.
+      - _Trial_ : vaut la peine d’être essayé, mais n’est pas le choix par défaut.
+      - _Adopt_ : devrait être adopté par défaut si l’usage s’y prête.
+    - 2 - Par thématique : ils ont choisi 4 cadrans : _techniques_, _tools_, _platforms_, _language and frameworks_.
+  - Chaque point est marqué selon son évolution par rapport au précédent radar : soit il est nouveau, soit il n’a pas bougé, soit il a bougé vers l’intérieur ou vers l’extérieur.
+  - Chaque point a un texte descriptif qui lui est associé, et on peut consulter sa description et son statut dans les précédentes versions du radar pour voir son évolution.
+- **Une entreprise lambda** ne va pas avoir exactement le même type de radar que Thoughtworks :
+  - Thoughtworks est une entreprise de consulting qui fait le radar notamment pour conseiller ses clients. Si l’entreprise qui fait le radar a **des produits en interne**, ceux-ci pourront y apparaître.
+  - Pour la même raison, les 4 couches en partant du centre vers l’extérieur pourront devenir : _Adopt_, _Trial_, _Hold_ et _Retire_.
+- Le radar peut **s’intégrer aux ADRs** comme pour les _architectural principles_ : une section du template d’ADR peut lister les technologies impliquées dans une décision.
+  - Ca peut par exemple aider les décideurs à aller **demander des advices aux bonnes personnes** en voyant que celles-ci ont déjà pris des décisions impliquant des technologies auxquelles ils font face eux-mêmes.
+  - Le fait qu’une technologie soit choisie dans un ADR alors qu’elle n’est pas conseillée dans le radar ou n’y apparaît pas est un **signe de tension entre le cadre que représente le radar et la décision individuelle**. Ça doit être mis en valeur pour que les advisors en prennent la pleine mesure. A l’inverse, si on utilise des technologies conseillées par le radar, on sait que notre décision est plutôt consensuelle.
+- Le radar sert de cadre aux décisions, mais **les décisions peuvent aussi servir à mettre à jour le radar**.
+  - 1 - Si la décision est d’utiliser une techno moins recommandée à la place d’une qui était recommandée par le radar, peut être qu’il faut mettre à jour la position de ces deux technos. Et si une nouvelle techno émerge lors d’une décision, peut être qu’il faut l’ajouter au radar.
+  - 2 - La mise à jour du radar peut être l’objet d’une initiative stratégique spécifique (ie. concernant la _technology strategy_) pour investir dans telle ou telle technologie.
+- **Comment créer son propre radar** :
+  - Thoughtworks met à disposition un outil “build your own radar” (BYOR) pour qu’on puisse faire un radar similaire au leur, à partir de nos informations. On remplit un tableur, et on peut générer le radar à tout moment avec le contenu du tableur pour voir à quoi ça ressemble.
