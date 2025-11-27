@@ -747,3 +747,26 @@
   - 2 - La mise à jour du radar peut être l’objet d’une initiative stratégique spécifique (ie. concernant la _technology strategy_) pour investir dans telle ou telle technologie.
 - **Comment créer son propre radar** :
   - Thoughtworks met à disposition un outil “build your own radar” (BYOR) pour qu’on puisse faire un radar similaire au leur, à partir de nos informations. On remplit un tableur, et on peut générer le radar à tout moment avec le contenu du tableur pour voir à quoi ça ressemble.
+  - **Étape 1 : on va collecter les technologies à mettre dans le radar.**
+    - Comme pour les _architectural principles_, il faut impliquer le plus de monde possible. Mais dans le cas du radar, l’asynchrone fonctionne bien.
+      - Si l’organisation est trop grande pour impliquer toutes les équipes produit, on peut choisir certains produits, et impliquer tous ceux qui y contribuent : développeurs, ops, UX, PM, QA, security, data. Les RH et la finance devraient être hors du champ.
+    - Une fois qu’on a les personnes, on leur partage un tableur, et on leur demande d’ajouter les **technologies utilisées actuellement au sein de l’organisation**, avec une description, la thématique, et la proximité avec le centre du radar.
+      - On note aussi qui ajoute chaque technologie, pour pouvoir retourner voir la personne si quelque chose n’est pas clair.
+    - L’objectif à cette étape est de **récolter le maximum d’éléments**, la déduplication se fera par la suite.
+  - **Étape 2 : on trie et on valide les technologies récoltées.**
+    - Cette étape est faite par l’organisateur.
+    - Tâches à faire :
+      - 1 - On vérifie que chaque techno est bien mise à “new” vu que c’est le premier radar.
+      - 2 - On remplit ce qui manque, par exemple les thématiques manquantes.
+      - 3 - On clarifie la description en faisant appel à l’auteur en cas de besoin.
+      - 4 - On regroupe les éléments qui font référence à la même chose. Mais **on ne déduplique pas à cette étape**.
+      - 5 - On regroupe les technos liées entre-elles.
+      - 6 - On regroupe par thématique.
+      - 7 - On regroupe par proximité avec le centre du radar.
+  - **Étape 3 : on examine chaque technologie de plus près.**
+    - Cette étape se fait de manière synchrone, avec le groupe qui a contribué initialement, et prend 4 heures (on peut toujours faire 2 x 2 heures). S’il y a trop de personnes, on peut prendre un représentant de chaque équipe ou rôle.
+    - On passe sur chaque techno, et **on clarifie la description, et on voit si on peut fusionner avec d’autres** qu’on avait regroupé à l’étape précédente.
+      - Les différentes versions majeures d’une même dépendance ne doivent pas être fusionnées. Elles permettront de montrer la direction dans laquelle on pense qu’on doit aller.
+    - On s’assure aussi de correctement placer les technos par rapport au centre du radar.
+      - Si le placement dépend de certaines conditions, on peut séparer la techno en deux, en indiquant ce qui distingue chaque élément dans le nom de l’élément.
+    - La thématique des techniques va en général commencer par être plutôt vide, et va se remplir au gré des discussions.
