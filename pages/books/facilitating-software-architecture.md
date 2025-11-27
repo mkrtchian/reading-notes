@@ -748,7 +748,7 @@
 - **Comment créer son propre radar** :
   - Thoughtworks met à disposition un outil “build your own radar” (BYOR) pour qu’on puisse faire un radar similaire au leur, à partir de nos informations. On remplit un tableur, et on peut générer le radar à tout moment avec le contenu du tableur pour voir à quoi ça ressemble.
   - **Étape 1 : on va collecter les technologies à mettre dans le radar.**
-    - Comme pour les _architectural principles_, il faut impliquer le plus de monde possible. Mais dans le cas du radar, l’asynchrone fonctionne bien.
+    - Comme pour les _architectural principles_, il faut impliquer le plus de monde possible. Mais dans le cas de cette étape de la construction du radar, l’**asynchrone** fonctionne bien.
       - Si l’organisation est trop grande pour impliquer toutes les équipes produit, on peut choisir certains produits, et impliquer tous ceux qui y contribuent : développeurs, ops, UX, PM, QA, security, data. Les RH et la finance devraient être hors du champ.
     - Une fois qu’on a les personnes, on leur partage un tableur, et on leur demande d’ajouter les **technologies utilisées actuellement au sein de l’organisation**, avec une description, la thématique, et la proximité avec le centre du radar.
       - On note aussi qui ajoute chaque technologie, pour pouvoir retourner voir la personne si quelque chose n’est pas clair.
@@ -764,9 +764,32 @@
       - 6 - On regroupe par thématique.
       - 7 - On regroupe par proximité avec le centre du radar.
   - **Étape 3 : on examine chaque technologie de plus près.**
-    - Cette étape se fait de manière synchrone, avec le groupe qui a contribué initialement, et prend 4 heures (on peut toujours faire 2 x 2 heures). S’il y a trop de personnes, on peut prendre un représentant de chaque équipe ou rôle.
-    - On passe sur chaque techno, et **on clarifie la description, et on voit si on peut fusionner avec d’autres** qu’on avait regroupé à l’étape précédente.
+    - Cette étape se fait de manière **synchrone**, avec le groupe qui a contribué initialement, et prend 4 heures (on peut toujours faire 2 x 2 heures). S’il y a trop de personnes, on peut prendre un représentant de chaque équipe ou rôle.
+    - On passe sur chaque techno, **on clarifie la description, et on voit si on peut fusionner avec d’autres** qu’on avait regroupé à l’étape précédente.
       - Les différentes versions majeures d’une même dépendance ne doivent pas être fusionnées. Elles permettront de montrer la direction dans laquelle on pense qu’on doit aller.
-    - On s’assure aussi de correctement placer les technos par rapport au centre du radar.
-      - Si le placement dépend de certaines conditions, on peut séparer la techno en deux, en indiquant ce qui distingue chaque élément dans le nom de l’élément.
-    - La thématique des techniques va en général commencer par être plutôt vide, et va se remplir au gré des discussions.
+    - On s’assure aussi de correctement placer les technos par rapport aux thématiques.
+      - La thématique des techniques va en général commencer par être plutôt vide, et va se remplir au gré des discussions.
+  - **Étape 4 : on place les technologies par rapport au centre du radar.**
+    - Cette étape se fait de manière **asynchrone**, avec tous ceux qui ont ajouté des technologies, et aussi ceux qui ne l’ont pas fait mais auraient pu.
+    - On ajoute une colonne de vote par personne au tableur contenant les technologies triées. Chaque personne va **voter** pour indiquer dans quel _ring_ (trial, adopt, hold ou retire) se trouve chaque technologie.
+      - Les votants peuvent aussi ajouter des commentaires à la description de chaque technologie s’ils en ont encore.
+    - Une fois les quelques jours de vote passés, on clôture le vote et on note le _ring_ résultant des votes pour chaque technologie.
+  - **Étape 5 : on formalise la description des technologies.**
+    - Cette étape est d’abord faite par l’organisateur : il va rédiger un texte clair et concis pour chaque technologie, à partir de la description et des commentaires. Les points de tension ou de conflit doivent aussi transparaître.
+    - Une fois que c’est fait, il partage le document en interne pour un dernier round de commentaires de feedback sur la formulation finale.
+  - **Étape 6 : on publie le radar.**
+    - On peut utiliser le service gratuit de Thoughtworks, ou héberger notre radar nous-mêmes.
+    - Une fois hébergé, on l’envoie par email à l’ensemble du département pour qu’ils commencent à l’utiliser pour prendre leurs décisions.
+- Il faut **mettre à jour le radar** régulièrement.
+  - La première manière est d’**organiser des sessions de mise à jour régulières**, par exemple tous les trimestres ou tous les semestres.
+    - 1 - On copie le tableur qui a servi à faire la dernière version de radar, en mettant chaque techno comme n’étant pas nouvelle.
+    - 2 - On demande des contributions asynchrones pour de nouvelles technologies, ou des informations supplémentaires dans la description des technologies existantes en fonction des usages qui ont pu être faits.
+      - Il est probable que les nouvelles technos finissent dans le ring _trial_.
+      - Le nombre de techniques devrait être plus important que pour la 1ère fois.
+    - 3 - On trie et on valide les nouvelles technologies.
+    - 4 - On examine chaque nouvelle technologie dans un meeting de 2 heures tous ensemble.
+    - 5 - On place les nouvelles technos par rapport au centre, là encore avec un vote.
+    - 6 - On formalise les technologies nouvellement arrivées et on met à jour la description des autres technos qui ont eu du changement.
+  - La 2ème manière est de **faire remonter des changements de technologie depuis les décisions individuelles** qui sont prises.
+    - Toute décision qui ajoute une technologie qui n’est pas dans le radar, ou qui utilise une technologie d’une manière qui est en contradiction avec la position de celle-ci dans le radar (notamment son _ring_), est une décision significative qui peut donner lieu à un ADR pour ajouter la techno au radar.
+- On peut faire des **pages d’historique pour chaque technologie**, de la même manière que Thoughtworks : à chaque nouvelle version d’une technologie (description, _ring_ etc.), on ajoute un paragraphe en haut de la page pour décrire les changements.
