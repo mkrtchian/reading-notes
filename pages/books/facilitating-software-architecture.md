@@ -793,3 +793,40 @@
   - La 2ème manière est de **faire remonter des changements de technologie depuis les décisions individuelles** qui sont prises.
     - Toute décision qui ajoute une technologie qui n’est pas dans le radar, ou qui utilise une technologie d’une manière qui est en contradiction avec la position de celle-ci dans le radar (notamment son _ring_), est une décision significative qui peut donner lieu à un ADR pour ajouter la techno au radar.
 - On peut faire des **pages d’historique pour chaque technologie**, de la même manière que Thoughtworks : à chaque nouvelle version d’une technologie (description, _ring_ etc.), on ajoute un paragraphe en haut de la page pour décrire les changements.
+
+## Part III - Finding Your Way Through the Decision Landscape
+
+### 12 - The Art of Deciding
+
+- Les aspects **psychologiques et sociaux** affectent tout autant une décision que les aspects purement rationnels.
+- La **section _Context_** permet de **fixer le cadre de la décision**, aussi bien d’un point de vue technique qu’humain.
+  - Il permet de **se limiter à ce qui est le plus important** pour la décision, pour concentrer notre attention dessus.
+    - On y cadre la discussion vers les points importants ou bloquants pour la décision.
+    - On y cadre le temps pendant lequel la décision sera valide, et le temps qu’on a pour implémenter. Par exemple Google considère qu’ils architecturent leur systèmes pour supporter un scale de x10, mais pas au-delà.
+  - On peut utiliser les 3 questions de Joseph Badaracco pour comprendre et mieux cadrer notre contexte :
+    - _Quelles sont mes obligations ?_ => il faut identifier vis-à-vis de qui, dans l'organisation et hors de l’organisation, nous avons des obligations pour cette décision.
+    - _Qu’est-ce qui restera tel quel dans tous les cas ?_ => ça nous force à considérer les choses telles qu’elles sont, plutôt qu’imaginer la décision prise dans un monde idéal.
+    - _Qui sommes-nous ?_ => il faut se remettre en tête les valeurs de notre organisation pour aller dans la bonne direction.
+  - Le contexte aide aussi à **impliquer les bonnes personnes** dans la décision :
+    - Si on a trop de personnes affectées et expertes à aller voir, c’est peut être que notre décision essaye de changer trop de choses et qu’il faudrait la subdiviser.
+    - Ou peut-être qu’on implique trop de monde par obligation sociale perçue, par exemple des supérieurs hiérarchiques qui ne sont ni affectés ni experts du sujet.
+- Les **sections _Options_ et _Consequences_** permettent de mettre en évidence les **futurs possibles du système**.
+  - Cette activité doit être **créative** : il faut envisager toutes les options qui nous passent par la tête sans s’auto-censurer d’office, et sans avoir peur de perdre son temps dans cet exercice.
+  - Pour essayer d’être créatif, on peut se poser ces deux questions :
+    - Est-ce que je mets de côté une autre option ?
+    - Cette option aurait-elle des variantes pertinentes ?
+  - Pour trouver de l’inspiration, on peut :
+    - **Réfléchir par soi-même** en passant en revue les options. L’auteur conseille de **gribouiller des choses, des schémas et autres**, pour passer d’une idée à une autre facilement en traçant des traits par exemple.
+    - **Chercher dans des documents**, par exemple des ADRs, ou encore des livres de design patterns ou autres.
+    - **Demander des advices.**
+- La **section _Advice_** permet d’**affiner le contexte et les options**.
+  - On répond aux deux autres questions de Badaracco :
+    - Quelles seront les conséquences de mes options ?
+    - A quel point on sera OK pour rester avec chacune des options ?
+  - Quand la confiance et la sécurité psychologique sont élevées, les advices permettent d’améliorer le contexte, parce qu’on :
+    - Fait appel à des **perspectives différentes**, nous permettant de trouver nos _unknown unknowns_.
+    - Fait appel à** l’intuition des personnes**, et certaines d’entre-elles arrivent à voir les choses venir.
+  - L’auteur évoque le livre **_Decisive_** de Chip et Dan Heath, avec leur framework WRAP, que les advices permettent de suivre :
+    - _Widen your options_ : chercher de l’inspiration à l’intérieur et à l'extérieur.
+    - _Reality-test your assumptions_ : se poser la question de savoir si on se restreint sur des options en pensant que certains sont contre, ou à l’inverse si on envisage des options sans prendre en compte certaines conséquences négatives.
+    - _Attain distance before deciding_ et _Prepare to be wrong_ sont plutôt de l’ordre de l’émotionnel et de la métacognition : se préparer au fait de subir des critiques.
