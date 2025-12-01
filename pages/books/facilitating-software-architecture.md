@@ -828,5 +828,34 @@
     - Fait appel à** l’intuition des personnes**, et certaines d’entre-elles arrivent à voir les choses venir.
   - L’auteur évoque le livre **_Decisive_** de Chip et Dan Heath, avec leur framework WRAP, que les advices permettent de suivre :
     - _Widen your options_ : chercher de l’inspiration à l’intérieur et à l'extérieur.
-    - _Reality-test your assumptions_ : se poser la question de savoir si on se restreint sur des options en pensant que certains sont contre, ou à l’inverse si on envisage des options sans prendre en compte certaines conséquences négatives.
+    - _Reality-test your assumptions_ : se poser la question de savoir si on n’est pas en train de se restreindre sur des options en pensant que certains groupes sont contre, ou à l’inverse si on envisage des options sans prendre en compte certaines conséquences négatives.
     - _Attain distance before deciding_ et _Prepare to be wrong_ sont plutôt de l’ordre de l’émotionnel et de la métacognition : se préparer au fait de subir des critiques.
+- Pour **donner et recevoir de meilleurs advices**, il faut **travailler sa métacognition** (comprendre ses propres pensées). Ces compétences devront être acquises petit à petit par l’ensemble de l’organisation.
+  - Pour plus de détails sur ce sujet, l’auteur renvoie à **_Learning Systems Thinking_** de Diana Montalion.
+  - **Exercice 1 : Share your Reasons**
+    - On va essayer de **comprendre les raisons qui nous ont convaincu d’une idée**. On va découvrir qu’on se base souvent sur des choses autres que les faits ou la rationalité.
+    - Exemple : on pourrait avoir une tendance à privilégier les outils qu’on a soi-même expérimenté. Ou on pourrait privilégier les solutions venant d’une personne qu’on estime.
+  - **Exercice 2 : Are You Reacting or Responding?**
+    - Il s’agit de conscientiser à quel moment on **réagit à des pensées et sentiments qui nous viennent**, et à quel moment on **prend le temps de les analyser** pour réagir seulement ensuite.
+    - En analysant les moments où on est en réaction immédiate, on va plus facilement remarquer des choses comme le fait de traiter ce que disent les gens différemment selon si on les apprécie ou non.
+    - L’advice process permet de **prendre son temps** pour prendre en compte ce qui est dit et l’incorporer, en ayant nos biais en tête.
+  - **Exercice 3 : Intentionally Seek Advice That Challenges You.**
+    - Il s’agit de chercher **délibérément à parler aux personnes qui ont des idées contraires aux nôtres**, ou à considérer des arguments contraires à nos idées.
+    - Pour considérer les idées avec lesquelles on est en désaccord, il faut :
+      - D’abord être au clair avec l’exercice 1 : les raisons pour lesquelles on préfère nos idées actuelles.
+      - Se préparer à avoir tort.
+    - Il est intéressant d’examiner pourquoi on est réticent à parler à certaines personnes : est-ce qu’on a un problème personnel avec elles ? Est-ce qu’on a peur qu’elles nous mettent en difficulté sur nos certitudes ? Est-ce qu’on a peut qu’elles mettent en avant un manque de compétence chez nous ?
+  - Parfois on a affaire à des **personnes qui ne veulent pas coopérer** dans l’advice process.
+    - Ça peut typiquement être des **enjeux de pouvoir liés à une position où la personne a des connaissances sur une codebase et son histoire**, et où elle est réticente à donner les raisons sous-jacentes de son opinion pour en faire un advice de qualité.
+    - Alberto Brandolini a fait un article décrivant ce genre de personne : [The Rise and Fall of the Dungeon Master](https://medium.com/@ziobrando/the-rise-and-fall-of-the-dungeon-master-c2d511eed12f).
+    - La 1ère chose à faire face à ces personnes, est de suivre les techniques de métacognition données ici, et aussi d’essayer de faire comprendre à la personne que la contribution au collectif a aussi beaucoup de valeur.
+    - Si ça ne fonctionne pas, on peut :
+      - Demander à une autre personne qui a une bonne relation avec la personne d’aller recueillir l’advice à notre place.
+      - Passer en mode asynchrone, et discuter via chat ou commentaires d’ADR.
+    - Si ça ne fonctionne toujours pas et que la personne refuse de jouer le jeu de l’advice process :
+      - On peut écrire dans la section Advice de l’ADR que la personne refuse de donner l’advice.
+      - On peut escalader à la personne qui a mis en place l’architecture advice process dans l’organisation (probablement un architecte), pour donner plus de poids auprès de la personne qui refuse de coopérer :
+        - 1. Rappeler le fonctionnement de l’advice process.
+        - 2. Rappeler le contrat social et les responsabilités de chacun.
+        - 3. Rappeler que l’ADR permet de rendre l’accountability claire, et met en lumière ce qui a été considéré et ce qui a été choisi.
+    - Ce genre d’interaction tendue est un bon moment pour ensuite faire une analyse de “métacognition postmortem”, pour apprendre de la situation et progresser.
