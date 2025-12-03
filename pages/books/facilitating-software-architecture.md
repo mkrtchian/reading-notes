@@ -859,3 +859,38 @@
         - 2. Rappeler le contrat social et les responsabilités de chacun.
         - 3. Rappeler que l’ADR permet de rendre l’accountability claire, et met en lumière ce qui a été considéré et ce qui a été choisi.
     - Ce genre d’interaction tendue est un bon moment pour ensuite faire une analyse de “métacognition postmortem”, pour apprendre de la situation et progresser.
+- **Prendre une décision** est une activité nécessaire, qu’on a parfois tendance à ne pas vouloir assumer.
+  - Marquer une décision comme irréversible est un bon moyen de la remettre à plus tard à peu de frais. Dans les faits, **une décision est rarement irréversible**.
+  - Il vaut mieux **décider intentionnellement de ne rien faire**, plutôt que de remettre la décision à plus tard. Ça permet de garder le pouvoir.
+  - Une des raisons principales pour ne pas prendre une décision est **la peur**. On appelle ça en général l’_analysis paralysis_.
+    - Ce sujet est largement couvert dans **_The Art of Decision Making_** de Joseph Bikart.
+    - Parmi les peurs possible proposées par Bikart, il peut y avoir :
+      - _Fear of failure_ : peur que l’option choisie se révèle être la mauvaise, sans qu’on ne puisse le savoir à l’avance.
+      - _Fear of heights_ : peur que ça marche trop bien, et d’être victime du succès.
+      - _Fear of identification_ : peur de l’association permanente avec la décision prise : “Ah oui, c’est la personne qui nous a fait passer d’AWS à GCP”.
+      - _Fear of lack of recognition_ : peur que la décision soit vue comme prise par le collectif sans qu’on n’en tire aucune gloire.
+      - _Fear of selfishness_ : peur que la décision soit perçue comme ayant été prise pour des raisons égoïstes.
+    - Ces peurs sont **irrationnelles**. Il faut prendre son courage à deux mains et prendre la décision malgré tout.
+- L’auteur conseille de **sonder nos propres biais**, les noter quelque part, et **se les relire avant de prendre une décision**.
+  - Parmi les biais courants qu’il remarque :
+    - Biais à propos des probabilités mal évaluées.
+    - Biais à évaluer les outcomes sur des critères arbitraires qui nous sont propres.
+    - Biais d’aversion aux pertes.
+    - Biais de privilégier les idées venant du groupe auquel on appartient.
+    - Biais des coûts irrécupérables.
+- **Prendre une décision est difficile, qu’on soit celui qui la prend**. Pour aider à le faire, on peut d’abord **écrire la décision en privé**, et la relire dans des conditions optimales : un endroit calme, un temps calme.
+  - Si possible, l’auteur conseille de laisser passer la nuit, pour que la décision soit plus claire pour nous, et plus facile à assumer.
+- **Pour les architectes** qui avaient l’habitude de prendre les décisions, **laisser le pouvoir est encore plus difficile**.
+  - L’auteur raconte une fois où ils avaient mis en place l’advice process avec un collègue architecte. Une des équipes devait prendre une décision quant à la technologie à utiliser pour un nouveau service. Malgré les advices contraires insistants des deux architectes, ils étaient partis sur AWS Lambda. L’auteur avait voulu intervenir pour empêcher la décision, mais l’autre l’en a empêché : ça aurait brisé la confiance, le contrat social de l’advice process.
+  - Avec l’advice process, **le rôle de l’architecte se transforme** : de décisionnaire sur l’architecture, il passe à celui qui s’assure que les décisions se multiplient et se prennent dans de bonnes conditions, qui s’assure que “les conversations qui ont besoin d’avoir lieu ont lieu” (cf. citation de Ruth Malan).
+  - Quelques conseils pour un architecte :
+    - Il doit apprendre aux autres tout ce qu’il sait de l’architecture.
+    - Il doit donner des vrais advices.
+    - Il ne doit pas essayer d’être dans toutes les décisions.
+    - Il doit laisser les autres faire leurs propres erreurs, et les aider.
+    - Il doit aider les autres à écrire de bons ADRs.
+    - Il doit veiller à cultiver la confiance dans l’organisation.
+    - Il doit coacher chacun sur la nature de l’advice process, qui est de se faire confiance dans la prise de décision.
+    - Il doit aider à séparer les tensions saines de celles qui ne le sont pas.
+    - Il doit s’assurer que ceux qui ont du mal à s’exprimer ou se mettre en avant puissent le faire.
+    - Il doit sonder ses propres émotions, et apprendre d’elles.
