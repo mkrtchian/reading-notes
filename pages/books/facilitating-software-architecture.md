@@ -894,3 +894,33 @@
     - Il doit aider à séparer les tensions saines de celles qui ne le sont pas.
     - Il doit s’assurer que ceux qui ont du mal à s’exprimer ou se mettre en avant puissent le faire.
     - Il doit sonder ses propres émotions, et apprendre d’elles.
+
+### 13 - Tackling Architectural Variability
+
+- La **variability** est l’absence de prédictibilité, due au fait qu’on ne sache pas ce qu’on va implémenter, ni combien de temps ça prendra. Elle représente **les inconnues** qu’il faut adresser dans un système.
+- L’architecture logicielle permet **à la fois d’adresser la _variability_, et en même temps en créer de la nouvelle** en introduisant de nouvelles inconnues.
+  - La _variability_ en architecture présente des difficultés :
+    - **Elle rend le travail plus difficile** : les solutions qu’on imagine finissent par ne pas être les bonnes, les problèmes qu’on tacle finissent par en cacher d’autres, les décisions des autres équipes nous impactent d’une manière qu’on n’aurait pas pu prévoir etc.
+    - **Elle se manifeste dans des endroits imprévisibles, et à des moments imprévisibles** : quel que soit le temps qu’on passe à planifier en envisager les possibilités, on va toujours se confronter à des imprévus, qu’ils soient techniques ou humains.
+    - **Elle produit de la charge cognitive** : que ce soit de l’_instinsic_, de l’_extraneous_, ou de la _germaine_ (cf. **_Team Topologies_**). On doit en permanence penser à toutes les possibilités, et si ça vaut la peine de les adresser.
+    - **Elle produit un besoin de communication et de synchronisation** : que ce soit entre membres d’une équipe, ou entre équipes, il faut faire des meetings pour être au clair sur les choses à adresser qu’on n’avait pas prévu.
+  - Mais la **_variability_ est aussi l’élan vital du développement logiciel**.
+    - L’auteur critique le lean, en mettant en avant que là où la _variability_ n’est pas souhaitable dans les usines, elle est cruciale dans le développement logiciel.
+    - La _variability_ permet au équipes produit de **délivrer tout ce qu’on peut imaginer très rapidement**. Elle n’est que le résultat du fait qu’un grand nombre de développeurs peuvent faire ça en même temps. Les décisions d’architecture sont au cœur de ce processus.
+    - En conséquence, l’auteur propose de gérer la _variability_ pour accueillir l’_émergence_, plutôt que de l’éviter absolument.
+- Dans le cadre de **décisions d’architecture qui émergent d’un besoin d’implémenter une user story**, la gestion de la _variability_ doit être gérée.
+  - Les user stories sont des slices atomiques de use-case, qu’on peut implémenter rapidement. L’auteur recommande à ce propos **_User Stories Applied for Agile Software Development_** de Mike Cohn, et **_User Story Mapping_** de Jeff Patton.
+  - **1 - Prendre des décisions et les tester rapidement** : la seule manière de lever les inconnues c’est de se confronter à du feedback, avant ça on ne peut qu’espérer que ça marche.
+  - **2 - Tester les décisions dans leur contexte fonctionnel** : ce qu’on veut savoir c’est si la décision d’architecture est bonne pour supporter notre use-case, et donc si le feedback utilisateur est celui qu’on attend.
+  - **3 - Utiliser un _walking skeleton_ pour tester les décisions dans un nouveau système** : quand on crée un nouveau système où il n’y a pas de user stories sur lesquelles s’appuyer pour valider les décisions, le walking skeleton est une **implémentation de fonctionnalité minimale** permettant de tester le système.
+    - On peut trouver des choses sur le walking skeleton notamment dans **_Growing Object-Oriented Software, Guided by Tests_** de Steve Freeman et Nat Pryce.
+    - Le but est de trouver les problèmes d’architecture rapidement, plutôt qu’attendre d’avoir déjà fait beaucoup de développements et se rendre compte que le système ne tient pas certains des requirements.
+  - **4 - Prendre de petites décisions** : des décisions portant sur un périmètre faible, où il y a peu de choses à considérer (ce qui ne veut pas dire que la décision ne sera pas significative). C’est un bon moyen de ne pas adresser un grand nombre d’inconnus en même temps.
+    - Les décisions avec un grand périmètre impliquent en général un grand nombre d’équipes, et leur enlèvent de l’autonomie. Par exemple : quel cloud provider utiliser pour l’ensemble de nos systèmes ?
+    - Exemple de split de grande décision : dans la Story 2, la décision de l’architecte donne lieu à 3 décisions : refactorer le service, gérer l’aspect partage de code entre android et IOS, gérer le problème du stateful.
+    - Séparer une grande décision en plusieurs petites permet d’éviter qu’une inconnue dans le cadre de l’une des sous-branches impacte les autres, que ce soit d’un point de vue synchronisation, ou d’un point de vue implication des mêmes personnes. Et **la _variability_ de chaque petite décision sera levée plus rapidement**.
+      - Reinertsen a fait des études statistiques et a trouvé que les petites tâches restent dans la backlog un temps d’un ordre de grandeur plus faible par rapport aux grandes tâches.
+    - Contrairement à ce qu’on pourrait penser intuitivement, **mener à bien plusieurs petites décisions impliquent moins de travail qu’une grande** :
+      - Les petites décisions font qu’il y a moins de personnes à aller consulter.
+      - Les petites décisions font qu’il y a moins de choses à prendre en compte pour décider, donc on décide plus vite.
+    - Les petites décisions **motivent les équipes à délivrer**. Si la décision est trop grande, implique trop d’inconnues, on n’en voit pas le bout. Mais si elle est petite, tout le monde a envie de l’implémenter rapidement.
