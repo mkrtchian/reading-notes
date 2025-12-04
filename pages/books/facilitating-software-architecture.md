@@ -906,9 +906,9 @@
     - **Elle produit un besoin de communication et de synchronisation** : que ce soit entre membres d’une équipe, ou entre équipes, il faut faire des meetings pour être au clair sur les choses à adresser qu’on n’avait pas prévu.
   - Mais la **_variability_ est aussi l’élan vital du développement logiciel**.
     - L’auteur critique le lean, en mettant en avant que là où la _variability_ n’est pas souhaitable dans les usines, elle est cruciale dans le développement logiciel.
-    - La _variability_ permet au équipes produit de **délivrer tout ce qu’on peut imaginer très rapidement**. Elle n’est que le résultat du fait qu’un grand nombre de développeurs peuvent faire ça en même temps. Les décisions d’architecture sont au cœur de ce processus.
+    - La _variability_ permet aux équipes produit de **délivrer tout ce qu’on peut imaginer très rapidement**. C’est parce qu’il y a de la _variability_ qu’on va explorer telle approche qui finit par échouer, mais qui nous mène à autre chose qui se révèle bien meilleur que ce qu’on avait au départ. Tout prévoir à l’avance empêchera d’arriver aux meilleures solutions.
     - En conséquence, l’auteur propose de gérer la _variability_ pour accueillir l’_émergence_, plutôt que de l’éviter absolument.
-- Dans le cadre de **décisions d’architecture qui émergent d’un besoin d’implémenter une user story**, la gestion de la _variability_ doit être gérée.
+- On peut gérer la _variability_ en partant des **décisions d’architecture qui émergent d’un besoin d’implémenter une user story**.
   - Les user stories sont des slices atomiques de use-case, qu’on peut implémenter rapidement. L’auteur recommande à ce propos **_User Stories Applied for Agile Software Development_** de Mike Cohn, et **_User Story Mapping_** de Jeff Patton.
   - **1 - Prendre des décisions et les tester rapidement** : la seule manière de lever les inconnues c’est de se confronter à du feedback, avant ça on ne peut qu’espérer que ça marche.
   - **2 - Tester les décisions dans leur contexte fonctionnel** : ce qu’on veut savoir c’est si la décision d’architecture est bonne pour supporter notre use-case, et donc si le feedback utilisateur est celui qu’on attend.
@@ -916,11 +916,22 @@
     - On peut trouver des choses sur le walking skeleton notamment dans **_Growing Object-Oriented Software, Guided by Tests_** de Steve Freeman et Nat Pryce.
     - Le but est de trouver les problèmes d’architecture rapidement, plutôt qu’attendre d’avoir déjà fait beaucoup de développements et se rendre compte que le système ne tient pas certains des requirements.
   - **4 - Prendre de petites décisions** : des décisions portant sur un périmètre faible, où il y a peu de choses à considérer (ce qui ne veut pas dire que la décision ne sera pas significative). C’est un bon moyen de ne pas adresser un grand nombre d’inconnus en même temps.
-    - Les décisions avec un grand périmètre impliquent en général un grand nombre d’équipes, et leur enlèvent de l’autonomie. Par exemple : quel cloud provider utiliser pour l’ensemble de nos systèmes ?
     - Exemple de split de grande décision : dans la Story 2, la décision de l’architecte donne lieu à 3 décisions : refactorer le service, gérer l’aspect partage de code entre android et IOS, gérer le problème du stateful.
-    - Séparer une grande décision en plusieurs petites permet d’éviter qu’une inconnue dans le cadre de l’une des sous-branches impacte les autres, que ce soit d’un point de vue synchronisation, ou d’un point de vue implication des mêmes personnes. Et **la _variability_ de chaque petite décision sera levée plus rapidement**.
+    - Les décisions avec un grand périmètre impliquent en général un grand nombre d’équipes, et leur enlèvent de l’autonomie. Par exemple : quel cloud provider utiliser pour l’ensemble de nos systèmes ?
+    - Séparer une grande décision en plusieurs petites permet d’éviter qu’une inconnue dans le cadre de l’une des sous-branches impacte les autres, que ce soit d’un point de vue synchronisation, ou d’un point de vue implication des mêmes personnes. Et **la _variability_ de chaque petite décision sera levée plus rapidement**, grâce au feedback obtenu plus vite.
       - Reinertsen a fait des études statistiques et a trouvé que les petites tâches restent dans la backlog un temps d’un ordre de grandeur plus faible par rapport aux grandes tâches.
     - Contrairement à ce qu’on pourrait penser intuitivement, **mener à bien plusieurs petites décisions impliquent moins de travail qu’une grande** :
       - Les petites décisions font qu’il y a moins de personnes à aller consulter.
       - Les petites décisions font qu’il y a moins de choses à prendre en compte pour décider, donc on décide plus vite.
     - Les petites décisions **motivent les équipes à délivrer**. Si la décision est trop grande, implique trop d’inconnues, on n’en voit pas le bout. Mais si elle est petite, tout le monde a envie de l’implémenter rapidement.
+    - **Une décision est limitée par son sous-aspect le plus faible**. Et donc plus la décision a un grand périmètre, plus elle risque d’être mauvaise globalement, là où si on la divise en petites décisions, seules certaines d’entre-elles seront affectées par l’aspect problématique.
+    - **Comment diviser des décisions** d’architecture ?
+      - **Écrire un ADR** suffit bien souvent à voir qu’il y a plusieurs décisions à séparer dans des ADRs différents. On peut s’en rendre compte de par le contexte, ou alors quand on se retrouve avec des options qui se séparent en groupes couvrant des variantes pour plusieurs problèmes.
+      - Quand on a des choses rassemblées dans le même ADR parce qu’elles ont des similarités communes, on peut **vérifier quelles sont leurs différences**, et si on ne les a pas mises ensemble de manière illégitime.
+      - On peut utiliser des critères particuliers pour **trouver où séparer les choses** :
+        - _Functional fracture planes_ : on se pose la question “Que doit faire ce composant ?” pour différencier les composants qui ont un usage différent, malgré de la donnée apparemment similaire.
+        - _Delivery-timing fracture planes_ : on se demande si certaines parties d’une décision peuvent être adressées plus tard parce que moins urgentes, dans une décision séparée.
+        - _Codebase-location fracture planes_ : si une décision impacte les codebases de plusieurs équipes, on peut séparer en plusieurs décisions impactant les codebases d’une seule équipe.
+        - _Unblocking flow of work fracture planes_ : on sépare la grande décision par une sous décision qui permet aux équipes de commencer à implémenter, suivie de plusieurs petites décisions pour chaque équipe.
+          - La décision inter-équipe peut définir les contrats d’API avec des outils comme **Pact**.
+        - _The “shared decision that unlocks everything else” fracture plane_ : on se demande “Quelles sont les décisions dont on a besoin pour débloquer cette décision ?”, pour trouver les sous décisions qui peuvent être implémentées d’abord, et qui débloquent la suite.
