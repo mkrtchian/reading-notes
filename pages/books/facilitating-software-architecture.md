@@ -935,3 +935,20 @@
         - _Unblocking flow of work fracture planes_ : on sépare la grande décision par une sous décision qui permet aux équipes de commencer à implémenter, suivie de plusieurs petites décisions pour chaque équipe.
           - La décision inter-équipe peut définir les contrats d’API avec des outils comme **Pact**.
         - _The “shared decision that unlocks everything else” fracture plane_ : on se demande “Quelles sont les décisions dont on a besoin pour débloquer cette décision ?”, pour trouver les sous décisions qui peuvent être implémentées d’abord, et qui débloquent la suite.
+- Le flow de travail est facilité :
+  - Des facteurs techniques et socio-techniques liés aux 5 révolutions et à l’advice process. Chacun d’autre eux permet de prendre de plus petites décisions, de livrer de plus petites itérations, le tout en parallèle.
+  - Pour que ça marche, il faut que les décisions soient divisées autour des fracture planes des systèmes techniques et socio-techniques **de petite taille**, et que **ces systèmes soient eux-mêmes découplés**.
+    - Avec l’advice process, ce découplage se fait en permanence par l’ensemble des acteurs. Ca peut être par exemple :
+      - Bouger une fonctionnalité d’une équipe à une autre.
+      - Refactorer des APIs pour cacher de l’information.
+      - L’équipe arrive avec une nouvelle solution qu’elle imagine.
+    - Un des mécanismes qui permet l’émergence de petites unités découplées est le fait que les acteurs vont chercher à créer de petites décisions, où le **nombre d’acteurs impliqués pour donner des advices est minimisé**.
+- La _variability_ est **source de risque mais peut apporter de la valeur**. En adoptant une approche incrémentale des décisions d’architecture, on minimise le risque.
+  - **Il vaut mieux livrer vite une mauvaise approche, que prendre beaucoup de temps pour livrer une bonne approche**.
+    - Il est en fait impossible de savoir si notre approche est bonne tant qu’on n’a pas le feedback de la production et des clients. Donc livrer vite est la meilleure solution dans tous les cas, et si l’approche était mauvaise, on apprend et on la corrige.
+    - Livrer vite a aussi l’avantage que l’équipe offre de la visibilité aux autres acteurs en montrant qu’elle avance et s’adapte, ce qui permet de laisser plus d’autonomie à l’équipe.
+  - **Il faut surveiller les décisions qui prennent trop de temps**.
+    - On peut faire ça dans un architecture advice forum : regarder les ADRs en cours qui sont depuis le plus longtemps, et essayer de comprendre ce qui bloque. Souvent c’est une décision qui a un périmètre trop grand.
+  - S’il faut prioriser des décisions qui se gênent, on peut** prioriser celles qui apportent de la valeur**.
+    - La valeur doit forcément passer par la mise en production, sinon on ne fait que spéculer.
+    - Ça peut être de la valeur produit, ou de la valeur liée à l’apprentissage : tester quelque chose pour voir clarifier des développements futurs.
