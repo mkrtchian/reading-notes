@@ -952,3 +952,25 @@
   - S’il faut prioriser des décisions qui se gênent, on peut** prioriser celles qui apportent de la valeur**.
     - La valeur doit forcément passer par la mise en production, sinon on ne fait que spéculer.
     - Ça peut être de la valeur produit, ou de la valeur liée à l’apprentissage : tester quelque chose pour voir clarifier des développements futurs.
+
+### 14 - Variability and the Interconnectedness of Decisions
+
+- La _variability_ se manifeste sous plusieurs formes de problème rendent les décisions difficiles :
+  - La **_variability_ technique** à propos du résultat incertain du choix de chaque option.
+  - La **_variability_ sociale** liée aux biais du décideur et des advisors.
+  - Le fait que les décisions en train d’être prises soient **interconnectées**, et qu’elles ont des conséquences l’une sur l’autre.
+- Les **spikes** sont un outil issu de l’extreme programming, et centré sur les faits, permettant d’adresser la _variability_ technique et sociale en **complément des ADRs**.
+  - Il s’agit de faire une expérimentation **timeboxée**, principalement sous forme de code, pour mieux comprendre le problème.
+  - Les spikes ne permettent **pas de créer du code production, ni de prendre de décisions**. Ils permettent juste de récolter de l’information.
+  - Les spikes sont un moyen d’obtenir de la _variability_ pas chère, en testant une solution **sans avoir à passer par le processus de décision** ni le fait d’écrire du code de production.
+- Les spikes dans le processus de décision :
+  - Ils peuvent être mis en place dès le moment qu’on voit qu’une décision a besoin d’être prise, ou pendant la rédaction d’un ADR.
+  - Le spike s’écrit comme un ADR, et son contenu peut largement venir ensuite alimenter l’ADR qui suivra.
+    - 1 - On remplit d’abord les éléments :
+      - **ID** : notre outil de gestion de tickets de backlog peut en attribuer un automatiquement.
+      - **Title** : plutôt sous forme de question exprimant le problème. Par exemple : “Can we have shorter, human-readable inventory IDs?”
+      - **Time box** : il faut fixer le temps passé dessus dès le départ, par exemple “une paire de devs pendant 3 jours”.
+      - **Context** : on répond aux questions :
+        - Qu’est-ce que va apporter de répondre à la question du spike ? Pourquoi maintenant ?
+        - Qui est affecté ou intéressé par la réponse ?
+        - Quelles sont les contraintes ?
