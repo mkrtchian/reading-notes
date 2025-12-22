@@ -289,7 +289,7 @@
   - **2 - Les bonnes personnes ne sont pas consultées pour donner l’advice**
     - Ce problème concerne en général les développeurs qui ne savent pas vraiment à qui parler, plutôt que les architectes qui ont déjà l’habitude d’aller consulter les bonnes personnes.
     - La première chose à faire pour les équipes de développeurs est de demander un advice à l’architecte, notamment pour lui demander ensuite qui d’autre serait pertinent pour donner un advice sur ce sujet.
-    - Une bonne pratique est de construire petit à petit une liste indiquant les personnes compétentes sur des sujets spécifiques. Par exemple pour “information security”, pour “personally identifiable information”, pour “user onboarding flow” etc.
+    - Une bonne pratique est de construire **petit à petit** une liste indiquant les personnes compétentes sur des sujets spécifiques. Par exemple pour “information security”, pour “personally identifiable information”, pour “user onboarding flow” etc.
     - Parfois la liste de personnes à consulter est énorme : c’est pas grave, il faut les consulter quand même. Ça peut pousser à diviser la grande décision en plus petites, ou reconsidérer l’intérêt de prendre une décision sur ce sujet.
   - **3 - On oublie de demander “Pourquoi ?” lors de l’advice et on passe à côté d’informations essentielles**.
     - Attention aux supérieurs hiérarchiques à qui on demande un advice : ils risquent de se cantonner à l’opinion, ou à une direction à suivre. Il faut alors leur demander le pourquoi de leur opinion, et leur rappeler que c’est nous qui sommes accountable.
@@ -955,7 +955,7 @@
 
 ### 14 - Variability and the Interconnectedness of Decisions
 
-- La _variability_ se manifeste sous plusieurs formes de problème rendent les décisions difficiles :
+- La _variability_ se manifeste sous plusieurs formes de problème rendant les décisions difficiles :
   - La **_variability_ technique** à propos du résultat incertain du choix de chaque option.
   - La **_variability_ sociale** liée aux biais du décideur et des advisors.
   - Le fait que les décisions en train d’être prises soient **interconnectées**, et qu’elles ont des conséquences l’une sur l’autre.
@@ -966,7 +966,7 @@
 - Les spikes dans le processus de décision :
   - Ils peuvent être mis en place dès le moment qu’on voit qu’une décision a besoin d’être prise, ou pendant la rédaction d’un ADR.
   - Le spike s’écrit comme un ADR, et son contenu peut largement venir ensuite alimenter l’ADR qui suivra.
-    - 1 - On remplit d’abord les éléments :
+    - ** 1 - On remplit d’abord les éléments**.
       - **ID** : notre outil de gestion de tickets de backlog peut en attribuer un automatiquement.
       - **Title** : plutôt sous forme de question exprimant le problème. Par exemple : “Can we have shorter, human-readable inventory IDs?”
       - **Time box** : il faut fixer le temps passé dessus dès le départ, par exemple “une paire de devs pendant 3 jours”.
@@ -974,3 +974,13 @@
         - Qu’est-ce que va apporter de répondre à la question du spike ? Pourquoi maintenant ?
         - Qui est affecté ou intéressé par la réponse ?
         - Quelles sont les contraintes ?
+      - **Options considered **: on liste les manières possibles de répondre au problème du spike.
+      - **Consequences** : on les remplit au cours de l’exécution du spike.
+    - **2. On exécute le spike**.
+      - Ca va généralement être l’équipe initiatrice du spike, mais dans le cas d’une initiative individuelle (par exemple un architecte), ça peut aller dans la backlog de l’équipe concernée.
+      - Au fil des expérimentations, on trouve de nouvelles options à essayer, et on remplit aussi la section _Consequences_ qui contient ce qui a été trouvé des expérimentations.
+      - Un architecte hands on va typiquement vouloir faire des spikes avec les équipes qu’il assiste, pour lui aussi remettre les mains dans le code.
+    - **3. On crée un ADR à partir du contenu du spike**.
+      - Le titre doit être adapté.
+      - Le contexte, les options et les conséquences peuvent être repris, et complétés.
+      - On peut ensuite sélectionner une option, et passer en proposed.
