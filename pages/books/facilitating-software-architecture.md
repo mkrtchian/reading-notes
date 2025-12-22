@@ -984,3 +984,11 @@
       - Le titre doit être adapté.
       - Le contexte, les options et les conséquences peuvent être repris, et complétés.
       - On peut ensuite sélectionner une option, et passer en proposed.
+- **Les décisions sont souvent liées entre elles**, et le spike permet de comprendre ce lien en entrant dans les détails.
+  - 1. Les décisions peuvent **constituer une série**.
+    - On peut voir chaque décision comme donnant sur plusieurs portes (options), et la porte ouverte est la décision prise. Cette porte donne elle-même sur plusieurs portes, constituant une autre décision.
+    - Avec un spike, on peut ouvrir une porte et faire peu de chemin avant de retourner en arrière pour ouvrir une autre porte. Sans spike, on va parcourir un long chemin avec du code en prod avant de pouvoir changer.
+    - Plus on abandonne une idée rapidement, plus ce sera facile de le faire et les conséquences seront faibles. Le spike est l’outil idéal pour ça.
+  - 2. Les décisions peuvent **constituer une hiérarchie inversée**.
+    - Contrairement au 1. où les décisions se suivaient, ici chaque décision peut influencer non seulement celle qui suit directement, mais aussi toutes les autres qui suivent. Et donc le 1er layer est constitué des premières décisions, puis le 2ème layer plus petit des décisions suivantes etc.
+    - Les 3 premiers layers peuvent être analysés sous le prisme de **_A pattern Language_** de Christopher Alexander, Sara Ishikawa, et Murray Silverstein.
