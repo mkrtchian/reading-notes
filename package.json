@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "next": "16.1.3",
+    "next": "16.1.4",
     "next-seo": "7",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
