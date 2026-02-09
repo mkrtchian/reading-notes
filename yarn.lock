@@ -795,10 +795,10 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node@25.2.0":
-  version "25.2.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.2.0.tgz#015b7d228470c1dcbfc17fe9c63039d216b4d782"
-  integrity sha512-DZ8VwRFUNzuqJ5khrvwMXHmvPe+zGayJhr2CDNiKB1WBE1ST8Djl00D0IC4vvNmHMdj6DlbYRIaFE7WHjlDl5w==
+"@types/node@25.2.2":
+  version "25.2.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.2.2.tgz#0ddfe326c326afcb3422d32bfe5eb2938e1cb5db"
+  integrity sha512-BkmoP5/FhRYek5izySdkOneRyXYN35I860MFAGupTdebyE66uZaR+bXLHq8k4DirE5DwQi3NuhvRU1jqTVwUrQ==
   dependencies:
     undici-types "~7.16.0"
 
