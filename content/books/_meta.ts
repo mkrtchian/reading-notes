@@ -1,27 +1,32 @@
-{
-  "accelerate": "Accelerate",
+const meta = {
+  accelerate: "Accelerate",
   "ai-engineering": "AI Engineering",
   "architecture-patterns-with-python": "Architecture Patterns with Python",
   "continuous-discovery-habits": "Continuous Discovery Habits",
   "designing-cloud-data-platforms": "Designing Cloud Data Platforms",
-  "designing-data-intensive-applications": "Designing Data-Intensive Applications",
+  "designing-data-intensive-applications":
+    "Designing Data-Intensive Applications",
   "effective-kafka": "Effective Kafka",
   "effective-typescript": "Effective TypeScript",
   "facilitating-software-architecture": "Facilitating Software Architecture",
   "generative-ai-design-patterns": "Generative AI Design Patterns",
-  "get-your-hands-dirty-on-clean-architecture": "Get Your Hands Dirty on Clean Architecture",
+  "get-your-hands-dirty-on-clean-architecture":
+    "Get Your Hands Dirty on Clean Architecture",
   "learning-domain-driven-design": "Learning Domain-Driven Design",
   "learning-to-scale": "Learning to Scale",
   "monolith-to-microservices": "Monolith to Microservices",
   "no-rules-rules": "No Rules Rules",
   "outcomes-over-output": "Outcomes Over Output",
-  "refactoring": "Refactoring: Improving the Design of Existing Code",
+  refactoring: "Refactoring: Improving the Design of Existing Code",
   "reinventing-organizations": "Reinventing Organizations",
   "team-topologies": "Team Topologies",
-  "technical-agile-coaching-samman-method": "Technical Agile Coaching with the Samman Method",
+  "technical-agile-coaching-samman-method":
+    "Technical Agile Coaching with the Samman Method",
   "test-driven-development-by-example": "Test-Driven Development: By Example",
   "the-design-of-web-apis": "The Design of Web APIs",
   "the-five-dysfunctions-of-a-team": "The Five Dysfunctions of a Team",
   "turn-the-ship-around": "Turn the Ship Around!",
-  "unit-testing": "Unit Testing: Principles, Practices, and Patterns"
-}
+  "unit-testing": "Unit Testing: Principles, Practices, and Patterns",
+};
+
+export default meta;

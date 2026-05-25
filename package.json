@@ -6,7 +6,7 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "npx serve@latest out -s -l 3000",
-    "export": "next build --webpack && touch out/.nojekyll",
+    "export": "next build --webpack && pagefind --site out --output-path out/_pagefind && touch out/.nojekyll",
     "lint": "eslint . --max-warnings=0",
     "type-check": "tsc",
     "deploy": "gh-pages -d out -t",
@@ -14,24 +14,27 @@
   },
   "dependencies": {
     "next": "16.2.6",
-    "next-seo": "^6.8.0",
-    "nextra": "^2.13.2",
-    "nextra-theme-docs": "^2.13.2",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "nextra": "^4.6.1",
+    "nextra-theme-docs": "^4.6.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
     "eslint": "9",
     "eslint-config-next": "^16.2.6",
     "eslint-config-prettier": "^10.1.8",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
+    "pagefind": "^1.5.2",
     "prettier": "^3.8.3",
     "typescript": "6.0.3"
+  },
+  "resolutions": {
+    "zod": "4.1.12"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix --max-warnings=0",

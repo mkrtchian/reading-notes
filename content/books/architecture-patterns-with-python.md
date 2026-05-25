@@ -34,7 +34,6 @@
     - Exemple : “On ne peut pas allouer la même _line_ deux fois”
       - Si on a un _batch_ de 10 BLUE*VASE, et qu’on alloue une_line* de 2 BLUE*VASE, si on réalloue la même_line*, le _batch_ ne changera pas, et restera à 8 BLUE_VASE.
 - L’étape après la discussion est la construction du **domain model** à l’aide de tests.
-
   - Exemple de test :
 
     ```python
@@ -70,9 +69,7 @@
     ```
 
 - Les type hints sont controversés en Python, mais les auteurs les conseillent.
-
   - On peut typer les attributs avec des _str_, _int_ etc. mais on pourrait aussi utiliser **typing.NewType** pour créer des value objects pour pas cher pour chaque attribut.
-
     - Ex :
 
       ```python
@@ -88,7 +85,6 @@
     - Les auteurs sont plutôt réticents à cette idée.
 
 - **dataclass** avec l’attribut _frozen=True_ permet d’obtenir des objets **immutables**, et donc représente bien un **value object**.
-
   - On peut obtenir la même chose avec _NamedTuple_
 
     ```python
@@ -105,7 +101,6 @@
     - On pourrait aussi penser à des opérateurs comme le +, -, * entre *value objects\*.
 
 - Les **entities**, contrairement aux _value objects_, ont une identité, leur attributs peuvent bien changer, ils restent singuliers.
-
   - On va souvent implémenter les opérateurs d’égalité et de hash comme basés sur la référence de l’objet.
 
     ```python
@@ -121,7 +116,6 @@
     ```
 
 - Les **domain services** représentent des concepts ou des process qui ne sont ni des _value objects_, ni des _entities_.
-
   - A ne pas confondre avec le _service layer_, qui représente des use-cases et utilise le _domain layer_.
   - Les auteurs conseillent d’utiliser des **fonctions**.
   - Exemple :
@@ -153,7 +147,6 @@
   - Malgré tout, l’ORM est une abstraction spécifique à la DB. On passe par lui dès qu’il faut personnaliser quelque chose sur une requête particulière. On veut que **notre _domain model_ soit couplé à une abstraction encore plus abstraite**.
 - Les auteurs utilisent **_SQLAlchemy_** même dans les projets où il n’y a pas besoin d’ORM, ne serait-ce que pour créer des data models, gérer les migrations et les connexions.
 - **_SQLAlchemy_** permet de **mapper automatiquement** un _domain model_ fait avec du pur code et un _data model_ fait avec SQLAlchemy.
-
   - Ca se fait avec la fonction sqlalchemy.orm.mapper :
 
     ```python
@@ -194,7 +187,6 @@
       * Les auteurs comptent souvent sur le duck typing lui-même et n’hésitent pas à **se passer d’interfaces**.
 - Le _repository pattern_ consiste essentiellement à avoir une interface qui permet d’ajouter et consulter des objets, en cachant la manière dont le stockage est fait.
 - On va écrire des tests pour notre repository.
-
   - Les auteurs conseillent de garder ces tests, en particulier pour les repositories non triviaux.
 
     ```python
@@ -315,6 +307,7 @@
     batchref = model.allocate(line, batches)
     return jsonify({'batchref': batchref}), 201
   ```
+
   - Les auteurs sont **réticents à vérifier le contenu de la base dans le test d’intégration**, et donc préfèrent ajouter un deuxième test qui va consommer le contenu d’un batch, puis vérifier que c’est le batch suivant qui est alloué par une autre requête POST.
 - Les auteurs continuent avec des vérifications d’erreurs liées au SKU qui peut être invalide ou ne pas exister. Il ne s’agit pas de logique du domaine, mais plutôt de sanity checks.
   - On va donc créer des **tests d’intégration supplémentaires** pour ça, en vérifiant le statut 400 et les messages d’erreurs, et implémenter la logique dans l’endpoint Flask.
@@ -385,7 +378,6 @@
   - 6 integration tests des _output adapters_
   - 2 integration tests d’input adapter (e2e tests)
 - On va s’intéresser maintenant à ce qui se passe si **on traduit les tests du domain layer vers le service layer**.
-
   - C’est assez facile à faire : puisque le _service layer_ utilise le _domain layer_, il suffit de l’instancier avec le fake repository, et de le run, puis de vérifier le contenu du fake repository.
 
     ```typescript
@@ -630,7 +622,6 @@
   - Il a **à tout moment la liste complète des _batches_** qui le concernent.
 
 - Un _aggregate_ ne peut avoir qu’**un seul _repository_** qui permet de le manipuler depuis son _aggregate root_.
-
   - On va transformer notre _BatchRepository_ en _ProductRepository_.
   - Dans un premier temps, on peut ne transformer que le repository in memory pour faire marcher notre application service avec ses tests unitaires.
 
@@ -685,11 +676,9 @@
     - Faire du lazy loading pour les batchs d’un même aggregate. SQLAlchemy peut nous aider à faire ça.
     - Choisir une autre délimitation pour notre _aggregate_. Après tout, le choix de la délimitation est **un trade off entre performance et capacité à faire respecter des invariants**.
 - Maintenant qu’on a notre _aggregate_, on va réfléchir à la manière de répondre aux **problèmes de concurrence**.
-
   - On a le choix entre l’**optimistic concurrency** où on exécute toutes les transactions et laisse échouer celles qui ont un conflit et se terminent en dernier, et la **pessimistic concurrency** où une transaction va bloquer tous les objets dont elle a besoin jusqu’à ce qu’elle ait fini.
     - L’avantage de l’_optimistic concurrency_ est la performance, et le désavantage c’est que si’il y a des conflits, il faudra un mécanisme de retry pour les requêtes qui finissent en erreur à cause des problèmes de concurrence.
   - Une première manière de faire l’_optimistic concurrency_ est d’**utiliser un compteur** au sein de notre _aggregate_ : de cette manière on s’assure que deux transactions qui touchent quoi que ce soit dans un même aggregate toucheront forcément un champ commun et seront donc en concurrence pour de l’écriture.
-
     - On doit d’abord se poser la question de l'endroit où se trouvera le compteur.
       - Le plus logique serait qu’il soit dans le _unit of work_ puisqu’il s’agit d’un sujet lié à la notion d’atomicité des transactions. Ceci dit, dans notre cas on se retrouve avec un souci technique qui est qu’on ne sait pas comment savoir quel _product_ a changé, et donc lequel doit voir son compteur incrémenté. Il faudrait que le _unit of work_ ou le repository se souvienne de l’état du _product_ avant et puisse comparer avec après le passage dans l’application service.
       - Une autre solution est que ce soit fait dans l’_application service_. C’est vrai que le compteur n’est pas vraiment un sujet lié au domaine, mais d’un autre côté avoir l’application service faire des modifications est étrange aussi.

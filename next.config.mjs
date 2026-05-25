@@ -1,13 +1,11 @@
-/** @type {import('next').NextConfig} */
-const withNextra = require("nextra")({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.tsx",
-});
+import nextra from "nextra";
+
+const withNextra = nextra({});
 
 const isProduction = process.env.NODE_ENV === "production";
 const assetPrefix = isProduction ? "/reading-notes" : "";
 
-const nextConfig = {
+export default withNextra({
   images: {
     unoptimized: true,
   },
@@ -16,9 +14,4 @@ const nextConfig = {
   assetPrefix,
   basePath: assetPrefix,
   output: "export",
-};
-
-module.exports = {
-  ...withNextra(),
-  ...nextConfig,
-};
+});
