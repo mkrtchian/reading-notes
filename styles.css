@@ -1,12 +1,14 @@
-main ul.nx-mt-6 {
-  margin-top: 0;
+/* Reading notes lean heavily on nested lists. Nextra 4 spaces them
+   generously (content <li> get my-[.5em]; nested lists add
+   not-first:mt-[1.25em] + my-[.75em]), which spreads deep lists out.
+   Scope to <article> so the sidebar/TOC lists are untouched. Plain rules,
+   unlayered, so they win over Nextra's @layer utilities without !important. */
+article li {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
-main ul:is([dir="ltr"] .ltr\:nx-ml-6) {
-  margin-left: 2rem;
-}
-
-main li.nx-my-2 {
+article :is(ul, ol) :is(ul, ol) {
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
 }
