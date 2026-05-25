@@ -4,3 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      # next-seo v7 is a JSON-LD-only rewrite: no NextSeo component or NextSeoProps.
+      # Stay on v6 while we use Nextra 2.x.
+      - dependency-name: "next-seo"
+        update-types: ["version-update:semver-major"]
