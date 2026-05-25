@@ -9,3 +9,17 @@ updates:
       # Stay on v6 while we use Nextra 2.x.
       - dependency-name: "next-seo"
         update-types: ["version-update:semver-major"]
+      # @types/node tracks the Node major it describes. Keep it on the Node LTS
+      # major we run (24); a higher major would type APIs missing at runtime.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      # React stays on 18: Nextra 2 pins @headlessui/react@1.7.14, which breaks
+      # the build on React 19. Drop these once Nextra is upgraded.
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
