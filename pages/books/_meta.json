@@ -1,5 +1,6 @@
 {
   "accelerate": "Accelerate",
+  "ai-engineering": "AI Engineering",
   "architecture-patterns-with-python": "Architecture Patterns with Python",
   "continuous-discovery-habits": "Continuous Discovery Habits",
   "designing-cloud-data-platforms": "Designing Cloud Data Platforms",
@@ -7,6 +8,7 @@
   "effective-kafka": "Effective Kafka",
   "effective-typescript": "Effective TypeScript",
   "facilitating-software-architecture": "Facilitating Software Architecture",
+  "generative-ai-design-patterns": "Generative AI Design Patterns",
   "get-your-hands-dirty-on-clean-architecture": "Get Your Hands Dirty on Clean Architecture",
   "learning-domain-driven-design": "Learning Domain-Driven Design",
   "learning-to-scale": "Learning to Scale",
