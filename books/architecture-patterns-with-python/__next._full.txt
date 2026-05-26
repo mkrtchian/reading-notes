@@ -8,7 +8,7 @@ c:I[484,[],"MetadataBoundary"]
 e:I[7123,[],"default",1]
 :HL["/reading-notes/_next/static/css/11c59cc40cabfed8.css","style"]
 :HL["/reading-notes/_next/static/css/57ecb3dd00bac265.css","style"]
-0:{"P":null,"c":["","books","architecture-patterns-with-python",""],"q":"","i":false,"f":[[["",{"children":[["mdxPath","books/architecture-patterns-with-python","oc",null],{"children":["__PAGE__",{}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/reading-notes/_next/static/css/11c59cc40cabfed8.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/reading-notes/_next/static/css/57ecb3dd00bac265.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],"$L2"]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],{},null,false,null]},null,false,"$@9"]},null,false,null],["$","$1","h",{"children":[null,["$","$La",null,{"children":"$Lb"}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$Ld"}]}]}],null]}],false]],"m":"$undefined","G":["$e",[]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"Qs3sUQ5Rrwf014Su1DFFF"}
+0:{"P":null,"c":["","books","architecture-patterns-with-python",""],"q":"","i":false,"f":[[["",{"children":[["mdxPath","books/architecture-patterns-with-python","oc",null],{"children":["__PAGE__",{}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/reading-notes/_next/static/css/11c59cc40cabfed8.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/reading-notes/_next/static/css/57ecb3dd00bac265.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],"$L2"]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],{},null,false,null]},null,false,"$@9"]},null,false,null],["$","$1","h",{"children":[null,["$","$La",null,{"children":"$Lb"}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$Ld"}]}]}],null]}],false]],"m":"$undefined","G":["$e",[]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"JWf2srdZawwhw9a3gViBM"}
 f:[]
 9:"$Wf"
 10:I[8610,["545","static/chunks/c16f53c3-d1dc27298ca4c9c2.js","436","static/chunks/436-b1ae80e14bd78441.js","217","static/chunks/app/%5B%5B...mdxPath%5D%5D/page-cc2074cad4ee5c77.js"],"ThemeConfigProvider"]
@@ -32,7 +32,7 @@ f:[]
 22:I[826,["545","static/chunks/c16f53c3-d1dc27298ca4c9c2.js","436","static/chunks/436-b1ae80e14bd78441.js","217","static/chunks/app/%5B%5B...mdxPath%5D%5D/page-cc2074cad4ee5c77.js"],"TOCProvider"]
 23:I[4637,["545","static/chunks/c16f53c3-d1dc27298ca4c9c2.js","436","static/chunks/436-b1ae80e14bd78441.js","217","static/chunks/app/%5B%5B...mdxPath%5D%5D/page-cc2074cad4ee5c77.js"],"Sidebar"]
 24:I[6665,["545","static/chunks/c16f53c3-d1dc27298ca4c9c2.js","436","static/chunks/436-b1ae80e14bd78441.js","217","static/chunks/app/%5B%5B...mdxPath%5D%5D/page-cc2074cad4ee5c77.js"],"ClientWrapper"]
-25:Ta2f3,# Architecture Patterns with Python
+25:Ta2f5,# Architecture Patterns with Python
 
 ### Introduction
 
@@ -328,6 +328,7 @@ f:[]
 - On commence par un test d’intégration (ou end to end), qui crée les objets _Order_, _OrderLine_, _Batch_ etc. en base via du SQL, puis envoie une requête POST sur notre endpoint REST _/allocate_, et vérifie la réponse.
   - Les auteurs utilisent les données random pour créer leurs objets en DB, pour éviter que les tests ne se gênent entre eux.
 - L’implémentation de l’input adapter REST ressemble à ça :
+
   ```typescript
   @app.route("/allocate", methods=['POST'])
   def allocate_endpoint():
@@ -343,6 +344,7 @@ f:[]
   ```
 
   - Les auteurs sont **réticents à vérifier le contenu de la base dans le test d’intégration**, et donc préfèrent ajouter un deuxième test qui va consommer le contenu d’un batch, puis vérifier que c’est le batch suivant qui est alloué par une autre requête POST.
+
 - Les auteurs continuent avec des vérifications d’erreurs liées au SKU qui peut être invalide ou ne pas exister. Il ne s’agit pas de logique du domaine, mais plutôt de sanity checks.
   - On va donc créer des **tests d’intégration supplémentaires** pour ça, en vérifiant le statut 400 et les messages d’erreurs, et implémenter la logique dans l’endpoint Flask.
 - Pour éviter de multiplier les tests d’intégration et la logique dans l’input adapter, on va introduire un _application service layer_, qui va récupérer la **logique d’orchestration** : récupérer des objets du domaine à partir de repositories, appeler des méthodes dessus, valider les données et gérer les erreurs.
