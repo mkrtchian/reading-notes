@@ -91,3 +91,57 @@
   - Il n’y a pas de raisonnement logique dans la recherche, seulement une ressemblance sémantique. Et donc on perd parfois des chunks importants qui sont pourtant liés à certains chunks qu’on a trouvés.
   - La recherche sémantique multimodale ne marche pas toujours très bien.
   - Dans le cas où on veut ajouter des dimensions numériques supplémentaires à notre embedding pour y caser des chiffres, il y a un risque que nos chiffres soient noyés dans la grande dimensionnalité du vecteur et donc n’aient pas suffisamment d’impact.
+
+### Pattern 8 : Indexing at Scale
+
+- Il y a plusieurs problèmes qui peuvent survenir avec un **RAG en production** :
+  - **Ambiguïté** : plus la quantité de données en base augmente, plus on a un risque que certains mots soient mal interprétés sémantiquement à cause d’un manque de contexte.
+  - **Fraîcheur de la donnée** : sans stratégie de mise à jour des chunks qui sont dans la base de données du RAG, les informations qu’ils contiennent risque de devenir petit à petit obsolètes, voire **contradictoires**.
+  - **Performance** : à mesure que les données augmentent, la recherche est de plus en plus coûteuse.
+  - **Cycle de vie du modèle** : dans le cas où on utilise un modèle propriétaire, s’il arrive en fin de vie et est déprécié, on va devoir réindexer l’ensemble de la base vectorielle avec un autre modèle plus récent, ce qui peut coûter très cher.
+- L’usage des **métadata** permet de l’essentiel de mitiger ces problèmes.
+  - L’auteur conseille d’inclure les metadata suivantes sur chaque noeud :
+    - Au sujet du document :
+      - L’identification de la source du document
+      - Date de création / modification
+      - L’auteur
+      - Les catégories associées
+      - La complexité du document
+      - La longueur du document
+    - Au sujet du chunk :
+      - La position dans le document initial
+      - Les entités mentionnées (personnes, organisations etc.)
+      - Le rôle sémantique du chunk (introduction, exemple, définition etc.)
+      - La langue du chunk
+    - Au sujet du domaine : selon le domaine des choses pertinentes.
+      - Si c’est de la doc d’API : la version de la doc, les langages de programmation si c’est un SDK.
+      - Si c’est de la documentation scientifique sur l’IA : la méthodologie, la taille des samples, les trouvailles clés.
+      - etc.
+    - Au sujet des autorisations :
+      - Quels rôles ont droit d’avoir accès à ces données
+      - Comment ils doivent s’authentifier
+      - S’il y a des consentements à obtenir avant de donner accès à ces données
+      - Si la donnée doit être chiffrée, anonymisée
+- L’**ambiguïté inter-domaines** peut être mitigée par le filtre par la metadata de **catégorie**.
+  - En théorie ça peut aussi répondre en partie au problème de performance, puisqu’on fait une recherche vectorielle sur un sous-ensemble des nœuds. En pratique, toutes les bases de données vectorielles ne le supportent pas.
+- Le problème des **informations contradictoires** peut être mitigé par certaines metadata :
+  - Si la **date** des deux chunks contradictoires est différente, le LLM pourra en déduire que le plus récent est celui à suivre parce qu’il indique une mise à jour de l’info.
+  - Si la **source** des deux chunks contradictoires est différente, le LLM pourra prioriser l’une sur l’autre en fonction de son niveau d’autorité.
+  - Le fait de limiter à un même domaine par la **catégorie** permet de limiter aussi les informations contradictoires entre chunks.
+- Le problème des **informations obsolètes** peut être mitigé en utilisant des metadata :
+  - Au moment de la recherche :
+    - On peut **filtrer les chunks trouvés** plus vieux qu’une certaine **date**.
+    - On peut privilégier le contenu avec une **date plus récente** par un **rerank** des résultats de recherche.
+  - De manière régulière sur la base elle-même : on peut **éliminer les chunks** plus vieux qu’une certaine **date**.
+- Concernant le problème de **cycle de vie du modèle** : il faut **bien réfléchir au choix du modèle d’embedding** en fonction du besoin.
+  - Bien regarder la performance des modèles (l’auteur conseille le _[Massive Text Embedding Benchmark de Hugging Face](https://huggingface.co/spaces/mteb/leaderboard)_) et leur caractéristiques (par exemple la langue supportée, la spécificité à un domaine).
+  - Un modèle open weight ne sera jamais obsolète, et pour un modèle propriétaire on peut viser une durée de cycle de vie longue.
+  - Dans certains cas, changer de modèle en vaut quand même la peine : par exemple, si le nouveau modèle permet la même performance en divisant la dimensionnalité par 4, ou si on a besoin d’un modèle entraîné sur des données récentes pour appréhender des éléments sémantiques récents.
+- Les metadata ont aussi des **limites** :
+  - Si les metadata ont des problèmes de qualité, ils ne permettront pas de mitiger les problèmes de manière fiable.
+  - Certaines bases de données vectorielles ne supportent les metadata que de manière limitée.
+  - Se fier **uniquement à la date des documents peut être insuffisant** pour régler les problèmes d’obsolescence selon le domaine.
+  - Certains éléments de metadata vont être spécifiques à un domaine seulement, et donc potentiellement n’auront d'utilité que pour une partie des nœuds.
+- Comme autres **solutions alternatives** :
+  - On peut très bien créer **plusieurs indexes sémantiques** (l’équivalents de tables), par exemple un par domaine.
+  - Pour le problème de l’obsolescence, on peut maintenir des metadata de **liens entre des chunks qui parlent de la même chose à des dates différentes**. De cette manière, on peut systématiquement récupérer l’ensemble de ces chunks, pour faire comprendre au LLM l’historique de l’évolution de l’information.
