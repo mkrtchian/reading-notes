@@ -171,3 +171,29 @@
   - HyDE et query expansion dépendent de la **capacité du LLM à connaître le sujet**, sinon il peut donner un résultat hors sujet halluciné, ou même un résultat basé sur des considérations anciennes selon les connaissances qu’il a arrêtées à la date de son cutoff.
   - La query expansion peut parfois faire **dériver la question de l’utilisateur** vers un terrain qui en fait ne l’intéressait pas : on trouve plus de documents, mais potentiellement hors sujet.
   - Un GraphRAG mal modélisé peut aussi faire remonter des chunks non pertinents.
+
+### Pattern 10 : Node Postprocessing
+
+- La liste de chunks trouvés peut présenter des problèmes :
+  - Les chunks retrouvés peuvent **être liés lexicalement ou sémantiquement** à la question, mais **ne pas être pertinents pour le besoin**. Par exemple, trouver une table des matières qui contient le terme n’apportera sans doute rien.
+  - Un chunk peut avoir **seulement une partie de son texte pertinent** pour une question donnée, mais la totalité du chunk sera inclue dans le prompt de génération.
+  - Certains chunks peuvent être liés à des **concepts proches sémantiquement, mais non pertinents pour la question**, sans qu’on puisse le savoir avant d’avoir regardé le contenu du chunk.
+  - Des chunks peuvent contenir de l’**information obsolète**.
+  - La réponse générée par le RAG n’est **pas personnalisée** par rapport à l’utilisateur.
+- De nombreux outils existent en pos-processing du retrieval pour régler ces problèmes :
+  - **Reranking** : une fois qu’on a récupéré les chunks pertinents par similarité lexicale et sémantique, on peut les **donner à un juge LLM** pour qu’il nous indique lesquels sont en fait les plus pertinents pour notre query.
+    - Il existe des modèles qui ont été fine-tunés spécifiquement pour le reranking, par exemple BGE.
+    - Le reranking ajoute de la latence et des coûts, tout comme à chaque fois qu’on utilise une technique où on fait des calls LLM supplémentaires (HyDE, query expansion etc.)
+  - **Hybrid search** : si on rerank de toute façon, il n’y a pas forcément besoin de faire un weighted average avec un paramètre alpha entre le résultats lexicaux et les résultats sémantiques : on donne tout au reranker, et on garde les top k chunks.
+  - **Query expansion and decomposition** : on peut modifier différemment la query qu’on donne à chaque retriever s’il y en a plusieurs.
+    - Par exemple faire de l’expansion pour BM25 avec les synonymes mais pas pour le retriever sémantique.
+    - On peut découper la query en plusieurs parties et faire plusieurs retrievals.
+    - On peut faire un retrieval, et utiliser le résultat comme résultat intermédiaire pour en faire d’autres.
+  - **Filtering for obsolete information** : on peut éliminer des chunks, par exemple basé sur une date minimale.
+    - On pourrait aussi filtrer les chunks qui ont des informations contradictoires, mais les coûts risquent de ne pas en valoir la peine.
+  - **Contextual compression** : si on fait un call LLM pour chaque chunk trouvé, par exemple dans le cadre du reranking pour lui attribuer une note de pertinence, on peut en profiter pour demander au LLM de nous **extraire uniquement les informations qui sont utiles** du chunk en question.
+  - **Disambiguation** : si on fait déjà un call LLM pour chaque chunk trouvé, on peut en profiter aussi pour demander si **les entités qui sont concernées sont bien les mêmes** que celles qui sont présentes dans le 1er chunk.
+  - **Personalization and conversation history** : on peut ajouter du contexte supplémentaire au prompt de génération. Ca peut par exemple être certaines choses tirées de l’historique de conversation, éventuellement en fonction des chunks récupérés.
+- Le problème principal du postprocessing c’est **la latence et le coût**.
+  - Dans le cas où on a au moins 1 call LLM par chunk, il vaut mieux en profiter pour les grouper avec les autres étapes de post-processing.
+  - Si on veut faire plusieurs actions il faut un vrai LLM, pas BGE.
