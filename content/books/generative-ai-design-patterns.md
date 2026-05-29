@@ -145,3 +145,29 @@
 - Comme autres **solutions alternatives** :
   - On peut très bien créer **plusieurs indexes sémantiques** (l’équivalents de tables), par exemple un par domaine.
   - Pour le problème de l’obsolescence, on peut maintenir des metadata de **liens entre des chunks qui parlent de la même chose à des dates différentes**. De cette manière, on peut systématiquement récupérer l’ensemble de ces chunks, pour faire comprendre au LLM l’historique de l’évolution de l’information.
+
+## 4 - Adding Knowledge : Syncopation
+
+### Pattern 9 : Index-Aware Retrieval
+
+- Trouver les bons chunks correspondant à la question de l'utilisateur peut poser des difficultés :
+  - Les termes de la question peuvent très bien **ne pas être présents dans les chunks**, ni sémantiquement, ni lexicalement.
+  - Les **termes techniques utilisés peuvent être différents** entre les queries et les chunks.
+  - Des **détails importants** peuvent être **noyés** dans le texte des chunks et donc difficilement trouvables.
+  - Parfois il est nécessaire de **retrouver plusieurs chunks liés entre eux de manière logique** pour pouvoir répondre à l’utilisateur, mais le RAG par mots clés ou sémantique ne permet pas de faire ces liens.
+- **HyDE (Hypothetical Document Embedding)** :\*\* **une première possibilité est de demander à un LLM de **donner une réponse préalable à la question, à l'étape de retrieval\*\*, puis de chercher des documents concernant cette réponse, et enfin de passer ces documents et la première réponse du LLM au LLM à l’étape de génération.
+  - On appelle cette technique de réponse intermédiaire .
+  - Pour répondre au cas où il existe des points de vus divergents dans la documentation, on peut générer plusieurs réponses hypothétiques intermédiaires, et faire un retrieval sur chacune d’entre elles, avant de donner le tout au LLM de l’étape génération.
+  - HyDE est notamment utile quand on a besoin de retrouver **des chunks qui ont une structure logique entre eux**, ou quand on a besoin de retrouver **des chunks qui ont des détails** qui seront potentiellement noyés dans le texte.
+- **Query expansion** : on peut **enrichir la question initiale en ajoutant de nouvelles formulations et du contexte**, de manière à ce que le retrieval puisse retrouver plus facilement les documents à donner au LLM à l’étape génération.
+  - C’est notamment utile quand les utilisateurs font des **queries avec un langage non technique**, mais que la base des chunks contient du vocabulaire technique : l’expansion ajoute les mots techniques concernés.
+- **Hybrid search** : on peut faire **à la fois une recherche lexicale (BM25) et une recherche sémantique**. De nombreuses bases de données supportent la recherche hybride nativement, et acceptent un paramètre _alpha_ qui indique quel poids on met sur l’aspect lexical et quel poids sur l’aspect sémantique pour récupérer les k chunks les plus pertinents demandés.
+- **GraphRAG** : il s’agit d’avoir une **base de données de graphe** (comme Neo4j) avec chacun des nœuds contenant le chunk sous forme de texte, sous forme d’embedding, et ayant des relations avec d’autres nœuds.
+  - Quand chaque chunk est petit, ça permet d’aller chercher les chunks qui ont des relations logiques.
+  - On peut aussi créer une structure en arbre (un peu comme l’approche RAPTOR cf. pattern 7) où l’embedding du parent sert d'appât et permet de récupérer ensuite les chunks enfants qui n’auraient peut être pas été récupérés par la recherche.
+    - Et de la même manière, on peut générer un résumé du contenu dans les nœuds parents.
+  - Le graphe doit normalement être **modélisé à la main** pour être pertinent, mais si on ne veut pas faire cet effort, on peut également **utiliser LangChain pour demander à un LLM de créer automatiquement une modélisation** en graphe à partir de chunks sans lien.
+- Quelques limitations :
+  - HyDE et query expansion dépendent de la **capacité du LLM à connaître le sujet**, sinon il peut donner un résultat hors sujet halluciné, ou même un résultat basé sur des considérations anciennes selon les connaissances qu’il a arrêtées à la date de son cutoff.
+  - La query expansion peut parfois faire **dériver la question de l’utilisateur** vers un terrain qui en fait ne l’intéressait pas : on trouve plus de documents, mais potentiellement hors sujet.
+  - Un GraphRAG mal modélisé peut aussi faire remonter des chunks non pertinents.
