@@ -197,3 +197,62 @@
 - Le problème principal du postprocessing c’est **la latence et le coût**.
   - Dans le cas où on a au moins 1 call LLM par chunk, il vaut mieux en profiter pour les grouper avec les autres étapes de post-processing.
   - Si on veut faire plusieurs actions il faut un vrai LLM, pas BGE.
+
+### Pattern 11 : Trustworthy Generation
+
+- Le RAG peut poser un certain nombre de problèmes de **confiance**.
+  - Ces problèmes peuvent vraiment causer des dommages, notamment quand la réponse est critique : par exemple si une IA conseille un médecin sur le traitement à prescrire.
+  - Exemples de problèmes :
+    - On peut **retrouver les mauvais chunks**, ou ne pas retrouver ceux qui étaient pertinents pour répondre à la query.
+    - Les chunks retrouvés peuvent **avoir de mauvaises informations**.
+    - Le LLM de l’étape de génération peut **mal interpréter les chunks**, ou faire un raisonnement erroné.
+    - Le LLM de l’étape de génération peut très bien **halluciner** des informations.
+- **Out-of-domain detection** : le RAG devrait être capable de détecter le cas où **l’utilisateur soumet une query qui est hors sujet** par rapport à ce qu’il peut donner comme information. Plusieurs méthodes peuvent être combinées, éventuellement en en prenant un weighted average.
+  - **Embedding distance** : dans le cas où on a un RAG sémantique, on peut fixer un seuil de similarité en dessous duquel on considère que les chunks ne sont pas pertinents du tout. Ce seuil peut être trouvé empiriquement en comparant avec la valeur de similarité des chunks habituels.
+  - **Zero-shot classification** : on peut utiliser un modèle spécialisé pour classifier chaque chunk en tant que valide ou non valide pour le domaine visé, pour éliminer les hors sujets au regard de la query.
+  - **Domain-specific keyword** : on peut exiger que le chunk et/ou la query contiennent des mots clés d’une liste qu’on maintient pour éliminer le hors sujet.
+- **Citations** : elles permettent aux utilisateurs de vérifier par eux mêmes les informations et leur donnent plus confiance dans les réponses.
+  - **Source-level tracking** : on peut inclure des citations exactes dans les **metadata des chunks** au moment de l’indexation, et les récupérer au retrival, pour les donner au LLM de génération.
+  - **Classification-based citations** : pour éviter d’inclure trop de citations, on peut ajouter un composant _classifier_ qui va vérifier si pour chaque connaissance qu’on apporte, si une citation serait pertinente à fournir ou pas avant de l’inclure.
+  - **Token-level attribution** : on va utiliser un mécanisme interne au LLM de l’étape génération, en suivant son mécanisme d’attention, pour s’assurer que la citation est correctement attribuée.
+    - Il s’agit d’un domaine en cours de recherche.
+  - NDLR : d’autres méthodes existent pour les citations, notamment le fait de vérifier après génération pour diminuer le nombre d’hallucinations.
+- **Guardrails** : on peut les installer à plusieurs niveaux pour sécuriser l’exécution de la pipeline.
+  - Avant le retrieval :
+    - Utiliser l’out-of-domain detection pour filtrer l’input utilisateur
+    - Ne mettre que des chunks venant de sources fiables dans la DB.
+  - Après le retrieval :
+    - Vérifier les metadata des chunks
+    - Prioriser et filtrer les chunk selon des règles prédéfinies, y compris par exemple liés à la privacy
+    - Fact-checker les chunks contre le RAG lui-même
+  - Avant la génération :
+    - Filtrer les chunks obsolètes ou ayant un contenu dangereux
+    - Filtrer les chunks pour obtenir une diversité des sources
+  - Après la génération :
+    - S’assurer que les citations sont faites et sont correctes
+    - Fact-checker les informations de la réponse
+    - Vérifier la privacy, et les contenus dangereux
+  - L’auteur met en avant 3 libs : _Guardrails AI_ qui est une collection d’outils de guardrails, et _DeepEval_ et _Ragas_ qui sont des librairies d’evals.
+- **Observability** : obtenir une visibilité constante sur la pipeline RAG augmente la confiance et permet une amélioration continue.
+  - On obtient la possibilité de voir les **input/outputs LLM**, et des **métriques** telles que _context relevance_, _response relevance_, _faithfulness_, _context recall_ et _context precision_.
+  - L’auteur conseille d’utiliser des solutions existantes, par exemple en open source : _Arize Phoenix_, _Comet Opik_, _Langfuse_, _Langtrace_.
+- **Human feedback** : on peut ajouter du feedback humain de diverses manières.
+  - En mode human in the loop juste après le retrieval, pour scorer les chunk à la place du LLM as a judge, ou alors après la génération, éventuellement seulement les générations où la méthode automatique lève un doute.
+  - En mode offline, en constituant un dataset de rankings des retrievals pour entraîner un modèle.
+  - Le comportement des utilisateurs peut aussi être récupéré pour comprendre les problèmes du RAG ou entraîner un modèle.
+- **CRAG (Corrective RAG)** : on a une **étape d’évaluation** qui suit le retrieval. Si l’évaluation indique que le chunk est ambigu ou risque de provoquer des hallucinations, 2 actions peuvent être faites avant de le donner à l’étape de génération :
+  - Rechercher sur le web ou dans des bases internes de l’entreprise pour enrichir le chunk et le rendre moins ambigu.
+  - Modifier le chunk pour le recenter sur l’information importante qu’il comporte de manière claire.
+- **Self-RAG** (ou _reflection RAG_) : il s’agit de transformer le RAG en un **agent** qui va à chaque étape décider de ce qu’il fait : il va critiquer la qualité des chunks retrieved, les filtrer / modifier, décider s’il faut récupérer plus de documents avant de répondre etc.
+  - On se retrouve avec un système plus complexe, avec plus de latence et de coûts, mais avec moins d’hallucinations et une meilleure qualité globale des réponses.
+- **User interface design** : une manière de gagner la confiance de l’utilisateur est de donner des détails sur le processus du RAG : liens des sources vérifiables, citations, jauge de confiance.
+  - Pour ne pas noyer les utilisateurs sous une information trop importante, on peut montrer peu de choses de base, et laisser les détails en libre accès via des options.
+  - Un autre levier de confiance peut aussi être le fait de laisser l’utilisateur configurer certains aspects de fonctionnement du RAG.
+  - Et enfin il est important de prendre ses feedbacks et lui montrer qu’on les intègre au produit.
+- Quelques **trade offs** à prendre en compte :
+  - Plus on met en place des outils avancés dans le RAG, plus on ajoute de la **latence, de la complexité et de coûts** en échange d’une meilleure pertinence.
+  - Si on utilise des modèles pour scorer le fait de filtrer, il faut que ces modèles soient et restent pertinents vis-à-vis du domaine à mesure qu’on ajoute des chunks, donc il faut les **maintenir**.
+  - Si on met en place des guardrails trop restrictifs, on va être très sécure sur ce qui est montré, mais on risque de **filtrer trop de choses** et rendre le RAG inutile.
+  - Plutôt qu’un self-RAG, on peut envisager un **RAG hybride** qui cherche dans plusieurs sources, ça donne souvent un résultat suffisant.
+  - Plutôt que d’ajouter trop d’outils pour régler les hallucinations, on peut mettre le **focus sur la UX** en détaillant ce qui est vérifié ou non, et en donnant à l’utilisateur des leviers de configuration.
+- Il existe de nombreux tutoriels pour implémenter les techniques de out-of-domain detection, CRAG ou self-RAG.
