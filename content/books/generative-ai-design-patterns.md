@@ -256,3 +256,24 @@
   - Plutôt qu’un self-RAG, on peut envisager un **RAG hybride** qui cherche dans plusieurs sources, ça donne souvent un résultat suffisant.
   - Plutôt que d’ajouter trop d’outils pour régler les hallucinations, on peut mettre le **focus sur la UX** en détaillant ce qui est vérifié ou non, et en donnant à l’utilisateur des leviers de configuration.
 - Il existe de nombreux tutoriels pour implémenter les techniques de out-of-domain detection, CRAG ou self-RAG.
+
+### Pattern 12 : Deep Search
+
+- Les RAG ont des limitations pour les recherches complexes :
+  - **Limite de taille de contexte** : pour répondre à une question complexe il y a parfois besoin de plus de chunks que ce qui rentre dans le contexte du LLM.
+  - **Query ambiguity** : si la question posée pose des termes qui peuvent faire remonter des chunks de plusieurs notions sans rapport, le RAG simple aura du mal à choisir, pourtant il y a probablement une des solutions qui est la plus vraisemblable.
+  - **Informations obsolètes** : le RAG simple ne permet pas de vérifier les informations récupérées depuis la base.
+  - **Raisonnement limité** : le RAG simple permet de retrouver des informations, et de faire un réponse basé sur elles, il ne permet pas de raisonner de manière complexe au travers de plusieurs documents, **avec plusieurs tours de raisonnement**.
+- Le **deep search** permet de répondre à ces problématiques, en ajoutant une étape de **raisonnement** après le retrieval, en faisant **autant de retrievals que nécessaire** jusqu’à attendre l’objectif ou épuiser le budget, et en utilisant des **tools variés** (web search, retrieval etc.).
+  - Le problème de contexte limité est levé par le fait qu’on fait plusieurs retrievals et qu’on stocke seulement les informations qu’on trouve utiles à partir de ces chunks.
+  - L'ambiguïté dans la query est réglée par le fait que le modèle est capable de voir qu’il y a une ambiguïté, et reformuler la query pour viser un concept plus précis qu’il a identifié par son raisonnement.
+  - Concernant l’information obsolète, le deep search intègre des tools pour fact checker, y compris avec des sources en temps réel.
+  - Le deep search propose un raisonnement en plusieurs étapes par définition.
+- Certaines entreprises distinguent **deep search** où elles créent une réponse globale à la question initiale au **deep research** où elles créent une réponse plus longue avec l’ensemble des recherches faites. Il s’agit simplement d’une différence de format de sortie.
+- Le deep search peut utiliser les techniques décrites dans le pattern de node postprocessing **en utilisant des modèles de fondation** : décomposer une query en sub-queries, extraire l’information pertinente des chunks, évaluer et filtrer ces informations etc.
+  - On peut notamment décomposer la query de l’utilisateur en sub-queries plus simples, et traiter le problème étape par étape pour converger vers une solution.
+- Le deep search fonctionne de manière itérative, donc savoir **évaluer en direct** où est-ce qu’il en est et quand est-ce qu’il a une réponse qui passe la barre est très important.
+  - L’auteur conseille d’utiliser le framework **Ragas** pour fournir les métriques nécessaires, en décidant d’un weighted average entre plusieurs métriques pré-définies, qui couvriraient au moins : _relevance, comprehensiveness, accuracy and factual correctness, coherence, logical flow and organization, citation quality, efficiency_.
+  - Il nous faut aussi créer un dataset pour l’évaluation offline.
+- Un autre aspect important du deep search est aussi la **synthèse des informations** récupérées. Il doit notamment identifier les entités au travers des documents, y compris quand il y a une ambiguïté, et identifier et gérer les contradictions entre les documents.
+- Le problème principal du deep search est sa lenteur, même si on peut en partie la mitiger en parallélisant certaines actions.
