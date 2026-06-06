@@ -28,7 +28,7 @@
     "eslint-config-prettier": "^10.1.8",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.4",
+    "lint-staged": "^17.0.7",
     "pagefind": "^1.5.2",
     "prettier": "^3.8.3",
     "typescript": "6.0.3"
