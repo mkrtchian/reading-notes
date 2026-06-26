@@ -296,8 +296,8 @@
     - Les agents ont les caractéristiques suivantes :
       - Suivent un plan : _Pattern 13 - Chain of Thought_
       - Retrouvent de la donnée :
-        - _Pattern 6 - Basic RAG_
-        - _Pattern 9 - Index-Aware Retrieval_
+        - [_Pattern 6 - Basic RAG_](#pattern-6--basic-rag)
+        - [_Pattern 9 - Index-Aware Retrieval_](#pattern-9--index-aware-retrieval)
       - Appellent des tools :
         - _Pattern 21 - Tool Calling_
       - Ils peuvent reprendre après une erreur :
