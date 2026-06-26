@@ -277,3 +277,35 @@
   - Il nous faut aussi créer un dataset pour l’évaluation offline.
 - Un autre aspect important du deep search est aussi la **synthèse des informations** récupérées. Il doit notamment identifier les entités au travers des documents, y compris quand il y a une ambiguïté, et identifier et gérer les contradictions entre les documents.
 - Le problème principal du deep search est sa lenteur, même si on peut en partie la mitiger en parallélisant certaines actions.
+
+## 10 - Composable Agentic Workflows
+
+- On construit un slice vertical applicatif multi-agent sans utiliser de frameworks. La feature est la création de contenu éducatif.
+- Il y a une version agent autonome en CLI, et une version copilote en web UI. La version agent est équivalente à la version copilote où l’utilisateur accepterait chaque étape et ne ferait aucun changement.
+- Ce que fait l’app :
+  - La version web UI demande un sujet.
+  - Une fois que le user le renseigne, elle va matcher un writer, par exemple HISTORIAN, que le user peut modifier.
+    - Tous les feedbacks user sont loggués : c’est important pour l’amélioration de **collecter des feedback user avec une bonne UX**.
+  - Ensuite on a un texte et des mots clés générés, ce sont des _artifacts_ au sens d’Anthropic.
+    - Ces _artifacts_ peuvent être directement édités par le user avant qu’il valide, et tous ces changements du user sont là aussi loggués.
+    - La lib mem0 est utilisée pour stocker les retours du user long terme dans une DB vectorielle, après extraction des infos par un LLM. Par la suite une comparaison vectorielle permet de savoir s’il faut charger un des éléments en mémoire ou non du fait de la similarité sémantique.
+- Il y a 5 aspects principaux dans l'**architecture système** de cette app :
+  - **Agent patterns** :
+    - Les agents apprennent des informations que l’utilisateur donne pour devenir autonomes pour faire la tâche en question. Il faut donc que les informations que le user récupère passent systématiquement par l’app.
+    - Chaque étape est implémentée par un ou plusieurs agents.
+    - Les agents ont les caractéristiques suivantes :
+      - Suivent un plan : _Pattern 13 - Chain of Thought_
+      - Retrouvent de la donnée :
+        - _Pattern 6 - Basic RAG_
+        - _Pattern 9 - Index-Aware Retrieval_
+      - Appellent des tools :
+        - _Pattern 21 - Tool Calling_
+      - Ils peuvent reprendre après une erreur :
+        - _Pattern 18 - Reflection_
+        - _Pattern 31 - Self-Check_
+      - Ils peuvent arbitrer entre risque et créativité :
+        - _Pattern 29 - Template Generation_
+        - _Pattern 30 - Assembled Reformat_
+    - Chaque agent est implémenté avec le framework (ou l’absence de framework) qui permet le mieux d’implémenter les patterns dont il a besoin. Exemples :
+      - LlamaIndex pour ceux qui ont besoin d’un RAG.
+      -
