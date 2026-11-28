@@ -1213,10 +1213,10 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/node@^24.19.2":
-  version "24.19.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.19.2.tgz#8718eedbc0f89648de6525be9f4a9c61cdbaa502"
-  integrity sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==
+"@types/node@^24.19.3":
+  version "24.19.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.19.3.tgz#0c3b5a119ebc26d1a4e091c47c911f78698719f8"
+  integrity sha512-oGTg5CEII0QAZVprxcT2xjcfKtZWOVSCk8nM5r3GwR1urRibeo2pj4pbYox9A326cJe6AzaV9DiC1uxiRSno2A==
   dependencies:
     undici-types ">=7.24.0 <7.24.7"
 
